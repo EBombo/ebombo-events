@@ -1,0 +1,8 @@
+{
+  "adminUsers": {
+    "label": "Formulario de usuarios",
+    "items": {
+      "/admin/users": "Lista de usuario"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+export {useOwnFetch} from "./useFetch"

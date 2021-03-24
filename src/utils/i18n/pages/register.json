@@ -1,0 +1,30 @@
+{
+  "register": {
+    "en": "REGISTER",
+    "es": "REGISTRARSE"
+  },
+  "name": {
+    "en": "First Name",
+    "es": "Nombre"
+  },
+  "lastName": {
+    "en": "Last Name",
+    "es": "Apellido"
+  },
+  "email": {
+    "en": "Email",
+    "es": "Correo electrónico"
+  },
+  "password": {
+    "en": "Password",
+    "es": "Contraseña"
+  },
+  "country": {
+    "en": "Country",
+    "es": "País"
+  },
+  "phoneNumber": {
+    "en": "Phone number",
+    "es": "Teléfono"
+  }
+}

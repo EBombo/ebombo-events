@@ -1,0 +1,26 @@
+{
+  "attendance": {
+    "en": "Attendance",
+    "es": "Asistencia"
+  },
+  "early": {
+    "en": "Early",
+    "es": "Temprano"
+  },
+  "late": {
+    "en": "Late",
+    "es": "Tarde"
+  },
+  "noAssist": {
+    "en": "No assist",
+    "es": "Faltó"
+  },
+  "attendanceOf": {
+    "en": "Attendance of",
+    "es": "Asistencia del"
+  },
+  "save": {
+    "en": "Save",
+    "es": "Guardar"
+  }
+}

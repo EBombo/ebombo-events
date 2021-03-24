@@ -1,0 +1,18 @@
+{
+  "email": {
+    "en": "Email",
+    "es": "Correo electrónico"
+  },
+  "recoverPassword": {
+    "en": "RECOVER PASSWORD",
+    "es": "RECUPERAR CLAVE"
+  },
+  "loginWithFacebook": {
+    "en": "Login with Facebook",
+    "es": "Entrar con Facebook"
+  },
+  "password": {
+    "en": "Password",
+    "es": "Contraseña"
+  }
+}

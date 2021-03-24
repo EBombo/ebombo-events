@@ -1,0 +1,32 @@
+{
+  "productionConfig": {
+    "phone": "",
+    "serverEmail": {
+      "service": "",
+      "host": "",
+      "from": "",
+      "user": "",
+      "password": "",
+      "storageUrl": ""
+    },
+    "serverUrl": "",
+    "web": "",
+    "mails": "",
+    "maxAgeCache": ""
+  },
+  "devConfig": {
+    "phone": "",
+    "serverEmail": {
+      "service": "",
+      "host": "",
+      "from": "",
+      "user": "",
+      "password": "",
+      "storageUrl": ""
+    },
+    "serverUrl": "",
+    "web": "",
+    "mails": "",
+    "maxAgeCache": ""
+  }
+}

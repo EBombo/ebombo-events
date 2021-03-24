@@ -1,0 +1,32 @@
+{
+  "production": {
+    "firebase": {
+      "apiKey": "AIzaSyAumzcHFSSWwz2QgO0fbH_28nthF-2pMm0",
+      "authDomain": "blank-297915.firebaseapp.com",
+      "projectId": "blank-297915",
+      "storageBucket": "blank-297915.appspot.com",
+      "messagingSenderId": "1093087253915",
+      "appId": "1:1093087253915:web:eb03b5ae1326f751c6fd3e",
+      "measurementId": "G-CZM75TS4MV"
+    },
+    "serverUrlLocal": "http://localhost:5001/blank-297915/us-central1",
+    "serverUrl": "https://us-central1-blank-297915.cloudfunctions.net",
+    "storageUrl": "https://storage.googleapis.com/blank-297915.appspot.com",
+    "analytics": ""
+  },
+  "development": {
+    "firebase": {
+      "apiKey": "AIzaSyAumzcHFSSWwz2QgO0fbH_28nthF-2pMm0",
+      "authDomain": "blank-297915.firebaseapp.com",
+      "projectId": "blank-297915",
+      "storageBucket": "blank-297915.appspot.com",
+      "messagingSenderId": "1093087253915",
+      "appId": "1:1093087253915:web:eb03b5ae1326f751c6fd3e",
+      "measurementId": "G-CZM75TS4MV"
+    },
+    "serverUrlLocal": "http://localhost:5001/blank-297915/us-central1",
+    "serverUrl": "https://us-central1-blank-297915.cloudfunctions.net",
+    "storageUrl": "https://storage.googleapis.com/blank-297915.appspot.com",
+    "analytics": ""
+  }
+}
