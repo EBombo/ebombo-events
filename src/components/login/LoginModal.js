@@ -1,4 +1,4 @@
-import React, {useGlobal} from "reactn";
+import React, {useEffect, useGlobal} from "reactn";
 import {object, string} from "yup";
 import {notification} from "antd";
 import Input from "../common/form/Input";
@@ -12,22 +12,30 @@ import styled from "styled-components";
 import {btnPrimary} from "../../styles/constants";
 import {Icon} from "../common/Icons";
 import {ButtonBombo} from "../common";
+import {useHistory} from "react-router";
 
 export const LoginModal = (props) => {
     const validationSchema = object().shape({
         email: string().trim().required().email(),
         password: string().required(),
     });
-
+    const history = useHistory();
     const [globalIsLoadingUser, setGlobalIsLoadingUser] = useGlobal(
         "isLoadingUser"
     );
+    const [authUser] = useGlobal("user");
     const [globalIsLoadingCreateUser] = useGlobal("isLoadingCreateUser");
     const [globalIsLoadingFacebookAuth] = useGlobal("isLoadingFacebookAuth");
     const {register, errors, handleSubmit} = useForm({
         validationSchema,
         reValidateMode: "onSubmit",
     });
+
+    useEffect(() => {
+        if (!authUser) return;
+
+        history.push("/");
+    }, [authUser]);
 
     const emailRegisteredWithProvider = async (email) => {
         const userQuerySnapshot = await firestore

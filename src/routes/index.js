@@ -30,7 +30,8 @@ export const Routes = (props) => {
                 exact
                 path="/register"
                 render={(props_) =>
-                    <Registration/>}
+                    <Registration/>
+                }
             />
             <Redirect to="/"/>
         </Switch>

@@ -4,27 +4,27 @@ import styled from "styled-components";
 import {mediaQuery} from "../../styles/constants";
 import {config} from "../../firebase";
 
-export const Services = (props) => (
+export const Services = (props) =>
     <ServiceSection id="services">
         <h2>Nuestros Servicios</h2>
         <div className="services-container">
-            {services.map((service, index) => (
-                <ServiceContent
-                    borderColor={service.color}
-                    index={index}
-                    key={`key-services-${service.title}`}
-        >
-          <div className="border-section">
-            <img src={service.logoUrl} alt="" />
-            <h4>{service.title}</h4>
-            <p>{service.text}</p>
-          </div>
-          <img className="absolute-image" src={service.imageUrl} alt="" />
-        </ServiceContent>
-      ))}
-    </div>
-  </ServiceSection>
-);
+            {services.map((service, index) => <ServiceContent
+                borderColor={service.color}
+                index={index}
+                key={`key-services-${service.title}`}
+            >
+                <div className="border-section">
+                    <img src={service.logoUrl}
+                         alt=""/>
+                    <h4>{service.title}</h4>
+                    <p>{service.text}</p>
+                </div>
+                <img className="absolute-image"
+                     src={service.imageUrl}
+                     alt=""/>
+            </ServiceContent>)}
+        </div>
+    </ServiceSection>;
 
 const ServiceSection = styled.section`
   padding: 1rem;
@@ -69,16 +69,16 @@ const ServiceContent = styled.div`
     padding: 1rem;
     border-top: 4px solid ${(props) => props.borderColor};
     width: 90%;
-    ${(props) =>
-      props.index === 0
-        ? `background: linear-gradient(180deg, #1B2E71 0%, #FC6C6C 100%);
-           box-shadow: 0px 0px 6px rgba(153, 78, 227, 0.25);`
-        : props.index === 1
-        ? `background: linear-gradient(180deg, rgba(34, 133, 121, 0) 0%, #FFD00D 100%);
-           filter: drop-shadow(0px 0px 4px rgba(0, 62, 97, 0.5));`
-        : `background: linear-gradient(180deg, rgba(34, 133, 121, 0) 0%, #6C63FF 100%);
-           filter: drop-shadow(0px 0px 6px rgba(153, 78, 227, 0.25));`}
 
+    ${(props) =>
+            props.index === 0
+                    ? `background: linear-gradient(180deg, #1B2E71 0%, #FC6C6C 100%);
+           box-shadow: 0px 0px 6px rgba(153, 78, 227, 0.25);`
+                    : props.index === 1
+                    ? `background: linear-gradient(180deg, rgba(34, 133, 121, 0) 0%, #FFD00D 100%);
+           filter: drop-shadow(0px 0px 4px rgba(0, 62, 97, 0.5));`
+                    : `background: linear-gradient(180deg, rgba(34, 133, 121, 0) 0%, #6C63FF 100%);
+           filter: drop-shadow(0px 0px 6px rgba(153, 78, 227, 0.25));`}
     h4 {
       margin: 1rem 0 !important;
       text-align: left;

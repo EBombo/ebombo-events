@@ -424,6 +424,8 @@ const NextButton = styled(Button)`
 
 const RegistrationContainer = styled.div`
   padding: 1.25rem 1.5rem;
+  height: 100vh;
+  background-color: ${(props) => props.theme.basic.default};
 
   .label {
     color: ${(props) => props.theme.basic.primary};

@@ -1,61 +1,59 @@
 import React from "reactn";
 import styled from "styled-components";
-import { Desktop, Tablet } from "../../utils";
-import { config } from "../../firebase";
-import { mediaQuery } from "../../styles/constants";
+import {Desktop, Tablet} from "../../utils";
+import {config} from "../../firebase";
+import {mediaQuery} from "../../styles/constants";
 import sizes from "../../styles/constants/sizes";
-import { useHistory } from "react-router";
+import {useHistory} from "react-router";
 
 export const HeaderLanding = (props) => {
   const history = useHistory();
 
-  return (
-    <HeaderLandingContainer>
-      <div className="navbar">
-        <div className="right-navbar">
-          <ul>
-            <Desktop>
-              <li onClick={() => history.push("/")}>
-                <img
+  return <HeaderLandingContainer>
+    <div className="navbar">
+      <div className="right-navbar">
+        <ul>
+          <Desktop>
+            <li onClick={() => history.push("/")}>
+              <img
                   src={`${config.storageUrl}/resources/b2bLanding/b2bLogo.svg`}
                   alt=""
-                />
-              </li>
-            </Desktop>
-            <li>
-              <a href="#services">Servicios</a>
+              />
             </li>
-            <li>
-              <a href="#games">Juegos</a>
-            </li>
-            <li>
-              <a href="#events">Eventos</a>
-            </li>
-            <li>
-              <a href="#contact">Contacto</a>
-            </li>
-          </ul>
-        </div>
+          </Desktop>
+          <li>
+            <a href="#services">Servicios</a>
+          </li>
+          <li>
+            <a href="#games">Juegos</a>
+          </li>
+          <li>
+            <a href="#events">Eventos</a>
+          </li>
+          <li>
+            <a href="#contact">Contacto</a>
+          </li>
+        </ul>
       </div>
-      <div className="title-container">
-        <Tablet>
-          <img
+    </div>
+    <div className="title-container">
+      <Tablet>
+        <img
             src={`${config.storageUrl}/resources/b2bLanding/b2bLogo.svg`}
             alt=""
             height="35px"
-          />
-        </Tablet>
-        <img
+        />
+      </Tablet>
+      <img
           src={`${config.storageUrl}/resources/b2bLanding/the-event.svg`}
           alt=""
           height="35px"
-        />
-        <div className="title">DE BIENESTAR CORPORATIVO</div>
-        <div className="subtitle">que tu empresa necesita</div>
-      </div>
-      <div className="companies">CONFÍAN EN NOSOTROS</div>
-    </HeaderLandingContainer>
-  );
+      />
+      <div className="title">DE BIENESTAR CORPORATIVO</div>
+      <div className="subtitle">que tu empresa necesita</div>
+    </div>
+    <div className="companies">CONFÍAN EN NOSOTROS</div>
+  </HeaderLandingContainer>;
 };
 
 const HeaderLandingContainer = styled.section`
