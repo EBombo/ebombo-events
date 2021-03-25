@@ -15,11 +15,3 @@ exports.apiAdmin = functions
     .runWith(runtimeOptions)
     .https.onRequest(apiAdmin.api);
 
-exports.apiMatches = functions
-    .runWith(runtimeOptions)
-    .https.onRequest(apiMatches.api);
-
-exports.scheduleResolveMatches = functions
-    .runWith(runtimeOptions)
-    .pubsub.schedule("every 1 minutes")
-    .onRun(scheduleMatches);

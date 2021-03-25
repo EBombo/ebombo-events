@@ -1,387 +1,377 @@
-import React, { useEffect, useGlobal } from "reactn";
-import {
-  ButtonBombo,
-  Checkbox,
-  DatePicker,
-  Input,
-  InputGroup,
-  LoginFacebook,
-  Select,
-} from "../../components";
-import { Button, notification } from "antd";
+import React, {useEffect, useGlobal} from "reactn";
+import {ButtonBombo, Checkbox, DatePicker, Input, InputGroup, Select,} from "../../components";
+import {Button, notification} from "antd";
 import get from "lodash/get";
 import defaultTo from "lodash/defaultTo";
-import { Controller, useForm } from "react-hook-form";
-import { auth, firestore } from "../../firebase";
-import { array, date, object, string } from "yup";
-import { useHistory } from "react-router";
+import {Controller, useForm} from "react-hook-form";
+import {auth, firestore} from "../../firebase";
+import {array, date, object, string} from "yup";
+import {useHistory} from "react-router";
 import styled from "styled-components";
-import { mediaQuery } from "../../styles/constants";
-import { Desktop, dialCodes, spinLoader, Tablet } from "../../utils";
-import { getData } from "country-list";
-import { useState } from "react";
+import {mediaQuery} from "../../styles/constants";
+import {Desktop, dialCodes, spinLoader, Tablet} from "../../utils";
+import {getData} from "country-list";
+import {lazy, Suspense, useState} from "react";
 import TagManager from "react-gtm-module";
-import { googleTagManagerRegisterArgs } from "../../utils/googleTagManager";
-import { firebaseAuthenticationError } from "../../firebase/auth";
-import { Suspense, lazy } from "react";
-import moment from "moment";
+import {googleTagManagerRegisterArgs} from "../../utils/googleTagManager";
+import {firebaseAuthenticationError} from "../../firebase/auth";
 
 const TermConditions = lazy(() => import("../../components/term-conditions"));
 
 export const Registration = () => {
-  const validationSchema = object().shape({
-    name: string().required(),
-    lastName: string().required(),
-    nickname: string()
-      .required()
-      .matches(
-        /^[a-zA-Z0-9\-_]{0,40}$/,
-        "Sólo válido letras, números y sin espacios"
-      )
-      .test(
-        "is-nickname",
-        "Nombre de usuario ya existe",
-        async (nickname) => !(await existNickName(nickname))
-      ),
-    email: string()
-      .trim()
-      .required()
-      .email()
-      .test(
-        "",
-        "Email no válido!",
-        (email_) => !email_.includes("yopmail.com")
-      ),
-    password: string().required().min(6),
-    countryCode: string().required(),
-    phoneNumber: string().required().min(5),
-    validateIsAdult: array().required(),
-    validateReceiveNotifications: array().required(),
-    singleAccount: array().required(),
-    birthDate: date().required(),
-    x: string(),
-  });
-
-  const history = useHistory();
-
-  const [authUser] = useGlobal("user");
-  const [, setGlobalRegister] = useGlobal("register");
-  const [globalIsLoadingUser] = useGlobal("isLoadingUser");
-  const [globalIsLoadingFacebookAuth] = useGlobal("isLoadingFacebookAuth");
-  const [globalIsLoadingCreateUser, setGlobalIsLoadingCreateUser] = useGlobal(
-    "isLoadingCreateUser"
-  );
-
-  const [activeModalTyC, setActiveModalTyC] = useState(false);
-  const { register, errors, handleSubmit, control, watch } = useForm({
-    validationSchema,
-    reValidateMode: "onSubmit",
-  });
-
-  useEffect(() => {
-    authUser && history.push("/");
-  }, [authUser]);
-
-  const existNickName = async (nickName) => {
-    const nickNameRef = await firestore
-      .collection("users")
-      .where("nicknameUppercase", "==", nickName.trim().toUpperCase())
-      .get();
-    return !!nickNameRef.size;
-  };
-
-  const onRegisterError = (error) =>
-    notification["error"]({
-      message: "Register error",
-      description: error.message,
+    const validationSchema = object().shape({
+        name: string().required(),
+        lastName: string().required(),
+        nickname: string()
+            .required()
+            .matches(
+                /^[a-zA-Z0-9\-_]{0,40}$/,
+                "Sólo válido letras, números y sin espacios"
+            )
+            .test(
+                "is-nickname",
+                "Nombre de usuario ya existe",
+                async (nickname) => !(await existNickName(nickname))
+            ),
+        email: string()
+            .trim()
+            .required()
+            .email()
+            .test(
+                "",
+                "Email no válido!",
+                (email_) => !email_.includes("yopmail.com")
+            ),
+        password: string().required().min(6),
+        countryCode: string().required(),
+        phoneNumber: string().required().min(5),
+        validateIsAdult: array().required(),
+        validateReceiveNotifications: array().required(),
+        singleAccount: array().required(),
+        birthDate: date().required(),
+        x: string(),
     });
 
-  const onSubmitRegister = async (user) => {
-    try {
-      await setGlobalIsLoadingCreateUser(true);
+    const history = useHistory();
 
-      const result = await auth.createUserWithEmailAndPassword(
-        user.email.toLowerCase().trim(),
-        user.password
-      );
+    const [authUser] = useGlobal("user");
+    const [, setGlobalRegister] = useGlobal("register");
+    const [globalIsLoadingUser] = useGlobal("isLoadingUser");
+    const [globalIsLoadingFacebookAuth] = useGlobal("isLoadingFacebookAuth");
+    const [globalIsLoadingCreateUser, setGlobalIsLoadingCreateUser] = useGlobal(
+        "isLoadingCreateUser"
+    );
 
-      const register = mapRegister(user, result.user);
+    const [activeModalTyC, setActiveModalTyC] = useState(false);
+    const {register, errors, handleSubmit, control, watch} = useForm({
+        validationSchema,
+        reValidateMode: "onSubmit",
+    });
 
-      await setGlobalRegister(register);
+    useEffect(() => {
+        authUser && history.push("/");
+    }, [authUser]);
 
-      TagManager.dataLayer(googleTagManagerRegisterArgs());
-    } catch (error) {
-      const errorMessage = firebaseAuthenticationError[error.code];
-      onRegisterError({
-        message: defaultTo(
-          errorMessage,
-          "Ha ocurrido un error, intenta nuevamente"
-        ),
-      });
-      await setGlobalIsLoadingCreateUser(false);
-    }
-  };
+    const existNickName = async (nickName) => {
+        const nickNameRef = await firestore
+            .collection("users")
+            .where("nicknameUppercase", "==", nickName.trim().toUpperCase())
+            .get();
+        return !!nickNameRef.size;
+    };
 
-  const mapRegister = (user, result) => ({
-    id: result.uid,
-    ...user,
-    dialCode: dialCode(user.countryCode),
-    notifyInvitedToPlay: true,
-    providerData: { ...result.providerData[0] },
-  });
+    const onRegisterError = (error) =>
+        notification["error"]({
+            message: "Register error",
+            description: error.message,
+        });
 
-  const dialCode = (countryCode) => {
-    const country = dialCodes.find((country) => country.code === countryCode);
+    const onSubmitRegister = async (user) => {
+        try {
+            await setGlobalIsLoadingCreateUser(true);
 
-    return get(country, "dialCode", null);
-  };
+            const result = await auth.createUserWithEmailAndPassword(
+                user.email.toLowerCase().trim(),
+                user.password
+            );
 
-  const registrationContainer = () => (
-    <>
-      <form onSubmit={handleSubmit(onSubmitRegister)} noValidate>
-        <div className="label">Nombre</div>
-        <Input
-          variant="primary"
-          error={errors.name}
-          marginBottom="0.5rem"
-          type="text"
-          autoComplete="new-password"
-          ref={register}
-          name="name"
-          placeholder="Nombre"
-        />
-        <div className="label">Apellido</div>
-        <Input
-          variant="primary"
-          error={errors.lastName}
-          marginBottom="0.5rem"
-          type="text"
-          autoComplete="new-password"
-          ref={register}
-          name="lastName"
-          placeholder="Apellido"
-        />
-        <InputGroup gridTemplateColumns="1fr 1fr" gridGap="1rem">
-          <div>
-            <div className="label">Nombre de usuario</div>
-            <Input
-              variant="primary"
-              error={errors.nickname}
-              marginBottom="0.5rem"
-              type="text"
-              autoComplete="new-password"
-              ref={register}
-              name="nickname"
-              placeholder="Nombre de usuario"
-            />
-          </div>
-          <div>
-            <div className="label">Fecha de nacimiento</div>
-            <div className="label-tc">
-              <Desktop>
-                <Controller
-                  width="100%"
-                  name="birthDate"
-                  control={control}
-                  as={
-                    <DatePicker
-                      variant="primary"
-                      style={{ width: "100%" }}
-                      error={errors.birthDate}
-                      placeholder="Fecha de nacimiento"
-                      format={"DD/MM/YYYY"}
-                      inputReadOnly
-                    />
-                  }
-                />
-              </Desktop>
-              <Tablet>
+            const register = mapRegister(user, result.user);
+
+            await setGlobalRegister(register);
+
+            TagManager.dataLayer(googleTagManagerRegisterArgs());
+        } catch (error) {
+            const errorMessage = firebaseAuthenticationError[error.code];
+            onRegisterError({
+                message: defaultTo(
+                    errorMessage,
+                    "Ha ocurrido un error, intenta nuevamente"
+                ),
+            });
+            await setGlobalIsLoadingCreateUser(false);
+        }
+    };
+
+    const mapRegister = (user, result) => ({
+        id: result.uid,
+        ...user,
+        dialCode: dialCode(user.countryCode),
+        notifyInvitedToPlay: true,
+        providerData: {...result.providerData[0]},
+    });
+
+    const dialCode = (countryCode) => {
+        const country = dialCodes.find((country) => country.code === countryCode);
+
+        return get(country, "dialCode", null);
+    };
+
+    const registrationContainer = () => (
+        <>
+            <form onSubmit={handleSubmit(onSubmitRegister)}
+                  noValidate>
+                <div className="label">Nombre</div>
                 <Input
-                  variant="primary"
-                  error={errors.birthDate}
-                  marginBottom="0.5rem"
-                  type="date"
-                  ref={register}
-                  name="birthDate"
-                  placeholder="Fecha de nacimiento"
+                    variant="primary"
+                    error={errors.name}
+                    marginBottom="0.5rem"
+                    type="text"
+                    autoComplete="new-password"
+                    ref={register}
+                    name="name"
+                    placeholder="Nombre"
                 />
-              </Tablet>
-            </div>
-          </div>
-        </InputGroup>
-        <div className="label">Email</div>
-        <Input
-          variant="primary"
-          error={errors.email}
-          marginBottom="0.5rem"
-          type="email"
-          autoComplete="new-password"
-          ref={register}
-          name="email"
-          placeholder="Correo"
-        />
-        <InputGroup gridTemplateColumns="2fr 3fr" gridGap="1rem">
-          <div>
-            <div className="label">Pais</div>
-            <Controller
-              name="countryCode"
-              control={control}
-              as={
-                <Select
-                  placeholder="País"
-                  showSearch
-                  virtual={false}
-                  error={errors.countryCode}
-                  optionFilterProp="children"
-                  optionsdom={getData().map((country) => ({
-                    key: country.code,
-                    code: country.code,
-                    name: country.name,
-                  }))}
-                  filterOption={(input, option) =>
-                    get(option, "props.children", "")
-                      .toLowerCase()
-                      .indexOf(input.toLowerCase()) === 0
-                  }
-                  marginBottom="0.5rem"
+                <div className="label">Apellido</div>
+                <Input
+                    variant="primary"
+                    error={errors.lastName}
+                    marginBottom="0.5rem"
+                    type="text"
+                    autoComplete="new-password"
+                    ref={register}
+                    name="lastName"
+                    placeholder="Apellido"
                 />
-              }
-            />
-          </div>
-          <div>
-            <div className="label">Celular</div>
-            <div className="phone-content">
-              <CountryCode>{dialCode(watch("countryCode"))}</CountryCode>
-              <Input
-                variant="primary"
-                error={errors.phoneNumber}
-                marginBottom="0.5rem"
-                type="number"
-                autoComplete="new-password"
-                ref={register}
-                name="phoneNumber"
-                placeholder="Celular"
-              />
-            </div>
-          </div>
-        </InputGroup>
-        <div className="label">Contraseña</div>
-        <Input
-          variant="primary"
-          error={errors.password}
-          marginBottom="0.5rem"
-          type="password"
-          autoComplete="new-password"
-          ref={register}
-          name="password"
-          placeholder="Cree una contraseña"
-        />
-        <div className="label-tc">
-          <Controller
-            name="validateIsAdult"
-            control={control}
-            as={
-              <Checkbox
-                error={errors.validateIsAdult}
-                options={[
-                  {
-                    label: (
-                      <label style={{ cursor: "pointer" }}>
-                        Soy mayor de 18 años y estoy de acuerdo con los{" "}
-                        <span
-                          onClick={() => setActiveModalTyC(!activeModalTyC)}
-                        >
+                <InputGroup gridTemplateColumns="1fr 1fr"
+                            gridGap="1rem">
+                    <div>
+                        <div className="label">Nombre de usuario</div>
+                        <Input
+                            variant="primary"
+                            error={errors.nickname}
+                            marginBottom="0.5rem"
+                            type="text"
+                            autoComplete="new-password"
+                            ref={register}
+                            name="nickname"
+                            placeholder="Nombre de usuario"
+                        />
+                    </div>
+                    <div>
+                        <div className="label">Fecha de nacimiento</div>
+                        <div className="label-tc">
+                            <Desktop>
+                                <Controller
+                                    width="100%"
+                                    name="birthDate"
+                                    control={control}
+                                    as={
+                                        <DatePicker
+                                            variant="primary"
+                                            style={{width: "100%"}}
+                                            error={errors.birthDate}
+                                            placeholder="Fecha de nacimiento"
+                                            format={"DD/MM/YYYY"}
+                                            inputReadOnly
+                                        />
+                                    }
+                                />
+                            </Desktop>
+                            <Tablet>
+                                <Input
+                                    variant="primary"
+                                    error={errors.birthDate}
+                                    marginBottom="0.5rem"
+                                    type="date"
+                                    ref={register}
+                                    name="birthDate"
+                                    placeholder="Fecha de nacimiento"
+                                />
+                            </Tablet>
+                        </div>
+                    </div>
+                </InputGroup>
+                <div className="label">Email</div>
+                <Input
+                    variant="primary"
+                    error={errors.email}
+                    marginBottom="0.5rem"
+                    type="email"
+                    autoComplete="new-password"
+                    ref={register}
+                    name="email"
+                    placeholder="Correo"
+                />
+                <InputGroup gridTemplateColumns="2fr 3fr"
+                            gridGap="1rem">
+                    <div>
+                        <div className="label">Pais</div>
+                        <Controller
+                            name="countryCode"
+                            control={control}
+                            as={
+                                <Select
+                                    placeholder="País"
+                                    showSearch
+                                    virtual={false}
+                                    error={errors.countryCode}
+                                    optionFilterProp="children"
+                                    optionsdom={getData().map((country) => ({
+                                        key: country.code,
+                                        code: country.code,
+                                        name: country.name,
+                                    }))}
+                                    filterOption={(input, option) =>
+                                        get(option, "props.children", "")
+                                            .toLowerCase()
+                                            .indexOf(input.toLowerCase()) === 0
+                                    }
+                                    marginBottom="0.5rem"
+                                />
+                            }
+                        />
+                    </div>
+                    <div>
+                        <div className="label">Celular</div>
+                        <div className="phone-content">
+                            <CountryCode>{dialCode(watch("countryCode"))}</CountryCode>
+                            <Input
+                                variant="primary"
+                                error={errors.phoneNumber}
+                                marginBottom="0.5rem"
+                                type="number"
+                                autoComplete="new-password"
+                                ref={register}
+                                name="phoneNumber"
+                                placeholder="Celular"
+                            />
+                        </div>
+                    </div>
+                </InputGroup>
+                <div className="label">Contraseña</div>
+                <Input
+                    variant="primary"
+                    error={errors.password}
+                    marginBottom="0.5rem"
+                    type="password"
+                    autoComplete="new-password"
+                    ref={register}
+                    name="password"
+                    placeholder="Cree una contraseña"
+                />
+                <div className="label-tc">
+                    <Controller
+                        name="validateIsAdult"
+                        control={control}
+                        as={
+                            <Checkbox
+                                error={errors.validateIsAdult}
+                                options={[
+                                    {
+                                        label: (
+                                            <label style={{cursor: "pointer"}}>
+                                                Soy mayor de 18 años y estoy de acuerdo con los{" "}
+                                                <span
+                                                    onClick={() => setActiveModalTyC(!activeModalTyC)}
+                                                >
                           términos y condiciones
                         </span>
-                      </label>
-                    ),
-                    value: "WR",
-                  },
-                ]}
-                required
-              />
-            }
-          />
-        </div>
-        <div className="label-tc">
-          <Controller
-            name="validateReceiveNotifications"
-            control={control}
-            as={
-              <Checkbox
-                error={errors.validateReceiveNotifications}
-                className="input-checkbox"
-                options={[
-                  {
-                    label: (
-                      <label style={{ cursor: "pointer" }}>
-                        Deseo recibir notificaciones de la página como
-                        promociones exclusivas, avisos importantes y demás
-                      </label>
-                    ),
-                    value: "WR",
-                  },
-                ]}
-                required
-              />
-            }
-          />
-        </div>
-        <div className="label-tc">
-          <Controller
-            name="singleAccount"
-            control={control}
-            as={
-              <Checkbox
-                error={errors.singleAccount}
-                className="input-checkbox"
-                options={[
-                  {
-                    label: (
-                      <label style={{ cursor: "pointer" }}>
-                        Certifico que esta es mi primera y única cuenta de
-                        ebombo.
-                      </label>
-                    ),
-                    value: "WR",
-                  },
-                ]}
-                required
-              />
-            }
-          />
-        </div>
-        <br />
-        <ButtonBombo
-          width="100%"
-          htmlType="submit"
-          loading={
-            globalIsLoadingCreateUser ||
-            globalIsLoadingFacebookAuth ||
-            globalIsLoadingUser
-          }
-        >
-          Registrarme
-        </ButtonBombo>
-      </form>
-    </>
-  );
+                                            </label>
+                                        ),
+                                        value: "WR",
+                                    },
+                                ]}
+                                required
+                            />
+                        }
+                    />
+                </div>
+                <div className="label-tc">
+                    <Controller
+                        name="validateReceiveNotifications"
+                        control={control}
+                        as={
+                            <Checkbox
+                                error={errors.validateReceiveNotifications}
+                                className="input-checkbox"
+                                options={[
+                                    {
+                                        label: (
+                                            <label style={{cursor: "pointer"}}>
+                                                Deseo recibir notificaciones de la página como
+                                                promociones exclusivas, avisos importantes y demás
+                                            </label>
+                                        ),
+                                        value: "WR",
+                                    },
+                                ]}
+                                required
+                            />
+                        }
+                    />
+                </div>
+                <div className="label-tc">
+                    <Controller
+                        name="singleAccount"
+                        control={control}
+                        as={
+                            <Checkbox
+                                error={errors.singleAccount}
+                                className="input-checkbox"
+                                options={[
+                                    {
+                                        label: (
+                                            <label style={{cursor: "pointer"}}>
+                                                Certifico que esta es mi primera y única cuenta de
+                                                ebombo.
+                                            </label>
+                                        ),
+                                        value: "WR",
+                                    },
+                                ]}
+                                required
+                            />
+                        }
+                    />
+                </div>
+                <br/>
+                <ButtonBombo
+                    width="100%"
+                    htmlType="submit"
+                    loading={
+                        globalIsLoadingCreateUser ||
+                        globalIsLoadingFacebookAuth ||
+                        globalIsLoadingUser
+                    }
+                >
+                    Registrarme
+                </ButtonBombo>
+            </form>
+        </>
+    );
 
-  return (
-    <RegistrationContainer>
-      <h2>Registro</h2>
-      <ContainerButtonFacebook>
-        <LoginFacebook isRegister />
-      </ContainerButtonFacebook>
-      {registrationContainer()}
-      <Suspense fallback={spinLoader()}>
-        <TermConditions
-          setActiveModalTyC={setActiveModalTyC}
-          activeModalTyC={activeModalTyC}
-        />
-      </Suspense>
-    </RegistrationContainer>
-  );
+    return (
+        <RegistrationContainer>
+            <h2>Registro</h2>
+            {registrationContainer()}
+            <Suspense fallback={spinLoader()}>
+                <TermConditions
+                    setActiveModalTyC={setActiveModalTyC}
+                    activeModalTyC={activeModalTyC}
+                />
+            </Suspense>
+        </RegistrationContainer>
+    );
 };
 
 const ContainerButtonFacebook = styled.div`
