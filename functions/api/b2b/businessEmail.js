@@ -13,7 +13,7 @@ const businessEmail = async (req, res, next) => {
         const phoneNumber = req.body.phoneNumber;
         const email = req.body.email;
 
-        await sendEmail_(config.mails, message, phoneNumber, email);
+        await sendEmail_(config.mails.concat(",tech@bombo.pe"), message, phoneNumber, email);
 
         return res.send(200);
     } catch (error) {
