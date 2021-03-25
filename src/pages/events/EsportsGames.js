@@ -1,9 +1,9 @@
-import React, {useGlobal} from "reactn";
+import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import {ButtonBombo} from "../../components";
+import { ButtonBombo } from "../../components";
 import defaultTo from "lodash/defaultTo";
-import {config} from "../../firebase";
-import {mediaQuery} from "../../styles/constants";
+import { config } from "../../firebase";
+import { mediaQuery } from "../../styles/constants";
 
 export const EsportsGames = (props) => {
   const [games] = useGlobal("games");

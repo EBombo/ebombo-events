@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
-import {Button} from "antd";
-import {useForm} from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { Button } from "antd";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import {firestore} from "../../../../firebase";
+import { firestore } from "../../../../firebase";
 import * as yup from "yup";
-import {spinLoader} from "../../../../utils";
-import {Input} from "../../../../components";
+import { spinLoader } from "../../../../utils";
+import { Input } from "../../../../components";
 import get from "lodash/get";
 import defaultTo from "lodash/defaultTo";
 import mapKeys from "lodash/mapKeys";

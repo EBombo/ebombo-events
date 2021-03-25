@@ -1,13 +1,13 @@
-import React, {useState} from "react";
-import {useAcl} from "../../../acl";
-import {config, firestore} from "../../../firebase";
+import React, { useState } from "react";
+import { useAcl } from "../../../acl";
+import { config, firestore } from "../../../firebase";
 import get from "lodash/get";
 import moment from "moment";
 import styled from "styled-components";
-import {mediaQuery} from "../../../styles/constants";
-import {ButtonBombo} from "../../../components";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../utils/useFetch/useFetch";
+import { mediaQuery } from "../../../styles/constants";
+import { ButtonBombo } from "../../../components";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../utils/useFetch/useFetch";
 
 export const Ballot = (props) => {
   const { Acl } = useAcl();

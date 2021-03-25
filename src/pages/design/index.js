@@ -1,7 +1,13 @@
-import React, {useGlobal} from "reactn";
-import {useHistory} from "react-router";
+import React, { useGlobal } from "reactn";
+import { useHistory } from "react-router";
 import styled from "styled-components";
-import {ButtonBombo, Checkbox, Input, Select, TextArea,} from "../../components";
+import {
+  ButtonBombo,
+  Checkbox,
+  Input,
+  Select,
+  TextArea,
+} from "../../components";
 
 export default () => {
   const history = useHistory();

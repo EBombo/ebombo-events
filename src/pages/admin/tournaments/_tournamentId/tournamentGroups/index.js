@@ -1,25 +1,29 @@
-import React, {useEffect, useState} from "reactn";
-import {snapshotToArray, spinLoader} from "../../../../../utils";
-import {List as ListAntd, message, Modal, Tabs, Tooltip} from "antd";
-import {config, firestore} from "../../../../../firebase";
+import React, { useEffect, useGlobal, useState } from "reactn";
+import { snapshotToArray, spinLoader } from "../../../../../utils";
+import { List as ListAntd, message, Modal, Tabs, Tooltip } from "antd";
+import { config, firestore } from "../../../../../firebase";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 import orderBy from "lodash/orderBy";
-import {useHistory, useParams} from "react-router";
+import { useHistory, useParams } from "react-router";
 import moment from "moment";
-import {ButtonBombo, ContentPositionTree, ContentTableStatistics,} from "../../../../../components";
-import {AdminTournamentGroupsMatches} from "./_tournamentGroupId/tournamentGroupsMatches";
+import {
+  ButtonBombo,
+  ContentPositionTree,
+  ContentTableStatistics,
+} from "../../../../../components";
+import { AdminTournamentGroupsMatches } from "./_tournamentGroupId/tournamentGroupsMatches";
 import styled from "styled-components";
-import {AdminTournamentAwards} from "../tournamentAwards";
-import {ContainerTableStatisticsBattleRoyale} from "../../../../games/_gameId/consoles/_consoleId/tournaments/_tournamentId/ContainerTableStatisticsBattleRoyale";
-import {useAcl} from "../../../../../acl";
-import {Icon} from "../../../../../components/common/Icons";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../../../utils/useFetch/useFetch";
-import {darkTheme} from "../../../../../styles/theme";
-import {DateToMatchesContainer} from "./DateToMatches";
-import {useSendError} from "../../../../../components/error-fallback/useSendError";
+import { AdminTournamentAwards } from "../tournamentAwards";
+import { ContainerTableStatisticsBattleRoyale } from "../../../../games/_gameId/consoles/_consoleId/tournaments/_tournamentId/ContainerTableStatisticsBattleRoyale";
+import { useAcl } from "../../../../../acl";
+import { Icon } from "../../../../../components/common/Icons";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../../../utils/useFetch/useFetch";
+import { darkTheme } from "../../../../../styles/theme";
+import { DateToMatchesContainer } from "./DateToMatches";
+import { useSendError } from "../../../../../components/error-fallback/useSendError";
 
 export const AdminTournamentGroups = (props) => {
   const history = useHistory();

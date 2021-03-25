@@ -1,14 +1,14 @@
-import React, {useState} from "reactn";
-import {config} from "../../firebase";
-import {ButtonBombo, Input, TextArea} from "../../components";
-import {Desktop} from "../../utils";
+import React, { useState } from "reactn";
+import { config } from "../../firebase";
+import { ButtonBombo, Input, TextArea } from "../../components";
+import { Desktop } from "../../utils";
 import styled from "styled-components";
-import {mediaQuery} from "../../styles/constants";
-import {message} from "antd";
-import {object, string} from "yup";
-import {useForm} from "react-hook-form";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../utils/useFetch/useFetch";
+import { mediaQuery } from "../../styles/constants";
+import { message } from "antd";
+import { object, string } from "yup";
+import { useForm } from "react-hook-form";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../utils/useFetch/useFetch";
 
 export const Contact = (props) => {
   const handleError = useErrorHandler();

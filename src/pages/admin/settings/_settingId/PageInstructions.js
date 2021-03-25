@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {message} from "antd";
-import {useForm} from "react-hook-form";
-import {defaultTo, get} from "lodash";
+import React, { useState, useEffect } from "react";
+import { Button, message } from "antd";
+import { useForm } from "react-hook-form";
+import { defaultTo, get } from "lodash";
 import styled from "styled-components";
-import {firestore} from "../../../../firebase";
+import { firestore } from "../../../../firebase";
 import * as yup from "yup";
-import {spinLoader} from "../../../../utils";
-import {ButtonBombo, Input, TextArea} from "../../../../components";
+import { spinLoader } from "../../../../utils";
+import { ButtonBombo, Input, TextArea } from "../../../../components";
 
 export const PageInstructions = (props) => {
   const schema = yup.object().shape({

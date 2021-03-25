@@ -1,13 +1,13 @@
-import React, {useEffect, useGlobal, useState} from "reactn";
-import {snapshotToArray, spinLoader} from "../../../utils";
-import {Divider, List, Modal, Select as AntSelect, Tooltip} from "antd";
-import {firestore} from "../../../firebase";
+import React, { useEffect, useState, useGlobal } from "reactn";
+import { snapshotToArray, spinLoader } from "../../../utils";
+import { Divider, List, Modal, Tooltip, Select as AntSelect } from "antd";
+import { firestore } from "../../../firebase";
 import orderBy from "lodash/orderBy";
-import {useHistory, useParams} from "react-router";
-import {useAcl} from "../../../acl";
-import {Icon} from "../../../components/common/Icons";
+import { useHistory, useParams } from "react-router";
+import { useAcl } from "../../../acl";
+import { Icon } from "../../../components/common/Icons";
 import styled from "styled-components";
-import {ButtonBombo} from "../../../components";
+import { ButtonBombo } from "../../../components";
 
 export const AdminTournamentRules = (props) => {
   const history = useHistory();

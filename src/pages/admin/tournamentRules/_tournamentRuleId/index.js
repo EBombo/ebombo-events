@@ -1,14 +1,14 @@
-import {message} from "antd";
-import {firestore} from "../../../../firebase";
-import React, {useEffect, useState} from "reactn";
+import { message } from "antd";
+import { firestore } from "../../../../firebase";
+import React, { useEffect, useState } from "reactn";
 import moment from "moment";
-import {useParams} from "react-router-dom";
-import {Controller, useForm} from "react-hook-form";
-import {ButtonBombo, Input, TimePicker} from "../../../../components";
-import {spinLoader} from "../../../../utils";
+import { useParams } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { ButtonBombo, Input, TimePicker } from "../../../../components";
+import { spinLoader } from "../../../../utils";
 import get from "lodash/get";
-import {date, number, object, string} from "yup";
-import {useHistory} from "react-router";
+import { date, object, string, number } from "yup";
+import { useHistory } from "react-router";
 
 const newRule = {
   name: "",

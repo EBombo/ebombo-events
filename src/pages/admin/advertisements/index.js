@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "reactn";
-import {snapshotToArray, spinLoader} from "../../../utils";
-import {Divider, List, Modal, Tooltip} from "antd";
-import {firestore} from "../../../firebase";
+import React, { useEffect, useState } from "reactn";
+import { snapshotToArray, spinLoader } from "../../../utils";
+import { Divider, List, Modal, Tooltip } from "antd";
+import { firestore } from "../../../firebase";
 import orderBy from "lodash/orderBy";
-import {useHistory} from "react-router";
-import {ButtonBombo, Upload} from "../../../components";
-import {useAcl} from "../../../acl";
-import {Icon} from "../../../components/common/Icons";
+import { useHistory } from "react-router";
+import { ButtonBombo, Upload } from "../../../components";
+import { useAcl } from "../../../acl";
+import { Icon } from "../../../components/common/Icons";
 
 export const AdminAdvertisements = () => {
   const [loadingAdvertisements, setLoadingAdvertisements] = useState(true);

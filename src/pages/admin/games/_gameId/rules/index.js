@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {snapshotToArray, spinLoader} from "../../../../../utils";
-import {Divider, List, Modal, Tooltip} from "antd";
-import {firestore} from "../../../../../firebase";
+import React, { useEffect, useState } from "react";
+import { snapshotToArray, spinLoader } from "../../../../../utils";
+import { Button, Divider, List, Modal, Tooltip } from "antd";
+import { firestore } from "../../../../../firebase";
 import orderBy from "lodash/orderBy";
-import {useHistory, useParams} from "react-router";
-import {useAcl} from "../../../../../acl";
-import {Icon} from "../../../../../components/common/Icons";
-import {ButtonBombo} from "../../../../../components";
+import { useHistory, useParams } from "react-router";
+import { useAcl } from "../../../../../acl";
+import { Icon } from "../../../../../components/common/Icons";
+import { ButtonBombo } from "../../../../../components";
 
 export const AdminRules = (props) => {
   const history = useHistory();

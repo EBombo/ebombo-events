@@ -1,14 +1,14 @@
-import React, {useEffect, useRef, useState} from "reactn";
-import {snapshotToArray, spinLoader} from "../../../utils";
-import {firestore} from "../../../firebase";
+import React, { useEffect, useState, useRef } from "reactn";
+import { snapshotToArray, spinLoader } from "../../../utils";
+import { firestore } from "../../../firebase";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
-import {List, Tooltip} from "antd";
+import { List, Tooltip } from "antd";
 import styled from "styled-components";
-import {Levels} from "../../../components";
+import { Levels } from "../../../components";
 import moment from "moment";
-import {useAcl} from "../../../acl";
-import {Anchor} from "../../../components/common/Anchor";
+import { useAcl } from "../../../acl";
+import { Anchor } from "../../../components/common/Anchor";
 
 export const AdminMatchesHistory = (props) => {
   const { Acl } = useAcl();

@@ -1,17 +1,17 @@
-import React, {useGlobal, useState} from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import {Desktop, Tablet} from "../../utils";
-import {config} from "../../firebase";
-import {services} from "../../components/common/DataList";
-import {mediaQuery} from "../../styles/constants";
-import {useForm} from "react-hook-form";
-import {object, string} from "yup";
-import {ButtonBombo, Input, TextArea} from "../../components";
-import {message} from "antd";
-import {Footer} from "../../components/Footer";
-import {useHistory} from "react-router-dom";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../utils/useFetch/useFetch";
+import { Desktop, Tablet } from "../../utils";
+import { config } from "../../firebase";
+import { services } from "../../components/common/DataList";
+import { mediaQuery } from "../../styles/constants";
+import { useForm } from "react-hook-form";
+import { object, string } from "yup";
+import { ButtonBombo, Input, TextArea } from "../../components";
+import { message } from "antd";
+import { Footer } from "../../components/Footer";
+import { useHistory } from "react-router-dom";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../utils/useFetch/useFetch";
 
 export default (props) => {
   const history = useHistory();

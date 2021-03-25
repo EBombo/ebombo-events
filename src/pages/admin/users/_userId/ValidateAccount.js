@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 import styled from "styled-components";
-import {object, string} from "yup";
-import {Controller, useForm} from "react-hook-form";
-import {Input, message} from "antd";
+import { object, string } from "yup";
+import { Controller, useForm } from "react-hook-form";
+import { Input, message } from "antd";
 import UrlAssembler from "url-assembler";
-import {config} from "../../../../firebase";
-import {key} from "../../../../utils/convertor";
-import {useHistory} from "react-router";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../../utils/useFetch/useFetch";
-import {ButtonBombo} from "../../../../components";
+import { config } from "../../../../firebase";
+import { key } from "../../../../utils/convertor";
+import { useHistory } from "react-router";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../../utils/useFetch/useFetch";
+import { ButtonBombo } from "../../../../components";
 
 export const ValidateAccount = (props) => {
   const history = useHistory();

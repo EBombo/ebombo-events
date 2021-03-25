@@ -1,14 +1,14 @@
-import React, {useEffect, useGlobal, useState} from "reactn";
-import {snapshotToArray, spinLoader} from "../../../../../utils";
-import {List} from "antd";
-import {config, firestore} from "../../../../../firebase";
+import React, { useEffect, useGlobal, useState } from "reactn";
+import { snapshotToArray, spinLoader } from "../../../../../utils";
+import { Button, List } from "antd";
+import { config, firestore } from "../../../../../firebase";
 import get from "lodash/get";
 import orderBy from "lodash/orderBy";
 import moment from "moment";
-import {useParams} from "react-router";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../../../utils/useFetch/useFetch";
-import {ButtonBombo} from "../../../../../components";
+import { useParams } from "react-router";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../../../utils/useFetch/useFetch";
+import { ButtonBombo } from "../../../../../components";
 
 export const AdminTournamentTeams = () => {
   const { tournamentId } = useParams();

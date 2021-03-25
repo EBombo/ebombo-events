@@ -1,7 +1,7 @@
 import React from "reactn";
-import {date, object} from "yup";
-import {Controller, useForm} from "react-hook-form";
-import {ButtonBombo, DatePicker} from "../../../../../components";
+import { object, date } from "yup";
+import { useForm, Controller } from "react-hook-form";
+import { ButtonBombo, DatePicker } from "../../../../../components";
 import moment from "moment";
 
 export const DateToMatchesContainer = (props) => {

@@ -1,17 +1,21 @@
-import {message} from "antd";
-import {firestore} from "../../../../../../firebase";
-import React, {useEffect, useState} from "react";
+import { message } from "antd";
+import { firestore } from "../../../../../../firebase";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
-import {useParams} from "react-router-dom";
-import {Controller, useForm} from "react-hook-form";
-import {ButtonBombo, DatePicker, Input} from "../../../../../../components";
-import {finishTimeByRule, snapshotToArray, spinLoader,} from "../../../../../../utils";
+import { useParams } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { ButtonBombo, DatePicker, Input } from "../../../../../../components";
+import {
+  finishTimeByRule,
+  snapshotToArray,
+  spinLoader,
+} from "../../../../../../utils";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 import defaultTo from "lodash/defaultTo";
 import flatMap from "lodash/flatMap";
-import {date, number, object, string} from "yup";
-import {useHistory} from "react-router";
+import { date, number, object, string } from "yup";
+import { useHistory } from "react-router";
 import robin from "roundrobin";
 
 const newGroup = {

@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
-import {firestore} from "../../../../firebase";
+import React, { useEffect, useState } from "react";
+import { firestore } from "../../../../firebase";
 import get from "lodash/get";
 import assign from "lodash/assign";
 import findIndex from "lodash/findIndex";
 import styled from "styled-components";
-import {Checkbox, message, Modal, Select as AntSelect} from "antd";
-import {discountType} from "../../../../components/common/DataList";
-import {ButtonBombo, DatePicker, Input, Select} from "../../../../components";
+import { Checkbox, message, Modal, Select as AntSelect } from "antd";
+import { discountType } from "../../../../components/common/DataList";
+import { ButtonBombo, DatePicker, Input, Select } from "../../../../components";
 import moment from "moment";
-import {spinLoader} from "../../../../utils";
-import {useHistory, useParams} from "react-router";
-import {Controller, useForm} from "react-hook-form";
-import {date, number, object, string} from "yup";
+import { spinLoader } from "../../../../utils";
+import { useHistory, useParams } from "react-router";
+import { Controller, useForm } from "react-hook-form";
+import { date, number, object, string } from "yup";
 
 export const AdminCouponEdit = () => {
   const schema = object().shape({

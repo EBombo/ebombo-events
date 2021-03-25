@@ -1,10 +1,10 @@
 import React from "reactn";
 import styled from "styled-components";
-import {Desktop, Tablet} from "../../utils";
-import {config} from "../../firebase";
-import {mediaQuery} from "../../styles/constants";
+import { Desktop, Tablet } from "../../utils";
+import { config } from "../../firebase";
+import { mediaQuery } from "../../styles/constants";
 import sizes from "../../styles/constants/sizes";
-import {useHistory} from "react-router";
+import { useHistory } from "react-router";
 
 export const HeaderLanding = (props) => {
   const history = useHistory();

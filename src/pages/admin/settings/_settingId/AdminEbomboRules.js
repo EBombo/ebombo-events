@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "reactn";
+import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
-import {Controller, useForm} from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import get from "lodash/get";
-import SunEditor, {buttonList} from "suneditor-react";
+import SunEditor, { buttonList } from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-import {object, string} from "yup";
-import {firestore} from "../../../../firebase";
-import {spinLoader} from "../../../../utils";
-import {ButtonBombo} from "../../../../components";
+import { object, string } from "yup";
+import { firestore } from "../../../../firebase";
+import { spinLoader } from "../../../../utils";
+import { ButtonBombo } from "../../../../components";
 
 export const AdminEbomboRules = (props) => {
   const [rule, setRule] = useState(null);

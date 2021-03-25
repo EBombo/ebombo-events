@@ -1,13 +1,15 @@
-import React, {useState} from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
-import {ButtonBombo, Input, TextArea} from "../../components";
-import {useForm} from "react-hook-form";
-import {object, string} from "yup";
+import { ModalContainer } from "../../components/common/ModalContainer";
+import { Input, TextArea } from "../../components";
+import { useForm } from "react-hook-form";
+import { string, object } from "yup";
 import get from "lodash/get";
-import {firestore} from "../../firebase";
-import {useResizeImage} from "../../utils/useHooks/useResizeImage";
+import { ButtonBombo } from "../../components";
+import { firestore } from "../../firebase";
+import { useResizeImage } from "../../utils/useHooks/useResizeImage";
 import defaultTo from "lodash/defaultTo";
-import {useUploadToStorage} from "../../utils/useHooks/useUploadToStorage";
+import { useUploadToStorage } from "../../utils/useHooks/useUploadToStorage";
 
 export default (props) => {
   const [imgBase64, setImgBase64] = useState(null);

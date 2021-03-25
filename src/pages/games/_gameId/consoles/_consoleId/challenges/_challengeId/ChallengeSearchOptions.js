@@ -1,12 +1,16 @@
-import React, {useEffect, useGlobal, useState} from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import {mediaQuery} from "../../../../../../../styles/constants";
+import { mediaQuery } from "../../../../../../../styles/constants";
 import get from "lodash/get";
 import defaultTo from "lodash/defaultTo";
 import sortBy from "lodash/sortBy";
-import {useParams} from "react-router";
-import {ButtonBombo, EBomboRules, Select,} from "../../../../../../../components";
-import {ModalContainer} from "../../../../../../../components/common/ModalContainer";
+import { useParams } from "react-router";
+import {
+  ButtonBombo,
+  EBomboRules,
+  Select,
+} from "../../../../../../../components";
+import { ModalContainer } from "../../../../../../../components/common/ModalContainer";
 
 export const ChallengeSearchOptions = (props) => {
   const { gameId } = useParams();

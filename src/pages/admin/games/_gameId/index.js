@@ -1,18 +1,19 @@
-import React, {useEffect, useState} from "react";
-import {Checkbox, message} from "antd";
-import {firestore} from "../../../../firebase";
+import React, { useEffect, useState, lazy, Suspense } from "react";
+import { Checkbox, message } from "antd";
+import { firestore } from "../../../../firebase";
 import moment from "moment";
-import {useParams} from "react-router-dom";
-import {Controller, useForm} from "react-hook-form";
-import {ButtonBombo, Input} from "../../../../components";
-import {snapshotToArray, spinLoader} from "../../../../utils";
+import { useParams } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { ButtonBombo, Input } from "../../../../components";
+import { spinLoader } from "../../../../utils";
 import get from "lodash/get";
 import reduce from "lodash/reduce";
-import {object, string} from "yup";
-import {useHistory} from "react-router";
+import { object, string } from "yup";
+import { useHistory } from "react-router";
+import { snapshotToArray } from "../../../../utils";
 import styled from "styled-components";
 import "suneditor/dist/css/suneditor.min.css";
-import SunEditor, {buttonList} from "suneditor-react";
+import SunEditor, { buttonList } from "suneditor-react";
 
 const newGame = {
   name: "",

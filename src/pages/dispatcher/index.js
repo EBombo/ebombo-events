@@ -1,5 +1,5 @@
-import React, {useEffect, useGlobal} from "reactn";
-import {useHistory, useParams} from "react-router";
+import React, { useEffect, useGlobal } from "reactn";
+import { useHistory, useParams } from "react-router";
 import get from "lodash/get";
 
 export const Dispatcher = () => {

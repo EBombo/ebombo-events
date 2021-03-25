@@ -1,21 +1,28 @@
-import React, {useEffect, useGlobal, useRef, useState} from "reactn";
+import React, { useEffect, useGlobal, useRef, useState } from "reactn";
 import styled from "styled-components";
-import {Desktop, spinLoader, Tablet} from "../../../../../../../utils";
-import {BackButton, EBomboRules, EventInfo, GameRules, Games, GeneralInfo,} from "../../../../../../../components";
-import {useHistory, useParams} from "react-router";
+import { Desktop, spinLoader, Tablet } from "../../../../../../../utils";
+import {
+  BackButton,
+  EBomboRules,
+  EventInfo,
+  GameRules,
+  Games,
+  GeneralInfo,
+} from "../../../../../../../components";
+import { useHistory, useParams } from "react-router";
 import defaultTo from "lodash/defaultTo";
-import {Chat} from "../../../../../../../components/chat/Chat";
+import { Chat } from "../../../../../../../components/chat/Chat";
 import isEmpty from "lodash/isEmpty";
-import {config, firestore} from "../../../../../../../firebase";
-import {ChallengerContainer} from "./ChallengerInfo";
-import {WaitingChallenged} from "./WaitingChallenged";
+import { config, firestore } from "../../../../../../../firebase";
+import { ChallengerContainer } from "./ChallengerInfo";
+import { WaitingChallenged } from "./WaitingChallenged";
 import get from "lodash/get";
-import {ChallengeCreate} from "./ChallengeCreate";
-import {showMoney} from "../../../../../../../utils/showMoney";
+import { ChallengeCreate } from "./ChallengeCreate";
+import { showMoney } from "../../../../../../../utils/showMoney";
 import moment from "moment";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../../../../../utils/useFetch/useFetch";
-import {darkTheme} from "../../../../../../../styles/theme";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../../../../../utils/useFetch/useFetch";
+import { darkTheme } from "../../../../../../../styles/theme";
 
 export const ChallengeContainer = (props) => {
   const history = useHistory();

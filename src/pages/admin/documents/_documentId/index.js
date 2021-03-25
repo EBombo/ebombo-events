@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "reactn";
-import {useHistory, useParams} from "react-router";
+import React, { useEffect, useState } from "reactn";
+import { useHistory, useParams } from "react-router";
 import styled from "styled-components";
-import {centerFlexBox, mediaQuery} from "../../../../styles/constants";
-import {config, firestore} from "../../../../firebase";
-import {SpinLoader} from "../../../../styles";
-import {spinLoader} from "../../../../utils";
-import {Divider, Modal} from "antd";
-import {ValidateAccount} from "../../users/_userId/ValidateAccount";
+import { centerFlexBox, mediaQuery } from "../../../../styles/constants";
+import { config, firestore } from "../../../../firebase";
+import { SpinLoader } from "../../../../styles";
+import { spinLoader } from "../../../../utils";
+import { Divider, Modal } from "antd";
+import { ValidateAccount } from "../../users/_userId/ValidateAccount";
 
 export const AdminDocument = () => {
   const history = useHistory();

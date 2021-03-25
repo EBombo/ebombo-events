@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "reactn";
-import {useParams} from "react-router-dom";
+import React, { useEffect, useState } from "reactn";
+import { useParams } from "react-router-dom";
 import UrlAssembler from "url-assembler";
-import {useHistory} from "react-router";
-import {Input, Modal, Select, Tooltip} from "antd";
+import { useHistory } from "react-router";
+import { Input, Modal, Select, Tooltip } from "antd";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 import defaultTo from "lodash/defaultTo";
@@ -10,14 +10,14 @@ import orderBy from "lodash/orderBy";
 import flatMap from "lodash/flatMap";
 import moment from "moment";
 import styled from "styled-components";
-import {config, firestore} from "../../../../../firebase";
-import {gaError, snapshotToArray, spinLoader} from "../../../../../utils";
-import {ModalContainer} from "../../../../../components/common/ModalContainer";
-import {Icon} from "../../../../../components/common/Icons";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../../../utils/useFetch/useFetch";
-import {ButtonBombo} from "../../../../../components";
-import {Anchor} from "../../../../../components/common/Anchor";
+import { config, firestore } from "../../../../../firebase";
+import { gaError, snapshotToArray, spinLoader } from "../../../../../utils";
+import { ModalContainer } from "../../../../../components/common/ModalContainer";
+import { Icon } from "../../../../../components/common/Icons";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../../../utils/useFetch/useFetch";
+import { ButtonBombo } from "../../../../../components";
+import { Anchor } from "../../../../../components/common/Anchor";
 
 export const AdminTournamentAwards = (props) => {
   const { tournamentId } = useParams();

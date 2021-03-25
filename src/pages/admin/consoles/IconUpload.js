@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {Button, Modal, Upload} from "antd";
-import {firestore, storage} from "../../../firebase";
+import React, { useEffect, useState } from "react";
+import { Button, Modal, Upload } from "antd";
+import { firestore, storage } from "../../../firebase";
 import get from "lodash/get";
-import {Icon} from "../../../components/common/Icons";
+import { Icon } from "../../../components/common/Icons";
 
 export default (props) => {
   const [previewVisible, setPreviewVisible] = useState(false);

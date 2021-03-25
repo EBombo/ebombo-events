@@ -1,15 +1,15 @@
-import React, {useEffect, useGlobal, useState} from "reactn";
-import {useHistory, useParams} from "react-router";
+import React, { useEffect, useGlobal, useState } from "reactn";
+import { useHistory, useParams } from "react-router";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 import defaultTo from "lodash/defaultTo";
-import {Checkbox, Col, Divider, message, Row, Select} from "antd";
+import { Checkbox, Col, Divider, message, Row, Select } from "antd";
 import styled from "styled-components";
-import {firestore} from "../../../../firebase";
-import {spinLoader} from "../../../../utils";
-import {useForm} from "react-hook-form";
-import {object, string} from "yup";
-import {ButtonBombo, Input} from "../../../../components/common";
+import { firestore } from "../../../../firebase";
+import { spinLoader } from "../../../../utils";
+import { useForm } from "react-hook-form";
+import { object, string } from "yup";
+import { ButtonBombo, Input } from "../../../../components/common";
 import moment from "moment";
 
 const newUserAccount = {

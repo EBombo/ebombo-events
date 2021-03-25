@@ -1,10 +1,11 @@
-import React, {useState} from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
-import {ButtonBombo, Input, TextArea} from "../../components";
-import {useForm} from "react-hook-form";
-import {object, string} from "yup";
+import { Input, TextArea } from "../../components";
+import { useForm } from "react-hook-form";
+import { string, object } from "yup";
 import get from "lodash/get";
-import {firestore} from "../../firebase";
+import { ButtonBombo } from "../../components";
+import { firestore } from "../../firebase";
 import defaultTo from "lodash/defaultTo";
 
 export default (props) => {

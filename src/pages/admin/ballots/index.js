@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from "react";
-import {notification, Tabs} from "antd";
-import {firestore} from "../../../firebase";
-import {snapshotToArray, spinLoader} from "../../../utils";
+import React, { useEffect, useState, useRef } from "react";
+import { notification, Tabs } from "antd";
+import { firestore } from "../../../firebase";
+import { snapshotToArray, spinLoader } from "../../../utils";
 import isEmpty from "lodash/isEmpty";
 import defaultTo from "lodash/defaultTo";
 import styled from "styled-components";
-import {ButtonBombo} from "../../../components";
-import {Ballot} from "./Ballot";
+import { ButtonBombo } from "../../../components";
+import { Ballot } from "./Ballot";
 
 export const Ballots = (props) => {
   const [keyTab, setKetTab] = useState("ballots");

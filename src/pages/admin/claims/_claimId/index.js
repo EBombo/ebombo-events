@@ -1,20 +1,21 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {config, firestore} from "../../../../firebase";
-import {Modal} from "antd";
-import {spinLoader} from "../../../../utils";
-import {useHistory, useParams} from "react-router";
-import {mediaQuery} from "../../../../styles/constants";
+import { config, firestore } from "../../../../firebase";
+import { Modal } from "antd";
+import { spinLoader } from "../../../../utils";
+import { useHistory, useParams } from "react-router";
+import { mediaQuery } from "../../../../styles/constants";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
-import {useGlobal} from "reactn";
-import {useForm} from "react-hook-form";
-import {Input} from "../../../../components/common/";
-import {Image} from "../../../../components/common/Image";
+import { useGlobal } from "reactn";
+import { calculateAward } from "../../../../utils/CalculateAward";
+import { useForm } from "react-hook-form";
+import { Input } from "../../../../components/common/";
+import { Image } from "../../../../components/common/Image";
 import * as yup from "yup";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../../utils/useFetch/useFetch";
-import {ButtonBombo} from "../../../../components";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../../utils/useFetch/useFetch";
+import { ButtonBombo } from "../../../../components";
 
 export const AdminClaim = (props) => {
   const { claimId } = useParams();

@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from "react";
-import {snapshotToArray, spinLoader} from "../../../utils";
-import {firestore} from "../../../firebase";
+import React, { useEffect, useState } from "react";
+import { snapshotToArray, spinLoader, wrappedLink } from "../../../utils";
+import { firestore } from "../../../firebase";
 import moment from "moment";
 import get from "lodash/get";
 import orderBy from "lodash/orderBy";
-import {Divider, Input, List, Tooltip} from "antd";
-import {useHistory} from "react-router";
+import { Divider, Input, List, Tooltip } from "antd";
+import { useHistory } from "react-router";
 import styled from "styled-components";
-import {userAccountState} from "../../../components/common/getDataOfList";
-import {useAcl} from "../../../acl";
-import {Icon} from "../../../components/common/Icons";
+import { userAccountState } from "../../../components/common/getDataOfList";
+import { useAcl } from "../../../acl";
+import { Icon } from "../../../components/common/Icons";
 
 export default (props) => {
   const history = useHistory();

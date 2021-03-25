@@ -1,16 +1,16 @@
 import React from "reactn";
-import {Checkbox, message, Modal, Select as AntSelect, Switch} from "antd";
+import { Checkbox, message, Modal, Select as AntSelect, Switch } from "antd";
 import reduce from "lodash/reduce";
-import {config} from "../../../../firebase";
-import {gaAdminCoin} from "../../../../utils";
+import { config } from "../../../../firebase";
+import { gaAdminCoin, gaError } from "../../../../utils";
 import UrlAssembler from "url-assembler";
-import {boolean, mixed, number, object, string} from "yup";
-import {Controller, useForm} from "react-hook-form";
-import {ButtonBombo, Input, Select} from "../../../../components/common";
+import { boolean, mixed, number, object, string } from "yup";
+import { Controller, useForm } from "react-hook-form";
+import { ButtonBombo, Input, Select } from "../../../../components/common";
 import styled from "styled-components";
-import {useParams} from "react-router";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../../utils/useFetch/useFetch";
+import { useParams } from "react-router";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../../utils/useFetch/useFetch";
 
 export const AddMoney = (props) => {
   const schema = object().shape({

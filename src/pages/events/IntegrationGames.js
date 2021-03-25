@@ -1,14 +1,14 @@
-import React, {useGlobal, useState} from "reactn";
+import React, { useState, useGlobal } from "reactn";
 import styled from "styled-components";
-import {config, firestore} from "../../firebase";
-import {ButtonBombo} from "../../components";
+import { config, firestore } from "../../firebase";
+import { ButtonBombo } from "../../components";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import {mediaQuery} from "../../styles/constants";
-import {Icon} from "../../components/common/Icons";
-import {lazy, Suspense} from "react";
-import {spinLoader} from "../../utils";
-import {ModalContainer} from "../../components/common/ModalContainer";
+import { mediaQuery } from "../../styles/constants";
+import { Icon } from "../../components/common/Icons";
+import { lazy, Suspense } from "react";
+import { spinLoader } from "../../utils";
+import { ModalContainer } from "../../components/common/ModalContainer";
 
 const EditIntegrationGame = lazy(() => import("./EditIntegrationGame"));
 

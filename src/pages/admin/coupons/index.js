@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {snapshotToArray, spinLoader} from "../../../utils/index";
-import {firestore} from "../../../firebase/index";
+import React, { useEffect, useState } from "react";
+import { snapshotToArray, spinLoader } from "../../../utils/index";
+import { firestore } from "../../../firebase/index";
 import moment from "moment";
 import get from "lodash/get";
 import orderBy from "lodash/orderBy";
-import {Divider, Input, List, Tooltip} from "antd";
-import {wrappedLink} from "../../../utils";
-import {useHistory} from "react-router";
-import {discountType} from "../../../components/common/DataList";
-import {useAcl} from "../../../acl";
-import {Icon} from "../../../components/common/Icons";
-import {ButtonBombo} from "../../../components";
+import { Divider, Input, List, Tooltip } from "antd";
+import { wrappedLink } from "../../../utils";
+import { useHistory } from "react-router";
+import { discountType } from "../../../components/common/DataList";
+import { useAcl } from "../../../acl";
+import { Icon } from "../../../components/common/Icons";
+import { ButtonBombo } from "../../../components";
 
 export const AdminCoupons = () => {
   const history = useHistory();

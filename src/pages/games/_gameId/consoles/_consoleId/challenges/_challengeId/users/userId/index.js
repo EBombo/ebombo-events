@@ -1,8 +1,8 @@
 import React from "reactn";
-import {Desktop, Tablet} from "../../../../../../../../../utils";
-import {Games} from "../../../../../../../../../components";
-import {ChallengeCreate} from "../../ChallengeCreate";
-import {useHistory, useParams} from "react-router";
+import { Desktop, Tablet } from "../../../../../../../../../utils";
+import { Games } from "../../../../../../../../../components";
+import { ChallengeCreate } from "../../ChallengeCreate";
+import { useHistory, useParams } from "react-router";
 
 export const UserInvitation = (props) => {
   const { userId } = useParams();

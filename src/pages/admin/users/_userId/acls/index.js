@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from "reactn";
-import {firestore} from "../../../../../firebase";
-import {useHistory, useParams} from "react-router";
-import {spinLoader} from "../../../../../utils";
-import {Checkbox, message} from "antd";
+import React, { useEffect, useState } from "reactn";
+import { firestore } from "../../../../../firebase";
+import { useParams, useHistory } from "react-router";
+import { spinLoader } from "../../../../../utils";
+import { Checkbox, message } from "antd";
 import get from "lodash/get";
 import map from "lodash/map";
 import mapValues from "lodash/mapValues";
 import acls from "../../../../../acl/acls.json";
-import {Controller, useForm} from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import flatMap from "lodash/flatMap";
 import isEmpty from "lodash/isEmpty";
-import {ButtonBombo} from "../../../../../components";
+import { ButtonBombo } from "../../../../../components";
 
 export const AdminUserAcls = (props) => {
   const history = useHistory();

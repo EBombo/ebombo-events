@@ -1,16 +1,16 @@
-import React, {useGlobal, useState} from "reactn";
+import React, { useState, useGlobal } from "reactn";
 import styled from "styled-components";
-import {Desktop, Tablet} from "../../styles/utils";
-import {mediaQuery} from "../../styles/constants";
-import {config, firestore} from "../../firebase";
-import {ButtonBombo, Carousel} from "../../components";
+import { Desktop, Tablet } from "../../styles/utils";
+import { mediaQuery } from "../../styles/constants";
+import { config, firestore } from "../../firebase";
+import { ButtonBombo, Carousel } from "../../components";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import {Image} from "../../components/common/Image";
-import {Icon} from "../../components/common/Icons";
-import {lazy, Suspense} from "react";
-import {spinLoader} from "../../utils";
-import {ModalContainer} from "../../components/common/ModalContainer";
+import { Image } from "../../components/common/Image";
+import { Icon } from "../../components/common/Icons";
+import { lazy, Suspense } from "react";
+import { spinLoader } from "../../utils";
+import { ModalContainer } from "../../components/common/ModalContainer";
 
 const EditSpecials = lazy(() => import("./EditSpecials"));
 

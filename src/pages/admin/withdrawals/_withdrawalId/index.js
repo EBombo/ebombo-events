@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {useHistory, useParams} from "react-router";
-import {config, firestore} from "../../../../firebase";
-import {message} from "antd";
-import {spinLoader} from "../../../../utils";
-import {mediaQuery} from "../../../../styles/constants";
+import { useHistory, useParams } from "react-router";
+import { config, firestore } from "../../../../firebase";
+import { message } from "antd";
+import { spinLoader } from "../../../../utils";
+import { mediaQuery } from "../../../../styles/constants";
 import get from "lodash/get";
-import {withdrawState} from "../../../../components/common/getDataOfList";
+import { withdrawState } from "../../../../components/common/getDataOfList";
 import UrlAssembler from "url-assembler";
-import {useAcl} from "../../../../acl";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../../utils/useFetch/useFetch";
-import {ButtonBombo} from "../../../../components";
+import { useAcl } from "../../../../acl";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../../utils/useFetch/useFetch";
+import { ButtonBombo } from "../../../../components";
 
 export const AdminWithdrawal = (props) => {
   const history = useHistory();

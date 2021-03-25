@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
-import {Divider, Input, List as ListAntd} from "antd";
-import {firestore} from "../../../firebase";
-import {snapshotToArray} from "../../../utils";
+import { Divider, Input, List as ListAntd } from "antd";
+import { firestore } from "../../../firebase";
+import { snapshotToArray } from "../../../utils";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 import concat from "lodash/concat";
 import orderBy from "lodash/orderBy";
-import {withdrawState} from "../../../components/common/getDataOfList";
-import {useAcl} from "../../../acl";
-import {ButtonBombo} from "../../../components";
+import { withdrawState } from "../../../components/common/getDataOfList";
+import { useAcl } from "../../../acl";
+import { ButtonBombo } from "../../../components";
 
 const PAGINATION_LIMIT = 50;
 

@@ -1,14 +1,14 @@
-import React, {useGlobal} from "reactn";
+import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import {Levels} from "../../../../../../../components";
-import {useHistory, useParams} from "react-router";
+import { Levels } from "../../../../../../../components";
+import { useHistory, useParams } from "react-router";
 import get from "lodash/get";
-import {mediaQuery} from "../../../../../../../styles/constants";
-import {config} from "../../../../../../../firebase";
-import {Image} from "../../../../../../../components/common/Image";
-import {Icon} from "../../../../../../../components/common/Icons";
+import { mediaQuery } from "../../../../../../../styles/constants";
+import { config } from "../../../../../../../firebase";
+import { Image } from "../../../../../../../components/common/Image";
+import { Icon } from "../../../../../../../components/common/Icons";
 import moment from "moment";
-import {Anchor} from "../../../../../../../components/common/Anchor";
+import { Anchor } from "../../../../../../../components/common/Anchor";
 
 export const ChallengerContainer = (props) => {
   const history = useHistory();

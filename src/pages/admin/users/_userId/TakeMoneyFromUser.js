@@ -1,14 +1,14 @@
-import React, {useGlobal, useState} from "reactn";
-import {config} from "../../../../firebase";
-import {message, Modal} from "antd";
+import React, { useGlobal, useState } from "reactn";
+import { config } from "../../../../firebase";
+import { message, Modal } from "antd";
 import UrlAssembler from "url-assembler";
-import {gaError} from "../../../../utils";
-import {ButtonBombo, Input} from "../../../../components";
-import {useForm} from "react-hook-form";
-import {number, object, string} from "yup";
+import { gaError } from "../../../../utils";
+import { ButtonBombo, Input } from "../../../../components";
+import { useForm } from "react-hook-form";
+import { number, object, string } from "yup";
 import styled from "styled-components";
-import {useOwnFetch} from "../../../../utils/useFetch/useFetch";
-import {useErrorHandler} from "react-error-boundary";
+import { useOwnFetch } from "../../../../utils/useFetch/useFetch";
+import { useErrorHandler } from "react-error-boundary";
 
 export const TakeMoneyFromUser = (props) => {
   const [admin] = useGlobal("user");

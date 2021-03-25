@@ -1,21 +1,32 @@
-import React, {useGlobal, useState} from "reactn";
-import {ButtonBombo, DatePicker, Input, Select, TextArea,} from "../../../../components/common";
+import React, { useGlobal, useState } from "reactn";
+import {
+  ButtonBombo,
+  DatePicker,
+  Input,
+  Select,
+  TextArea,
+} from "../../../../components/common";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 import defaultTo from "lodash/defaultTo";
-import {Controller, useForm} from "react-hook-form";
-import {Checkbox, message, Select as AntSelect, Switch} from "antd";
-import {boolean, date, number, object, string} from "yup";
-import {useHistory, useParams} from "react-router";
-import {snapshotToArray, spinLoader} from "../../../../utils";
-import {config, firestore} from "../../../../firebase";
-import {useEffect} from "react";
+import { Controller, useForm } from "react-hook-form";
+import { Checkbox, message, Select as AntSelect, Switch } from "antd";
+import { boolean, date, number, object, string } from "yup";
+import { useHistory, useParams } from "react-router";
+import { snapshotToArray, spinLoader } from "../../../../utils";
+import { config, firestore } from "../../../../firebase";
+import { useEffect } from "react";
 import moment from "moment";
-import {awardTypes, eventTypes, linkTypes, tournamentTypes,} from "../../../../components/common/DataList";
+import {
+  awardTypes,
+  eventTypes,
+  linkTypes,
+  tournamentTypes,
+} from "../../../../components/common/DataList";
 import styled from "styled-components";
-import {currentUrlQuery} from "../../../../utils/queryUrl";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../../utils/useFetch/useFetch";
+import { currentUrlQuery } from "../../../../utils/queryUrl";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../../utils/useFetch/useFetch";
 
 const newTournament = {
   deleted: false,

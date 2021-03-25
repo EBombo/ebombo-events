@@ -1,14 +1,14 @@
-import React, {useGlobal, useState} from "reactn";
-import {lazy, Suspense} from "react";
+import React, { useState, useGlobal } from "reactn";
+import { lazy, Suspense } from "react";
 import styled from "styled-components";
 import get from "lodash/get";
 import defaultTo from "lodash/defaultTo";
-import {mediaQuery} from "../../styles/constants";
-import {config, firestore} from "../../firebase";
-import {Icon} from "../../components/common/Icons";
-import {spinLoader} from "../../utils";
-import {ButtonBombo} from "../../components";
-import {ModalContainer} from "../../components/common/ModalContainer";
+import { mediaQuery } from "../../styles/constants";
+import { config, firestore } from "../../firebase";
+import { Icon } from "../../components/common/Icons";
+import { spinLoader } from "../../utils";
+import { ButtonBombo } from "../../components";
+import { ModalContainer } from "../../components/common/ModalContainer";
 
 const EditHeldEvent = lazy(() => import("./EditHeldEvent"));
 

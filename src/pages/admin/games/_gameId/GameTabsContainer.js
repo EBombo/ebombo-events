@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {Tabs} from "antd";
-import {spinLoader} from "../../../../utils";
-import {useHistory, useParams} from "react-router";
-import {AdminRules} from "./rules";
-import {AdminFormats} from "./formats";
-import {Icon} from "../../../../components/common/Icons";
+import React, { useEffect, useState } from "react";
+import { Tabs } from "antd";
+import { spinLoader } from "../../../../utils";
+import { useHistory, useParams } from "react-router";
+import { AdminRules } from "./rules";
+import { AdminFormats } from "./formats";
+import { Icon } from "../../../../components/common/Icons";
 
 export const GameTabsContainer = (props) => {
   const { gameId } = useParams();

@@ -1,21 +1,21 @@
-import React, {useEffect, useGlobal, useState} from "reactn";
-import {useHistory, useParams} from "react-router";
+import React, { useEffect, useGlobal, useState } from "reactn";
+import { useHistory, useParams } from "react-router";
 import get from "lodash/get";
-import {Consoles} from "../../../../../../../components/common/Consoles";
-import {BackButton, Games, Levels} from "../../../../../../../components";
-import {Desktop, spinLoader, Tablet} from "../../../../../../../utils";
+import { Consoles } from "../../../../../../../components/common/Consoles";
+import { BackButton, Games, Levels } from "../../../../../../../components";
+import { Desktop, spinLoader, Tablet } from "../../../../../../../utils";
 import styled from "styled-components";
-import {mediaQuery} from "../../../../../../../styles/constants";
-import {ChallengeSearchOptions} from "./ChallengeSearchOptions";
-import {Chat} from "../../../../../../../components/chat/Chat";
-import {config, firestore} from "../../../../../../../firebase";
+import { mediaQuery } from "../../../../../../../styles/constants";
+import { ChallengeSearchOptions } from "./ChallengeSearchOptions";
+import { Chat } from "../../../../../../../components/chat/Chat";
+import { config, firestore } from "../../../../../../../firebase";
 import defaultTo from "lodash/defaultTo";
-import {UserImageProfile} from "../../../../../../../components/users/UserImageProfile";
-import {showMoney} from "../../../../../../../utils/showMoney";
+import { UserImageProfile } from "../../../../../../../components/users/UserImageProfile";
+import { showMoney } from "../../../../../../../utils/showMoney";
 import isEmpty from "lodash/isEmpty";
 import moment from "moment";
-import {useOwnFetch} from "../../../../../../../utils/useFetch/useFetch";
-import {Anchor} from "../../../../../../../components/common/Anchor";
+import { useOwnFetch } from "../../../../../../../utils/useFetch/useFetch";
+import { Anchor } from "../../../../../../../components/common/Anchor";
 
 export const ChallengeCreate = (props) => {
   const history = useHistory();

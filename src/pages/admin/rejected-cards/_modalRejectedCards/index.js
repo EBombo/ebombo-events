@@ -1,6 +1,6 @@
 import React from "reactn";
 import moment from "moment";
-import {ModalContainer} from "../../../../components/common/ModalContainer";
+import { ModalContainer } from "../../../../components/common/ModalContainer";
 
 export const ModalRejectedCards = ({
   setActiveModalRejectedCards,

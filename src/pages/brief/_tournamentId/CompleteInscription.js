@@ -1,17 +1,17 @@
-import React, {useGlobal, useState} from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import {ButtonBombo, Input, Upload} from "../../../components";
-import {object, string} from "yup";
-import {useForm} from "react-hook-form";
+import { ButtonBombo, Input, Upload } from "../../../components";
+import { object, string } from "yup";
+import { useForm } from "react-hook-form";
 import get from "lodash/get";
-import {mediaQuery} from "../../../styles/constants";
-import {Desktop, Tablet} from "../../../utils";
-import {config, firestore} from "../../../firebase";
-import {useParams} from "react-router-dom";
+import { mediaQuery } from "../../../styles/constants";
+import { Desktop, Tablet } from "../../../utils";
+import { config, firestore } from "../../../firebase";
+import { useParams } from "react-router-dom";
 import UrlAssembler from "url-assembler";
-import {useHistory} from "react-router";
-import {useOwnFetch} from "../../../utils/useFetch/useFetch";
-import {useSendError} from "../../../components/error-fallback/useSendError";
+import { useHistory } from "react-router";
+import { useOwnFetch } from "../../../utils/useFetch/useFetch";
+import { useSendError } from "../../../components/error-fallback/useSendError";
 import moment from "moment";
 
 export const CompleteInscription = (props) => {

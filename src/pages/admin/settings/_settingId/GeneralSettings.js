@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {message} from "antd";
-import {ButtonBombo, Input} from "../../../../components";
+import { Button, message } from "antd";
+import { ButtonBombo, Input } from "../../../../components";
 import get from "lodash/get";
 import defaultTo from "lodash/defaultTo";
 import * as yup from "yup";
-import {useForm} from "react-hook-form";
-import {config, firestore} from "../../../../firebase";
-import {spinLoader} from "../../../../utils";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../../utils/useFetch/useFetch";
+import { useForm } from "react-hook-form";
+import { config, firestore } from "../../../../firebase";
+import { spinLoader } from "../../../../utils";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../../utils/useFetch/useFetch";
 
 export const GeneralSettings = () => {
   const schema = yup.object().shape({

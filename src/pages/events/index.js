@@ -1,20 +1,20 @@
-import React, {useEffect, useState} from "reactn";
-import styled, {ThemeProvider} from "styled-components";
-import {HeaderLanding} from "./HeaderLanding";
-import {Services} from "./Services";
-import {firestore} from "../../firebase";
-import {IntegrationGames} from "./IntegrationGames";
-import {EsportsGames} from "./EsportsGames";
-import {Specials} from "./Specials";
-import {BusinessExamples} from "./BusinessExamples";
-import {HeldEvents} from "./HeldEvents";
-import {Comments} from "./Comments";
-import {Contact} from "./Contact";
-import {Footer} from "../../components/Footer";
-import {Companies} from "./Companies";
+import React, { useGlobal, useState, useEffect } from "reactn";
+import styled, { ThemeProvider } from "styled-components";
+import { HeaderLanding } from "./HeaderLanding";
+import { Services } from "./Services";
+import { firestore } from "../../firebase";
+import { IntegrationGames } from "./IntegrationGames";
+import { EsportsGames } from "./EsportsGames";
+import { Specials } from "./Specials";
+import { BusinessExamples } from "./BusinessExamples";
+import { HeldEvents } from "./HeldEvents";
+import { Comments } from "./Comments";
+import { Contact } from "./Contact";
+import { Footer } from "../../components/Footer";
+import { Companies } from "./Companies";
 import get from "lodash/get";
-import {spinLoader} from "../../utils";
-import {darkTheme} from "../../styles/theme";
+import { spinLoader } from "../../utils";
+import { darkTheme } from "../../styles/theme";
 
 export default (props) => {
   const [events, setEvents] = useState(null);

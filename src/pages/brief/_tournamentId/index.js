@@ -1,19 +1,19 @@
-import React, {useEffect, useGlobal, useState} from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import {LoginModal} from "../../../components";
-import {ForgotPassword} from "../../forgot-password";
-import {Registration} from "../../registration";
-import {ItemCardTournament} from "../../../components/tournaments/ItemCardTournament";
-import {useParams} from "react-router-dom";
-import {firestore} from "../../../firebase";
-import {useHistory} from "react-router";
-import {spinLoader} from "../../../utils";
-import {CompleteInscription} from "./CompleteInscription";
-import {mediaQuery} from "../../../styles/constants";
+import { LoginModal } from "../../../components";
+import { ForgotPassword } from "../../forgot-password";
+import { Registration } from "../../registration";
+import { ItemCardTournament } from "../../../components/tournaments/ItemCardTournament";
+import { useParams } from "react-router-dom";
+import { firestore } from "../../../firebase";
+import { useHistory } from "react-router";
+import { spinLoader } from "../../../utils";
+import { CompleteInscription } from "./CompleteInscription";
+import { mediaQuery } from "../../../styles/constants";
 import isEmpty from "lodash/isEmpty";
-import {BusinessInscription} from "./BusinessInscription";
+import { BusinessInscription } from "./BusinessInscription";
 import defaultTo from "lodash/defaultTo";
-import {PasswordModal} from "../../../components/common/PasswordModal";
+import { PasswordModal } from "../../../components/common/PasswordModal";
 import get from "lodash/get";
 
 export default (props) => {

@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import get from "lodash/get";
-import {Divider, List} from "antd";
-import {firestore} from "../../../firebase";
-import {snapshotToArray, spinLoader} from "../../../utils";
-import {ModalSuggestion} from "./_modalSuggestion";
+import { Divider, List } from "antd";
+import { firestore } from "../../../firebase";
+import { snapshotToArray, spinLoader } from "../../../utils";
+import { ModalSuggestion } from "./_modalSuggestion";
 import styled from "styled-components";
-import {useAcl} from "../../../acl";
+import { useAcl } from "../../../acl";
+import { darkTheme } from "../../../styles/theme";
 
 export const AdminSuggestions = () => {
   const { AclLink } = useAcl();

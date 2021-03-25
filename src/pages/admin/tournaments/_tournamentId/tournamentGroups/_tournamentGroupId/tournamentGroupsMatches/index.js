@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "reactn";
-import {querySnapshotToArray, spinLoader} from "../../../../../../../utils";
-import {List as ListAntd, message, Modal, Tooltip} from "antd";
-import {firestore} from "../../../../../../../firebase";
+import React, { useEffect, useState } from "reactn";
+import { querySnapshotToArray, spinLoader } from "../../../../../../../utils";
+import { message, List as ListAntd, Modal, Tooltip } from "antd";
+import { firestore } from "../../../../../../../firebase";
 import forEach from "lodash/forEach";
 import isEmpty from "lodash/isEmpty";
 import groupBy from "lodash/groupBy";
 import map from "lodash/map";
 import get from "lodash/get";
 import moment from "moment";
-import {useHistory} from "react-router";
-import {ModalAdminGroupMatchDateEdit} from "./_tournamentGroupMatchId";
+import { useHistory } from "react-router";
+import { ModalAdminGroupMatchDateEdit } from "./_tournamentGroupMatchId";
 import styled from "styled-components";
-import {Icon} from "../../../../../../../components/common/Icons";
+import { Icon } from "../../../../../../../components/common/Icons";
 import orderBy from "lodash/orderBy";
 
 export const AdminTournamentGroupsMatches = (props) => {

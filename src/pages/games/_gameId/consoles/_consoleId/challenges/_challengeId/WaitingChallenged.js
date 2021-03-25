@@ -1,10 +1,10 @@
-import React, {useGlobal} from "reactn";
+import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import {ButtonBombo} from "../../../../../../../components";
+import { ButtonBombo } from "../../../../../../../components";
 import get from "lodash/get";
 import moment from "moment";
-import {mediaQuery} from "../../../../../../../styles/constants";
-import {useHistory} from "react-router";
+import { mediaQuery } from "../../../../../../../styles/constants";
+import { useHistory } from "react-router";
 
 export const WaitingChallenged = (props) => {
   const [authUser] = useGlobal("user");

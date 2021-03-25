@@ -1,22 +1,25 @@
-import React, {useEffect, useGlobal, useState} from "reactn";
-import {config, firestore} from "../../../../firebase";
+import React, { useEffect, useState, useGlobal } from "reactn";
+import { config, firestore } from "../../../../firebase";
 import get from "lodash/get";
-import {Checkbox, message, Modal} from "antd";
+import { Checkbox, message, Modal } from "antd";
 import UrlAssembler from "url-assembler";
-import {snapshotToArray, spinLoader} from "../../../../utils";
+import { snapshotToArray, spinLoader } from "../../../../utils";
 import moment from "moment";
-import {ButtonBombo} from "../../../../components";
-import {useHistory, useParams} from "react-router";
-import {showExpiringMoney} from "../../../../utils/showMoney";
-import {ValidateAccount} from "./ValidateAccount";
+import { ButtonBombo } from "../../../../components";
+import { useHistory, useParams } from "react-router";
+import { showExpiringMoney } from "../../../../utils/showMoney";
+import { ValidateAccount } from "./ValidateAccount";
 import styled from "styled-components";
-import {userAccountState, userVerifiedState,} from "../../../../components/common/getDataOfList";
-import {TakeMoneyFromUser} from "./TakeMoneyFromUser";
-import {mediaQuery} from "../../../../styles/constants";
-import {useAcl} from "../../../../acl";
-import {useErrorHandler} from "react-error-boundary";
-import {useOwnFetch} from "../../../../utils/useFetch/useFetch";
-import {AddMoney} from "./addMoney";
+import {
+  userAccountState,
+  userVerifiedState,
+} from "../../../../components/common/getDataOfList";
+import { TakeMoneyFromUser } from "./TakeMoneyFromUser";
+import { mediaQuery } from "../../../../styles/constants";
+import { useAcl } from "../../../../acl";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../../utils/useFetch/useFetch";
+import { AddMoney } from "./addMoney";
 
 export default () => {
   const [authUser] = useGlobal("user");

@@ -1,7 +1,7 @@
 import React from "react";
 
-import {withRouter} from "react-router-dom";
-import {ButtonBombo} from "../../components";
+import { withRouter } from "react-router-dom";
+import { ButtonBombo } from "../../components";
 
 function NotFound() {
   return (

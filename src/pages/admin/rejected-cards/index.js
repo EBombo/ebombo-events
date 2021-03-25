@@ -1,12 +1,12 @@
-import React, {useEffect, useGlobal, useState} from "reactn";
-import {Divider, List} from "antd";
+import React, { useEffect, useState, useGlobal } from "reactn";
+import { Divider, List } from "antd";
 import get from "lodash/get";
 import moment from "moment";
 import styled from "styled-components";
-import {ModalRejectedCards} from "./_modalRejectedCards";
-import {firestore} from "../../../firebase";
-import {snapshotToArray, spinLoader} from "../../../utils";
-import {ButtonBombo} from "../../../components";
+import { ModalRejectedCards } from "./_modalRejectedCards";
+import { firestore } from "../../../firebase";
+import { snapshotToArray, spinLoader } from "../../../utils";
+import { ButtonBombo } from "../../../components";
 
 export default () => {
   const [rejectedCards, setRejectedCards] = useState([]);

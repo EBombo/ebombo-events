@@ -1,8 +1,8 @@
 import React from "reactn";
-import {services} from "../../components/common/DataList";
+import { services } from "../../components/common/DataList";
 import styled from "styled-components";
-import {mediaQuery} from "../../styles/constants";
-import {config} from "../../firebase";
+import { mediaQuery } from "../../styles/constants";
+import { config } from "../../firebase";
 
 export const Services = (props) => (
   <ServiceSection id="services">

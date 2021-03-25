@@ -1,11 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import {firestore} from "../../../../firebase";
-import {spinLoader} from "../../../../utils";
-import {ButtonBombo, ImageUpload, Input,} from "../../../../components";
-import {bannersList} from "../../../../components/common/DataList";
+import { firestore } from "../../../../firebase";
+import { spinLoader } from "../../../../utils";
+import {
+  ButtonBombo,
+  ImageUpload,
+  Input,
+  Upload,
+} from "../../../../components";
+import { bannersList } from "../../../../components/common/DataList";
 import get from "lodash/get";
-import {message} from "antd";
+import { message } from "antd";
 
 export const Banners = (props) => {
   const [isLoading, setIsLoading] = useState(true);

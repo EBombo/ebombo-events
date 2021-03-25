@@ -1,14 +1,14 @@
 import React from "react";
-import {Tabs} from "antd";
-import {useParams} from "react-router";
-import {PageInstructions} from "./PageInstructions";
-import {GeneralSettings} from "./GeneralSettings";
-import {MatchInstructions} from "./MatchInstructions";
-import {Characteristics} from "./Characteristics";
-import {SocialNetworks} from "./SocialNetworks";
-import {Banners} from "./Banners";
-import {Manifests} from "./Manifests";
-import {AdminEbomboRules} from "./AdminEbomboRules";
+import { Tabs } from "antd";
+import { useParams } from "react-router";
+import { PageInstructions } from "./PageInstructions";
+import { GeneralSettings } from "./GeneralSettings";
+import { MatchInstructions } from "./MatchInstructions";
+import { Characteristics } from "./Characteristics";
+import { SocialNetworks } from "./SocialNetworks";
+import { Banners } from "./Banners";
+import { Manifests } from "./Manifests";
+import { AdminEbomboRules } from "./AdminEbomboRules";
 
 export default (props) => {
   const { TabPane } = Tabs;

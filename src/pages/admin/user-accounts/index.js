@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from "react";
-import {firestore} from "../../../firebase";
-import {snapshotToArray, spinLoader} from "../../../utils";
-import {Divider, List, Modal, Tooltip} from "antd";
+import React, { useEffect, useState } from "react";
+import { firestore } from "../../../firebase";
+import { snapshotToArray, spinLoader } from "../../../utils";
+import { Divider, List, Modal, Tooltip } from "antd";
 import get from "lodash/get";
 import orderBy from "lodash/orderBy";
-import {useHistory} from "react-router";
-import {useAcl} from "../../../acl";
-import {Icon} from "../../../components/common/Icons";
-import {ButtonBombo, ImageUpload} from "../../../components";
+import { useHistory } from "react-router";
+import { useAcl } from "../../../acl";
+import { Icon } from "../../../components/common/Icons";
+import { ButtonBombo } from "../../../components";
+import { ImageUpload } from "../../../components";
 
 export default () => {
   const history = useHistory();

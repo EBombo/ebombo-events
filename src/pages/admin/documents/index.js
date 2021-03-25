@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from "reactn";
-import {Divider, List} from "antd";
+import React, { useEffect, useState } from "reactn";
+import { Divider, List } from "antd";
 import get from "lodash/get";
 import orderBy from "lodash/orderBy";
 import styled from "styled-components";
-import {colorRed} from "../../../styles/constants";
-import {firestore} from "../../../firebase";
-import {snapshotToArray, spinLoader} from "../../../utils";
-import {useHistory} from "react-router";
-import {useAcl} from "../../../acl";
-import {Icon} from "../../../components/common/Icons";
+import { colorRed } from "../../../styles/constants";
+import { firestore } from "../../../firebase";
+import { snapshotToArray, spinLoader } from "../../../utils";
+import { useHistory } from "react-router";
+import { useAcl } from "../../../acl";
+import { Icon } from "../../../components/common/Icons";
 
 export const AdminDocuments = () => {
   const history = useHistory();

@@ -1,9 +1,9 @@
 import React from "reactn";
-import {useAcl} from "../../../acl";
-import {useEffect, useState} from "react";
-import {firestore} from "../../../firebase";
-import {snapshotToArray, spinLoader} from "../../../utils";
-import {Button, List} from "antd";
+import { useAcl } from "../../../acl";
+import { useEffect, useState } from "react";
+import { firestore } from "../../../firebase";
+import { snapshotToArray, spinLoader } from "../../../utils";
+import { Button, List } from "antd";
 
 export const AdminRoles = () => {
   const { AclLink } = useAcl();

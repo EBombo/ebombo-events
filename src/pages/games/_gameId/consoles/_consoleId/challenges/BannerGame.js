@@ -1,10 +1,10 @@
 import React from "reactn";
 import styled from "styled-components";
 import get from "lodash/get";
-import {mediaQuery} from "../../../../../../styles/constants";
-import {EBomboRules} from "../../../../../../components";
-import {useState} from "react";
-import {ModalContainer} from "../../../../../../components/common/ModalContainer";
+import { mediaQuery } from "../../../../../../styles/constants";
+import { EBomboRules } from "../../../../../../components";
+import { useState } from "react";
+import { ModalContainer } from "../../../../../../components/common/ModalContainer";
 
 export const BannerGame = (props) => {
   const [isVisibleEBomboRules, setIsVisibleEBomboRules] = useState(false);

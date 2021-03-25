@@ -1,16 +1,20 @@
-import React, {useGlobal, useState} from "reactn";
-import {FormCss} from "./CompleteInscription";
-import {object, string} from "yup";
-import {useParams} from "react-router-dom";
-import {useHistory} from "react-router";
-import {config} from "../../../firebase";
-import {Controller, useForm} from "react-hook-form";
+import React, { useGlobal, useState } from "reactn";
+import { FormCss } from "./CompleteInscription";
+import { object, string } from "yup";
+import { useParams } from "react-router-dom";
+import { useHistory } from "react-router";
+import { config } from "../../../firebase";
+import { Controller, useForm } from "react-hook-form";
 import UrlAssembler from "url-assembler";
 import get from "lodash/get";
-import {ButtonBombo, Input, Select} from "../../../components";
-import {careers, companyDepartments,} from "../../../components/common/DataList";
-import {useOwnFetch} from "../../../utils/useFetch/useFetch";
-import {useSendError} from "../../../components/error-fallback/useSendError";
+import { ButtonBombo, Input, Select } from "../../../components";
+import {
+  careers,
+  companyDepartments,
+} from "../../../components/common/DataList";
+import { useErrorHandler } from "react-error-boundary";
+import { useOwnFetch } from "../../../utils/useFetch/useFetch";
+import { useSendError } from "../../../components/error-fallback/useSendError";
 
 export const BusinessInscription = (props) => {
   const schema = object().shape({

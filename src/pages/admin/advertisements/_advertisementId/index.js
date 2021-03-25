@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from "react";
-import {Checkbox, message} from "antd";
-import {firestore} from "../../../../firebase";
+import React, { useEffect, useState } from "react";
+import { Checkbox, message } from "antd";
+import { firestore } from "../../../../firebase";
 import moment from "moment";
-import {useParams} from "react-router-dom";
-import {Controller, useForm} from "react-hook-form";
-import {ButtonBombo, Input} from "../../../../components";
-import {spinLoader} from "../../../../utils";
+import { useParams } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { ButtonBombo, Input } from "../../../../components";
+import { spinLoader } from "../../../../utils";
 import get from "lodash/get";
-import {boolean, object, string} from "yup";
-import {useHistory} from "react-router";
+import { boolean, object, string } from "yup";
+import { useHistory } from "react-router";
 
 const newAdvertisement = {
   name: "",

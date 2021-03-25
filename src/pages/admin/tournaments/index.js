@@ -1,16 +1,23 @@
-import React, {useEffect, useGlobal, useState} from "reactn";
-import {snapshotToArray, spinLoader} from "../../../utils";
-import {Divider, List, Modal, Select as AntSelect, Tooltip,} from "antd";
-import {firestore} from "../../../firebase";
+import React, { useEffect, useGlobal, useState } from "reactn";
+import { snapshotToArray, spinLoader } from "../../../utils";
+import {
+  Button,
+  Divider,
+  List,
+  Modal,
+  Select as AntSelect,
+  Tooltip,
+} from "antd";
+import { firestore } from "../../../firebase";
 import get from "lodash/get";
-import {useHistory, useParams} from "react-router";
+import { useHistory, useParams } from "react-router";
 import moment from "moment";
-import {ButtonBombo, Upload} from "../../../components";
-import {tournamentTypes} from "../../../components/common/DataList";
+import { ButtonBombo, Upload } from "../../../components";
+import { tournamentTypes } from "../../../components/common/DataList";
 import styled from "styled-components";
-import {useAcl} from "../../../acl";
-import {Icon} from "../../../components/common/Icons";
-import {Anchor} from "../../../components/common/Anchor";
+import { useAcl } from "../../../acl";
+import { Icon } from "../../../components/common/Icons";
+import { Anchor } from "../../../components/common/Anchor";
 
 export const AdminTournaments = () => {
   const [authUser] = useGlobal("user");

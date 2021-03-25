@@ -1,8 +1,8 @@
 import React from "reactn";
-import {useParams} from "react-router-dom";
-import {Chat} from "../../components/chat/Chat";
-import {Games, WhiteSpace} from "../../components";
-import {useHistory} from "react-router";
+import { useParams } from "react-router-dom";
+import { Chat } from "../../components/chat/Chat";
+import { Games, WhiteSpace } from "../../components";
+import { useHistory } from "react-router";
 
 export const MobileChat = (props) => {
   const history = useHistory();

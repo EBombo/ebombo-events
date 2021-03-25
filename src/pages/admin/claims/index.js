@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
-import {snapshotToArray} from "../../../utils";
-import {firestore} from "../../../firebase";
+import { snapshotToArray } from "../../../utils";
+import { firestore } from "../../../firebase";
 import orderBy from "lodash/orderBy";
-import {Divider, Input, List as ListAntd} from "antd";
-import {useAcl} from "../../../acl";
+import { Divider, Input, List as ListAntd } from "antd";
+import { useAcl } from "../../../acl";
 
 export const AdminClaims = (props) => {
   const { AclLink } = useAcl();

@@ -1,13 +1,13 @@
 import React from "react";
-import {MatchHistory} from "../../../../components";
-import {useHistory, useParams} from "react-router";
+import { MatchHistory } from "../../../../components";
+import { useHistory, useParams } from "react-router";
 import styled from "styled-components";
-import {useEffect, useState} from "reactn";
-import {firestore} from "../../../../firebase";
-import {SpinLoader} from "../../../../styles/utils";
-import {spinLoader} from "../../../../utils";
-import {Button} from "antd";
-import {useAcl} from "../../../../acl";
+import { useEffect, useState } from "reactn";
+import { firestore } from "../../../../firebase";
+import { SpinLoader } from "../../../../styles/utils";
+import { spinLoader } from "../../../../utils";
+import { Button } from "antd";
+import { useAcl } from "../../../../acl";
 
 export const AdminMatchHistory = () => {
   const history = useHistory();
