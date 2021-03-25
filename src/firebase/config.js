@@ -5,17 +5,22 @@ import "firebase/storage";
 import "firebase/analytics";
 import configJson from "./config.json";
 
-const hostName = window.location.hostname.replace("subdomain.", "");
+const hostName = window.location.hostname;
 
 let config;
 
-if ((hostName.includes("-dev") || hostName.includes("localhost"))) {
-    config = configJson.development;
-    console.log("dev", config);
+if (true) {
+    config = configJson.productionConfig;
+    console.log("prod");
 } else {
-    config = configJson.production;
-    config.serverUrl = hostName;
-    console.log("prod", config);
+    config = configJson.devConfig;
+    console.log("dev");
+
+    if (["localhost"].includes(hostName)) {
+        config.serverUrl = config.serverUrlLocal;
+        config.serverUrlMatches = config.serverUrlMatchesLocal;
+        config.serverUrlAdmin = config.serverUrlAdminLocal;
+    }
 }
 
 firebase.initializeApp(config.firebase);
@@ -26,16 +31,56 @@ const storage = firebase.storage();
 const auth = firebase.auth();
 
 if (hostName === "localhost") {
-    //config.serverUrl = config.serverUrlLocal;
     //firestore.useEmulator("localhost", 8080);
     //auth.useEmulator("http://localhost:9099/");
 }
 
+const documentsStorageBucket = firebase
+    .app()
+    .storage(`gs://${config.documentsStorageBucket}`);
+const claimsStorageBucket = firebase
+    .app()
+    .storage(`gs://${config.claimsStorageBucket}`);
+const advertisementsStorageBucket = firebase
+    .app()
+    .storage(`gs://${config.advertisementsStorageBucket}`);
+const gamesStorageBucket = firebase
+    .app()
+    .storage(`gs://${config.gamesStorageBucket}`);
+const usersStorageBucket = firebase
+    .app()
+    .storage(`gs://${config.usersStorageBucket}`);
+const landingStorageBucket = firebase
+    .app()
+    .storage(`gs://${config.landingStorageBucket}`);
+const landingsStorageBucket = firebase
+    .app()
+    .storage(`gs://${config.landingsStorageBucket}`);
+const tournamentsStorageBucket = firebase
+    .app()
+    .storage(`gs://${config.tournamentsStorageBucket}`);
+const tournamentTeamsStorageBucket = firebase
+    .app()
+    .storage(`gs://${config.tournamentTeamsStorageBucket}`);
+const settingsStorageBucket = firebase
+    .app()
+    .storage(`gs://${config.settingsStorageBucket}`);
+
 export {
-    firebase,
-    firestore,
+    claimsStorageBucket,
+    documentsStorageBucket,
+    advertisementsStorageBucket,
+    gamesStorageBucket,
+    usersStorageBucket,
+    landingStorageBucket,
+    landingsStorageBucket,
+    tournamentsStorageBucket,
+    tournamentTeamsStorageBucket,
+    settingsStorageBucket,
     storage,
+    firestore,
     auth,
     config,
-    analytics
+    firebase,
+    analytics,
 };

@@ -1,13 +1,13 @@
 import React, {useEffect, useRef, useState} from "reactn";
+import {useResizeImage, useUploadToStorage} from "../../utils/useHooks";
 import styled from "styled-components";
 import {Image} from "./Image";
 import {CloudUploadOutlined} from "@ant-design/icons";
-import {ButtonAnt} from "../form";
-import {useResizeImage, useUploadToStorage} from "../../hooks";
+import {ButtonBombo} from "./ButtonBombo";
 
 export const ImageUpload = (props) => {
-  const {resize} = useResizeImage();
-  const {uploadToStorageAndGetURL} = useUploadToStorage();
+  const { resize } = useResizeImage();
+  const { uploadToStorageAndGetURL } = useUploadToStorage();
 
   const inputRef = useRef(null);
 
@@ -20,9 +20,9 @@ export const ImageUpload = (props) => {
 
   const manageImage = async (event) => {
     if (
-        !event.target.files ||
-        event.target.files.length === 0 ||
-        !event.target.files[0]
+      !event.target.files ||
+      event.target.files.length === 0 ||
+      !event.target.files[0]
     )
       return setPreviewImage(null);
 
@@ -39,8 +39,8 @@ export const ImageUpload = (props) => {
       const images64 = await resize(event, width, height);
 
       return props.afterUpload
-          ? await uploadImage(images64.split(",")[1], fileSuffix, size)
-          : images64;
+        ? await uploadImage(images64.split(",")[1], fileSuffix, size)
+        : images64;
     });
 
     const images = await Promise.all(promisesImages);
@@ -52,45 +52,42 @@ export const ImageUpload = (props) => {
   };
 
   const uploadImage = async (imgBase64, fileSuffix, size) =>
-      await uploadToStorageAndGetURL(
-          imgBase64,
-          props.filePath,
-          `${props.fileName}_${size}`,
-          fileSuffix,
-          props.bucket
-      );
+    await uploadToStorageAndGetURL(
+      imgBase64,
+      props.filePath,
+      `${props.fileName}_${size}`,
+      fileSuffix,
+      props.bucket
+    );
 
   return (
-      <UploadContainer>
-        {previewImage ? (
-            <div className="image-container">
-              <Image
-                  src={previewImage}
-                  height="100px"
-                  width="100px"
-                  margin="0"
-                  borderRadius="5px"
-              />
-            </div>
-        ) : (
-            <div className="dashed">
-              <CloudUploadOutlined/>
-            </div>
-        )}
-        <div className="input-container">
-          <ButtonAnt
-              onClick={() => inputRef.current.click()}
-              loading={loading}
-              key={loading}
-          >
-            Subir Imagen
-          </ButtonAnt>
-          <input type="file"
-                 ref={inputRef}
-                 onChange={manageImage}
-                 hidden/>
+    <UploadContainer>
+      {previewImage ? (
+        <div className="image-container">
+          <Image
+            src={previewImage}
+            height="100px"
+            width="100px"
+            margin="0"
+            borderRadius="5px"
+          />
         </div>
-      </UploadContainer>
+      ) : (
+        <div className="dashed">
+          <CloudUploadOutlined />
+        </div>
+      )}
+      <div className="input-container">
+        <ButtonBombo
+          onClick={() => inputRef.current.click()}
+          loading={loading}
+          key={loading}
+        >
+          Subir Imagen
+        </ButtonBombo>
+        <input type="file" ref={inputRef} onChange={manageImage} hidden />
+      </div>
+    </UploadContainer>
   );
 };
 

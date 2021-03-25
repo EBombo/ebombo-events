@@ -1,70 +1,124 @@
 import React, {setGlobal, useEffect, useState} from "reactn";
 import {setLocale} from "yup";
-import {yup} from "../config";
-import {config} from "../firebase";
-import {spinLoader} from "../utils/loader";
-import {GlobalStyle, themeDark, themeLight} from "../theme";
-import {
-    collectionToDate,
-    useEnvironment,
-    useLanguageCode,
-    useLocation,
-    useSettings,
-    useUser
-} from "./useLocalStorageState";
-import get from "lodash/get";
-import {ThemeProvider} from "styled-components";
+import {config, yup} from "../firebase";
 import moment from "moment";
 import "moment/locale/es";
+import {logoSpin} from "../utils/loader";
+import {initializeFacebookPixel} from "../utils/facebookPixel";
+import {initializeGoogleTM, initializeReactGA} from "../utils";
+import {GlobalStyle} from "../styles/globalStyle";
+import {ThemeProvider} from "styled-components";
+import {darkTheme} from "../styles/theme";
+import {
+    collectionToDate,
+    useCharacteristics,
+    useConsoles,
+    useEbomboRules,
+    useEnvironment,
+    useGames,
+    useHowItWorks,
+    useLanding,
+    useLocation,
+    useMatchInstructions,
+    useRules,
+    useSettings,
+    useSocialNetworks,
+    useUser,
+    useUserAccounts,
+} from "./useLocalStorageState";
 import {initializeManifest} from "../utils/manifest";
 
-export const withConfiguration = Component => () => {
+export const withConfiguration = (Component) => {
+  return () => {
     const [isLoadingConfig, setIsLoadingConfig] = useState(true);
     const [authUser] = useUser();
+    const [games] = useGames();
+    const [consoles] = useConsoles();
+    const [rules] = useRules();
+    const [userAccounts] = useUserAccounts();
     const [settings] = useSettings();
+    const [ebomboRules] = useEbomboRules();
     const [environment, setEnvironment] = useEnvironment();
     const [location] = useLocation();
-    const [languageCode] = useLanguageCode();
+    const [landing] = useLanding();
+    const [matchInstructions] = useMatchInstructions();
+    const [characteristic] = useCharacteristics();
+    const [howItWorks] = useHowItWorks();
+    const [socialNetworks] = useSocialNetworks();
 
     useEffect(() => {
-        const initializeConfig = async () => {
-            environment !== config.firebase.projectId && localStorage.clear();
-            setEnvironment(config.firebase.projectId);
+      const initializeConfig = async () => {
+        environment !== config.firebase.projectId && localStorage.clear();
+        setEnvironment(config.firebase.projectId);
 
-            await setGlobal({
-                user: authUser ? collectionToDate(authUser) : null,
-                settings: collectionToDate(settings),
-                location,
-                languageCode,
-                register: null,
-                isLoadingCreateUser: false,
-                isLoadingUser: false,
-                isVisibleLoginModal: false,
-                isVisibleForgotPassword: false,
-                isLoadingFacebookAuth: false,
-                openRightDrawer: false,
-                openLeftDrawer: false,
-                serverTime: new Date(),
-                currentCurrency: "s/.",
-                theme: get(authUser, "theme") === "themeLight" ? themeLight : themeDark,
-            });
+        await setGlobal({
+          user: authUser ? collectionToDate(authUser) : null,
+          location,
+          register: null,
+          realMoney: true,
+          isLoadingCreateUser: false,
+          isLoadingUser: false,
+          currentGame: { id: "all" },
+          currentLeague: null,
+          currentTournament: null,
+          activeGameWeeks: null,
+          isVisibleLoginModal: false,
+          isVisiblePasswordModal: false,
+          selectedFavorites: null,
+          openSidebarMobile: false,
+          openSidebarMenuLeft: false,
+          rankingUsers: [],
+          gameRule: null,
+          ebomboRules: ebomboRules,
+          serverTime: moment(),
+          gameEntryCost: 0,
+          socialNetworks: socialNetworks,
+          matchInstructions: matchInstructions,
+          howItWorks: howItWorks,
+          characteristic: characteristic,
+          settings: collectionToDate(settings),
+          games: collectionToDate(games),
+          consoles: collectionToDate(consoles),
+          rules: collectionToDate(rules),
+          userAccounts: collectionToDate(userAccounts),
+          landing: collectionToDate(landing),
+          leagues: [],
+          loadingSearchMatches: false,
+          currentCurrency: config.currency,
+          isVisibleModalUserAccount: false,
+          isVisibleEditProfilePicture: false,
+          matches: [],
+          challenges: [],
+          loadingVerifyExistMatch: true,
+          loadingSearchRoom: false,
+          advertisements: [],
+          tournamentTeams: [],
+          showGuide: false,
+          stepIndex: 0,
+          runGuide: true,
+          banners: [],
+        });
 
-            moment.locale(languageCode);
-            setLocale(yup[languageCode]);
-        };
+        setLocale(yup["es"]);
+      };
 
-        initializeConfig();
-        initializeManifest();
-        //initializeReactGA();
-        setIsLoadingConfig(false);
+      initializeConfig();
+      initializeGoogleTM();
+      initializeReactGA();
+      initializeFacebookPixel();
+      initializeManifest();
+      setIsLoadingConfig(false);
     }, []);
 
-    return <ThemeProvider theme={get(authUser, "theme") === "themeLight" ? themeLight : themeDark}>
-        <GlobalStyle/>
-        {
-            isLoadingConfig
-                ? spinLoader()
-                : <Component/>
-        }
-    </ThemeProvider>
+    return (
+      <ThemeProvider theme={darkTheme}>
+        <GlobalStyle />
+        {isLoadingConfig ? (
+          <div className="bg-spin-bombo">{logoSpin()}</div>
+        ) : (
+          <Component />
+        )}
+      </ThemeProvider>
+    );
+  };
 };

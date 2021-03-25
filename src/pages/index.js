@@ -1,7 +1,7 @@
-export * from "./forgot-password";
-export * from "./home";
-export * from "./login";
-export * from "./register";
-export * from "./verification";
-export * from "./lading";
-export * from "./admin/users";
+import React from "react";
+import ReactDOM from "react-dom";
+import "antd/dist/antd.css";
+import "antd-mobile/dist/antd-mobile.css";
+import CheckVersion from "./versions/CheckVersion";
+
+ReactDOM.render(<CheckVersion />, document.getElementById("root"));

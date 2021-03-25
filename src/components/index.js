@@ -1,3 +1,12 @@
-export * from "./common/Layout";
-export * from "./UserLayout";
-export * from "./login-facebook/LoginFacebook";
+export { default as UpdateVersion } from "./versions/UpdateVersion";
+export { default as PublicLayout } from "./PublicLayout";
+export { UserLayout } from "./UserLayout";
+export { LoginModal } from "./login/LoginModal";
+export { BanModal } from "./ban/BanModal";
+export { LoginFacebook } from "./login-facebook";
+export { StepsHeader } from "./steps/Steps";
+export * from "./tournaments";
+export * from "./Container";
+export * from "./common";
+export * from "./tips";
+export * from "./tournaments";

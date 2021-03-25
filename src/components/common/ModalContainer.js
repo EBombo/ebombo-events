@@ -1,18 +1,16 @@
 import styled from "styled-components";
 import {Modal} from "antd";
-import {mediaQuery} from "../../constants";
+import {mediaQuery} from "../../styles/constants";
 import React from "reactn";
 
 export const ModalContainer = (props) => (
-    <ModalContainerCss {...props}>{props.children}</ModalContainerCss>
+  <ModalContainerCss {...props}>{props.children}</ModalContainerCss>
 );
 
 const ModalContainerCss = styled(Modal)`
   top: 10px;
-
   ${mediaQuery.afterTablet} {
     top: 50px;
-    ${props => props.width ? `width:${props.width}!important;` : ""}
   }
 
   .ant-modal-content {
@@ -20,12 +18,21 @@ const ModalContainerCss = styled(Modal)`
   }
 
   .ant-modal-close {
-    color: ${(props) => props.theme.basic.primary};
+    color: ${(props) =>
+      props.primary === "true"
+        ? props.theme.basic.blackLighten
+        : props.theme.basic.primary};
   }
 
   .ant-modal-body {
-    padding: 45px 24px 24px 24px;
-    background: ${(props) => props.theme.basic.blackDarken};
-    color: ${(props) => props.theme.basic.white};
+    background: ${(props) =>
+      props.primary === "true"
+        ? props.theme.basic.gray
+        : props.theme.basic.blackLighten};
+
+    color: ${(props) =>
+      props.primary === "true"
+        ? props.theme.basic.blackLighten
+        : props.theme.basic.white};
   }
 `;
