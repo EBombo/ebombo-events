@@ -4,7 +4,6 @@ export { RegistrationMobile } from "./registration-mobile";
 export { ForgotPassword } from "./forgot-password";
 export { Landing } from "./landing";
 export { Dispatcher } from "./dispatcher";
-export { Notifications } from "./notifications/notificationId";
 export { MobileChat } from "./chat";
 export { Tournament } from "./games/_gameId/consoles/_consoleId/tournaments/_tournamentId";
 export { User } from "./users/_userId";

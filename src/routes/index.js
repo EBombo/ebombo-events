@@ -1,58 +1,57 @@
 import React from "reactn";
-import { Suspense, lazy } from "react";
-import { Route, Switch } from "react-router-dom";
-import { Redirect } from "react-router";
+import {lazy, Suspense} from "react";
+import {Route, Switch} from "react-router-dom";
+import {Redirect} from "react-router";
 import {
-  AdminClaim,
-  AdminClaims,
-  AdminCouponEdit,
-  AdminCoupons,
-  AdminGroupEdit,
-  AdminMatchesHistory,
-  AdminMatchHistory,
-  AdminSuggestions,
-  AdminTournamentEdit,
-  AdminTournamentRuleEdit,
-  AdminTournaments,
-  AdminWithdrawal,
-  Dispatcher,
-  Error,
-  Followers,
-  Followings,
-  Landing,
-  Notifications,
-  Registration,
-  Tournament,
-  League,
-  User,
-  UserInvitation,
-  AdminDocuments,
-  AdminDocument,
-  AdminAdvertisements,
-  MobileChat,
-  ChallengeContainer,
-  EditProfile,
-  UserAccounts,
+    AdminAdvertisements,
+    AdminClaim,
+    AdminClaims,
+    AdminCouponEdit,
+    AdminCoupons,
+    AdminDocument,
+    AdminDocuments,
+    AdminGroupEdit,
+    AdminMatchesHistory,
+    AdminMatchHistory,
+    AdminSuggestions,
+    AdminTournamentEdit,
+    AdminTournamentRuleEdit,
+    AdminTournaments,
+    AdminWithdrawal,
+    ChallengeContainer,
+    Dispatcher,
+    EditProfile,
+    Error,
+    Followers,
+    Followings,
+    Landing,
+    League,
+    MobileChat,
+    Registration,
+    Tournament,
+    User,
+    UserAccounts,
+    UserInvitation,
 } from "../pages";
-import { PublicLayout, UserLayout } from "../components";
-import { PrivateRoute } from "./PrivateRoute";
-import { PrivateAdminRoute } from "./AdminPrivateRoute";
-import { AdminGames } from "../pages/admin/games";
-import { AdminConsoles } from "../pages/admin/consoles";
-import { AdminConsoleEdit } from "../pages/admin/consoles/_consoleId";
-import { GameTabsContainer } from "../pages/admin/games/_gameId/GameTabsContainer";
-import { AdminRuleEdit } from "../pages/admin/games/_gameId/rules/_ruleId";
-import { AdminFormatEdit } from "../pages/admin/games/_gameId/formats/_formatId";
-import { AdminAdvertisementEdit } from "../pages/admin/advertisements/_advertisementId";
-import { AdminTournamentRules } from "../pages/admin/tournamentRules";
-import { AdminTournamentTeams } from "../pages/admin/tournaments/_tournamentId/tournamentTeams";
-import { AdminTournamentGroups } from "../pages/admin/tournaments/_tournamentId/tournamentGroups";
-import { AdminTournamentAwards } from "../pages/admin/tournaments/_tournamentId/tournamentAwards";
-import { Ballots } from "../pages/admin/ballots";
-import { AdminUserAcls } from "../pages/admin/users/_userId/acls";
-import { ChallengesContainer } from "../pages/games/_gameId/consoles/_consoleId/challenges";
-import { Tournaments } from "../pages/games/_gameId/tournaments";
-import { spinLoader } from "../utils";
+import {PublicLayout, UserLayout} from "../components";
+import {PrivateRoute} from "./PrivateRoute";
+import {PrivateAdminRoute} from "./AdminPrivateRoute";
+import {AdminGames} from "../pages/admin/games";
+import {AdminConsoles} from "../pages/admin/consoles";
+import {AdminConsoleEdit} from "../pages/admin/consoles/_consoleId";
+import {GameTabsContainer} from "../pages/admin/games/_gameId/GameTabsContainer";
+import {AdminRuleEdit} from "../pages/admin/games/_gameId/rules/_ruleId";
+import {AdminFormatEdit} from "../pages/admin/games/_gameId/formats/_formatId";
+import {AdminAdvertisementEdit} from "../pages/admin/advertisements/_advertisementId";
+import {AdminTournamentRules} from "../pages/admin/tournamentRules";
+import {AdminTournamentTeams} from "../pages/admin/tournaments/_tournamentId/tournamentTeams";
+import {AdminTournamentGroups} from "../pages/admin/tournaments/_tournamentId/tournamentGroups";
+import {AdminTournamentAwards} from "../pages/admin/tournaments/_tournamentId/tournamentAwards";
+import {Ballots} from "../pages/admin/ballots";
+import {AdminUserAcls} from "../pages/admin/users/_userId/acls";
+import {ChallengesContainer} from "../pages/games/_gameId/consoles/_consoleId/challenges";
+import {Tournaments} from "../pages/games/_gameId/tournaments";
+import {spinLoader} from "../utils";
 
 const BusinessLanding = lazy(() => import("../pages/companies"));
 const EventsLanding = lazy(() => import("../pages/events"));
@@ -60,10 +59,7 @@ const AdminGameEdit = lazy(() => import("../pages/admin/games/_gameId"));
 const Design = lazy(() => import("../pages/design"));
 const Withdraw = lazy(() => import("../pages/users/_userId/withdraw"));
 const UserTransactions = lazy(() =>
-  import("../pages/users/_userId/transactions")
-);
-const TournamentContainerBrief = lazy(() =>
-  import("../pages/brief/_tournamentId")
+    import("../pages/users/_userId/transactions")
 );
 
 const BaseLayout = lazy(() => import("../components/BaseLayout"));
@@ -85,20 +81,29 @@ const AdminWithdrawals = lazy(() => import("../pages/admin/withdrawals"));
 
 export const Routes = (props) => {
   return (
-    <Switch>
-      <Route
-        exact
-        path="/"
-        render={(props_) => (
-          <UserLayout isLanding {...props_} {...props}>
-            <Landing {...props_} />
-          </UserLayout>
-        )}
-      />
-      <Route
-        exact
-        path="/design"
-        render={(props_) => (
+      <Switch>
+          <Route
+              exact
+              path="/"
+              render={(props_) => (
+                  <Suspense fallback={spinLoader()}>
+                      <EventsLanding {...props_} />
+                  </Suspense>
+              )}
+          />
+          <Route
+              exact
+              path="/home"
+              render={(props_) => (
+                  <UserLayout isLanding {...props_} {...props}>
+                      <Landing {...props_} />
+                  </UserLayout>
+              )}
+          />
+          <Route
+              exact
+              path="/design"
+              render={(props_) => (
           <UserLayout isLanding {...props_} {...props}>
             <Suspense fallback={spinLoader()}>
               <Design {...props_} />
@@ -112,24 +117,6 @@ export const Routes = (props) => {
         render={(props_) => (
           <Suspense fallback={spinLoader()}>
             <BusinessLanding {...props_} />
-          </Suspense>
-        )}
-      />
-      <Route
-        exact
-        path="/events"
-        render={(props_) => (
-          <Suspense fallback={spinLoader()}>
-            <EventsLanding {...props_} />
-          </Suspense>
-        )}
-      />
-      <Route
-        exact
-        path="/brief/:tournamentId"
-        render={(props_) => (
-          <Suspense fallback={spinLoader()}>
-            <TournamentContainerBrief {...props_} {...props} />
           </Suspense>
         )}
       />
@@ -304,16 +291,6 @@ export const Routes = (props) => {
       <PrivateRoute exact path="/users/:userId/followings">
         <UserLayout {...props}>
           <Followings {...props} />
-        </UserLayout>
-      </PrivateRoute>
-      <PrivateRoute exact path="/notifications/:notificationId">
-        <UserLayout {...props}>
-          <Notifications {...props} />
-        </UserLayout>
-      </PrivateRoute>
-      <PrivateRoute exact path="/notifications/:notificationId/:matchId">
-        <UserLayout {...props}>
-          <Notifications {...props} />
         </UserLayout>
       </PrivateRoute>
       <Route

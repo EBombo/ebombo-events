@@ -30,7 +30,7 @@
     "googleTagManager": {
       "gtmId": "GTM-WMNBDBW"
     },
-    "storageUrl": "https://storage.googleapis.com/ebombo-events.appspot.com",
+    "storageUrl": "https://storage.googleapis.com/bombo-sport.appspot.com",
     "documentsStorageBucket": "bombo-sport-documents",
     "claimsStorageBucket": "bombo-sport-claims",
     "advertisementsStorageBucket": "bombo-sport-advertisements",
