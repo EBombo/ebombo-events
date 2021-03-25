@@ -1,18 +1,18 @@
 import React from "reactn";
-import { services } from "../../components/common/DataList";
+import {services} from "../../components/common/DataList";
 import styled from "styled-components";
-import { mediaQuery } from "../../styles/constants";
-import { config } from "../../firebase";
+import {mediaQuery} from "../../styles/constants";
+import {config} from "../../firebase";
 
 export const Services = (props) => (
-  <ServiceSection id="services">
-    <h2>Nuestros Servicios</h2>
-    <div className="services-container">
-      {services.map((service, index) => (
-        <ServiceContent
-          borderColor={service.color}
-          index={index}
-          key={`key-services-${service.title}`}
+    <ServiceSection id="services">
+        <h2>Nuestros Servicios</h2>
+        <div className="services-container">
+            {services.map((service, index) => (
+                <ServiceContent
+                    borderColor={service.color}
+                    index={index}
+                    key={`key-services-${service.title}`}
         >
           <div className="border-section">
             <img src={service.logoUrl} alt="" />
@@ -31,7 +31,7 @@ const ServiceSection = styled.section`
   position: relative;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/2.png"});
 
   ${mediaQuery.afterTablet} {
