@@ -4,56 +4,59 @@ import {ButtonBombo} from "../../components";
 import defaultTo from "lodash/defaultTo";
 import {config} from "../../firebase";
 import {mediaQuery} from "../../styles/constants";
+import {Image} from "../../components/common/Image";
 
 export const EsportsGames = (props) => {
-  const [games] = useGlobal("games");
+    const [games] = useGlobal("games");
 
-  return (
-      <EsportsSection>
-        <div className="main-container">
-          <div className="title">JUEGOS DE ESPORTS</div>
-          <div className="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus egestas
-          ut rhoncus eu euismod sed dictum porttitor ac. Vel mattis egestas
-          consequat sed in magna quam adipiscing justo. Nisl sem feugiat duis
-          enim. Aliquam scelerisque viverra erat felis vulputate donec. Sagittis
-          quis ullamcorper
-        </div>
-        <a href="#contact">
-          <ButtonBombo type="primary">Contactanos</ButtonBombo>
-        </a>
-        <div className="integration-games">
-          <div className="games-container">
-            {defaultTo(games, []).map((game) => (
-              <GameContent
-                borderColor={game.color}
-                backgroundImage={game.landingImageUrlThumb}
-                key={game.name}
-              >
-                <div className="name">{game.name}</div>
-              </GameContent>
-            ))}
-          </div>
-        </div>
-      </div>
-    </EsportsSection>
-  );
+    return <Image src={config.storageUrl + "/resources/b2bLanding/4.png"}
+                  position="relative"
+                  width="100%">
+        <EsportsSection>
+            <div className="main-container">
+                <div className="title">JUEGOS DE ESPORTS</div>
+                <div className="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus egestas
+                    ut rhoncus eu euismod sed dictum porttitor ac. Vel mattis egestas
+                    consequat sed in magna quam adipiscing justo. Nisl sem feugiat duis
+                    enim. Aliquam scelerisque viverra erat felis vulputate donec. Sagittis
+                    quis ullamcorper
+                </div>
+                <a href="#contact">
+                    <ButtonBombo type="primary">Contactanos</ButtonBombo>
+                </a>
+                <div className="integration-games">
+                    <div className="games-container">
+                        {defaultTo(games, []).map((game) => <GameContent
+                            borderColor={game.color}
+                            backgroundImage={game.landingImageUrlThumb}
+                            key={game.name}
+                        >
+                            <div className="name">{game.name}</div>
+                        </GameContent>)}
+                    </div>
+                </div>
+            </div>
+        </EsportsSection>
+    </Image>;
 };
 
 const EsportsSection = styled.section`
   padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-image: url(${config.storageUrl + "/resources/b2bLanding/4.png"});
+
   ${mediaQuery.afterTablet} {
     padding: 2rem;
   }
+
   .main-container {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
+
     .title {
       font-weight: bold;
       font-size: 15px;
@@ -61,6 +64,7 @@ const EsportsSection = styled.section`
       color: ${(props) => props.theme.basic.white};
       margin-bottom: 1rem;
       text-align: right;
+
       ${mediaQuery.afterTablet} {
         font-size: 25px;
         line-height: 31px;
@@ -74,6 +78,7 @@ const EsportsSection = styled.section`
       color: ${(props) => props.theme.basic.white};
       text-align: right;
       margin-bottom: 1rem;
+
       ${mediaQuery.afterTablet} {
         font-size: 20px;
         line-height: 25px;
@@ -84,9 +89,11 @@ const EsportsSection = styled.section`
     .integration-games {
       max-width: 100%;
       overflow: auto;
+
       ::-webkit-scrollbar {
         height: 4px;
       }
+
       .games-container {
         display: inline-flex;
         align-items: center;

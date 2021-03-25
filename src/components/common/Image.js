@@ -5,6 +5,7 @@ import {mediaQuery} from "../../styles/constants";
 export const Image = (props) =>
     <ImageCss {...props}>
         <img src={props.src}
+             className="my-img"
              alt={props.src}/>
         {props.children && props.children}
     </ImageCss>;
@@ -19,7 +20,7 @@ const ImageCss = styled.div`
   margin: ${(props) => props.margin || "auto"};
   cursor: ${(props) => props.cursor || "normal"};
   border-radius: ${(props) => props.borderRadius || "0"};
-  position: ${(props) => props.position || "0"};
+  position: ${(props) => props.position || "-"};
 
   ${mediaQuery.afterMobile} {
     height: ${(props) =>
@@ -28,7 +29,7 @@ const ImageCss = styled.div`
             props.desktopWidth ? props.desktopWidth : props.width};
   }
 
-  img {
+  .my-img {
     width: 100%;
     height: auto;
     visibility: hidden;

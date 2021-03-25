@@ -19,86 +19,79 @@ export const BusinessExamples = (props) => {
     const [currentExample, setCurrentExample] = useState(null);
     const [authUser] = useGlobal("user");
 
-    return (
-        <ExamplesSections>
-      {isVisibleModal && get(authUser, "isAdmin") && (
-        <ModalContainer
-          footer={null}
-          visible={isVisibleModal}
-          onCancel={() => setIsVisibleModal(!isVisibleModal)}
+    return <ExamplesSections>
+        {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
+            footer={null}
+            visible={isVisibleModal}
+            onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
-          <Suspense fallback={spinLoader()}>
-            <EditBusinessExamples
-              setIsVisibleModal={setIsVisibleModal}
-              isVisibleModal={isVisibleModal}
-              currentExample={currentExample}
-              {...props}
-            />
-          </Suspense>
-        </ModalContainer>
-      )}
-      <div className="main-container">
-        <div className="title">Ejemplos para algunas empresas</div>
-        <div className="business-examples">
-          <div className="examples-container">
-            {defaultTo(get(props, "events.businessExamples"), []).map(
-              (example) => (
-                <ExampleContent key={example.id}>
-                  <div className="example-title">{example.title}</div>
-                  <div className="description">
-                    {example.description}
+            <Suspense fallback={spinLoader()}>
+                <EditBusinessExamples
+                    setIsVisibleModal={setIsVisibleModal}
+                    isVisibleModal={isVisibleModal}
+                    currentExample={currentExample}
+                    {...props}
+                />
+            </Suspense>
+        </ModalContainer>}
+        <div className="main-container">
+            <div className="title">Ejemplos para algunas empresas</div>
+            <div className="business-examples">
+                <div className="examples-container">
+                    {defaultTo(get(props, "events.businessExamples"), []).map(
+                        (example) => <ExampleContent key={example.id}>
+                            <div className="example-title">{example.title}</div>
+                            <div className="description">
+                                {example.description}
 
-                    <Anchor className="video-content" href={example.link}>
-                      <Image
-                        src={`${config.storageUrl}/resources/b2bLanding/play.svg`}
-                        width="70px"
-                        height="70px"
-                        borderRadius="50%"
-                        margin="0 0 0.5rem 0"
-                      />
-                      Play
-                    </Anchor>
-                  </div>
-                  {get(authUser, "isAdmin") && (
-                    <div className="container-edit">
-                      <Icon
-                        className="icon"
-                        type="edit"
+                                <Anchor className="video-content"
+                                        href={example.link}>
+                                    <Image
+                                        src={`${config.storageUrl}/resources/b2bLanding/play.svg`}
+                                        width="70px"
+                                        height="70px"
+                                        borderRadius="50%"
+                                        margin="0 0 0.5rem 0"
+                                    />
+                                    Play
+                                </Anchor>
+                            </div>
+                            {get(authUser, "isAdmin") && (
+                                <div className="container-edit">
+                                    <Icon
+                                        className="icon"
+                                        type="edit"
+                                        onClick={() => {
+                                            setCurrentExample(example);
+                                            setIsVisibleModal(true);
+                                        }}
+                                    />
+                                    <Icon
+                                        className="icon-delete"
+                                        type="delete"
+                                        onClick={() => {
+                                            props.deleteElement(example, "businessExamples");
+                                        }}
+                                    />
+                                </div>
+                            )}
+                        </ExampleContent>
+                    )}
+                    {get(authUser, "isAdmin") && <ButtonBombo
+                        type="action"
                         onClick={() => {
-                          setCurrentExample(example);
-                          setIsVisibleModal(true);
+                            setCurrentExample({
+                                id: firestore.collection("events").doc().id,
+                            });
+                            setIsVisibleModal(true);
                         }}
-                      />
-                      <Icon
-                        className="icon-delete"
-                        type="delete"
-                        onClick={() => {
-                          props.deleteElement(example, "businessExamples");
-                        }}
-                      />
-                    </div>
-                  )}
-                </ExampleContent>
-              )
-            )}
-            {get(authUser, "isAdmin") && (
-              <ButtonBombo
-                type="action"
-                onClick={() => {
-                  setCurrentExample({
-                    id: firestore.collection("events").doc().id,
-                  });
-                  setIsVisibleModal(true);
-                }}
-              >
-                Añadir
-              </ButtonBombo>
-            )}
-          </div>
+                    >
+                        Añadir
+                    </ButtonBombo>}
+                </div>
+            </div>
         </div>
-      </div>
-    </ExamplesSections>
-  );
+    </ExamplesSections>;
 };
 
 const ExampleContent = styled.div`
@@ -115,13 +108,16 @@ const ExampleContent = styled.div`
     cursor: pointer;
     top: 0;
     right: -11px;
+
     svg {
       width: 20px;
       height: 20px;
       color: ${(props) => props.theme.basic.white};
     }
+
     .icon-delete {
       margin-top: 5px;
+
       svg {
         color: ${(props) => props.theme.basic.danger};
       }
@@ -130,12 +126,10 @@ const ExampleContent = styled.div`
 
   .example-title {
     height: 50px;
-    background: linear-gradient(
-      180deg,
-      rgba(244, 70, 175, 0.32) 0%,
-      rgba(255, 0, 153, 0.32) 0.01%,
-      rgba(171, 7, 249, 0.32) 100%
-    );
+    background: linear-gradient(180deg,
+    rgba(244, 70, 175, 0.32) 0%,
+    rgba(255, 0, 153, 0.32) 0.01%,
+    rgba(171, 7, 249, 0.32) 100%);
     border-bottom: 3px solid #1b3b72;
     display: flex;
     justify-content: flex-start;
@@ -188,11 +182,13 @@ const ExamplesSections = styled.div`
   ${mediaQuery.afterTablet} {
     padding: 2rem;
   }
+
   .main-container {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
     text-align: center;
+
     .title {
       font-weight: bold;
       color: ${(props) => props.theme.basic.white};
@@ -200,6 +196,7 @@ const ExamplesSections = styled.div`
       line-height: 19px;
       display: flex;
       align-items: center;
+
       ${mediaQuery.afterTablet} {
         font-size: 24px;
         line-height: 30px;
@@ -209,6 +206,7 @@ const ExamplesSections = styled.div`
     .business-examples {
       max-width: 100%;
       overflow: auto;
+
       .examples-container {
         display: inline-flex;
         align-items: center;
