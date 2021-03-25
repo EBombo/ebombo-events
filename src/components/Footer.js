@@ -4,12 +4,6 @@ import {config} from "../firebase";
 import {mediaQuery} from "../styles/constants";
 import {spinLoader} from "../utils";
 import {foreignPaymentMethods} from "./common/DataList";
-import {LevelYourOpponent} from "./tips";
-import {TipUserPay} from "./tips/TipUserPay";
-import {TipPaymentsDeposits} from "./tips/TipPaymentsDeposits";
-import {TipEvidence} from "./tips/TipEvidence";
-import {TipDropouts} from "./tips/TipDropouts";
-import {Characteristics} from "./Characteristics";
 import {useHistory, useLocation} from "react-router";
 import {useGlobal} from "reactn";
 
@@ -29,32 +23,6 @@ export const Footer = (props) => {
           activeModalTyC={activeModalTyC}
         />
       </Suspense>
-      {!location.pathname.includes("/events") && (
-        <>
-          <div className="container-tips">
-            <h3>
-              <img src={`${config.storageUrl}/resources/star.svg`} alt="" />
-              TIPS PARA NUEVOS
-            </h3>
-            <div className="tips">
-              <LevelYourOpponent isMobileStyled={true} />
-              <TipUserPay />
-              <TipPaymentsDeposits />
-              <TipDropouts />
-              <TipEvidence />
-            </div>
-          </div>
-          <div className="container-characteristics">
-            <h3>
-              <img src={`${config.storageUrl}/resources/thunder.svg`} alt="" />
-              CARÁCTERISTICAS
-            </h3>
-            <div className="characteristics">
-              <Characteristics />
-            </div>
-          </div>
-        </>
-      )}
       <div className="container-services">
         <h3>NUESTROS SERVICIOS</h3>
         <div className="services">
@@ -67,21 +35,22 @@ export const Footer = (props) => {
             >
               <div className="service-company">
                 <img
-                  src={`${config.storageUrl}/resources/bombo-fantasy.svg`}
-                  alt=""
+                    src={`${config.storageUrl}/resources/bombo-fantasy.svg`}
+                    alt=""
                 />
               </div>
             </ServiceContainer>
             <h4>Fantasy de Fútbol</h4>
           </div>
-          <div className="business" onClick={() => history.push("/events")}>
+          <div className="business"
+               onClick={() => history.push("/")}>
             <ServiceContainer
-              src={`${config.storageUrl}/resources/business-background.jpg`}
+                src={`${config.storageUrl}/resources/business-background.jpg`}
             >
               <div className="service-company">
                 <img
-                  src={`${config.storageUrl}/resources/bombo-business.svg`}
-                  alt=""
+                    src={`${config.storageUrl}/resources/bombo-business.svg`}
+                    alt=""
                 />
               </div>
             </ServiceContainer>
