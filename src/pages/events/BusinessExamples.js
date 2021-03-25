@@ -1,26 +1,26 @@
-import React, { useGlobal, useState } from "reactn";
-import { lazy, Suspense } from "react";
+import React, {useGlobal, useState} from "reactn";
+import {lazy, Suspense} from "react";
 import styled from "styled-components";
-import { mediaQuery } from "../../styles/constants";
-import { config, firestore } from "../../firebase";
+import {mediaQuery} from "../../styles/constants";
+import {config, firestore} from "../../firebase";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { Image } from "../../components/common/Image";
-import { spinLoader } from "../../utils";
-import { Icon } from "../../components/common/Icons";
-import { Anchor } from "../../components/common/Anchor";
-import { ButtonBombo } from "../../components";
-import { ModalContainer } from "../../components/common/ModalContainer";
+import {Image} from "../../components/common/Image";
+import {spinLoader} from "../../utils";
+import {Icon} from "../../components/common/Icons";
+import {Anchor} from "../../components/common/Anchor";
+import {ButtonBombo} from "../../components";
+import {ModalContainer} from "../../components/common/ModalContainer";
 
 const EditBusinessExamples = lazy(() => import("./EditBusinessExamples"));
 
 export const BusinessExamples = (props) => {
-  const [isVisibleModal, setIsVisibleModal] = useState(false);
-  const [currentExample, setCurrentExample] = useState(null);
-  const [authUser] = useGlobal("user");
+    const [isVisibleModal, setIsVisibleModal] = useState(false);
+    const [currentExample, setCurrentExample] = useState(null);
+    const [authUser] = useGlobal("user");
 
-  return (
-    <ExamplesSections>
+    return (
+        <ExamplesSections>
       {isVisibleModal && get(authUser, "isAdmin") && (
         <ModalContainer
           footer={null}
@@ -181,7 +181,7 @@ const ExamplesSections = styled.div`
   width: 100%;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/6.png"});
   padding: 1rem;
 

@@ -1,16 +1,16 @@
-import React, { useGlobal, useState } from "reactn";
-import { lazy, Suspense } from "react";
+import React, {useGlobal, useState} from "reactn";
+import {lazy, Suspense} from "react";
 import styled from "styled-components";
-import { spinLoader } from "../../utils";
+import {spinLoader} from "../../utils";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { Icon } from "../../components/common/Icons";
-import { config, firestore } from "../../firebase";
-import { mediaQuery } from "../../styles/constants";
-import { Image } from "../../components/common/Image";
-import { Desktop, Tablet } from "../../styles/utils";
-import { ButtonBombo } from "../../components";
-import { ModalContainer } from "../../components/common/ModalContainer";
+import {Icon} from "../../components/common/Icons";
+import {config, firestore} from "../../firebase";
+import {mediaQuery} from "../../styles/constants";
+import {Image} from "../../components/common/Image";
+import {Desktop, Tablet} from "../../styles/utils";
+import {ButtonBombo} from "../../components";
+import {ModalContainer} from "../../components/common/ModalContainer";
 
 const EditComment = lazy(() => import("./EditComment"));
 
@@ -20,7 +20,7 @@ export const Comments = (props) => {
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   return (
-    <CommentsContainer>
+      <CommentsContainer>
       {isVisibleModal && get(authUser, "isAdmin") && (
         <ModalContainer
           footer={null}
@@ -112,7 +112,7 @@ const CommentsContainer = styled.section`
   width: 100%;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/8.png"});
   padding: 1rem;
   margin: 0 auto;

@@ -1,14 +1,14 @@
-import React, { useState, useGlobal } from "reactn";
-import { lazy, Suspense } from "react";
+import React, {useGlobal, useState} from "reactn";
+import {lazy, Suspense} from "react";
 import styled from "styled-components";
 import get from "lodash/get";
 import defaultTo from "lodash/defaultTo";
-import { mediaQuery } from "../../styles/constants";
-import { config, firestore } from "../../firebase";
-import { Icon } from "../../components/common/Icons";
-import { spinLoader } from "../../utils";
-import { ButtonBombo } from "../../components";
-import { ModalContainer } from "../../components/common/ModalContainer";
+import {mediaQuery} from "../../styles/constants";
+import {config, firestore} from "../../firebase";
+import {Icon} from "../../components/common/Icons";
+import {spinLoader} from "../../utils";
+import {ButtonBombo} from "../../components";
+import {ModalContainer} from "../../components/common/ModalContainer";
 
 const EditHeldEvent = lazy(() => import("./EditHeldEvent"));
 
@@ -18,7 +18,7 @@ export const HeldEvents = (props) => {
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   return (
-    <EventsContainer id="events">
+      <EventsContainer id="events">
       {isVisibleModal && get(authUser, "isAdmin") && (
         <ModalContainer
           footer={null}
@@ -95,7 +95,7 @@ const EventsContainer = styled.section`
   width: 100%;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/7.png"});
   padding: 1rem;
   margin: 0 auto;

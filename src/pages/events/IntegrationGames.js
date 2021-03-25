@@ -1,14 +1,14 @@
-import React, { useState, useGlobal } from "reactn";
+import React, {useGlobal, useState} from "reactn";
 import styled from "styled-components";
-import { config, firestore } from "../../firebase";
-import { ButtonBombo } from "../../components";
+import {config, firestore} from "../../firebase";
+import {ButtonBombo} from "../../components";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { mediaQuery } from "../../styles/constants";
-import { Icon } from "../../components/common/Icons";
-import { lazy, Suspense } from "react";
-import { spinLoader } from "../../utils";
-import { ModalContainer } from "../../components/common/ModalContainer";
+import {mediaQuery} from "../../styles/constants";
+import {Icon} from "../../components/common/Icons";
+import {lazy, Suspense} from "react";
+import {spinLoader} from "../../utils";
+import {ModalContainer} from "../../components/common/ModalContainer";
 
 const EditIntegrationGame = lazy(() => import("./EditIntegrationGame"));
 
@@ -18,7 +18,7 @@ export const IntegrationGames = (props) => {
   const [currentGame, setCurrentGame] = useState({});
 
   return (
-    <IntegrationSection id="games">
+      <IntegrationSection id="games">
       {isVisibleModal && get(authUser, "isAdmin") && (
         <ModalContainer
           footer={null}
@@ -113,7 +113,7 @@ const IntegrationSection = styled.section`
   width: 100%;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/3.png"});
   ${mediaQuery.afterTablet} {
     padding: 2rem;

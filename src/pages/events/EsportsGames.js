@@ -1,19 +1,19 @@
-import React, { useGlobal } from "reactn";
+import React, {useGlobal} from "reactn";
 import styled from "styled-components";
-import { ButtonBombo } from "../../components";
+import {ButtonBombo} from "../../components";
 import defaultTo from "lodash/defaultTo";
-import { config } from "../../firebase";
-import { mediaQuery } from "../../styles/constants";
+import {config} from "../../firebase";
+import {mediaQuery} from "../../styles/constants";
 
 export const EsportsGames = (props) => {
   const [games] = useGlobal("games");
 
   return (
-    <EsportsSection>
-      <div className="main-container">
-        <div className="title">JUEGOS DE ESPORTS</div>
-        <div className="description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus egestas
+      <EsportsSection>
+        <div className="main-container">
+          <div className="title">JUEGOS DE ESPORTS</div>
+          <div className="description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus egestas
           ut rhoncus eu euismod sed dictum porttitor ac. Vel mattis egestas
           consequat sed in magna quam adipiscing justo. Nisl sem feugiat duis
           enim. Aliquam scelerisque viverra erat felis vulputate donec. Sagittis
@@ -45,7 +45,7 @@ const EsportsSection = styled.section`
   width: 100%;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/4.png"});
   ${mediaQuery.afterTablet} {
     padding: 2rem;

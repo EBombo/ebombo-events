@@ -1,18 +1,18 @@
-import React, { useState } from "reactn";
-import { config } from "../../firebase";
-import { ButtonBombo, Input, TextArea } from "../../components";
-import { Desktop } from "../../utils";
+import React, {useState} from "reactn";
+import {config} from "../../firebase";
+import {ButtonBombo, Input, TextArea} from "../../components";
+import {Desktop} from "../../utils";
 import styled from "styled-components";
-import { mediaQuery } from "../../styles/constants";
-import { message } from "antd";
-import { object, string } from "yup";
-import { useForm } from "react-hook-form";
-import { useErrorHandler } from "react-error-boundary";
-import { useOwnFetch } from "../../utils/useFetch/useFetch";
+import {mediaQuery} from "../../styles/constants";
+import {message} from "antd";
+import {object, string} from "yup";
+import {useForm} from "react-hook-form";
+import {useErrorHandler} from "react-error-boundary";
+import {useOwnFetch} from "../../utils/useFetch/useFetch";
 
 export const Contact = (props) => {
   const handleError = useErrorHandler();
-  const { ownFetch } = useOwnFetch();
+  const {ownFetch} = useOwnFetch();
   const [loadingSendingEmail, setLoadingSendingEmail] = useState(false);
 
   const schema = object().shape({
@@ -114,7 +114,7 @@ const ContactSection = styled.section`
   padding: 250px 1rem 1rem;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/9.png"});
 
   ${mediaQuery.afterTablet} {

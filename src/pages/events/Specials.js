@@ -1,16 +1,16 @@
-import React, { useState, useGlobal } from "reactn";
+import React, {useGlobal, useState} from "reactn";
 import styled from "styled-components";
-import { Desktop, Tablet } from "../../styles/utils";
-import { mediaQuery } from "../../styles/constants";
-import { config, firestore } from "../../firebase";
-import { ButtonBombo, Carousel } from "../../components";
+import {Desktop, Tablet} from "../../styles/utils";
+import {mediaQuery} from "../../styles/constants";
+import {config, firestore} from "../../firebase";
+import {ButtonBombo, Carousel} from "../../components";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { Image } from "../../components/common/Image";
-import { Icon } from "../../components/common/Icons";
-import { lazy, Suspense } from "react";
-import { spinLoader } from "../../utils";
-import { ModalContainer } from "../../components/common/ModalContainer";
+import {Image} from "../../components/common/Image";
+import {Icon} from "../../components/common/Icons";
+import {lazy, Suspense} from "react";
+import {spinLoader} from "../../utils";
+import {ModalContainer} from "../../components/common/ModalContainer";
 
 const EditSpecials = lazy(() => import("./EditSpecials"));
 
@@ -213,7 +213,7 @@ const SpecialsSection = styled.section`
   width: 100%;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/5.png"});
 
   .gifts-container,

@@ -1,0 +1,144 @@
+{
+  "productionConfig": {
+    "culqi": {
+      "secretKey": "sk_live_Gb5ZK1EopUMSV2lF"
+    },
+    "mercadoPago": {
+      "secretKey": "APP_USR-4330760424635361-061003-2c8808438823bd62486f0521b75ddb29-571767967"
+    },
+    "bsale": {
+      "token": "5804c0c902b4fa5c04f7ffd285491a8b28092b45",
+      "uri": "https://api.bsale.com.pe/v1/documents.json",
+      "codeVariant": 1600719874412,
+      "priceListUSD": "3",
+      "priceListPEN": "4"
+    },
+    "currency": "USD",
+    "visanet": {
+      "urlApiSeguridad": "https://apiprod.vnforapps.com/api.security/v1/security",
+      "urlApiSesion": "https://apiprod.vnforapps.com/api.ecommerce/v2/ecommerce/token/session/",
+      "urlJs": "https://static-content.vnforapps.com/v2/js/checkout.js",
+      "urlPayment": "https://apiprod.vnforapps.com/api.authorization/v3/authorization/ecommerce/",
+      "password": "g$rauY8V",
+      "user": "info@ebombo.co",
+      "merchantId": "650175093"
+    },
+    "rapyd": {
+      "secretKey": "e2b3c0392a368d39b450ee527669c72fb7ea1c8466b08b44f712ad608c04b3872793e24095756951",
+      "accessKey": "4E5F824EAE7965F25CBE",
+      "disburseUrl": "https://rapyd.net/v1/payouts",
+      "ewallet": "ewallet_56a7515fd143c927bc46556a96a954ab",
+      "getSenderUrl": "https://rapyd.net/v1/payouts/sender/sender_97da58047e91de0590092215220dff0c",
+      "senderId": "sender_97da58047e91de0590092215220dff0c"
+    },
+    "serverEmail": {
+      "service": "gmail",
+      "host": "smtp.gmail.com",
+      "from": "Bombo Perú Team",
+      "user": "hello@bombo.pe",
+      "password": "bomboperu123",
+      "images": {
+        "ebombo": "https://storage.googleapis.com/bombo-sport.appspot.com/resources/ebombo.png",
+        "youtube": "https://storage.googleapis.com/bombo-sport.appspot.com/resources/green-youtube.png",
+        "instagram": "https://storage.googleapis.com/bombo-sport.appspot.com/resources/green-instagram.png",
+        "facebook": "https://storage.googleapis.com/bombo-sport.appspot.com/resources/green-facebook.png",
+        "linkedin": "https://storage.googleapis.com/bombo-sport.appspot.com/resources/green-linkedin.png",
+        "twitter": "https://storage.googleapis.com/bombo-sport.appspot.com/resources/green-twitter.png"
+      }
+    },
+    "smsService": {
+      "altiria": {
+        "domainId": "test",
+        "login": "pabloynciorivera@gmail.com",
+        "password": "xyv3r3mb"
+      },
+      "infobip": {
+        "apiKey": "cc2d11a067ff2ccd2c3e63a61f23bb4e-22f3f933-88be-424e-bc43-cf21a16eff1e",
+        "url": "https://gygk3j.api.infobip.com/sms/2/text/advanced"
+      },
+      "clickSend": {
+        "user": "mateo@bombo.pe",
+        "password": "Bomboperu123!",
+        "url": "https://rest.clicksend.com/v3/sms/send"
+      }
+    },
+    "storageUrl": "https://storage.googleapis.com/bombo-sport.appspot.com",
+    "claimsStorageBucket": "https://storage.googleapis.com/bombo-sport-claim",
+    "documentsStorageBucket": "https://storage.googleapis.com/bombo-sport-documents",
+    "applicationRootUrl": "https://ebombo.com",
+    "serverUrl": "https://us-central1-bombo-sport.cloudfunctions.net/api",
+    "mails": "gonzalo@bombo.pe,santiago@bombo.pe, mateo@bombo.pe",
+    "maxAgeCache": "3600"
+  },
+  "devConfig": {
+    "culqi": {
+      "secretKey": "sk_test_iZnqAXGTqDgPU1PB"
+    },
+    "mercadoPago": {
+      "secretKey": "TEST-2099039000930793-060502-bb919a79cdda1abcca9ea376488236f7-491556839"
+    },
+    "bsale": {
+      "token": "efba270e70ed855ecb23b97709e8f706186fdefb",
+      "uri": "https://api.bsale.com.pe/v1/documents.json",
+      "codeVariant": 1601580219301,
+      "priceListUSD": "2",
+      "priceListPEN": "1"
+    },
+    "currency": "USD",
+    "visanet": {
+      "urlApiSeguridad": "https://apitestenv.vnforapps.com/api.security/v1/security",
+      "urlApiSesion": "https://apitestenv.vnforapps.com/api.ecommerce/v2/ecommerce/token/session/",
+      "urlJs": "https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true",
+      "urlPayment": "https://apitestenv.vnforapps.com/api.authorization/v3/authorization/ecommerce/",
+      "user": "integraciones.visanet@necomplus.com",
+      "password": "d5e7nk$M",
+      "merchantId": "522591303"
+    },
+    "rapyd": {
+      "secretKey": "e2b3c0392a368d39b450ee527669c72fb7ea1c8466b08b44f712ad608c04b3872793e24095756951",
+      "accessKey": "4E5F824EAE7965F25CBE",
+      "disburseUrl": "https://sandboxapi.rapyd.net/v1/payouts",
+      "ewallet": "ewallet_56a7515fd143c927bc46556a96a954ab",
+      "getSenderUrl": "https://sandboxapi.rapyd.net/v1/payouts/sender/sender_97da58047e91de0590092215220dff0c",
+      "senderId": "sender_97da58047e91de0590092215220dff0c"
+    },
+    "serverEmail": {
+      "service": "gmail",
+      "host": "smtp.gmail.com",
+      "from": "Bombo Perú Team",
+      "user": "hello@bombo.pe",
+      "password": "bomboperu123",
+      "images": {
+        "ebombo": "https://storage.googleapis.com/bombo-sport-dev.appspot.com/resources/ebombo.png",
+        "youtube": "https://storage.googleapis.com/bombo-sport-dev.appspot.com/resources/green-youtube.png",
+        "instagram": "https://storage.googleapis.com/bombo-sport-dev.appspot.com/resources/green-instagram.png",
+        "facebook": "https://storage.googleapis.com/bombo-sport-dev.appspot.com/resources/green-facebook.png",
+        "linkedin": "https://storage.googleapis.com/bombo-sport-dev.appspot.com/resources/green-linkedin.png",
+        "twitter": "https://storage.googleapis.com/bombo-sport-dev.appspot.com/resources/green-twitter.`png"
+      }
+    },
+    "smsService": {
+      "altiria": {
+        "domainId": "test",
+        "login": "pabloynciorivera@gmail.com",
+        "password": "xyv3r3mb"
+      },
+      "infobip": {
+        "apiKey": "cc2d11a067ff2ccd2c3e63a61f23bb4e-22f3f933-88be-424e-bc43-cf21a16eff1e",
+        "url": "https://gygk3j.api.infobip.com/sms/2/text/advanced"
+      },
+      "clickSend": {
+        "user": "mateo@bombo.pe",
+        "password": "Bomboperu123!",
+        "url": "https://rest.clicksend.com/v3/sms/send"
+      }
+    },
+    "storageUrl": "https://storage.googleapis.com/bombo-sport-dev.appspot.com",
+    "documentsStorageBucket": "https://storage.googleapis.com/bombo-sport-documents-dev",
+    "claimsStorageBucket": "https://storage.googleapis.com/bombo-sport-claims-dev",
+    "applicationRootUrl": "https://bombo-sport-dev.firebaseapp.com",
+    "serverUrl": "https://us-central1-bombo-sport-dev.cloudfunctions.net/api",
+    "mails": "pabloynciorivera@gmail.com, sebastian.mendo1995@gmail.com",
+    "maxAgeCache": "3600"
+  }
+}

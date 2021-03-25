@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=utf-8"/>
+    <meta name="viewport"
+          content="width=device-width"/>
+
+    <!-- For development, pass document through inliner -->
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Avenir Next', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+            line-height: 1.65;
+        }
+
+        .container {
+            background: #000000;
+            max-width: 580px;
+            margin: auto;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .content {
+            padding: 45px 25px;
+        }
+
+        .wrapper {
+            width: 80%;
+            min-width: 260px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .img-title {
+            width: 150px;
+            height: 40px;
+            margin-bottom: 2rem;
+        }
+
+        .title {
+            font-weight: 600;
+            font-size: 40px;
+            font-style: normal;
+            color: #FFD00D;
+        }
+
+        .primary {
+            color: #00E679
+        }
+
+        .description {
+            font-weight: 400;
+            font-size: 25px;
+            line-height: 2rem;
+        }
+
+        .description .amount {
+            font-size: 23px;
+            font-weight: 700;
+            color: #00E679;
+        }
+
+        .top {
+            padding-top: 40px;
+        }
+
+        .top-medium {
+            padding-top: 18px;
+        }
+
+        .level {
+            font-size: 14px;
+            font-weight: 200;
+        }
+
+        .button {
+            text-decoration: none;
+            display: inline-block;
+            background-color: #000000;
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            width: auto;
+            font-family: 'Lato', Tahoma, Verdana, Segoe, sans-serif;
+            text-align: center;
+            mso-border-alt: none;
+            word-break: keep-all;
+            padding: 10px 50px;
+            font-weight: 600;
+            font-size: 20px;
+            border-radius: 10px;
+            margin: 10px 0px;
+        }
+
+        .button:hover {
+            text-decoration: none;
+        }
+
+        .button-primary {
+            border: 1px solid #00E679;
+            color: #000000 !important;
+            background-color: #00E679;
+        }
+
+        .button-danger {
+            border: 1px solid #FE3745;
+            color: #FE3745 !important;
+        }
+
+        .button-second {
+            border: 1px solid #FFD00D;
+            color: #FFD00D !important;
+            font-size: 16px;
+            padding: 10px 35px;
+        }
+
+        .divider {
+            height: 1px;
+            background: #00E679;
+            margin: 2.5rem auto 1.5rem auto;
+            width: 95%;
+            min-width: 280px;
+        }
+
+        .container-items {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .container-items div {
+            margin: 0.5rem auto;
+        }
+
+        .container-items div span {
+            color: #00E679 !important;
+            font-weight: 600;
+        }
+
+        .container-items img {
+            width: 25px;
+            margin: 0.5rem auto;
+        }
+
+        .link {
+            margin: 2rem auto 0.5rem auto;
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+
+        .link a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .img-footer {
+            width: 70px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="wrapper description">
+            El usuario
+        </div>
+        <div class="title">
+            {{name}}
+        </div>
+        <div class="wrapper description level">
+            Level {{level}}
+        </div>
+        <div class="wrapper description top">
+            te ha invitado a jugar
+        </div>
+        <div class="title primary">
+            {{gameName}}
+        </div>
+        <div class="wrapper container-items top-medium">
+            <div>
+                Entrada: <span>{{currency}} {{tickets}}</span>
+            </div>
+            <div>
+                Premio: <span>{{currency}} {{prize}}</span>
+            </div>
+        </div>
+        <div class="wrapper container-items">
+            <div>
+                <span>Reglas: </span> {{rules}}
+            </div>
+        </div>
+        <div class="top">
+            <a target="_blank"
+               href="{{acceptInvitationUrl}}"
+               class="button button-primary top">
+                Aceptar invitación
+            </a>
+            <a target="_blank"
+               href="{{declineInvitationUrl}}"
+               class="button button-danger">
+                Rechazar invitación
+            </a>
+        </div>
+        <br/>
+        <div class="wrapper divider"></div>
+        <img class="img-title"
+             src="{{ebombo}}"
+             alt="eBombo">
+        <div class="wrapper container-items">
+            <img src="{{youtube}}"
+                 alt="youtube">
+            <img src="{{instagram}}"
+                 alt="instagram">
+            <img src="{{facebook}}"
+                 alt="facebook">
+            <img src="{{linkedin}}"
+                 alt="linkedin">
+            <img src="{{twitter}}"
+                 alt="twitter">
+        </div>
+        <div class="link">
+            ebombo.com
+        </div>
+    </div>
+</div>
+</body>
+</html>
