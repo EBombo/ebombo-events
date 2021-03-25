@@ -374,12 +374,6 @@ export const Registration = () => {
     );
 };
 
-const ContainerButtonFacebook = styled.div`
-  padding-top: 15px;
-  margin: 0 auto;
-  max-width: 300px;
-`;
-
 const ContainerFavorites = styled.div`
   display: flex;
   flex-direction: column;

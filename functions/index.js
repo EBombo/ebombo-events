@@ -1,8 +1,6 @@
 const functions = require("firebase-functions");
 const api = require("./api");
 const apiAdmin = require("./apiAdmin");
-const apiMatches = require("./apiMatches");
-const {scheduleMatches} = require("./schedules");
 
 const runtimeOptions = {
     timeoutSeconds: 540,

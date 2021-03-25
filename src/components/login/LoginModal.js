@@ -8,141 +8,136 @@ import {firestore} from "../../firebase";
 import {firebaseAuthenticationError} from "../../firebase/auth";
 import {querySnapshotToArray} from "../../utils";
 import {doSignInWithEmailAndPassword} from "../../firebase/authentication";
-import {LoginFacebook} from "../login-facebook";
 import styled from "styled-components";
 import {btnPrimary} from "../../styles/constants";
 import {Icon} from "../common/Icons";
 import {ButtonBombo} from "../common";
 
 export const LoginModal = (props) => {
-  const validationSchema = object().shape({
-    email: string().trim().required().email(),
-    password: string().required(),
-  });
-
-  const [globalIsLoadingUser, setGlobalIsLoadingUser] = useGlobal(
-    "isLoadingUser"
-  );
-  const [globalIsLoadingCreateUser] = useGlobal("isLoadingCreateUser");
-  const [globalIsLoadingFacebookAuth] = useGlobal("isLoadingFacebookAuth");
-  const { register, errors, handleSubmit } = useForm({
-    validationSchema,
-    reValidateMode: "onSubmit",
-  });
-
-  const emailRegisteredWithProvider = async (email) => {
-    const userQuerySnapshot = await firestore
-      .collection("users")
-      .where("email", "==", email)
-      .get();
-
-    if (userQuerySnapshot.empty) return false;
-
-    const user = querySnapshotToArray(userQuerySnapshot)[0];
-
-    const provider = get(user, "providers[0]", null);
-
-    return provider !== "password";
-  };
-
-  const onLoginError = async (error, email) => {
-    let errorMessage;
-    errorMessage = firebaseAuthenticationError[error.code];
-
-    const isEmailRegisteredWithProvider = await emailRegisteredWithProvider(
-      email
-    );
-    if (isEmailRegisteredWithProvider)
-      errorMessage = "Email is register with another provider";
-
-    await setGlobalIsLoadingUser(false);
-
-    notification["error"]({
-      message: "Login error",
-      description: errorMessage,
+    const validationSchema = object().shape({
+        email: string().trim().required().email(),
+        password: string().required(),
     });
-  };
 
-  const onSubmitLogin = async (data) => {
-    try {
-      await setGlobalIsLoadingUser(true);
-      const userRecord = await doSignInWithEmailAndPassword(
-        data.email.toLowerCase().trim(),
-        data.password
-      );
-      !get(userRecord, "success", false) &&
-        (await onLoginError(get(userRecord, "error", null), data.email));
-    } catch (error) {
-      await onLoginError(error, data.email);
-    }
-  };
+    const [globalIsLoadingUser, setGlobalIsLoadingUser] = useGlobal(
+        "isLoadingUser"
+    );
+    const [globalIsLoadingCreateUser] = useGlobal("isLoadingCreateUser");
+    const [globalIsLoadingFacebookAuth] = useGlobal("isLoadingFacebookAuth");
+    const {register, errors, handleSubmit} = useForm({
+        validationSchema,
+        reValidateMode: "onSubmit",
+    });
 
-  return (
-    <FormContainerLoginDesktop>
-      <LoginFacebook />
-      <FormLoginDesktop
-        onSubmit={handleSubmit(onSubmitLogin)}
-        autoComplete="off"
-        className="login-form-container"
-        noValidate
-      >
-        <div className="subtitle-between-lines-desktop">
-          <hr />
-          <span>Iniciar Sesión</span>
-          <hr />
-        </div>
-        <div className="content-item">
-          <Input
-            variant="primary"
-            type="text"
-            id="email"
-            name="email"
-            ref={register}
-            autoComplete="off"
-            error={errors.email}
-            placeholder="Ingresa tu email"
-          />
-        </div>
-        <div className="content-item">
-          <Input
-            variant="primary"
-            type="password"
-            id="password"
-            name="password"
-            ref={register}
-            error={errors.password}
-            autoComplete="off"
-            placeholder="Ingresa tu contraseña"
-          />
-        </div>
-        <div className="forgot-password-desktop">
-          <div onClick={() => props.forgotPasswordVisible(true)}>
-            <span>Recuperar contraseña</span>
-          </div>
-        </div>
-        <div className="content-btn-desktop">
-          <ButtonBombo
-            block={true}
-            margin={"10px auto 0 auto"}
-            width="100%"
-            htmlType="submit"
-            loading={globalIsLoadingUser}
-            disabled={
-              globalIsLoadingUser ||
-              globalIsLoadingCreateUser ||
-              globalIsLoadingFacebookAuth
-            }
-          >
-            Iniciar sesión {!globalIsLoadingUser && <Icon type="right" />}
-          </ButtonBombo>
-        </div>
-      </FormLoginDesktop>
-    </FormContainerLoginDesktop>
-  );
+    const emailRegisteredWithProvider = async (email) => {
+        const userQuerySnapshot = await firestore
+            .collection("users")
+            .where("email", "==", email)
+            .get();
+
+        if (userQuerySnapshot.empty) return false;
+
+        const user = querySnapshotToArray(userQuerySnapshot)[0];
+
+        const provider = get(user, "providers[0]", null);
+
+        return provider !== "password";
+    };
+
+    const onLoginError = async (error, email) => {
+        let errorMessage;
+        errorMessage = firebaseAuthenticationError[error.code];
+
+        const isEmailRegisteredWithProvider = await emailRegisteredWithProvider(
+            email
+        );
+        if (isEmailRegisteredWithProvider)
+            errorMessage = "Email is register with another provider";
+
+        await setGlobalIsLoadingUser(false);
+
+        notification["error"]({
+            message: "Login error",
+            description: errorMessage,
+        });
+    };
+
+    const onSubmitLogin = async (data) => {
+        try {
+            await setGlobalIsLoadingUser(true);
+            const userRecord = await doSignInWithEmailAndPassword(
+                data.email.toLowerCase().trim(),
+                data.password
+            );
+            !get(userRecord, "success", false) &&
+            (await onLoginError(get(userRecord, "error", null), data.email));
+        } catch (error) {
+            await onLoginError(error, data.email);
+        }
+    };
+
+    return (
+        <FormContainerLoginDesktop>
+            <FormLoginDesktop
+                onSubmit={handleSubmit(onSubmitLogin)}
+                autoComplete="off"
+                className="login-form-container"
+                noValidate
+            >
+                <div className="subtitle-between-lines-desktop">
+                    <hr/>
+                    <span>Iniciar Sesión</span>
+                    <hr/>
+                </div>
+                <div className="content-item">
+                    <Input
+                        variant="primary"
+                        type="text"
+                        id="email"
+                        name="email"
+                        ref={register}
+                        autoComplete="off"
+                        error={errors.email}
+                        placeholder="Ingresa tu email"
+                    />
+                </div>
+                <div className="content-item">
+                    <Input
+                        variant="primary"
+                        type="password"
+                        id="password"
+                        name="password"
+                        ref={register}
+                        error={errors.password}
+                        autoComplete="off"
+                        placeholder="Ingresa tu contraseña"
+                    />
+                </div>
+                <div className="content-btn-desktop">
+                    <ButtonBombo
+                        block={true}
+                        margin={"10px auto 0 auto"}
+                        width="100%"
+                        htmlType="submit"
+                        loading={globalIsLoadingUser}
+                        disabled={
+                            globalIsLoadingUser ||
+                            globalIsLoadingCreateUser ||
+                            globalIsLoadingFacebookAuth
+                        }
+                    >
+                        Iniciar sesión {!globalIsLoadingUser && <Icon type="right"/>}
+                    </ButtonBombo>
+                </div>
+            </FormLoginDesktop>
+        </FormContainerLoginDesktop>
+    );
 };
 
 export const FormContainerLoginDesktop = styled.div`
   padding-top: 1.5rem;
+  max-width: 300px;
+  margin: auto;
 
   .title {
     text-align: left;
