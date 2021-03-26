@@ -90,84 +90,76 @@ export const Specials = (props) => {
         });
     };
 
-    return (
-        <SpecialsSection>
-            {isVisibleModal && get(authUser, "isAdmin") && (
-                <ModalContainer
-                    footer={null}
-                    visible={isVisibleModal}
-                    onCancel={() => setIsVisibleModal(!isVisibleModal)}
+    return <SpecialsSection>
+        {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
+            footer={null}
+            visible={isVisibleModal}
+            onCancel={() => setIsVisibleModal(!isVisibleModal)}
+        >
+            <Suspense fallback={spinLoader()}>
+                <EditSpecials
+                    setIsVisibleModal={setIsVisibleModal}
+                    isVisibleModal={isVisibleModal}
+                    currentField={currentField}
+                    currentElement={currentElement}
+                    {...props}
+                />
+            </Suspense>
+        </ModalContainer>}
+        <div className="main-container">
+            <div className="gifts-container">
+                <div className="title">Regalos Especiales</div>
+                <div className="carousel-container">
+                    <Carousel
+                        components={defaultTo(
+                            get(props, "events.specialGifts"),
+                            []
+                        ).map((gift) => carouselContent(gift, "gift"))}
+                    />
+                </div>
+                {get(authUser, "isAdmin") && <ButtonBombo
+                    type="action"
+                    onClick={() => {
+                        setCurrentField("specialGifts");
+                        setCurrentElement({
+                            id: firestore.collection("events").doc().id,
+                        });
+                        setIsVisibleModal(true);
+                    }}
                 >
-                    <Suspense fallback={spinLoader()}>
-                        <EditSpecials
-                            setIsVisibleModal={setIsVisibleModal}
-                            isVisibleModal={isVisibleModal}
-                            currentField={currentField}
-                            currentElement={currentElement}
-                            {...props}
-                        />
-                    </Suspense>
-                </ModalContainer>
-            )}
-            <div className="main-container">
-                <div className="gifts-container">
-                    <div className="title">Regalos Especiales</div>
-                    <div className="carousel-container">
-                        <Carousel
-                            components={defaultTo(
-                                get(props, "events.specialGifts"),
-                                []
-                            ).map((gift) => carouselContent(gift, "gift"))}
-                        />
-                    </div>
-                    {get(authUser, "isAdmin") && (
-                        <ButtonBombo
-                            type="action"
-                            onClick={() => {
-                                setCurrentField("specialGifts");
-                                setCurrentElement({
-                                    id: firestore.collection("events").doc().id,
-                                });
-                                setIsVisibleModal(true);
-                            }}
-                        >
-                            Añadir
-                        </ButtonBombo>
-                    )}
-                </div>
-                <Desktop>
-                    <div className="divider">
-                        <Line/>
-                    </div>
-                </Desktop>
-                <div className="guests-container">
-                    <div className="title">Invitados Especiales</div>
-                    <div className="carousel-container">
-                        <Carousel
-                            components={defaultTo(
-                                get(props, "events.specialGuests"),
-                                []
-                            ).map((guest) => carouselContent(guest, "guest"))}
-                        />
-                    </div>
-                    {get(authUser, "isAdmin") && (
-                        <ButtonBombo
-                            type="action"
-                            onClick={() => {
-                                setCurrentField("specialGuests");
-                                setCurrentElement({
-                                    id: firestore.collection("events").doc().id,
-                                });
-                                setIsVisibleModal(true);
-                            }}
-                        >
-                            Añadir
-                        </ButtonBombo>
-                    )}
-                </div>
+                    Añadir
+                </ButtonBombo>}
             </div>
-        </SpecialsSection>
-    );
+            <Desktop>
+                <div className="divider">
+                    <Line/>
+                </div>
+            </Desktop>
+            <div className="guests-container">
+                <div className="title">Invitados Especiales</div>
+                <div className="carousel-container">
+                    <Carousel
+                        components={defaultTo(
+                            get(props, "events.specialGuests"),
+                            []
+                        ).map((guest) => carouselContent(guest, "guest"))}
+                    />
+                </div>
+                {get(authUser, "isAdmin") && <ButtonBombo
+                    type="action"
+                    onClick={() => {
+                        setCurrentField("specialGuests");
+                        setCurrentElement({
+                            id: firestore.collection("events").doc().id,
+                        });
+                        setIsVisibleModal(true);
+                    }}
+                >
+                    Añadir
+                </ButtonBombo>}
+            </div>
+        </div>
+    </SpecialsSection>;
 };
 
 const ContentCarousel = styled.div`
@@ -218,12 +210,10 @@ const ContentCarousel = styled.div`
 
 const SpecialsSection = styled.section`
   width: 100%;
-    /*
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/5.png"});
-   */
 
   .gifts-container,
   .guests-container {

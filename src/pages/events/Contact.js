@@ -44,81 +44,77 @@ export const Contact = (props) => {
         }
     };
 
-    return (
-        <ContactSection id="contact">
-            <div className="content">
-                <h2>¿Deseas mayor información?</h2>
-                <p>Ponte en contacto con nosotros</p>
+    return <ContactSection id="contact">
+        <div className="content">
+            <h2>¿Deseas mayor información?</h2>
+            <p>Ponte en contacto con nosotros</p>
 
-                <div
-                    className="company-info"
-                    onClick={() => window.open("https://wa.me/51945693597", "_blank")}
-                >
-                    <img src={`${config.storageUrl}/resources/wsp-icon.svg`}
-                         alt=""/>
-                    <span>+51 915 088 420</span>
-                </div>
-                <div className="company-info">
-                    <img
-                        src={`${config.storageUrl}/resources/b2bLanding/email.svg`}
-                        alt=""
-                    />
-                    <span>mateo@bombo.pe</span>
-                </div>
-                <form onSubmit={handleSubmit(sendEmail)}>
-                    <TextArea
-                        error={errors.message}
-                        name="message"
-                        ref={register}
-                        rows="10"
-                        placeholder="Déjanos tu consulta aquí"
-                    />
-                    <div className="info-contact">
-                        <Input
-                            error={errors.email}
-                            type="email"
-                            ref={register}
-                            name="email"
-                            placeholder="Correo electrónico"
-                        />
-                        <Input
-                            error={errors.phoneNumber}
-                            type="text"
-                            ref={register}
-                            name="phoneNumber"
-                            placeholder="Número de teléfono"
-                        />
-                    </div>
-                    <ButtonBombo
-                        width="100%"
-                        loading={loadingSendingEmail}
-                        disabled={loadingSendingEmail}
-                        htmlType="submit"
-                    >
-                        Enviar
-                    </ButtonBombo>
-                </form>
+            <div
+                className="company-info"
+                onClick={() => window.open("https://wa.me/51945693597", "_blank")}
+            >
+                <img src={`${config.storageUrl}/resources/wsp-icon.svg`}
+                     alt=""/>
+                <span>+51 915 088 420</span>
             </div>
-            <Desktop>
-                <div className="image-container">
-                    <img
-                        src={`${config.storageUrl}/resources/b2bLanding/schedule.svg`}
-                        alt=""
+            <div className="company-info">
+                <img
+                    src={`${config.storageUrl}/resources/b2bLanding/email.svg`}
+                    alt=""
+                />
+                <span>mateo@bombo.pe</span>
+            </div>
+            <form onSubmit={handleSubmit(sendEmail)}>
+                <TextArea
+                    error={errors.message}
+                    name="message"
+                    ref={register}
+                    rows="10"
+                    placeholder="Déjanos tu consulta aquí"
+                />
+                <div className="info-contact">
+                    <Input
+                        error={errors.email}
+                        type="email"
+                        ref={register}
+                        name="email"
+                        placeholder="Correo electrónico"
+                    />
+                    <Input
+                        error={errors.phoneNumber}
+                        type="text"
+                        ref={register}
+                        name="phoneNumber"
+                        placeholder="Número de teléfono"
                     />
                 </div>
-            </Desktop>
-        </ContactSection>
-    );
+                <ButtonBombo
+                    width="100%"
+                    loading={loadingSendingEmail}
+                    disabled={loadingSendingEmail}
+                    htmlType="submit"
+                >
+                    Enviar
+                </ButtonBombo>
+            </form>
+        </div>
+        <Desktop>
+            <div className="image-container">
+                <img
+                    src={`${config.storageUrl}/resources/b2bLanding/schedule.svg`}
+                    alt=""
+                />
+            </div>
+        </Desktop>
+    </ContactSection>;
 };
 
 const ContactSection = styled.section`
   padding: 250px 1rem 1rem;
-    /*
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/9.png"});
-   */
 
   ${mediaQuery.afterTablet} {
     padding: 500px 3rem 3rem;

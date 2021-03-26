@@ -19,103 +19,93 @@ export const Comments = (props) => {
     const [currentComment, setCurrentComment] = useState(null);
     const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-    return (
-        <CommentsContainer>
-            {isVisibleModal && get(authUser, "isAdmin") && (
-                <ModalContainer
-                    footer={null}
-                    visible={isVisibleModal}
-                    onCancel={() => setIsVisibleModal(!isVisibleModal)}
-                >
-                    <Suspense fallback={spinLoader()}>
-                        <EditComment
-                            setIsVisibleModal={setIsVisibleModal}
-                            isVisibleModal={isVisibleModal}
-                            currentComment={currentComment}
-                            {...props}
-                        />
-                    </Suspense>
-                </ModalContainer>
-            )}
-            <div className="main-container">
-                <div className="title">COMENTARIOS</div>
-                <div className="comments">
-                    <div className="comments-container">
-                        {defaultTo(get(props, "events.comments"), []).map((comment) => (
-                            <Comment
-                                backgroundImage={comment.backgroundImageUrl}
-                                key={comment.id}
-                            >
-                                <Desktop>
-                                    <Image
-                                        src={comment.imageUrl}
-                                        width="123px"
-                                        height="123px"
-                                        borderRadius="50%"
-                                        margin="0.5rem auto"
-                                        size="cover"
-                                    />
-                                </Desktop>
-                                <Tablet>
-                                    <Image
-                                        src={comment.imageUrl}
-                                        width="74px"
-                                        height="74px"
-                                        borderRadius="50%"
-                                        margin="0.5rem auto"
-                                        size="cover"
-                                    />
-                                </Tablet>
-                                <div className="description">{comment.description}</div>
-                                {get(authUser, "isAdmin") && (
-                                    <div className="container-edit">
-                                        <Icon
-                                            className="icon-edit"
-                                            type="edit"
-                                            onClick={() => {
-                                                setCurrentComment(comment);
-                                                setIsVisibleModal(true);
-                                            }}
-                                        />
-                                        <Icon
-                                            className="icon-delete"
-                                            type="delete"
-                                            onClick={() => {
-                                                props.deleteElement(comment, "comments");
-                                            }}
-                                        />
-                                    </div>
-                                )}
-                            </Comment>
-                        ))}
+    return <CommentsContainer>
+        {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
+            footer={null}
+            visible={isVisibleModal}
+            onCancel={() => setIsVisibleModal(!isVisibleModal)}
+        >
+            <Suspense fallback={spinLoader()}>
+                <EditComment
+                    setIsVisibleModal={setIsVisibleModal}
+                    isVisibleModal={isVisibleModal}
+                    currentComment={currentComment}
+                    {...props}
+                />
+            </Suspense>
+        </ModalContainer>}
+        <div className="main-container">
+            <div className="title">COMENTARIOS</div>
+            <div className="comments">
+                <div className="comments-container">
+                    {defaultTo(get(props, "events.comments"), []).map((comment) => <Comment
+                        backgroundImage={comment.backgroundImageUrl}
+                        key={comment.id}
+                    >
+                        <Desktop>
+                            <Image
+                                src={comment.imageUrl}
+                                width="123px"
+                                height="123px"
+                                borderRadius="50%"
+                                margin="0.5rem auto"
+                                size="cover"
+                            />
+                        </Desktop>
+                        <Tablet>
+                            <Image
+                                src={comment.imageUrl}
+                                width="74px"
+                                height="74px"
+                                borderRadius="50%"
+                                margin="0.5rem auto"
+                                size="cover"
+                            />
+                        </Tablet>
+                        <div className="description">{comment.description}</div>
                         {get(authUser, "isAdmin") && (
-                            <ButtonBombo
-                                type="action"
-                                onClick={() => {
-                                    setCurrentComment({
-                                        id: firestore.collection("events").doc().id,
-                                    });
-                                    setIsVisibleModal(true);
-                                }}
-                            >
-                                Añadir
-                            </ButtonBombo>
+                            <div className="container-edit">
+                                <Icon
+                                    className="icon-edit"
+                                    type="edit"
+                                    onClick={() => {
+                                        setCurrentComment(comment);
+                                        setIsVisibleModal(true);
+                                    }}
+                                />
+                                <Icon
+                                    className="icon-delete"
+                                    type="delete"
+                                    onClick={() => {
+                                        props.deleteElement(comment, "comments");
+                                    }}
+                                />
+                            </div>
                         )}
-                    </div>
+                    </Comment>)}
+                    {get(authUser, "isAdmin") && <ButtonBombo
+                        type="action"
+                        onClick={() => {
+                            setCurrentComment({
+                                id: firestore.collection("events").doc().id,
+                            });
+                            setIsVisibleModal(true);
+                        }}
+                    >
+                        Añadir
+                    </ButtonBombo>}
                 </div>
             </div>
-        </CommentsContainer>
-    );
+        </div>
+    </CommentsContainer>;
 };
 
 const CommentsContainer = styled.section`
   width: 100%;
-    /*
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/8.png"});
-   */
   padding: 1rem;
   margin: 0 auto;
 

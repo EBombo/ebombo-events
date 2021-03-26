@@ -28,13 +28,11 @@ export const Services = (props) =>
 
 const ServiceSection = styled.section`
   padding: 1rem;
-    /*
   position: relative;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/2.png"});
-*/
 
   ${mediaQuery.afterTablet} {
     padding: 3rem;

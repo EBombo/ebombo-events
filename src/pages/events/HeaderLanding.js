@@ -59,12 +59,10 @@ export const HeaderLanding = (props) => {
 const HeaderLandingContainer = styled.section`
   height: 100vh;
   width: 100%;
-    /*
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/1.png"});
-  */
   position: relative;
 
   .companies {
