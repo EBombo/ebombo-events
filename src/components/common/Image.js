@@ -22,6 +22,11 @@ const ImageCss = styled.div`
   border-radius: ${(props) => props.borderRadius || "0"};
   position: ${(props) => props.position || "-"};
 
+  ${props => props.top ? `top:${props.top};` : ""}
+  ${props => props.left ? `left:${props.left};` : ""}
+  ${props => props.right ? `right:${props.right};` : ""}
+  ${props => props.minHeight ? `min-height:${props.minHeight};` : ""}
+  ${props => props.minWidth ? `min-width:${props.minWidth};` : ""}
   ${mediaQuery.afterMobile} {
     height: ${(props) =>
             props.desktopHeight ? props.desktopHeight : props.height};

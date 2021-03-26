@@ -3,40 +3,38 @@ import {services} from "../../components/common/DataList";
 import styled from "styled-components";
 import {mediaQuery} from "../../styles/constants";
 import {config} from "../../firebase";
-import {Image} from "../../components/common/Image";
 
 export const Services = (props) =>
-    <Image src={config.storageUrl + "/resources/b2bLanding/2.png"}
-           position="relative"
-           width="100%">
-        <ServiceSection id="services">
-            <h2>Nuestros Servicios</h2>
-            <div className="services-container">
-                {services.map((service, index) => <ServiceContent
-                    borderColor={service.color}
-                    index={index}
-                    key={`key-services-${service.title}`}
-                >
-                    <div className="border-section">
-                        <img src={service.logoUrl}
-                             alt=""/>
-                        <h4>{service.title}</h4>
-                        <p>{service.text}</p>
-                    </div>
-                    <img className="absolute-image"
-                         src={service.imageUrl}
+    <ServiceSection id="services">
+        <h2>Nuestros Servicios</h2>
+        <div className="services-container">
+            {services.map((service, index) => <ServiceContent
+                borderColor={service.color}
+                index={index}
+                key={`key-services-${service.title}`}
+            >
+                <div className="border-section">
+                    <img src={service.logoUrl}
                          alt=""/>
-                </ServiceContent>)}
-            </div>
-        </ServiceSection>
-    </Image>;
+                    <h4>{service.title}</h4>
+                    <p>{service.text}</p>
+                </div>
+                <img className="absolute-image"
+                     src={service.imageUrl}
+                     alt=""/>
+            </ServiceContent>)}
+        </div>
+    </ServiceSection>;
 
 const ServiceSection = styled.section`
   padding: 1rem;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+    /*
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url(${config.storageUrl + "/resources/b2bLanding/2.png"});
+*/
 
   ${mediaQuery.afterTablet} {
     padding: 3rem;

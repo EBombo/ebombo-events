@@ -11,111 +11,114 @@ import {useErrorHandler} from "react-error-boundary";
 import {useOwnFetch} from "../../utils/useFetch/useFetch";
 
 export const Contact = (props) => {
-  const handleError = useErrorHandler();
-  const {ownFetch} = useOwnFetch();
-  const [loadingSendingEmail, setLoadingSendingEmail] = useState(false);
+    const handleError = useErrorHandler();
+    const {ownFetch} = useOwnFetch();
+    const [loadingSendingEmail, setLoadingSendingEmail] = useState(false);
 
-  const schema = object().shape({
-    phoneNumber: string().required(),
-    message: string().required(),
-    email: string().required(),
-  });
+    const schema = object().shape({
+        phoneNumber: string().required(),
+        message: string().required(),
+        email: string().required(),
+    });
 
-  const { register, handleSubmit, errors, reset } = useForm({
-    validationSchema: schema,
-    reValidateMode: "onSubmit",
-  });
+    const {register, handleSubmit, errors, reset} = useForm({
+        validationSchema: schema,
+        reValidateMode: "onSubmit",
+    });
 
-  const sendEmail = async (data) => {
-    try {
-      setLoadingSendingEmail(true);
+    const sendEmail = async (data) => {
+        try {
+            setLoadingSendingEmail(true);
 
-      await ownFetch(`${config.serverUrl}/business-email`, "POST", data);
+            await ownFetch(`${config.serverUrl}/business-email`, "POST", data);
 
-      message.success("Se envio el mensaje correctamente.");
-      reset({
-        message: null,
-        email: null,
-        phoneNumber: null,
-      });
-      setLoadingSendingEmail(false);
-    } catch (error) {
-      handleError({ ...error, action: "sendEmail" });
-    }
-  };
+            message.success("Se envio el mensaje correctamente.");
+            reset({
+                message: null,
+                email: null,
+                phoneNumber: null,
+            });
+            setLoadingSendingEmail(false);
+        } catch (error) {
+            handleError({...error, action: "sendEmail"});
+        }
+    };
 
-  return (
-    <ContactSection id="contact">
-      <div className="content">
-        <h2>¿Deseas mayor información?</h2>
-        <p>Ponte en contacto con nosotros</p>
+    return (
+        <ContactSection id="contact">
+            <div className="content">
+                <h2>¿Deseas mayor información?</h2>
+                <p>Ponte en contacto con nosotros</p>
 
-        <div
-          className="company-info"
-          onClick={() => window.open("https://wa.me/51945693597", "_blank")}
-        >
-          <img src={`${config.storageUrl}/resources/wsp-icon.svg`} alt="" />
-          <span>+51 915 088 420</span>
-        </div>
-        <div className="company-info">
-          <img
-            src={`${config.storageUrl}/resources/b2bLanding/email.svg`}
-            alt=""
-          />
-          <span>mateo@bombo.pe</span>
-        </div>
-        <form onSubmit={handleSubmit(sendEmail)}>
-          <TextArea
-            error={errors.message}
-            name="message"
-            ref={register}
-            rows="10"
-            placeholder="Déjanos tu consulta aquí"
-          />
-          <div className="info-contact">
-            <Input
-              error={errors.email}
-              type="email"
-              ref={register}
-              name="email"
-              placeholder="Correo electrónico"
-            />
-            <Input
-              error={errors.phoneNumber}
-              type="text"
-              ref={register}
-              name="phoneNumber"
-              placeholder="Número de teléfono"
-            />
-          </div>
-          <ButtonBombo
-            width="100%"
-            loading={loadingSendingEmail}
-            disabled={loadingSendingEmail}
-            htmlType="submit"
-          >
-            Enviar
-          </ButtonBombo>
-        </form>
-      </div>
-      <Desktop>
-        <div className="image-container">
-          <img
-            src={`${config.storageUrl}/resources/b2bLanding/schedule.svg`}
-            alt=""
-          />
-        </div>
-      </Desktop>
-    </ContactSection>
-  );
+                <div
+                    className="company-info"
+                    onClick={() => window.open("https://wa.me/51945693597", "_blank")}
+                >
+                    <img src={`${config.storageUrl}/resources/wsp-icon.svg`}
+                         alt=""/>
+                    <span>+51 915 088 420</span>
+                </div>
+                <div className="company-info">
+                    <img
+                        src={`${config.storageUrl}/resources/b2bLanding/email.svg`}
+                        alt=""
+                    />
+                    <span>mateo@bombo.pe</span>
+                </div>
+                <form onSubmit={handleSubmit(sendEmail)}>
+                    <TextArea
+                        error={errors.message}
+                        name="message"
+                        ref={register}
+                        rows="10"
+                        placeholder="Déjanos tu consulta aquí"
+                    />
+                    <div className="info-contact">
+                        <Input
+                            error={errors.email}
+                            type="email"
+                            ref={register}
+                            name="email"
+                            placeholder="Correo electrónico"
+                        />
+                        <Input
+                            error={errors.phoneNumber}
+                            type="text"
+                            ref={register}
+                            name="phoneNumber"
+                            placeholder="Número de teléfono"
+                        />
+                    </div>
+                    <ButtonBombo
+                        width="100%"
+                        loading={loadingSendingEmail}
+                        disabled={loadingSendingEmail}
+                        htmlType="submit"
+                    >
+                        Enviar
+                    </ButtonBombo>
+                </form>
+            </div>
+            <Desktop>
+                <div className="image-container">
+                    <img
+                        src={`${config.storageUrl}/resources/b2bLanding/schedule.svg`}
+                        alt=""
+                    />
+                </div>
+            </Desktop>
+        </ContactSection>
+    );
 };
 
 const ContactSection = styled.section`
   padding: 250px 1rem 1rem;
+    /*
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/9.png"});
+   */
 
   ${mediaQuery.afterTablet} {
     padding: 500px 3rem 3rem;

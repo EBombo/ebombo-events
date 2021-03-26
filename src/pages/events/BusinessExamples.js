@@ -173,11 +173,13 @@ const ExampleContent = styled.div`
 
 const ExamplesSections = styled.div`
   width: 100%;
+  padding: 1rem;
+    /*
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/6.png"});
-  padding: 1rem;
+   */
 
   ${mediaQuery.afterTablet} {
     padding: 2rem;

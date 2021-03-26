@@ -13,92 +13,94 @@ import {ModalContainer} from "../../components/common/ModalContainer";
 const EditHeldEvent = lazy(() => import("./EditHeldEvent"));
 
 export const HeldEvents = (props) => {
-  const [authUser] = useGlobal("user");
-  const [currentEvent, setCurrentEvent] = useState(null);
-  const [isVisibleModal, setIsVisibleModal] = useState(false);
+    const [authUser] = useGlobal("user");
+    const [currentEvent, setCurrentEvent] = useState(null);
+    const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-  return (
-      <EventsContainer id="events">
-      {isVisibleModal && get(authUser, "isAdmin") && (
-        <ModalContainer
-          footer={null}
-          visible={isVisibleModal}
-          onCancel={() => setIsVisibleModal(!isVisibleModal)}
-        >
-          <Suspense fallback={spinLoader()}>
-            <EditHeldEvent
-              setIsVisibleModal={setIsVisibleModal}
-              isVisibleModal={isVisibleModal}
-              currentEvent={currentEvent}
-              {...props}
-            />
-          </Suspense>
-        </ModalContainer>
-      )}
-      <div className="main-container">
-        <div className="title">EVENTOS REALIZADOS</div>
-        <div className="held-events">
-          <div className="events-container">
-            {defaultTo(get(props, "events.heldEvents"), []).map((event) => (
-              <EventContent
-                backgroundImage={event.backgroundImageUrl}
-                key={event.id}
-              >
-                <div className="the-card">
-                  <div className="front" />
-                  <div className="back">
-                    <div className="description">{event.description}</div>
-                  </div>
-                </div>
-                {get(authUser, "isAdmin") && (
-                  <div className="container-edit">
-                    <Icon
-                      className="icon"
-                      type="edit"
-                      onClick={() => {
-                        setCurrentEvent(event);
-                        setIsVisibleModal(true);
-                      }}
-                    />
-                    <Icon
-                      className="icon-delete"
-                      type="delete"
-                      onClick={() => {
-                        props.deleteElement(event, "heldEvents");
-                      }}
-                    />
-                  </div>
-                )}
-              </EventContent>
-            ))}
-            {get(authUser, "isAdmin") && (
-              <ButtonBombo
-                type="action"
-                onClick={() => {
-                  setCurrentEvent({
-                    id: firestore.collection("events").doc().id,
-                  });
-                  setIsVisibleModal(true);
-                }}
-              >
-                Añadir
-              </ButtonBombo>
+    return (
+        <EventsContainer id="events">
+            {isVisibleModal && get(authUser, "isAdmin") && (
+                <ModalContainer
+                    footer={null}
+                    visible={isVisibleModal}
+                    onCancel={() => setIsVisibleModal(!isVisibleModal)}
+                >
+                    <Suspense fallback={spinLoader()}>
+                        <EditHeldEvent
+                            setIsVisibleModal={setIsVisibleModal}
+                            isVisibleModal={isVisibleModal}
+                            currentEvent={currentEvent}
+                            {...props}
+                        />
+                    </Suspense>
+                </ModalContainer>
             )}
-          </div>
-        </div>
-      </div>
-    </EventsContainer>
-  );
+            <div className="main-container">
+                <div className="title">EVENTOS REALIZADOS</div>
+                <div className="held-events">
+                    <div className="events-container">
+                        {defaultTo(get(props, "events.heldEvents"), []).map((event) => (
+                            <EventContent
+                                backgroundImage={event.backgroundImageUrl}
+                                key={event.id}
+                            >
+                                <div className="the-card">
+                                    <div className="front"/>
+                                    <div className="back">
+                                        <div className="description">{event.description}</div>
+                                    </div>
+                                </div>
+                                {get(authUser, "isAdmin") && (
+                                    <div className="container-edit">
+                                        <Icon
+                                            className="icon"
+                                            type="edit"
+                                            onClick={() => {
+                                                setCurrentEvent(event);
+                                                setIsVisibleModal(true);
+                                            }}
+                                        />
+                                        <Icon
+                                            className="icon-delete"
+                                            type="delete"
+                                            onClick={() => {
+                                                props.deleteElement(event, "heldEvents");
+                                            }}
+                                        />
+                                    </div>
+                                )}
+                            </EventContent>
+                        ))}
+                        {get(authUser, "isAdmin") && (
+                            <ButtonBombo
+                                type="action"
+                                onClick={() => {
+                                    setCurrentEvent({
+                                        id: firestore.collection("events").doc().id,
+                                    });
+                                    setIsVisibleModal(true);
+                                }}
+                            >
+                                Añadir
+                            </ButtonBombo>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </EventsContainer>
+    );
 };
 
 const EventsContainer = styled.section`
   width: 100%;
+  padding: 1rem;
+  margin: 0 auto;
+    /*
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url(${config.storageUrl + "/resources/b2bLanding/7.png"});
-  padding: 1rem;
-  margin: 0 auto;
+   */
 
   .main-container {
     width: 100%;

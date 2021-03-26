@@ -9,7 +9,6 @@ import {Icon} from "../../components/common/Icons";
 import {lazy, Suspense} from "react";
 import {spinLoader} from "../../utils";
 import {ModalContainer} from "../../components/common/ModalContainer";
-import {Image} from "../../components/common/Image";
 
 const EditIntegrationGame = lazy(() => import("./EditIntegrationGame"));
 
@@ -18,99 +17,98 @@ export const IntegrationGames = (props) => {
     const [isVisibleModal, setIsVisibleModal] = useState(false);
     const [currentGame, setCurrentGame] = useState({});
 
-    return <Image src={config.storageUrl + "/resources/b2bLanding/3.png"}
-                  position="relative"
-                  width="100%">
-        <IntegrationSection id="games">
-            {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
-                footer={null}
-                visible={isVisibleModal}
-                onCancel={() => setIsVisibleModal(!isVisibleModal)}
-            >
-                <Suspense fallback={spinLoader()}>
-                    <EditIntegrationGame
-                        setIsVisibleModal={setIsVisibleModal}
-                        isVisibleModal={isVisibleModal}
-                        currentGame={currentGame}
-                        {...props}
-                    />
-                </Suspense>
-            </ModalContainer>}
-            <div className="main-container">
-                <div className="title">JUEGOS DE INTEGRACIÓN</div>
-                <div className="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus egestas
-                    ut rhoncus eu euismod sed dictum porttitor ac. Vel mattis egestas
-                    consequat sed in magna quam adipiscing justo. Nisl sem feugiat duis
-                    enim. Aliquam scelerisque viverra erat felis vulputate donec. Sagittis
-                    quis ullamcorper
-                </div>
-                <a href="#contact">
-                    <ButtonBombo type="primary">Contactanos</ButtonBombo>
-                </a>
-                <div className="integration-games">
-                    <div className="games-container">
-                        {defaultTo(get(props, "events.integrationGames"), []).map(
-                            (game) => <GameContent
-                                backgroundColor={game.backgroundColor}
-                                borderColor={game.borderColor}
-                                backgroundImage={game.backgroundImageUrl}
-                                key={game.name}
-                            >
-                                <div className="the-card">
-                                    <div className="front">
-                                        <div className="name">{game.name}</div>
-                                    </div>
-                                    <div className="back">
-                                        <div className="name">{game.name}</div>
-                                        <div className="description">{game.description}</div>
-                                    </div>
-                                </div>
-                                {get(authUser, "isAdmin") && (
-                                    <div className="container-edit">
-                                        <Icon
-                                            className="icon"
-                                            type="edit"
-                                            onClick={() => {
-                                                setCurrentGame(game);
-                                                setIsVisibleModal(true);
-                                            }}
-                                        />
-                                        <Icon
-                                            className="icon-delete"
-                                            type="delete"
-                                            onClick={() => {
-                                                props.deleteElement(game, "integrationGames");
-                                            }}
-                                        />
-                                    </div>
-                                )}
-                            </GameContent>
-                        )}
-                        {get(authUser, "isAdmin") && <ButtonBombo
-                            type="action"
-                            onClick={() => {
-                                setCurrentGame({
-                                    id: firestore.collection("events").doc().id,
-                                });
-                                setIsVisibleModal(true);
-                            }}
+    return <IntegrationSection id="games">
+        {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
+            footer={null}
+            visible={isVisibleModal}
+            onCancel={() => setIsVisibleModal(!isVisibleModal)}
+        >
+            <Suspense fallback={spinLoader()}>
+                <EditIntegrationGame
+                    setIsVisibleModal={setIsVisibleModal}
+                    isVisibleModal={isVisibleModal}
+                    currentGame={currentGame}
+                    {...props}
+                />
+            </Suspense>
+        </ModalContainer>}
+        <div className="main-container">
+            <div className="title">JUEGOS DE INTEGRACIÓN</div>
+            <div className="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus egestas
+                ut rhoncus eu euismod sed dictum porttitor ac. Vel mattis egestas
+                consequat sed in magna quam adipiscing justo. Nisl sem feugiat duis
+                enim. Aliquam scelerisque viverra erat felis vulputate donec. Sagittis
+                quis ullamcorper
+            </div>
+            <a href="#contact">
+                <ButtonBombo type="primary">Contactanos</ButtonBombo>
+            </a>
+            <div className="integration-games">
+                <div className="games-container">
+                    {defaultTo(get(props, "events.integrationGames"), []).map(
+                        (game) => <GameContent
+                            backgroundColor={game.backgroundColor}
+                            borderColor={game.borderColor}
+                            backgroundImage={game.backgroundImageUrl}
+                            key={game.name}
                         >
-                            Añadir
-                        </ButtonBombo>}
-                    </div>
+                            <div className="the-card">
+                                <div className="front">
+                                    <div className="name">{game.name}</div>
+                                </div>
+                                <div className="back">
+                                    <div className="name">{game.name}</div>
+                                    <div className="description">{game.description}</div>
+                                </div>
+                            </div>
+                            {get(authUser, "isAdmin") && (
+                                <div className="container-edit">
+                                    <Icon
+                                        className="icon"
+                                        type="edit"
+                                        onClick={() => {
+                                            setCurrentGame(game);
+                                            setIsVisibleModal(true);
+                                        }}
+                                    />
+                                    <Icon
+                                        className="icon-delete"
+                                        type="delete"
+                                        onClick={() => {
+                                            props.deleteElement(game, "integrationGames");
+                                        }}
+                                    />
+                                </div>
+                            )}
+                        </GameContent>
+                    )}
+                    {get(authUser, "isAdmin") && <ButtonBombo
+                        type="action"
+                        onClick={() => {
+                            setCurrentGame({
+                                id: firestore.collection("events").doc().id,
+                            });
+                            setIsVisibleModal(true);
+                        }}
+                    >
+                        Añadir
+                    </ButtonBombo>}
                 </div>
             </div>
-        </IntegrationSection>
-    </Image>;
+        </div>
+    </IntegrationSection>;
 };
 
 const IntegrationSection = styled.section`
   padding: 1rem;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
+    /*
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url(${config.storageUrl + "/resources/b2bLanding/3.png"});
+   */
 
   ${mediaQuery.afterTablet} {
     padding: 2rem;
