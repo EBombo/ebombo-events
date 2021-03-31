@@ -87,10 +87,7 @@ const EventsContainer = styled.section`
   width: 100%;
   padding: 1rem;
   margin: 0 auto;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-image: url(${config.storageUrl + "/resources/b2bLanding/7.png"});
+  background: transparent;
 
   .main-container {
     width: 100%;

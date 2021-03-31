@@ -210,10 +210,7 @@ const ContentCarousel = styled.div`
 
 const SpecialsSection = styled.section`
   width: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-image: url(${config.storageUrl + "/resources/b2bLanding/5.png"});
+  background: transparent;
 
   .gifts-container,
   .guests-container {

@@ -102,10 +102,7 @@ export const Comments = (props) => {
 
 const CommentsContainer = styled.section`
   width: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-image: url(${config.storageUrl + "/resources/b2bLanding/8.png"});
+  background: transparent;
   padding: 1rem;
   margin: 0 auto;
 

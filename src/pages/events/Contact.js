@@ -111,11 +111,8 @@ export const Contact = (props) => {
 
 const ContactSection = styled.section`
   padding: 250px 1rem 1rem;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-image: url(${config.storageUrl + "/resources/b2bLanding/9.png"});
-
+  background: transparent;
+  
   ${mediaQuery.afterTablet} {
     padding: 500px 3rem 3rem;
     display: grid;

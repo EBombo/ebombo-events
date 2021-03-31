@@ -39,10 +39,7 @@ export const EsportsGames = (props) => {
 const EsportsSection = styled.section`
   padding: 1rem;
   width: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-image: url(${config.storageUrl + "/resources/b2bLanding/4.png"});
+  background: transparent;
 
   ${mediaQuery.afterTablet} {
     padding: 2rem;

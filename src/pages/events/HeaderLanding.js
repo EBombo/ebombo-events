@@ -5,6 +5,7 @@ import {config} from "../../firebase";
 import {mediaQuery} from "../../styles/constants";
 import sizes from "../../styles/constants/sizes";
 import {useHistory} from "react-router";
+import {Image} from "../../components/common/Image";
 
 export const HeaderLanding = (props) => {
     const history = useHistory();
@@ -51,19 +52,81 @@ export const HeaderLanding = (props) => {
             />
             <div className="title">DE BIENESTAR CORPORATIVO</div>
             <div className="subtitle">que tu empresa necesita</div>
+            <div className="presenter">
+                <Image
+                    src={`${config.storageUrl}/landing/presenter.svg`}
+                    height={"100%"}
+                    width={"100%"}
+                />
+            </div>
+            <div className="emojis">
+                <Image
+                    src={`${config.storageUrl}/landing/emojis.svg`}
+                    height={"100%"}
+                    width={"100%"}
+                />
+            </div>
+            <div className="astronaut">
+                <Image
+                    src={`${config.storageUrl}/landing/astronaut-left.svg`}
+                    height={"100%"}
+                    width={"100%"}
+                />
+            </div>
+            <div className="director">
+                <Image
+                    src={`${config.storageUrl}/landing/director.svg`}
+                    height={"100%"}
+                    width={"100%"}
+                />
+            </div>
+            <div className="purple-background">
+                <Desktop>
+                    <Image
+                        src={`${config.storageUrl}/landing/header-bg.svg`}
+                        height={"100%"}
+                        width={"100%"}
+                    />
+                </Desktop>
+                <Tablet>
+                    <Image
+                        src={`${config.storageUrl}/landing/header-bg2.svg`}
+                        height={"100%"}
+                        width={"100%"}
+                    />
+                </Tablet>
+            </div>
+            <div className="green-planet">
+                <Image
+                    src={`${config.storageUrl}/landing/green-planet.svg`}
+                    height={"100%"}
+                    width={"100%"}
+                />
+            </div>
+            <div className="purple-planet">
+                <Image
+                    src={`${config.storageUrl}/landing/purple-planet.svg`}
+                    height={"100%"}
+                    width={"100%"}
+                />
+            </div>
+            <div className="purple-planet-small">
+                <Image
+                    src={`${config.storageUrl}/landing/purple-planet-small.svg`}
+                    height={"100%"}
+                    width={"100%"}
+                />
+            </div>
         </div>
         <div className="companies">CONFÍAN EN NOSOTROS</div>
     </HeaderLandingContainer>;
 };
 
 const HeaderLandingContainer = styled.section`
-  height: 100vh;
   width: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-image: url(${config.storageUrl + "/resources/b2bLanding/1.png"});
   position: relative;
+  background: transparent;
+  height: 100vh;
 
   .companies {
     position: absolute;
@@ -135,6 +198,7 @@ const HeaderLandingContainer = styled.section`
 
     img {
       margin-bottom: 0.5rem;
+      z-index: 999;
     }
 
     .title {
@@ -144,6 +208,7 @@ const HeaderLandingContainer = styled.section`
       color: ${(props) => props.theme.basic.white};
       text-align: center;
       margin-bottom: 0.5rem;
+      z-index: 999;
 
       ${mediaQuery.afterTablet} {
         font-size: 42px;
@@ -158,10 +223,119 @@ const HeaderLandingContainer = styled.section`
       color: ${(props) => props.theme.basic.white};
       text-align: center;
       margin-bottom: 0.5rem;
+      z-index: 999;
 
       ${mediaQuery.afterTablet} {
         font-size: 40px;
         line-height: 50px;
+      }
+    }
+
+    .purple-background {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 60%;
+      z-index: 1;
+    }
+
+    .presenter {
+      position: absolute;
+      top: 35%;
+      left: 35%;
+      width: 30%;
+      height: auto;
+      z-index: 3;
+
+      ${mediaQuery.afterTablet} {
+        top: 30%;
+        left: 50%;
+        width: 280px;
+        transform: translateX(-50%);
+      }
+    }
+    
+    .emojis{ position: absolute;
+      top: 35%;
+      right: 35%;
+      width: 50px;
+      z-index: 3;
+
+      ${mediaQuery.afterTablet} {
+        top: 35%;
+        right: 50%;
+      }
+      
+    }
+
+    .astronaut {
+      position: absolute;
+      top: 35%;
+      left: 0;
+      width: 35%;
+      height: auto;
+      z-index: 3;
+
+      ${mediaQuery.afterTablet} {
+        top: 30%;
+        width: 30%;
+      }
+    }
+
+    .director {
+      position: absolute;
+      top: 35%;
+      right: 0;
+      width: 35%;
+      height: auto;
+      z-index: 3;
+
+      ${mediaQuery.afterTablet} {
+        top: 30%;
+        width: 30%;
+      }
+    }
+
+    .green-planet {
+      position: absolute;
+      top: 30%;
+      right: 10%;
+      height: auto;
+      z-index: 2;
+      width: 60px;
+
+      ${mediaQuery.afterTablet} {
+        top: 20%;
+        width: 150px;
+      }
+    }
+    
+    .purple-planet{
+      position: absolute;
+      top: 20%;
+      left: 10%;
+      height: auto;
+      z-index: 2;
+      width: 80px;
+
+      ${mediaQuery.afterTablet} {
+        top: 20%;
+        width: 100px;
+      }
+    }
+    
+    .purple-planet-small{
+      position: absolute;
+      bottom: 20%;
+      right: 5%;
+      height: auto;
+      z-index: 2;
+      width: 50px;
+
+      ${mediaQuery.afterTablet} {
+        top: 20%;
+        width: 70px;
       }
     }
   }
