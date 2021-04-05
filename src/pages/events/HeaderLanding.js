@@ -52,16 +52,23 @@ export const HeaderLanding = (props) => {
             />
             <div className="title">DE BIENESTAR CORPORATIVO</div>
             <div className="subtitle">que tu empresa necesita</div>
+            <Desktop>
+                <BackgroundImage src={`${config.storageUrl}/landing/header-bg.svg`} widthSize={"90%"}/>
+                <BackgroundImage src={`${config.storageUrl}/landing/header-bg.svg`} widthSize={"70%"}/>
+                <BackgroundImage src={`${config.storageUrl}/landing/header-bg.svg`} widthSize={"50%"}/>
+            </Desktop>
+            <Tablet>
+                <BackgroundImage src={`${config.storageUrl}/landing/header-bg.svg`} widthSize={"95%"}/>
+                <BackgroundImage src={`${config.storageUrl}/landing/header-bg.svg`} widthSize={"60%"}/>
+                <BackgroundImage src={`${config.storageUrl}/landing/header-bg.svg`} widthSize={"30%"}/>
+            </Tablet>
+            <BackgroundLines src={`${config.storageUrl}/landing/header-thick-lines.svg`} />
+            <YellowKitie src={`${config.storageUrl}/landing/yellow-kite.svg`} />
+            <YellowKitie2 src={`${config.storageUrl}/landing/yellow-kite.svg`} />
+            <WhiteKitie src={`${config.storageUrl}/landing/white-kite.svg`} />
             <div className="presenter">
                 <Image
                     src={`${config.storageUrl}/landing/presenter.svg`}
-                    height={"100%"}
-                    width={"100%"}
-                />
-            </div>
-            <div className="emojis">
-                <Image
-                    src={`${config.storageUrl}/landing/emojis.svg`}
                     height={"100%"}
                     width={"100%"}
                 />
@@ -80,21 +87,12 @@ export const HeaderLanding = (props) => {
                     width={"100%"}
                 />
             </div>
-            <div className="purple-background">
-                <Desktop>
-                    <Image
-                        src={`${config.storageUrl}/landing/header-bg.svg`}
-                        height={"100%"}
-                        width={"100%"}
-                    />
-                </Desktop>
-                <Tablet>
-                    <Image
-                        src={`${config.storageUrl}/landing/header-bg2.svg`}
-                        height={"100%"}
-                        width={"100%"}
-                    />
-                </Tablet>
+            <div className="kites">
+                <Image
+                    src={`${config.storageUrl}/landing/kites.svg`}
+                    height={"100%"}
+                    width={"100%"}
+                />
             </div>
             <div className="green-planet">
                 <Image
@@ -113,6 +111,13 @@ export const HeaderLanding = (props) => {
             <div className="purple-planet-small">
                 <Image
                     src={`${config.storageUrl}/landing/purple-planet-small.svg`}
+                    height={"100%"}
+                    width={"100%"}
+                />
+            </div>
+            <div className="blue-planets">
+                <Image
+                    src={`${config.storageUrl}/landing/blue-planets.svg`}
                     height={"100%"}
                     width={"100%"}
                 />
@@ -231,15 +236,6 @@ const HeaderLandingContainer = styled.section`
       }
     }
 
-    .purple-background {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      width: 60%;
-      z-index: 1;
-    }
-
     .presenter {
       position: absolute;
       top: 35%;
@@ -254,19 +250,6 @@ const HeaderLandingContainer = styled.section`
         width: 280px;
         transform: translateX(-50%);
       }
-    }
-    
-    .emojis{ position: absolute;
-      top: 35%;
-      right: 35%;
-      width: 50px;
-      z-index: 3;
-
-      ${mediaQuery.afterTablet} {
-        top: 35%;
-        right: 50%;
-      }
-      
     }
 
     .astronaut {
@@ -296,47 +279,166 @@ const HeaderLandingContainer = styled.section`
         width: 30%;
       }
     }
+    
+    .kites{
+      position: absolute;
+      top: 60%;
+      left: 20%;
+      height: auto;
+      z-index: 2;
+      width: 100px;
+
+      ${mediaQuery.afterTablet} {
+        top: 70%;
+        left: 30%;
+        width: 200px;
+      }
+    }
 
     .green-planet {
       position: absolute;
-      top: 30%;
-      right: 10%;
+      top: 25%;
+      right: 15%;
       height: auto;
       z-index: 2;
-      width: 60px;
+      width: 20%;
 
       ${mediaQuery.afterTablet} {
-        top: 20%;
-        width: 150px;
+        width: 15%;
+        top: 15%;
       }
     }
-    
-    .purple-planet{
+
+    .purple-planet {
       position: absolute;
       top: 20%;
       left: 10%;
       height: auto;
       z-index: 2;
-      width: 80px;
+      width: 12%;
+    }
+
+    .purple-planet-small {
+      position: absolute;
+      top: 35%;
+      right: 2.5%;
+      height: auto;
+      z-index: 2;
+      width: 10%;
 
       ${mediaQuery.afterTablet} {
-        top: 20%;
-        width: 100px;
+        top: 25%;
+        width: 5%;
       }
     }
     
-    .purple-planet-small{
+    .blue-planets{
       position: absolute;
-      bottom: 20%;
-      right: 5%;
+      bottom: 5%;
+      right: 0;
       height: auto;
       z-index: 2;
-      width: 50px;
+      width: 40%;
 
       ${mediaQuery.afterTablet} {
-        top: 20%;
-        width: 70px;
+        width: 20%;
       }
     }
   }
 `;
+
+const BackgroundImage = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: ${props => props.widthSize};
+  height: 100vh;
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center left;
+  z-index: 1;
+
+  ${mediaQuery.afterTablet} {
+    background-position: center left;
+  }
+`
+
+const BackgroundLines = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-image: url(${(props) => props.src});
+  background-size: 150%;
+  background-repeat: no-repeat;
+  background-position: 76% 0%;
+  z-index: 1;
+  
+  ${mediaQuery.afterTablet}{
+    background-size: 120%;
+    background-position: 152% 0%;
+    height: 70%;
+  }
+`
+
+const YellowKitie = styled.div`
+  position: absolute;
+  top: 28%;
+  right: 20%;
+  width: 85px;
+  height: 15px;
+  background-image: url(${(props) => props.src});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 3;
+  
+  ${mediaQuery.afterTablet}{
+    top: 37%;
+    right: 15%;
+    width: 100px;
+    height: 30px;
+  }
+`
+const YellowKitie2 = styled.div`
+  position: absolute;
+  top: 37%;
+  right: 10%;
+  width: 85px;
+  height: 15px;
+  background-image: url(${(props) => props.src});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 3;
+
+  ${mediaQuery.afterTablet}{
+    top: 41%;
+    right: 12%;
+    width: 100px;
+    height: 25px;
+  }
+`
+
+const WhiteKitie = styled.div`
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  width: 100px;
+  height: 25px;
+  background-image: url(${(props) => props.src});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 3;
+
+  ${mediaQuery.afterTablet}{
+    top: 25%;
+    right: 25%;
+    width: 150px;
+    height: 35px;
+    left: auto;
+  }
+`
