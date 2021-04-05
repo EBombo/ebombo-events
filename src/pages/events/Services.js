@@ -3,6 +3,8 @@ import {services} from "../../components/common/DataList";
 import styled from "styled-components";
 import {mediaQuery} from "../../styles/constants";
 import {config} from "../../firebase";
+import {Image} from "../../components/common/Image";
+import {Desktop} from "../../utils";
 
 export const Services = (props) =>
     <ServiceSection id="services">
@@ -24,16 +26,48 @@ export const Services = (props) =>
                      alt=""/>
             </ServiceContent>)}
         </div>
+        <BackgroundLine src={`${config.storageUrl}/landing/purple-line.svg`}/>
+        <div className="orange-planet">
+            <Image
+                src={`${config.storageUrl}/landing/orange-planet.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
+        <div className="moon">
+            <Image
+                src={`${config.storageUrl}/landing/moon.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
+        <Desktop>
+            <div className="flying-saucer">
+                <Image
+                    src={`${config.storageUrl}/landing/flying-saucer.svg`}
+                    height={"100%"}
+                    width={"100%"}
+                />
+            </div>
+            <div className="saturn">
+                <Image
+                    src={`${config.storageUrl}/landing/saturn.svg`}
+                    height={"100%"}
+                    width={"100%"}
+                />
+            </div>
+        </Desktop>
     </ServiceSection>;
 
 const ServiceSection = styled.section`
-  padding: 1rem;
+  padding: 2rem;
   position: relative;
-  height: 350px; 
+  height: 450px;
   background: transparent;
-  
+
   ${mediaQuery.afterTablet} {
-    padding: 3rem;
+    padding: 80px 2rem;
+    margin-bottom: 150px;
     height: 550px;
   }
 
@@ -54,7 +88,54 @@ const ServiceSection = styled.section`
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 2rem;
     }
+
+    z-index: 9999;
   }
+
+  .orange-planet {
+    position: absolute;
+    height: auto;
+    z-index: 2;
+    width: 50px;
+    top: 10px;
+    left: 0;
+
+    ${mediaQuery.afterTablet} {
+      width: 100px;
+    }
+  }
+
+  .moon {
+    position: absolute;
+    height: auto;
+    z-index: 2;
+    width: 30px;
+    top: 10px;
+    left: 50px;
+
+    ${mediaQuery.afterTablet} {
+      width: 60px;
+      left: 70px;
+    }
+  }
+
+  .flying-saucer {
+    position: absolute;
+    height: auto;
+    z-index: 2;
+    width: 250px;
+    left: 5%;
+  }
+
+  .saturn {
+    position: absolute;
+    height: auto;
+    z-index: 2;
+    width: 260px;
+    right: 10px;
+  }
+
+
 `;
 
 const ServiceContent = styled.div`
@@ -98,3 +179,24 @@ const ServiceContent = styled.div`
     top: 15%;
   }
 `;
+
+const BackgroundLine = styled.div`
+  position: absolute;
+  top: 75%;
+  right: 0;
+  width: 70%;
+  height: 100%;
+  background-image: url(${(props) => props.src});
+  background-size: 150%;
+  background-repeat: no-repeat;
+  transform: scaleX(-1);
+  z-index: 0;
+  background-position: center right;
+
+  ${mediaQuery.afterTablet} {
+    top: 100px;
+    right: 0;
+    width: 40%;
+    height: 100%;
+  }
+`

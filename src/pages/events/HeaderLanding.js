@@ -63,9 +63,9 @@ export const HeaderLanding = (props) => {
                 <BackgroundImage src={`${config.storageUrl}/landing/header-bg.svg`} widthSize={"30%"}/>
             </Tablet>
             <BackgroundLines src={`${config.storageUrl}/landing/header-thick-lines.svg`} />
-            <YellowKitie src={`${config.storageUrl}/landing/yellow-kite.svg`} />
-            <YellowKitie2 src={`${config.storageUrl}/landing/yellow-kite.svg`} />
-            <WhiteKitie src={`${config.storageUrl}/landing/white-kite.svg`} />
+            <YellowKite src={`${config.storageUrl}/landing/yellow-kite.svg`} />
+            <YellowKite2 src={`${config.storageUrl}/landing/yellow-kite.svg`} />
+            <WhiteKite src={`${config.storageUrl}/landing/white-kite.svg`} />
             <div className="presenter">
                 <Image
                     src={`${config.storageUrl}/landing/presenter.svg`}
@@ -383,7 +383,7 @@ const BackgroundLines = styled.div`
   }
 `
 
-const YellowKitie = styled.div`
+const YellowKite = styled.div`
   position: absolute;
   top: 28%;
   right: 20%;
@@ -402,7 +402,7 @@ const YellowKitie = styled.div`
     height: 30px;
   }
 `
-const YellowKitie2 = styled.div`
+const YellowKite2 = styled.div`
   position: absolute;
   top: 37%;
   right: 10%;
@@ -422,7 +422,7 @@ const YellowKitie2 = styled.div`
   }
 `
 
-const WhiteKitie = styled.div`
+const WhiteKite = styled.div`
   position: absolute;
   top: 30%;
   left: 20%;
