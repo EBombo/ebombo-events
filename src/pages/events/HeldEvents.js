@@ -9,6 +9,7 @@ import {Icon} from "../../components/common/Icons";
 import {spinLoader} from "../../utils";
 import {ButtonBombo} from "../../components";
 import {ModalContainer} from "../../components/common/ModalContainer";
+import {Image} from "../../components/common/Image";
 
 const EditHeldEvent = lazy(() => import("./EditHeldEvent"));
 
@@ -80,6 +81,13 @@ export const HeldEvents = (props) => {
                 </div>
             </div>
         </div>
+        <div className="sitting-astronaut">
+            <Image
+                src={`${config.storageUrl}/landing/sitting-astronaut.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
     </EventsContainer>;
 };
 
@@ -88,12 +96,28 @@ const EventsContainer = styled.section`
   padding: 1rem;
   margin: 0 auto;
   background: transparent;
+  position: relative;
 
+  .sitting-astronaut{
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: 50px;
+    height: auto;
+    z-index: 1;
+    ${mediaQuery.afterTablet}{
+      left: 30px;
+      width: 150px;
+    }
+  }
+  
   .main-container {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-
+    position: relative;
+    z-index: 999;
+    
     .title {
       font-weight: bold;
       font-size: 15px;

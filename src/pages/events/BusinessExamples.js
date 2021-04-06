@@ -6,7 +6,7 @@ import {config, firestore} from "../../firebase";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
 import {Image} from "../../components/common/Image";
-import {spinLoader} from "../../utils";
+import {Desktop, spinLoader} from "../../utils";
 import {Icon} from "../../components/common/Icons";
 import {Anchor} from "../../components/common/Anchor";
 import {ButtonBombo} from "../../components";
@@ -90,9 +90,113 @@ export const BusinessExamples = (props) => {
                     </ButtonBombo>}
                 </div>
             </div>
+            <Desktop>
+                <div className="rocket">
+                    <Image
+                        src={`${config.storageUrl}/landing/rocket.svg`}
+                        height={"100%"}
+                        width={"100%"}
+                    />
+                </div>
+            </Desktop>
+        </div>
+        <div className="flag-astronaut">
+            <Image
+                src={`${config.storageUrl}/landing/flag-astronaut.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
+        <div className="astronaut">
+            <Image
+                src={`${config.storageUrl}/landing/astronaut.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
         </div>
     </ExamplesSections>;
 };
+
+const ExamplesSections = styled.section`
+  width: 100%;
+  padding: 1rem;
+  background: transparent;
+  position: relative;
+
+  ${mediaQuery.afterTablet} {
+    padding: 2rem;
+  }
+  
+  .astronaut{
+    position: absolute;
+    top: 0;
+    right: 5%;
+    width: 50px;
+    height: auto;
+    z-index: 2;
+    transform: translateY(-100%);
+    ${mediaQuery.afterTablet}{
+      width: 80px;
+    }
+  }
+  
+  .flag-astronaut{
+    position: absolute;
+    top: 0;
+    right: 10%;
+    width: 50px;
+    height: auto;
+    z-index: 2;
+    ${mediaQuery.afterTablet}{
+      width: 100px;
+    }
+  }
+
+  .main-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    
+    .rocket {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100px;
+      height: auto;
+      z-index: 2;
+    }
+
+    .title {
+      font-weight: bold;
+      color: ${(props) => props.theme.basic.white};
+      font-size: 15px;
+      line-height: 19px;
+      display: flex;
+      align-items: center;
+
+      ${mediaQuery.afterTablet} {
+        font-size: 24px;
+        line-height: 30px;
+      }
+    }
+
+    .business-examples {
+      max-width: 100%;
+      overflow: auto;
+      position: relative;
+      z-index: 999;
+
+      .examples-container {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem 0;
+      }
+    }
+  }
+`;
 
 const ExampleContent = styled.div`
   width: 220px;
@@ -167,49 +271,6 @@ const ExampleContent = styled.div`
       font-weight: 500;
       font-size: 18px;
       line-height: 22px;
-    }
-  }
-`;
-
-const ExamplesSections = styled.div`
-  width: 100%;
-  padding: 1rem;
-  background: transparent;
-
-  ${mediaQuery.afterTablet} {
-    padding: 2rem;
-  }
-
-  .main-container {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    text-align: center;
-
-    .title {
-      font-weight: bold;
-      color: ${(props) => props.theme.basic.white};
-      font-size: 15px;
-      line-height: 19px;
-      display: flex;
-      align-items: center;
-
-      ${mediaQuery.afterTablet} {
-        font-size: 24px;
-        line-height: 30px;
-      }
-    }
-
-    .business-examples {
-      max-width: 100%;
-      overflow: auto;
-
-      .examples-container {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin: 1rem 0;
-      }
     }
   }
 `;
