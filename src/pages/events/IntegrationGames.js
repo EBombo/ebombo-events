@@ -9,6 +9,7 @@ import {Icon} from "../../components/common/Icons";
 import {lazy, Suspense} from "react";
 import {spinLoader} from "../../utils";
 import {ModalContainer} from "../../components/common/ModalContainer";
+import {Image} from "../../components/common/Image";
 
 const EditIntegrationGame = lazy(() => import("./EditIntegrationGame"));
 
@@ -97,6 +98,27 @@ export const IntegrationGames = (props) => {
                 </div>
             </div>
         </div>
+        <div className="red-kite">
+            <Image
+                src={`${config.storageUrl}/landing/red-kite.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
+        <div className="red-kite-2">
+            <Image
+                src={`${config.storageUrl}/landing/red-kite.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
+        <div className="half-planet">
+            <Image
+                src={`${config.storageUrl}/landing/half-planet.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
     </IntegrationSection>;
 };
 
@@ -104,6 +126,7 @@ const IntegrationSection = styled.section`
   padding: 1rem;
   width: 100%;
   background: transparent;
+  position: relative;
 
   ${mediaQuery.afterTablet} {
     padding: 2rem;
@@ -113,6 +136,11 @@ const IntegrationSection = styled.section`
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
+    position: relative;
+
+    .blue-planet {
+
+    }
 
     .title {
       font-weight: bold;
@@ -134,6 +162,7 @@ const IntegrationSection = styled.section`
       color: ${(props) => props.theme.basic.white};
       text-align: left;
       margin-bottom: 1rem;
+      margin-right: 1rem;
 
       ${mediaQuery.afterTablet} {
         font-size: 20px;
@@ -146,6 +175,7 @@ const IntegrationSection = styled.section`
       max-width: 100%;
       overflow: auto;
       text-align: center;
+      z-index: 999;
 
       .games-container {
         display: inline-flex;
@@ -153,6 +183,52 @@ const IntegrationSection = styled.section`
         justify-content: center;
         margin: 1rem 0;
       }
+    }
+  }
+
+  .half-planet {
+    position: absolute;
+    height: auto;
+    z-index: 2;
+    transform: translateX(-30%);
+    top: 110%;
+    left: 0;
+    width: 20%;
+
+    ${mediaQuery.afterTablet} {
+      top: 70%;
+      left: 0;
+      width: 20%;
+    }
+  }
+
+  .red-kite {
+    position: absolute;
+    height: auto;
+    z-index: 2;
+    top: 100%;
+    left: 7%;
+    width: 4%;
+
+    ${mediaQuery.afterTablet} {
+      top: 50%;
+      left: 7%;
+      width: 3%;
+    }
+  }
+
+  .red-kite-2 {
+    position: absolute;
+    height: auto;
+    z-index: 2;
+    top: 105%;
+    left: 6%;
+    width: 5%;
+
+    ${mediaQuery.afterTablet} {
+      top: 60%;
+      left: 6%;
+      width: 4%;
     }
   }
 `;

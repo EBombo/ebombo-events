@@ -4,6 +4,8 @@ import {ButtonBombo} from "../../components";
 import defaultTo from "lodash/defaultTo";
 import {config} from "../../firebase";
 import {mediaQuery} from "../../styles/constants";
+import {Image} from "../../components/common/Image";
+import {Desktop} from "../../utils";
 
 export const EsportsGames = (props) => {
     const [games] = useGlobal("games");
@@ -32,7 +34,17 @@ export const EsportsGames = (props) => {
                     </GameContent>)}
                 </div>
             </div>
+            <Desktop>
+                <div className="blue-planet">
+                    <Image
+                        src={`${config.storageUrl}/landing/blue-planet.svg`}
+                        height={"100%"}
+                        width={"100%"}
+                    />
+                </div>
+            </Desktop>
         </div>
+        <BackgroundLine src={`${config.storageUrl}/landing/green-line.svg`}/>
     </EsportsSection>
 };
 
@@ -40,6 +52,7 @@ const EsportsSection = styled.section`
   padding: 1rem;
   width: 100%;
   background: transparent;
+  position: relative;
 
   ${mediaQuery.afterTablet} {
     padding: 2rem;
@@ -49,6 +62,7 @@ const EsportsSection = styled.section`
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
+    position: relative;
 
     .title {
       font-weight: bold;
@@ -71,6 +85,7 @@ const EsportsSection = styled.section`
       color: ${(props) => props.theme.basic.white};
       text-align: right;
       margin-bottom: 1rem;
+      margin-left: 2rem;
 
       ${mediaQuery.afterTablet} {
         font-size: 20px;
@@ -82,6 +97,8 @@ const EsportsSection = styled.section`
     .integration-games {
       max-width: 100%;
       overflow: auto;
+      position: relative;
+      z-index: 2;
 
       ::-webkit-scrollbar {
         height: 4px;
@@ -94,8 +111,39 @@ const EsportsSection = styled.section`
         margin: 1rem 0;
       }
     }
+
+    .blue-planet {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 200px;
+      height: auto;
+      z-index: 1;
+      transform: translate(50%, 50%);
+    }
   }
 `;
+
+const BackgroundLine = styled.div`
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 70%;
+  height: 110%;
+  background-image: url(${(props) => props.src});
+  background-size: 250%;
+  background-repeat: no-repeat;
+  z-index: 0;
+  background-position: 75% 0%;
+
+  ${mediaQuery.afterTablet} {
+    top: 18%;
+    right: 0;
+    width: 40%;
+    background-size: 140%;
+    background-position: 100% 0%;
+  }
+`
 
 const GameContent = styled.section`
   width: 150px;
