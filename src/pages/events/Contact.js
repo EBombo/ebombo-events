@@ -9,6 +9,7 @@ import {object, string} from "yup";
 import {useForm} from "react-hook-form";
 import {useErrorHandler} from "react-error-boundary";
 import {useOwnFetch} from "../../utils/useFetch/useFetch";
+import {Image} from "../../components/common/Image";
 
 export const Contact = (props) => {
     const handleError = useErrorHandler();
@@ -106,15 +107,178 @@ export const Contact = (props) => {
                 />
             </div>
         </Desktop>
+        <BackgroundFooter src={`${config.storageUrl}/landing/footer-bg.svg`}/>
+        <div className="cabin">
+            <Image
+                src={`${config.storageUrl}/landing/cabin.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
+        <div className="tree-duo">
+            <Image
+                src={`${config.storageUrl}/landing/tree-duo.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
+        <div className="tree-trio">
+            <Image
+                src={`${config.storageUrl}/landing/tree-trio.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
+        <div className="moon">
+            <Image
+                src={`${config.storageUrl}/landing/moon2.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
+        <div className="balloons">
+            <Image
+                src={`${config.storageUrl}/landing/balloons.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
+        <div className="people">
+            <Image
+                src={`${config.storageUrl}/landing/people.svg`}
+                height={"100%"}
+                width={"100%"}
+            />
+        </div>
+        <div className="light-circle">
+            <Image
+                src={`${config.storageUrl}/landing/light-circle.svg`}
+                height={"100%"}
+                width={"100%"}
+                bgPosition={"center left"}
+                size={"cover"}
+            />
+        </div>
     </ContactSection>;
 };
 
-const ContactSection = styled.section`
-  padding: 250px 1rem 1rem;
-  background: transparent;
+const BackgroundFooter = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  z-index: 2;
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-repeat: no-repeat;
   
+  ${mediaQuery.afterTablet}{
+    height: 70%;
+  }
+`
+
+const ContactSection = styled.section`
+  padding: 300px 1rem 1rem;
+  background: transparent;
+  position: relative;
+  width: 100%;
+
+  .light-circle{
+    position: absolute;
+    height: 50%;
+    z-index: 1;
+    bottom: 69%;
+    right: 0;
+    width: 50%;
+    ${mediaQuery.afterTablet}{
+      top: 0%;
+      left: 5%;
+      right: auto;
+      width: 15%;
+      height: auto;
+      bottom: auto;
+    }
+  }
+  
+  .people{
+    position: absolute;
+    bottom: 65%;
+    right: 40%;
+    width: 15%;
+    height: auto;
+    z-index: 3;
+    ${mediaQuery.afterTablet}{
+      width: 10%;
+      bottom: 50%;
+    }
+  }
+  
+  .balloons{
+    position: absolute;
+    top: 5%;
+    left: 35%;
+    width: 15%;
+    height: auto;
+    z-index: 3;
+    ${mediaQuery.afterTablet}{
+      width: 10%;
+    }
+  }
+
+  .moon{
+    position: absolute;
+    top: 0;
+    right: 5%;
+    width: 15%;
+    height: auto;
+    z-index: 3;
+    ${mediaQuery.afterTablet}{
+      width: 10%;
+    }
+  }
+  
+  .cabin {
+    position: absolute;
+    bottom: 70%;
+    left: 10%;
+    width: 20%;
+    height: auto;
+    z-index: 3;
+    ${mediaQuery.afterTablet}{
+      width: 12%;
+      bottom: 50%;
+    }
+  }
+  
+  .tree-duo{
+    position: absolute;
+    bottom: 60%;
+    left: 5%;
+    width: 20%;
+    height: auto;
+    z-index: 3;
+    ${mediaQuery.afterTablet}{
+      width: 15%;
+      bottom: 40%;
+    }
+  }
+  
+  .tree-trio{
+    position: absolute;
+    bottom: 62%;
+    right: 5%;
+    width: 18%;
+    height: auto;
+    z-index: 3;
+    ${mediaQuery.afterTablet}{
+      width: 12%;
+      bottom: 30%;
+    }
+  }
+
   ${mediaQuery.afterTablet} {
-    padding: 500px 3rem 3rem;
+    padding: 750px 3rem 3rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
@@ -124,10 +288,14 @@ const ContactSection = styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 999;
   }
 
   .content {
     width: 100%;
+    position: relative;
+    z-index: 999;
 
     h2 {
       font-style: normal;
@@ -183,6 +351,7 @@ const ContactSection = styled.section`
         border-radius: 6px;
         border: none;
         padding: 1rem;
+        height: 100px;
       }
 
       .info-contact {

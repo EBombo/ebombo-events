@@ -13,7 +13,7 @@ export const Image = (props) =>
 const ImageCss = styled.div`
   background-image: url("${(props) => props.src}");
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: ${(props) => (props.bgPosition ? props.bgPosition : "center")};
   background-size: ${(props) => (props.size ? props.size : "100%")};
   height: ${(props) => (props.height ? props.height : "100%")};
   width: ${(props) => (props.width ? props.width : "100%")};
