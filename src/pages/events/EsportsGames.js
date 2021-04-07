@@ -14,11 +14,11 @@ export const EsportsGames = (props) => {
         <div className="main-container">
             <div className="title">JUEGOS DE ESPORTS</div>
             <div className="description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus egestas
-                ut rhoncus eu euismod sed dictum porttitor ac. Vel mattis egestas
-                consequat sed in magna quam adipiscing justo. Nisl sem feugiat duis
-                enim. Aliquam scelerisque viverra erat felis vulputate donec. Sagittis
-                quis ullamcorper
+                Los E-sports son muy conocidos y jugados hoy en día en todo el mundo. Nosotros damos la
+                posibilidad de organizar torneos y competencias para sus colaboradores con populares juegos
+                como: Fifa21, Call of Duty, Dota2 y mucho más.
+                <br />
+                ¡Prepárate para lucir tu lado gamer con ebomboevents!
             </div>
             <a href="#contact">
                 <ButtonBombo type="primary">Contactanos</ButtonBombo>

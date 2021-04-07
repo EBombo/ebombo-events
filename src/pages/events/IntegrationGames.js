@@ -36,11 +36,11 @@ export const IntegrationGames = (props) => {
         <div className="main-container">
             <div className="title">JUEGOS DE INTEGRACIÓN</div>
             <div className="description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus egestas
-                ut rhoncus eu euismod sed dictum porttitor ac. Vel mattis egestas
-                consequat sed in magna quam adipiscing justo. Nisl sem feugiat duis
-                enim. Aliquam scelerisque viverra erat felis vulputate donec. Sagittis
-                quis ullamcorper
+                Contamos con diferentes juegos de integración para toda la organización. Buscamos fomentar la
+                interacción, logrando que tus colaboradores habiliten su micrófono, prendan su cámara y vivan las
+                mismas sensaciones presenciales que teníamos ahora de manera virtual.
+                Perfectos para todo tipo de ocasión. Podrán cantar, adivinar personajes famosos, responder
+                preguntas de trivia, entre más actividades.
             </div>
             <a href="#contact">
                 <ButtonBombo type="primary">Contactanos</ButtonBombo>

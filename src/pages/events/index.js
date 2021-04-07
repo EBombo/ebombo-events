@@ -81,29 +81,17 @@ export default (props) => {
         <LandingContainer>
             <div className="landing-container">
                 <HeaderLanding/>
-
                 <Companies events={events} deleteElement={deleteElement}/>
-
                 <Services/>
-
                 <IntegrationGames events={events} deleteElement={deleteElement}/>
-
                 <EsportsGames/>
-
                 <Specials events={events}/>
-
                 <BusinessExamples events={events} deleteElement={deleteElement}/>
-
                 <HeldEvents events={events} deleteElement={deleteElement}/>
-
                 <Comments events={events} deleteElement={deleteElement}/>
-
                 <Contact/>
-
                 {/*<CanvasContainer id={"landing-canvas"}/>*/}
             </div>
-
-
             <FooterSection>
                 <ThemeProvider
                     theme={{basic: {...darkTheme.basic, ...darkTheme.events}}}
@@ -111,7 +99,6 @@ export default (props) => {
                     <Footer marginLeft={"0"}/>
                 </ThemeProvider>
             </FooterSection>
-
         </LandingContainer>
     );
 };
