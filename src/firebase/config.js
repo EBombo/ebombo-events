@@ -9,8 +9,17 @@ const hostName = window.location.hostname;
 
 let config;
 
-config = configJson.productionConfig;
-console.log("prod");
+if (
+    ["ebomboevents.com"].includes(
+        hostName
+    )
+) {
+    config = configJson.productionConfig;
+    console.log("prod");
+} else {
+    config = configJson.devConfig;
+    console.log("dev");
+}
 
 firebase.initializeApp(config.firebase);
 
