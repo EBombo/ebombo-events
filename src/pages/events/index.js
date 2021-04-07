@@ -47,7 +47,7 @@ export default (props) => {
 
     return <LandingContainer>
         <HeaderLanding/>
-        <Companies/>
+        <Companies events={events}/>
         <Services/>
         <IntegrationGames events={events}
                           deleteElement={deleteElement}/>
