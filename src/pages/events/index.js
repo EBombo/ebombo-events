@@ -40,17 +40,17 @@ export default (props) => {
 
         ctx.clearRect(0, 0, width, height);
         for (let i = 0; i < 60; i++) {
-            let x = Math.floor(Math.random() * width);
-            let y = Math.floor(Math.random() * height);
-            let radius = Math.floor(Math.random() * 20);
+            const x = Math.floor(Math.random() * width);
+            const y = Math.floor(Math.random() * height);
+            const radius = Math.floor(Math.random() * 20);
 
-            let r = Math.floor(Math.random() * 255);
-            let g = Math.floor(Math.random() * 255);
-            let b = Math.floor(Math.random() * 255);
+            const colors = ["#FEFEFE", "#FF15A6", "#7C15FF"]
+
+            const color = colors[Math.floor(Math.random() * colors.length)];
 
             ctx.beginPath();
             ctx.arc(x, y, radius, 0, Math.PI * 2, true);
-            ctx.fillStyle = "rgba(" + r + "," + g + "," + b + ",1)";
+            ctx.fillStyle = color;
             ctx.fill();
             ctx.closePath();
         }
@@ -79,25 +79,30 @@ export default (props) => {
 
     return (
         <LandingContainer>
-            <HeaderLanding/>
+            <div className="landing-container">
+                <HeaderLanding/>
 
-            <Companies events={events} deleteElement={deleteElement}/>
+                <Companies events={events} deleteElement={deleteElement}/>
 
-            <Services/>
+                <Services/>
 
-            <IntegrationGames events={events} deleteElement={deleteElement}/>
+                <IntegrationGames events={events} deleteElement={deleteElement}/>
 
-            <EsportsGames/>
+                <EsportsGames/>
 
-            <Specials events={events}/>
+                <Specials events={events}/>
 
-            <BusinessExamples events={events} deleteElement={deleteElement}/>
+                <BusinessExamples events={events} deleteElement={deleteElement}/>
 
-            <HeldEvents events={events} deleteElement={deleteElement}/>
+                <HeldEvents events={events} deleteElement={deleteElement}/>
 
-            <Comments events={events} deleteElement={deleteElement}/>
+                <Comments events={events} deleteElement={deleteElement}/>
 
-            <Contact/>
+                <Contact/>
+
+                <CanvasContainer id={"landing-canvas"}/>
+            </div>
+
 
             <FooterSection>
                 <ThemeProvider
@@ -107,7 +112,6 @@ export default (props) => {
                 </ThemeProvider>
             </FooterSection>
 
-            <CanvasContainer id={"landing-canvas"}/>
         </LandingContainer>
     );
 };
@@ -119,7 +123,11 @@ const LandingContainer = styled.div`
   #10002b 9.9%,
   #100045 46.35%,
   #0e0063 100%);
-  position: relative;
+
+  .landing-container {
+    position: relative;
+    z-index: 1;
+  }
 `;
 
 const CanvasContainer = styled.canvas`
