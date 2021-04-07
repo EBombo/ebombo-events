@@ -126,8 +126,8 @@ const ExamplesSections = styled.section`
   ${mediaQuery.afterTablet} {
     padding: 2rem;
   }
-  
-  .astronaut{
+
+  .astronaut {
     position: absolute;
     top: 0;
     right: 5%;
@@ -135,19 +135,21 @@ const ExamplesSections = styled.section`
     height: auto;
     z-index: 2;
     transform: translateY(-100%);
-    ${mediaQuery.afterTablet}{
+
+    ${mediaQuery.afterTablet} {
       width: 80px;
     }
   }
-  
-  .flag-astronaut{
+
+  .flag-astronaut {
     position: absolute;
     top: 0;
     right: 10%;
     width: 50px;
     height: auto;
     z-index: 2;
-    ${mediaQuery.afterTablet}{
+
+    ${mediaQuery.afterTablet} {
       width: 100px;
     }
   }
@@ -158,7 +160,7 @@ const ExamplesSections = styled.section`
     margin: 0 auto;
     text-align: center;
     position: relative;
-    
+
     .rocket {
       position: absolute;
       bottom: 0;

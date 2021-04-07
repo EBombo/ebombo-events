@@ -88,6 +88,15 @@ export const HeldEvents = (props) => {
                 width={"100%"}
             />
         </div>
+        <div className="light-circle">
+            <Image
+                src={`${config.storageUrl}/landing/light-circle.svg`}
+                height={"100%"}
+                width={"100%"}
+                bgPosition={"center left"}
+                size={"cover"}
+            />
+        </div>
     </EventsContainer>;
 };
 
@@ -97,6 +106,24 @@ const EventsContainer = styled.section`
   margin: 0 auto;
   background: transparent;
   position: relative;
+  overflow: hidden;
+  
+  .light-circle {
+    position: absolute;
+    bottom: 0;
+    left: 40%;
+    width: 30%;
+    height: auto;
+    z-index: 0;
+    ${mediaQuery.afterTablet}{
+      height: auto;
+      right: 0;
+      width: 25%;
+      bottom: 10%;
+      left: auto;
+      transform: translateX(50%);
+    }
+  }
 
   .sitting-astronaut{
     position: absolute;
