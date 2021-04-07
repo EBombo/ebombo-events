@@ -45,40 +45,46 @@ export default (props) => {
 
     if (loading) return spinLoader();
 
-    return <LandingContainer>
-        <HeaderLanding/>
-        <Companies events={events}/>
-        <Services/>
-        <IntegrationGames events={events}
-                          deleteElement={deleteElement}/>
-        <EsportsGames/>
-        <Specials events={events}/>
-        <BusinessExamples events={events}
-                          deleteElement={deleteElement}/>
-        <HeldEvents events={events}
-                    deleteElement={deleteElement}/>
-        <Comments events={events}
-                  deleteElement={deleteElement}/>
-        <Contact/>
-        <FooterSection>
-            <ThemeProvider
-                theme={{basic: {...darkTheme.basic, ...darkTheme.events}}}
-            >
-                <Footer marginLeft={"0"}/>
-            </ThemeProvider>
-        </FooterSection>
-    </LandingContainer>;
+    return (
+        <LandingContainer>
+            <HeaderLanding/>
+
+            <Companies events={events} deleteElement={deleteElement}/>
+
+            <Services/>
+
+            <IntegrationGames events={events} deleteElement={deleteElement}/>
+
+            <EsportsGames/>
+
+            <Specials events={events}/>
+
+            <BusinessExamples events={events} deleteElement={deleteElement}/>
+
+            <HeldEvents events={events} deleteElement={deleteElement}/>
+
+            <Comments events={events} deleteElement={deleteElement}/>
+
+            <Contact/>
+
+            <FooterSection>
+                <ThemeProvider
+                    theme={{basic: {...darkTheme.basic, ...darkTheme.events}}}
+                >
+                    <Footer marginLeft={"0"}/>
+                </ThemeProvider>
+            </FooterSection>
+        </LandingContainer>
+    );
 };
 
 const LandingContainer = styled.div`
   width: 100%;
-  background: linear-gradient(
-    180deg,
-    #030005 0%,
-    #10002b 9.9%,
-    #100045 46.35%,
-    #0e0063 100%
-  );
+  background: linear-gradient(180deg,
+  #030005 0%,
+  #10002b 9.9%,
+  #100045 46.35%,
+  #0e0063 100%);
 `;
 
 const FooterSection = styled.section`

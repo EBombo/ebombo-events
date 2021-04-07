@@ -8,6 +8,7 @@ import {firestore} from "../../firebase";
 import {ModalContainer} from "../../components/common/ModalContainer";
 import {lazy, Suspense} from "react";
 import {spinLoader} from "../../utils";
+import {Icon} from "../../components/common/Icons";
 
 const EditCompany = lazy(() => import("./EditCompany"));
 
@@ -36,14 +37,32 @@ export const Companies = (props) => {
                 <div className="container marquee">
                     <div className="companies-container">
                         {defaultTo(get(props, "events.companies"), []).map((company, index) => (
-                            <div id={`${company.name}`}>
+                            <div className="company-container" key={`${company.name}`}>
                                 <Image
                                     src={company.imageUrl}
                                     width="140px"
                                     height="70px"
-                                    key={`key-companies-${index}`}
                                     margin="0 1rem"
                                 />
+                                {get(authUser, "isAdmin") && (
+                                    <div className="container-edit">
+                                        <Icon
+                                            className="icon"
+                                            type="edit"
+                                            onClick={() => {
+                                                setCurrentCompany(company);
+                                                setIsVisibleModal(true);
+                                            }}
+                                        />
+                                        <Icon
+                                            className="icon-delete"
+                                            type="delete"
+                                            onClick={() => {
+                                                props.deleteElement(company, "companies");
+                                            }}
+                                        />
+                                    </div>
+                                )}
                             </div>
                         ))}
                         {get(authUser, "isAdmin") && <ButtonBombo
@@ -92,6 +111,34 @@ const CompaniesContainer = styled.section`
         align-items: center;
         justify-content: center;
         margin: 1rem 0;
+
+        .company-container {
+          position: relative;
+          
+          .container-edit {
+            position: absolute;
+            height: 15px;
+            cursor: pointer;
+            top: 0;
+            right: 15px;
+            width: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            svg {
+              width: 15px;
+              height: 15px;
+              color: ${(props) => props.theme.basic.black};
+            }
+
+            .icon-delete {
+              svg {
+                color: ${(props) => props.theme.basic.danger};
+              }
+            }
+          }
+        }
       }
     }
   }
