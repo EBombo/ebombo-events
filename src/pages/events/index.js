@@ -24,11 +24,11 @@ export default (props) => {
         fetchLandingEvents();
     }, []);
 
-    useEffect(() => {
-        if (!loading) {
-            fillCanvas();
-        }
-    }, [loading])
+    // useEffect(() => {
+    //     if (!loading) {
+    //         fillCanvas();
+    //     }
+    // }, [loading])
 
     const fillCanvas = () => {
         let canvas = document.getElementById("landing-canvas");
@@ -100,7 +100,7 @@ export default (props) => {
 
                 <Contact/>
 
-                <CanvasContainer id={"landing-canvas"}/>
+                {/*<CanvasContainer id={"landing-canvas"}/>*/}
             </div>
 
 
