@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "reactn";
+import React, {useEffect, useState, useRef} from "reactn";
 import styled, {ThemeProvider} from "styled-components";
 import {HeaderLanding} from "./HeaderLanding";
 import {Services} from "./Services";
@@ -19,6 +19,12 @@ import {darkTheme} from "../../styles/theme";
 export default (props) => {
     const [events, setEvents] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const servicesRef = useRef(null);
+    const gamesRef = useRef(null);
+    const eventsRef = useRef(null);
+    const contactRef = useRef(null);
+
 
     useEffect(() => {
         fetchLandingEvents();
@@ -75,21 +81,30 @@ export default (props) => {
         });
     };
 
+    const executeScroll = (section) =>
+        section === "services"
+            ? servicesRef.current.scrollIntoView()
+            : section === "games"
+            ? gamesRef.current.scrollIntoView()
+            : section === "events"
+                ? eventsRef.current.scrollIntoView()
+                : contactRef.current.scrollIntoView()
+
     if (loading) return spinLoader();
 
     return (
         <LandingContainer>
             <div className="landing-container">
-                <HeaderLanding/>
+                <HeaderLanding executeScroll={executeScroll}/>
                 <Companies events={events} deleteElement={deleteElement}/>
-                <Services/>
-                <IntegrationGames events={events} deleteElement={deleteElement}/>
+                <Services refProp={servicesRef}/>
+                <IntegrationGames refProp={gamesRef} events={events} deleteElement={deleteElement}/>
                 <EsportsGames/>
                 <Specials events={events}/>
                 <BusinessExamples events={events} deleteElement={deleteElement}/>
-                <HeldEvents events={events} deleteElement={deleteElement}/>
+                <HeldEvents refProp={eventsRef} events={events} deleteElement={deleteElement}/>
                 <Comments events={events} deleteElement={deleteElement}/>
-                <Contact/>
+                <Contact refProp={contactRef}/>
                 {/*<CanvasContainer id={"landing-canvas"}/>*/}
             </div>
             <FooterSection>

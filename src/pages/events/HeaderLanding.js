@@ -23,16 +23,16 @@ export const HeaderLanding = (props) => {
                         </li>
                     </Desktop>
                     <li>
-                        <a href="#services">Servicios</a>
+                        <a onClick={() => props.executeScroll("services")}>Servicios</a>
                     </li>
                     <li>
-                        <a href="#games">Juegos</a>
+                        <a onClick={() => props.executeScroll("games")}>Juegos</a>
                     </li>
                     <li>
-                        <a href="#events">Eventos</a>
+                        <a onClick={() => props.executeScroll("events")}>Eventos</a>
                     </li>
                     <li>
-                        <a href="#contact">Contacto</a>
+                        <a onClick={() => props.executeScroll("contact")}>Contacto</a>
                     </li>
                 </ul>
             </div>
@@ -62,10 +62,10 @@ export const HeaderLanding = (props) => {
                 <BackgroundImage src={`${config.storageUrl}/landing/header-bg.svg`} widthSize={"60%"}/>
                 <BackgroundImage src={`${config.storageUrl}/landing/header-bg.svg`} widthSize={"30%"}/>
             </Tablet>
-            <BackgroundLines src={`${config.storageUrl}/landing/header-thick-lines.svg`} />
-            <YellowKite src={`${config.storageUrl}/landing/yellow-kite.svg`} />
-            <YellowKite2 src={`${config.storageUrl}/landing/yellow-kite.svg`} />
-            <WhiteKite src={`${config.storageUrl}/landing/white-kite.svg`} />
+            <BackgroundLines src={`${config.storageUrl}/landing/header-thick-lines.svg`}/>
+            <YellowKite src={`${config.storageUrl}/landing/yellow-kite.svg`}/>
+            <YellowKite2 src={`${config.storageUrl}/landing/yellow-kite.svg`}/>
+            <WhiteKite src={`${config.storageUrl}/landing/white-kite.svg`}/>
             <div className="presenter">
                 <Image
                     src={`${config.storageUrl}/landing/presenter.svg`}
@@ -156,6 +156,8 @@ const HeaderLandingContainer = styled.section`
     display: flex;
     justify-content: center;
     padding: 1rem;
+    position: relative;
+    z-index: 999;
 
     ${mediaQuery.afterTablet} {
       justify-content: flex-end;
@@ -279,8 +281,8 @@ const HeaderLandingContainer = styled.section`
         width: 30%;
       }
     }
-    
-    .kites{
+
+    .kites {
       position: absolute;
       top: 60%;
       left: 20%;
@@ -331,8 +333,8 @@ const HeaderLandingContainer = styled.section`
         width: 5%;
       }
     }
-    
-    .blue-planets{
+
+    .blue-planets {
       position: absolute;
       bottom: 5%;
       right: 0;
@@ -375,8 +377,8 @@ const BackgroundLines = styled.div`
   background-repeat: no-repeat;
   background-position: 76% 0%;
   z-index: 1;
-  
-  ${mediaQuery.afterTablet}{
+
+  ${mediaQuery.afterTablet} {
     background-size: 120%;
     background-position: 152% 0%;
     height: 70%;
@@ -394,8 +396,8 @@ const YellowKite = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   z-index: 3;
-  
-  ${mediaQuery.afterTablet}{
+
+  ${mediaQuery.afterTablet} {
     top: 37%;
     right: 15%;
     width: 100px;
@@ -414,7 +416,7 @@ const YellowKite2 = styled.div`
   background-position: center;
   z-index: 3;
 
-  ${mediaQuery.afterTablet}{
+  ${mediaQuery.afterTablet} {
     top: 41%;
     right: 12%;
     width: 100px;
@@ -434,7 +436,7 @@ const WhiteKite = styled.div`
   background-position: center;
   z-index: 3;
 
-  ${mediaQuery.afterTablet}{
+  ${mediaQuery.afterTablet} {
     top: 25%;
     right: 25%;
     width: 150px;

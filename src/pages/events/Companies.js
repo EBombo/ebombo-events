@@ -37,7 +37,7 @@ export const Companies = (props) => {
                 <div className="container marquee">
                     <div className="companies-container">
                         {defaultTo(get(props, "events.companies"), []).map((company, index) => (
-                            <div className="company-container" key={`${company.name}`}>
+                            <div className="company-container" key={`${company.name}-${index}`}>
                                 <Image
                                     src={company.imageUrl}
                                     width="140px"

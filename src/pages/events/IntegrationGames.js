@@ -18,7 +18,7 @@ export const IntegrationGames = (props) => {
     const [isVisibleModal, setIsVisibleModal] = useState(false);
     const [currentGame, setCurrentGame] = useState({});
 
-    return <IntegrationSection id="games">
+    return <IntegrationSection ref={props.refProp}>
         {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
             footer={null}
             visible={isVisibleModal}

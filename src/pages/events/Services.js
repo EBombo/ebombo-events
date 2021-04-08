@@ -7,7 +7,7 @@ import {Image} from "../../components/common/Image";
 import {Desktop} from "../../utils";
 
 export const Services = (props) =>
-    <ServiceSection id="services">
+    <ServiceSection ref={props.refProp}>
         <h2>Nuestros Servicios</h2>
         <div className="services-container">
             {services.map((service, index) => <ServiceContent

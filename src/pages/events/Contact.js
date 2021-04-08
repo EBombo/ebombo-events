@@ -45,7 +45,7 @@ export const Contact = (props) => {
         }
     };
 
-    return <ContactSection id="contact">
+    return <ContactSection ref={props.refProp}>
         <div className="content">
             <h2>¿Deseas mayor información?</h2>
             <p>Ponte en contacto con nosotros</p>

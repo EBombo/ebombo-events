@@ -18,7 +18,7 @@ export const HeldEvents = (props) => {
     const [currentEvent, setCurrentEvent] = useState(null);
     const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-    return <EventsContainer id="events">
+    return <EventsContainer ref={props.refProp}>
         {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
             footer={null}
             visible={isVisibleModal}
