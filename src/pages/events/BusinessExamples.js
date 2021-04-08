@@ -160,7 +160,8 @@ const ExamplesSections = styled.section`
     margin: 0 auto;
     text-align: center;
     position: relative;
-
+    z-index: 999;
+    
     .rocket {
       position: absolute;
       bottom: 0;

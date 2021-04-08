@@ -63,7 +63,8 @@ const EsportsSection = styled.section`
     max-width: 1100px;
     margin: 0 auto;
     position: relative;
-
+    z-index: 999;
+    
     .title {
       font-weight: bold;
       font-size: 15px;

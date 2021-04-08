@@ -261,6 +261,8 @@ const SpecialsSection = styled.section`
     .main-container {
       display: grid;
       grid-template-columns: 48% 4% 48%;
+      position: relative;
+      z-index: 999;
 
       .divider {
         display: flex;

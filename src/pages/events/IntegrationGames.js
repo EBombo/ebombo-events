@@ -137,10 +137,7 @@ const IntegrationSection = styled.section`
     max-width: 1100px;
     margin: 0 auto;
     position: relative;
-
-    .blue-planet {
-
-    }
+    z-index: 999;
 
     .title {
       font-weight: bold;
