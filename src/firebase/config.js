@@ -17,7 +17,7 @@ if (
     config = configJson.productionConfig;
     console.log("prod");
 } else {
-    config = configJson.productionConfig;
+    config = configJson.devConfig;
     console.log("dev");
 }
 
