@@ -6,59 +6,59 @@ import {CloudUploadOutlined} from "@ant-design/icons";
 import {ButtonBombo} from "./ButtonBombo";
 
 export const ImageUpload = (props) => {
-  const { resize } = useResizeImage();
-  const { uploadToStorageAndGetURL } = useUploadToStorage();
+    const {resize} = useResizeImage();
+    const {uploadToStorageAndGetURL} = useUploadToStorage();
 
-  const inputRef = useRef(null);
+    const inputRef = useRef(null);
 
-  const [previewImage, setPreviewImage] = useState(null);
-  const [loading, setLoading] = useState(false);
+    const [previewImage, setPreviewImage] = useState(null);
+    const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    props.file && setPreviewImage(props.file);
-  }, []);
+    useEffect(() => {
+        props.file && setPreviewImage(props.file);
+    }, []);
 
-  const manageImage = async (event) => {
-    if (
-      !event.target.files ||
-      event.target.files.length === 0 ||
-      !event.target.files[0]
-    )
-      return setPreviewImage(null);
+    const manageImage = async (event) => {
+        if (
+            !event.target.files ||
+            event.target.files.length === 0 ||
+            !event.target.files[0]
+        )
+            return setPreviewImage(null);
 
-    setLoading(true);
+        setLoading(true);
 
-    const sizes = props.sizes.split(",");
-    const fileSuffix = event.target.files[0].name.split(".")[1];
-    setPreviewImage(URL.createObjectURL(event.target.files[0]));
+        const sizes = props.sizes.split(",");
+        const fileSuffix = event.target.files[0].name.split(".")[1];
+        setPreviewImage(URL.createObjectURL(event.target.files[0]));
 
-    const promisesImages = sizes.map(async (size) => {
-      const width = parseInt(size.split("x")[0]);
-      const height = parseInt(size.split("x")[1]);
+        const promisesImages = sizes.map(async (size) => {
+            const width = parseInt(size.split("x")[0]);
+            const height = parseInt(size.split("x")[1]);
 
-      const images64 = await resize(event, width, height);
+            const images64 = await resize(event, width, height);
 
-      return props.afterUpload
-        ? await uploadImage(images64.split(",")[1], fileSuffix, size)
-        : images64;
-    });
+            return props.afterUpload
+                ? await uploadImage(images64.split(",")[1], fileSuffix, size)
+                : images64;
+        });
 
-    const images = await Promise.all(promisesImages);
+        const images = await Promise.all(promisesImages);
 
-    setLoading(false);
+        setLoading(false);
 
-    if (props.afterUpload) return props.afterUpload(images);
-    if (props.onChange) return props.onChange(images);
-  };
+        if (props.afterUpload) return props.afterUpload(images);
+        if (props.onChange) return props.onChange(images);
+    };
 
-  const uploadImage = async (imgBase64, fileSuffix, size) =>
-    await uploadToStorageAndGetURL(
-      imgBase64,
-      props.filePath,
-      `${props.fileName}_${size}`,
-      fileSuffix,
-      props.bucket
-    );
+    const uploadImage = async (imgBase64, fileSuffix, size) =>
+        await uploadToStorageAndGetURL(
+            imgBase64,
+            props.filePath,
+            `${props.fileName}_${size}`,
+            fileSuffix,
+            props.bucket
+        );
 
   return (
     <UploadContainer>
@@ -93,7 +93,6 @@ export const ImageUpload = (props) => {
 
 const UploadContainer = styled.div`
   width: 200px;
-  margin-top: 0.5rem;
   display: flex;
   align-items: center;
   flex-direction: column;

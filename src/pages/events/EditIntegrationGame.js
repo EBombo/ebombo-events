@@ -1,22 +1,16 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { Input, TextArea } from "../../components";
+import {ImageUpload, Input, TextArea} from "../../components";
 import { useForm } from "react-hook-form";
 import { string, object } from "yup";
 import get from "lodash/get";
 import { ButtonBombo } from "../../components";
 import { firestore } from "../../firebase";
-import { useResizeImage } from "../../utils/useHooks";
 import defaultTo from "lodash/defaultTo";
-import { useUploadToStorage } from "../../utils/useHooks";
 
 export default (props) => {
-  const [imgBase64, setImgBase64] = useState(null);
-  const [fileSuffix, setFileSuffix] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const { resize } = useResizeImage();
-  const { uploadToStorageAndGetURL } = useUploadToStorage();
 
   const schema = object().shape({
     name: string().required(),
@@ -34,15 +28,6 @@ export default (props) => {
     setLoading(true);
     let imageUrl = null;
 
-    if (imgBase64 && fileSuffix) {
-      imageUrl = await uploadToStorageAndGetURL(
-        imgBase64,
-        `/events/integration-games/${props.currentGame.id}`,
-        `backgroundImage`,
-        fileSuffix
-      );
-    }
-
     let integrationGames;
 
     if (
@@ -54,11 +39,11 @@ export default (props) => {
         get(props, "events.integrationGames"),
         []
       ).map((game) =>
-        game.id === props.currentGame.id ? mapGame(data, imageUrl, game) : game
+        game.id === props.currentGame.id ? mapGame(data, game) : game
       );
     } else {
       integrationGames = defaultTo(get(props, "events.integrationGames"), []);
-      integrationGames.push(mapGame(data, imageUrl));
+      integrationGames.push(mapGame(data));
     }
 
     await firestore.doc(`landings/events`).update({
@@ -69,7 +54,7 @@ export default (props) => {
     setLoading(false);
   };
 
-  const mapGame = (data, imageUrl, oldGame = null) => {
+  const mapGame = (data, oldGame = null) => {
     if (oldGame) {
       const integrationGame = {
         ...props.currentGame,
@@ -92,15 +77,6 @@ export default (props) => {
       backgroundColor: data.backgroundColor,
       backgroundImageUrl: imageUrl,
     };
-  };
-
-  const manageImage = (event) => {
-    if (event.target.files[0]) {
-      setFileSuffix(event.target.files[0].name.split(".")[1]);
-      resize(event, 300, 300).then((imageBase64_) =>
-        setImgBase64(imageBase64_.split(",")[1])
-      );
-    }
   };
 
   return (
@@ -149,13 +125,18 @@ export default (props) => {
           type="color"
           defaultValue={get(props, "currentGame.backgroundColor", "#ffffff")}
         />
-        <Input
-          type="file"
-          variant="primary"
-          error={errors.backgroundImageUrl}
-          name="backgroundImageUrl"
-          onChange={manageImage}
-        />
+        <div className="image-component">
+          <ImageUpload
+              file={get(props, "currentGame.backgroundImageUrl", "")}
+              fileName="imageUrl"
+              filePath={`/events/integration-games/${props.currentGame.id}`}
+              bucket="landings"
+              sizes="300x300"
+              afterUpload={(imageUrls) =>
+                  setImageUrl(imageUrls[0])
+              }
+          />
+        </div>
         <div className="buttons-container">
           <ButtonBombo
             type="primary"
@@ -195,6 +176,13 @@ const Container = styled.div`
     .buttons-container {
       display: flex;
       justify-content: space-around;
+    }
+
+    .image-component {
+      margin: 1rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 `;

@@ -1,44 +1,30 @@
-import React, { useState } from "reactn";
+import React, {useState} from "reactn";
 import styled from "styled-components";
-import { Input, TextArea } from "../../components";
-import { useForm } from "react-hook-form";
-import { string, object } from "yup";
+import {ImageUpload, Input, TextArea} from "../../components";
+import {useForm} from "react-hook-form";
+import {string, object} from "yup";
 import get from "lodash/get";
-import { ButtonBombo } from "../../components";
-import { firestore } from "../../firebase";
-import { useResizeImage } from "../../utils/useHooks";
+import {ButtonBombo} from "../../components";
+import {firestore} from "../../firebase";
+import {useResizeImage} from "../../utils/useHooks";
 import defaultTo from "lodash/defaultTo";
-import { useUploadToStorage } from "../../utils/useHooks";
+import {useUploadToStorage} from "../../utils/useHooks";
 
 export default (props) => {
-    const [imgBase64, setImgBase64] = useState(null);
-    const [fileSuffix, setFileSuffix] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
     const [loading, setLoading] = useState(false);
-
-    const { resize } = useResizeImage();
-    const { uploadToStorageAndGetURL } = useUploadToStorage();
 
     const schema = object().shape({
         name: string().required()
     });
 
-    const { register, handleSubmit, errors } = useForm({
+    const {register, handleSubmit, errors} = useForm({
         validationSchema: schema,
         reValidateMode: "onSubmit",
     });
 
     const saveIntegrationGame = async (data) => {
         setLoading(true);
-        let imageUrl = null;
-
-        if (imgBase64 && fileSuffix) {
-            imageUrl = await uploadToStorageAndGetURL(
-                imgBase64,
-                `/events/integration-games/${props.currentCompany.id}`,
-                `backgroundImage`,
-                fileSuffix
-            );
-        }
 
         let companies;
 
@@ -51,11 +37,11 @@ export default (props) => {
                 get(props, "events.companies"),
                 []
             ).map((company) =>
-                company.id === props.currentCompany.id ? mapCompany(data, imageUrl, company) : company
+                company.id === props.currentCompany.id ? mapCompany(data, company) : company
             );
         } else {
             companies = defaultTo(get(props, "events.companies"), []);
-            companies.push(mapCompany(data, imageUrl));
+            companies.push(mapCompany(data));
         }
 
         await firestore.doc(`landings/events`).update({
@@ -66,7 +52,7 @@ export default (props) => {
         setLoading(false);
     };
 
-    const mapCompany = (data, imageUrl, oldCompany = null) => {
+    const mapCompany = (data, oldCompany = null) => {
         if (oldCompany) {
             const company = {
                 ...props.currentCompany,
@@ -85,15 +71,6 @@ export default (props) => {
         };
     };
 
-    const manageImage = (event) => {
-        if (event.target.files[0]) {
-            setFileSuffix(event.target.files[0].name.split(".")[1]);
-            resize(event, 300, 300).then((imageBase64_) =>
-                setImgBase64(imageBase64_.split(",")[1])
-            );
-        }
-    };
-
     return (
         <Container>
             <div className="title">Empresa</div>
@@ -108,13 +85,18 @@ export default (props) => {
                     defaultValue={get(props, "currentCompany.name", "")}
                     placeholder="Nombre del juego"
                 />
-                <Input
-                    type="file"
-                    variant="primary"
-                    error={errors.imageUrl}
-                    name="imageUrl"
-                    onChange={manageImage}
-                />
+                <div className="image-component">
+                    <ImageUpload
+                        file={get(props, "currentCompany.imageUrl", "")}
+                        fileName="imageUrl"
+                        filePath={`/events/integration-games/${props.currentCompany.id}`}
+                        bucket="landings"
+                        sizes="300x300"
+                        afterUpload={(imageUrls) =>
+                            setImageUrl(imageUrls[0])
+                        }
+                    />
+                </div>
                 <div className="buttons-container">
                     <ButtonBombo
                         type="primary"
@@ -143,17 +125,26 @@ export default (props) => {
 const Container = styled.div`
   width: 100%;
   margin: 1rem 0;
+
   .title {
     font-size: 18px;
     line-height: 22px;
     color: ${(props) => props.theme.basic.white};
   }
+
   form {
     margin-top: 1rem;
 
     .buttons-container {
       display: flex;
       justify-content: space-around;
+    }
+
+    .image-component {
+      margin: 1rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 `;

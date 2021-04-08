@@ -1,22 +1,17 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { Input, TextArea } from "../../components";
+import {ImageUpload, Input, TextArea} from "../../components";
 import { useForm } from "react-hook-form";
 import { string, object } from "yup";
 import get from "lodash/get";
 import { ButtonBombo } from "../../components";
 import { firestore } from "../../firebase";
-import { useResizeImage } from "../../utils/useHooks";
 import defaultTo from "lodash/defaultTo";
-import { useUploadToStorage } from "../../utils/useHooks";
 
 export default (props) => {
-  const [imgBase64, setImgBase64] = useState(null);
-  const [fileSuffix, setFileSuffix] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { resize } = useResizeImage();
-  const { uploadToStorageAndGetURL } = useUploadToStorage();
 
   const schema = object().shape({
     description: string().required(),
@@ -29,16 +24,6 @@ export default (props) => {
 
   const saveEvent = async (data) => {
     setLoading(true);
-    let imageUrl = null;
-
-    if (imgBase64 && fileSuffix) {
-      imageUrl = await uploadToStorageAndGetURL(
-        imgBase64,
-        `/events/held-events/${props.currentEvent.id}`,
-        `backgroundImage`,
-        fileSuffix
-      );
-    }
 
     let heldEvents;
 
@@ -48,11 +33,11 @@ export default (props) => {
       )
     ) {
       heldEvents = defaultTo(get(props, "events.heldEvents"), []).map((game) =>
-        game.id === props.currentEvent.id ? mapGame(data, imageUrl, game) : game
+        game.id === props.currentEvent.id ? mapGame(data, game) : game
       );
     } else {
       heldEvents = defaultTo(get(props, "events.heldEvents"), []);
-      heldEvents.push(mapGame(data, imageUrl));
+      heldEvents.push(mapGame(data));
     }
 
     await firestore.doc(`landings/events`).update({
@@ -63,7 +48,7 @@ export default (props) => {
     setLoading(false);
   };
 
-  const mapGame = (data, imageUrl, oldGame = null) => {
+  const mapGame = (data, oldGame = null) => {
     if (oldGame) {
       const heldEvent = {
         ...props.currentEvent,
@@ -77,15 +62,6 @@ export default (props) => {
       description: data.description,
       backgroundImageUrl: imageUrl,
     };
-  };
-
-  const manageImage = (event) => {
-    if (event.target.files[0]) {
-      setFileSuffix(event.target.files[0].name.split(".")[1]);
-      resize(event, 250, 450).then((imageBase64_) =>
-        setImgBase64(imageBase64_.split(",")[1])
-      );
-    }
   };
 
   return (
@@ -102,13 +78,18 @@ export default (props) => {
           defaultValue={get(props, "currentEvent.description", "")}
           placeholder="Descripción del juego"
         />
-        <Input
-          type="file"
-          variant="primary"
-          error={errors.backgroundImageUrl}
-          name="backgroundImageUrl"
-          onChange={manageImage}
-        />
+        <div className="image-component">
+          <ImageUpload
+              file={get(props, "currentEvent.backgroundImageUrl", "")}
+              fileName="imageUrl"
+              filePath={`/events/held-events/${props.currentEvent.id}`}
+              bucket="landings"
+              sizes="250x450"
+              afterUpload={(imageUrls) =>
+                  setImageUrl(imageUrls[0])
+              }
+          />
+        </div>
         <div className="buttons-container">
           <ButtonBombo
             type="primary"
@@ -148,6 +129,13 @@ const Container = styled.div`
     .buttons-container {
       display: flex;
       justify-content: space-around;
+    }
+
+    .image-component{
+      margin: 1rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 `;

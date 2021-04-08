@@ -1,22 +1,16 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { Input, TextArea } from "../../components";
+import {ImageUpload, Input, TextArea} from "../../components";
 import { useForm } from "react-hook-form";
 import { string, object } from "yup";
 import get from "lodash/get";
 import { ButtonBombo } from "../../components";
 import { firestore } from "../../firebase";
-import { useResizeImage } from "../../utils/useHooks";
 import defaultTo from "lodash/defaultTo";
-import { useUploadToStorage } from "../../utils/useHooks";
 
 export default (props) => {
-  const [imgBase64, setImgBase64] = useState(null);
-  const [fileSuffix, setFileSuffix] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const { resize } = useResizeImage();
-  const { uploadToStorageAndGetURL } = useUploadToStorage();
 
   const schema = object().shape({
     description: string().required(),
@@ -29,16 +23,6 @@ export default (props) => {
 
   const saveComment = async (data) => {
     setLoading(true);
-    let imageUrl = null;
-
-    if (imgBase64 && fileSuffix) {
-      imageUrl = await uploadToStorageAndGetURL(
-        imgBase64,
-        `/events/comments/${props.currentComment.id}`,
-        `backgroundImage`,
-        fileSuffix
-      );
-    }
 
     let comments;
 
@@ -49,12 +33,12 @@ export default (props) => {
     ) {
       comments = defaultTo(get(props, "events.comments"), []).map((game) =>
         game.id === props.currentComment.id
-          ? mapComment(data, imageUrl, game)
+          ? mapComment(data, game)
           : game
       );
     } else {
       comments = defaultTo(get(props, "events.comments"), []);
-      comments.push(mapComment(data, imageUrl));
+      comments.push(mapComment(data));
     }
 
     await firestore.doc(`landings/events`).update({
@@ -65,7 +49,7 @@ export default (props) => {
     setLoading(false);
   };
 
-  const mapComment = (data, imageUrl, oldGame = null) => {
+  const mapComment = (data, oldGame = null) => {
     if (oldGame) {
       const comment = {
         ...props.currentComment,
@@ -79,15 +63,6 @@ export default (props) => {
       description: data.description,
       imageUrl: imageUrl,
     };
-  };
-
-  const manageImage = (event) => {
-    if (event.target.files[0]) {
-      setFileSuffix(event.target.files[0].name.split(".")[1]);
-      resize(event, 200, 200).then((imageBase64_) =>
-        setImgBase64(imageBase64_.split(",")[1])
-      );
-    }
   };
 
   return (
@@ -104,13 +79,18 @@ export default (props) => {
           defaultValue={get(props, "currentComment.description", "")}
           placeholder="Descripción del comentario"
         />
-        <Input
-          type="file"
-          variant="primary"
-          error={errors.backgroundImageUrl}
-          name="backgroundImageUrl"
-          onChange={manageImage}
-        />
+        <div className="image-component">
+          <ImageUpload
+              file={get(props, "currentComment.imageUrl", "")}
+              fileName="imageUrl"
+              filePath={`/events/comments/${props.currentComment.id}`}
+              bucket="landings"
+              sizes="200x200"
+              afterUpload={(imageUrls) =>
+                  setImageUrl(imageUrls[0])
+              }
+          />
+        </div>
         <div className="buttons-container">
           <ButtonBombo
             type="primary"
@@ -150,6 +130,13 @@ const Container = styled.div`
     .buttons-container {
       display: flex;
       justify-content: space-around;
+    }
+    
+    .image-component{
+      margin: 1rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 `;
