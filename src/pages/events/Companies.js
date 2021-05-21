@@ -94,8 +94,6 @@ const CompaniesContainer = styled.section`
     margin: 0 auto;
     height: 100%;
     overflow: auto;
-    position: relative;
-    z-index: 999;
 
     .container {
       max-width: 100%;

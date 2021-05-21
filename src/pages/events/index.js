@@ -30,38 +30,6 @@ export default (props) => {
         fetchLandingEvents();
     }, []);
 
-    useEffect(() => {
-        if (!loading) {
-            fillCanvas();
-        }
-    }, [loading])
-
-    const fillCanvas = () => {
-        let canvas = document.getElementById("landing-canvas");
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-        let width = canvas.width;
-        let height = canvas.height;
-        let ctx = canvas.getContext("2d");
-
-        ctx.clearRect(0, 0, width, height);
-        for (let i = 0; i < 60; i++) {
-            const x = Math.floor(Math.random() * width);
-            const y = Math.floor(Math.random() * height);
-            const radius = Math.floor(Math.random() * 20);
-
-            const colors = ["#FEFEFE", "#FF15A6", "#7C15FF"]
-
-            const color = colors[Math.floor(Math.random() * colors.length)];
-
-            ctx.beginPath();
-            ctx.arc(x, y, radius, 0, Math.PI * 2, true);
-            ctx.fillStyle = color;
-            ctx.fill();
-            ctx.closePath();
-        }
-    }
-
     const fetchLandingEvents = () =>
         firestore
             .collection("landings")
@@ -105,7 +73,6 @@ export default (props) => {
                 <HeldEvents refProp={eventsRef} events={events} deleteElement={deleteElement}/>
                 <Comments events={events} deleteElement={deleteElement}/>
                 <Contact refProp={contactRef}/>
-                <CanvasContainer id={"landing-canvas"}/>
             </div>
             <FooterSection>
                 <ThemeProvider
@@ -131,15 +98,6 @@ const LandingContainer = styled.div`
     z-index: 1;
   }
 `;
-
-const CanvasContainer = styled.canvas`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-`
 
 const FooterSection = styled.section`
   width: 100%;

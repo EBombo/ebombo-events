@@ -61,7 +61,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     background: ${(props) => props.theme.basic.blackDarken};
-    font-family: 'Encode Sans', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     overflow: auto !important;
   }
 

@@ -30,10 +30,8 @@ import {ErrorFallback} from "./components/error-fallback/ErrorFallback";
 const App = (props) => {
     const [authUser] = useGlobal("user");
     const [games, setGames] = useGlobal("games");
-    const [, setCurrentGame] = useGlobal("currentGame");
-    const [games_, setGames_] = useState([]);
     const [consoles, setConsoles] = useGlobal("consoles");
-    const [rules, setRules] = useGlobal("rules");
+    const [, setRules] = useGlobal("rules");
     const [userAccounts, setUserAccounts] = useGlobal("userAccounts");
 
     const [, setMatches] = useGlobal("matches");
@@ -42,27 +40,21 @@ const App = (props) => {
     const [, setLeagues] = useGlobal("leagues");
 
     const [, setLanding] = useGlobal("landing");
-    const [, setAdvertisements] = useGlobal("advertisements");
     const [, setMatchInstructions] = useGlobal("matchInstructions");
     const [, setSocialNetworks] = useGlobal("socialNetworks");
     const [, setCharacteristics] = useGlobal("characteristics");
-    const [, setHowItWorks] = useGlobal("howItWorks");
-    const [, setEbomboRules] = useGlobal("ebomboRules");
     const [, setBanners] = useGlobal("banners");
 
     const [requiredUserAccount, setRequiredUserAccount] = useState(
         userAccounts[0]
     );
 
-    const [, setGamesLocalStorage] = useGames();
     const [, setConsolesLocalStorage] = useConsoles();
     const [, setRulesLocalStorage] = useRules();
     const [, setUserAccountsLocalStorage] = useUserAccounts();
     const [, setLandingLocalStorage] = useLanding();
     const [, setMatchInstructionsLocalStorage] = useMatchInstructions();
     const [, setCharacteristicsLocalStorage] = useCharacteristics();
-    const [, setHowItWorksLocalStorage] = useHowItWorks();
-    const [, setEbomboRulesLocalStorage] = useEbomboRules();
     const [, setSocialNetWorksLocalStorage] = useSocialNetworks();
 
     let unSubScribeMatches = useRef(null);
@@ -80,22 +72,16 @@ const App = (props) => {
         fetchTournamentTeams();
     }, [authUser]);
 
-    const orderGamesWithRules = (games) => orderBy(games, ["index"], ["asc"]);
-
     const initialize = () => {
         fetchGames();
         fetchConsoles();
         fetchRules();
         fetchUserAccounts();
         fetchLeagues();
-        fetchAdvertisements();
         fetchLanding();
         fetchMatchInstructions();
         fetchCharacteristics();
-        fetchHowItWorks();
-        fetchEbomboRules();
         fetchSocialNetworks();
-        fetchBanners();
     };
 
     const orderByUpdate = (collection_) =>
@@ -227,19 +213,6 @@ const App = (props) => {
         return defaultTo(requiredUserAccount_, userAccounts[0]);
     };
 
-    const fetchAdvertisements = async () => {
-        let advertisementsQuerySnapShot = await firestore
-            .collection("advertisements")
-            .where("deleted", "==", false)
-            .get();
-
-        snapshotToArray(advertisementsQuerySnapShot);
-
-        await setAdvertisements(
-            orderByUpdate(snapshotToArray(advertisementsQuerySnapShot))
-        );
-    };
-
     const fetchLanding = async () => {
         const landingQuerySnapShot = await firestore
             .collection("landing")
@@ -249,12 +222,6 @@ const App = (props) => {
         const newLanding = snapshotToArray(landingQuerySnapShot);
         await setLanding(newLanding);
         setLandingLocalStorage(newLanding);
-    };
-
-    const fetchBanners = async () => {
-        const bannersQuerySnapshot = await firestore.doc("settings/banners").get();
-
-        await setBanners(bannersQuerySnapshot.data());
     };
 
     const fetchSocialNetworks = async () => {
@@ -297,24 +264,6 @@ const App = (props) => {
         );
         await setCharacteristics(newCharacteristics);
         setCharacteristicsLocalStorage(newCharacteristics);
-    };
-
-    const fetchEbomboRules = async () => {
-        const ebomboRulesSnapShot = await firestore.doc("settings/rule").get();
-
-        const newEbomboRules = get(ebomboRulesSnapShot.data(), "content", []);
-        await setEbomboRules(newEbomboRules);
-        setEbomboRulesLocalStorage(newEbomboRules);
-    };
-
-    const fetchHowItWorks = async () => {
-        const howItWorksQuerySnapShot = await firestore
-            .doc("settings/howItWorks")
-            .get();
-
-        const newHowItworks = get(howItWorksQuerySnapShot.data(), "items", []);
-        await setHowItWorks(newHowItworks);
-        setHowItWorksLocalStorage(newHowItworks);
     };
 
     const showNotification = (title, description, type = "error") =>

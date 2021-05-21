@@ -16,6 +16,8 @@ const ButtonAnt = styled(Button)`
       ? "transparent"
       : props.type === "action"
       ? props.theme.basic.action
+      : props.type === "white"
+      ? "transparent"
       : ""};
   color: ${(props) =>
     props.color
@@ -28,6 +30,8 @@ const ButtonAnt = styled(Button)`
       ? props.theme.basic.grayLight
       : props.danger
       ? props.theme.basic.danger
+      : props.type === "white"
+      ? props.theme.basic.white
       : props.theme.basic.primary};
   border: ${(props) =>
     props.border
@@ -38,9 +42,15 @@ const ButtonAnt = styled(Button)`
       ? `1px solid ${props.theme.basic.primary}`
       : props.type === "action"
       ? props.theme.basic.action
+      : props.type === "white"
+      ? `4px solid ${props.theme.basic.white}`
       : ""};
   border-radius: ${(props) =>
-    props.borderRadius ? props.borderRadius : "5px"};
+    props.borderRadius
+      ? props.borderRadius
+      : props.type === "white"
+      ? "0"
+      : "5px"};
   cursor: pointer;
   width: ${(props) => (props.width ? props.width : "auto")};
   height: ${(props) => (props.height ? props.height : "auto")};
@@ -80,6 +90,8 @@ const ButtonAnt = styled(Button)`
         ? "transparent"
         : props.type === "action"
         ? props.theme.basic.action
+        : props.type === "white"
+        ? "transparent"
         : ""};
     color: ${(props) =>
       props.colorEvents

@@ -1,6 +1,5 @@
 export { default as UpdateVersion } from "./versions/UpdateVersion";
 export { default as PublicLayout } from "./PublicLayout";
-export { UserLayout } from "./UserLayout";
 export { LoginModal } from "./login/LoginModal";
 export { BanModal } from "./ban/BanModal";
 export { LoginFacebook } from "./login-facebook";
