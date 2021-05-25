@@ -1,7 +1,7 @@
 import React from "react";
-import {Modal} from "antd";
+import { Modal } from "antd";
 import styled from "styled-components";
-import {mediaQuery} from "../../styles/constants";
+import { mediaQuery } from "../../styles/constants";
 
 export default (props) => (
   <ContainerModal

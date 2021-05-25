@@ -1,6 +1,6 @@
 import React, {useState} from "reactn";
 import styled from "styled-components";
-import {ImageUpload, Input, TextArea} from "../../components";
+import {FileUpload, Input, TextArea} from "../../components";
 import {useForm} from "react-hook-form";
 import {string, object} from "yup";
 import get from "lodash/get";
@@ -86,7 +86,7 @@ export default (props) => {
                     placeholder="Nombre del juego"
                 />
                 <div className="image-component">
-                    <ImageUpload
+                    <FileUpload
                         file={get(props, "currentCompany.imageUrl", "")}
                         fileName="imageUrl"
                         filePath={`/events/integration-games/${props.currentCompany.id}`}

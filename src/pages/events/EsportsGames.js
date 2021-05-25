@@ -1,51 +1,55 @@
-import React, {useGlobal} from "reactn";
+import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import {ButtonBombo} from "../../components";
+import { ButtonBombo, Image } from "../../components";
 import defaultTo from "lodash/defaultTo";
-import {config} from "../../firebase";
-import {mediaQuery} from "../../styles/constants";
-import {Image} from "../../components/common/Image";
-import {Desktop} from "../../utils";
+import { config } from "../../firebase";
+import { mediaQuery } from "../../styles/constants";
+import { Desktop } from "../../utils";
 
 export const EsportsGames = (props) => {
-    const [games] = useGlobal("games");
+  const [games] = useGlobal("games");
 
-    return <EsportsSection>
-        <div className="main-container">
-            <div className="title">JUEGOS DE ESPORTS</div>
-            <div className="description">
-                Los E-sports son muy conocidos y jugados hoy en día en todo el mundo. Nosotros damos la
-                posibilidad de organizar torneos y competencias para sus colaboradores con populares juegos
-                como: Fifa21, Call of Duty, Dota2 y mucho más.
-                <br />
-                ¡Prepárate para lucir tu lado gamer con ebomboevents!
-            </div>
-            <a href="#contact">
-                <ButtonBombo type="primary">Contactanos</ButtonBombo>
-            </a>
-            <div className="integration-games">
-                <div className="games-container">
-                    {defaultTo(games, []).map((game) => <GameContent
-                        borderColor={game.color}
-                        backgroundImage={game.landingImageUrlThumb}
-                        key={game.name}
-                    >
-                        <div className="name">{game.name}</div>
-                    </GameContent>)}
-                </div>
-            </div>
-            <Desktop>
-                <div className="blue-planet">
-                    <Image
-                        src={`${config.storageUrl}/landing/blue-planet.svg`}
-                        height={"100%"}
-                        width={"100%"}
-                    />
-                </div>
-            </Desktop>
+  return (
+    <EsportsSection>
+      <div className="main-container">
+        <div className="title">JUEGOS DE ESPORTS</div>
+        <div className="description">
+          Los E-sports son muy conocidos y jugados hoy en día en todo el mundo.
+          Nosotros damos la posibilidad de organizar torneos y competencias para
+          sus colaboradores con populares juegos como: Fifa21, Call of Duty,
+          Dota2 y mucho más.
+          <br />
+          ¡Prepárate para lucir tu lado gamer con ebomboevents!
         </div>
-        <BackgroundLine src={`${config.storageUrl}/landing/green-line.svg`}/>
+        <a href="#contact">
+          <ButtonBombo type="primary">Contactanos</ButtonBombo>
+        </a>
+        <div className="integration-games">
+          <div className="games-container">
+            {defaultTo(games, []).map((game) => (
+              <GameContent
+                borderColor={game.color}
+                backgroundImage={game.landingImageUrlThumb}
+                key={game.name}
+              >
+                <div className="name">{game.name}</div>
+              </GameContent>
+            ))}
+          </div>
+        </div>
+        <Desktop>
+          <div className="blue-planet">
+            <Image
+              src={`${config.storageUrl}/landing/blue-planet.svg`}
+              height={"100%"}
+              width={"100%"}
+            />
+          </div>
+        </Desktop>
+      </div>
+      <BackgroundLine src={`${config.storageUrl}/landing/green-line.svg`} />
     </EsportsSection>
+  );
 };
 
 const EsportsSection = styled.section`
@@ -64,7 +68,7 @@ const EsportsSection = styled.section`
     margin: 0 auto;
     position: relative;
     z-index: 999;
-    
+
     .title {
       font-weight: bold;
       font-size: 15px;
@@ -144,7 +148,7 @@ const BackgroundLine = styled.div`
     background-size: 140%;
     background-position: 100% 0%;
   }
-`
+`;
 
 const GameContent = styled.section`
   width: 150px;

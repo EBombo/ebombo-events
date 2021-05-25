@@ -1,125 +1,132 @@
-import React, {useGlobal, useState} from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import {config, firestore} from "../../firebase";
-import {ButtonBombo} from "../../components";
+import { config, firestore } from "../../firebase";
+import { ButtonBombo, Icon, Image, ModalContainer } from "../../components";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import {mediaQuery} from "../../styles/constants";
-import {Icon} from "../../components/common/Icons";
-import {lazy, Suspense} from "react";
-import {spinLoader} from "../../utils";
-import {ModalContainer} from "../../components/common/ModalContainer";
-import {Image} from "../../components/common/Image";
+import { mediaQuery } from "../../styles/constants";
+import { lazy, Suspense } from "react";
+import { spinLoader } from "../../utils";
 
 const EditIntegrationGame = lazy(() => import("./EditIntegrationGame"));
 
 export const IntegrationGames = (props) => {
-    const [authUser] = useGlobal("user");
-    const [isVisibleModal, setIsVisibleModal] = useState(false);
-    const [currentGame, setCurrentGame] = useState({});
+  const [authUser] = useGlobal("user");
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [currentGame, setCurrentGame] = useState({});
 
-    return <IntegrationSection ref={props.refProp}>
-        {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
-            footer={null}
-            visible={isVisibleModal}
-            onCancel={() => setIsVisibleModal(!isVisibleModal)}
+  return (
+    <IntegrationSection ref={props.refProp}>
+      {isVisibleModal && get(authUser, "isAdmin") && (
+        <ModalContainer
+          footer={null}
+          visible={isVisibleModal}
+          onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
-            <Suspense fallback={spinLoader()}>
-                <EditIntegrationGame
-                    setIsVisibleModal={setIsVisibleModal}
-                    isVisibleModal={isVisibleModal}
-                    currentGame={currentGame}
-                    {...props}
-                />
-            </Suspense>
-        </ModalContainer>}
-        <div className="main-container">
-            <div className="title">JUEGOS DE INTEGRACIÓN</div>
-            <div className="description">
-                Contamos con diferentes juegos de integración para toda la organización. Buscamos fomentar la
-                interacción, logrando que tus colaboradores habiliten su micrófono, prendan su cámara y vivan las
-                mismas sensaciones presenciales que teníamos ahora de manera virtual.
-                Perfectos para todo tipo de ocasión. Podrán cantar, adivinar personajes famosos, responder
-                preguntas de trivia, entre más actividades.
-            </div>
-            <a href="#contact">
-                <ButtonBombo type="primary">Contactanos</ButtonBombo>
-            </a>
-            <div className="integration-games">
-                <div className="games-container">
-                    {defaultTo(get(props, "events.integrationGames"), []).map(
-                        (game) => <GameContent
-                            backgroundColor={game.backgroundColor}
-                            borderColor={game.borderColor}
-                            backgroundImage={game.backgroundImageUrl}
-                            key={game.name}
-                        >
-                            <div className="the-card">
-                                <div className="front">
-                                    <div className="name">{game.name}</div>
-                                </div>
-                                <div className="back">
-                                    <div className="name">{game.name}</div>
-                                    <div className="description">{game.description}</div>
-                                </div>
-                            </div>
-                            {get(authUser, "isAdmin") && (
-                                <div className="container-edit">
-                                    <Icon
-                                        className="icon"
-                                        type="edit"
-                                        onClick={() => {
-                                            setCurrentGame(game);
-                                            setIsVisibleModal(true);
-                                        }}
-                                    />
-                                    <Icon
-                                        className="icon-delete"
-                                        type="delete"
-                                        onClick={() => {
-                                            props.deleteElement(game, "integrationGames");
-                                        }}
-                                    />
-                                </div>
-                            )}
-                        </GameContent>
-                    )}
-                    {get(authUser, "isAdmin") && <ButtonBombo
-                        type="action"
+          <Suspense fallback={spinLoader()}>
+            <EditIntegrationGame
+              setIsVisibleModal={setIsVisibleModal}
+              isVisibleModal={isVisibleModal}
+              currentGame={currentGame}
+              {...props}
+            />
+          </Suspense>
+        </ModalContainer>
+      )}
+      <div className="main-container">
+        <div className="title">JUEGOS DE INTEGRACIÓN</div>
+        <div className="description">
+          Contamos con diferentes juegos de integración para toda la
+          organización. Buscamos fomentar la interacción, logrando que tus
+          colaboradores habiliten su micrófono, prendan su cámara y vivan las
+          mismas sensaciones presenciales que teníamos ahora de manera virtual.
+          Perfectos para todo tipo de ocasión. Podrán cantar, adivinar
+          personajes famosos, responder preguntas de trivia, entre más
+          actividades.
+        </div>
+        <a href="#contact">
+          <ButtonBombo type="primary">Contactanos</ButtonBombo>
+        </a>
+        <div className="integration-games">
+          <div className="games-container">
+            {defaultTo(get(props, "events.integrationGames"), []).map(
+              (game) => (
+                <GameContent
+                  backgroundColor={game.backgroundColor}
+                  borderColor={game.borderColor}
+                  backgroundImage={game.backgroundImageUrl}
+                  key={game.name}
+                >
+                  <div className="the-card">
+                    <div className="front">
+                      <div className="name">{game.name}</div>
+                    </div>
+                    <div className="back">
+                      <div className="name">{game.name}</div>
+                      <div className="description">{game.description}</div>
+                    </div>
+                  </div>
+                  {get(authUser, "isAdmin") && (
+                    <div className="container-edit">
+                      <Icon
+                        className="icon"
+                        type="edit"
                         onClick={() => {
-                            setCurrentGame({
-                                id: firestore.collection("events").doc().id,
-                            });
-                            setIsVisibleModal(true);
+                          setCurrentGame(game);
+                          setIsVisibleModal(true);
                         }}
-                    >
-                        Añadir
-                    </ButtonBombo>}
-                </div>
-            </div>
+                      />
+                      <Icon
+                        className="icon-delete"
+                        type="delete"
+                        onClick={() => {
+                          props.deleteElement(game, "integrationGames");
+                        }}
+                      />
+                    </div>
+                  )}
+                </GameContent>
+              )
+            )}
+            {get(authUser, "isAdmin") && (
+              <ButtonBombo
+                type="action"
+                onClick={() => {
+                  setCurrentGame({
+                    id: firestore.collection("events").doc().id,
+                  });
+                  setIsVisibleModal(true);
+                }}
+              >
+                Añadir
+              </ButtonBombo>
+            )}
+          </div>
         </div>
-        <div className="red-kite">
-            <Image
-                src={`${config.storageUrl}/landing/red-kite.svg`}
-                height={"100%"}
-                width={"100%"}
-            />
-        </div>
-        <div className="red-kite-2">
-            <Image
-                src={`${config.storageUrl}/landing/red-kite.svg`}
-                height={"100%"}
-                width={"100%"}
-            />
-        </div>
-        <div className="half-planet">
-            <Image
-                src={`${config.storageUrl}/landing/half-planet.svg`}
-                height={"100%"}
-                width={"100%"}
-            />
-        </div>
-    </IntegrationSection>;
+      </div>
+      <div className="red-kite">
+        <Image
+          src={`${config.storageUrl}/landing/red-kite.svg`}
+          height={"100%"}
+          width={"100%"}
+        />
+      </div>
+      <div className="red-kite-2">
+        <Image
+          src={`${config.storageUrl}/landing/red-kite.svg`}
+          height={"100%"}
+          width={"100%"}
+        />
+      </div>
+      <div className="half-planet">
+        <Image
+          src={`${config.storageUrl}/landing/half-planet.svg`}
+          height={"100%"}
+          width={"100%"}
+        />
+      </div>
+    </IntegrationSection>
+  );
 };
 
 const IntegrationSection = styled.section`

@@ -1,8 +1,8 @@
-import React, {useEffect} from "reactn";
-import {useSendError} from "./useSendError";
+import React, { useEffect } from "reactn";
+import { useSendError } from "./useSendError";
 import styled from "styled-components";
-import {config} from "../../firebase";
-import {ButtonBombo} from "../common";
+import { config } from "../../firebase";
+import { ButtonBombo } from "../../components";
 
 export const ErrorFallback = (props) => {
   const { sendError } = useSendError();

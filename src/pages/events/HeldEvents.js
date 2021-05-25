@@ -1,103 +1,108 @@
-import React, {useGlobal, useState} from "reactn";
-import {lazy, Suspense} from "react";
+import React, { useGlobal, useState } from "reactn";
+import { lazy, Suspense } from "react";
 import styled from "styled-components";
 import get from "lodash/get";
 import defaultTo from "lodash/defaultTo";
-import {mediaQuery} from "../../styles/constants";
-import {config, firestore} from "../../firebase";
-import {Icon} from "../../components/common/Icons";
-import {spinLoader} from "../../utils";
-import {ButtonBombo} from "../../components";
-import {ModalContainer} from "../../components/common/ModalContainer";
-import {Image} from "../../components/common/Image";
+import { mediaQuery } from "../../styles/constants";
+import { config, firestore } from "../../firebase";
+import { spinLoader } from "../../utils";
+import { ButtonBombo, Icon, Image, ModalContainer } from "../../components";
 
 const EditHeldEvent = lazy(() => import("./EditHeldEvent"));
 
 export const HeldEvents = (props) => {
-    const [authUser] = useGlobal("user");
-    const [currentEvent, setCurrentEvent] = useState(null);
-    const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [authUser] = useGlobal("user");
+  const [currentEvent, setCurrentEvent] = useState(null);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-    return <EventsContainer ref={props.refProp}>
-        {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
-            footer={null}
-            visible={isVisibleModal}
-            onCancel={() => setIsVisibleModal(!isVisibleModal)}
+  return (
+    <EventsContainer ref={props.refProp}>
+      {isVisibleModal && get(authUser, "isAdmin") && (
+        <ModalContainer
+          footer={null}
+          visible={isVisibleModal}
+          onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
-            <Suspense fallback={spinLoader()}>
-                <EditHeldEvent
-                    setIsVisibleModal={setIsVisibleModal}
-                    isVisibleModal={isVisibleModal}
-                    currentEvent={currentEvent}
-                    {...props}
-                />
-            </Suspense>
-        </ModalContainer>}
-        <div className="main-container">
-            <div className="title">EVENTOS REALIZADOS</div>
-            <div className="held-events">
-                <div className="events-container">
-                    {defaultTo(get(props, "events.heldEvents"), []).map((event) => <EventContent
-                        backgroundImage={event.backgroundImageUrl}
-                        key={event.id}
-                    >
-                        <div className="the-card">
-                            <div className="front"/>
-                            <div className="back">
-                                <div className="description">{event.description}</div>
-                            </div>
-                        </div>
-                        {get(authUser, "isAdmin") && (
-                            <div className="container-edit">
-                                <Icon
-                                    className="icon"
-                                    type="edit"
-                                    onClick={() => {
-                                        setCurrentEvent(event);
-                                        setIsVisibleModal(true);
-                                    }}
-                                />
-                                <Icon
-                                    className="icon-delete"
-                                    type="delete"
-                                    onClick={() => {
-                                        props.deleteElement(event, "heldEvents");
-                                    }}
-                                />
-                            </div>
-                        )}
-                    </EventContent>)}
-                    {get(authUser, "isAdmin") && <ButtonBombo
-                        type="action"
-                        onClick={() => {
-                            setCurrentEvent({
-                                id: firestore.collection("events").doc().id,
-                            });
-                            setIsVisibleModal(true);
-                        }}
-                    >
-                        Añadir
-                    </ButtonBombo>}
+          <Suspense fallback={spinLoader()}>
+            <EditHeldEvent
+              setIsVisibleModal={setIsVisibleModal}
+              isVisibleModal={isVisibleModal}
+              currentEvent={currentEvent}
+              {...props}
+            />
+          </Suspense>
+        </ModalContainer>
+      )}
+      <div className="main-container">
+        <div className="title">EVENTOS REALIZADOS</div>
+        <div className="held-events">
+          <div className="events-container">
+            {defaultTo(get(props, "events.heldEvents"), []).map((event) => (
+              <EventContent
+                backgroundImage={event.backgroundImageUrl}
+                key={event.id}
+              >
+                <div className="the-card">
+                  <div className="front" />
+                  <div className="back">
+                    <div className="description">{event.description}</div>
+                  </div>
                 </div>
-            </div>
+                {get(authUser, "isAdmin") && (
+                  <div className="container-edit">
+                    <Icon
+                      className="icon"
+                      type="edit"
+                      onClick={() => {
+                        setCurrentEvent(event);
+                        setIsVisibleModal(true);
+                      }}
+                    />
+                    <Icon
+                      className="icon-delete"
+                      type="delete"
+                      onClick={() => {
+                        props.deleteElement(event, "heldEvents");
+                      }}
+                    />
+                  </div>
+                )}
+              </EventContent>
+            ))}
+            {get(authUser, "isAdmin") && (
+              <ButtonBombo
+                type="action"
+                onClick={() => {
+                  setCurrentEvent({
+                    id: firestore.collection("events").doc().id,
+                  });
+                  setIsVisibleModal(true);
+                }}
+              >
+                Añadir
+              </ButtonBombo>
+            )}
+          </div>
         </div>
-        <div className="sitting-astronaut">
-            <Image
-                src={`${config.storageUrl}/landing/sitting-astronaut.svg`}
-                height={"100%"}
-                width={"100%"}
-            />
-        </div>
-        <div className="light-circle">
-            <Image
-                src={`${config.storageUrl}/landing/light-circle.svg`}
-                height={"100%"}
-                width={"100%"}
-                bgPosition={"center left"}
-                size={"cover"}
-            />
-        </div>
-    </EventsContainer>;
+      </div>
+      <div className="sitting-astronaut">
+        <Image
+          src={`${config.storageUrl}/landing/sitting-astronaut.svg`}
+          height={"100%"}
+          width={"100%"}
+        />
+      </div>
+      <div className="light-circle">
+        <Image
+          src={`${config.storageUrl}/landing/light-circle.svg`}
+          height={"100%"}
+          width={"100%"}
+          bgPosition={"center left"}
+          size={"cover"}
+        />
+      </div>
+    </EventsContainer>
+  );
 };
 
 const EventsContainer = styled.section`
@@ -107,7 +112,7 @@ const EventsContainer = styled.section`
   background: transparent;
   position: relative;
   overflow: hidden;
-  
+
   .light-circle {
     position: absolute;
     bottom: 0;
@@ -115,7 +120,7 @@ const EventsContainer = styled.section`
     width: 30%;
     height: auto;
     z-index: 0;
-    ${mediaQuery.afterTablet}{
+    ${mediaQuery.afterTablet} {
       height: auto;
       right: 0;
       width: 25%;
@@ -125,26 +130,26 @@ const EventsContainer = styled.section`
     }
   }
 
-  .sitting-astronaut{
+  .sitting-astronaut {
     position: absolute;
     top: 0;
     left: 5%;
     width: 50px;
     height: auto;
     z-index: 1;
-    ${mediaQuery.afterTablet}{
+    ${mediaQuery.afterTablet} {
       left: 30px;
       width: 150px;
     }
   }
-  
+
   .main-container {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
     position: relative;
     z-index: 999;
-    
+
     .title {
       font-weight: bold;
       font-size: 15px;

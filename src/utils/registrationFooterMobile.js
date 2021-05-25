@@ -1,6 +1,5 @@
 import React from "react";
-import { Icon } from "../components/common/Icons";
-import { ButtonBombo } from "../components";
+import { ButtonBombo, Icon } from "../components";
 
 export const registrationFooterMobile = (func) => (
   <div className="footer-registration">

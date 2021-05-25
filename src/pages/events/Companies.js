@@ -1,92 +1,108 @@
-import React, {useGlobal, useState} from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import {Image} from "../../components/common/Image";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import {ButtonBombo} from "../../components";
-import {firestore} from "../../firebase";
-import {ModalContainer} from "../../components/common/ModalContainer";
-import {lazy, Suspense} from "react";
-import {spinLoader} from "../../utils";
-import {Icon} from "../../components/common/Icons";
+import { ButtonBombo, Image, ModalContainer, Icon } from "../../components";
+import { firestore } from "../../firebase";
+import { lazy, Suspense } from "react";
+import { spinLoader } from "../../utils";
 
 const EditCompany = lazy(() => import("./EditCompany"));
 
 export const Companies = (props) => {
-    const [authUser] = useGlobal("user");
-    const [currentCompany, setCurrentCompany] = useState(null);
-    const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [authUser] = useGlobal("user");
+  const [currentCompany, setCurrentCompany] = useState(null);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-    return (
-        <CompaniesContainer>
-            {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
-                footer={null}
-                visible={isVisibleModal}
-                onCancel={() => setIsVisibleModal(!isVisibleModal)}
-            >
-                <Suspense fallback={spinLoader()}>
-                    <EditCompany
-                        setIsVisibleModal={setIsVisibleModal}
-                        isVisibleModal={isVisibleModal}
-                        currentCompany={currentCompany}
-                        {...props}
-                    />
-                </Suspense>
-            </ModalContainer>}
-            <div className="main-container">
-                <div className="container marquee">
-                    <div className="companies-container">
-                        {defaultTo(get(props, "events.companies"), []).map((company, index) => (
-                            <div className="company-container" key={`${company.name}-${index}`}>
-                                <Image
-                                    src={company.imageUrl}
-                                    width="140px"
-                                    height="70px"
-                                    margin="0 1rem"
-                                />
-                                {get(authUser, "isAdmin") && (
-                                    <div className="container-edit">
-                                        <Icon
-                                            className="icon"
-                                            type="edit"
-                                            onClick={() => {
-                                                setCurrentCompany(company);
-                                                setIsVisibleModal(true);
-                                            }}
-                                        />
-                                        <Icon
-                                            className="icon-delete"
-                                            type="delete"
-                                            onClick={() => {
-                                                props.deleteElement(company, "companies");
-                                            }}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                        {get(authUser, "isAdmin") && <ButtonBombo
-                            type="action"
-                            onClick={() => {
-                                setCurrentCompany({
-                                    id: firestore.collection("events").doc().id,
-                                });
-                                setIsVisibleModal(true);
-                            }}
-                        >
-                            Añadir
-                        </ButtonBombo>}
+  return (
+    <CompaniesContainer>
+      {isVisibleModal && get(authUser, "isAdmin") && (
+        <ModalContainer
+          footer={null}
+          visible={isVisibleModal}
+          onCancel={() => setIsVisibleModal(!isVisibleModal)}
+        >
+          <Suspense fallback={spinLoader()}>
+            <EditCompany
+              setIsVisibleModal={setIsVisibleModal}
+              isVisibleModal={isVisibleModal}
+              currentCompany={currentCompany}
+              {...props}
+            />
+          </Suspense>
+        </ModalContainer>
+      )}
+      <div className="title">Han confiado en nosotros</div>
+      <div className="main-container">
+        <div className="container marquee">
+          <div className="companies-container">
+            {defaultTo(get(props, "events.companies"), []).map(
+              (company, index) => (
+                <div
+                  className="company-container"
+                  key={`${company.name}-${index}`}
+                >
+                  <Image
+                    src={company.imageUrl}
+                    width="140px"
+                    height="70px"
+                    margin="0 1rem"
+                  />
+                  {get(authUser, "isAdmin") && (
+                    <div className="container-edit">
+                      <Icon
+                        className="icon"
+                        type="edit"
+                        onClick={() => {
+                          setCurrentCompany(company);
+                          setIsVisibleModal(true);
+                        }}
+                      />
+                      <Icon
+                        className="icon-delete"
+                        type="delete"
+                        onClick={() => {
+                          props.deleteElement(company, "companies");
+                        }}
+                      />
                     </div>
+                  )}
                 </div>
-            </div>
-        </CompaniesContainer>
-    );
+              )
+            )}
+            {get(authUser, "isAdmin") && (
+              <ButtonBombo
+                type="action"
+                onClick={() => {
+                  setCurrentCompany({
+                    id: firestore.collection("events").doc().id,
+                  });
+                  setIsVisibleModal(true);
+                }}
+              >
+                Añadir
+              </ButtonBombo>
+            )}
+          </div>
+        </div>
+      </div>
+    </CompaniesContainer>
+  );
 };
 
 const CompaniesContainer = styled.section`
   width: 100%;
-  height: 130px;
-  background: ${(props) => props.theme.basic.white};
+  background: ${(props) => props.theme.basic.gray};
+
+  .title {
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 19px;
+    text-align: center;
+    padding: 1rem;
+  }
 
   .main-container {
     width: 100%;
@@ -114,7 +130,7 @@ const CompaniesContainer = styled.section`
 
         .company-container {
           position: relative;
-          
+
           .container-edit {
             position: absolute;
             height: 15px;

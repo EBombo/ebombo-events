@@ -5,8 +5,8 @@ import { config } from "../../firebase";
 import { mediaQuery } from "../../styles/constants";
 import sizes from "../../styles/constants/sizes";
 import { useHistory } from "react-router";
-import { Image } from "../../components/common/Image";
-import { ButtonBombo } from "../../components";
+import { ButtonBombo, Image } from "../../components";
+import { darkTheme } from "../../styles/theme";
 
 export const HeaderLanding = (props) => {
   const history = useHistory();
@@ -31,7 +31,9 @@ export const HeaderLanding = (props) => {
             </ul>
           </div>
           <div className="button-container">
-            <ButtonBombo type="white">Contáctanos</ButtonBombo>
+            <ButtonBombo variant="outlined" color={darkTheme.basic.white}>
+              Contáctanos
+            </ButtonBombo>
           </div>
         </Desktop>
         <Tablet>
@@ -85,13 +87,17 @@ export const HeaderLanding = (props) => {
       </div>
       <div className="header-content">
         <div className="first-content">
-          <div className="title">Somos una empresa</div>
+          <div className="title">
+            Somos una empresa <span>que aprendió a romper barreras</span>
+          </div>
           <div className="button-container">
-            <ButtonBombo type="blue">Contáctanos</ButtonBombo>
+            <ButtonBombo variant="contained" color="secondary">
+              Contáctanos
+            </ButtonBombo>
           </div>
         </div>
         <div className="second-content">
-            
+
         </div>
       </div>
     </HeaderLandingContainer>
@@ -122,6 +128,7 @@ const HeaderLandingContainer = styled.section`
       ul {
         display: flex;
         align-items: center;
+        margin: 0;
         li {
           padding: 0 1rem;
           color: ${(props) => props.theme.basic.white};
@@ -180,6 +187,55 @@ const HeaderLandingContainer = styled.section`
     .hamburger {
       display: block;
       cursor: pointer;
+    }
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+
+    .first-content {
+      .title {
+        text-align: center;
+        font-size: 28px;
+        line-height: 35px;
+        font-weight: normal;
+        color: ${(props) => props.theme.basic.secondary};
+        span {
+          font-weight: bold;
+        }
+      }
+      .button-container {
+        margin: 1rem auto;
+      }
+    }
+  }
+
+  ${mediaQuery.afterTablet} {
+    .header-content {
+      flex-direction: row;
+      padding: 2rem;
+      .first-content {
+        width: 50%;
+        .title {
+          font-size: 39px;
+          line-height: 49px;
+          color: ${(props) => props.theme.basic.white};
+          text-align: left;
+          span {
+            font-weight: bold;
+          }
+        }
+        .button-container {
+          margin: 1rem 0;
+        }
+      }
+
+      .second-content {
+        width: 50%;
+      }
     }
   }
 `;

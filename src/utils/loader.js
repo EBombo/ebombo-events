@@ -1,8 +1,7 @@
 import React from "react";
 import { Spin } from "antd";
 import { config } from "../firebase";
-import { Icon } from "../components/common/Icons";
-import { Image } from "../components/common/Image";
+import { Icon, Image } from "../components";
 
 const antIcon = <Icon type="loading" className="spin-version-icon" spin />;
 

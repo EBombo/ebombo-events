@@ -1,120 +1,123 @@
-import React, {useGlobal, useState} from "reactn";
-import {lazy, Suspense} from "react";
+import React, { useGlobal, useState } from "reactn";
+import { lazy, Suspense } from "react";
 import styled from "styled-components";
-import {mediaQuery} from "../../styles/constants";
-import {config, firestore} from "../../firebase";
+import { mediaQuery } from "../../styles/constants";
+import { config, firestore } from "../../firebase";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import {Image} from "../../components/common/Image";
-import {Desktop, spinLoader} from "../../utils";
-import {Icon} from "../../components/common/Icons";
-import {Anchor} from "../../components/common/Anchor";
-import {ButtonBombo} from "../../components";
-import {ModalContainer} from "../../components/common/ModalContainer";
+import { Image, ButtonBombo, Anchor, Icon, ModalContainer } from "../../components";
+import { Desktop, spinLoader } from "../../utils";
 
 const EditBusinessExamples = lazy(() => import("./EditBusinessExamples"));
 
 export const BusinessExamples = (props) => {
-    const [isVisibleModal, setIsVisibleModal] = useState(false);
-    const [currentExample, setCurrentExample] = useState(null);
-    const [authUser] = useGlobal("user");
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [currentExample, setCurrentExample] = useState(null);
+  const [authUser] = useGlobal("user");
 
-    return <ExamplesSections>
-        {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
-            footer={null}
-            visible={isVisibleModal}
-            onCancel={() => setIsVisibleModal(!isVisibleModal)}
+  return (
+    <ExamplesSections>
+      {isVisibleModal && get(authUser, "isAdmin") && (
+        <ModalContainer
+          footer={null}
+          visible={isVisibleModal}
+          onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
-            <Suspense fallback={spinLoader()}>
-                <EditBusinessExamples
-                    setIsVisibleModal={setIsVisibleModal}
-                    isVisibleModal={isVisibleModal}
-                    currentExample={currentExample}
-                    {...props}
-                />
-            </Suspense>
-        </ModalContainer>}
-        <div className="main-container">
-            <div className="title">Ejemplos para algunas empresas</div>
-            <div className="business-examples">
-                <div className="examples-container">
-                    {defaultTo(get(props, "events.businessExamples"), []).map(
-                        (example) => <ExampleContent key={example.id}>
-                            <div className="example-title">{example.title}</div>
-                            <div className="description">
-                                {example.description}
+          <Suspense fallback={spinLoader()}>
+            <EditBusinessExamples
+              setIsVisibleModal={setIsVisibleModal}
+              isVisibleModal={isVisibleModal}
+              currentExample={currentExample}
+              {...props}
+            />
+          </Suspense>
+        </ModalContainer>
+      )}
+      <div className="main-container">
+        <div className="title">Ejemplos para algunas empresas</div>
+        <div className="business-examples">
+          <div className="examples-container">
+            {defaultTo(get(props, "events.businessExamples"), []).map(
+              (example) => (
+                <ExampleContent key={example.id}>
+                  <div className="example-title">{example.title}</div>
+                  <div className="description">
+                    {example.description}
 
-                                <Anchor className="video-content"
-                                        href={example.link}>
-                                    <Image
-                                        src={`${config.storageUrl}/resources/b2bLanding/play.svg`}
-                                        width="70px"
-                                        height="70px"
-                                        borderRadius="50%"
-                                        margin="0 0 0.5rem 0"
-                                    />
-                                    Play
-                                </Anchor>
-                            </div>
-                            {get(authUser, "isAdmin") && (
-                                <div className="container-edit">
-                                    <Icon
-                                        className="icon"
-                                        type="edit"
-                                        onClick={() => {
-                                            setCurrentExample(example);
-                                            setIsVisibleModal(true);
-                                        }}
-                                    />
-                                    <Icon
-                                        className="icon-delete"
-                                        type="delete"
-                                        onClick={() => {
-                                            props.deleteElement(example, "businessExamples");
-                                        }}
-                                    />
-                                </div>
-                            )}
-                        </ExampleContent>
-                    )}
-                    {get(authUser, "isAdmin") && <ButtonBombo
-                        type="action"
+                    <Anchor className="video-content" href={example.link}>
+                      <Image
+                        src={`${config.storageUrl}/resources/b2bLanding/play.svg`}
+                        width="70px"
+                        height="70px"
+                        borderRadius="50%"
+                        margin="0 0 0.5rem 0"
+                      />
+                      Play
+                    </Anchor>
+                  </div>
+                  {get(authUser, "isAdmin") && (
+                    <div className="container-edit">
+                      <Icon
+                        className="icon"
+                        type="edit"
                         onClick={() => {
-                            setCurrentExample({
-                                id: firestore.collection("events").doc().id,
-                            });
-                            setIsVisibleModal(true);
+                          setCurrentExample(example);
+                          setIsVisibleModal(true);
                         }}
-                    >
-                        Añadir
-                    </ButtonBombo>}
-                </div>
-            </div>
-            <Desktop>
-                <div className="rocket">
-                    <Image
-                        src={`${config.storageUrl}/landing/rocket.svg`}
-                        height={"100%"}
-                        width={"100%"}
-                    />
-                </div>
-            </Desktop>
+                      />
+                      <Icon
+                        className="icon-delete"
+                        type="delete"
+                        onClick={() => {
+                          props.deleteElement(example, "businessExamples");
+                        }}
+                      />
+                    </div>
+                  )}
+                </ExampleContent>
+              )
+            )}
+            {get(authUser, "isAdmin") && (
+              <ButtonBombo
+                type="action"
+                onClick={() => {
+                  setCurrentExample({
+                    id: firestore.collection("events").doc().id,
+                  });
+                  setIsVisibleModal(true);
+                }}
+              >
+                Añadir
+              </ButtonBombo>
+            )}
+          </div>
         </div>
-        <div className="flag-astronaut">
+        <Desktop>
+          <div className="rocket">
             <Image
-                src={`${config.storageUrl}/landing/flag-astronaut.svg`}
-                height={"100%"}
-                width={"100%"}
+              src={`${config.storageUrl}/landing/rocket.svg`}
+              height={"100%"}
+              width={"100%"}
             />
-        </div>
-        <div className="astronaut">
-            <Image
-                src={`${config.storageUrl}/landing/astronaut.svg`}
-                height={"100%"}
-                width={"100%"}
-            />
-        </div>
-    </ExamplesSections>;
+          </div>
+        </Desktop>
+      </div>
+      <div className="flag-astronaut">
+        <Image
+          src={`${config.storageUrl}/landing/flag-astronaut.svg`}
+          height={"100%"}
+          width={"100%"}
+        />
+      </div>
+      <div className="astronaut">
+        <Image
+          src={`${config.storageUrl}/landing/astronaut.svg`}
+          height={"100%"}
+          width={"100%"}
+        />
+      </div>
+    </ExamplesSections>
+  );
 };
 
 const ExamplesSections = styled.section`
@@ -161,7 +164,7 @@ const ExamplesSections = styled.section`
     text-align: center;
     position: relative;
     z-index: 999;
-    
+
     .rocket {
       position: absolute;
       bottom: 0;
@@ -233,10 +236,12 @@ const ExampleContent = styled.div`
 
   .example-title {
     height: 50px;
-    background: linear-gradient(180deg,
-    rgba(244, 70, 175, 0.32) 0%,
-    rgba(255, 0, 153, 0.32) 0.01%,
-    rgba(171, 7, 249, 0.32) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(244, 70, 175, 0.32) 0%,
+      rgba(255, 0, 153, 0.32) 0.01%,
+      rgba(171, 7, 249, 0.32) 100%
+    );
     border-bottom: 3px solid #1b3b72;
     display: flex;
     justify-content: flex-start;
