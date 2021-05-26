@@ -6,14 +6,13 @@ import Button from "antd/lib/button";
 export const ButtonBombo = (props) => {
   return (
     <StyledButton
+      {...props}
       className={`btn ${props.className ? props.className : ""}`}
       variant={props.variant}
       color={props.color}
       disabled={props.disabled ? props.disabled : false}
       size={props.size ? props.size : "medium"}
       width={props.width ? props.width : "auto"}
-      loading={props.loading}
-      onClick={props.onClick}
     >
       <span className="children">{props.children}</span>
     </StyledButton>

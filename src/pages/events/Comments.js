@@ -87,17 +87,20 @@ export const Comments = (props) => {
               </Comment>
             ))}
             {get(authUser, "isAdmin") && (
-              <ButtonBombo
-                type="action"
-                onClick={() => {
-                  setCurrentComment({
-                    id: firestore.collection("events").doc().id,
-                  });
-                  setIsVisibleModal(true);
-                }}
-              >
-                Añadir
-              </ButtonBombo>
+              <div className="btn-container">
+                <ButtonBombo
+                  variant="outlined"
+                  color="action"
+                  onClick={() => {
+                    setCurrentComment({
+                      id: firestore.collection("events").doc().id,
+                    });
+                    setIsVisibleModal(true);
+                  }}
+                >
+                  Añadir
+                </ButtonBombo>
+              </div>
             )}
           </div>
         </div>
@@ -143,6 +146,14 @@ const CommentsContainer = styled.section`
         display: inline-flex;
         justify-content: center;
         margin: 1rem 0;
+      }
+
+      .btn-container {
+        margin: 1rem;
+      }
+      
+      ::-webkit-scrollbar {
+        display: none;
       }
     }
 
