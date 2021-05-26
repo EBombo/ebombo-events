@@ -84,14 +84,7 @@ export default (props) => {
 
 const LandingContainer = styled.div`
   width: 100%;
-  background: linear-gradient(
-    180deg,
-    #030005 0%,
-    #10002b 9.9%,
-    #100045 46.35%,
-    #0e0063 100%
-  );
-
+  
   .landing-container {
     position: relative;
     z-index: 1;
