@@ -13,6 +13,7 @@ import { Companies } from "./Companies";
 import get from "lodash/get";
 import { spinLoader } from "../../utils";
 import { darkTheme } from "../../styles/theme";
+import { SpecialGifts } from "./SpecialGifts";
 
 export default (props) => {
   const [events, setEvents] = useState(null);
@@ -69,7 +70,7 @@ export default (props) => {
           deleteElement={deleteElement}
         />
         <EsportsGames />
-        <BusinessExamples events={events} deleteElement={deleteElement} />
+        <SpecialGifts events={events} />
         <HeldEvents
           refProp={eventsRef}
           events={events}
@@ -84,7 +85,7 @@ export default (props) => {
 
 const LandingContainer = styled.div`
   width: 100%;
-  
+
   .landing-container {
     position: relative;
     z-index: 1;

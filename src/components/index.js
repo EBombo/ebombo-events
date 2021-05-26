@@ -11,3 +11,4 @@ export { TextArea } from "./TextArea/TextArea";
 export { Anchor } from "./Anchor/Anchor";
 export { Image } from "./Image/Image";
 export { ModalContainer } from "./Modal/ModalContainer";
+export { Carousel } from "./Carousel/Carousel";

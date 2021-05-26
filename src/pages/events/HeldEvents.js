@@ -4,9 +4,9 @@ import styled from "styled-components";
 import get from "lodash/get";
 import defaultTo from "lodash/defaultTo";
 import { mediaQuery } from "../../styles/constants";
-import { config, firestore } from "../../firebase";
+import { firestore } from "../../firebase";
 import { spinLoader } from "../../utils";
-import { ButtonBombo, Icon, Image, ModalContainer } from "../../components";
+import { ButtonBombo, Icon, ModalContainer } from "../../components";
 import { Divider } from "antd";
 
 const EditHeldEvent = lazy(() => import("./EditHeldEvent"));
