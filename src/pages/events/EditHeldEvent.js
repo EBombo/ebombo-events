@@ -1,6 +1,6 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import {FileUpload, Input, TextArea} from "../../components";
+import { FileUpload, Input, TextArea } from "../../components";
 import { useForm } from "react-hook-form";
 import { string, object } from "yup";
 import get from "lodash/get";
@@ -11,7 +11,6 @@ import defaultTo from "lodash/defaultTo";
 export default (props) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-
 
   const schema = object().shape({
     description: string().required(),
@@ -80,20 +79,18 @@ export default (props) => {
         />
         <div className="image-component">
           <FileUpload
-              file={get(props, "currentEvent.backgroundImageUrl", "")}
-              fileName="imageUrl"
-              filePath={`/events/held-events/${props.currentEvent.id}`}
-              bucket="landings"
-              sizes="250x450"
-              afterUpload={(imageUrls) =>
-                  setImageUrl(imageUrls[0])
-              }
+            file={get(props, "currentEvent.backgroundImageUrl", "")}
+            fileName="imageUrl"
+            filePath={`/events/held-events/${props.currentEvent.id}`}
+            bucket="landings"
+            sizes="250x450"
+            afterUpload={(imageUrls) => setImageUrl(imageUrls[0].url)}
           />
         </div>
         <div className="buttons-container">
           <ButtonBombo
-            type="primary"
-            margin="0"
+            variant="contained"
+            color="primary"
             loading={loading}
             disabled={loading}
             htmlType="submit"
@@ -101,8 +98,8 @@ export default (props) => {
             Guardar
           </ButtonBombo>
           <ButtonBombo
-            type="secondary"
-            margin="0"
+            variant="outlined"
+            color="danger"
             loading={loading}
             disabled={loading}
             onClick={() => props.setIsVisibleModal(false)}
@@ -131,7 +128,7 @@ const Container = styled.div`
       justify-content: space-around;
     }
 
-    .image-component{
+    .image-component {
       margin: 1rem auto;
       display: flex;
       justify-content: center;

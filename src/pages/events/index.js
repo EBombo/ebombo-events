@@ -3,17 +3,14 @@ import styled, { ThemeProvider } from "styled-components";
 import { HeaderLanding } from "./HeaderLanding";
 import { Services } from "./Services";
 import { firestore } from "../../firebase";
-import { IntegrationGames } from "./IntegrationGames";
-import { EsportsGames } from "./EsportsGames";
-import { BusinessExamples } from "./BusinessExamples";
 import { HeldEvents } from "./HeldEvents";
 import { Comments } from "./Comments";
 import { Contact } from "./Contact";
 import { Companies } from "./Companies";
 import get from "lodash/get";
 import { spinLoader } from "../../utils";
-import { darkTheme } from "../../styles/theme";
 import { SpecialGifts } from "./SpecialGifts";
+import { SpecialGuests } from "./SpecialGuests";
 
 export default (props) => {
   const [events, setEvents] = useState(null);
@@ -64,12 +61,8 @@ export default (props) => {
         <HeaderLanding executeScroll={executeScroll} />
         <Companies events={events} deleteElement={deleteElement} />
         <Services refProp={servicesRef} />
-        <IntegrationGames
-          refProp={gamesRef}
-          events={events}
-          deleteElement={deleteElement}
-        />
-        <SpecialGifts events={events} />
+        <SpecialGuests deleteElement={deleteElement} events={events} />
+        <SpecialGifts deleteElement={deleteElement} events={events} />
         <HeldEvents
           refProp={eventsRef}
           events={events}

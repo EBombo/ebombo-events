@@ -24,24 +24,6 @@ export const SpecialGifts = (props) => {
   const [currentField, setCurrentField] = useState(null);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-  const deleteElement = async (type, element) => {
-    if (type === "guest") {
-      const newSpecialGuests = get(props, "events.specialGuests", []).filter(
-        (guest) => guest.id !== element.id
-      );
-      return await firestore.doc(`landings/events`).update({
-        specialGuests: newSpecialGuests,
-      });
-    }
-
-    const newSpecialGifts = get(props, "events.specialGifts", []).filter(
-      (guest) => guest.id !== element.id
-    );
-    await firestore.doc(`landings/events`).update({
-      specialGifts: newSpecialGifts,
-    });
-  };
-
   return (
     <SpecialsSection>
       {isVisibleModal && get(authUser, "isAdmin") && (
@@ -95,7 +77,7 @@ export const SpecialGifts = (props) => {
                   className="icon-delete"
                   type="delete"
                   onClick={() => {
-                    deleteElement("gift", gift);
+                    props.deleteElement(gift, "specialGifts");
                   }}
                 />
               </div>

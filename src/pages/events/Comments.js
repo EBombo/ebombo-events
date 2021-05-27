@@ -64,7 +64,11 @@ export const Comments = (props) => {
                     size="cover"
                   />
                 </Tablet>
-                <div className="description">{comment.description}</div>
+                <div className="description">
+                  <strong> {comment.description.split("-")[0]} </strong>
+                  <br />
+                  {comment.description.split("-")[1]}
+                </div>
                 {get(authUser, "isAdmin") && (
                   <div className="container-edit">
                     <Icon
@@ -151,7 +155,7 @@ const CommentsContainer = styled.section`
       .btn-container {
         margin: 1rem;
       }
-      
+
       ::-webkit-scrollbar {
         display: none;
       }

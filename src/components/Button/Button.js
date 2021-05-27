@@ -47,7 +47,11 @@ const StyledButton = styled(Button)`
           ? props.theme.basic.danger
           : props.color
       };
-      color: ${props.theme.basic.white};
+      color: ${
+        props.color === "white"
+          ? props.theme.basic.secondary
+          : props.theme.basic.white
+      };
       border: none;
       `
       : props.variant === "outlined"

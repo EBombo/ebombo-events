@@ -130,7 +130,8 @@ export const FileUpload = (props) => {
       <div className="input-container">
         <ButtonBombo
           className="btn-upload-image"
-          variant="primary"
+          variant="outlined"
+          color="primary"
           onClick={() => inputRef.current.click()}
           loading={loading}
           key={loading}

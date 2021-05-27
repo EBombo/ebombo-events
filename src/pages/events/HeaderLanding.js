@@ -90,11 +90,13 @@ export const HeaderLanding = (props) => {
           <div className="title">
             Somos una empresa <span>que aprendió a romper barreras</span>
           </div>
-          <div className="button-container">
-            <ButtonBombo variant="contained" color="secondary">
-              Contáctanos
-            </ButtonBombo>
-          </div>
+          <Desktop>
+            <div className="button-container">
+              <ButtonBombo variant="contained" color="secondary">
+                Contáctanos
+              </ButtonBombo>
+            </div>
+          </Desktop>
         </div>
         <div className="second-content">
           <Desktop>
@@ -144,6 +146,13 @@ export const HeaderLanding = (props) => {
             />
           </Tablet>
         </div>
+        <Tablet>
+          <div className="button-container">
+            <ButtonBombo variant="contained" color="white">
+              Contáctanos
+            </ButtonBombo>
+          </div>
+        </Tablet>
       </div>
     </HeaderLandingContainer>
   );
@@ -256,8 +265,8 @@ const HeaderLandingContainer = styled.section`
         margin: 1rem auto;
       }
     }
-    
-    .second-content{
+
+    .second-content {
       max-width: 100%;
       height: 280px;
     }
