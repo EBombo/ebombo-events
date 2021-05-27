@@ -69,7 +69,6 @@ export default (props) => {
           events={events}
           deleteElement={deleteElement}
         />
-        <EsportsGames />
         <SpecialGifts events={events} />
         <HeldEvents
           refProp={eventsRef}
