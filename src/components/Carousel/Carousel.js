@@ -37,6 +37,9 @@ export const Carousel = (props) => {
         ref={slider}
         dots={false}
         autoplay={props.autoplay ? true : false}
+        afterChange={(current) => setIndicator(current)}
+        width={props.width}
+        height={props.height}
       >
         {props.components.map((component, index) => (
           <div className="content-carousel" key={index}>
@@ -72,7 +75,6 @@ const ContainerArrow = styled.div`
   height: 20px;
   position: relative;
   display: flex;
-  margin-top: 10px;
   justify-content: ${(props) =>
     props.position === "center"
       ? "center"
@@ -85,7 +87,9 @@ const ContainerArrow = styled.div`
 
 const CarouselStyled = styled(CarouselAntd)`
   .content-carousel {
-    width: auto;
+    width: ${(props) => (props.width ? props.width : "auto")};
+    height: ${(props) =>
+      props.height ? `calc(${props.height} - 20px)` : "100%"};
     padding: 10px 20px;
   }
 

@@ -98,10 +98,50 @@ export const HeaderLanding = (props) => {
         </div>
         <div className="second-content">
           <Desktop>
-            <Carousel components={} position={"right"} />
+            <Carousel
+              components={[
+                <Image
+                  src={`${config.storageUrl}/resources/b2bLanding/desktop-header.svg`}
+                  width={"100%"}
+                  height={"100%"}
+                  margin={"0"}
+                  size={"contain"}
+                />,
+                <Image
+                  src={`${config.storageUrl}/resources/b2bLanding/desktop-header2.png`}
+                  width={"100%"}
+                  height={"100%"}
+                  margin={"0"}
+                  size={"contain"}
+                />,
+              ]}
+              position={"right"}
+              autoplay={true}
+              height={"400px"}
+            />
           </Desktop>
           <Tablet>
-            <Carousel components={} position={"right"} />
+            <Carousel
+              components={[
+                <Image
+                  src={`${config.storageUrl}/resources/b2bLanding/mobile-header.svg`}
+                  width={"100%"}
+                  height={"100%"}
+                  margin={"0"}
+                  size={"contain"}
+                />,
+                <Image
+                  src={`${config.storageUrl}/resources/b2bLanding/mobile-header2.png`}
+                  width={"100%"}
+                  height={"100%"}
+                  margin={"0"}
+                  size={"contain"}
+                />,
+              ]}
+              position={"center"}
+              autoplay={true}
+              height={"250px"}
+            />
           </Tablet>
         </div>
       </div>
@@ -216,6 +256,11 @@ const HeaderLandingContainer = styled.section`
         margin: 1rem auto;
       }
     }
+    
+    .second-content{
+      max-width: 100%;
+      height: 280px;
+    }
   }
 
   ${mediaQuery.afterTablet} {
@@ -240,6 +285,7 @@ const HeaderLandingContainer = styled.section`
 
       .second-content {
         width: 50%;
+        height: 400px;
       }
     }
   }
