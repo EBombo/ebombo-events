@@ -52,54 +52,49 @@ export const SpecialGifts = (props) => {
         más! Regalos personalizados para sus colaboradores. Nos encargamos del
         empaquetado logística y envío en todo el Perú.
       </div>
-      <div className="gifts-container">
-        {defaultTo(get(props, "events.specialGifts"), []).map((gift) => (
-          <GiftContent>
-            <Image
-              width="100%"
-              height="100%"
-              src={gift.imageUrl}
-              size="cover"
-              margin="0"
-            />
-            {get(authUser, "isAdmin") && (
-              <div className="container-edit">
-                <Icon
-                  className="icon-edit"
-                  type="edit"
-                  onClick={() => {
-                    setCurrentElement(gift);
-                    setCurrentField("specialGifts");
-                    setIsVisibleModal(true);
-                  }}
-                />
-                <Icon
-                  className="icon-delete"
-                  type="delete"
-                  onClick={() => {
-                    props.deleteElement(gift, "specialGifts");
-                  }}
-                />
-              </div>
-            )}
-          </GiftContent>
-        ))}
+      <div className="gifts">
+        <div className="gifts-container">
+          {defaultTo(get(props, "events.specialGifts"), []).map((gift) => (
+            <GiftContent backgroundImage={gift.imageUrl}>
+              {get(authUser, "isAdmin") && (
+                <div className="container-edit">
+                  <Icon
+                    className="icon-edit"
+                    type="edit"
+                    onClick={() => {
+                      setCurrentElement(gift);
+                      setCurrentField("specialGifts");
+                      setIsVisibleModal(true);
+                    }}
+                  />
+                  <Icon
+                    className="icon-delete"
+                    type="delete"
+                    onClick={() => {
+                      props.deleteElement(gift, "specialGifts");
+                    }}
+                  />
+                </div>
+              )}
+            </GiftContent>
+          ))}
 
-        {get(authUser, "isAdmin") && (
-          <ButtonBombo
-            variant="outlined"
-            color="action"
-            onClick={() => {
-              setCurrentField("specialGifts");
-              setCurrentElement({
-                id: firestore.collection("events").doc().id,
-              });
-              setIsVisibleModal(true);
-            }}
-          >
-            Añadir
-          </ButtonBombo>
-        )}
+          {get(authUser, "isAdmin") && (
+            <ButtonBombo
+              variant="outlined"
+              color="action"
+              onClick={() => {
+                setCurrentField("specialGifts");
+                setCurrentElement({
+                  id: firestore.collection("events").doc().id,
+                });
+                setIsVisibleModal(true);
+              }}
+            >
+              Añadir
+            </ButtonBombo>
+          )}
+        </div>
       </div>
       <div className="btn-container">
         <ButtonBombo variant="contained" color="secondary">
@@ -134,10 +129,18 @@ const SpecialsSection = styled.section`
     padding: 1rem;
   }
 
-  .gifts-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .gifts {
+    max-width: 100%;
+    overflow: auto;
+    text-align: center;
+    .gifts-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .btn-container {
@@ -159,6 +162,11 @@ const SpecialsSection = styled.section`
       max-width: 900px;
       margin: 0 auto;
     }
+    .gifts {
+      ::-webkit-scrollbar {
+        display: block;
+      }
+    }
   }
 `;
 
@@ -167,6 +175,10 @@ const GiftContent = styled.div`
   height: 140px;
   position: relative;
   margin-right: 1rem;
+  background-image: url(${(props) => props.backgroundImage});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 
   ${mediaQuery.afterTablet} {
     width: 320px;
@@ -177,7 +189,7 @@ const GiftContent = styled.div`
     position: absolute;
     height: 15px;
     cursor: pointer;
-    bottom: -10px;
+    top: 0;
     right: 0;
     display: flex;
 
