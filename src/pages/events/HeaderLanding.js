@@ -5,7 +5,7 @@ import { config } from "../../firebase";
 import { mediaQuery } from "../../styles/constants";
 import sizes from "../../styles/constants/sizes";
 import { useHistory } from "react-router";
-import { ButtonBombo, Image } from "../../components";
+import { ButtonBombo, Carousel, Image } from "../../components";
 import { darkTheme } from "../../styles/theme";
 
 export const HeaderLanding = (props) => {
@@ -97,7 +97,12 @@ export const HeaderLanding = (props) => {
           </div>
         </div>
         <div className="second-content">
-
+          <Desktop>
+            <Carousel components={} position={"right"} />
+          </Desktop>
+          <Tablet>
+            <Carousel components={} position={"right"} />
+          </Tablet>
         </div>
       </div>
     </HeaderLandingContainer>
