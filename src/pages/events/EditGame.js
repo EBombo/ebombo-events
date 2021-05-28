@@ -1,6 +1,6 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import {FileUpload, Input, TextArea} from "../../components";
+import { FileUpload, Input, TextArea } from "../../components";
 import { useForm } from "react-hook-form";
 import { string, object } from "yup";
 import get from "lodash/get";
@@ -15,8 +15,6 @@ export default (props) => {
   const schema = object().shape({
     name: string().required(),
     description: string().required(),
-    backgroundColor: string().required(),
-    borderColor: string().required(),
   });
 
   const { register, handleSubmit, errors } = useForm({
@@ -28,26 +26,53 @@ export default (props) => {
     setLoading(true);
     let imageUrl = null;
 
-    let integrationGames;
+    let games;
 
     if (
-      defaultTo(get(props, "events.integrationGames"), []).some(
-        (game) => game.id === props.currentGame.id
-      )
+      defaultTo(
+        get(
+          props,
+          `${
+            props.active === "integration"
+              ? "events.integrationGames"
+              : "events.esportsGames"
+          }`
+        ),
+        []
+      ).some((game) => game.id === props.currentGame.id)
     ) {
-      integrationGames = defaultTo(
-        get(props, "events.integrationGames"),
+      games = defaultTo(
+        get(
+          props,
+          `${
+            props.active === "integration"
+              ? "events.integrationGames"
+              : "events.esportsGames"
+          }`
+        ),
         []
       ).map((game) =>
         game.id === props.currentGame.id ? mapGame(data, game) : game
       );
     } else {
-      integrationGames = defaultTo(get(props, "events.integrationGames"), []);
-      integrationGames.push(mapGame(data));
+      games = defaultTo(
+        get(
+          props,
+          `${
+            props.active === "integration"
+              ? "events.integrationGames"
+              : "events.esportsGames"
+          }`
+        ),
+        []
+      );
+      games.push(mapGame(data));
     }
+    const field =
+      props.active === "integration" ? "integrationGames" : "esportsGames";
 
     await firestore.doc(`landings/events`).update({
-      integrationGames,
+      [field]: games,
     });
 
     props.setIsVisibleModal(false);
@@ -60,8 +85,6 @@ export default (props) => {
         ...props.currentGame,
         name: data.name,
         description: data.description,
-        borderColor: data.borderColor,
-        backgroundColor: data.backgroundColor,
       };
 
       if (imageUrl) integrationGame["backgroundImageUrl"] = imageUrl;
@@ -73,15 +96,15 @@ export default (props) => {
       ...props.currentGame,
       name: data.name,
       description: data.description,
-      borderColor: data.borderColor,
-      backgroundColor: data.backgroundColor,
       backgroundImageUrl: imageUrl,
     };
   };
 
   return (
     <Container>
-      <div className="title">Juego de Integración</div>
+      <div className="title">
+        Juego {props.active === "integrartion" ? "Integración" : "Esport"}
+      </div>
       <form onSubmit={handleSubmit(saveIntegrationGame)}>
         <Input
           variant="primary"
@@ -103,43 +126,20 @@ export default (props) => {
           defaultValue={get(props, "currentGame.description", "")}
           placeholder="Descripción del juego"
         />
-        <Input
-          variant="primary"
-          error={errors.borderColor}
-          required
-          label="Color de borde"
-          ref={register}
-          name="borderColor"
-          placeholder="Color de borde"
-          type="color"
-          defaultValue={get(props, "currentGame.borderColor", "#ffffff")}
-        />
-        <Input
-          variant="primary"
-          error={errors.backgroundColor}
-          required
-          label="Color de fondo"
-          ref={register}
-          name="backgroundColor"
-          placeholder="Color de fondo"
-          type="color"
-          defaultValue={get(props, "currentGame.backgroundColor", "#ffffff")}
-        />
         <div className="image-component">
           <FileUpload
-              file={get(props, "currentGame.backgroundImageUrl", "")}
-              fileName="imageUrl"
-              filePath={`/events/integration-games/${props.currentGame.id}`}
-              bucket="landings"
-              sizes="300x300"
-              afterUpload={(imageUrls) =>
-                  setImageUrl(imageUrls[0])
-              }
+            file={get(props, "currentGame.backgroundImageUrl", "")}
+            fileName="imageUrl"
+            filePath={`/events/integration-games/${props.currentGame.id}`}
+            bucket="landings"
+            sizes="300x350"
+            afterUpload={(imageUrls) => setImageUrl(imageUrls[0].url)}
           />
         </div>
         <div className="buttons-container">
           <ButtonBombo
-            type="primary"
+            variant="contained"
+            color="primary"
             margin="0"
             loading={loading}
             disabled={loading}
@@ -148,8 +148,8 @@ export default (props) => {
             Guardar
           </ButtonBombo>
           <ButtonBombo
-            type="secondary"
-            margin="0"
+            variant="outlined"
+            color="danger"
             loading={loading}
             disabled={loading}
             onClick={() => props.setIsVisibleModal(false)}

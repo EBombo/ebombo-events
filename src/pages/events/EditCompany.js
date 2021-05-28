@@ -90,14 +90,14 @@ export default (props) => {
             fileName="imageUrl"
             filePath={`/events/integration-games/${props.currentCompany.id}`}
             bucket="landings"
-            sizes="300x300"
-            afterUpload={(imageUrls) => setImageUrl(imageUrls[0])}
+            sizes="300x150"
+            afterUpload={(imageUrls) => setImageUrl(imageUrls[0].url)}
           />
         </div>
         <div className="buttons-container">
           <ButtonBombo
-            type="primary"
-            margin="0"
+            variant="contained"
+            color="primary"
             loading={loading}
             disabled={loading}
             htmlType="submit"
@@ -105,8 +105,8 @@ export default (props) => {
             Guardar
           </ButtonBombo>
           <ButtonBombo
-            type="secondary"
-            margin="0"
+            variant="outlined"
+            color="danger"
             loading={loading}
             disabled={loading}
             onClick={() => props.setIsVisibleModal(false)}

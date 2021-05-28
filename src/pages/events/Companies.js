@@ -71,7 +71,8 @@ export const Companies = (props) => {
           )}
           {get(authUser, "isAdmin") && (
             <ButtonBombo
-              type="action"
+              variant="outlined"
+              color="action"
               onClick={() => {
                 setCurrentCompany({
                   id: firestore.collection("events").doc().id,

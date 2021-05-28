@@ -11,6 +11,7 @@ import get from "lodash/get";
 import { spinLoader } from "../../utils";
 import { SpecialGifts } from "./SpecialGifts";
 import { SpecialGuests } from "./SpecialGuests";
+import { Games } from "./Games";
 
 export default (props) => {
   const [events, setEvents] = useState(null);
@@ -61,6 +62,7 @@ export default (props) => {
         <HeaderLanding executeScroll={executeScroll} />
         <Companies events={events} deleteElement={deleteElement} />
         <Services refProp={servicesRef} />
+        <Games events={events} deleteElement={deleteElement}/>
         <SpecialGuests deleteElement={deleteElement} events={events} />
         <SpecialGifts deleteElement={deleteElement} events={events} />
         <HeldEvents
