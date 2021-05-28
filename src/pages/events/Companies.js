@@ -46,6 +46,7 @@ export const Companies = (props) => {
                   width="140px"
                   height="70px"
                   margin="0 1rem"
+                  size="contain"
                 />
                 {get(authUser, "isAdmin") && (
                   <div className="container-edit">
@@ -105,13 +106,8 @@ const CompaniesContainer = styled.section`
 
   .main-container {
     width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
     height: 100%;
     overflow: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     ::-webkit-scrollbar {
       display: none;
