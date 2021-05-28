@@ -62,7 +62,7 @@ export default (props) => {
         <HeaderLanding executeScroll={executeScroll} />
         <Companies events={events} deleteElement={deleteElement} />
         <Services refProp={servicesRef} />
-        <Games events={events} deleteElement={deleteElement}/>
+        <Games refProp={gamesRef} events={events} deleteElement={deleteElement}/>
         <SpecialGuests deleteElement={deleteElement} events={events} />
         <SpecialGifts deleteElement={deleteElement} events={events} />
         <HeldEvents

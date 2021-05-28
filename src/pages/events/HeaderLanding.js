@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Desktop, Tablet } from "../../utils";
 import { config } from "../../firebase";
 import { mediaQuery } from "../../styles/constants";
-import sizes from "../../styles/constants/sizes";
 import { useHistory } from "react-router";
 import { ButtonBombo, Carousel, Image } from "../../components";
 import { darkTheme } from "../../styles/theme";
@@ -92,7 +91,11 @@ export const HeaderLanding = (props) => {
           </div>
           <Desktop>
             <div className="button-container">
-              <ButtonBombo variant="contained" color="secondary">
+              <ButtonBombo
+                variant="contained"
+                color="secondary"
+                onClick={() => props.executeScroll("contact")}
+              >
                 Contáctanos
               </ButtonBombo>
             </div>
@@ -148,7 +151,11 @@ export const HeaderLanding = (props) => {
         </div>
         <Tablet>
           <div className="button-container">
-            <ButtonBombo variant="contained" color="white">
+            <ButtonBombo
+              variant="contained"
+              color="white"
+              onClick={() => props.executeScroll("contact")}
+            >
               Contáctanos
             </ButtonBombo>
           </div>
@@ -190,6 +197,7 @@ const HeaderLandingContainer = styled.section`
           font-weight: bold;
           font-size: 20px;
           line-height: 25px;
+          cursor: pointer;
         }
       }
     }

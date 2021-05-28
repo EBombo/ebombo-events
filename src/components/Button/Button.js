@@ -102,4 +102,71 @@ const StyledButton = styled(Button)`
     font-weight: 500;
     letter-spacing: 0.02857em;
   }
+
+  &:hover {
+    ${(props) =>
+      props.variant === "contained"
+        ? `
+      background: ${
+        props.color === "primary"
+          ? `${props.theme.basic.primary}CC`
+          : props.color === "secondary"
+          ? `${props.theme.basic.secondary}CC`
+          : props.color === "action"
+          ? `${props.theme.basic.action}CC`
+          : props.color === "danger"
+          ? `${props.theme.basic.danger}CC`
+          : `${props.color}CC`
+      };
+      color: ${
+        props.color === "white"
+          ? `${props.theme.basic.secondary}CC`
+          : props.theme.basic.white
+      };
+      border: none;
+      `
+        : props.variant === "outlined"
+        ? `
+      background: transparent;
+      color: ${
+        props.color === "primary"
+          ? props.theme.basic.primary
+          : props.color === "secondary"
+          ? `${props.theme.basic.secondary}CC`
+          : props.color === "action"
+          ? `${props.theme.basic.action}CC`
+          : props.color === "danger"
+          ? `${props.theme.basic.danger}CC`
+          : `${props.color}CC`
+      };
+      border: 1px solid ${
+        props.color === "primary"
+          ? `${props.theme.basic.primary}CC`
+          : props.color === "secondary"
+          ? `${props.theme.basic.secondary}CC`
+          : props.color === "action"
+          ? `${props.theme.basic.action}CC`
+          : props.color === "danger"
+          ? `${props.theme.basic.danger}CC`
+          : `${props.color}CC`
+      };
+      `
+        : `
+      background: transparent;
+      color: ${
+        props.color === "primary"
+          ? `${props.theme.basic.primary}CC`
+          : props.color === "secondary"
+          ? `${props.theme.basic.secondary}CC`
+          : props.color === "action"
+          ? `${props.theme.basic.action}CC`
+          : props.color === "danger"
+          ? `${props.theme.basic.danger}CC`
+          : `${props.color}CC`
+      };  
+      border: none;
+      `}
+  }
+  
+  
 `;

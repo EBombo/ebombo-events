@@ -116,7 +116,6 @@ const CompaniesContainer = styled.section`
     .companies-container {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       margin: 1rem 0;
 
       .company-container {
