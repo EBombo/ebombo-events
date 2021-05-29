@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.27",
-    "@fortawesome/free-solid-svg-icons": "^5.12.1",
-    "@fortawesome/react-fontawesome": "^0.1.9",
     "@paypal/react-paypal-js": "^3.0.2",
     "antd": "^4.13.1",
     "antd-mobile": "^2.3.1",
@@ -49,10 +46,22 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "emulatorsOnlyFunctions": "firebase emulators:start --only functions",
-    "emulators": "firebase emulators:start --only functions,auth,firestore --import=./dataEmulator --export-on-exit"
+    "emulators": "firebase emulators:start --only functions,auth,firestore --import=./dataEmulator --export-on-exit",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
   },
   "browserslist": [
     ">0.2%",
@@ -61,6 +70,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/node-logger": "^6.2.9",
+    "@storybook/preset-create-react-app": "^3.1.7",
+    "@storybook/react": "^6.2.9",
     "source-map-explorer": "^2.5.1"
   }
 }

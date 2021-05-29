@@ -1,209 +1,177 @@
-import React, {useGlobal, useState} from "reactn";
-import {lazy, Suspense} from "react";
+import React, { useGlobal, useState } from "reactn";
+import { lazy, Suspense } from "react";
 import styled from "styled-components";
 import get from "lodash/get";
 import defaultTo from "lodash/defaultTo";
-import {mediaQuery} from "../../styles/constants";
-import {config, firestore} from "../../firebase";
-import {Icon} from "../../components/common/Icons";
-import {spinLoader} from "../../utils";
-import {ButtonBombo} from "../../components";
-import {ModalContainer} from "../../components/common/ModalContainer";
-import {Image} from "../../components/common/Image";
+import { mediaQuery } from "../../styles/constants";
+import { firestore } from "../../firebase";
+import { spinLoader } from "../../utils";
+import { ButtonBombo, Icon, ModalContainer } from "../../components";
+import { Divider } from "antd";
 
 const EditHeldEvent = lazy(() => import("./EditHeldEvent"));
 
 export const HeldEvents = (props) => {
-    const [authUser] = useGlobal("user");
-    const [currentEvent, setCurrentEvent] = useState(null);
-    const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [authUser] = useGlobal("user");
+  const [currentEvent, setCurrentEvent] = useState(null);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-    return <EventsContainer ref={props.refProp}>
-        {isVisibleModal && get(authUser, "isAdmin") && <ModalContainer
-            footer={null}
-            visible={isVisibleModal}
-            onCancel={() => setIsVisibleModal(!isVisibleModal)}
+  return (
+    <EventsContainer ref={props.refProp}>
+      {isVisibleModal && get(authUser, "isAdmin") && (
+        <ModalContainer
+          footer={null}
+          visible={isVisibleModal}
+          onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
-            <Suspense fallback={spinLoader()}>
-                <EditHeldEvent
-                    setIsVisibleModal={setIsVisibleModal}
-                    isVisibleModal={isVisibleModal}
-                    currentEvent={currentEvent}
-                    {...props}
-                />
-            </Suspense>
-        </ModalContainer>}
-        <div className="main-container">
-            <div className="title">EVENTOS REALIZADOS</div>
-            <div className="held-events">
-                <div className="events-container">
-                    {defaultTo(get(props, "events.heldEvents"), []).map((event) => <EventContent
-                        backgroundImage={event.backgroundImageUrl}
-                        key={event.id}
-                    >
-                        <div className="the-card">
-                            <div className="front"/>
-                            <div className="back">
-                                <div className="description">{event.description}</div>
-                            </div>
-                        </div>
-                        {get(authUser, "isAdmin") && (
-                            <div className="container-edit">
-                                <Icon
-                                    className="icon"
-                                    type="edit"
-                                    onClick={() => {
-                                        setCurrentEvent(event);
-                                        setIsVisibleModal(true);
-                                    }}
-                                />
-                                <Icon
-                                    className="icon-delete"
-                                    type="delete"
-                                    onClick={() => {
-                                        props.deleteElement(event, "heldEvents");
-                                    }}
-                                />
-                            </div>
-                        )}
-                    </EventContent>)}
-                    {get(authUser, "isAdmin") && <ButtonBombo
-                        type="action"
-                        onClick={() => {
-                            setCurrentEvent({
-                                id: firestore.collection("events").doc().id,
-                            });
-                            setIsVisibleModal(true);
-                        }}
-                    >
-                        Añadir
-                    </ButtonBombo>}
+          <Suspense fallback={spinLoader()}>
+            <EditHeldEvent
+              setIsVisibleModal={setIsVisibleModal}
+              isVisibleModal={isVisibleModal}
+              currentEvent={currentEvent}
+              {...props}
+            />
+          </Suspense>
+        </ModalContainer>
+      )}
+      <Divider>
+        <div className="title">Algunos eventos realizados</div>
+      </Divider>
+      <div className="held-events">
+        <div className="events-container">
+          {defaultTo(get(props, "events.heldEvents"), []).map((event) => (
+            <EventContent
+              backgroundImage={event.backgroundImageUrl}
+              key={event.id}
+            >
+              <div className="the-card">
+                <div className="front">
+                  <div className="cover" />
                 </div>
-            </div>
+                <div className="back">
+                  <div className="description">{event.description}</div>
+                </div>
+              </div>
+              {get(authUser, "isAdmin") && (
+                <div className="container-edit">
+                  <Icon
+                    className="icon"
+                    type="edit"
+                    onClick={() => {
+                      setCurrentEvent(event);
+                      setIsVisibleModal(true);
+                    }}
+                  />
+                  <Icon
+                    className="icon-delete"
+                    type="delete"
+                    onClick={() => {
+                      props.deleteElement(event, "heldEvents");
+                    }}
+                  />
+                </div>
+              )}
+            </EventContent>
+          ))}
+          {get(authUser, "isAdmin") && (
+            <ButtonBombo
+              variant="outlined"
+              color="action"
+              onClick={() => {
+                setCurrentEvent({
+                  id: firestore.collection("events").doc().id,
+                });
+                setIsVisibleModal(true);
+              }}
+            >
+              Añadir
+            </ButtonBombo>
+          )}
         </div>
-        <div className="sitting-astronaut">
-            <Image
-                src={`${config.storageUrl}/landing/sitting-astronaut.svg`}
-                height={"100%"}
-                width={"100%"}
-            />
-        </div>
-        <div className="light-circle">
-            <Image
-                src={`${config.storageUrl}/landing/light-circle.svg`}
-                height={"100%"}
-                width={"100%"}
-                bgPosition={"center left"}
-                size={"cover"}
-            />
-        </div>
-    </EventsContainer>;
+      </div>
+    </EventsContainer>
+  );
 };
 
 const EventsContainer = styled.section`
   width: 100%;
-  padding: 1rem;
   margin: 0 auto;
-  background: transparent;
+  background: ${(props) => props.theme.basic.white};
   position: relative;
-  overflow: hidden;
-  
-  .light-circle {
-    position: absolute;
-    bottom: 0;
-    left: 40%;
-    width: 30%;
-    height: auto;
-    z-index: 0;
-    ${mediaQuery.afterTablet}{
-      height: auto;
-      right: 0;
-      width: 25%;
-      bottom: 10%;
-      left: auto;
-      transform: translateX(50%);
-    }
+  padding: 1rem 0;
+
+  .title {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+    color: ${(props) => props.theme.basic.black};
   }
 
-  .sitting-astronaut{
-    position: absolute;
-    top: 0;
-    left: 5%;
-    width: 50px;
-    height: auto;
-    z-index: 1;
-    ${mediaQuery.afterTablet}{
-      left: 30px;
-      width: 150px;
-    }
-  }
-  
-  .main-container {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 999;
-    
-    .title {
-      font-weight: bold;
-      font-size: 15px;
-      line-height: 19px;
-      text-align: center;
-      color: ${(props) => props.theme.basic.white};
-      margin-bottom: 1rem;
+  .held-events {
+    max-width: 100%;
+    overflow: auto;
+    text-align: center;
+
+    ::-webkit-scrollbar {
+      display: none;
     }
 
-    ${mediaQuery.afterTablet} {
-      .title {
-        font-size: 33px;
-        line-height: 41px;
-      }
-    }
-
-    .held-events {
-      max-width: 100%;
-      overflow: auto;
-      text-align: center;
-
-      .events-container {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin: 1rem 0;
-      }
+    .events-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem 0;
     }
   }
 
   ${mediaQuery.afterTablet} {
-    padding: 2rem;
+    padding: 2rem 0;
+    .title {
+      font-size: 30px;
+      line-height: 37px;
+    }
+
+    .held-events {
+      ::-webkit-scrollbar {
+        height: 4px;
+      }
+    }
   }
 `;
 
 const EventContent = styled.div`
   position: relative;
-  width: 161px;
-  height: 288px;
-  border-radius: 13px;
-  margin: 0 1rem;
-  box-shadow: 0px 0px 13px 3px rgba(255, 255, 255, 0.25);
+  width: 230px;
+  height: 340px;
+  margin: 0;
 
   ${mediaQuery.afterTablet} {
-    width: 250px;
-    height: 450px;
+    width: 260px;
+    height: 380px;
   }
 
   .the-card {
     position: absolute;
-    border-radius: 13px;
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
     transition: all 0.5s ease;
 
+    .cover {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      background-repeat: no-repeat;
+      background-position: center;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 3;
+    }
+
     .front {
       position: absolute;
-      border-radius: 13px;
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
@@ -213,15 +181,15 @@ const EventContent = styled.div`
       background-image: url(${(props) => props.backgroundImage});
       color: ${(props) => props.theme.basic.white};
       box-shadow: 0px 0px 13px 3px rgba(255, 255, 255, 0.25);
+      z-index: 2;
     }
 
     .back {
       position: absolute;
-      border-radius: 13px;
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
-      background: rgba(1, 19, 53, 0.96);
+      background: #1d2447;
       color: ${(props) => props.theme.basic.white};
       transform: rotateY(180deg);
       padding: 0.5rem;
@@ -246,21 +214,22 @@ const EventContent = styled.div`
 
   .container-edit {
     position: absolute;
-    width: 25px;
+    width: auto;
     height: 25px;
-    cursor: pointer;
     top: 0;
-    right: -11px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    align-items: center;
 
     svg {
       width: 20px;
       height: 20px;
-      color: ${(props) => props.theme.basic.white};
+      color: ${(props) => props.theme.basic.action};
+      margin: 0 1rem;
     }
 
     .icon-delete {
-      margin-top: 5px;
-
       svg {
         color: ${(props) => props.theme.basic.danger};
       }

@@ -1,7 +1,6 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { ModalContainer } from "../../components/common/ModalContainer";
-import {ImageUpload, Input, TextArea} from "../../components";
+import { FileUpload, Input, TextArea } from "../../components";
 import { useForm } from "react-hook-form";
 import { string, object } from "yup";
 import get from "lodash/get";
@@ -15,6 +14,7 @@ export default (props) => {
 
   const schema = object().shape({
     description: string().required(),
+    name: string().required(),
   });
 
   const { register, handleSubmit, errors } = useForm({
@@ -29,21 +29,23 @@ export default (props) => {
 
     if (
       defaultTo(get(props, `events.${props.currentField}`), []).some(
-        (game) => game.id === props.currentElement.id
+        (special) => special.id === props.currentElement.id
       )
     ) {
       elements = defaultTo(
         get(props, `events.${props.currentField}`),
         []
-      ).map((game) =>
-        game.id === props.currentElement.id
-          ? mapElement(data, game)
-          : game
+      ).map((special) =>
+        special.id === props.currentElement.id
+          ? mapElement(data, special)
+          : special
       );
     } else {
       elements = defaultTo(get(props, `events.${props.currentField}`), []);
       elements.push(mapElement(data));
     }
+
+    console.log(props.currentField, elements);
 
     await firestore.doc(`landings/events`).update({
       [props.currentField]: elements,
@@ -58,6 +60,7 @@ export default (props) => {
       const element = {
         ...props.currentElement,
         description: data.description,
+        name: data.name,
       };
       if (imageUrl) element["imageUrl"] = imageUrl;
       return element;
@@ -65,6 +68,7 @@ export default (props) => {
     return {
       ...props.currentElement,
       description: data.description,
+      name: data.name,
       imageUrl: imageUrl,
     };
   };
@@ -76,6 +80,16 @@ export default (props) => {
         Especiales
       </div>
       <form onSubmit={handleSubmit(saveComment)}>
+        <Input
+          variant="primary"
+          name="name"
+          ref={register}
+          error={errors.name}
+          required
+          label="Nombre:"
+          defaultValue={get(props, "currentElement.name", "")}
+          placeholder="Nombre"
+        />
         <TextArea
           variant="primary"
           name="description"
@@ -87,20 +101,19 @@ export default (props) => {
           placeholder="Descripción del juego"
         />
         <div className="image-component">
-          <ImageUpload
-              file={get(props, "currentElement.imageUrl", "")}
-              fileName="imageUrl"
-              filePath={`/events/comments/${props.currentElement.id}`}
-              bucket="landings"
-              sizes="250x250"
-              afterUpload={(imageUrls) =>
-                  setImageUrl(imageUrls[0])
-              }
+          <FileUpload
+            file={get(props, "currentElement.imageUrl", "")}
+            fileName="imageUrl"
+            filePath={`/events/specials/${props.currentElement.id}`}
+            bucket="landings"
+            sizes={get(props, "sizes", "500x500")}
+            afterUpload={(imageUrls) => setImageUrl(imageUrls[0].url)}
           />
         </div>
         <div className="buttons-container">
           <ButtonBombo
-            type="primary"
+            variant="contained"
+            color="primary"
             margin="0"
             loading={loading}
             disabled={loading}
@@ -109,7 +122,8 @@ export default (props) => {
             Guardar
           </ButtonBombo>
           <ButtonBombo
-            type="secondary"
+            variant="outlined"
+            color="danger"
             margin="0"
             loading={loading}
             disabled={loading}

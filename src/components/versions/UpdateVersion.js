@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import {config} from "../../firebase/index";
-import {mediaQuery} from "../../styles/constants";
-import {ButtonBombo} from "../common";
-import {Image} from "../common/Image";
+import { config } from "../../firebase/index";
+import { mediaQuery } from "../../styles/constants";
+import { ButtonBombo, Image } from "../../components";
 
 const UpdateVersion = () => (
   <Container>

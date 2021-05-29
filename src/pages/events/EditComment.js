@@ -1,6 +1,6 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import {ImageUpload, Input, TextArea} from "../../components";
+import { FileUpload, Input, TextArea } from "../../components";
 import { useForm } from "react-hook-form";
 import { string, object } from "yup";
 import get from "lodash/get";
@@ -32,9 +32,7 @@ export default (props) => {
       )
     ) {
       comments = defaultTo(get(props, "events.comments"), []).map((game) =>
-        game.id === props.currentComment.id
-          ? mapComment(data, game)
-          : game
+        game.id === props.currentComment.id ? mapComment(data, game) : game
       );
     } else {
       comments = defaultTo(get(props, "events.comments"), []);
@@ -80,21 +78,19 @@ export default (props) => {
           placeholder="Descripción del comentario"
         />
         <div className="image-component">
-          <ImageUpload
-              file={get(props, "currentComment.imageUrl", "")}
-              fileName="imageUrl"
-              filePath={`/events/comments/${props.currentComment.id}`}
-              bucket="landings"
-              sizes="200x200"
-              afterUpload={(imageUrls) =>
-                  setImageUrl(imageUrls[0])
-              }
+          <FileUpload
+            file={get(props, "currentComment.imageUrl", "")}
+            fileName="imageUrl"
+            filePath={`/events/comments/${props.currentComment.id}`}
+            bucket="landings"
+            sizes="300x300"
+            afterUpload={(imageUrls) => setImageUrl(imageUrls[0].url)}
           />
         </div>
         <div className="buttons-container">
           <ButtonBombo
-            type="primary"
-            margin="0"
+            variant="contained"
+            color="primary"
             loading={loading}
             disabled={loading}
             htmlType="submit"
@@ -102,8 +98,8 @@ export default (props) => {
             Guardar
           </ButtonBombo>
           <ButtonBombo
-            type="secondary"
-            margin="0"
+            variant="outlined"
+            color="danger"
             loading={loading}
             disabled={loading}
             onClick={() => props.setIsVisibleModal(false)}
@@ -131,8 +127,8 @@ const Container = styled.div`
       display: flex;
       justify-content: space-around;
     }
-    
-    .image-component{
+
+    .image-component {
       margin: 1rem auto;
       display: flex;
       justify-content: center;

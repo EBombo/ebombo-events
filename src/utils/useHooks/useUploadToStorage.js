@@ -14,6 +14,7 @@ import {
 import get from "lodash/get";
 
 const buckets = {
+  default: storageDefault,
   claims: claimsStorageBucket,
   documents: documentsStorageBucket,
   advertisements: advertisementsStorageBucket,
@@ -28,17 +29,27 @@ const buckets = {
 
 export const useUploadToStorage = () => {
   const uploadToStorageAndGetURL = (
-    image,
+    file,
     path,
     fileName,
     fileSuffix,
-    bucket
+    bucket,
+    maxAge,
+    type
   ) =>
     new Promise((resolve) => {
       const storage = get(buckets, `${bucket}`, landingsStorageBucket);
-      const uploadTask = storage
-        .ref(`${path}/${fileName}.${fileSuffix}`)
-        .putString(image, "base64", { contentType: `image/${fileSuffix}` });
+
+      const uploadTask = type.includes("image")
+        ? storage
+            .ref(`${path}/${fileName}.${fileSuffix}`)
+            .putString(file, "base64", {
+              contentType: type,
+              cacheControl: `public,max-age=${
+                maxAge > 1 ? maxAge * 86400 : 3200
+              }`,
+            })
+        : storage.ref(`${path}/${fileName}.${fileSuffix}`).put(file);
 
       uploadTask.on(
         "state_changed",
@@ -63,7 +74,18 @@ export const useUploadToStorage = () => {
       path,
       fileName,
       fileSuffix,
-      bucket = "landings"
-    ) => uploadToStorageAndGetURL(image, path, fileName, fileSuffix, bucket),
+      bucket = "landings",
+      maxAge = 0,
+      type
+    ) =>
+      uploadToStorageAndGetURL(
+        image,
+        path,
+        fileName,
+        fileSuffix,
+        bucket,
+        maxAge,
+        type
+      ),
   };
 };

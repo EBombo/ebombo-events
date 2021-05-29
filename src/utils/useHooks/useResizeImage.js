@@ -1,10 +1,9 @@
 import resizeImage from "resize-image";
 
 export const useResizeImage = () => {
-  const resize = (event, resizeWidth, resizeHeight) =>
+  const resize = (file, resizeWidth, resizeHeight) =>
     new Promise((resolve) => {
-      const documentFile = event.target.files[0];
-      const fileSuffix = documentFile.name.split(".").pop();
+      const fileSuffix = file.name.split(".").pop();
       const type =
         fileSuffix.toLowerCase() === "jpeg"
           ? resizeImage.JPEG
@@ -34,11 +33,11 @@ export const useResizeImage = () => {
           resolve(ImgBase64_);
         };
       };
-      reader.readAsDataURL(documentFile);
+      reader.readAsDataURL(file);
     });
 
   return {
-    resize: (event, resizeWidth, resizeHeight) =>
-      resize(event, resizeWidth, resizeHeight),
+    resize: (file, resizeWidth, resizeHeight) =>
+      resize(file, resizeWidth, resizeHeight),
   };
 };
