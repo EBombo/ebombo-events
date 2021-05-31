@@ -20,7 +20,7 @@ const salesTeam = [
     name: "Santiago Suarez",
     imageUrl: `${config.storageUrl}/resources/team-sales/santiagosuarez.svg`,
     phoneNumber: "+51 948 879 888",
-    email: "daniel@bombo.pe",
+    email: "santiago@bombo.pe",
   },
   {
     name: "Vivian Sejuro",

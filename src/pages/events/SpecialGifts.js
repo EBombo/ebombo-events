@@ -54,30 +54,32 @@ export const SpecialGifts = (props) => {
       </div>
       <div className="gifts">
         <div className="gifts-container">
-          {defaultTo(get(props, "events.specialGifts"), []).map((gift) => (
-            <GiftContent backgroundImage={gift.imageUrl}>
-              {get(authUser, "isAdmin") && (
-                <div className="container-edit">
-                  <Icon
-                    className="icon-edit"
-                    type="edit"
-                    onClick={() => {
-                      setCurrentElement(gift);
-                      setCurrentField("specialGifts");
-                      setIsVisibleModal(true);
-                    }}
-                  />
-                  <Icon
-                    className="icon-delete"
-                    type="delete"
-                    onClick={() => {
-                      props.deleteElement(gift, "specialGifts");
-                    }}
-                  />
-                </div>
-              )}
-            </GiftContent>
-          ))}
+          {defaultTo(get(props, "events.specialGifts"), []).map(
+            (gift, index) => (
+              <GiftContent backgroundImage={gift.imageUrl} key={index}>
+                {get(authUser, "isAdmin") && (
+                  <div className="container-edit">
+                    <Icon
+                      className="icon-edit"
+                      type="edit"
+                      onClick={() => {
+                        setCurrentElement(gift);
+                        setCurrentField("specialGifts");
+                        setIsVisibleModal(true);
+                      }}
+                    />
+                    <Icon
+                      className="icon-delete"
+                      type="delete"
+                      onClick={() => {
+                        props.deleteElement(gift, "specialGifts");
+                      }}
+                    />
+                  </div>
+                )}
+              </GiftContent>
+            )
+          )}
 
           {get(authUser, "isAdmin") && (
             <ButtonBombo
@@ -97,7 +99,11 @@ export const SpecialGifts = (props) => {
         </div>
       </div>
       <div className="btn-container">
-        <ButtonBombo variant="contained" color="secondary">
+        <ButtonBombo
+          variant="contained"
+          color="secondary"
+          onClick={() => props.executeScroll("contact")}
+        >
           ¡Cuéntanos que necesitas!
         </ButtonBombo>
       </div>

@@ -2,23 +2,42 @@ import React from "reactn";
 import { services } from "../../components/DataList";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles/constants";
+import { Desktop, Tablet } from "../../utils";
+import { Carousel } from "../../components";
 
 export const Services = (props) => (
   <ServiceSection ref={props.refProp}>
     <div className="title">Nuestros Servicios</div>
-    <div className="services-container">
-      {services.map((service, index) => (
-        <ServiceContainer key={`key-services-${service.title}`}>
-          <div className="border-section">
-            <div className="title">{service.title}</div>
-            <div className="container-img">
-              <img src={service.imageUrl} alt="" />
+    <Desktop>
+      <div className="services-container">
+        {services.map((service, index) => (
+          <ServiceContainer key={`key-services-${service.title}`}>
+            <div className="border-section">
+              <div className="title">{service.title}</div>
+              <div className="container-img">
+                <img src={service.imageUrl} alt="" />
+              </div>
+              <div className="description">{service.text}</div>
             </div>
-            <div className="description">{service.text}</div>
-          </div>
-        </ServiceContainer>
-      ))}
-    </div>
+          </ServiceContainer>
+        ))}
+      </div>
+    </Desktop>
+    <Tablet>
+      <Carousel
+        components={services.map((service, index) => (
+          <ServiceContainer key={`key-services-${service.title}`}>
+            <div className="border-section">
+              <div className="title">{service.title}</div>
+              <div className="container-img">
+                <img src={service.imageUrl} alt="" />
+              </div>
+              <div className="description">{service.text}</div>
+            </div>
+          </ServiceContainer>
+        ))}
+      />
+    </Tablet>
     <div className="title">Juegos</div>
   </ServiceSection>
 );

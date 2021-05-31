@@ -38,17 +38,10 @@ export const Companies = (props) => {
         <div className="companies-container">
           {defaultTo(get(props, "events.companies"), []).map(
             (company, index) => (
-              <div
-                className="company-container"
+              <CompaniesContent
+                backgroundImage={company.imageUrl}
                 key={`${company.name}-${index}`}
               >
-                <Image
-                  src={company.imageUrl}
-                  width="140px"
-                  height="70px"
-                  margin="0 1rem"
-                  size="contain"
-                />
                 {get(authUser, "isAdmin") && (
                   <div className="container-edit">
                     <Icon
@@ -68,7 +61,7 @@ export const Companies = (props) => {
                     />
                   </div>
                 )}
-              </div>
+              </CompaniesContent>
             )
           )}
           {get(authUser, "isAdmin") && (
@@ -118,34 +111,6 @@ const CompaniesContainer = styled.section`
       display: inline-flex;
       align-items: center;
       margin: 1rem 0;
-
-      .company-container {
-        position: relative;
-
-        .container-edit {
-          position: absolute;
-          height: 15px;
-          cursor: pointer;
-          top: 0;
-          right: 15px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-
-          svg {
-            width: 15px;
-            height: 15px;
-            color: ${(props) => props.theme.basic.action};
-          }
-
-          .icon-delete {
-            margin-left: 10px;
-            svg {
-              color: ${(props) => props.theme.basic.danger};
-            }
-          }
-        }
-      }
     }
   }
 
@@ -156,3 +121,38 @@ const CompaniesContainer = styled.section`
     }
   }
 `;
+
+const CompaniesContent = styled.div`
+  width: 140px;
+  height: 70px;
+  position: relative;
+  margin-right: 2rem;
+  background-image: url(${(props) => props.backgroundImage});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  .container-edit {
+    position: absolute;
+    height: 15px;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    display: flex;
+
+    svg {
+      width: 15px;
+      height: 15px;
+      color: ${(props) => props.theme.basic.action};
+    }
+
+    .icon-delete {
+      margin-left: 5px;
+
+      svg {
+        color: ${(props) => props.theme.basic.danger};
+      }
+    }
+  }
+ 
+`

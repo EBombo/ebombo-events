@@ -69,7 +69,11 @@ export default (props) => {
           deleteElement={deleteElement}
         />
         <SpecialGuests deleteElement={deleteElement} events={events} />
-        <SpecialGifts deleteElement={deleteElement} events={events} />
+        <SpecialGifts
+          deleteElement={deleteElement}
+          events={events}
+          executeScroll={executeScroll}
+        />
         <HeldEvents
           refProp={eventsRef}
           events={events}
