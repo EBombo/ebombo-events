@@ -6,6 +6,7 @@ import { ButtonBombo, Image, ModalContainer, Icon } from "../../components";
 import { firestore } from "../../firebase";
 import { lazy, Suspense } from "react";
 import { spinLoader } from "../../utils";
+import { mediaQuery } from "../../styles/constants";
 
 const EditCompany = lazy(() => import("./EditCompany"));
 
@@ -127,7 +128,6 @@ const CompaniesContainer = styled.section`
           cursor: pointer;
           top: 0;
           right: 15px;
-          width: 80px;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -135,16 +135,24 @@ const CompaniesContainer = styled.section`
           svg {
             width: 15px;
             height: 15px;
-            color: ${(props) => props.theme.basic.black};
+            color: ${(props) => props.theme.basic.action};
           }
 
           .icon-delete {
+            margin-left: 10px;
             svg {
               color: ${(props) => props.theme.basic.danger};
             }
           }
         }
       }
+    }
+  }
+
+  ${mediaQuery.afterTablet} {
+    .main-container {
+      display: flex;
+      justify-content: center;
     }
   }
 `;
