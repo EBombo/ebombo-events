@@ -110,7 +110,7 @@ export const HeaderLanding = (props) => {
             <Carousel
               components={[
                 <Image
-                  src={`${config.storageUrl}/resources/b2bLanding/desktop-header.svg`}
+                  src={`${config.storageUrl}/resources/b2bLanding/desktop-header.png`}
                   width={"100%"}
                   height={"100%"}
                   margin={"0"}
@@ -133,7 +133,7 @@ export const HeaderLanding = (props) => {
             <Carousel
               components={[
                 <Image
-                  src={`${config.storageUrl}/resources/b2bLanding/mobile-header.svg`}
+                  src={`${config.storageUrl}/resources/b2bLanding/mobile-header.png`}
                   width={"100%"}
                   height={"100%"}
                   margin={"0"}
