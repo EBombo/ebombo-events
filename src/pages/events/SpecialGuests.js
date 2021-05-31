@@ -6,8 +6,11 @@ import get from "lodash/get";
 import { ButtonBombo, Icon, Image, ModalContainer } from "../../components";
 import { mediaQuery } from "../../styles/constants";
 import { lazy, Suspense } from "react";
-import { spinLoader } from "../../utils";
+import { spinLoader, Tablet, Desktop } from "../../utils";
 import { firestore } from "../../firebase";
+import { Carousel } from "../../components";
+import chunk from "lodash/chunk";
+
 const EditSpecials = lazy(() => import("./EditSpecials"));
 
 export const SpecialGuests = (props) => {
@@ -15,6 +18,42 @@ export const SpecialGuests = (props) => {
   const [currentElement, setCurrentElement] = useState(null);
   const [currentField, setCurrentField] = useState(null);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
+
+  const guestContent = (guest) => (
+    <GuestContainer backgroundImage={guest.imageUrl}>
+      <div className="thumb">
+        <div className="mask" />
+      </div>
+      <div className="details">
+        <div className="name">{guest.name}</div>
+        <div className="description">{guest.description}</div>
+      </div>
+      {get(authUser, "isAdmin") && (
+        <div className="container-edit">
+          <Icon
+            className="icon-edit"
+            type="edit"
+            onClick={() => {
+              setCurrentElement(guest);
+              setCurrentField("specialGuests");
+              setIsVisibleModal(true);
+            }}
+          />
+          <Icon
+            className="icon-delete"
+            type="delete"
+            onClick={() => {
+              props.deleteElement(guest, "specialGuests");
+            }}
+          />
+        </div>
+      )}
+    </GuestContainer>
+  );
+
+  const carouselContent = (arrGuests) => (
+    <div>{arrGuests.map((guest) => guestContent(guest))}</div>
+  );
 
   return (
     <GuestsContainer>
@@ -40,41 +79,21 @@ export const SpecialGuests = (props) => {
         <div className="title">Invitados especiales</div>
       </Divider>
       <div className="subtitle">Dínos a quién necesitas y lo trameos :) </div>
-
-      <div className="wrapper">
-        {defaultTo(get(props, "events.specialGuests"), []).map((guest) => (
-          <GuestContainer backgroundImage={guest.imageUrl}>
-            <div className="thumb">
-              <div className="mask" />
-            </div>
-            <div className="details">
-              <div className="name">{guest.name}</div>
-              <div className="description">{guest.description}</div>
-            </div>
-            {get(authUser, "isAdmin") && (
-              <div className="container-edit">
-                <Icon
-                  className="icon-edit"
-                  type="edit"
-                  onClick={() => {
-                    setCurrentElement(guest);
-                    setCurrentField("specialGuests");
-                    setIsVisibleModal(true);
-                  }}
-                />
-                <Icon
-                  className="icon-delete"
-                  type="delete"
-                  onClick={() => {
-                    props.deleteElement(guest, "specialGuests");
-                  }}
-                />
-              </div>
-            )}
-          </GuestContainer>
-        ))}
-      </div>
-
+      <Desktop>
+        <div className="wrapper">
+          {defaultTo(get(props, "events.specialGuests"), []).map((guest) =>
+            guestContent(guest)
+          )}
+        </div>
+      </Desktop>
+      <Tablet>
+        <Carousel
+          components={chunk(
+            defaultTo(get(props, "events.specialGuests"), []),
+            2
+          ).map((arrGuests) => carouselContent(arrGuests))}
+        />
+      </Tablet>
       {get(authUser, "isAdmin") && (
         <div className="btn-container">
           <ButtonBombo
@@ -147,7 +166,7 @@ const GuestsContainer = styled.div`
 const GuestContainer = styled.div`
   position: relative;
   overflow: hidden;
-  height: 300px;
+  height: 350px;
   background-image: url(${(props) => props.backgroundImage});
   background-size: cover;
   background-repeat: no-repeat;
