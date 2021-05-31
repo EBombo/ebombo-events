@@ -12,6 +12,7 @@ import { spinLoader } from "../../utils";
 import { SpecialGifts } from "./SpecialGifts";
 import { SpecialGuests } from "./SpecialGuests";
 import { Games } from "./Games";
+import { Footer } from "./Footer";
 
 export default (props) => {
   const [events, setEvents] = useState(null);
@@ -62,7 +63,11 @@ export default (props) => {
         <HeaderLanding executeScroll={executeScroll} />
         <Companies events={events} deleteElement={deleteElement} />
         <Services refProp={servicesRef} />
-        <Games refProp={gamesRef} events={events} deleteElement={deleteElement}/>
+        <Games
+          refProp={gamesRef}
+          events={events}
+          deleteElement={deleteElement}
+        />
         <SpecialGuests deleteElement={deleteElement} events={events} />
         <SpecialGifts deleteElement={deleteElement} events={events} />
         <HeldEvents
@@ -72,6 +77,7 @@ export default (props) => {
         />
         <Comments events={events} deleteElement={deleteElement} />
         <Contact refProp={contactRef} />
+        <Footer />
       </div>
     </LandingContainer>
   );

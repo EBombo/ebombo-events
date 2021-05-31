@@ -30,7 +30,11 @@ export const HeaderLanding = (props) => {
             </ul>
           </div>
           <div className="button-container">
-            <ButtonBombo variant="outlined" color={darkTheme.basic.white}>
+            <ButtonBombo
+              variant="outlined"
+              color="white"
+              onClick={() => props.executeScroll("contact")}
+            >
               Contáctanos
             </ButtonBombo>
           </div>
