@@ -54,8 +54,8 @@ export const SpecialGifts = (props) => {
       </div>
       <div className="gifts">
         <div className="gifts-container">
-          {defaultTo(get(props, "events.specialGifts"), []).map((gift) => (
-            <GiftContent backgroundImage={gift.imageUrl}>
+          {defaultTo(get(props, "events.specialGifts"), []).map((gift, index) => (
+            <GiftContent backgroundImage={gift.imageUrl} key={index}>
               {get(authUser, "isAdmin") && (
                 <div className="container-edit">
                   <Icon
