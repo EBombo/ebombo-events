@@ -47,15 +47,15 @@ export const Carousel = (props) => {
           </div>
         ))}
       </CarouselStyled>
-      <ContainerArrow position={props.position ? props.position : "center"}>
+      {!props.hideIndicators && (
         <Arrows
           next={next}
           prev={prev}
-          components={props.components}
           indicator={indicator}
           goTo={goTo}
+          {...props}
         />
-      </ContainerArrow>
+      )}
     </Container>
   );
 };
@@ -69,20 +69,6 @@ const Container = styled.div`
   .slider-decorator-0 {
     bottom: -20px !important;
   }
-`;
-
-const ContainerArrow = styled.div`
-  height: 20px;
-  position: relative;
-  display: flex;
-  justify-content: ${(props) =>
-    props.position === "center"
-      ? "center"
-      : props.position === "right"
-      ? "flex-end"
-      : props.position === "left"
-      ? "flex-start"
-      : "center"};
 `;
 
 const CarouselStyled = styled(CarouselAntd)`
