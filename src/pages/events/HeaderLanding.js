@@ -107,49 +107,21 @@ export const HeaderLanding = (props) => {
         </div>
         <div className="second-content">
           <Desktop>
-            <Carousel
-              components={[
-                <Image
-                  src={`${config.storageUrl}/resources/b2bLanding/desktop-header.png`}
-                  width={"100%"}
-                  height={"100%"}
-                  margin={"0"}
-                  size={"contain"}
-                />,
-                <Image
-                  src={`${config.storageUrl}/resources/b2bLanding/desktop-header2.png`}
-                  width={"100%"}
-                  height={"100%"}
-                  margin={"0"}
-                  size={"contain"}
-                />,
-              ]}
-              position={"right"}
-              autoplay={true}
+            <Image
+              src={`${config.storageUrl}/resources/b2bLanding/desktop-header.png`}
+              width={"100%"}
               height={"400px"}
+              margin={"0"}
+              size={"contain"}
             />
           </Desktop>
           <Tablet>
-            <Carousel
-              components={[
-                <Image
-                  src={`${config.storageUrl}/resources/b2bLanding/mobile-header.png`}
-                  width={"100%"}
-                  height={"100%"}
-                  margin={"0"}
-                  size={"contain"}
-                />,
-                <Image
-                  src={`${config.storageUrl}/resources/b2bLanding/mobile-header2.png`}
-                  width={"100%"}
-                  height={"100%"}
-                  margin={"0"}
-                  size={"contain"}
-                />,
-              ]}
-              position={"center"}
-              autoplay={true}
+            <Image
+              src={`${config.storageUrl}/resources/b2bLanding/mobile-header.png`}
+              width={"auto"}
               height={"250px"}
+              margin={"0"}
+              size={"contain"}
             />
           </Tablet>
         </div>
