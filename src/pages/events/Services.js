@@ -80,9 +80,11 @@ const ServiceSection = styled.section`
 const ServiceContainer = styled.div`
   background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
   border-radius: 10px;
+  width: 100%;
   max-width: 340px;
   margin: auto;
-  height: 100%;
+  height: 360px;
+  position: relative;
 
   .title {
     font-style: normal;
@@ -105,6 +107,10 @@ const ServiceContainer = styled.div`
   }
 
   .description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     font-style: normal;
     font-weight: normal;
     font-size: 13px;
