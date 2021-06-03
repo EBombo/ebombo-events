@@ -76,7 +76,7 @@ export const SpecialGuests = (props) => {
         </ModalContainer>
       )}
       <Divider>
-        <div className="title">Invitados especiales</div>
+        <div className="title">Time to Talk</div>
       </Divider>
       <div className="subtitle">Dínos a quién necesitas y lo trameos :) </div>
       <Desktop>
