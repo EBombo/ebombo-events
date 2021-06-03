@@ -45,7 +45,7 @@ export const SpecialGifts = (props) => {
       )}
 
       <Divider>
-        <div className="title">Regalos Especiales</div>
+        <div className="title">Reconocimientos y Premiaciones</div>
       </Divider>
       <div className="description">
         ¡Deliciosas combinaciones de cervezas, tragos, piqueos, dulces y mucho
