@@ -13,7 +13,6 @@ import { SpecialGifts } from "./SpecialGifts";
 import { SpecialGuests } from "./SpecialGuests";
 import { Games } from "./Games";
 import { Footer } from "./Footer";
-import { SpecialWorkshops } from "./SpecialWorkshops";
 import { SpecialShowsWorshops } from "./SpecialShowsWorshops";
 
 export default (props) => {
