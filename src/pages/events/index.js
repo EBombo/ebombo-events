@@ -14,7 +14,7 @@ import { SpecialGuests } from "./SpecialGuests";
 import { Games } from "./Games";
 import { Footer } from "./Footer";
 import { SpecialWorkshops } from "./SpecialWorkshops";
-import { SpecialShows } from "./SpecialShows";
+import { SpecialShowsWorshops } from "./SpecialShowsWorshops";
 
 export default (props) => {
   const [events, setEvents] = useState(null);
@@ -76,8 +76,7 @@ export default (props) => {
           events={events}
           executeScroll={executeScroll}
         />
-        <SpecialShows deleteElement={deleteElement} events={events} />
-        <SpecialWorkshops deleteElement={deleteElement} events={events} />
+        <SpecialShowsWorshops deleteElement={deleteElement} events={events} />
         <HeldEvents
           refProp={eventsRef}
           events={events}

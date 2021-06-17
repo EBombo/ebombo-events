@@ -13,20 +13,20 @@ import chunk from "lodash/chunk";
 
 const EditSpecials = lazy(() => import("./EditSpecials"));
 
-export const SpecialWorkshops = (props) => {
+export const SpecialShowsWorshops = (props) => {
   const [authUser] = useGlobal("user");
   const [currentElement, setCurrentElement] = useState(null);
   const [currentField, setCurrentField] = useState(null);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-  const guestContent = (workshop) => (
-    <WorkshopContainer backgroundImage={workshop.imageUrl}>
+  const showContent = (show) => (
+    <ShowContainer backgroundImage={show.imageUrl}>
       <div className="thumb">
         <div className="mask" />
       </div>
       <div className="details">
-        <div className="name">{workshop.name}</div>
-        <div className="description">{workshop.description}</div>
+        <div className="name">{show.name}</div>
+        <div className="description">{show.description}</div>
       </div>
       {get(authUser, "isAdmin") && (
         <div className="container-edit">
@@ -34,8 +34,8 @@ export const SpecialWorkshops = (props) => {
             className="icon-edit"
             type="edit"
             onClick={() => {
-              setCurrentElement(workshop);
-              setCurrentField("specialWorkshops");
+              setCurrentElement(show);
+              setCurrentField("specialShows");
               setIsVisibleModal(true);
             }}
           />
@@ -43,16 +43,16 @@ export const SpecialWorkshops = (props) => {
             className="icon-delete"
             type="delete"
             onClick={() => {
-              props.deleteElement(workshop, "specialWorkshops");
+              props.deleteElement(show, "specialShows");
             }}
           />
         </div>
       )}
-    </WorkshopContainer>
+    </ShowContainer>
   );
 
-  const carouselContent = (arrWorkshops) => (
-    <div>{arrWorkshops.map((workshop) => guestContent(workshop))}</div>
+  const carouselContent = (arrShows) => (
+    <div>{arrShows.map((show) => showContent(show))}</div>
   );
 
   return (
@@ -76,22 +76,21 @@ export const SpecialWorkshops = (props) => {
         </ModalContainer>
       )}
       <Divider>
-        <div className="title">Talleres Ebombo</div>
+        <div className="title">Shows y Talleres Ebombo</div>
       </Divider>
       <Desktop>
         <div className="wrapper">
-          {defaultTo(
-            get(props, "events.specialWorkshops"),
-            []
-          ).map((workshop) => guestContent(workshop))}
+          {defaultTo(get(props, "events.specialShows"), []).map((show) =>
+            showContent(show)
+          )}
         </div>
       </Desktop>
       <Tablet>
         <Carousel
           components={chunk(
-            defaultTo(get(props, "events.specialWorkshops"), []),
+            defaultTo(get(props, "events.specialShows"), []),
             2
-          ).map((arrWorkshops) => carouselContent(arrWorkshops))}
+          ).map((arrShows) => carouselContent(arrShows))}
         />
       </Tablet>
       {get(authUser, "isAdmin") && (
@@ -100,7 +99,7 @@ export const SpecialWorkshops = (props) => {
             variant="outlined"
             color="action"
             onClick={() => {
-              setCurrentField("specialWorkshops");
+              setCurrentField("specialShows");
               setCurrentElement({
                 id: firestore.collection("events").doc().id,
               });
@@ -163,7 +162,7 @@ const GuestsContainer = styled.div`
   }
 `;
 
-const WorkshopContainer = styled.div`
+const ShowContainer = styled.div`
   position: relative;
   overflow: hidden;
   height: 350px;
