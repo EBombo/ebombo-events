@@ -1,10 +1,10 @@
 const {snapshotToArray} = require("../../utils");
 const {firestore} = require("../../config");
 
-const fetchTransactionsByMatch = async (matchId) => {
+const fetchTransactionsByLobby = async (lobbyId) => {
     const transactions = await firestore
         .collection("transactions")
-        .where("extra.id", "==", matchId)
+        .where("extra.id", "==", lobbyId)
         .get();
 
     return snapshotToArray(transactions);
@@ -54,21 +54,6 @@ const fetchTransactionsByUserIdAndExtraIdAndAction = async (
     return snapshotToArray(transactions);
 };
 
-const fetchTransactionsByUserIdAndExtra2IdAndAction = async (
-    userId,
-    extra2Id,
-    action
-) => {
-    const transactions = await firestore
-        .collection("transactions")
-        .where("action", "==", action)
-        .where("user.id", "==", userId)
-        .where("extra2.id", "==", extra2Id)
-        .get();
-
-    return snapshotToArray(transactions);
-};
-
 const deletedTransactions = async (transactions) => {
     const promises = transactions.map(
         async (transaction) =>
@@ -87,17 +72,12 @@ const fetchTransaction = async (transactionId) => {
     return withdrawalDoc.data();
 };
 
-const updateTransaction = async (transactionId, transaction) =>
-    await firestore.doc(`transactions/${transactionId}`).update(transaction);
-
 module.exports = {
-    updateTransaction,
+    fetchTransactionsByLobby,
     deletedTransactions,
     fetchTransaction,
     fetchTransactionsByExtraId,
     fetchTransactionsByUserIdAndExtraId,
     fetchTransactionsByUserIdAndExtraIdAndAction,
-    fetchTransactionsByUserIdAndExtra2IdAndAction,
     fetchTransactionsByUserAndAction,
-    fetchTransactionsByMatch,
 };

@@ -1,15 +1,20 @@
-const functions = require("firebase-functions");
+const index = require("firebase-functions");
 const api = require("./api");
-const apiAdmin = require("./apiAdmin");
+const { serverExpress } = require("../src");
 
 const runtimeOptions = {
-    timeoutSeconds: 540,
-    memory: "2GB",
+  timeoutSeconds: 60,
+  memory: "256MB",
 };
 
-exports.api = functions.runWith(runtimeOptions).https.onRequest(api.app);
+const apiRegion = "us-central1";
 
-exports.apiAdmin = functions
-    .runWith(runtimeOptions)
-    .https.onRequest(apiAdmin.api);
+exports.api = index
+  .runWith(runtimeOptions)
+  .region(apiRegion)
+  .https.onRequest(api.api);
 
+exports.next = index
+  .runWith(runtimeOptions)
+  .region(apiRegion)
+  .https.onRequest(serverExpress);

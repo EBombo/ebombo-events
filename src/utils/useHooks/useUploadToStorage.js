@@ -1,30 +1,12 @@
 import {
-  landingsStorageBucket,
-  advertisementsStorageBucket,
-  claimsStorageBucket,
-  documentsStorageBucket,
-  gamesStorageBucket,
   landingStorageBucket,
   storage as storageDefault,
-  tournamentsStorageBucket,
-  tournamentTeamsStorageBucket,
-  usersStorageBucket,
-  settingsStorageBucket,
 } from "../../firebase";
 import get from "lodash/get";
 
 const buckets = {
   default: storageDefault,
-  claims: claimsStorageBucket,
-  documents: documentsStorageBucket,
-  advertisements: advertisementsStorageBucket,
-  games: gamesStorageBucket,
-  users: usersStorageBucket,
   landing: landingStorageBucket,
-  landings: landingsStorageBucket,
-  tournaments: tournamentsStorageBucket,
-  tournamentTeams: tournamentTeamsStorageBucket,
-  settings: settingsStorageBucket,
 };
 
 export const useUploadToStorage = () => {

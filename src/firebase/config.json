@@ -1,5 +1,5 @@
 {
-  "productionConfig": {
+  "production": {
     "firebase": {
       "apiKey": "AIzaSyAUBaakhi0swY_FDM3LeuGrfIN1Li7AugM",
       "authDomain": "ebombo-events.firebaseapp.com",
@@ -9,47 +9,14 @@
       "appId": "1:83072686764:web:2c5680dc46bfacb5d5dd09",
       "measurementId": "G-BWH1540T4Q"
     },
-    "culqi": {
-      "publicKey": "pk_live_Sabys0p2rhn2D4ZM"
-    },
-    "mercadoPago": {
-      "publicKey": "APP_USR-f9222d33-e951-4030-b72f-2f5d0187ea37"
-    },
-    "visanet": {
-      "urlApiSeguridad": "https://apiprod.vnforapps.com/api.security/v1/security",
-      "urlApiSesion": "https://apiprod.vnforapps.com/api.ecommerce/v2/ecommerce/token/session/",
-      "urlJs": "https://static-content.vnforapps.com/v2/js/checkout.js",
-      "urlPayment": "https://apiprod.vnforapps.com/api.authorization/v3/authorization/ecommerce/",
-      "password": "g$rauY8V",
-      "user": "info@ebombo.co",
-      "merchantId": "650175093"
-    },
-    "paypal": {
-      "clientId": "AVXVIBEf7a_0l5h-4YIbznOi9-Y5ccDFjJnj9QRF49_DDTWI3WRprwdLBpnwnT6dufJfr9DDZ1FIuCck"
-    },
-    "googleTagManager": {
-      "gtmId": "GTM-WMNBDBW"
-    },
     "storageUrl": "https://storage.googleapis.com/ebombo-events.appspot.com",
-    "documentsStorageBucket": "bombo-sport-documents",
-    "claimsStorageBucket": "bombo-sport-claims",
-    "advertisementsStorageBucket": "bombo-sport-advertisements",
-    "gamesStorageBucket": "bombo-sport-games",
-    "usersStorageBucket": "bombo-sport-users",
     "landingStorageBucket": "bombo-sport-landing",
-    "landingsStorageBucket": "ebombo-events-landings",
-    "tournamentsStorageBucket": "bombo-sport-tournaments",
-    "tournamentTeamsStorageBucket": "bombo-sport-tournament-teams",
-    "settingsStorageBucket": "bombo-sport-settings-banners",
     "serverUrl": "https://us-central1-ebombo-events.cloudfunctions.net/api",
-    "serverUrlAdmin": "https://us-central1-ebombo-events.cloudfunctions.net/apiAdmin",
-    "serverUrlMatches": "https://us-central1-ebombo-events.cloudfunctions.net/apiMatches",
+    "environment": "production",
     "analytics": "UA-174451724-1",
-    "wspUrl": "https://wa.me/51924793558",
-    "currentEnvironment": "production",
-    "currency": "$"
+    "maxAgeCache": 86400
   },
-  "devConfig": {
+  "development": {
     "firebase": {
       "apiKey": "AIzaSyCWpwb6O8pdYT6v4L4YajKfTLCa9XPOUGs",
       "authDomain": "ebombo-events-dev.firebaseapp.com",
@@ -59,44 +26,11 @@
       "appId": "1:400641140585:web:4edded714bb211fd8c7ff8",
       "measurementId": "G-NWBPEND5Q0"
     },
-    "culqi": {
-      "publicKey": "pk_test_wC5hlF07hXKgV28l"
-    },
-    "mercadoPago": {
-      "publicKey": "TEST-688decf3-6e7f-462a-8a9b-7cd9176c884f"
-    },
-    "paypal": {
-      "clientId": "AYDKTqx4y2-MO86A778MJ03Lwo7hz1CmHaeNliPI60uo2Poe7jkWGKplA6UfnNXSXLO6DAuI5S3Vhind"
-    },
-    "googleTagManager": {
-      "gtmId": "GTM-WMNBDBW"
-    },
-    "visanet": {
-      "urlApiSeguridad": "https://apitestenv.vnforapps.com/api.security/v1/security",
-      "urlApiSesion": "https://apitestenv.vnforapps.com/api.ecommerce/v2/ecommerce/token/session/",
-      "urlJs": "https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true",
-      "urlPayment": "https://apitestenv.vnforapps.com/api.authorization/v3/authorization/ecommerce/",
-      "password": "d5e7nk$M",
-      "user": "integraciones.visanet@necomplus.com",
-      "merchantId": "522591303"
-    },
     "storageUrl": "https://storage.googleapis.com/ebombo-events-dev.appspot.com",
-    "documentsStorageBucket": "bombo-sport-documents",
-    "claimsStorageBucket": "bombo-sport-claims",
-    "advertisementsStorageBucket": "bombo-sport-advertisements",
-    "gamesStorageBucket": "bombo-sport-games-dev",
-    "usersStorageBucket": "bombo-sport-users-dev",
     "landingStorageBucket": "bombo-sport-landing-dev",
-    "landingsStorageBucket": "ebombo-events-landings-dev",
-    "tournamentsStorageBucket": "bombo-sport-tournaments-dev",
-    "tournamentTeamsStorageBucket": "bombo-sport-tournament-teams-dev",
-    "settingsStorageBucket": "bombo-sport-settings-banners-dev",
     "serverUrl": "https://us-central1-ebombo-events-dev.cloudfunctions.net/api",
-    "serverUrlAdmin": "https://us-central1-ebombo-events-dev.cloudfunctions.net/apiAdmin",
-    "serverUrlMatches": "https://us-central1-ebombo-events-dev.cloudfunctions.net/apiMatches",
+    "environment": "development",
     "analytics": "UA-174451724-1",
-    "wspUrl": "https://wa.me/51924793558",
-    "currentEnvironment": "development",
-    "currency": "$"
+    "maxAgeCache": 86400
   }
 }
