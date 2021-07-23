@@ -57,6 +57,8 @@ if (hostName === "localhost") {
     //auth.useEmulator("http://localhost:9099/");
 }
 
+const landingStorageBucket = firebase.app().storage(`gs://${config.landingStorageBucket}`);
+
 export {
     firebase,
     firestore,
@@ -65,5 +67,5 @@ export {
     config,
     version,
     hostName,
-    analytics
+    analytics, landingStorageBucket
 };

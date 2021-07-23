@@ -1,41 +1,34 @@
 import React from "react";
 import styled from "styled-components";
-import { config } from "../../firebase/index";
-import { mediaQuery } from "../../styles/constants";
-import { ButtonBombo, Image } from "../../components";
+import {config} from "../../firebase";
+import {Image} from "../common/Image";
+import {mediaQuery} from "../../constants";
+import {ButtonAnt} from "../form";
 
-const UpdateVersion = () => (
-  <Container>
-    <div className="card">
-      <Image
-        src={`${config.storageUrl}/resources/ebombo-white.svg`}
-        alt=""
-        width={"96px"}
-        height={"26px"}
-      />
-      <h2 className="title">
-        Por favor actualiza a la última versión de la plataforma
-      </h2>
-      <ButtonBombo
-        onClick={() => document.location.reload(true)}
-        fontSize="18px"
-        size="large"
-      >
-        Actualizar
-      </ButtonBombo>
-    </div>
-  </Container>
-);
+const UpdateVersion = () =>
+    <UpdateContainer>
+        <div className="card">
+            <Image src={`${config.storageUrl}/resources/${window.location.hostname}.png`}
+                   alt=""
+                   width={"96px"}
+                   height={"26px"}/>
+            <h2 className="title">
+                Por favor actualiza a la última versión de la plataforma
+            </h2>
+            <ButtonAnt
+                onClick={() => document.location.reload(true)}
+                fontSize="18px">
+                ACTUALIZAR
+            </ButtonAnt>
+        </div>
+    </UpdateContainer>;
 
-export default UpdateVersion;
-
-const Container = styled.div`
+const UpdateContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   background: ${(props) => props.theme.basic.default};
   height: 100vh;
-  @include fontWeightFont(600);
 
   .card {
     min-width: 300px;
@@ -56,7 +49,10 @@ const Container = styled.div`
       ${mediaQuery.afterTablet} {
         font-size: 18px;
       }
+
       padding: 20px 0;
     }
   }
 `;
+
+export default UpdateVersion;

@@ -1,14 +1,1 @@
-export { default as UpdateVersion } from "./versions/UpdateVersion";
-export { LoginModal } from "../pages/login/LoginModal";
-export { ButtonBombo } from "./Button/Button";
-export { Checkbox } from "./Checkbox/Checkbox";
-export { DatePicker } from "./DatePicker/DatePicker";
-export { FileUpload } from "./FileUpload/FileUpload";
-export { default as Input } from "./Input/Input";
-export { Icon } from "./Icons/Icons";
-export { Select } from "./Select/Select";
-export { TextArea } from "./TextArea/TextArea";
-export { Anchor } from "./Anchor/Anchor";
-export { Image } from "./Image/Image";
-export { ModalContainer } from "./Modal/ModalContainer";
-export { Carousel } from "./Carousel/Carousel";
+export * from "./common/Layout";

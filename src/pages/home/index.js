@@ -16,7 +16,7 @@ import { Footer } from "./Footer";
 import { SpecialWorkshops } from "./SpecialWorkshops";
 import { SpecialShows } from "./SpecialShows";
 
-export default (props) => {
+export const Home = (props) => {
   const [events, setEvents] = useState(null);
   const [loading, setLoading] = useState(true);
 
