@@ -1,5 +1,7 @@
 export const userLinks = [];
 
+export const services = [];
+
 export const adminMenus = [
     {
         value: "home",

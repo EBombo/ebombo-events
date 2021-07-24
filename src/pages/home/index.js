@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "reactn";
-import styled, { ThemeProvider } from "styled-components";
+import styled  from "styled-components";
 import { HeaderLanding } from "./HeaderLanding";
 import { Services } from "./Services";
 import { firestore } from "../../firebase";
@@ -8,7 +8,7 @@ import { Comments } from "./Comments";
 import { Contact } from "./Contact";
 import { Companies } from "./Companies";
 import get from "lodash/get";
-import { spinLoader } from "../../utils";
+import { spinLoader } from "../../components/common/loader";
 import { SpecialGifts } from "./SpecialGifts";
 import { SpecialGuests } from "./SpecialGuests";
 import { Games } from "./Games";

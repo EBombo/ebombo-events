@@ -1,8 +1,8 @@
 import React from "reactn";
-import { services } from "../../components/DataList";
+import { services } from "../../components/common/DataList";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles/constants";
-import { Desktop, Tablet } from "../../utils";
+import {Desktop, Tablet} from "../../constants";
 import { Carousel } from "../../components";
 
 export const Services = (props) => (
