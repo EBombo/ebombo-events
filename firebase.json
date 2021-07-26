@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "build",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -8,29 +8,68 @@
     ],
     "rewrites": [
       {
+        "source": "/api/**",
+        "function": "api"
+      },
+      {
+        "source": "/sw.js",
+        "destination": "/sw.js"
+      },
+      {
         "source": "**",
-        "destination": "/index.html"
+        "function": "next"
       }
     ],
     "headers": [
       {
-        "source": "/index.html",
+        "source": "**/*.@(jpg|jpeg|gif|png|svg|ico)",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "no-cache"
+            "value": "max-age=2592000"
           }
         ]
       },
       {
-        "source": "/static/**/*.@(css|js)",
+        "source": "**/*.@(js|css)",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "max-age=432000"
+            "value": "max-age=2592000"
+          }
+        ]
+      },
+      {
+        "source": "manifest.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=2592000"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
           }
         ]
       }
+    ]
+  },
+  "functions": {
+    "source": ".",
+    "runtime": "nodejs10",
+    "ignore": [
+      ".firebase/**",
+      ".firebaserc",
+      "firebase.json",
+      "node_modules",
+      "**/node_modules/**",
+      "**/public/**",
+      "**/.next/cache/**"
     ]
   },
   "firestore": {
