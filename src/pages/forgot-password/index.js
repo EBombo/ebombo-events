@@ -94,6 +94,7 @@ const ForgotPassword = (props) => {
                   disabled={loadingSendEmailStatus}
                   height="35px"
                   width="170px"
+                  variant="outlined"
                   onClick={() => cancelButton()}
                 >
                   CANCELAR
@@ -103,7 +104,6 @@ const ForgotPassword = (props) => {
                   height="35px"
                   width="170px"
                   htmlType="submit"
-                  variant="outlined"
                   loading={loadingSendEmailStatus}
                   disabled={loadingSendEmailStatus}
                 >

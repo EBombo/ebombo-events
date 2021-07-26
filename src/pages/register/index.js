@@ -126,7 +126,7 @@ export const Register = (props) => {
         <ButtonAnt
           loading={isLoadingCreateUser}
           disabled={isLoadingUser || isLoadingCreateUser}
-          variant="primary"
+          variant="contained"
           htmlType="submit"
           width="100%"
         >

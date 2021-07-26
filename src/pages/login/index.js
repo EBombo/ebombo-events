@@ -51,7 +51,7 @@ const Login = (props) => {
         <ButtonAnt
           loading={isLoadingUser}
           disabled={isLoadingUser || isLoadingCreateUser}
-          variant="primary"
+          variant="contained"
           className="btn-primary"
           width="100%"
           fontSize="14px"
