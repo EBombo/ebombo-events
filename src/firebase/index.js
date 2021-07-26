@@ -20,9 +20,10 @@ if (typeof window !== "undefined")
 console.log("projectId", hostName);
 
 let config;
+hostName = "production";
 
 if (hostName.includes("-dev") || hostName.includes("localhost")) {
-  config = configJson.development;
+  config = configJson.production;
   console.log("dev");
 } else {
   config = configJson.production;

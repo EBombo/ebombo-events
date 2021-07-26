@@ -1,9 +1,9 @@
 import React from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles/constants";
-import { Image } from "../../components";
+import { Image } from "../../components/common/Image";
 import { config } from "../../firebase";
-import { Desktop } from "../../utils";
+import { Desktop } from "../../constants";
 
 export const Footer = (props) => {
   return (

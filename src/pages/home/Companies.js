@@ -36,7 +36,7 @@ export const Companies = (props) => {
       <div className="title">Han confiado en nosotros</div>
       <div className="main-container">
         <div className="companies-container">
-          {defaultTo(get(props, "home.companies"), []).map(
+          {defaultTo(get(props, "events.companies"), []).map(
             (company, index) => (
               <CompaniesContent
                 backgroundImage={company.imageUrl}

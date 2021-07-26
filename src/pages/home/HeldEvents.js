@@ -39,7 +39,7 @@ export const HeldEvents = (props) => {
       </Divider>
       <div className="held-events">
         <div className="events-container">
-          {defaultTo(get(props, "home.heldEvents"), []).map((event) => (
+          {defaultTo(get(props, "events.heldEvents"), []).map((event) => (
             <EventContent
               backgroundImage={event.backgroundImageUrl}
               key={event.id}

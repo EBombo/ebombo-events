@@ -10,7 +10,7 @@
       "measurementId": "G-BWH1540T4Q"
     },
     "storageUrl": "https://storage.googleapis.com/ebombo-events.appspot.com",
-    "serverUrlLocal": "http://localhost:4000/ebombo-events/us-central1/api",
+    "serverUrlLocal": "http://localhost:5001/ebombo-events/us-central1/api",
     "landingsStorageBucket": "ebombo-events-landings",
     "serverUrl": "https://us-central1-ebombo-events.cloudfunctions.net/api",
     "environment": "production",
@@ -29,7 +29,7 @@
     },
     "storageUrl": "https://storage.googleapis.com/ebombo-events-dev.appspot.com",
     "landingsStorageBucket": "ebombo-events-landings-dev",
-    "serverUrlLocal": "http://localhost:4000/ebombo-events/us-central1/api",
+    "serverUrlLocal": "http://localhost:5001/ebombo-events/us-central1/api",
     "serverUrl": "https://us-central1-ebombo-events-dev.cloudfunctions.net/api",
     "environment": "development",
     "analytics": "UA-174451724-1",

@@ -1,17 +1,17 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import { Divider } from "antd";
+import { Divider } from "../../components/common/Divider";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { ButtonBombo, Icon, Image, ModalContainer } from "../../components";
+import { ButtonAnt } from "../../components/form";
+import { Carousel } from "../../components/common/Carousel";
+import { ModalContainer } from "../../components/common/ModalContainer";
+import { Icon } from "../../components/common/Icons";
 import { mediaQuery } from "../../styles/constants";
-import { lazy, Suspense } from "react";
-import { spinLoader, Tablet, Desktop } from "../../utils";
+import { Desktop, Tablet } from "../../constants";
 import { firestore } from "../../firebase";
-import { Carousel } from "../../components";
 import chunk from "lodash/chunk";
-
-const EditSpecials = lazy(() => import("./EditSpecials"));
+import EditSpecials from "./EditSpecials";
 
 export const SpecialGuests = (props) => {
   const [authUser] = useGlobal("user");
@@ -63,16 +63,14 @@ export const SpecialGuests = (props) => {
           visible={isVisibleModal}
           onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
-          <Suspense fallback={spinLoader()}>
-            <EditSpecials
-              setIsVisibleModal={setIsVisibleModal}
-              isVisibleModal={isVisibleModal}
-              currentField={currentField}
-              currentElement={currentElement}
-              sizes={"250x300"}
-              {...props}
-            />
-          </Suspense>
+          <EditSpecials
+            setIsVisibleModal={setIsVisibleModal}
+            isVisibleModal={isVisibleModal}
+            currentField={currentField}
+            currentElement={currentElement}
+            sizes={"250x300"}
+            {...props}
+          />
         </ModalContainer>
       )}
       <Divider>
@@ -81,7 +79,7 @@ export const SpecialGuests = (props) => {
       <div className="subtitle">Dínos a quién necesitas y lo trameos :) </div>
       <Desktop>
         <div className="wrapper">
-          {defaultTo(get(props, "home.specialGuests"), []).map((guest) =>
+          {defaultTo(get(props, "events.specialGuests"), []).map((guest) =>
             guestContent(guest)
           )}
         </div>
@@ -96,7 +94,7 @@ export const SpecialGuests = (props) => {
       </Tablet>
       {get(authUser, "isAdmin") && (
         <div className="btn-container">
-          <ButtonBombo
+          <ButtonAnt
             variant="outlined"
             color="action"
             onClick={() => {
@@ -108,7 +106,7 @@ export const SpecialGuests = (props) => {
             }}
           >
             Añadir
-          </ButtonBombo>
+          </ButtonAnt>
         </div>
       )}
     </GuestsContainer>

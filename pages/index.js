@@ -14,22 +14,20 @@ const UserLayout = dynamic(() => import("../src/components/UserLayout"), {
 const Init = (props) => (
   <>
     <SEOMeta {...props} />
-    <UserLayout {...props} isLanding>
-      <Home {...props} />
-    </UserLayout>
+    <Home {...props} />
   </>
 );
 
-export const getStaticProps = async () => {
-  const response = await fetch(`${config.serverUrl}/api/seo`);
-  const seo = await response.json();
-
-  return {
-    props: {
-      seo: seo["/"] || defaultSeo,
-    },
-    revalidate: config.maxAgeCache,
-  };
-};
+// export const getStaticProps = async () => {
+//   const response = await fetch(`${config.serverUrl}/api/seo`);
+//   const seo = await response.json();
+//
+//   return {
+//     props: {
+//       seo: seo["/"] || defaultSeo,
+//     },
+//     revalidate: config.maxAgeCache,
+//   };
+// };
 
 export default Init;

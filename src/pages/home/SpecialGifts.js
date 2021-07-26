@@ -1,22 +1,17 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import { Desktop, Tablet } from "../../styles/utils";
+import { Tablet } from "../../styles/utils";
 import { mediaQuery } from "../../styles/constants";
-import { config, firestore } from "../../firebase";
-import {
-  ButtonBombo,
-  Carousel,
-  Image,
-  Icon,
-  ModalContainer,
-} from "../../components";
+import { firestore } from "../../firebase";
+import { Carousel } from "../../components/common/Carousel";
+import { ButtonAnt } from "../../components/form";
+import { Icon } from "../../components/common/Icons";
+import { Image } from "../../components/common/Image";
+import { ModalContainer } from "../../components/common/ModalContainer";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { lazy, Suspense } from "react";
-import { spinLoader } from "../../utils";
-import { Divider } from "antd";
-
-const EditSpecials = lazy(() => import("./EditSpecials"));
+import EditSpecials from "./EditSpecials";
+import { Divider } from "../../components/common/Divider";
 
 export const SpecialGifts = (props) => {
   const [authUser] = useGlobal("user");
@@ -32,15 +27,13 @@ export const SpecialGifts = (props) => {
           visible={isVisibleModal}
           onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
-          <Suspense fallback={spinLoader()}>
-            <EditSpecials
-              setIsVisibleModal={setIsVisibleModal}
-              isVisibleModal={isVisibleModal}
-              currentField={currentField}
-              currentElement={currentElement}
-              {...props}
-            />
-          </Suspense>
+          <EditSpecials
+            setIsVisibleModal={setIsVisibleModal}
+            isVisibleModal={isVisibleModal}
+            currentField={currentField}
+            currentElement={currentElement}
+            {...props}
+          />
         </ModalContainer>
       )}
 
@@ -54,35 +47,33 @@ export const SpecialGifts = (props) => {
       </div>
       <div className="gifts">
         <div className="gifts-container">
-          {defaultTo(get(props, "home.specialGifts"), []).map(
-            (gift, index) => (
-              <GiftContent backgroundImage={gift.imageUrl} key={index}>
-                {get(authUser, "isAdmin") && (
-                  <div className="container-edit">
-                    <Icon
-                      className="icon-edit"
-                      type="edit"
-                      onClick={() => {
-                        setCurrentElement(gift);
-                        setCurrentField("specialGifts");
-                        setIsVisibleModal(true);
-                      }}
-                    />
-                    <Icon
-                      className="icon-delete"
-                      type="delete"
-                      onClick={() => {
-                        props.deleteElement(gift, "specialGifts");
-                      }}
-                    />
-                  </div>
-                )}
-              </GiftContent>
-            )
-          )}
+          {defaultTo(get(props, "events.specialGifts"), []).map((gift, index) => (
+            <GiftContent backgroundImage={gift.imageUrl} key={index}>
+              {get(authUser, "isAdmin") && (
+                <div className="container-edit">
+                  <Icon
+                    className="icon-edit"
+                    type="edit"
+                    onClick={() => {
+                      setCurrentElement(gift);
+                      setCurrentField("specialGifts");
+                      setIsVisibleModal(true);
+                    }}
+                  />
+                  <Icon
+                    className="icon-delete"
+                    type="delete"
+                    onClick={() => {
+                      props.deleteElement(gift, "specialGifts");
+                    }}
+                  />
+                </div>
+              )}
+            </GiftContent>
+          ))}
 
           {get(authUser, "isAdmin") && (
-            <ButtonBombo
+            <ButtonAnt
               variant="outlined"
               color="action"
               onClick={() => {
@@ -94,18 +85,18 @@ export const SpecialGifts = (props) => {
               }}
             >
               Añadir
-            </ButtonBombo>
+            </ButtonAnt>
           )}
         </div>
       </div>
       <div className="btn-container">
-        <ButtonBombo
+        <ButtonAnt
           variant="contained"
           color="secondary"
           onClick={() => props.executeScroll("contact")}
         >
           ¡Cuéntanos que necesitas!
-        </ButtonBombo>
+        </ButtonAnt>
       </div>
     </SpecialsSection>
   );

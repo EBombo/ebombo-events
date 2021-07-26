@@ -3,15 +3,15 @@ import styled from "styled-components";
 import { Divider } from "antd";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { ButtonBombo, Icon, Image, ModalContainer } from "../../components";
+import { ButtonAnt } from "../../components/form";
+import { Carousel } from "../../components/common/Carousel";
+import { ModalContainer } from "../../components/common/ModalContainer";
+import { Icon } from "../../components/common/Icons";
+import { Desktop, Tablet } from "../../constants";
 import { mediaQuery } from "../../styles/constants";
-import { lazy, Suspense } from "react";
-import { spinLoader, Tablet, Desktop } from "../../utils";
+import EditSpecials from "./EditSpecials";
 import { firestore } from "../../firebase";
-import { Carousel } from "../../components";
 import chunk from "lodash/chunk";
-
-const EditSpecials = lazy(() => import("./EditSpecials"));
 
 export const SpecialShows = (props) => {
   const [authUser] = useGlobal("user");
@@ -63,16 +63,14 @@ export const SpecialShows = (props) => {
           visible={isVisibleModal}
           onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
-          <Suspense fallback={spinLoader()}>
-            <EditSpecials
-              setIsVisibleModal={setIsVisibleModal}
-              isVisibleModal={isVisibleModal}
-              currentField={currentField}
-              currentElement={currentElement}
-              sizes={"250x300"}
-              {...props}
-            />
-          </Suspense>
+          <EditSpecials
+            setIsVisibleModal={setIsVisibleModal}
+            isVisibleModal={isVisibleModal}
+            currentField={currentField}
+            currentElement={currentElement}
+            sizes={"250x300"}
+            {...props}
+          />
         </ModalContainer>
       )}
       <Divider>
@@ -80,7 +78,7 @@ export const SpecialShows = (props) => {
       </Divider>
       <Desktop>
         <div className="wrapper">
-          {defaultTo(get(props, "home.specialShows"), []).map((show) =>
+          {defaultTo(get(props, "events.specialShows"), []).map((show) =>
             showContent(show)
           )}
         </div>

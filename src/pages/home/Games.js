@@ -1,21 +1,17 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import { config, firestore } from "../../firebase";
-import {
-  ButtonBombo,
-  Carousel,
-  Icon,
-  Image,
-  ModalContainer,
-} from "../../components";
+import { firestore } from "../../firebase";
+import { ButtonAnt } from "../../components/form";
+import { Carousel } from "../../components/common/Carousel";
+import { ModalContainer } from "../../components/common/ModalContainer";
+import { Icon } from "../../components/common/Icons";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
 import chunk from "lodash/chunk";
 import { mediaQuery } from "../../styles/constants";
-import { lazy, Suspense } from "react";
-import { spinLoader, Desktop, Tablet } from "../../utils";
+import { Desktop, Tablet } from "../../constants";
 
-const EditGame = lazy(() => import("./EditGame"));
+import EditGame from "./EditGame";
 
 export const Games = (props) => {
   const [authUser] = useGlobal("user");
@@ -66,15 +62,13 @@ export const Games = (props) => {
           visible={isVisibleModal}
           onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
-          <Suspense fallback={spinLoader()}>
-            <EditGame
-              setIsVisibleModal={setIsVisibleModal}
-              isVisibleModal={isVisibleModal}
-              currentGame={currentGame}
-              active={active}
-              {...props}
-            />
-          </Suspense>
+          <EditGame
+            setIsVisibleModal={setIsVisibleModal}
+            isVisibleModal={isVisibleModal}
+            currentGame={currentGame}
+            active={active}
+            {...props}
+          />
         </ModalContainer>
       )}
       <div className="tabs-container">
@@ -100,8 +94,8 @@ export const Games = (props) => {
         <div className="wrapper">
           {defaultTo(
             active === "integration"
-              ? get(props, "home.integrationGames")
-              : get(props, "home.esportsGames"),
+              ? get(props, "events.integrationGames")
+              : get(props, "events.esportsGames"),
             []
           ).map((game) => (
             <GameContent
@@ -137,7 +131,7 @@ export const Games = (props) => {
             </GameContent>
           ))}
           {get(authUser, "isAdmin") && (
-            <ButtonBombo
+            <ButtonAnt
               variant="outlined"
               color="action"
               onClick={() => {
@@ -148,7 +142,7 @@ export const Games = (props) => {
               }}
             >
               Añadir
-            </ButtonBombo>
+            </ButtonAnt>
           )}
         </div>
       </Desktop>
