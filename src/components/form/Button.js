@@ -2,6 +2,9 @@ import React, { forwardRef } from "reactn";
 import styled from "styled-components";
 import Button from "antd/lib/button";
 
+// Variant="outlined".
+// Variant="contained".
+
 export const ButtonAnt = forwardRef((props, ref) => (
   <ButtonAntCss
     ref={ref}
@@ -83,7 +86,6 @@ const ButtonAntCss = styled(Button)`
       };  
       border: none;
       `}
-
   .children {
     width: 100%;
     font-size: 14px;
