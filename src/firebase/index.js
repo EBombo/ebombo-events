@@ -34,6 +34,11 @@ let firestore;
 let storage;
 let auth;
 
+let analyticsTrivia;
+let firestoreTrivia;
+let storageTrivia;
+let authTrivia;
+
 if (isEmpty(firebase.apps)) {
   try {
     console.log("initializeApp", firebase.apps);
@@ -50,6 +55,21 @@ if (isEmpty(firebase.apps)) {
   } catch (error) {
     console.error("error initializeApp", error);
   }
+
+  try {
+    firebase.initializeApp(config.fireBaseTrivia, "trivia");
+    firestoreTrivia = firebase.app("trivia").firestore();
+    storageTrivia = firebase.app("trivia").storage();
+    authTrivia = firebase.app("trivia").auth();
+
+    if (typeof window !== "undefined") {
+      analyticsTrivia = firebase.app("trivia").analytics();
+    }
+
+    firestoreTrivia.settings({ ignoreUndefinedProperties: true });
+  } catch (error) {
+    console.error("error initializeApp", error);
+  }
 }
 
 if (hostName === "localhost") {
@@ -63,13 +83,17 @@ const landingsStorageBucket = firebase
   .storage(`gs://${config.landingsStorageBucket}`);
 
 export {
-  firebase,
-  firestore,
-  storage,
   auth,
   config,
   version,
+  storage,
+  firebase,
   hostName,
   analytics,
+  firestore,
+  authTrivia,
+  storageTrivia,
+  firestoreTrivia,
+  analyticsTrivia,
   landingsStorageBucket,
 };
