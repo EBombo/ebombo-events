@@ -1,14 +1,11 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { FileUpload, Input, TextArea } from "../../components";
+import { Input, TextArea, ButtonAnt } from "../../components/form";
 import { useForm } from "react-hook-form";
 import { string, object } from "yup";
 import get from "lodash/get";
-import { ButtonBombo } from "../../components";
 import { firestore } from "../../firebase";
-import { useResizeImage } from "../../utils/useHooks";
 import defaultTo from "lodash/defaultTo";
-import { useUploadToStorage } from "../../utils/useHooks";
 
 export default (props) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -95,7 +92,7 @@ export default (props) => {
           />
         </div>
         <div className="buttons-container">
-          <ButtonBombo
+          <ButtonAnt
             variant="contained"
             color="primary"
             loading={loading}
@@ -103,8 +100,8 @@ export default (props) => {
             htmlType="submit"
           >
             Guardar
-          </ButtonBombo>
-          <ButtonBombo
+          </ButtonAnt>
+          <ButtonAnt
             variant="outlined"
             color="danger"
             loading={loading}
@@ -112,7 +109,7 @@ export default (props) => {
             onClick={() => props.setIsVisibleModal(false)}
           >
             Cancelar
-          </ButtonBombo>
+          </ButtonAnt>
         </div>
       </form>
     </Container>

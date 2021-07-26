@@ -25,3 +25,5 @@ const validateAdmin = async (req, res, next) => {
 };
 
 module.exports = {validateAdmin};
+
+

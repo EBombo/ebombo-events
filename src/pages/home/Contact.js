@@ -1,13 +1,15 @@
 import React, { useState } from "reactn";
 import { config } from "../../firebase";
-import { ButtonBombo, Input, TextArea, Image } from "../../components";
+import { ButtonAnt } from "../../components/form";
+import { Input, TextArea } from "../../components/form";
+import { Image } from "../../components/common/Image";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles/constants";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { useErrorHandler } from "react-error-boundary";
-import { useOwnFetch } from "../../utils/useFetch/useFetch";
-import { Desktop } from "../../utils";
+import { useFetch } from "../../hooks/useFetch";
+import { Desktop } from "../../constants";
 
 const salesTeam = [
   {
@@ -32,7 +34,7 @@ const salesTeam = [
 
 export const Contact = (props) => {
   const handleError = useErrorHandler();
-  const { ownFetch } = useOwnFetch();
+  const { Fetch } = useFetch();
   const [loadingSendingEmail, setLoadingSendingEmail] = useState(false);
 
   const schema = object().shape({
@@ -50,7 +52,7 @@ export const Contact = (props) => {
     try {
       setLoadingSendingEmail(true);
 
-      await ownFetch(`${config.serverUrl}/business-email`, "POST", data);
+      await Fetch(`${config.serverUrl}/business-email`, "POST", data);
 
       reset({
         message: null,
@@ -141,7 +143,7 @@ export const Contact = (props) => {
             placeholder="Número de teléfono"
           />
         </div>
-        <ButtonBombo
+        <ButtonAnt
           variant="contained"
           color="primary"
           width="100%"
@@ -150,7 +152,7 @@ export const Contact = (props) => {
           htmlType="submit"
         >
           Enviar
-        </ButtonBombo>
+        </ButtonAnt>
       </form>
     </ContactSection>
   );
@@ -272,7 +274,7 @@ const MemberContainer = styled.div`
     div:first-child {
       margin-right: 0;
     }
-    
+
     .main-container {
       .number-container,
       .email-container {

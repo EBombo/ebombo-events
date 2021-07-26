@@ -1,54 +1,31 @@
 const {firestore} = require("../config");
-const {merge} = require("lodash");
-const logger = require("../utils/logger");
 
-exports.transaction = async (
-    action,
-    user = null,
-    amount,
-    description,
-    note = null,
-    extra = null, //matches || tournaments || response charge
-    extra2 = null, //user admin || tournamentTeam
-    extra3 = null //additional
-) => {
-    const transactionRef = firestore.collection("transactions");
-    const transactionId = transactionRef.doc().id;
-    let transaction = documentTransaction(
-        transactionId,
-        action,
-        user,
-        amount,
-        description,
-        note
-    );
+exports.transaction = async (user, payment, amount, description, action, extra, note = null, extra2 = null) => {
 
-    if (extra) transaction.extra = extra;
+    const transactionRef = await firestore.collection("transactions");
+    const transactionId = await transactionRef.doc().id;
+    const transaction = documentTransaction(transactionId, user, payment, amount, description, action, note);
+
+    if (extra)
+        if (action === "withdraw") transaction.accountNumber = extra;
+        else transaction.extra = extra;
+
     if (extra2) transaction.extra2 = extra2;
-    if (extra3) transaction.extra3 = extra3;
 
-    logger.log("transaction", transaction);
-
-    await transactionRef.doc(transactionId).set(transaction);
+    await transactionRef
+        .doc(transactionId)
+        .set(transaction);
 
     return transactionId;
 };
 
-const documentTransaction = (
-    transactionId,
-    action,
-    user,
-    amount,
-    description,
-    note
-) => ({
+const documentTransaction = (transactionId, user, payment, amount, description, action, note) => ({
     id: transactionId,
-    action: action,
     user: user,
+    payment: +payment,
     amount: +amount,
     description: description,
+    action: action,
     note: note,
-    createAt: new Date(),
-    updateAt: new Date(),
-    deleted: false,
+    createAt: new Date()
 });

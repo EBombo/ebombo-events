@@ -2,8 +2,8 @@ import React from "reactn";
 import { services } from "../../components/common/DataList";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles/constants";
-import {Desktop, Tablet} from "../../constants";
-import { Carousel } from "../../components";
+import { Desktop, Tablet } from "../../constants";
+import { Carousel } from "../../components/common/Carousel";
 
 export const Services = (props) => (
   <ServiceSection ref={props.refProp}>
