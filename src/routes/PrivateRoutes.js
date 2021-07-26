@@ -23,7 +23,7 @@ export const PrivateRoutes = props => {
     const _params = () =>
         map(query, (param, key) => ({
             id: key,
-            name: `:${key}`,
+            name: `[${key}]`,
             value: param,
         }));
 
