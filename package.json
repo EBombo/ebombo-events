@@ -50,6 +50,7 @@
     "yup": "^0.28.1"
   },
   "devDependencies": {
+    "prettier": "^2.2.1",
     "@babel/core": "^7.14.8",
     "@next/bundle-analyzer": "^11.0.1",
     "@storybook/addon-actions": "^6.3.4",

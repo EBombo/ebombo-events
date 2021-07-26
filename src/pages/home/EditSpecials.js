@@ -21,7 +21,7 @@ const EditSpecials = (props) => {
         reValidateMode: "onSubmit",
     });
 
-    const saveComment = async (data) => {
+    const saveComment = async data => {
         setLoading(true);
 
         let elements;
