@@ -1,9 +1,11 @@
 export const darkTheme = {
   basic: {
-    primary: "#85E4BF",
-    primaryDark: "#487866",
-    secondary: "#3F3D56",
-    darkPurple: "#230724",
+    primary: "#956DFC",
+    primaryDark: "#5D449E",
+    primaryLight: "#C4C4C4",
+    secondary: "#382079",
+    secondaryDark: "#170D33",
+    secondaryLight: "#C4C4C4",
     white: "#ffffff",
     whiteDarken: "#D2D2D2",
     action: "#FFC715",
