@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "reactn";
+import React, { useEffect, useRef, useState } from "reactn";
 import styled from "styled-components";
 import { HeaderLanding } from "./HeaderLanding";
 import { Services } from "./Services";
@@ -36,7 +36,6 @@ export const Home = (props) => {
       .onSnapshot((snapshot) => {
         setEvents(snapshot.data());
         setLoading(false);
-        console.log(snapshot.data());
       });
 
   const deleteElement = async (element, field) => {

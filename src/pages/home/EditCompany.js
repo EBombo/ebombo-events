@@ -1,13 +1,13 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { Input, TextArea, ButtonAnt } from "../../components/form";
+import { ButtonAnt, Input } from "../../components/form";
 import { useForm } from "react-hook-form";
-import { string, object } from "yup";
+import { object, string } from "yup";
 import get from "lodash/get";
 import { firestore } from "../../firebase";
 import defaultTo from "lodash/defaultTo";
 
-export default (props) => {
+const EditCompany = (props) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -142,3 +142,5 @@ const Container = styled.div`
     }
   }
 `;
+
+export default EditCompany;
