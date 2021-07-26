@@ -5,9 +5,11 @@ import get from "lodash/get";
 import defaultTo from "lodash/defaultTo";
 import { mediaQuery } from "../../styles/constants";
 import { firestore } from "../../firebase";
-import { spinLoader } from "../../utils";
-import { ButtonBombo, Icon, ModalContainer } from "../../components";
 import { Divider } from "antd";
+import { spinLoader } from "../../components/common/loader";
+import { ModalContainer } from "../../components/common/ModalContainer";
+import { Icon } from "../../components/common/Icons";
+import { ButtonAnt } from "../../components/form";
 
 const EditHeldEvent = lazy(() => import("./EditHeldEvent"));
 
@@ -74,7 +76,7 @@ export const HeldEvents = (props) => {
             </EventContent>
           ))}
           {get(authUser, "isAdmin") && (
-            <ButtonBombo
+            <ButtonAnt
               variant="outlined"
               color="action"
               onClick={() => {
@@ -85,7 +87,7 @@ export const HeldEvents = (props) => {
               }}
             >
               Añadir
-            </ButtonBombo>
+            </ButtonAnt>
           )}
         </div>
       </div>

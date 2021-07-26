@@ -1,7 +1,6 @@
 import React, { useState } from "reactn";
 import { config } from "../../firebase";
-import { ButtonAnt } from "../../components/form";
-import { Input, TextArea } from "../../components/form";
+import { ButtonAnt, Input, TextArea } from "../../components/form";
 import { Image } from "../../components/common/Image";
 import styled from "styled-components";
 import { mediaQuery } from "../../styles/constants";
@@ -75,7 +74,7 @@ export const Contact = (props) => {
 
       <div className="team-container">
         {salesTeam.map((member) => (
-          <MemberContainer>
+          <MemberContainer key={member.imageUrl}>
             <Image
               src={member.imageUrl}
               width={"120px"}

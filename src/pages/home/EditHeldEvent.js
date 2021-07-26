@@ -1,14 +1,13 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { FileUpload, Input, TextArea } from "../../components";
+import { ButtonBombo, FileUpload, TextArea } from "../../components";
 import { useForm } from "react-hook-form";
-import { string, object } from "yup";
+import { object, string } from "yup";
 import get from "lodash/get";
-import { ButtonBombo } from "../../components";
 import { firestore } from "../../firebase";
 import defaultTo from "lodash/defaultTo";
 
-export default (props) => {
+const EditHeldEvent = (props) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -136,3 +135,5 @@ const Container = styled.div`
     }
   }
 `;
+
+export default EditHeldEvent;

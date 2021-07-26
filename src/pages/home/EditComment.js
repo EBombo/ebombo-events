@@ -1,14 +1,13 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { FileUpload, Input, TextArea } from "../../components";
+import { ButtonBombo, FileUpload, TextArea } from "../../components";
 import { useForm } from "react-hook-form";
-import { string, object } from "yup";
+import { object, string } from "yup";
 import get from "lodash/get";
-import { ButtonBombo } from "../../components";
 import { firestore } from "../../firebase";
 import defaultTo from "lodash/defaultTo";
 
-export default (props) => {
+const EditComment = (props) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -115,11 +114,13 @@ export default (props) => {
 const Container = styled.div`
   width: 100%;
   margin: 1rem 0;
+
   .title {
     font-size: 18px;
     line-height: 22px;
     color: ${(props) => props.theme.basic.white};
   }
+
   form {
     margin-top: 1rem;
 
@@ -136,3 +137,5 @@ const Container = styled.div`
     }
   }
 `;
+
+export default EditComment;
