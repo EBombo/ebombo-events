@@ -1,11 +1,12 @@
 import {authenticationErrors} from "../firebase/authentication";
 import React, {useEffect, useGlobal, useState} from "reactn";
-import {useUser} from "./useLocalStorageState";
 import {auth, config, firebase} from "../firebase";
+import {useUser} from "./useLocalStorageState";
+import acls from "../hooks/acl/acls.json";
 import styled from "styled-components";
 import {useFetch} from "./useFetch";
-import {notification} from "antd";
 import {dialCodes} from "../utils";
+import {notification} from "antd";
 import get from "lodash/get";
 
 const GOOGLE_PROVIDER = "google";
@@ -57,8 +58,8 @@ export const useAuth = () => {
     const [, setLSAuthUser] = useUser();
     const [error, setError] = useState(null);
     const [, setAuthUser] = useGlobal("user");
-    const [, setIsLoadingUser] = useGlobal("isLoadingUser");
-    const [, setIsLoadingCreateUser] = useGlobal("isLoadingCreateUser");
+    const [isLoadingUser, setIsLoadingUser] = useGlobal("isLoadingUser");
+    const [isLoadingCreateUser, setIsLoadingCreateUser] = useGlobal("isLoadingCreateUser");
 
     useEffect(() => {
         if (!error) return;
@@ -125,7 +126,15 @@ export const useAuth = () => {
 
     const createAccount = async user => {
         try {
-            const {error} = await Fetch(`${config.serverUrl}/api/users/${user.id}`, "POST", user);
+            const {error} = await Fetch(`${config.serverUrl}/api/users/${user.id}`,
+                "POST",
+                {
+                    ...user,
+                    acls: {
+                        common: Object.keys(acls.common.items)
+                    }
+                },
+            );
 
             if (error) throw get(error, "message", "ha ocurrido un problema");
 
@@ -177,6 +186,7 @@ export const useAuth = () => {
             {
                 props.google
                 && <ButtonsCss onClick={() => loginWithProvider(GOOGLE_PROVIDER)}
+                               disabled={isLoadingUser || isLoadingCreateUser}
                                color="black">
                     <div className="icon">
                         {googleIconSvg}
@@ -189,6 +199,7 @@ export const useAuth = () => {
             {
                 props.facebook
                 && <ButtonsCss onClick={() => loginWithProvider(FACEBOOK_PROVIDER)}
+                               disabled={isLoadingUser || isLoadingCreateUser}
                                background="#395697"
                                color="white"
                                border="black">
@@ -242,4 +253,6 @@ const ButtonsCss = styled.div`
   :hover {
     box-shadow: 0 0 4px ${props => props.shadow || props.theme.basic.white};
   }
+
+  ${props => props.disabled && "pointer-events: none;filter: brightness(0.4);"}
 `;
