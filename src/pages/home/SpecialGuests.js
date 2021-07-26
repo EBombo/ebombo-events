@@ -1,116 +1,117 @@
-import React, { useGlobal, useState } from "reactn";
+import React, {useGlobal, useState} from "reactn";
 import styled from "styled-components";
-import { Divider } from "../../components/common/Divider";
+import {Divider} from "../../components/common/Divider";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { ButtonAnt } from "../../components/form";
-import { Carousel } from "../../components/common/Carousel";
-import { ModalContainer } from "../../components/common/ModalContainer";
-import { Icon } from "../../components/common/Icons";
-import { mediaQuery } from "../../styles/constants";
-import { Desktop, Tablet } from "../../constants";
-import { firestore } from "../../firebase";
+import {ButtonAnt} from "../../components/form";
+import {Carousel} from "../../components/common/Carousel";
+import {ModalContainer} from "../../components/common/ModalContainer";
+import {Icon} from "../../components/common/Icons";
+import {mediaQuery} from "../../styles/constants";
+import {Desktop, Tablet} from "../../constants";
+import {firestore} from "../../firebase";
 import chunk from "lodash/chunk";
 import EditSpecials from "./EditSpecials";
 
 export const SpecialGuests = (props) => {
-  const [authUser] = useGlobal("user");
-  const [currentElement, setCurrentElement] = useState(null);
-  const [currentField, setCurrentField] = useState(null);
-  const [isVisibleModal, setIsVisibleModal] = useState(false);
+    const [authUser] = useGlobal("user");
+    const [currentElement, setCurrentElement] = useState(null);
+    const [currentField, setCurrentField] = useState(null);
+    const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-  const guestContent = (guest) => (
-    <GuestContainer backgroundImage={guest.imageUrl}>
-      <div className="thumb">
-        <div className="mask" />
-      </div>
-      <div className="details">
-        <div className="name">{guest.name}</div>
-        <div className="description">{guest.description}</div>
-      </div>
-      {get(authUser, "isAdmin") && (
-        <div className="container-edit">
-          <Icon
-            className="icon-edit"
-            type="edit"
-            onClick={() => {
-              setCurrentElement(guest);
-              setCurrentField("specialGuests");
-              setIsVisibleModal(true);
-            }}
-          />
-          <Icon
-            className="icon-delete"
-            type="delete"
-            onClick={() => {
-              props.deleteElement(guest, "specialGuests");
-            }}
-          />
-        </div>
-      )}
-    </GuestContainer>
-  );
+    const guestContent = (guest) => (
+        <GuestContainer backgroundImage={guest.imageUrl}
+                        key={guest.name}>
+            <div className="thumb">
+                <div className="mask"/>
+            </div>
+            <div className="details">
+                <div className="name">{guest.name}</div>
+                <div className="description">{guest.description}</div>
+            </div>
+            {get(authUser, "isAdmin") && (
+                <div className="container-edit">
+                    <Icon
+                        className="icon-edit"
+                        type="edit"
+                        onClick={() => {
+                            setCurrentElement(guest);
+                            setCurrentField("specialGuests");
+                            setIsVisibleModal(true);
+                        }}
+                    />
+                    <Icon
+                        className="icon-delete"
+                        type="delete"
+                        onClick={() => {
+                            props.deleteElement(guest, "specialGuests");
+                        }}
+                    />
+                </div>
+            )}
+        </GuestContainer>
+    );
 
-  const carouselContent = (arrGuests) => (
-    <div>{arrGuests.map((guest) => guestContent(guest))}</div>
-  );
+    const carouselContent = (arrGuests) => (
+        <div>{arrGuests.map((guest) => guestContent(guest))}</div>
+    );
 
-  return (
-    <GuestsContainer>
-      {isVisibleModal && get(authUser, "isAdmin") && (
-        <ModalContainer
-          footer={null}
-          visible={isVisibleModal}
-          onCancel={() => setIsVisibleModal(!isVisibleModal)}
-        >
-          <EditSpecials
-            setIsVisibleModal={setIsVisibleModal}
-            isVisibleModal={isVisibleModal}
-            currentField={currentField}
-            currentElement={currentElement}
-            sizes={"250x300"}
-            {...props}
-          />
-        </ModalContainer>
-      )}
-      <Divider>
-        <div className="title">Time to Talk</div>
-      </Divider>
-      <div className="subtitle">Dínos a quién necesitas y lo trameos :) </div>
-      <Desktop>
-        <div className="wrapper">
-          {defaultTo(get(props, "events.specialGuests"), []).map((guest) =>
-            guestContent(guest)
-          )}
-        </div>
-      </Desktop>
-      <Tablet>
-        <Carousel
-          components={chunk(
-            defaultTo(get(props, "home.specialGuests"), []),
-            2
-          ).map((arrGuests) => carouselContent(arrGuests))}
-        />
-      </Tablet>
-      {get(authUser, "isAdmin") && (
-        <div className="btn-container">
-          <ButtonAnt
-            variant="outlined"
-            color="action"
-            onClick={() => {
-              setCurrentField("specialGuests");
-              setCurrentElement({
-                id: firestore.collection("events").doc().id,
-              });
-              setIsVisibleModal(true);
-            }}
-          >
-            Añadir
-          </ButtonAnt>
-        </div>
-      )}
-    </GuestsContainer>
-  );
+    return (
+        <GuestsContainer>
+            {isVisibleModal && get(authUser, "isAdmin") && (
+                <ModalContainer
+                    footer={null}
+                    visible={isVisibleModal}
+                    onCancel={() => setIsVisibleModal(!isVisibleModal)}
+                >
+                    <EditSpecials
+                        setIsVisibleModal={setIsVisibleModal}
+                        isVisibleModal={isVisibleModal}
+                        currentField={currentField}
+                        currentElement={currentElement}
+                        sizes={"250x300"}
+                        {...props}
+                    />
+                </ModalContainer>
+            )}
+            <Divider>
+                <div className="title">Time to Talk</div>
+            </Divider>
+            <div className="subtitle">Dínos a quién necesitas y lo trameos :)</div>
+            <Desktop>
+                <div className="wrapper">
+                    {defaultTo(get(props, "events.specialGuests"), []).map((guest) =>
+                        guestContent(guest)
+                    )}
+                </div>
+            </Desktop>
+            <Tablet>
+                <Carousel
+                    components={chunk(
+                        defaultTo(get(props, "home.specialGuests"), []),
+                        2
+                    ).map((arrGuests) => carouselContent(arrGuests))}
+                />
+            </Tablet>
+            {get(authUser, "isAdmin") && (
+                <div className="btn-container">
+                    <ButtonAnt
+                        variant="outlined"
+                        color="action"
+                        onClick={() => {
+                            setCurrentField("specialGuests");
+                            setCurrentElement({
+                                id: firestore.collection("events").doc().id,
+                            });
+                            setIsVisibleModal(true);
+                        }}
+                    >
+                        Añadir
+                    </ButtonAnt>
+                </div>
+            )}
+        </GuestsContainer>
+    );
 };
 
 const GuestsContainer = styled.div`
@@ -172,11 +173,13 @@ const GuestContainer = styled.div`
 
   .thumb {
     overflow: hidden;
+
     img {
       display: block;
       width: 100%;
       height: 100%;
     }
+
     .mask {
       background: rgba(75, 191, 135, 0.67);
       position: absolute;
@@ -188,6 +191,7 @@ const GuestContainer = styled.div`
       transition: all 0.3s ease-in-out;
     }
   }
+
   .details {
     color: ${(props) => props.theme.basic.white};
     position: absolute;
@@ -222,6 +226,7 @@ const GuestContainer = styled.div`
     .mask {
       opacity: 1;
     }
+
     .description {
       opacity: 1;
     }
