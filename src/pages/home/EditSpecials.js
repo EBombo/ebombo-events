@@ -1,6 +1,8 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { ButtonBombo, FileUpload, Input, TextArea } from "../../components";
+import { ButtonAnt } from "../../components/form";
+import { TextArea, Input } from "../../components/form";
+import { FileUpload } from "../../components/common/FileUpload";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import get from "lodash/get";
@@ -110,7 +112,7 @@ const EditSpecials = (props) => {
           />
         </div>
         <div className="buttons-container">
-          <ButtonBombo
+          <ButtonAnt
             variant="contained"
             color="primary"
             margin="0"
@@ -119,8 +121,8 @@ const EditSpecials = (props) => {
             htmlType="submit"
           >
             Guardar
-          </ButtonBombo>
-          <ButtonBombo
+          </ButtonAnt>
+          <ButtonAnt
             variant="outlined"
             color="danger"
             margin="0"
@@ -129,7 +131,7 @@ const EditSpecials = (props) => {
             onClick={() => props.setIsVisibleModal(false)}
           >
             Cancelar
-          </ButtonBombo>
+          </ButtonAnt>
         </div>
       </form>
     </Container>

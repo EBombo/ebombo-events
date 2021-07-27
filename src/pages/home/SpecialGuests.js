@@ -20,7 +20,7 @@ export const SpecialGuests = (props) => {
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   const guestContent = (guest) => (
-    <GuestContainer backgroundImage={guest.imageUrl} key={guest.imageUrl}>
+    <GuestContainer backgroundImage={guest.imageUrl} key={guest.id}>
       <div className="thumb">
         <div className="mask" />
       </div>
@@ -96,7 +96,7 @@ export const SpecialGuests = (props) => {
         <div className="btn-container">
           <ButtonAnt
             variant="outlined"
-            color="action"
+            color="warning"
             onClick={() => {
               setCurrentField("specialGuests");
               setCurrentElement({

@@ -20,7 +20,7 @@ export const SpecialShows = (props) => {
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   const showContent = (show) => (
-    <ShowContainer backgroundImage={show.imageUrl}>
+    <ShowContainer backgroundImage={show.imageUrl} key={show.id}>
       <div className="thumb">
         <div className="mask" />
       </div>
@@ -93,9 +93,9 @@ export const SpecialShows = (props) => {
       </Tablet>
       {get(authUser, "isAdmin") && (
         <div className="btn-container">
-          <ButtonBombo
+          <ButtonAnt
             variant="outlined"
-            color="action"
+            color="warning"
             onClick={() => {
               setCurrentField("specialShows");
               setCurrentElement({
@@ -105,7 +105,7 @@ export const SpecialShows = (props) => {
             }}
           >
             Añadir
-          </ButtonBombo>
+          </ButtonAnt>
         </div>
       )}
     </GuestsContainer>

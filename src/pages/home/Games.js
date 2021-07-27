@@ -133,7 +133,7 @@ export const Games = (props) => {
           {get(authUser, "isAdmin") && (
             <ButtonAnt
               variant="outlined"
-              color="action"
+              color="warning"
               onClick={() => {
                 setCurrentGame({
                   id: firestore.collection("events").doc().id,

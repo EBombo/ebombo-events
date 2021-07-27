@@ -2,13 +2,13 @@ import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { ButtonBombo, Image, ModalContainer, Icon } from "../../components";
+import { ButtonAnt } from "../../components/form";
+import { Image } from "../../components/common/Image";
+import { ModalContainer } from "../../components/common/ModalContainer";
+import { Icon } from "../../components/common/Icons";
 import { firestore } from "../../firebase";
-import { lazy, Suspense } from "react";
-import { spinLoader } from "../../utils";
 import { mediaQuery } from "../../constants";
-
-const EditCompany = lazy(() => import("./EditCompany"));
+import EditCompany from "./EditCompany";
 
 export const Companies = (props) => {
   const [authUser] = useGlobal("user");
@@ -23,14 +23,12 @@ export const Companies = (props) => {
           visible={isVisibleModal}
           onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
-          <Suspense fallback={spinLoader()}>
-            <EditCompany
-              setIsVisibleModal={setIsVisibleModal}
-              isVisibleModal={isVisibleModal}
-              currentCompany={currentCompany}
-              {...props}
-            />
-          </Suspense>
+          <EditCompany
+            setIsVisibleModal={setIsVisibleModal}
+            isVisibleModal={isVisibleModal}
+            currentCompany={currentCompany}
+            {...props}
+          />
         </ModalContainer>
       )}
       <div className="title">Han confiado en nosotros</div>
@@ -65,9 +63,9 @@ export const Companies = (props) => {
             )
           )}
           {get(authUser, "isAdmin") && (
-            <ButtonBombo
+            <ButtonAnt
               variant="outlined"
-              color="action"
+              color="warning"
               onClick={() => {
                 setCurrentCompany({
                   id: firestore.collection("events").doc().id,
@@ -76,7 +74,7 @@ export const Companies = (props) => {
               }}
             >
               Añadir
-            </ButtonBombo>
+            </ButtonAnt>
           )}
         </div>
       </div>
@@ -131,7 +129,7 @@ const CompaniesContent = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  
+
   .container-edit {
     position: absolute;
     height: 15px;
@@ -154,5 +152,4 @@ const CompaniesContent = styled.div`
       }
     }
   }
- 
-`
+`;

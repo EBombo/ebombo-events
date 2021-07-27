@@ -1,6 +1,8 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { ButtonBombo, FileUpload, Input, TextArea } from "../../components";
+import { FileUpload } from "../../components/common/FileUpload";
+import { Input, TextArea } from "../../components/form";
+import { ButtonAnt } from "../../components/form";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import get from "lodash/get";
@@ -33,8 +35,8 @@ const EditGame = (props) => {
           props,
           `${
             props.active === "integration"
-              ? "home.integrationGames"
-              : "home.esportsGames"
+              ? "events.integrationGames"
+              : "events.esportsGames"
           }`
         ),
         []
@@ -45,8 +47,8 @@ const EditGame = (props) => {
           props,
           `${
             props.active === "integration"
-              ? "home.integrationGames"
-              : "home.esportsGames"
+              ? "events.integrationGames"
+              : "events.esportsGames"
           }`
         ),
         []
@@ -59,8 +61,8 @@ const EditGame = (props) => {
           props,
           `${
             props.active === "integration"
-              ? "home.integrationGames"
-              : "home.esportsGames"
+              ? "events.integrationGames"
+              : "events.esportsGames"
           }`
         ),
         []
@@ -102,7 +104,7 @@ const EditGame = (props) => {
   return (
     <Container>
       <div className="title">
-        Juego {props.active === "integrartion" ? "Integración" : "Esport"}
+        Juego {props.active === "integration" ? "Integración" : "Esport"}
       </div>
       <form onSubmit={handleSubmit(saveIntegrationGame)}>
         <Input
@@ -136,7 +138,7 @@ const EditGame = (props) => {
           />
         </div>
         <div className="buttons-container">
-          <ButtonBombo
+          <ButtonAnt
             variant="contained"
             color="primary"
             margin="0"
@@ -145,8 +147,8 @@ const EditGame = (props) => {
             htmlType="submit"
           >
             Guardar
-          </ButtonBombo>
-          <ButtonBombo
+          </ButtonAnt>
+          <ButtonAnt
             variant="outlined"
             color="danger"
             loading={loading}
@@ -154,7 +156,7 @@ const EditGame = (props) => {
             onClick={() => props.setIsVisibleModal(false)}
           >
             Cancelar
-          </ButtonBombo>
+          </ButtonAnt>
         </div>
       </form>
     </Container>

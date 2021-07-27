@@ -76,7 +76,7 @@ export const SpecialGifts = (props) => {
           {get(authUser, "isAdmin") && (
             <ButtonAnt
               variant="outlined"
-              color="action"
+              color="warning"
               onClick={() => {
                 setCurrentField("specialGifts");
                 setCurrentElement({

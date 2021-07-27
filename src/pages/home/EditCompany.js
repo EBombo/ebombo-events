@@ -1,6 +1,7 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
 import { ButtonAnt, Input } from "../../components/form";
+import { FileUpload } from "../../components/common/FileUpload";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import get from "lodash/get";
@@ -26,17 +27,17 @@ const EditCompany = (props) => {
     let companies;
 
     if (
-      defaultTo(get(props, "home.companies"), []).some(
+      defaultTo(get(props, "events.companies"), []).some(
         (company) => company.id === props.currentCompany.id
       )
     ) {
-      companies = defaultTo(get(props, "home.companies"), []).map((company) =>
+      companies = defaultTo(get(props, "events.companies"), []).map((company) =>
         company.id === props.currentCompany.id
           ? mapCompany(data, company)
           : company
       );
     } else {
-      companies = defaultTo(get(props, "home.companies"), []);
+      companies = defaultTo(get(props, "events.companies"), []);
       companies.push(mapCompany(data));
     }
 
@@ -79,7 +80,7 @@ const EditCompany = (props) => {
           required
           label="Nombre:"
           defaultValue={get(props, "currentCompany.name", "")}
-          placeholder="Nombre del juego"
+          placeholder="Empresa"
         />
         <div className="image-component">
           <FileUpload

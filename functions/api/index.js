@@ -27,7 +27,7 @@ router.get("/", async (req, res) => res.send("Hello!"));
 
 router.post("/users/:userId", [], validateRequest, postUser);
 
-router.put("/users/:userId/edit", [], validateAdmin, putUpdateUser);
+router.put("/users/:userId/edit", [], validateRequest, putUpdateUser);
 
 router.delete("/users/:userId", [], validateRequest, deleteUser);
 

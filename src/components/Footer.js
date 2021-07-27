@@ -1,6 +1,6 @@
 import React from "reactn";
 import styled from "styled-components";
-import { mediaQuery, Desktop } from "../constants";
+import { mediaQuery } from "../constants";
 import { Image } from "./common/Image";
 import { Anchor } from "./form";
 import { config } from "../firebase";

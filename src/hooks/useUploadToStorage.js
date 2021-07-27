@@ -1,8 +1,9 @@
-import {storage as storageDefault} from "../firebase";
+import {storage as storageDefault, landingsStorageBucket} from "../firebase";
 import get from "lodash/get";
 
 const buckets = {
-    defaultStorage: storageDefault
+    defaultStorage: storageDefault,
+    landings: landingsStorageBucket
 };
 
 const secondsByDay = 86400;
@@ -18,7 +19,7 @@ export const useUploadToStorage = () => {
         type
     ) =>
         new Promise((resolve) => {
-            const storage = get(buckets, `${bucket}`, "defaultStorage");
+            const storage = get(buckets, `${bucket}`, storageDefault);
 
             const uploadTask =
                 type.includes("image")

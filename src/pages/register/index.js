@@ -57,7 +57,7 @@ export const Register = (props) => {
           name="name"
           variant="primary"
           autoComplete="off"
-          placeholder="nombre"
+          placeholder="Nombres"
         />
         <Input
           error={errors.lastName}
@@ -75,7 +75,7 @@ export const Register = (props) => {
           name="email"
           variant="primary"
           autoComplete="off"
-          placeholder="email"
+          placeholder="Correo"
         />
         <Input
           error={errors.password}
@@ -84,7 +84,7 @@ export const Register = (props) => {
           name="password"
           variant="primary"
           autoComplete="off"
-          placeholder="assword"
+          placeholder="Contraseña"
         />
         <InputGroup gridTemplateColumns="2fr 50px 3fr">
           <Controller
@@ -120,7 +120,7 @@ export const Register = (props) => {
             name="phoneNumber"
             variant="primary"
             autoComplete="off"
-            placeholder={"phoneNumber"}
+            placeholder="Celular"
           />
         </InputGroup>
         <ButtonAnt

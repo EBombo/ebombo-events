@@ -1,6 +1,8 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { ButtonBombo, FileUpload, TextArea } from "../../components";
+import { ButtonAnt } from "../../components/form";
+import { FileUpload } from "../../components/common/FileUpload";
+import { TextArea } from "../../components/form";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import get from "lodash/get";
@@ -26,15 +28,15 @@ const EditHeldEvent = (props) => {
     let heldEvents;
 
     if (
-      defaultTo(get(props, "home.heldEvents"), []).some(
+      defaultTo(get(props, "events.heldEvents"), []).some(
         (game) => game.id === props.currentEvent.id
       )
     ) {
-      heldEvents = defaultTo(get(props, "home.heldEvents"), []).map((game) =>
+      heldEvents = defaultTo(get(props, "events.heldEvents"), []).map((game) =>
         game.id === props.currentEvent.id ? mapGame(data, game) : game
       );
     } else {
-      heldEvents = defaultTo(get(props, "home.heldEvents"), []);
+      heldEvents = defaultTo(get(props, "events.heldEvents"), []);
       heldEvents.push(mapGame(data));
     }
 
@@ -87,7 +89,7 @@ const EditHeldEvent = (props) => {
           />
         </div>
         <div className="buttons-container">
-          <ButtonBombo
+          <ButtonAnt
             variant="contained"
             color="primary"
             loading={loading}
@@ -95,8 +97,8 @@ const EditHeldEvent = (props) => {
             htmlType="submit"
           >
             Guardar
-          </ButtonBombo>
-          <ButtonBombo
+          </ButtonAnt>
+          <ButtonAnt
             variant="outlined"
             color="danger"
             loading={loading}
@@ -104,7 +106,7 @@ const EditHeldEvent = (props) => {
             onClick={() => props.setIsVisibleModal(false)}
           >
             Cancelar
-          </ButtonBombo>
+          </ButtonAnt>
         </div>
       </form>
     </Container>

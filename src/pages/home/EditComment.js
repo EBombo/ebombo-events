@@ -1,6 +1,7 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { ButtonBombo, FileUpload, TextArea } from "../../components";
+import { FileUpload } from "../../components/common/FileUpload";
+import { ButtonAnt, TextArea } from "../../components/form";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import get from "lodash/get";
@@ -26,15 +27,15 @@ const EditComment = (props) => {
     let comments;
 
     if (
-      defaultTo(get(props, "home.comments"), []).some(
+      defaultTo(get(props, "events.comments"), []).some(
         (game) => game.id === props.currentComment.id
       )
     ) {
-      comments = defaultTo(get(props, "home.comments"), []).map((game) =>
+      comments = defaultTo(get(props, "events.comments"), []).map((game) =>
         game.id === props.currentComment.id ? mapComment(data, game) : game
       );
     } else {
-      comments = defaultTo(get(props, "home.comments"), []);
+      comments = defaultTo(get(props, "events.comments"), []);
       comments.push(mapComment(data));
     }
 
@@ -87,7 +88,7 @@ const EditComment = (props) => {
           />
         </div>
         <div className="buttons-container">
-          <ButtonBombo
+          <ButtonAnt
             variant="contained"
             color="primary"
             loading={loading}
@@ -95,8 +96,8 @@ const EditComment = (props) => {
             htmlType="submit"
           >
             Guardar
-          </ButtonBombo>
-          <ButtonBombo
+          </ButtonAnt>
+          <ButtonAnt
             variant="outlined"
             color="danger"
             loading={loading}
@@ -104,7 +105,7 @@ const EditComment = (props) => {
             onClick={() => props.setIsVisibleModal(false)}
           >
             Cancelar
-          </ButtonBombo>
+          </ButtonAnt>
         </div>
       </form>
     </Container>

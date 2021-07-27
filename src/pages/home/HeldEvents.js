@@ -78,7 +78,7 @@ export const HeldEvents = (props) => {
           {get(authUser, "isAdmin") && (
             <ButtonAnt
               variant="outlined"
-              color="action"
+              color="warning"
               onClick={() => {
                 setCurrentEvent({
                   id: firestore.collection("events").doc().id,

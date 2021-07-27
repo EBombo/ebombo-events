@@ -8,7 +8,7 @@ export const darkTheme = {
     secondaryLight: "#C4C4C4",
     white: "#ffffff",
     whiteDarken: "#D2D2D2",
-    action: "#FFC715",
+    warning: "#FFC715",
     danger: "#FC6C6C",
     default: "#494949",
     black: "#000000",

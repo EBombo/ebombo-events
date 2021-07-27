@@ -1,7 +1,5 @@
 import React, { useGlobal, useState } from "reactn";
-import { lazy, Suspense } from "react";
 import styled from "styled-components";
-import { spinLoader } from "../../components/common/loader";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
 import { Icon } from "../../components/common/Icons";
@@ -11,8 +9,7 @@ import { firestore } from "../../firebase";
 import { mediaQuery } from "../../constants";
 import { Desktop, Tablet } from "../../constants";
 import { ButtonAnt } from "../../components/form";
-
-const EditComment = lazy(() => import("./EditComment"));
+import EditComment from "./EditComment";
 
 export const Comments = (props) => {
   const [authUser] = useGlobal("user");
@@ -27,21 +24,19 @@ export const Comments = (props) => {
           visible={isVisibleModal}
           onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
-          <Suspense fallback={spinLoader()}>
-            <EditComment
-              setIsVisibleModal={setIsVisibleModal}
-              isVisibleModal={isVisibleModal}
-              currentComment={currentComment}
-              {...props}
-            />
-          </Suspense>
+          <EditComment
+            setIsVisibleModal={setIsVisibleModal}
+            isVisibleModal={isVisibleModal}
+            currentComment={currentComment}
+            {...props}
+          />
         </ModalContainer>
       )}
       <div className="main-container">
         <div className="title">COMENTARIOS</div>
         <div className="comments">
           <div className="comments-container">
-            {defaultTo(get(props, "home.comments"), []).map((comment) => (
+            {defaultTo(get(props, "events.comments"), []).map((comment) => (
               <Comment
                 backgroundImage={comment.backgroundImageUrl}
                 key={comment.id}
@@ -96,7 +91,7 @@ export const Comments = (props) => {
               <div className="btn-container">
                 <ButtonAnt
                   variant="outlined"
-                  color="action"
+                  color="warning"
                   onClick={() => {
                     setCurrentComment({
                       id: firestore.collection("events").doc().id,
