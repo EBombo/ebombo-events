@@ -2,7 +2,7 @@ import React, { useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, Tablet } from "../../constants";
 import { config } from "../../firebase";
-import { mediaQuery } from "../../styles/constants";
+import { mediaQuery } from "../../constants";
 import { useHistory } from "react-router";
 import { ButtonAnt } from "../../components/form";
 import { Image } from "../../components/common/Image";

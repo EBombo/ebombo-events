@@ -7,7 +7,7 @@ import { ButtonAnt } from "../../components/form";
 import { Carousel } from "../../components/common/Carousel";
 import { ModalContainer } from "../../components/common/ModalContainer";
 import { Icon } from "../../components/common/Icons";
-import { mediaQuery } from "../../styles/constants";
+import { mediaQuery } from "../../constants";
 import { Desktop, Tablet } from "../../constants";
 import { firestore } from "../../firebase";
 import chunk from "lodash/chunk";

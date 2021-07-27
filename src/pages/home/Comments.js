@@ -1,14 +1,16 @@
 import React, { useGlobal, useState } from "reactn";
 import { lazy, Suspense } from "react";
 import styled from "styled-components";
-import { spinLoader } from "../../utils";
+import { spinLoader } from "../../components/common/loader";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { Icon, Image } from "../../components";
-import { config, firestore } from "../../firebase";
-import { mediaQuery } from "../../styles/constants";
-import { Desktop, Tablet } from "../../styles/utils";
-import { ButtonBombo, ModalContainer } from "../../components";
+import { Icon } from "../../components/common/Icons";
+import { Image } from "../../components/common/Image";
+import { ModalContainer } from "../../components/common/ModalContainer";
+import { firestore } from "../../firebase";
+import { mediaQuery } from "../../constants";
+import { Desktop, Tablet } from "../../constants";
+import { ButtonAnt } from "../../components/form";
 
 const EditComment = lazy(() => import("./EditComment"));
 
@@ -92,7 +94,7 @@ export const Comments = (props) => {
             ))}
             {get(authUser, "isAdmin") && (
               <div className="btn-container">
-                <ButtonBombo
+                <ButtonAnt
                   variant="outlined"
                   color="action"
                   onClick={() => {
@@ -103,7 +105,7 @@ export const Comments = (props) => {
                   }}
                 >
                   Añadir
-                </ButtonBombo>
+                </ButtonAnt>
               </div>
             )}
           </div>

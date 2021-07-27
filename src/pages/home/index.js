@@ -12,7 +12,7 @@ import { spinLoader } from "../../components/common/loader";
 import { SpecialGifts } from "./SpecialGifts";
 import { SpecialGuests } from "./SpecialGuests";
 import { Games } from "./Games";
-import { Footer } from "./Footer";
+import { Footer } from "../../components/Footer";
 import { SpecialWorkshops } from "./SpecialWorkshops";
 import { SpecialShows } from "./SpecialShows";
 

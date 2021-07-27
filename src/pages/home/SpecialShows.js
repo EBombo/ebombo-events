@@ -8,7 +8,7 @@ import { Carousel } from "../../components/common/Carousel";
 import { ModalContainer } from "../../components/common/ModalContainer";
 import { Icon } from "../../components/common/Icons";
 import { Desktop, Tablet } from "../../constants";
-import { mediaQuery } from "../../styles/constants";
+import { mediaQuery } from "../../constants";
 import EditSpecials from "./EditSpecials";
 import { firestore } from "../../firebase";
 import chunk from "lodash/chunk";

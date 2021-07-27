@@ -3,7 +3,7 @@ import { config } from "../../firebase";
 import { ButtonAnt, Input, TextArea } from "../../components/form";
 import { Image } from "../../components/common/Image";
 import styled from "styled-components";
-import { mediaQuery } from "../../styles/constants";
+import { mediaQuery } from "../../constants";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { useErrorHandler } from "react-error-boundary";

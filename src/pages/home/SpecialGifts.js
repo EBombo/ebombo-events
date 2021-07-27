@@ -1,7 +1,6 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import { Tablet } from "../../styles/utils";
-import { mediaQuery } from "../../styles/constants";
+import { Tablet, mediaQuery } from "../../constants";
 import { firestore } from "../../firebase";
 import { Carousel } from "../../components/common/Carousel";
 import { ButtonAnt } from "../../components/form";
@@ -47,30 +46,32 @@ export const SpecialGifts = (props) => {
       </div>
       <div className="gifts">
         <div className="gifts-container">
-          {defaultTo(get(props, "events.specialGifts"), []).map((gift, index) => (
-            <GiftContent backgroundImage={gift.imageUrl} key={index}>
-              {get(authUser, "isAdmin") && (
-                <div className="container-edit">
-                  <Icon
-                    className="icon-edit"
-                    type="edit"
-                    onClick={() => {
-                      setCurrentElement(gift);
-                      setCurrentField("specialGifts");
-                      setIsVisibleModal(true);
-                    }}
-                  />
-                  <Icon
-                    className="icon-delete"
-                    type="delete"
-                    onClick={() => {
-                      props.deleteElement(gift, "specialGifts");
-                    }}
-                  />
-                </div>
-              )}
-            </GiftContent>
-          ))}
+          {defaultTo(get(props, "events.specialGifts"), []).map(
+            (gift, index) => (
+              <GiftContent backgroundImage={gift.imageUrl} key={index}>
+                {get(authUser, "isAdmin") && (
+                  <div className="container-edit">
+                    <Icon
+                      className="icon-edit"
+                      type="edit"
+                      onClick={() => {
+                        setCurrentElement(gift);
+                        setCurrentField("specialGifts");
+                        setIsVisibleModal(true);
+                      }}
+                    />
+                    <Icon
+                      className="icon-delete"
+                      type="delete"
+                      onClick={() => {
+                        props.deleteElement(gift, "specialGifts");
+                      }}
+                    />
+                  </div>
+                )}
+              </GiftContent>
+            )
+          )}
 
           {get(authUser, "isAdmin") && (
             <ButtonAnt

@@ -8,7 +8,7 @@ import { Icon } from "../../components/common/Icons";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
 import chunk from "lodash/chunk";
-import { mediaQuery } from "../../styles/constants";
+import { mediaQuery } from "../../constants";
 import { Desktop, Tablet } from "../../constants";
 
 import EditGame from "./EditGame";
