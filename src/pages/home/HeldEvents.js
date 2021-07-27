@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react";
 import styled from "styled-components";
 import get from "lodash/get";
 import defaultTo from "lodash/defaultTo";
-import { mediaQuery } from "../../styles/constants";
+import { mediaQuery } from "../../constants";
 import { firestore } from "../../firebase";
 import { Divider } from "antd";
 import { spinLoader } from "../../components/common/loader";

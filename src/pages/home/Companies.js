@@ -6,7 +6,7 @@ import { ButtonBombo, Image, ModalContainer, Icon } from "../../components";
 import { firestore } from "../../firebase";
 import { lazy, Suspense } from "react";
 import { spinLoader } from "../../utils";
-import { mediaQuery } from "../../styles/constants";
+import { mediaQuery } from "../../constants";
 
 const EditCompany = lazy(() => import("./EditCompany"));
 

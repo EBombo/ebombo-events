@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ButtonBombo, Image } from "../../components";
 import defaultTo from "lodash/defaultTo";
 import { config } from "../../firebase";
-import { mediaQuery } from "../../styles/constants";
+import { mediaQuery } from "../../constants";
 import { Desktop } from "../../utils";
 
 export const EsportsGames = (props) => {
