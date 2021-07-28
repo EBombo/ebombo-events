@@ -158,5 +158,7 @@
       "/admin/ballots": "Lista de tipo de cuentas",
       "/admin/ballots/:ballotId": "Ver boletas"
     }
+  },
+  "common": {
   }
 }
