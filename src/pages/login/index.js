@@ -8,11 +8,11 @@ import { object, string } from "yup";
 import { useRouter } from "next/router";
 
 const Login = (props) => {
-    const router = useRouter();
-    const validationSchema = object().shape({
-      email: string().required().email(),
-      password: string().required(),
-    });
+  const router = useRouter();
+  const validationSchema = object().shape({
+    email: string().required().email(),
+    password: string().required(),
+  });
 
   const { ButtonsProviders, signIn } = useAuth();
   const [isLoadingUser] = useGlobal("isLoadingUser");
