@@ -17,6 +17,7 @@ const Login = (props) => {
   const { ButtonsProviders, signIn } = useAuth();
   const [isLoadingUser] = useGlobal("isLoadingUser");
   const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
+  const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
   const [, setIsVisibleForgotPassword] = useGlobal("isVisibleForgotPassword");
   const { register, errors, handleSubmit } = useForm({
     validationSchema,
@@ -67,7 +68,10 @@ const Login = (props) => {
         Recuperar clave
       </Anchor>
       <Anchor
-        onClick={() => router.push("/register")}
+        onClick={() => {
+          setIsVisibleLoginModal(false);
+          router.push("/register");
+        }}
         variant="primary"
         display="flex"
         margin="10px auto"

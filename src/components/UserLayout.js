@@ -1,18 +1,16 @@
 import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { Layout } from "./index";
-import { Tooltip } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
-import { config } from "../firebase";
-import { mediaQuery, sizes } from "../constants";
+import { Desktop, mediaQuery, sizes, Tablet } from "../constants";
 import { ModalContainer } from "./common/ModalContainer";
 import { useAcl } from "../hooks";
 import { RightDrawer } from "./right-drawer/RightDrawer";
-import { Anchor } from "./form";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { spinLoaderMin } from "./common/loader";
 import { useAuth } from "../hooks/useAuth";
+import { TabletNav } from "./nav/TabletNav";
+import { DesktopNav } from "./nav/DesktopNav";
 
 const PWA = dynamic(() => import("./common/pwa"), { ssr: false });
 
@@ -37,7 +35,7 @@ const UserLayout = (props) => {
   const [isVisibleLoginModal, setIsVisibleLoginModal] = useGlobal(
     "isVisibleLoginModal"
   );
-  const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
+
   //const [openLeftDrawer, setOpenLeftDrawer] = useGlobal("openLeftDrawer");
   const [isVisibleForgotPassword] = useGlobal("isVisibleForgotPassword");
 
@@ -75,51 +73,12 @@ const UserLayout = (props) => {
       {verifiedModalResendEmail()}
       {RightDrawerForm()}
       <Layout>
-        <Header>
-          <HeaderLogo>
-            <Tooltip title="Go home" placement="bottom">
-              <img
-                src={`${config.storageUrl}/resources/icons/icon-72x72.png`}
-                onClick={() =>
-                  userAcls.some((acl) => acl.includes("admin"))
-                    ? router.push("/admin")
-                    : authUser
-                    ? router.push("/home")
-                    : router.push("/")
-                }
-                className="logo-dashboard"
-                alt="Logo dashboard"
-              />
-            </Tooltip>
-            <div className="email">{authUser && authUser.email}</div>
-          </HeaderLogo>
-          <SingIn>
-            {!authUser && (
-              <>
-                <Anchor
-                  onClick={() => setIsVisibleLoginModal(true)}
-                  variant="primary"
-                >
-                  Iniciar sesion
-                </Anchor>
-                <Anchor
-                  onClick={() => router.push("/register")}
-                  variant="primary"
-                >
-                  Registrate
-                </Anchor>
-              </>
-            )}
-            {authUser && (
-              <div
-                className="menu-icon-nav"
-                onClick={() => setOpenRightDrawer(true)}
-              >
-                <MenuOutlined />
-              </div>
-            )}
-          </SingIn>
-        </Header>
+        <Desktop>
+          <DesktopNav />
+        </Desktop>
+        <Tablet>
+          <TabletNav />
+        </Tablet>
         <LayoutMenu>
           <Body isLanding={props.isLanding}>{props.children}</Body>
           {!props.isLanding && <FooterBar />}
@@ -160,7 +119,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: ${(props) => props.theme.basic.blackDarken};
+  
   color: ${(props) => props.theme.basic.white};
   font-size: ${sizes.font.small};
   font-weight: bold;

@@ -1,18 +1,46 @@
-import React, { useState } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, Tablet } from "../../constants";
 import { config } from "../../firebase";
 import { mediaQuery } from "../../constants";
-import { useHistory } from "react-router";
-import { ButtonAnt } from "../../components/form";
+import { Anchor, ButtonAnt } from "../../components/form";
 import { Image } from "../../components/common/Image";
+import { ModalContainer } from "../../components/common/ModalContainer";
+import dynamic from "next/dynamic";
+import { spinLoaderMin } from "../../components/common/loader";
+import { useAuth } from "../../hooks/useAuth";
+
+const Login = dynamic(() => import("../login"), {
+  loading: () => spinLoaderMin(),
+});
+
+const ForgotPassword = dynamic(() => import("../forgot-password"), {
+  loading: () => spinLoaderMin(),
+});
 
 export const HeaderLanding = (props) => {
-  const history = useHistory();
+  const { signOut } = useAuth();
   const [active, setActive] = useState(false);
+  const [authUser] = useGlobal("user");
+  const [isVisibleLoginModal, setIsVisibleLoginModal] = useGlobal(
+    "isVisibleLoginModal"
+  );
+  const [isVisibleForgotPassword] = useGlobal(isVisibleForgotPassword);
+
+  const loginModal = () =>
+    isVisibleLoginModal && !authUser ? (
+      <ModalContainer
+        visible={isVisibleLoginModal && !authUser}
+        onCancel={() => setIsVisibleLoginModal(false)}
+        footer={null}
+      >
+        <Login {...props} />
+      </ModalContainer>
+    ) : null;
 
   return (
     <HeaderLandingContainer>
+      {loginModal()}
       <div className="navbar">
         <div className="logo-container">
           <img
@@ -30,13 +58,23 @@ export const HeaderLanding = (props) => {
             </ul>
           </div>
           <div className="button-container">
-            <ButtonAnt
-              variant="outlined"
-              color="white"
-              onClick={() => props.executeScroll("contact")}
-            >
-              Contáctanos
-            </ButtonAnt>
+            {authUser ? (
+              <Anchor
+                onClick={() => signOut()}
+                variant="secondary"
+                fontSize="18px"
+              >
+                Cerrar Sesión
+              </Anchor>
+            ) : (
+              <Anchor
+                onClick={() => setIsVisibleLoginModal(true)}
+                variant="secondary"
+                fontSize="18px"
+              >
+                Ingresa
+              </Anchor>
+            )}
           </div>
         </Desktop>
         <Tablet>
@@ -147,11 +185,11 @@ const HeaderLandingContainer = styled.section`
   background: conic-gradient(
       from -7.32deg at 50% 50%,
       rgba(255, 255, 255, 0) -26.25deg,
-      #85e4bf 127.5deg,
+      #c4adff 127.5deg,
       rgba(255, 255, 255, 0) 333.75deg,
-      #85e4bf 487.5deg
+      #956dfc 487.5deg
     ),
-    #85be54;
+    #956dfc;
   li {
     list-style: none;
   }
