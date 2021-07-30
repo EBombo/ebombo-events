@@ -1,15 +1,18 @@
 import React from "reactn";
 import styled from "styled-components";
-import {config} from "../../firebase";
-import {mediaQuery} from "../../constants";
+import { config } from "../../firebase";
+import { mediaQuery } from "../../constants";
 
-const WspIcon = () =>
-    <WspIconCss onClick={() => window.open('http://wa.me/51922662007', '_blank')}/>
+const WspIcon = () => (
+  <WspIconCss
+    onClick={() => window.open("http://wa.me/51922662007", "_blank")}
+  />
+);
 
 const WspIconCss = styled.div`
   filter: hue-rotate(45deg);
-  background-image: url(${`${config.storageUrl}/resources/whatsapp-icon.svg`});
-  background-color: ${props => props.theme.basic.blackDarken};
+  background-image: url(${`${config.storageUrl}/resources/wsp-icon.svg`});
+  background-color: ${(props) => props.theme.basic.blackDarken};
   background-size: 60%;
   background-position: center;
   background-repeat: no-repeat;
