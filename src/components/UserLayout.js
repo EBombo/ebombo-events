@@ -1,27 +1,33 @@
-import React, {useGlobal} from "reactn";
+import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import {Layout} from "./index";
-import {Tooltip} from "antd";
-import {MenuOutlined} from "@ant-design/icons";
-import {config} from "../firebase";
-import {mediaQuery, sizes} from "../constants";
-import {ModalContainer} from "./common/ModalContainer";
-import {useAcl} from "../hooks";
-import {RightDrawer} from "./right-drawer/RightDrawer";
-import {Anchor} from "./form";
-import {useRouter} from "next/router";
+import { Layout } from "./index";
+import { Tooltip } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
+import { config } from "../firebase";
+import { mediaQuery, sizes } from "../constants";
+import { ModalContainer } from "./common/ModalContainer";
+import { useAcl } from "../hooks";
+import { RightDrawer } from "./right-drawer/RightDrawer";
+import { Anchor } from "./form";
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import {spinLoaderMin} from "./common/loader";
-import {useAuth} from "../hooks/useAuth";
+import { spinLoaderMin } from "./common/loader";
+import { useAuth } from "../hooks/useAuth";
 
-const PWA = dynamic(() => import("./common/pwa"), {ssr: false});
+const PWA = dynamic(() => import("./common/pwa"), { ssr: false });
 
 const WspIcon = dynamic(() => import("./common/wspIcon"));
 const FooterBar = dynamic(() => import("./FooterBar"));
 
-const Login = dynamic(() => import("../pages/login"), {loading: () => spinLoaderMin()});
-const Verify = dynamic(() => import("../pages/verification"), {loading: () => spinLoaderMin()});
-const ForgotPassword = dynamic(() => import("../pages/forgot-password"), {loading: () => spinLoaderMin()});
+const Login = dynamic(() => import("../pages/login"), {
+  loading: () => spinLoaderMin(),
+});
+const Verify = dynamic(() => import("../pages/verification"), {
+  loading: () => spinLoaderMin(),
+});
+const ForgotPassword = dynamic(() => import("../pages/forgot-password"), {
+  loading: () => spinLoaderMin(),
+});
 
 const UserLayout = props => {
     const {signOut} = useAuth()
@@ -59,61 +65,66 @@ const UserLayout = props => {
         hola comoe stas
     </RightDrawer>;
 
-    return <>
+    return (
+      <>
         {loginModal()}
         {verifiedModalResendEmail()}
         {RightDrawerForm()}
         <Layout>
-            <Header>
-                <HeaderLogo>
-                    <Tooltip title="Go home"
-                             placement="bottom">
-                        <img src={`${config.storageUrl}/resources/${window.location.hostname}.png`}
-                             onClick={() =>
-                                 userAcls.some((acl) => acl.includes("admin"))
-                                     ? router.push("/admin")
-                                     : authUser
-                                     ? router.push("/home")
-                                     : router.push("/")
-                             }
-                             className="logo-dashboard"
-                             alt="Logo dashboard"/>
-                    </Tooltip>
-                    <div className="email">{authUser && authUser.email}</div>
-                </HeaderLogo>
-                <SingIn>
-                    {
-                        !authUser
-                        && <>
-                            <Anchor onClick={() => setIsVisibleLoginModal(true)}
-                                    variant="primary">
-                                Iniciar sesion
-                            </Anchor>
-                            <Anchor onClick={() => router.push("/register")}
-                                    variant="primary">
-                                Registrate
-                            </Anchor>
-                        </>
-                    }
-                    {
-                        authUser &&
-                        <div className="menu-icon-nav"
-                             onClick={() => setOpenRightDrawer(true)}>
-                            <MenuOutlined/>
-                        </div>
-                    }
-                </SingIn>
-            </Header>
-            <LayoutMenu>
-                <Body isLanding={props.isLanding}>
-                    {props.children}
-                </Body>
-                {!props.isLanding && <FooterBar/>}
-                <PWA/>
-                <WspIcon/>
-            </LayoutMenu>
+          <Header>
+            <HeaderLogo>
+              <Tooltip title="Go home" placement="bottom">
+                <img
+                  src={`${config.storageUrl}/resources/icons/icon-72x72.png`}
+                  onClick={() =>
+                    userAcls.some((acl) => acl.includes("admin"))
+                      ? router.push("/admin")
+                      : authUser
+                      ? router.push("/home")
+                      : router.push("/")
+                  }
+                  className="logo-dashboard"
+                  alt="Logo dashboard"
+                />
+              </Tooltip>
+              <div className="email">{authUser && authUser.email}</div>
+            </HeaderLogo>
+            <SingIn>
+              {!authUser && (
+                <>
+                  <Anchor
+                    onClick={() => setIsVisibleLoginModal(true)}
+                    variant="primary"
+                  >
+                    Iniciar sesion
+                  </Anchor>
+                  <Anchor
+                    onClick={() => router.push("/register")}
+                    variant="primary"
+                  >
+                    Registrate
+                  </Anchor>
+                </>
+              )}
+              {authUser && (
+                <div
+                  className="menu-icon-nav"
+                  onClick={() => setOpenRightDrawer(true)}
+                >
+                  <MenuOutlined />
+                </div>
+              )}
+            </SingIn>
+          </Header>
+          <LayoutMenu>
+            <Body isLanding={props.isLanding}>{props.children}</Body>
+            {!props.isLanding && <FooterBar />}
+            <PWA />
+            <WspIcon />
+          </LayoutMenu>
         </Layout>
-    </>;
+      </>
+    );
 };
 
 const SingIn = styled.div`
