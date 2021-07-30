@@ -1,4 +1,4 @@
-import {createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -8,11 +8,11 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    background-image: url(${props => props.background});
+    background-image: url(${(props) => props.background});
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    background-color: ${props => props.theme.basic.blackDarken};
+    background-color: ${(props) => props.theme.basic.blackDarken};
     background-blend-mode: darken;
     /*------------efectos---------------*/
     @keyframes throb {
@@ -87,7 +87,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     background: ${(props) => props.theme.basic.blackDarken};
-    font-family: 'Encode Sans', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     overflow: auto !important;
   }
 
