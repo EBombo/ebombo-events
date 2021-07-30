@@ -5,12 +5,14 @@ import { useForm } from "react-hook-form";
 import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { object, string } from "yup";
+import { useRouter } from "next/router";
 
 const Login = (props) => {
-  const validationSchema = object().shape({
-    email: string().required().email(),
-    password: string().required(),
-  });
+    const router = useRouter();
+    const validationSchema = object().shape({
+      email: string().required().email(),
+      password: string().required(),
+    });
 
   const { ButtonsProviders, signIn } = useAuth();
   const [isLoadingUser] = useGlobal("isLoadingUser");
@@ -42,12 +44,6 @@ const Login = (props) => {
           variant="primary"
           placeholder="password"
         />
-        <Anchor
-          onClick={() => setIsVisibleForgotPassword(true)}
-          variant="primary"
-        >
-          Recuperar clave
-        </Anchor>
         <ButtonAnt
           loading={isLoadingUser}
           disabled={isLoadingUser || isLoadingCreateUser}
@@ -62,6 +58,22 @@ const Login = (props) => {
           Iniciar sesión
         </ButtonAnt>
       </form>
+      <Anchor
+        onClick={() => setIsVisibleForgotPassword(true)}
+        variant="primary"
+        display="flex"
+        margin="10px auto"
+      >
+        Recuperar clave
+      </Anchor>
+      <Anchor
+        onClick={() => router.push("/register")}
+        variant="primary"
+        display="flex"
+        margin="10px auto"
+      >
+        Registrate
+      </Anchor>
       <Divider>o</Divider>
       <ButtonsProviders google />
     </LoginContainer>
