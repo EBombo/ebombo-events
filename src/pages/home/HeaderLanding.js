@@ -1,4 +1,4 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useGlobal, useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { Desktop, Tablet } from "../../constants";
 import { config } from "../../firebase";
@@ -9,6 +9,7 @@ import { ModalContainer } from "../../components/common/ModalContainer";
 import dynamic from "next/dynamic";
 import { spinLoaderMin } from "../../components/common/loader";
 import { useAuth } from "../../hooks/useAuth";
+import { useRouter } from "next/router";
 
 const Login = dynamic(() => import("../login"), {
   loading: () => spinLoaderMin(),
@@ -19,6 +20,7 @@ const ForgotPassword = dynamic(() => import("../forgot-password"), {
 });
 
 export const HeaderLanding = (props) => {
+  const router = useRouter();
   const { signOut } = useAuth();
   const [active, setActive] = useState(false);
   const [authUser] = useGlobal("user");
@@ -26,6 +28,10 @@ export const HeaderLanding = (props) => {
     "isVisibleLoginModal"
   );
   const [isVisibleForgotPassword] = useGlobal(isVisibleForgotPassword);
+
+  useEffect(() => {
+    if (authUser) router.push("/home");
+  }, [authUser]);
 
   const loginModal = () =>
     isVisibleLoginModal && !authUser ? (
@@ -190,6 +196,7 @@ const HeaderLandingContainer = styled.section`
       #956dfc 487.5deg
     ),
     #956dfc;
+
   li {
     list-style: none;
   }
@@ -204,6 +211,7 @@ const HeaderLandingContainer = styled.section`
         display: flex;
         align-items: center;
         margin: 0;
+
         li {
           padding: 0 1rem;
           color: ${(props) => props.theme.basic.white};
@@ -279,10 +287,12 @@ const HeaderLandingContainer = styled.section`
         line-height: 35px;
         font-weight: normal;
         color: ${(props) => props.theme.basic.secondary};
+
         span {
           font-weight: bold;
         }
       }
+
       .button-container {
         margin: 1rem auto;
       }
@@ -298,17 +308,21 @@ const HeaderLandingContainer = styled.section`
     .header-content {
       flex-direction: row;
       padding: 2rem;
+
       .first-content {
         width: 50%;
+
         .title {
           font-size: 39px;
           line-height: 49px;
           color: ${(props) => props.theme.basic.white};
           text-align: left;
+
           span {
             font-weight: bold;
           }
         }
+
         .button-container {
           margin: 1rem 0;
         }

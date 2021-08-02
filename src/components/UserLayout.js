@@ -80,8 +80,13 @@ const UserLayout = (props) => {
           <TabletNav />
         </Tablet>
         <LayoutMenu>
-          <Body isLanding={props.isLanding}>{props.children}</Body>
-          {!props.isLanding && <FooterBar />}
+          <Desktop>
+            <Body isLanding>{props.children}</Body>
+          </Desktop>
+          <Tablet>
+            <Body isLanding={props.isLanding}>{props.children}</Body>
+            {!props.isLanding && <FooterBar />}
+          </Tablet>
           <PWA />
           <WspIcon />
         </LayoutMenu>
@@ -119,7 +124,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   width: 100%;
-  
+
   color: ${(props) => props.theme.basic.white};
   font-size: ${sizes.font.small};
   font-weight: bold;
