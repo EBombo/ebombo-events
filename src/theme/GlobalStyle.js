@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    background-color: ${(props) => props.theme.basic.blackDarken};
+    background-color: ${(props) => props.theme.basic.gray};
     background-blend-mode: darken;
     /*------------efectos---------------*/
     @keyframes throb {
@@ -79,14 +79,14 @@ export const GlobalStyle = createGlobalStyle`
   html {
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-    background: ${(props) => props.theme.basic.blackDarken};
+    background: ${(props) => props.theme.basic.gray};
   }
 
   body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: ${(props) => props.theme.basic.blackDarken};
+    background: ${(props) => props.theme.basic.gray};
     font-family: 'Quicksand', sans-serif;
     overflow: auto !important;
   }

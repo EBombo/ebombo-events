@@ -23,7 +23,7 @@ export const DesktopNav = (props) => {
             userAcls.some((acl) => acl.includes("admin"))
               ? router.push("/admin")
               : authUser
-              ? router.push("/home")
+              ? router.push("/library")
               : router.push("/")
           }
           height="23px"

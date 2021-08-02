@@ -37,7 +37,7 @@ export const Register = (props) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (authUser) return router.push("/home");
+    if (authUser) return router.push("/library");
   }, [authUser]);
 
   const dialCode = (countryCode) => {

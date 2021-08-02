@@ -174,7 +174,6 @@ const Body = styled.section`
   }
 
   flex: 1 1 auto;
-  background-color: ${(props) => props.theme.basic.black};
 `;
 
 export default UserLayout;

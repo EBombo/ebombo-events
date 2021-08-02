@@ -86,7 +86,7 @@ export const SpecialShows = (props) => {
       <Tablet>
         <Carousel
           components={chunk(
-            defaultTo(get(props, "home.specialShows"), []),
+            defaultTo(get(props, "events.specialShows"), []),
             2
           ).map((arrShows) => carouselContent(arrShows))}
         />

@@ -152,8 +152,8 @@ export const Games = (props) => {
             components={chunk(
               defaultTo(
                 active === "integration"
-                  ? get(props, "home.integrationGames")
-                  : get(props, "home.esportsGames"),
+                  ? get(props, "events.integrationGames")
+                  : get(props, "events.esportsGames"),
                 []
               ),
               2

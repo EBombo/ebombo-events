@@ -30,7 +30,7 @@ export const HeaderLanding = (props) => {
   const [isVisibleForgotPassword] = useGlobal(isVisibleForgotPassword);
 
   useEffect(() => {
-    if (authUser) router.push("/home");
+    if (authUser) router.push("/library");
   }, [authUser]);
 
   const loginModal = () =>

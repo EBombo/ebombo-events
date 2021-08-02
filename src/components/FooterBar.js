@@ -15,8 +15,8 @@ const FooterBar = props => {
 
     const userLinks = [
         {
-            name: "inicio",
-            url: "/home",
+            name: "Libreria",
+            url: "/library",
             type: <HomeOutlined/>
         },
         {
