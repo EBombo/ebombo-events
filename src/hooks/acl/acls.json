@@ -1,4 +1,11 @@
 {
+  "common": {
+    "label": "Acceso común",
+    "items": {
+      "/library": "Libreria",
+      "/reports": "Reportes"
+    }
+  },
   "adminUsers": {
     "label": "Formulario de usuarios",
     "items": {

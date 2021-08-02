@@ -15,14 +15,17 @@ import { DesktopNav } from "./nav/DesktopNav";
 const PWA = dynamic(() => import("./common/pwa"), { ssr: false });
 
 const WspIcon = dynamic(() => import("./common/wspIcon"));
+
 const FooterBar = dynamic(() => import("./FooterBar"));
 
 const Login = dynamic(() => import("../pages/login"), {
   loading: () => spinLoaderMin(),
 });
+
 const Verify = dynamic(() => import("../pages/verification"), {
   loading: () => spinLoaderMin(),
 });
+
 const ForgotPassword = dynamic(() => import("../pages/forgot-password"), {
   loading: () => spinLoaderMin(),
 });
