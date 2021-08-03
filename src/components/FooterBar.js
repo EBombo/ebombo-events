@@ -32,8 +32,8 @@ const FooterBar = (props) => {
           >
             <Image
               src={userLink.src}
-              width={"auto"}
-              height={"35px"}
+              width="auto"
+              height="30px"
               className="icon"
             />
             <span className="label">{userLink.name}</span>
@@ -46,7 +46,7 @@ const FooterBar = (props) => {
 
 const ContainerFooter = styled.section`
   position: fixed;
-  height: 60px;
+  height: 50px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@ const ContainerFooter = styled.section`
   //z-index: 999;
 
   .footer-items {
-    height: 60px;
+    height: 50px;
     display: grid;
     width: 100%;
     background: ${(props) => props.theme.basic.secondary};

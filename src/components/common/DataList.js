@@ -34,7 +34,7 @@ export const services = [
 
 export const menus = [
   {
-    name: "Libreria",
+    name: "Librería",
     url: "/library",
     src: `${config.storageUrl}/resources/footer/library-icon.svg`,
   },
