@@ -1,5 +1,7 @@
 import { darkTheme } from "../../theme";
 import { config } from "../../firebase";
+import { BarChartOutlined, HomeOutlined } from "@ant-design/icons";
+import React from "reactn";
 
 export const userLinks = [];
 
@@ -30,26 +32,21 @@ export const services = [
   },
 ];
 
-export const adminMenus = [
+export const menus = [
   {
-    value: "home",
-    url: "/home",
+    name: "Libreria",
+    url: "/library",
+    type: <HomeOutlined />,
   },
   {
-    value: "users",
-    url: "/admin/users",
+    name: "Crear",
+    url: "/games/new",
+    type: <BarChartOutlined />,
   },
   {
-    value: "manifests",
-    url: "/admin/settings/manifests",
-  },
-  {
-    value: "templates",
-    url: "/admin/settings/templates",
-  },
-  {
-    value: "seo",
-    url: "/admin/seo",
+    name: "Reportes",
+    url: "/reports",
+    type: <BarChartOutlined />,
   },
 ];
 

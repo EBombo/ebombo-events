@@ -4,19 +4,19 @@ import { Desktop, Tablet } from "../../constants";
 import { TabletLibrary } from "./TabletLibrary";
 import { DesktopLibrary } from "./DesktopLibrary";
 
-export const Library = (props) => {
+export const LibraryContainer = (props) => {
   return (
-    <LibraryContainer>
+    <LibraryContainerCss>
       <Desktop>
         <DesktopLibrary {...props} />
       </Desktop>
       <Tablet>
         <TabletLibrary {...props} />
       </Tablet>
-    </LibraryContainer>
+    </LibraryContainerCss>
   );
 };
 
-const LibraryContainer = styled.div`
+const LibraryContainerCss = styled.div`
   width: 100%;
 `;
