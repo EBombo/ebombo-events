@@ -66,6 +66,7 @@ const MyApp = ({ Component, pageProps }) => {
           href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap"
           rel="stylesheet"
         />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet" />
         <link rel="manifest" href={`${config.serverUrl}/api/manifest`} />
       </Head>
       <ErrorBoundary FallbackComponent={ErrorFallback}>

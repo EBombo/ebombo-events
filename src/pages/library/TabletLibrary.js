@@ -1,25 +1,130 @@
-import React from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
+import { Image } from "../../components/common/Image";
+import { config } from "../../firebase";
+import { useRouter } from "next/router";
+import isEmpty from "lodash/isEmpty";
+import get from "lodash/get";
+import { ButtonAnt } from "../../components/form";
+import { Tooltip } from "antd";
+import { darkTheme } from "../../theme";
 
 export const TabletLibrary = (props) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(router.query);
+  }, []);
 
   return (
     <TabletLibraryContainer>
-      <div className="subtitle">Librería</div>
+      {isEmpty(router.query) && (
+        <>
+          <div className="subtitle">Librería</div>
+          <div className="main-content">
+            <div className="recents">Recientes</div>
+            <div className="most-recent"></div>
+            <div
+              className="item games"
+              onClick={() =>
+                router.push({ path: "library", query: { item: "games" } })
+              }
+            >
+              <Image
+                src={`${config.storageUrl}/resources/purple-puzzle.svg`}
+                width="20px"
+                height="25px"
+                className="icon"
+                margin="0 20px 0 0"
+              />
+              <div className="name">Mis juegos</div>
+            </div>
+            <div
+              className="item favorites"
+              onClick={() =>
+                router.push({ path: "library", query: { item: "favorites" } })
+              }
+            >
+              <Image
+                src={`${config.storageUrl}/resources/purple-star.svg`}
+                width="20px"
+                height="25px"
+                className="icon"
+                margin="0 20px 0 0"
+              />
+              <div className="name">Favoritos</div>
+            </div>
+          </div>
+        </>
+      )}
+      {get(router, "query.item", "") === "games" && (
+        <>
+          <div className="subtitle">
+            Mis Juegos
+            <Tooltip
+              placement="bottomLeft"
+              trigger="click"
+              title={
+                <ToolTipContent>
+                  <div className="option" onClick={() => router.push("/")}>
+                    <Image
+                      src={`${config.storageUrl}/resources/purple-puzzle.svg`}
+                      width="20px"
+                      height="25px"
+                      className="icon"
+                      margin="0 20px 0 0"
+                      filter="grayscale(100%)"
+                    />
+                    Crear juego
+                  </div>
+                  <div className="option" onClick={() => router.push("/")}>
+                    <Image
+                      src={`${config.storageUrl}/resources/purple-star.svg`}
+                      width="20px"
+                      height="25px"
+                      className="icon"
+                      margin="0 20px 0 0"
+                      filter="grayscale(100%)"
+                    />
+                    Crear folder
+                  </div>
+                </ToolTipContent>
+              }
+              color={darkTheme.basic.whiteLight}
+            >
+              <ButtonAnt variant="contained" color="secondary">
+                Crear
+                <Image
+                  src={`${config.storageUrl}/resources/plus-icon.svg`}
+                  width="20px"
+                  height="25px"
+                  className="icon"
+                  margin="0 0 0 5px"
+                />
+              </ButtonAnt>
+            </Tooltip>
+          </div>
+          <div className="main-content">
+            <div className="item-subtitle">Folder (0)</div>
+            <div className="empty-message">No cuentas con folders</div>
 
-      <div className="main-content">
-        <div className="recents">Recientes</div>
+            <div className="item-subtitle">Juegos (0)</div>
 
-      </div>
+            <div className="empty-message">No cuentas con juegos</div>
+          </div>
+        </>
+      )}
     </TabletLibraryContainer>
   );
 };
 
 const TabletLibraryContainer = styled.div`
   width: 100%;
-  min-height: 100vh;
 
   .subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
     padding: 0.5rem;
     color: ${(props) => props.theme.basic.white};
@@ -28,5 +133,53 @@ const TabletLibraryContainer = styled.div`
 
   .main-content {
     padding: 1rem;
+
+    .item {
+      padding: 0 1rem;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 42px;
+      background: ${(props) => props.theme.basic.whiteLight};
+      border: 0.5px solid ${(props) => props.theme.basic.secondaryLight};
+      box-sizing: border-box;
+    }
+
+    .games {
+      border-radius: 3px 3px 0px 0px;
+    }
+
+    .favorites {
+      border-radius: 0px 0px 3px 3px;
+    }
+
+    .item-subtitle {
+      font-family: "Lato", sans-serif;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 18px;
+    }
+
+    .empty-message {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 16px;
+      padding: 1rem;
+    }
+  }
+`;
+
+const ToolTipContent = styled.div`
+  padding: 0.5rem;
+
+  .option {
+    display: flex;
+    align-items: center;
+    color: ${(props) => props.theme.basic.grayLight};
+    font-size: 13px;
+    line-height: 16px;
   }
 `;

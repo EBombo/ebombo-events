@@ -21,7 +21,7 @@ export const Menu = (props) => {
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-              router.push(`/users/${get(authUser, "id")}/verify-account`);
+              router.push(`/`);
             }}
           >
             <span className="item">Ajustes del Perfil</span>
@@ -29,7 +29,7 @@ export const Menu = (props) => {
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-              router.push(`/users/${get(authUser, "id")}/verify-account`);
+              router.push(`/`);
             }}
           >
             <span className="item">Ajustes de la Empresa</span>
@@ -37,7 +37,7 @@ export const Menu = (props) => {
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-              router.push(`/users/${get(authUser, "id")}/verify-account`);
+              router.push(`/`);
             }}
           >
             <span className="item">Facturación</span>
@@ -45,7 +45,7 @@ export const Menu = (props) => {
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-              router.push(`/users/${get(authUser, "id")}/verify-account`);
+              router.push(`/`);
             }}
           >
             <span className="item">Informe de Uso</span>
@@ -53,7 +53,7 @@ export const Menu = (props) => {
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-              router.push(`/users/${get(authUser, "id")}/verify-account`);
+              router.push(`/`);
             }}
           >
             <span className="item">Plan</span>
@@ -62,7 +62,7 @@ export const Menu = (props) => {
             logout
             onClick={() => {
               setOpenRightDrawer(false);
-              router.push(`/users/${get(authUser, "id")}/verify-account`);
+              router.push(`/`);
             }}
           >
             <span className="item">Cerrar Sesión</span>
