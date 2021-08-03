@@ -1,105 +1,52 @@
-import React, {useGlobal} from "reactn";
+import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import {mediaQuery} from "../constants";
-import {useRouter} from "next/router";
-import {BarChartOutlined, HomeOutlined, PoweroffOutlined, UserOutlined} from "@ant-design/icons";
-import {useAcl} from "../hooks";
-import {useAuth} from "../hooks/useAuth";
+import { mediaQuery, sizes } from "../constants";
+import { useRouter } from "next/router";
+import { useAcl } from "../hooks";
+import { menus } from "./common/DataList";
+import { Image } from "./common/Image";
 
-const FooterBar = props => {
-    const {signOut} = useAuth();
-    const router = useRouter();
-    const {aclMenus} = useAcl();
-    const [authUser,] = useGlobal("user");
-    const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
+const FooterBar = (props) => {
+  const router = useRouter();
+  const { aclMenus } = useAcl();
+  const [authUser] = useGlobal("user");
+  const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
 
-    const userLinks = [
-        {
-            name: "Libreria",
-            url: "/library",
-            type: <HomeOutlined/>
-        },
-        {
-            name: "Reporte",
-            url: "/reports",
-            type: <BarChartOutlined/>
-        },
-        {
-            name: "Profile",
-            url: `/users/${authUser?.id}`,
-            type: <UserOutlined/>
-        }
-    ];
+  const getCurrentMenu = () => aclMenus({ menus: menus });
 
-    const adminLinks = [
-        {
-            name: "Inicio",
-            url: "/home",
-            type: <HomeOutlined/>
-        },
-        {
-            name: "usuarios",
-            url: "/admin/users",
-            type: <BarChartOutlined/>
-        },
-        {
-            name: "manifest",
-            url: "/admin/settings/manifests",
-            type: <BarChartOutlined/>
-        },
-        {
-            name: "templates",
-            url: "/admin/settings/templates",
-            type: <BarChartOutlined/>
-        },
-        {
-            name: "SEO",
-            url: `/admin/seo`,
-            type: <BarChartOutlined/>
-        }
-    ];
+  const isSelected = (path) =>
+    path === window.location.pathname ? "item item-selected" : "item";
 
-    const getCurrentMenu = () =>
-        window.location.pathname.includes("/admin")
-            ? [adminLinks[0]].concat(aclMenus({menus: adminLinks}))
-            : userLinks;
-
-    const isSelected = path => path === window.location.pathname ? "item item-selected" : "item";
-
-    return <ContainerFooter authUser={authUser}
-                            itemLenght={getCurrentMenu().length + 1}>
-        <div className="footer-items">
-            {
-                getCurrentMenu()
-                    .map(userLink =>
-                        <div className={isSelected(userLink.url)}
-                             key={`key-menu-user-link-${userLink.url}`}
-                             onClick={() =>
-                                 authUser
-                                     ? router.push(userLink.url)
-                                     : setIsVisibleLoginModal(true)
-                             }>
-                            {userLink.type}
-                            <span className="label">{userLink.name}</span>
-                        </div>
-                    )
+  return (
+    <ContainerFooter authUser={authUser} itemLenght={getCurrentMenu().length}>
+      <div className="footer-items">
+        {getCurrentMenu().map((userLink) => (
+          <div
+            className={isSelected(userLink.url)}
+            key={`key-menu-user-link-${userLink.url}`}
+            onClick={() =>
+              authUser
+                ? router.push(userLink.url)
+                : setIsVisibleLoginModal(true)
             }
-            {
-                authUser
-                && <div className="item"
-                        onClick={async () => await signOut()}>
-                    <PoweroffOutlined/>
-                    <span className="label">Salir</span>
-                </div>
-            }
-        </div>
-    </ContainerFooter>;
+          >
+            <Image
+              src={userLink.src}
+              width="auto"
+              height="30px"
+              className="icon"
+            />
+            <span className="label">{userLink.name}</span>
+          </div>
+        ))}
+      </div>
+    </ContainerFooter>
+  );
 };
 
 const ContainerFooter = styled.section`
   position: fixed;
-  background: ${props => props.theme.basic.blackDarken};
-  height: 60px;
+  height: 50px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -110,12 +57,15 @@ const ContainerFooter = styled.section`
   //z-index: 999;
 
   .footer-items {
-    height: 60px;
+    height: 50px;
     display: grid;
     width: 100%;
-    background: ${props => props.theme.basic.blackDarken};
+    background: ${(props) => props.theme.basic.secondary};
     direction: rtl;
-    grid-template-columns: repeat(${props => props.authUser ? props.itemLenght : props.itemLenght - 1}, 1fr);
+    grid-template-columns: repeat(
+      ${(props) => (props.authUser ? props.itemLenght : props.itemLenght - 1)},
+      1fr
+    );
 
     .item {
       position: relative;
@@ -123,29 +73,27 @@ const ContainerFooter = styled.section`
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: ${props => props.theme.basic.white};
+      color: ${(props) => props.theme.basic.white};
       cursor: pointer;
 
-      .anticon {
-        font-size: 20px;
-      }
-
       .label {
-        font-size: 0.6rem;
+        font-size: ${sizes.font.small};
         text-align: center;
-        margin-top: 5px;
       }
     }
 
     .item-selected {
       position: relative;
-      background: ${props => props.theme.basic.primary};
-      color: ${props => props.theme.basic.white};
+      color: ${(props) => props.theme.basic.primaryLight};
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+
+      .icon {
+        filter: opacity(0.5);
+      }
     }
 
     .notification {
@@ -155,7 +103,7 @@ const ContainerFooter = styled.section`
 
       .img-content:after {
         content: "";
-        background: ${props => props.theme.basic.danger};
+        background: ${(props) => props.theme.basic.danger};
         width: 15px;
         height: 15px;
         position: absolute;
@@ -167,7 +115,6 @@ const ContainerFooter = styled.section`
   }
 
   ${mediaQuery.afterTablet} {
-    background-color: ${props => props.theme.basic.blackDarken};
     width: 61px;
     height: 100vh;
     padding-top: 50px;
@@ -185,7 +132,7 @@ const ContainerFooter = styled.section`
         height: 65px;
 
         :hover {
-          background-color: ${props => props.theme.basic.blackLighten};
+          background-color: ${(props) => props.theme.basic.blackLighten};
         }
       }
     }
