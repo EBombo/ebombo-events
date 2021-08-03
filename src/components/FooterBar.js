@@ -12,7 +12,8 @@ const FooterBar = (props) => {
   const [authUser] = useGlobal("user");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
 
-  const getCurrentMenu = () => aclMenus({ menus: menus });
+  const getCurrentMenu = () =>
+    aclMenus({ menus: menus.filter((menu) => !menu.isAdmin) });
 
   const isSelected = (path) =>
     path === window.location.pathname ? "item item-selected" : "item";

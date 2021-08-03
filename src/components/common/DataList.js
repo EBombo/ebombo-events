@@ -1,6 +1,5 @@
 import { darkTheme } from "../../theme";
 import { config } from "../../firebase";
-import { BarChartOutlined, HomeOutlined } from "@ant-design/icons";
 import React from "reactn";
 
 export const userLinks = [];
@@ -51,11 +50,13 @@ export const menus = [
   {
     name: "Lista de usuarios",
     url: "/admin/users",
+    isAdmin: true,
     src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
   {
     name: "Lista de juegos",
     url: "/admin/games",
+    isAdmin: true,
     src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
 ];
