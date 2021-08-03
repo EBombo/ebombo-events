@@ -30,7 +30,12 @@ const FooterBar = (props) => {
                 : setIsVisibleLoginModal(true)
             }
           >
-            <Image src={userLink.src} width={"auto"} height={"35px"} />
+            <Image
+              src={userLink.src}
+              width={"auto"}
+              height={"35px"}
+              className="icon"
+            />
             <span className="label">{userLink.name}</span>
           </div>
         ))}
@@ -71,10 +76,6 @@ const ContainerFooter = styled.section`
       color: ${(props) => props.theme.basic.white};
       cursor: pointer;
 
-      .anticon {
-        font-size: 20px;
-      }
-
       .label {
         font-size: ${sizes.font.small};
         text-align: center;
@@ -89,6 +90,10 @@ const ContainerFooter = styled.section`
       align-items: center;
       justify-content: center;
       cursor: pointer;
+
+      .icon {
+        filter: opacity(0.5);
+      }
     }
 
     .notification {
