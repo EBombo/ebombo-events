@@ -102,7 +102,7 @@ export const WithConfiguration = (props) => {
     initializeConfig();
     const unsubscribeVersion = fetchVersion();
     !get(location, "country_code") && fetchCountryCode();
-    //setIsLoadingConfig(false);
+    setIsLoadingConfig(false);
 
     return () => unsubscribeVersion();
   }, []);
