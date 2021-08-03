@@ -1,9 +1,10 @@
 import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import { mediaQuery } from "../constants";
+import { mediaQuery, sizes } from "../constants";
 import { useRouter } from "next/router";
 import { useAcl } from "../hooks";
 import { menus } from "./common/DataList";
+import { Image } from "./common/Image";
 
 const FooterBar = (props) => {
   const router = useRouter();
@@ -29,7 +30,7 @@ const FooterBar = (props) => {
                 : setIsVisibleLoginModal(true)
             }
           >
-            {userLink.type}
+            <Image src={userLink.src} width={"auto"} height={"35px"} />
             <span className="label">{userLink.name}</span>
           </div>
         ))}
@@ -54,7 +55,7 @@ const ContainerFooter = styled.section`
     height: 60px;
     display: grid;
     width: 100%;
-    background: ${(props) => props.theme.basic.primaryDark};
+    background: ${(props) => props.theme.basic.secondary};
     direction: rtl;
     grid-template-columns: repeat(
       ${(props) => (props.authUser ? props.itemLenght : props.itemLenght - 1)},
@@ -75,16 +76,14 @@ const ContainerFooter = styled.section`
       }
 
       .label {
-        font-size: 0.6rem;
+        font-size: ${sizes.font.small};
         text-align: center;
-        margin-top: 5px;
       }
     }
 
     .item-selected {
       position: relative;
-      background: ${(props) => props.theme.basic.primary};
-      color: ${(props) => props.theme.basic.white};
+      color: ${(props) => props.theme.basic.primaryLight};
       display: flex;
       flex-direction: column;
       align-items: center;

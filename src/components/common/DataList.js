@@ -36,17 +36,17 @@ export const menus = [
   {
     name: "Libreria",
     url: "/library",
-    type: <HomeOutlined />,
+    src: `${config.storageUrl}/resources/footer/library-icon.svg`,
   },
   {
     name: "Crear",
     url: "/games/new",
-    type: <BarChartOutlined />,
+    src: `${config.storageUrl}/resources/footer/create-icon.svg`,
   },
   {
     name: "Reportes",
     url: "/reports",
-    type: <BarChartOutlined />,
+    src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
 ];
 
