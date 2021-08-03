@@ -1,7 +1,7 @@
 import React from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../components/common/ModalContainer";
-import { Desktop, Tablet } from "../../constants";
+import { Desktop, Tablet, mediaQuery } from "../../constants";
 import { ButtonAnt, Input } from "../../components/form";
 import { darkTheme } from "../../theme";
 
@@ -24,6 +24,14 @@ export const ModalNewFolder = (props) => {
           <div className="subtitle">Nombre</div>
           <form action="">
             <Input variant="clear" placeholder="Folder sin nombre" />
+            <div className="buttons-container">
+              <ButtonAnt variant="contained" color="gray" size="big">
+                Cerrar
+              </ButtonAnt>
+              <ButtonAnt variant="contained" color="primary" size="big">
+                Crear
+              </ButtonAnt>
+            </div>
           </form>
         </Desktop>
         <Tablet>
@@ -57,12 +65,19 @@ const NewFolderContainer = styled.div`
     font-size: 15px;
     line-height: 18px;
     margin-bottom: 0.5rem;
-    color:${props => props.theme.basic.grayLight};
+    color: ${(props) => props.theme.basic.grayLight};
   }
 
   .buttons-container {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+  }
+
+  ${mediaQuery.afterTablet} {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: left;
   }
 `;
