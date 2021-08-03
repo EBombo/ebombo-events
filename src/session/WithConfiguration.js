@@ -15,7 +15,7 @@ import moment from "moment";
 import { setLocale } from "yup";
 import { yup } from "../config";
 import { register } from "next-offline/runtime";
-import { spinLoader, SpinLoaderInit } from "../components/common/loader";
+import { spinLoader } from "../components/common/loader";
 import dynamic from "next/dynamic";
 
 const UpdateVersion = dynamic(
@@ -102,7 +102,7 @@ export const WithConfiguration = (props) => {
     initializeConfig();
     const unsubscribeVersion = fetchVersion();
     !get(location, "country_code") && fetchCountryCode();
-    setIsLoadingConfig(false);
+    //setIsLoadingConfig(false);
 
     return () => unsubscribeVersion();
   }, []);
@@ -117,7 +117,7 @@ export const WithConfiguration = (props) => {
 
   return version === get(settings, "version", version) ? (
     isLoadingConfig ? (
-      <SpinLoaderInit />
+      spinLoader()
     ) : (
       props.children
     )

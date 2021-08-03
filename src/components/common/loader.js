@@ -13,12 +13,6 @@ export const spinLoader = () => (
   </SpinLoader>
 );
 
-export const SpinLoaderInit = () => (
-  <SpinLoader>
-    <Spin indicator={antIcon} spinning={true} className="spin-version" />
-  </SpinLoader>
-);
-
 export const spinLoaderMin = () => (
   <SpinLoaderMin>
     <Spin indicator={antIcon} spinning={true} className="spin-version" />
