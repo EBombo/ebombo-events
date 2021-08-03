@@ -7,10 +7,10 @@ export const ModalContainer = (props) =>
     <ModalContainerCss {...props}>{props.children}</ModalContainerCss>;
 
 const ModalContainerCss = styled(Modal)`
-  top: 10px;
+  top: ${props => props.top ? props.top : "10px"};
 
   ${mediaQuery.afterTablet} {
-    top: 50px;
+    top: ${props => props.top ? props.top : "50px"};
     ${props => props.width ? `width:${props.width}!important;` : ""}
   }
 
@@ -24,7 +24,7 @@ const ModalContainerCss = styled(Modal)`
   }
 
   .ant-modal-body {
-    padding: 45px 24px 24px 24px;
+    padding: ${props => props.padding ? props.padding : "45px 24px 24px 24px"};
     background: ${(props) => props.background || props.theme.basic.blackDarken};
     color: ${(props) => props.color || props.theme.basic.white};
   }

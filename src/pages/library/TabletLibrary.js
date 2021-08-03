@@ -8,8 +8,11 @@ import get from "lodash/get";
 import { ButtonAnt } from "../../components/form";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
+import { ModalNewFolder } from "./ModalNewFolder";
 
 export const TabletLibrary = (props) => {
+  const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
+  const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,6 +21,12 @@ export const TabletLibrary = (props) => {
 
   return (
     <TabletLibraryContainer>
+      {isVisibleModalFolder && (
+        <ModalNewFolder
+          isVisibleModalFolder={isVisibleModalFolder}
+          setIsVisibleModalFolder={setIsVisibleModalFolder}
+        />
+      )}
       {isEmpty(router.query) && (
         <>
           <div className="subtitle">Librería</div>
@@ -66,7 +75,10 @@ export const TabletLibrary = (props) => {
               trigger="click"
               title={
                 <ToolTipContent>
-                  <div className="option" onClick={() => router.push("/")}>
+                  <div
+                    className="option"
+                    onClick={() => setIsVisibleModalGame(true)}
+                  >
                     <Image
                       src={`${config.storageUrl}/resources/purple-puzzle.svg`}
                       width="20px"
@@ -77,7 +89,10 @@ export const TabletLibrary = (props) => {
                     />
                     Crear juego
                   </div>
-                  <div className="option" onClick={() => router.push("/")}>
+                  <div
+                    className="option"
+                    onClick={() => setIsVisibleModalFolder(true)}
+                  >
                     <Image
                       src={`${config.storageUrl}/resources/purple-star.svg`}
                       width="20px"
