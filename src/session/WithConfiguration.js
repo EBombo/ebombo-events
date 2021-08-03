@@ -15,7 +15,7 @@ import moment from "moment";
 import { setLocale } from "yup";
 import { yup } from "../config";
 import { register } from "next-offline/runtime";
-import { spinLoader } from "../components/common/loader";
+import { spinLoader, SpinLoaderInit } from "../components/common/loader";
 import dynamic from "next/dynamic";
 
 const UpdateVersion = dynamic(
@@ -117,7 +117,7 @@ export const WithConfiguration = (props) => {
 
   return version === get(settings, "version", version) ? (
     isLoadingConfig ? (
-      <spinLoader />
+      <SpinLoaderInit />
     ) : (
       props.children
     )
