@@ -48,6 +48,16 @@ export const menus = [
     url: "/reports",
     src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
+  {
+    name: "Lista de usuarios",
+    url: "/admin/users",
+    src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
+  },
+  {
+    name: "Lista de juegos",
+    url: "/admin/games",
+    src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
+  },
 ];
 
 export const emailTemplates = [

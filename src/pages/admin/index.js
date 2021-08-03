@@ -27,7 +27,9 @@ export const AdminPage = () => {
 
 const WelcomeContainer = styled.div`
   width: 100%;
-  color: ${(props) => props.theme.basic.white};
+  max-width: 300px;
+  margin: auto;
+  color: ${(props) => props.theme.basic.black};
 
   .title {
     margin: 1rem 0;
@@ -48,10 +50,10 @@ const WelcomeContainer = styled.div`
       cursor: pointer;
       list-style-position: inside;
       font-size: ${sizes.font.normal};
-      color: ${(props) => props.theme.basic.white};
+      color: ${(props) => props.theme.basic.primary};
 
       span {
-        color: ${(props) => props.theme.basic.white};
+        color: ${(props) => props.theme.basic.primary};
       }
     }
   }

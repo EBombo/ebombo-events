@@ -28,5 +28,14 @@
       "/admin/seo": "Edicion de SEO",
       "/admin/seo/[hostId]": "Edicion de SEO (rutas)"
     }
+  },
+  "adminGames": {
+    "label": "Formulario de juegos",
+    "items": {
+      "/admin/games": "Lista de juegos",
+      "/admin/games/[gameId]": "Formulario de edicion de juego",
+      "/admin/games/new": "Permitir crear juego",
+      "/admin/games/#edit": "Permitir editar juego"
+    }
   }
 }
