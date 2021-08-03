@@ -2,12 +2,14 @@ import React from "reactn";
 import styled from "styled-components";
 
 export const TabletLibrary = (props) => {
+
   return (
     <TabletLibraryContainer>
       <div className="subtitle">Librería</div>
 
       <div className="main-content">
         <div className="recents">Recientes</div>
+
       </div>
     </TabletLibraryContainer>
   );

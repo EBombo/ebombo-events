@@ -1,13 +1,29 @@
-import React, {useGlobal} from "reactn";
-import {DrawerContainer} from "../common/DrawerContainer";
+import React, { useGlobal, useState } from "reactn";
+import { DrawerContainer } from "../common/DrawerContainer";
+import { Menu } from "./Menu";
 
 export const RightDrawer = (props) => {
-    const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
+  const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
+  const [tab, setTab] = useState("menu");
 
-    return <DrawerContainer placement="right"
-                            onClose={() => setOpenRightDrawer(false)}
-                            visible={openRightDrawer}
-                            {...props}>
-        {props.children}
+  const tabContent = () => {
+    switch (tab) {
+      case "menu":
+        return <Menu tab={tab} setTab={setTab} {...props} />;
+      default:
+        <Menu tab={tab} setTab={setTab} {...props} />;
+    }
+  };
+
+  return (
+    <DrawerContainer
+      placement="right"
+      closable={false}
+      onClose={() => setOpenRightDrawer(false)}
+      visible={openRightDrawer}
+      {...props}
+    >
+      {tabContent()}
     </DrawerContainer>
+  );
 };
