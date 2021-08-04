@@ -53,7 +53,7 @@ export const GameContainer = (props) => {
       await gamesRef.doc(gameId_).set(
         {
           ...data,
-          id: gameId,
+          id: gameId_,
           createAt: isNew ? new Date() : game.createAt.toDate(),
           updateAt: new Date(),
           deleted: false,
