@@ -17,6 +17,7 @@ import { yup } from "../config";
 import { register } from "next-offline/runtime";
 import { spinLoader } from "../components/common/loader";
 import dynamic from "next/dynamic";
+import { snapshotToArray } from "../utils";
 
 const UpdateVersion = dynamic(
   () => import("../components/versions/UpdateVersion"),
@@ -29,6 +30,7 @@ export const WithConfiguration = (props) => {
   const { Fetch } = useFetch();
 
   const [authUser] = useGlobal("user");
+  const [, setGames] = useGlobal("games");
   const [, setLocation] = useGlobal("location");
   const [settings, setSettings] = useGlobal("settings");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
@@ -52,6 +54,7 @@ export const WithConfiguration = (props) => {
         user: authUserLS ? collectionToDate(authUserLS) : null,
         settings: collectionToDate({ ...settingsLS, version }),
         location,
+        games: [],
         languageCode,
         register: null,
         isLoadingUser: true,
@@ -99,9 +102,19 @@ export const WithConfiguration = (props) => {
         pageLoaded = true;
       });
 
+    const fetchGame = async () => {
+      const gamesRef = await firestore
+        .collection("games")
+        .where("deleted", "==", false)
+        .get();
+
+      setGames(snapshotToArray(gamesRef));
+    };
+
     initializeConfig();
     const unsubscribeVersion = fetchVersion();
     !get(location, "country_code") && fetchCountryCode();
+    fetchGame();
     setIsLoadingConfig(false);
 
     return () => unsubscribeVersion();

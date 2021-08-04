@@ -25,7 +25,12 @@ export const ModalNewFolder = (props) => {
           <form action="">
             <Input variant="clear" placeholder="Folder sin nombre" />
             <div className="buttons-container">
-              <ButtonAnt variant="contained" color="gray" size="big">
+              <ButtonAnt
+                variant="contained"
+                color="gray"
+                size="big"
+                onClick={() => props.setIsVisibleModalFolder(false)}
+              >
                 Cerrar
               </ButtonAnt>
               <ButtonAnt variant="contained" color="primary" size="big">
@@ -39,7 +44,12 @@ export const ModalNewFolder = (props) => {
           <form action="">
             <Input variant="clear" placeholder="Folder sin nombre" />
             <div className="buttons-container">
-              <ButtonAnt variant="contained" color="gray" size="big">
+              <ButtonAnt
+                variant="contained"
+                color="gray"
+                size="big"
+                onClick={() => props.setIsVisibleModalFolder(false)}
+              >
                 Cerrar
               </ButtonAnt>
               <ButtonAnt variant="contained" color="primary" size="big">

@@ -23,7 +23,7 @@ const ButtonAntCss = styled(Button)`
       : props.size === "big"
       ? "10px 30px"
       : ""};
-  margin: 0;
+  margin: ${(props) => props.margin || 0};
   border-radius: 4px;
   cursor: pointer;
   width: ${(props) => props.width};

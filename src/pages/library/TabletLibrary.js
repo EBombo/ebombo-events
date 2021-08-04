@@ -9,6 +9,7 @@ import { ButtonAnt } from "../../components/form";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import { ModalNewFolder } from "./ModalNewFolder";
+import { ModalNewGame } from "./ModalNewGame";
 
 export const TabletLibrary = (props) => {
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
@@ -27,12 +28,18 @@ export const TabletLibrary = (props) => {
           setIsVisibleModalFolder={setIsVisibleModalFolder}
         />
       )}
+      {isVisibleModalGame && (
+        <ModalNewGame
+          isVisibleModalGame={isVisibleModalGame}
+          setIsVisibleModalGame={setIsVisibleModalGame}
+        />
+      )}
       {isEmpty(router.query) && (
         <>
           <div className="subtitle">Librería</div>
           <div className="main-content">
             <div className="recents">Recientes</div>
-            <div className="most-recent"></div>
+            <div className="most-recent" />
             <div
               className="item games"
               onClick={() =>
