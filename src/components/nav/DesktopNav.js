@@ -70,9 +70,11 @@ const DesktopNavContainer = styled.div`
     display: flex;
     align-items: center;
     height: 100%;
+
     .nav-items {
       margin-left: 10px;
       height: 100%;
+
       ul {
         list-style: none;
         display: flex;
@@ -80,6 +82,7 @@ const DesktopNavContainer = styled.div`
         justify-content: space-around;
         height: 100%;
         margin: 0;
+
         li {
           height: 100%;
           padding: 0.5rem;
@@ -91,5 +94,9 @@ const DesktopNavContainer = styled.div`
         }
       }
     }
+  }
+
+  .menu-icon-nav {
+    color: ${(props) => props.theme.basic.white};
   }
 `;

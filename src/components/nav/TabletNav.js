@@ -56,5 +56,8 @@ const TabletNavContainer = styled.div`
   justify-content: space-between;
   padding: 0 0.5rem;
   background: ${(props) => props.theme.basic.secondary};
-  
+
+  .menu-icon-nav {
+    color: ${(props) => props.theme.basic.white};
+  }
 `;
