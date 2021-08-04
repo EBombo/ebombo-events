@@ -37,7 +37,7 @@ export const GamesContainer = () => {
               key={game.id}
               onClick={() => router.push(`/admin/games/${game.id}`)}
             >
-              {game.name}
+              - {game.name}
             </div>
           ))}
 
