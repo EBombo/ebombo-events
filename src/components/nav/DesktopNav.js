@@ -32,7 +32,13 @@ export const DesktopNav = (props) => {
         {authUser && (
           <div className="nav-items">
             <ul>
-              <li onClick={() => router.push("/library")}>Librería</li>
+              <li
+                onClick={() =>
+                  router.push({ path: "library", query: { item: "games" } })
+                }
+              >
+                Librería
+              </li>
               <li onClick={() => router.push("/reports")}>Reportes</li>
             </ul>
           </div>

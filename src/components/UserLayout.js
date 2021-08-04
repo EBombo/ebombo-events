@@ -11,6 +11,7 @@ import { spinLoaderMin } from "./common/loader";
 import { useAuth } from "../hooks/useAuth";
 import { TabletNav } from "./nav/TabletNav";
 import { DesktopNav } from "./nav/DesktopNav";
+import { Footer } from "./Footer";
 
 const PWA = dynamic(() => import("./common/pwa"), { ssr: false });
 
@@ -90,6 +91,7 @@ const UserLayout = (props) => {
             <Body isLanding={props.isLanding}>{props.children}</Body>
             {!props.isLanding && <FooterBar />}
           </Tablet>
+          <Footer />
           <PWA />
           <WspIcon />
         </LayoutMenu>
