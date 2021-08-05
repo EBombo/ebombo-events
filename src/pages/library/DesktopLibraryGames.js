@@ -75,6 +75,8 @@ export const DesktopLibraryGames = (props) => {
 const GamesContainer = styled.div`
   padding: 2rem;
   background: ${(props) => props.theme.basic.whiteDark};
+  height: 100%;
+  overflow: auto;
 
   .list-container {
     margin-top: 2rem;
@@ -159,6 +161,7 @@ const GamesContainer = styled.div`
 
       .active {
         background: ${(props) => props.theme.basic.whiteLight};
+        color: ${props => props.theme.basic.primary};
       }
     }
   }

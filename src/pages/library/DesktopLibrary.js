@@ -5,6 +5,7 @@ import { config } from "../../firebase";
 import { useRouter } from "next/router";
 import get from "lodash/get";
 import { DesktopLibraryGames } from "./DesktopLibraryGames";
+import { DesktopLibraryFolders } from "./DesktopLibraryFolders";
 
 export const DesktopLibrary = (props) => {
   const router = useRouter();
@@ -51,11 +52,9 @@ export const DesktopLibrary = (props) => {
       {get(router, "query.item", "games") === "games" && (
         <DesktopLibraryGames {...props} />
       )}
-      {
-        get(router, "query.item", "games") === "folders" && (
-            <DesktopLibraryFolders {...props} />
-        )
-      }
+      {get(router, "query.item", "games") === "folders" && (
+        <DesktopLibraryFolders {...props} />
+      )}
     </DesktopLibraryContainer>
   );
 };
@@ -82,12 +81,16 @@ const DesktopLibraryContainer = styled.div`
 
     .item {
       font-family: Lato;
+      font-size: 15px;
+      line-height: 18px;
       padding: 0.5rem 1rem;
+      font-weight: bold;
       display: flex;
       align-items: center;
-      width: 100%;
       height: 42px;
-      background: ${(props) => props.theme.basic.whiteLight};
+      border-radius: 4px;
+      margin: 0 5px;
+      cursor: pointer;
     }
 
     .item:hover {
@@ -96,14 +99,6 @@ const DesktopLibraryContainer = styled.div`
 
     .active {
       background: ${(props) => props.theme.basic.whiteDark};
-    }
-
-    .games {
-      border-radius: 3px 3px 0px 0px;
-    }
-
-    .favorites {
-      border-radius: 0px 0px 3px 3px;
     }
 
     .selected {
