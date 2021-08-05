@@ -29,6 +29,7 @@ const ButtonAntCss = styled(Button)`
   width: ${(props) => props.width};
   display: flex;
   align-items: center;
+  justify-content: center;
 
   ${({ variant = "contained", theme, color = "primary" }) =>
     variant === "contained"

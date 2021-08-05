@@ -1,5 +1,4 @@
 import React, { useGlobal } from "reactn";
-import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useAcl } from "../../hooks";
@@ -17,49 +16,49 @@ export const DesktopNav = (props) => {
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
 
   return (
-      <DesktopNavContainer>
-        <div className="items-container">
-          <Image
-              src={`${config.storageUrl}/resources/ebombo-white.svg`}
-              onClick={() =>
-                  userAcls.some((acl) => acl.includes("admin"))
-                      ? router.push("/admin")
-                      : authUser
-                          ? router.push("/library/games")
-                          : router.push("/")
-              }
-              height="23px"
-              width="88px"
-          />
-          {authUser && (
-              <div className="nav-items">
-                <ul>
-                  <li onClick={() => router.push("/library/games")}>Librería</li>
-                  <li onClick={() => router.push("/reports")}>Reportes</li>
-                </ul>
-              </div>
-          )}
-        </div>
-        {!authUser && (
-            <Anchor onClick={() => setIsVisibleLoginModal(true)} variant="primary">
-              Ingresa
-            </Anchor>
-        )}
+    <DesktopNavContainer>
+      <div className="items-container">
+        <Image
+          src={`${config.storageUrl}/resources/ebombo-white.svg`}
+          onClick={() =>
+            userAcls.some((acl) => acl.includes("admin"))
+              ? router.push("/admin")
+              : authUser
+              ? router.push("/library/games")
+              : router.push("/")
+          }
+          height="23px"
+          width="88px"
+        />
         {authUser && (
-            <div className="menu-profile">
-              <div
-                  className="menu-icon-nav"
-                  DesktopLibrary
-                  onClick={() => setOpenRightDrawer(true)}
-              >
-                <MenuOutlined />
-              </div>
-              <ButtonAnt variant="contained" width="200px">
-                Crear
-              </ButtonAnt>
-            </div>
+          <div className="nav-items">
+            <ul>
+              <li onClick={() => router.push("/library/games")}>Librería</li>
+              <li onClick={() => router.push("/reports")}>Reportes</li>
+            </ul>
+          </div>
         )}
-      </DesktopNavContainer>
+      </div>
+      {!authUser && (
+        <Anchor onClick={() => setIsVisibleLoginModal(true)} variant="primary">
+          Ingresa
+        </Anchor>
+      )}
+      {authUser && (
+        <div className="menu-profile">
+          <ButtonAnt variant="contained" width="140px">
+            Crear
+          </ButtonAnt>
+          <div
+            className="menu-icon-nav"
+            DesktopLibrary
+            onClick={() => setOpenRightDrawer(true)}
+          >
+            <MenuOutlined />
+          </div>
+        </div>
+      )}
+    </DesktopNavContainer>
   );
 };
 
