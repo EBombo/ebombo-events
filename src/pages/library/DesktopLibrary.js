@@ -18,7 +18,7 @@ export const DesktopLibrary = (props) => {
       <div className="left-container">
         <div className="subtitle">Libreria</div>
         <div
-          className="item games"
+          className={`item games ${get(router, "query.item", "") === "games" ? "active" : ""}`}
           onClick={() =>
             router.push({ path: "library", query: { item: "games" } })
           }
@@ -33,7 +33,7 @@ export const DesktopLibrary = (props) => {
           <div className="name">Mis juegos</div>
         </div>
         <div
-          className="item favorites"
+          className={`item favorites ${get(router, "query.item", "") === "folders" ? "active" : ""}`}
           onClick={() =>
             router.push({ path: "library", query: { item: "folders" } })
           }
@@ -232,7 +232,11 @@ const DesktopLibraryContainer = styled.div`
     }
 
     .item:hover {
-      background: #f2f2f2;
+      background: ${(props) => props.theme.basic.whiteDark};
+    }
+    
+    .active{
+      background: ${(props) => props.theme.basic.whiteDark};
     }
 
     .games {
