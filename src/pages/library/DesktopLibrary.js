@@ -10,7 +10,7 @@ import { ListGameView } from "./ListGameView";
 
 export const DesktopLibrary = (props) => {
   const [listType, setListType] = useState("icons");
-  const [tab, setTab] = useState("games");
+  const [tab, setTab] = useState("all");
   const router = useRouter();
 
   return (
@@ -51,9 +51,24 @@ export const DesktopLibrary = (props) => {
       <div className="right-container">
         <div className="nav-container">
           <div className="tabs-container">
-            <div className="tab">Mis juegos</div>
-            <div className="tab middle">Favoritos</div>
-            <div className="tab">Borradores</div>
+            <div
+              className={`tab ${tab === "all" ? "active" : ""}`}
+              onClick={() => setTab("all")}
+            >
+              Mis juegos
+            </div>
+            <div
+              className={`tab middle ${tab === "favorites" ? "active" : ""}`}
+              onClick={() => setTab("favorites")}
+            >
+              Favoritos
+            </div>
+            <div
+              className={`tab ${tab === "drafts" ? "active" : ""}`}
+              onClick={() => setTab("drafts")}
+            >
+              Borradores
+            </div>
           </div>
 
           <div className="search-bar">
@@ -183,6 +198,10 @@ const DesktopLibraryContainer = styled.div`
         .middle {
           border-left: 2px solid ${(props) => props.theme.basic.grayLighten};
           border-right: 2px solid ${(props) => props.theme.basic.grayLighten};
+        }
+        
+        .active{
+          background: ${props => props.theme.basic.whiteLight};
         }
       }
     }
