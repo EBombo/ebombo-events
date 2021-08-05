@@ -19,7 +19,10 @@ export const ModalNewFolder = (props) => {
 
   const saveNewFolder = (data) => {
     try {
-    } catch (error) {}
+      console.log("->", data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -59,7 +62,12 @@ export const ModalNewFolder = (props) => {
               >
                 Cerrar
               </ButtonAnt>
-              <ButtonAnt variant="contained" color="primary" size="big">
+              <ButtonAnt
+                variant="contained"
+                color="primary"
+                size="big"
+                htmlType="submit"
+              >
                 Crear
               </ButtonAnt>
             </div>

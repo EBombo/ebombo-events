@@ -55,9 +55,7 @@ export const TabletLibrary = (props) => {
             </div>
             <div
               className="item favorites"
-              onClick={() =>
-                router.push({ path: "library", query: { item: "favorites" } })
-              }
+              onClick={() => router.push("/library/favorites")}
             >
               <Image
                 src={`${config.storageUrl}/resources/purple-star.svg`}
