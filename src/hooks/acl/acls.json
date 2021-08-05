@@ -2,9 +2,15 @@
   "common": {
     "label": "Acceso común",
     "items": {
-      "/library": "Formulario de Libreria",
-      "/reports": "Formulario de Reportes",
-      "/games/new": "Crear juego"
+      "/library/favorites": "Formulario de favoritos",
+      "/library/games": "Formulario de Libreria",
+      "/library/games/new": "Crear juego",
+      "/library/games/[gameId]": "Editar un juego",
+      "/library/games/folders": "Lista de folders",
+      "/library/games/folders/[folderId]": "Crear sub folders",
+      "/library/games/new/folders/[folderId]": "Crear un juego dentro de un folder",
+      "/library/games/[gameId]/folders/[folderId]": "Editar un juego dentro de un folder",
+      "/reports": "Formulario de Reportes"
     }
   },
   "adminUsers": {

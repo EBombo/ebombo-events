@@ -34,7 +34,7 @@ export const TabletLibrary = (props) => {
           setIsVisibleModalGame={setIsVisibleModalGame}
         />
       )}
-      {isEmpty(router.query) && (
+      {router.asPath === "/library" && (
         <>
           <div className="subtitle">Librería</div>
           <div className="main-content">
@@ -42,9 +42,7 @@ export const TabletLibrary = (props) => {
             <div className="most-recent" />
             <div
               className="item games"
-              onClick={() =>
-                router.push({ path: "library", query: { item: "games" } })
-              }
+              onClick={() => router.push("/library/games")}
             >
               <Image
                 src={`${config.storageUrl}/resources/purple-puzzle.svg`}
@@ -57,9 +55,7 @@ export const TabletLibrary = (props) => {
             </div>
             <div
               className="item favorites"
-              onClick={() =>
-                router.push({ path: "library", query: { item: "favorites" } })
-              }
+              onClick={() => router.push("/library/favorites")}
             >
               <Image
                 src={`${config.storageUrl}/resources/purple-star.svg`}
@@ -73,7 +69,7 @@ export const TabletLibrary = (props) => {
           </div>
         </>
       )}
-      {get(router, "query.item", "") === "games" && (
+      {router.asPath.includes("/library/games") && (
         <>
           <div className="subtitle">
             Mis Juegos

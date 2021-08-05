@@ -6,11 +6,15 @@ import { DesktopLibrary } from "./DesktopLibrary";
 
 export const LibraryContainer = (props) => {
   const [folders, setFolders] = useState([]);
-  const [games, setGames] = useState([{
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    name: "Trivia",
-    imageUrl: "https://mk0snacknation9jc4nw.kinstacdn.com/wp-content/uploads/2020/08/27-Virtual-Trivia-Ideas-For-People-Who-Know-Facts-And-Nothing-Else-copy.png"
-  }]);
+  const [games, setGames] = useState([
+    {
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      name: "Trivia",
+      id: "Trivia",
+      imageUrl:
+        "https://mk0snacknation9jc4nw.kinstacdn.com/wp-content/uploads/2020/08/27-Virtual-Trivia-Ideas-For-People-Who-Know-Facts-And-Nothing-Else-copy.png",
+    },
+  ]);
   const [authUser] = useGlobal("user");
 
   useEffect(() => {

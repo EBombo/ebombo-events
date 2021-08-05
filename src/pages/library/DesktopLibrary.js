@@ -16,11 +16,9 @@ export const DesktopLibrary = (props) => {
         <div className="subtitle">Libreria</div>
         <div
           className={`item games ${
-            get(router, "query.item", "") === "games" ? "active" : ""
+            get(router, "asPath", "") === "/library/games" ? "active" : ""
           }`}
-          onClick={() =>
-            router.push({ path: "library", query: { item: "games" } })
-          }
+          onClick={() => router.push("/library/games")}
         >
           <Image
             src={`${config.storageUrl}/resources/purple-puzzle.svg`}
@@ -33,11 +31,11 @@ export const DesktopLibrary = (props) => {
         </div>
         <div
           className={`item favorites ${
-            get(router, "query.item", "") === "folders" ? "active" : ""
+            get(router, "asPath", "").includes("/library/games/folders")
+              ? "active"
+              : ""
           }`}
-          onClick={() =>
-            router.push({ path: "library", query: { item: "folders" } })
-          }
+          onClick={() => router.push("/library/games/folders")}
         >
           <Image
             src={`${config.storageUrl}/resources/purple-folder.svg`}
