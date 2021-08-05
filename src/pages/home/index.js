@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "reactn";
+import React, { useEffect, useGlobal, useRef, useState } from "reactn";
 import styled from "styled-components";
 import { HeaderLanding } from "./HeaderLanding";
 import { Services } from "./Services";
@@ -15,8 +15,11 @@ import { Games } from "./Games";
 import { Footer } from "../../components/Footer";
 import { SpecialWorkshops } from "./SpecialWorkshops";
 import { SpecialShows } from "./SpecialShows";
+import { useRouter } from "next/router";
 
 export const Home = (props) => {
+  const router = useRouter();
+  const [authUser] = useGlobal("user");
   const [events, setEvents] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -26,17 +29,21 @@ export const Home = (props) => {
   const contactRef = useRef(null);
 
   useEffect(() => {
+    if (authUser) router.push("/library/games");
+  }, [authUser]);
+
+  useEffect(() => {
+    const fetchLandingEvents = () =>
+      firestore
+        .collection("landings")
+        .doc("events")
+        .onSnapshot((snapshot) => {
+          setEvents(snapshot.data());
+          setLoading(false);
+        });
+
     fetchLandingEvents();
   }, []);
-
-  const fetchLandingEvents = () =>
-    firestore
-      .collection("landings")
-      .doc("events")
-      .onSnapshot((snapshot) => {
-        setEvents(snapshot.data());
-        setLoading(false);
-      });
 
   const deleteElement = async (element, field) => {
     const newElements = get(events, `${field}`, []).filter(

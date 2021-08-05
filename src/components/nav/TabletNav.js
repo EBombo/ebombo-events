@@ -13,6 +13,7 @@ export const TabletNav = (props) => {
   const { userAcls } = useAcl();
   const [authUser] = useGlobal("user");
   const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
+  const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
 
   return (
     <TabletNavContainer>
@@ -23,7 +24,7 @@ export const TabletNav = (props) => {
           userAcls.some((acl) => acl.includes("admin"))
             ? router.push("/admin")
             : authUser
-            ? router.push("/library")
+            ? router.push("/library/games")
             : router.push("/")
         }
         height="23px"

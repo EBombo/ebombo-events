@@ -4,8 +4,10 @@ import get from "lodash/get";
 import { useRouter } from "next/router";
 import { Tabs } from "antd";
 import { mediaQuery } from "../../constants";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Menu = (props) => {
+  const { signOut } = useAuth();
   const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
   const [authUser] = useGlobal("user");
   const router = useRouter();
@@ -65,7 +67,9 @@ export const Menu = (props) => {
               router.push(`/`);
             }}
           >
-            <span className="item">Cerrar Sesión</span>
+            <span className="item" onClick={() => signOut()}>
+              Cerrar Sesión
+            </span>
           </MenuItem>
         </TabPane>
       </MenuTabs>

@@ -39,7 +39,7 @@ export const menus = [
   },
   {
     name: "Crear",
-    url: "/games/new",
+    url: "/library/games/new",
     src: `${config.storageUrl}/resources/footer/create-icon.svg`,
   },
   {

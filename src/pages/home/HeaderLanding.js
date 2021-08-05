@@ -9,7 +9,6 @@ import { ModalContainer } from "../../components/common/ModalContainer";
 import dynamic from "next/dynamic";
 import { spinLoaderMin } from "../../components/common/loader";
 import { useAuth } from "../../hooks/useAuth";
-import { useRouter } from "next/router";
 
 const Login = dynamic(() => import("../login"), {
   loading: () => spinLoaderMin(),
@@ -20,7 +19,6 @@ const ForgotPassword = dynamic(() => import("../forgot-password"), {
 });
 
 export const HeaderLanding = (props) => {
-  const router = useRouter();
   const { signOut } = useAuth();
   const [active, setActive] = useState(false);
   const [authUser] = useGlobal("user");
@@ -28,10 +26,6 @@ export const HeaderLanding = (props) => {
     "isVisibleLoginModal"
   );
   const [isVisibleForgotPassword] = useGlobal(isVisibleForgotPassword);
-
-  useEffect(() => {
-    if (authUser) router.push("/library");
-  }, [authUser]);
 
   const loginModal = () =>
     isVisibleLoginModal && !authUser ? (

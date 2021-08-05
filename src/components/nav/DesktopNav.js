@@ -5,7 +5,7 @@ import { useAcl } from "../../hooks";
 import { MenuOutlined } from "@ant-design/icons";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
-import { Anchor } from "../form";
+import { Anchor, ButtonAnt } from "../form";
 import { sizes } from "../../constants";
 
 export const DesktopNav = (props) => {
@@ -13,6 +13,7 @@ export const DesktopNav = (props) => {
   const { userAcls } = useAcl();
   const [authUser] = useGlobal("user");
   const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
+  const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
 
   return (
     <DesktopNavContainer>
@@ -23,7 +24,7 @@ export const DesktopNav = (props) => {
             userAcls.some((acl) => acl.includes("admin"))
               ? router.push("/admin")
               : authUser
-              ? router.push("/library")
+              ? router.push("/library/games")
               : router.push("/")
           }
           height="23px"
@@ -32,13 +33,7 @@ export const DesktopNav = (props) => {
         {authUser && (
           <div className="nav-items">
             <ul>
-              <li
-                onClick={() =>
-                  router.push({ path: "library", query: { item: "games" } })
-                }
-              >
-                Librería
-              </li>
+              <li onClick={() => router.push("/library/games")}>Librería</li>
               <li onClick={() => router.push("/reports")}>Reportes</li>
             </ul>
           </div>
@@ -50,8 +45,17 @@ export const DesktopNav = (props) => {
         </Anchor>
       )}
       {authUser && (
-        <div className="menu-icon-nav" onClick={() => setOpenRightDrawer(true)}>
-          <MenuOutlined />
+        <div className="menu-profile">
+          <div
+            className="menu-icon-nav"
+            DesktopLibrary
+            onClick={() => setOpenRightDrawer(true)}
+          >
+            <MenuOutlined />
+          </div>
+          <ButtonAnt variant="contained" width="200px">
+            Crear
+          </ButtonAnt>
         </div>
       )}
     </DesktopNavContainer>
@@ -102,7 +106,11 @@ const DesktopNavContainer = styled.div`
     }
   }
 
-  .menu-icon-nav {
-    color: ${(props) => props.theme.basic.white};
+  .menu-profile {
+    display: flex;
+    .menu-icon-nav {
+      margin: auto 10px;
+      color: ${(props) => props.theme.basic.white};
+    }
   }
 `;

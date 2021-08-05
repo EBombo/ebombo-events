@@ -4,8 +4,24 @@ import { ModalContainer } from "../../components/common/ModalContainer";
 import { Desktop, Tablet, mediaQuery } from "../../constants";
 import { ButtonAnt, Input } from "../../components/form";
 import { darkTheme } from "../../theme";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
 
 export const ModalNewFolder = (props) => {
+  const schema = yup.object().shape({
+    name: yup.string().required(),
+  });
+
+  const { register, errors, handleSubmit } = useForm({
+    validationSchema: schema,
+    reValidateMode: "onSubmit",
+  });
+
+  const saveNewFolder = (data) => {
+    try {
+    } catch (error) {}
+  };
+
   return (
     <ModalContainer
       footer={null}
@@ -22,8 +38,18 @@ export const ModalNewFolder = (props) => {
         <Desktop>
           <div className="title">Crear folder</div>
           <div className="subtitle">Nombre</div>
-          <form action="">
-            <Input variant="clear" placeholder="Folder sin nombre" />
+          <form
+            onSubmit={handleSubmit(saveNewFolder)}
+            autoComplete="off"
+            noValidate
+          >
+            <Input
+              variant="clear"
+              placeholder="Folder sin nombre"
+              name="name"
+              ref={register}
+              error={errors.name}
+            />
             <div className="buttons-container">
               <ButtonAnt
                 variant="contained"

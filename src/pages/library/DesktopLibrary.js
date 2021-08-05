@@ -18,10 +18,10 @@ export const DesktopLibrary = (props) => {
       <div className="left-container">
         <div className="subtitle">Libreria</div>
         <div
-          className={`item games ${get(router, "query.item", "") === "games" ? "active" : ""}`}
-          onClick={() =>
-            router.push({ path: "library", query: { item: "games" } })
-          }
+          className={`item games ${
+            get(router, "asPath", "") === "/library/games" ? "active" : ""
+          }`}
+          onClick={() => router.push("/library/games")}
         >
           <Image
             src={`${config.storageUrl}/resources/purple-puzzle.svg`}
@@ -33,10 +33,12 @@ export const DesktopLibrary = (props) => {
           <div className="name">Mis juegos</div>
         </div>
         <div
-          className={`item favorites ${get(router, "query.item", "") === "folders" ? "active" : ""}`}
-          onClick={() =>
-            router.push({ path: "library", query: { item: "folders" } })
-          }
+          className={`item favorites ${
+            get(router, "asPath", "").includes("/library/games/folders")
+              ? "active"
+              : ""
+          }`}
+          onClick={() => router.push("/library/games/folders")}
         >
           <Image
             src={`${config.storageUrl}/resources/purple-folder.svg`}
@@ -98,7 +100,12 @@ export const DesktopLibrary = (props) => {
         <div className="list-container">
           {get(router, "query.item", "games") &&
             props.games.map((game) => (
-              <ListGameView game={game} listType={listType} {...props} />
+              <ListGameView
+                game={game}
+                listType={listType}
+                key={game.id}
+                {...props}
+              />
             ))}
           {isEmpty(props.games) && (
             <div className="empty-container">No cuentas con juegos.</div>
@@ -199,9 +206,9 @@ const DesktopLibraryContainer = styled.div`
           border-left: 2px solid ${(props) => props.theme.basic.grayLighten};
           border-right: 2px solid ${(props) => props.theme.basic.grayLighten};
         }
-        
-        .active{
-          background: ${props => props.theme.basic.whiteLight};
+
+        .active {
+          background: ${(props) => props.theme.basic.whiteLight};
         }
       }
     }
@@ -222,6 +229,7 @@ const DesktopLibraryContainer = styled.div`
     }
 
     .item {
+      cursor: pointer;
       font-family: Lato;
       padding: 0.5rem 1rem;
       display: flex;
@@ -234,8 +242,8 @@ const DesktopLibraryContainer = styled.div`
     .item:hover {
       background: ${(props) => props.theme.basic.whiteDark};
     }
-    
-    .active{
+
+    .active {
       background: ${(props) => props.theme.basic.whiteDark};
     }
 

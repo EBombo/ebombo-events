@@ -2,9 +2,10 @@
   "common": {
     "label": "Acceso común",
     "items": {
-      "/library": "Formulario de Libreria",
-      "/reports": "Formulario de Reportes",
-      "/games/new": "Crear juego"
+      "/library/games": "Formulario de Libreria",
+      "/library/games/new": "Crear juego",
+      "/library/games/folders": "Lista de folders",
+      "/reports": "Formulario de Reportes"
     }
   },
   "adminUsers": {
