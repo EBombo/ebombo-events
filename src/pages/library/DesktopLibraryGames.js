@@ -4,7 +4,7 @@ import { Input } from "../../components/form";
 import get from "lodash/get";
 import { ListGameView } from "./ListGameView";
 import isEmpty from "lodash/isEmpty";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 export const DesktopLibraryGames = (props) => {
   const [listType, setListType] = useState("icons");
@@ -60,10 +60,9 @@ export const DesktopLibraryGames = (props) => {
       </div>
 
       <div className="list-container">
-        {get(router, "query.item", "games") &&
-          props.games.map((game) => (
-            <ListGameView game={game} listType={listType} {...props} />
-          ))}
+        {props.games.map((game) => (
+          <ListGameView game={game} listType={listType} {...props} />
+        ))}
         {isEmpty(props.games) && (
           <div className="empty-container">No cuentas con juegos.</div>
         )}
@@ -161,7 +160,7 @@ const GamesContainer = styled.div`
 
       .active {
         background: ${(props) => props.theme.basic.whiteLight};
-        color: ${props => props.theme.basic.primary};
+        color: ${(props) => props.theme.basic.primary};
       }
     }
   }

@@ -47,11 +47,10 @@ export const DesktopLibrary = (props) => {
           <div className="name">Folders</div>
         </div>
       </div>
-      {get(router, "query.item", "games") === "games" && (
-        <DesktopLibraryGames {...props} />
-      )}
-      {get(router, "query.item", "games") === "folders" && (
+      {router.asPath.includes("/folders") ? (
         <DesktopLibraryFolders {...props} />
+      ) : (
+        <DesktopLibraryGames {...props} />
       )}
     </DesktopLibraryContainer>
   );
