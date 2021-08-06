@@ -28,6 +28,7 @@ export const DesktopLibraryFolders = (props) => {
       )}
       {isVisibleModalGame && (
         <ModalNewGame
+          {...props}
           isVisibleModalGame={isVisibleModalGame}
           setIsVisibleModalGame={setIsVisibleModalGame}
         />
@@ -105,7 +106,7 @@ export const DesktopLibraryFolders = (props) => {
           ))
         )}
       </div>
-      {!isEmpty(props.games) ? (
+      {isEmpty(props.games) ? (
         <div className="btn-container">
           <ButtonAnt
             variant="contained"
@@ -118,7 +119,12 @@ export const DesktopLibraryFolders = (props) => {
       ) : (
         <div className="games-container">
           {props.games.map((game) => (
-            <ListGameView game={game} listType={listType} {...props} />
+            <ListGameView
+              game={game}
+              key={game.id}
+              listType={listType}
+              {...props}
+            />
           ))}
         </div>
       )}

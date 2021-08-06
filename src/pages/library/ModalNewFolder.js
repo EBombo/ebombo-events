@@ -32,7 +32,6 @@ export const ModalNewFolder = (props) => {
       const folderRef = firestore.collection("folders");
       const newFolderId = folderRef.doc().id;
 
-      console.log("props.parent", props.parent);
       const path = folderId
         ? `${props.parent.path}/${data.name}`
         : `/${data.name}`;

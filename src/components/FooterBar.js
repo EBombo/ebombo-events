@@ -1,16 +1,18 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { mediaQuery, sizes } from "../constants";
 import { useRouter } from "next/router";
 import { useAcl } from "../hooks";
 import { menus } from "./common/DataList";
 import { Image } from "./common/Image";
+import { ModalNewGame } from "../pages/library/ModalNewGame";
 
 const FooterBar = (props) => {
   const router = useRouter();
   const { aclMenus } = useAcl();
   const [authUser] = useGlobal("user");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
+  const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
 
   const getCurrentMenu = () =>
     aclMenus({ menus: menus.filter((menu) => !menu.isAdmin) });
@@ -27,7 +29,9 @@ const FooterBar = (props) => {
             key={`key-menu-user-link-${userLink.url}`}
             onClick={() =>
               authUser
-                ? router.push(userLink.url)
+                ? userLink.onClick
+                  ? userLink.onClick(setIsVisibleModalGame)
+                  : router.push(userLink.url)
                 : setIsVisibleLoginModal(true)
             }
           >
@@ -41,6 +45,13 @@ const FooterBar = (props) => {
           </div>
         ))}
       </div>
+      {isVisibleModalGame && (
+        <ModalNewGame
+          {...props}
+          isVisibleModalGame={isVisibleModalGame}
+          setIsVisibleModalGame={setIsVisibleModalGame}
+        />
+      )}
     </ContainerFooter>
   );
 };

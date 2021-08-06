@@ -8,6 +8,8 @@
       "/library/folders": "Lista de folders",
       "/library/folders/new": "Crear sub folders",
       "/library/folders/[folderId]": "Ver sub folders",
+      "/library/folders/[folderId]/gameToPlay/new": "Crear juego",
+      "/library/folders/[folderId]/gameToPlay/[eventId]": "Editar juego",
       "/reports": "Formulario de Reportes"
     }
   },

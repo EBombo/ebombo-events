@@ -13,15 +13,7 @@ export const LibraryContainer = (props) => {
   const [parent, setParent] = useState(null);
   const [folders, setFolders] = useState([]);
   const [authUser] = useGlobal("user");
-  const [games, setGames] = useState([
-    {
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      name: "Trivia",
-      id: "Trivia",
-      imageUrl:
-        "https://mk0snacknation9jc4nw.kinstacdn.com/wp-content/uploads/2020/08/27-Virtual-Trivia-Ideas-For-People-Who-Know-Facts-And-Nothing-Else-copy.png",
-    },
-  ]);
+  const [games, setGames] = useState([]);
 
   const fetchFolders = async () => {
     let folderRef = firestore
@@ -30,7 +22,7 @@ export const LibraryContainer = (props) => {
       .where("deleted", "==", false);
 
     folderRef = folderId
-      ? folderRef.where("parent.id", "==", folderId).limit(1)
+      ? folderRef.where("parent.id", "==", folderId)
       : folderRef.where("parent", "==", null);
 
     const foldersQuery = await folderRef.get();
@@ -38,10 +30,27 @@ export const LibraryContainer = (props) => {
     setFolders(snapshotToArray(foldersQuery));
   };
 
+  const fetchGames = async () => {
+    let gamesRef = firestore
+      .collection("gamesToPlay")
+      .where("usersIds", "array-contains", authUser?.id)
+      .where("deleted", "==", false);
+
+    gamesRef = folderId
+      ? gamesRef.where("parent.id", "==", folderId)
+      : gamesRef.where("parent", "==", null);
+
+    const gamesQuery = await gamesRef.get();
+
+    console.log("snapshotToArray(gamesQuery)", snapshotToArray(gamesQuery));
+    setGames(snapshotToArray(gamesQuery));
+  };
+
   useEffect(() => {
     if (router.asPath === "/library") return;
 
     fetchFolders();
+    fetchGames();
   }, [folderId]);
 
   useEffect(() => {
@@ -63,20 +72,22 @@ export const LibraryContainer = (props) => {
     <LibraryContainerCss>
       <Desktop>
         <DesktopLibrary
-          folders={folders}
-          games={games}
           {...props}
+          games={games}
           parent={parent}
+          folders={folders}
           fetchFolders={fetchFolders}
+          fetchGames={fetchGames}
         />
       </Desktop>
       <Tablet>
         <TabletLibrary
-          folders={folders}
-          games={games}
           {...props}
+          games={games}
           parent={parent}
+          folders={folders}
           fetchFolders={fetchFolders}
+          fetchGames={fetchGames}
         />
       </Tablet>
     </LibraryContainerCss>

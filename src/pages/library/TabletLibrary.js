@@ -27,6 +27,7 @@ export const TabletLibrary = (props) => {
       )}
       {isVisibleModalGame && (
         <ModalNewGame
+          {...props}
           isVisibleModalGame={isVisibleModalGame}
           setIsVisibleModalGame={setIsVisibleModalGame}
         />
@@ -145,9 +146,28 @@ export const TabletLibrary = (props) => {
               ))
             )}
 
-            <div className="item-subtitle">Juegos (0)</div>
+            <div className="item-subtitle">Juegos ({props.games.length})</div>
 
-            <div className="empty-message">No cuentas con juegos</div>
+            {isEmpty(props.games) ? (
+              <div className="empty-message">No cuentas con juegos</div>
+            ) : (
+              props.games.map((game) => (
+                <div
+                  key={game.id}
+                  className="item games folder"
+                  onClick={() => router.push(`/library/folders/${game.id}`)}
+                >
+                  <Image
+                    src={`${config.storageUrl}/resources/purple-puzzle.svg`}
+                    width="20px"
+                    height="25px"
+                    className="icon"
+                    margin="0 20px 0 0"
+                  />
+                  <div className="name">{game.game.name}</div>
+                </div>
+              ))
+            )}
           </div>
         </>
       )}
