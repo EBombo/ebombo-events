@@ -74,6 +74,9 @@ export const ModalNewFolder = (props) => {
     >
       <NewFolderContainer>
         <div className="title">Crear folder</div>
+        <Desktop>
+          <div className="label">Nombre</div>
+        </Desktop>
         <form
           onSubmit={handleSubmit(saveNewFolder)}
           autoComplete="off"
@@ -127,7 +130,17 @@ const NewFolderContainer = styled.div`
     font-size: 15px;
     line-height: 18px;
     margin-bottom: 0.5rem;
-    color: ${(props) => props.theme.basic.grayLight};
+    color: ${(props) => props.theme.basic.black};
+  }
+
+  .label {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: 1rem;
+    color: ${(props) => props.theme.basic.black};
   }
 
   .form {

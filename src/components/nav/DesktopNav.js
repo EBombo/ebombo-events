@@ -1,4 +1,4 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useAcl } from "../../hooks";
@@ -7,6 +7,7 @@ import { config } from "../../firebase";
 import { Image } from "../common/Image";
 import { Anchor, ButtonAnt } from "../form";
 import { sizes } from "../../constants";
+import { ModalNewGame } from "../../pages/library/ModalNewGame";
 
 export const DesktopNav = (props) => {
   const router = useRouter();
@@ -14,9 +15,16 @@ export const DesktopNav = (props) => {
   const [authUser] = useGlobal("user");
   const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
+  const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
 
   return (
     <DesktopNavContainer>
+      {isVisibleModalGame && (
+        <ModalNewGame
+          isVisibleModalGame={isVisibleModalGame}
+          setIsVisibleModalGame={setIsVisibleModalGame}
+        />
+      )}
       <div className="items-container">
         <Image
           src={`${config.storageUrl}/resources/ebombo-white.svg`}
@@ -33,8 +41,36 @@ export const DesktopNav = (props) => {
         {authUser && (
           <div className="nav-items">
             <ul>
-              <li onClick={() => router.push("/library/games")}>Librería</li>
-              <li onClick={() => router.push("/reports")}>Reportes</li>
+              <li
+                className={`${
+                  router.asPath.includes("library") ? "active" : ""
+                }`}
+                onClick={() => router.push("/library/games")}
+              >
+                <Image
+                  src={`${config.storageUrl}/resources/library-icon.svg`}
+                  width="auto"
+                  height="30px"
+                  className="icon"
+                  margin="0 5px 0 0"
+                />
+                Librería
+              </li>
+              <li
+                className={`${
+                  router.asPath.includes("reports") ? "active" : ""
+                }`}
+                onClick={() => router.push("/reports")}
+              >
+                <Image
+                  src={`${config.storageUrl}/resources/reports-icon.svg`}
+                  width="auto"
+                  height="30px"
+                  className="icon"
+                  margin="0 5px 0 0"
+                />
+                Reportes
+              </li>
             </ul>
           </div>
         )}
@@ -46,6 +82,13 @@ export const DesktopNav = (props) => {
       )}
       {authUser && (
         <div className="menu-profile">
+          <ButtonAnt
+            variant="contained"
+            width="140px"
+            onClick={() => setIsVisibleModalGame(true)}
+          >
+            Crear
+          </ButtonAnt>
           <div
             className="menu-icon-nav"
             DesktopLibrary
@@ -53,9 +96,6 @@ export const DesktopNav = (props) => {
           >
             <MenuOutlined />
           </div>
-          <ButtonAnt variant="contained" width="200px">
-            Crear
-          </ButtonAnt>
         </div>
       )}
     </DesktopNavContainer>
@@ -95,12 +135,22 @@ const DesktopNavContainer = styled.div`
 
         li {
           height: 100%;
-          padding: 0.5rem;
+          padding: 0;
           font-size: ${sizes.font.normal};
           color: ${(props) => props.theme.basic.white};
           display: flex;
           align-items: center;
           cursor: pointer;
+          margin: 0 0.5rem;
+        }
+
+        .active {
+          border-bottom: 3px solid ${(props) => props.theme.basic.primaryLight};
+          color: ${(props) => props.theme.basic.primaryLight};
+
+          .icon {
+            filter: opacity(0.5);
+          }
         }
       }
     }
