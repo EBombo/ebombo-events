@@ -1,7 +1,7 @@
 import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
-import { config } from "../../firebase";
+import { config, firestore } from "../../firebase";
 import { useRouter } from "next/router";
 import isEmpty from "lodash/isEmpty";
 import get from "lodash/get";
@@ -12,18 +12,15 @@ import { ModalNewFolder } from "./ModalNewFolder";
 import { ModalNewGame } from "./ModalNewGame";
 
 export const TabletLibrary = (props) => {
+  const router = useRouter();
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    console.log(router.query);
-  }, []);
 
   return (
     <TabletLibraryContainer>
       {isVisibleModalFolder && (
         <ModalNewFolder
+          {...props}
           isVisibleModalFolder={isVisibleModalFolder}
           setIsVisibleModalFolder={setIsVisibleModalFolder}
         />
@@ -123,8 +120,32 @@ export const TabletLibrary = (props) => {
             </Tooltip>
           </div>
           <div className="main-content">
-            <div className="item-subtitle">Folder (0)</div>
-            <div className="empty-message">No cuentas con folders</div>
+            <div className="item-subtitle">
+              Folder ({props.folders.length}) [{props.parent?.path}]
+            </div>
+
+            {isEmpty(props.folders) ? (
+              <div className="empty-message">No cuentas con folders</div>
+            ) : (
+              props.folders.map((folder) => (
+                <div
+                  key={folder.id}
+                  className="item games folder"
+                  onClick={() =>
+                    router.push(`/library/games/folders/${folder.id}`)
+                  }
+                >
+                  <Image
+                    src={`${config.storageUrl}/resources/purple-puzzle.svg`}
+                    width="20px"
+                    height="25px"
+                    className="icon"
+                    margin="0 20px 0 0"
+                  />
+                  <div className="name">{folder.name}</div>
+                </div>
+              ))
+            )}
 
             <div className="item-subtitle">Juegos (0)</div>
 
@@ -161,6 +182,10 @@ const TabletLibraryContainer = styled.div`
       background: ${(props) => props.theme.basic.whiteLight};
       border: 0.5px solid ${(props) => props.theme.basic.secondaryLight};
       box-sizing: border-box;
+    }
+
+    .folder {
+      margin: 10px auto;
     }
 
     .games {
