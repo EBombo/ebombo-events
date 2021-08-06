@@ -84,7 +84,7 @@ export const DesktopLibraryFolders = (props) => {
             <div
               key={folder.id}
               className="folder"
-              onClick={() => router.push(`/library/games/folders/${folder.id}`)}
+              onClick={() => router.push(`/library/folders/${folder.id}`)}
             >
               <div className="left">
                 <Image

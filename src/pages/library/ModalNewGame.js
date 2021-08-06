@@ -22,7 +22,7 @@ export const ModalNewGame = (props) => {
         <div className="title">Crear un nuevo juego</div>
         <div className="games">
           {games.map((game) => (
-            <div className="game">
+            <div className="game" key={game.id}>
               <div className="title-game">{game.name}</div>
               <ButtonAnt margin="5px auto">CREAR</ButtonAnt>
             </div>
