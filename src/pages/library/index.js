@@ -26,7 +26,7 @@ export const LibraryContainer = (props) => {
   const fetchFolders = async () => {
     let folderRef = firestore
       .collection("folders")
-      .where("user.id", "==", authUser.id)
+      .where("usersIds", "array-contains", authUser?.id)
       .where("deleted", "==", false);
 
     folderRef = folderId
