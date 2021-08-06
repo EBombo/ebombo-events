@@ -107,7 +107,11 @@ export const DesktopLibraryFolders = (props) => {
       </div>
       {!isEmpty(props.games) ? (
         <div className="btn-container">
-          <ButtonAnt variant="contained" color="primary">
+          <ButtonAnt
+            variant="contained"
+            color="primary"
+            onClick={() => setIsVisibleModalGame(true)}
+          >
             Crear juego
           </ButtonAnt>
         </div>
