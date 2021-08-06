@@ -47,6 +47,7 @@ export const ModalNewFolder = (props) => {
           updateAt: new Date(),
           deleted: false,
           user: authUser,
+          usersIds: [authUser.id],
         },
         { merge: true }
       );
