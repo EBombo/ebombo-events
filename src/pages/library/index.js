@@ -42,7 +42,6 @@ export const LibraryContainer = (props) => {
 
     const gamesQuery = await gamesRef.get();
 
-    console.log("snapshotToArray(gamesQuery)", snapshotToArray(gamesQuery));
     setGames(snapshotToArray(gamesQuery));
   };
 
