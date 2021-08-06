@@ -3,10 +3,11 @@
     "label": "Acceso común",
     "items": {
       "/library": "Library mobile",
-      "/library/favorites": "Formulario de favoritos",
-      "/library/games": "Formulario de Libreria",
+      "/library/favorites": "Lista favoritos",
+      "/library/games": "Lista de juegos",
       "/library/folders": "Lista de folders",
-      "/library/folders/[folderId]": "Crear sub folders",
+      "/library/folders/new": "Crear sub folders",
+      "/library/folders/[folderId]": "Ver sub folders",
       "/reports": "Formulario de Reportes"
     }
   },
