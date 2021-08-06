@@ -34,11 +34,11 @@ export const DesktopLibrary = (props) => {
         </div>
         <div
           className={`item favorites ${
-            get(router, "asPath", "").includes("/library/games/folders")
+            get(router, "asPath", "").includes("/library/folders")
               ? "active"
               : ""
           }`}
-          onClick={() => router.push("/library/games/folders")}
+          onClick={() => router.push("/library/folders")}
         >
           <Image
             src={`${config.storageUrl}/resources/purple-folder.svg`}

@@ -66,7 +66,7 @@ export const TabletLibrary = (props) => {
           </div>
         </>
       )}
-      {router.asPath.includes("/library/games") && (
+      {router.asPath.includes("/library/") && (
         <>
           <div className="subtitle">
             Mis Juegos
@@ -131,9 +131,7 @@ export const TabletLibrary = (props) => {
                 <div
                   key={folder.id}
                   className="item games folder"
-                  onClick={() =>
-                    router.push(`/library/games/folders/${folder.id}`)
-                  }
+                  onClick={() => router.push(`/library/folders/${folder.id}`)}
                 >
                   <Image
                     src={`${config.storageUrl}/resources/purple-puzzle.svg`}
