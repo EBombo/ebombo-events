@@ -1,10 +1,9 @@
 import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
-import { config, firestore } from "../../firebase";
+import { config } from "../../firebase";
 import { useRouter } from "next/router";
 import isEmpty from "lodash/isEmpty";
-import get from "lodash/get";
 import { ButtonAnt } from "../../components/form";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";

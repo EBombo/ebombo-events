@@ -78,10 +78,10 @@ const UserLayout = (props) => {
       {RightDrawerForm()}
       <Layout>
         <Desktop>
-          <DesktopNav />
+          <DesktopNav {...props} />
         </Desktop>
         <Tablet>
-          <TabletNav />
+          <TabletNav {...props} />
         </Tablet>
         <LayoutMenu>
           <Desktop>
@@ -89,7 +89,7 @@ const UserLayout = (props) => {
           </Desktop>
           <Tablet>
             <Body isLanding={props.isLanding}>{props.children}</Body>
-            {!props.isLanding && <FooterBar />}
+            {!props.isLanding && <FooterBar {...props} />}
           </Tablet>
           <Footer />
           <PWA />
