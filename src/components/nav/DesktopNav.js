@@ -21,6 +21,7 @@ export const DesktopNav = (props) => {
     <DesktopNavContainer>
       {isVisibleModalGame && (
         <ModalNewGame
+          {...props}
           isVisibleModalGame={isVisibleModalGame}
           setIsVisibleModalGame={setIsVisibleModalGame}
         />
@@ -91,7 +92,6 @@ export const DesktopNav = (props) => {
           </ButtonAnt>
           <div
             className="menu-icon-nav"
-            DesktopLibrary
             onClick={() => setOpenRightDrawer(true)}
           >
             <MenuOutlined />
@@ -158,6 +158,7 @@ const DesktopNavContainer = styled.div`
 
   .menu-profile {
     display: flex;
+
     .menu-icon-nav {
       margin: auto 10px;
       color: ${(props) => props.theme.basic.white};

@@ -39,7 +39,8 @@ export const menus = [
   },
   {
     name: "Crear",
-    url: "/library/games/new",
+    url: "/library/folders/[folderId]/gameToPlay/new",
+    onClick: (setIsVisibleModalGame) => setIsVisibleModalGame(true),
     src: `${config.storageUrl}/resources/footer/create-icon.svg`,
   },
   {

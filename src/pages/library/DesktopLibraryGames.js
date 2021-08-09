@@ -61,7 +61,12 @@ export const DesktopLibraryGames = (props) => {
 
       <div className="list-container">
         {props.games.map((game) => (
-          <ListGameView game={game} listType={listType} {...props} />
+          <ListGameView
+            game={game}
+            key={game.id}
+            listType={listType}
+            {...props}
+          />
         ))}
         {isEmpty(props.games) && (
           <div className="empty-container">No cuentas con juegos.</div>

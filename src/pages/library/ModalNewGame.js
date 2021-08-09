@@ -1,12 +1,63 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../components/common/ModalContainer";
 import { ButtonAnt } from "../../components/form";
 import { darkTheme } from "../../theme";
 import { sizes } from "../../constants";
+import { useSendError } from "../../hooks";
+import { firestore } from "../../firebase";
+import { useRouter } from "next/router";
+
+const imageUrl =
+  "https://mk0snacknation9jc4nw.kinstacdn.com/wp-content/uploads/2020/08/27-Virtual-Trivia-Ideas-For-People-Who-Know-Facts-And-Nothing-Else-copy.png";
 
 export const ModalNewGame = (props) => {
+  const router = useRouter();
+  const { folderId } = router.query;
+
   const [games] = useGlobal("games");
+  const [authUser] = useGlobal("user");
+  const { sendError } = useSendError();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchParent = async () => {
+    if (!folderId) return null;
+    const parentRef = await firestore.collection("folders").doc(folderId).get();
+    return parentRef.data();
+  };
+
+  const createGameToPlay = async (game) => {
+    try {
+      setIsLoading(true);
+      const gameToPlayRef = firestore.collection("gamesToPlay");
+      const newGameToPlayId = gameToPlayRef.doc().id;
+
+      const parent = await fetchParent();
+
+      await gameToPlayRef.doc(newGameToPlayId).set(
+        {
+          id: newGameToPlayId,
+          createAt: new Date(),
+          updateAt: new Date(),
+          deleted: false,
+          parent,
+          game,
+          description: "...",
+          imageUrl,
+          user: authUser,
+          usersIds: [authUser?.id],
+        },
+        { merge: true }
+      );
+
+      props.fetchGames && props.fetchGames();
+    } catch (error) {
+      console.error(error);
+      sendError(error, "createGameToPlay");
+    }
+    props.setIsVisibleModalGame(false);
+    setIsLoading(false);
+  };
 
   return (
     <ModalContainer
@@ -24,7 +75,14 @@ export const ModalNewGame = (props) => {
           {games.map((game) => (
             <div className="game" key={game.id}>
               <div className="title-game">{game.name}</div>
-              <ButtonAnt margin="5px auto">CREAR</ButtonAnt>
+              <ButtonAnt
+                margin="5px auto"
+                onClick={() => createGameToPlay(game)}
+                disabled={isLoading}
+                loading={isLoading}
+              >
+                CREAR
+              </ButtonAnt>
             </div>
           ))}
         </div>
@@ -33,6 +91,7 @@ export const ModalNewGame = (props) => {
           variant="contained"
           color="gray"
           size="big"
+          disabled={isLoading}
           onClick={() => props.setIsVisibleModalGame(false)}
         >
           Cerrar
