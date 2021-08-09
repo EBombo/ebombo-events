@@ -5,8 +5,17 @@ import { ButtonAnt, Checkbox } from "../../components/form";
 import { config } from "../../firebase";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
+import get from "lodash/get";
 
 export const ListGameView = (props) => {
+  const getTimeCreation = () => {
+    return "7 dias";
+  };
+
+  const getTimesPlayed = () => {
+    return "7 reproducciones";
+  };
+
   return (
     <>
       {props.listType === "icons" && (
@@ -23,13 +32,35 @@ export const ListGameView = (props) => {
           />
           <div className="main-content">
             <div className="description">{props.game.description}</div>
-            <div className="buttons-container">
-              <ButtonAnt variant="contained" color="blue" margin="0 1rem">
-                Editar
-              </ButtonAnt>
-              <ButtonAnt variant="contained" color="darkgreen">
-                Jugar
-              </ButtonAnt>
+            <div className="bottom-container">
+              <div className="company">
+                <Image
+                  src={get(props, "game.company.imageUrl", "")}
+                  height={"30px"}
+                  width={"30px"}
+                  borderRadius={"50%"}
+                  margin={"0 5px 0 0"}
+                  size="cover"
+                />
+                <div className="name">
+                  {get(props, "game.company.name", "")}
+                </div>
+              </div>
+              <div className="dates">
+                Creado hace {getTimeCreation()} {getTimesPlayed()}
+              </div>
+              <div className="btns-container">
+                <ButtonAnt
+                  variant="contained"
+                  color="secondary"
+                  margin="0 1rem"
+                >
+                  Editar
+                </ButtonAnt>
+                <ButtonAnt variant="contained" color="primary">
+                  Jugar
+                </ButtonAnt>
+              </div>
             </div>
           </div>
         </IconsContainer>
@@ -92,8 +123,8 @@ const ListContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    
-    .description{
+
+    .description {
       font-family: Lato;
       font-style: normal;
       font-weight: bold;
@@ -155,18 +186,47 @@ const IconsContainer = styled.div`
       color: ${(props) => props.theme.basic.black};
     }
 
-    .buttons-container {
+    .bottom-container {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
       height: 45px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       padding: 0 1rem;
       background: ${(props) => props.theme.basic.whiteDark};
       border-radius: 0px 0px 5px 0px;
+      
+      .company{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        .name{
+          font-family: Lato;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 13px;
+          line-height: 16px;
+          color: ${(props) => props.theme.basic.grayLight};
+        }
+      }
+
+      .dates {
+        font-family: Lato;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 16px;
+        color: ${(props) => props.theme.basic.grayLight};
+      }
+
+      .btns-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
     }
   }
 `;

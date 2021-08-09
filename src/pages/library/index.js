@@ -20,6 +20,11 @@ export const LibraryContainer = (props) => {
       id: "Trivia",
       imageUrl:
         "https://mk0snacknation9jc4nw.kinstacdn.com/wp-content/uploads/2020/08/27-Virtual-Trivia-Ideas-For-People-Who-Know-Facts-And-Nothing-Else-copy.png",
+      company: {
+        name: "Ripley",
+        imageUrl:
+          "https://static.wikia.nocookie.net/logopedia/images/6/6f/Ripley_logo_R_con_fondo_y_barras_2011-presente.png/revision/latest/scale-to-width-down/250?cb=20191021002218",
+      },
     },
   ]);
 
