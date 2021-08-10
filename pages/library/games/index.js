@@ -10,7 +10,7 @@ const UserLayout = dynamic(() => import("../../../src/components/UserLayout"), {
   loading: () => spinLoader(),
 });
 
-const Library = (props) => (
+const Games = (props) => (
   <PrivateRoutes>
     <SEOMeta {...props} />
     <UserLayout {...props}>
@@ -19,4 +19,4 @@ const Library = (props) => (
   </PrivateRoutes>
 );
 
-export default Library;
+export default Games;
