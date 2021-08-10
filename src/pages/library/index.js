@@ -6,7 +6,6 @@ import { DesktopLibrary } from "./DesktopLibrary";
 
 export const LibraryContainer = (props) => {
   useEffect(() => {
-    props.fetchFolders();
     props.fetchGames();
   }, []);
 

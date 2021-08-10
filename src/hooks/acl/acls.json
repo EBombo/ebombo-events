@@ -5,11 +5,11 @@
       "/library": "Library mobile",
       "/library/favorites": "Lista favoritos",
       "/library/games": "Lista de juegos",
+      "/library/games/new": "Crear juego",
+      "/library/games/[gameId]": "Editar juego",
       "/library/folders": "Lista de folders",
       "/library/folders/new": "Crear sub folders",
       "/library/folders/[folderId]": "Ver sub folders",
-      "/library/folders/[folderId]/gameToPlay/new": "Crear juego",
-      "/library/folders/[folderId]/gameToPlay/[eventId]": "Editar juego",
       "/reports": "Formulario de Reportes"
     }
   },

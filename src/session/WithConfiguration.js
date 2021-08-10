@@ -30,7 +30,7 @@ export const WithConfiguration = (props) => {
   const { Fetch } = useFetch();
 
   const [authUser] = useGlobal("user");
-  const [, setGames] = useGlobal("games");
+  const [, setResources] = useGlobal("resources");
   const [, setLocation] = useGlobal("location");
   const [settings, setSettings] = useGlobal("settings");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
@@ -55,6 +55,7 @@ export const WithConfiguration = (props) => {
         settings: collectionToDate({ ...settingsLS, version }),
         location,
         games: [],
+        resources: [],
         languageCode,
         register: null,
         isLoadingUser: true,
@@ -108,7 +109,8 @@ export const WithConfiguration = (props) => {
         .where("deleted", "==", false)
         .get();
 
-      setGames(snapshotToArray(gamesRef));
+      console.log("->", snapshotToArray(gamesRef));
+      await setResources(snapshotToArray(gamesRef));
     };
 
     initializeConfig();

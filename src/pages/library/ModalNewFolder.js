@@ -67,7 +67,6 @@ export const ModalNewFolder = (props) => {
         },
         { merge: true }
       );
-      props.fetchFolders();
     } catch (error) {
       console.error(error);
       sendError(error, "saveNewFolder");

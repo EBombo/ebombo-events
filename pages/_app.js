@@ -34,12 +34,14 @@ const MyApp = ({ Component, pageProps }) => {
       ? folderRef.where("parent.id", "==", folderId)
       : folderRef.where("parent", "==", null);
 
-    folderRef.onSnapshot((foldersQuery) =>
-      setFolders(snapshotToArray(foldersQuery))
-    );
+    folderRef.onSnapshot((foldersQuery) => {
+      console.log("1->", snapshotToArray(foldersQuery));
+      setFolders(snapshotToArray(foldersQuery));
+    });
   };
 
   const fetchGames = async () => {
+    //It will be a request => to the API [+folderId, +userId] => It will fetching all game collections [bingo/kahoot/other]
     let gamesRef = firestore
       .collection("gamesToPlay")
       .where("usersIds", "array-contains", authUser?.id)
@@ -49,7 +51,10 @@ const MyApp = ({ Component, pageProps }) => {
       ? gamesRef.where("parent.id", "==", folderId)
       : gamesRef.where("parent", "==", null);
 
-    gamesRef.onSnapshot((gamesQuery) => setGames(snapshotToArray(gamesQuery)));
+    gamesRef.onSnapshot((gamesQuery) => {
+      console.log("2->", snapshotToArray(gamesQuery));
+      setGames(snapshotToArray(gamesQuery));
+    });
   };
 
   useEffect(() => {
@@ -57,7 +62,7 @@ const MyApp = ({ Component, pageProps }) => {
 
     fetchFolders();
     fetchGames();
-  }, [folderId]);
+  }, [folderId, isBack]);
 
   useEffect(() => {
     if (!folderId || isBack) return;
@@ -72,7 +77,7 @@ const MyApp = ({ Component, pageProps }) => {
     };
 
     fetchParent();
-  }, [folderId]);
+  }, [folderId, isBack]);
 
   useEffect(() => {
     setIsBack(false);
@@ -144,7 +149,6 @@ const MyApp = ({ Component, pageProps }) => {
               parent={parent}
               folders={folders}
               fetchGames={fetchGames}
-              fetchFolders={fetchFolders}
               showNotification={showNotificationAnt}
             />
           </WithAuthentication>
