@@ -5,20 +5,34 @@ import { Input, ButtonAnt } from "../../components/form";
 import { Image } from "../../components/common/Image";
 import { ModalNewFolder } from "./ModalNewFolder";
 import { ModalNewGame } from "./ModalNewGame";
-import { config } from "../../firebase";
+import { config, firestore } from "../../firebase";
 import isEmpty from "lodash/isEmpty";
 import { useRouter } from "next/router";
 import { ListGameView } from "./ListGameView";
 import { darkTheme } from "../../theme";
 import { Tooltip } from "antd";
+import { useSendError } from "../../hooks";
 
 export const DesktopLibraryFolders = (props) => {
   const [authUser] = useGlobal("user");
   const [listType, setListType] = useState("icons");
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [folder, setFolder] = useState(null);
   const router = useRouter();
+  const { sendError } = useSendError();
+
+  const deleteFolder = async (folder) => {
+    try {
+      await firestore.doc(`folders/${folder.id}`).update({
+        deleted: true,
+      });
+    } catch (error) {
+      console.error(error);
+      sendError(error, "deleteFolder");
+    }
+  };
 
   return (
     <FoldersContainer>
@@ -141,7 +155,10 @@ export const DesktopLibraryFolders = (props) => {
                       />
                       Duplicar
                     </div>
-                    <div className="folder-option">
+                    <div
+                      className="folder-option"
+                      onClick={() => deleteFolder(folder)}
+                    >
                       <Image
                         src={`${config.storageUrl}/resources/delete.svg`}
                         width={"16px"}
