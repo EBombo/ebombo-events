@@ -26,6 +26,23 @@ export const ModalNewFolder = (props) => {
     reValidateMode: "onSubmit",
   });
 
+  const editFolder = async (data) => {
+    try {
+      setIsLoading(true);
+
+      await firestore.doc(`folders/${props.folder.id}`).update({
+        name: data.name,
+      });
+
+      props.fetchFolders();
+    } catch (error) {
+      console.error(error);
+      sendError(error, "editFolder");
+    }
+    props.setIsVisibleModalFolder(false);
+    setIsLoading(false);
+  };
+
   const saveNewFolder = async (data) => {
     try {
       setIsLoading(true);
@@ -77,7 +94,7 @@ export const ModalNewFolder = (props) => {
           <div className="label">Nombre</div>
         </Desktop>
         <form
-          onSubmit={handleSubmit(saveNewFolder)}
+          onSubmit={handleSubmit(props.folder ? editFolder : saveNewFolder)}
           autoComplete="off"
           noValidate
           className="form"
@@ -85,6 +102,7 @@ export const ModalNewFolder = (props) => {
           <Input
             variant="clear"
             label="Nombre"
+            defaultValue={props.folder ? props.folder.name : ""}
             placeholder="Folder sin nombre"
             name="name"
             ref={register}

@@ -17,6 +17,7 @@ export const DesktopLibraryFolders = (props) => {
   const [listType, setListType] = useState("icons");
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
+  const [folder, setFolder] = useState(null);
   const router = useRouter();
 
   return (
@@ -24,6 +25,7 @@ export const DesktopLibraryFolders = (props) => {
       {isVisibleModalFolder && (
         <ModalNewFolder
           {...props}
+          folder={folder}
           isVisibleModalFolder={isVisibleModalFolder}
           setIsVisibleModalFolder={setIsVisibleModalFolder}
         />
@@ -103,7 +105,13 @@ export const DesktopLibraryFolders = (props) => {
                 trigger="click"
                 title={
                   <ToolTipContent>
-                    <div className="folder-option">
+                    <div
+                      className="folder-option"
+                      onClick={() => {
+                        setFolder(folder);
+                        setIsVisibleModalFolder(true);
+                      }}
+                    >
                       <Image
                         src={`${config.storageUrl}/resources/edit-name.svg`}
                         width={"16px"}
