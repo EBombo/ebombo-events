@@ -9,6 +9,8 @@ import { config } from "../../firebase";
 import isEmpty from "lodash/isEmpty";
 import { useRouter } from "next/router";
 import { ListGameView } from "./ListGameView";
+import { darkTheme } from "../../theme";
+import { Tooltip } from "antd";
 
 export const DesktopLibraryFolders = (props) => {
   const [authUser] = useGlobal("user");
@@ -82,12 +84,11 @@ export const DesktopLibraryFolders = (props) => {
           <div className="empty-message">No cuentas con folders</div>
         ) : (
           props.folders.map((folder) => (
-            <div
-              key={folder.id}
-              className="folder"
-              onClick={() => router.push(`/library/folders/${folder.id}`)}
-            >
-              <div className="left">
+            <div key={folder.id} className="folder">
+              <div
+                className="left"
+                onClick={() => router.push(`/library/folders/${folder.id}`)}
+              >
                 <Image
                   src={`${config.storageUrl}/resources/folder-black.svg`}
                   width="20px"
@@ -97,11 +98,61 @@ export const DesktopLibraryFolders = (props) => {
                 />
                 <div className="name">{folder.name}</div>
               </div>
-              <div className="right">
-                <div />
-                <div />
-                <div />
-              </div>
+              <Tooltip
+                placement="bottomRight"
+                trigger="click"
+                title={
+                  <ToolTipContent>
+                    <div className="folder-option">
+                      <Image
+                        src={`${config.storageUrl}/resources/edit-name.svg`}
+                        width={"16px"}
+                        height={"16px"}
+                        size={"contain"}
+                        margin={"0 15px 0 0"}
+                      />
+                      Cambiar Nombre
+                    </div>
+                    <div className="folder-option">
+                      <Image
+                        src={`${config.storageUrl}/resources/move.svg`}
+                        width={"16px"}
+                        height={"16px"}
+                        size={"contain"}
+                        margin={"0 15px 0 0"}
+                      />
+                      Mover
+                    </div>
+                    <div className="folder-option">
+                      <Image
+                        src={`${config.storageUrl}/resources/duplicate.svg`}
+                        width={"16px"}
+                        height={"16px"}
+                        size={"contain"}
+                        margin={"0 15px 0 0"}
+                      />
+                      Duplicar
+                    </div>
+                    <div className="folder-option">
+                      <Image
+                        src={`${config.storageUrl}/resources/delete.svg`}
+                        width={"16px"}
+                        height={"16px"}
+                        size={"contain"}
+                        margin={"0 15px 0 0"}
+                      />
+                      Borrar
+                    </div>
+                  </ToolTipContent>
+                }
+                color={darkTheme.basic.whiteLight}
+              >
+                <div className="right">
+                  <div />
+                  <div />
+                  <div />
+                </div>
+              </Tooltip>
             </div>
           ))
         )}
@@ -161,9 +212,9 @@ const FoldersContainer = styled.div`
     margin: 2rem 0;
 
     .folder {
-      display: flex;
+      display: grid;
       align-items: center;
-      justify-content: space-between;
+      grid-template-columns: 220px auto;
       background: ${(props) => props.theme.basic.whiteLight};
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
       border-radius: 5px;
@@ -239,5 +290,23 @@ const FoldersContainer = styled.div`
         }
       }
     }
+  }
+`;
+
+const ToolTipContent = styled.div`
+  background: ${(props) => props.theme.basic.whiteLight};
+  box-sizing: border-box;
+  color: ${(props) => props.theme.basic.grayLight};
+
+  .folder-option {
+    display: flex;
+    align-items: center;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 0.5rem;
+    cursor: pointer;
   }
 `;
