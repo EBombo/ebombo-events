@@ -34,9 +34,9 @@ const MyApp = ({ Component, pageProps }) => {
       ? folderRef.where("parent.id", "==", folderId)
       : folderRef.where("parent", "==", null);
 
-    const foldersQuery = await folderRef.get();
-
-    setFolders(snapshotToArray(foldersQuery));
+    folderRef.onSnapshot((foldersQuery) =>
+      setFolders(snapshotToArray(foldersQuery))
+    );
   };
 
   const fetchGames = async () => {
@@ -49,9 +49,7 @@ const MyApp = ({ Component, pageProps }) => {
       ? gamesRef.where("parent.id", "==", folderId)
       : gamesRef.where("parent", "==", null);
 
-    const gamesQuery = await gamesRef.get();
-
-    setGames(snapshotToArray(gamesQuery));
+    gamesRef.onSnapshot((gamesQuery) => setGames(snapshotToArray(gamesQuery)));
   };
 
   useEffect(() => {
