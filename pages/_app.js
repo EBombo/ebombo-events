@@ -33,8 +33,8 @@ const MyApp = ({ Component, pageProps }) => {
       .where("deleted", "==", false);
 
     folderRef = folderId
-      ? folderRef.where("parent.id", "==", folderId)
-      : folderRef.where("parent", "==", null);
+      ? folderRef.where("parentId", "==", folderId)
+      : folderRef.where("parentId", "==", null);
 
     folderRef.onSnapshot((foldersQuery) => {
       console.log("1->", snapshotToArray(foldersQuery));
@@ -59,7 +59,7 @@ const MyApp = ({ Component, pageProps }) => {
   };
 
   useEffect(() => {
-    if (router.asPath === "/library" || isBack) return;
+    if (router.asPath === "/library" || isBack || !authUser) return;
 
     fetchFolders();
     fetchGames();
