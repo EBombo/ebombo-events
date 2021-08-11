@@ -59,7 +59,7 @@ const MyApp = ({ Component, pageProps }) => {
   };
 
   useEffect(() => {
-    if (router.asPath === "/library" || isBack || !authUser) return;
+    if (isBack || !authUser) return;
 
     fetchFolders();
     fetchGames();
