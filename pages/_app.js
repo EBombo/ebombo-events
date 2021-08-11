@@ -13,11 +13,13 @@ import { notification } from "antd";
 import get from "lodash/get";
 import Head from "next/head";
 import "antd/dist/antd.css";
+import { useFetch } from "../src/hooks/useFetch";
 
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
   const [authUserLS] = useUser();
   const { folderId } = router.query;
+  const { Fetch } = useFetch();
   const [authUser] = useGlobal("user");
   const [games, setGames] = useState([]);
   const [parent, setParent] = useState(null);
@@ -41,20 +43,19 @@ const MyApp = ({ Component, pageProps }) => {
   };
 
   const fetchGames = async () => {
-    //It will be a request => to the API [+folderId, +userId] => It will fetching all game collections [bingo/kahoot/other]
-    let gamesRef = firestore
-      .collection("gamesToPlay")
-      .where("usersIds", "array-contains", authUser?.id)
-      .where("deleted", "==", false);
+    try {
+      const { response, error } = await Fetch(
+        `${config.serverUrl}/api/games/users/${authUser?.id}?folderId=${folderId}`
+      );
 
-    gamesRef = folderId
-      ? gamesRef.where("parent.id", "==", folderId)
-      : gamesRef.where("parent", "==", null);
+      if (error) throw Error(error);
 
-    gamesRef.onSnapshot((gamesQuery) => {
-      console.log("2->", snapshotToArray(gamesQuery));
-      setGames(snapshotToArray(gamesQuery));
-    });
+      console.log("response", response);
+      const games_ = response?.games ?? [];
+      setGames(games_);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
