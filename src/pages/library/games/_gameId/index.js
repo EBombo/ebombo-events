@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useSendError } from "../../../../hooks";
 import { useFetch } from "../../../../hooks/useFetch";
 import { firestore } from "../../../../firebase";
+import { Bingo } from "./Bingo";
 
 const imageUrl =
   "https://mk0snacknation9jc4nw.kinstacdn.com/wp-content/uploads/2020/08/27-Virtual-Trivia-Ideas-For-People-Who-Know-Facts-And-Nothing-Else-copy.png";
@@ -95,7 +96,8 @@ export const GameContainer = (props) => {
 
   return (
     <GameContainerCss>
-      hello-{resourceId}-{folderId}
+      {resourceId === "vJY65JpTHMcW0KyaypOT" && <Bingo {...props} />}
+      {/*hello-{resourceId}-{folderId}*/}
     </GameContainerCss>
   );
 };
