@@ -29,7 +29,7 @@ const MyApp = ({ Component, pageProps }) => {
   const fetchFolders = async () => {
     let folderRef = firestore
       .collection("folders")
-      .where("usersIds", "array-contains", authUser?.id)
+      .where("usersIds", "array-contains", authUser?.id ?? null)
       .where("deleted", "==", false);
 
     folderRef = folderId
@@ -59,7 +59,7 @@ const MyApp = ({ Component, pageProps }) => {
   };
 
   useEffect(() => {
-    if (router.asPath === "/library" || isBack || !authUser) return;
+    if (isBack || !authUser) return;
 
     fetchFolders();
     fetchGames();

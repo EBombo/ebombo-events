@@ -59,6 +59,7 @@ export const ModalNewFolder = (props) => {
           id: newFolderId,
           path,
           parent: props.parent || null,
+          parentId: props.parent?.id || null,
           createAt: new Date(),
           updateAt: new Date(),
           deleted: false,
