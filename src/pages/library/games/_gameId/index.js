@@ -102,4 +102,6 @@ export const GameContainer = (props) => {
   );
 };
 
-const GameContainerCss = styled.div``;
+const GameContainerCss = styled.div`
+  width: 100%;
+`;
