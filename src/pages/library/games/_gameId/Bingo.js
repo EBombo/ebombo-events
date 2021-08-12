@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { darkTheme } from "../../../../theme";
 import defaultTo from "lodash/defaultTo";
+import { useRouter } from "next/router";
 
 const bingoCard = [
   [2, 4, 8, 13, 15],
@@ -22,7 +23,9 @@ const bingoCard = [
 export const Bingo = (props) => {
   const [coverImg, setCoverImg] = useState(null);
   const [backgroundImg, setBackgroundImg] = useState(null);
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
+  const router = useRouter();
 
   const schema = object().shape({
     title: string(),
@@ -50,20 +53,27 @@ export const Bingo = (props) => {
           </Anchor>
         </Desktop>
       </div>
-      <Tablet>
-        <form action="">
+      <div className="main-container">
+        <form onSubmit={handleSubmit(props.createGame)}>
           <div className="btns-container">
-            <Anchor fontWeight={"bold"} fontSize={"15px"} lineHeight={"18px"}>
-              Cancelar
-            </Anchor>
-            <Anchor
-              fontWeight={"bold"}
-              fontSize={"15px"}
-              lineHeight={"18px"}
-              onClick={() => console.log("submit")}
+            <ButtonAnt
+              variant={"outlined"}
+              color={"default"}
+              onClick={() => router.back()}
             >
-              Guardar
-            </Anchor>
+              Cancelar
+            </ButtonAnt>
+            <Tablet>
+              <ButtonAnt
+                variant={"contained"}
+                color={"primary"}
+                htmlType="submit"
+                loading={loading}
+                disabled={loading}
+              >
+                Guardar
+              </ButtonAnt>
+            </Tablet>
           </div>
           {coverImg ? (
             <Image
@@ -188,36 +198,38 @@ export const Bingo = (props) => {
                 />
               </div>
             </div>
-            <div className="card">
-              <CardContainer
-                backgroundColor={watch("backgroundColor")}
-                titleColor={watch("titleColor")}
-                blocksColor={watch("blocksColor")}
-                numberColor={watch("numberColor")}
-              >
-                <div className="card-title">{watch("title")}</div>
-                <table>
-                  <thead className="thead">
-                    <tr>
-                      <th>{watch("b")}</th>
-                      <th>{watch("i")}</th>
-                      <th>{watch("n")}</th>
-                      <th>{watch("g")}</th>
-                      <th>{watch("o")}</th>
-                    </tr>
-                  </thead>
-                  <tbody className="tbody">
-                    {bingoCard.map((arrNums, index) => (
-                      <tr key={`key-${index}`}>
-                        {arrNums.map((num, idx) => (
-                          <td key={`key-${num}-${idx}`}>{num}</td>
-                        ))}
+            <Tablet>
+              <div className="card">
+                <CardContainer
+                  backgroundColor={watch("backgroundColor")}
+                  titleColor={watch("titleColor")}
+                  blocksColor={watch("blocksColor")}
+                  numberColor={watch("numberColor")}
+                >
+                  <div className="card-title">{watch("title")}</div>
+                  <table>
+                    <thead className="thead">
+                      <tr>
+                        <th>{watch("b")}</th>
+                        <th>{watch("i")}</th>
+                        <th>{watch("n")}</th>
+                        <th>{watch("g")}</th>
+                        <th>{watch("o")}</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </CardContainer>
-            </div>
+                    </thead>
+                    <tbody className="tbody">
+                      {bingoCard.map((arrNums, index) => (
+                        <tr key={`key-${index}`}>
+                          {arrNums.map((num, idx) => (
+                            <td key={`key-${num}-${idx}`}>{num}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </CardContainer>
+              </div>
+            </Tablet>
           </div>
           <div className="subtitle">Selecciona un color para cambiarlo</div>
           <div className="colors-container">
@@ -271,15 +283,56 @@ export const Bingo = (props) => {
             onChange={(img) => setBackgroundImg(img)}
           />
         </form>
-      </Tablet>
-      <Desktop>desktop</Desktop>
+        <Desktop>
+          <div className="right-container">
+            <div className="submit-btn">
+              <ButtonAnt
+                variant={"contained"}
+                color={"primary"}
+                htmlType="submit"
+                loading={loading}
+                disabled={loading}
+              >
+                Guardar
+              </ButtonAnt>
+            </div>
+            <CardContainer
+              backgroundColor={watch("backgroundColor")}
+              titleColor={watch("titleColor")}
+              blocksColor={watch("blocksColor")}
+              numberColor={watch("numberColor")}
+            >
+              <div className="card-title">{watch("title")}</div>
+              <table>
+                <thead className="thead">
+                  <tr>
+                    <th>{watch("b")}</th>
+                    <th>{watch("i")}</th>
+                    <th>{watch("n")}</th>
+                    <th>{watch("g")}</th>
+                    <th>{watch("o")}</th>
+                  </tr>
+                </thead>
+                <tbody className="tbody">
+                  {bingoCard.map((arrNums, index) => (
+                    <tr key={`key-${index}`}>
+                      {arrNums.map((num, idx) => (
+                        <td key={`key-${num}-${idx}`}>{num}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </CardContainer>
+          </div>
+        </Desktop>
+      </div>
     </BingoContainer>
   );
 };
 
 const BingoContainer = styled.div`
   width: 100%;
-  background: ${(props) => props.theme.basic.gray};
 
   .nav {
     background: ${(props) => props.theme.basic.primary};
@@ -288,6 +341,7 @@ const BingoContainer = styled.div`
     justify-content: space-between;
     width: 100%;
     height: 40px;
+    padding: 0 1rem;
 
     .name {
       font-family: Lato;
@@ -295,6 +349,7 @@ const BingoContainer = styled.div`
       font-weight: bold;
       font-size: 15px;
       line-height: 18px;
+      color: ${(props) => props.theme.basic.whiteLight};
     }
   }
 
@@ -310,7 +365,7 @@ const BingoContainer = styled.div`
     .cover {
       width: 100%;
       height: 85px;
-      background: ${props => props.theme.basic.whiteLight};
+      background: ${(props) => props.theme.basic.whiteLight};
       display: flex;
       align-items: center;
       justify-content: space-evenly;
@@ -464,6 +519,41 @@ const BingoContainer = styled.div`
       }
     }
   }
+
+  ${mediaQuery.afterTablet} {
+    min-height: 100vh;
+    background: ${(props) => props.theme.basic.white};
+
+    .right-container {
+      padding: 1rem;
+
+      .submit-btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        justify-content: flex-end;
+      }
+    }
+
+    .main-container {
+      background: ${(props) => props.theme.basic.gray};
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: repeat(2, 50%);
+      border-radius: 4px;
+      margin: 1rem auto;
+      box-sizing: border-box;
+
+      .bingo-inputs {
+        max-width: 160px;
+        margin: 0 auto;
+      }
+      .bingo-card {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
 `;
 
 const CardContainer = styled.div`
@@ -523,6 +613,46 @@ const CardContainer = styled.div`
             props.numberColor ? props.numberColor : props.theme.basic.white};
           background: ${(props) =>
             props.blocksColor ? props.blocksColor : props.theme.basic.primary};
+        }
+      }
+    }
+  }
+
+  ${mediaQuery.afterTablet} {
+    max-width: 460px;
+    height: 500px;
+
+    .card-title {
+      font-size: 28px;
+      line-height: 35px;
+      font-weight: 700;
+      padding: 1rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 5px;
+
+      thead {
+        th {
+          font-weight: 700;
+          font-size: 38px;
+          line-height: 41px;
+          color: ${(props) => props.theme.basic.whiteLight};
+        }
+      }
+
+      tbody {
+        tr {
+          height: 70px;
+
+          td {
+            margin-right: 5px;
+            font-weight: 700;
+            font-size: 38px;
+            line-height: 41px;
+          }
         }
       }
     }
