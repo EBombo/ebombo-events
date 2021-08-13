@@ -65,16 +65,12 @@ export const GameContainer = (props) => {
         .doc(resourceId)
         .get();
 
-      await Fetch(
-        `${resource.domain}/games/${resourceId}/users/${authUser.id}`,
-        "POST",
-        {
-          ...game,
-          createAt: new Date(),
-          updateAt: new Date(),
-          deleted: false,
-        }
-      );
+      await Fetch(getGameUrl(resource), "POST", {
+        ...game,
+        createAt: new Date(),
+        updateAt: new Date(),
+        deleted: false,
+      });
 
       props.fetchGames();
     } catch (error) {
@@ -82,6 +78,12 @@ export const GameContainer = (props) => {
       sendError(error, "createGame");
     }
     setIsLoading(false);
+  };
+
+  const getGameUrl = (resource) => {
+    if (folderId)
+      return `${resource.domain}/games/${resourceId}/users/${authUser.id}?folderId=${folderId}`;
+    return `${resource.domain}/games/${resourceId}/users/${authUser.id}`;
   };
 
   return (
