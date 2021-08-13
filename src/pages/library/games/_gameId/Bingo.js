@@ -11,6 +11,7 @@ import { object, string } from "yup";
 import { darkTheme } from "../../../../theme";
 import defaultTo from "lodash/defaultTo";
 import { useRouter } from "next/router";
+import { ModalSettings } from "./ModalSettings";
 
 const bingoCard = [
   [2, 4, 8, 13, 15],
@@ -23,7 +24,15 @@ const bingoCard = [
 export const Bingo = (props) => {
   const [coverImg, setCoverImg] = useState(null);
   const [backgroundImg, setBackgroundImg] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
+
+  const [imageUrl, setImageUrl] = useState(false);
+  const [ownBranding, setOwnBranding] = useState(true);
+  const [video, setVideo] = useState(null);
+  const [allowDuplicate, setAllowDuplicate] = useState(true);
+  const [visibility, setVisibility] = useState(true);
+  const [music, setMusic] = useState(null);
+
   const inputRef = useRef(null);
   const router = useRouter();
 
@@ -43,8 +52,41 @@ export const Bingo = (props) => {
     setCoverImg(file);
   };
 
+  const saveGame = async game => {
+    await props.createGame({
+      ...game,
+      coverImg,
+      backgroundImg,
+      imageUrl,
+      ownBranding,
+      video,
+      allowDuplicate,
+      visibility,
+      music,
+    })
+  }
+
   return (
     <BingoContainer>
+      {isVisibleModalSettings && (
+        <ModalSettings
+          isVisibleModalSettings={isVisibleModalSettings}
+          setIsVisibleModalSettings={setIsVisibleModalSettings}
+          setImageUrl={setImageUrl}
+          imageUrl={imageUrl}
+          setOwnBranding={setOwnBranding}
+          ownBranding={ownBranding}
+          setVideo={setVideo}
+          video={video}
+          setVisibility={setVisibility}
+          visibility={visibility}
+          setMusic={setMusic}
+          music={music}
+          setAllowDuplicate={setAllowDuplicate}
+          allowDuplicate={allowDuplicate}
+          {...props}
+        />
+      )}
       <div className="nav">
         <div className="name">Crear bingo 1 - 75</div>
         <Desktop>
@@ -54,7 +96,7 @@ export const Bingo = (props) => {
         </Desktop>
       </div>
       <div className="main-container">
-        <form onSubmit={handleSubmit(props.createGame)}>
+        <form onSubmit={handleSubmit(saveGame)}>
           <div className="btns-container">
             <ButtonAnt
               variant={"outlined"}
@@ -68,8 +110,8 @@ export const Bingo = (props) => {
                 variant={"contained"}
                 color={"primary"}
                 htmlType="submit"
-                loading={loading}
-                disabled={loading}
+                loading={props.isLoading}
+                disabled={props.isLoading}
               >
                 Guardar
               </ButtonAnt>
@@ -121,6 +163,7 @@ export const Bingo = (props) => {
               color="secondary"
               size="small"
               margin={"0 0 0 10px"}
+              onClick={() => setIsVisibleModalSettings(true)}
             >
               Ajustes
             </ButtonAnt>
@@ -290,8 +333,8 @@ export const Bingo = (props) => {
                 variant={"contained"}
                 color={"primary"}
                 htmlType="submit"
-                loading={loading}
-                disabled={loading}
+                loading={props.isLoading}
+                disabled={props.isLoading}
               >
                 Guardar
               </ButtonAnt>
@@ -580,7 +623,6 @@ const CardContainer = styled.div`
 
   table {
     width: 100%;
-    padding: 0 0.5rem;
     border-collapse: separate;
     border-spacing: 2.5px;
 
@@ -630,7 +672,8 @@ const CardContainer = styled.div`
     }
 
     table {
-      width: 100%;
+      width: 400px;
+      margin: 0 auto;
       border-collapse: separate;
       border-spacing: 5px;
 

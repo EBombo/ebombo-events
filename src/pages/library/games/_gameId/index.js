@@ -57,12 +57,6 @@ export const GameContainer = (props) => {
     fetchFolder();
   }, []);
 
-  const fetchParent = async () => {
-    if (!folderId) return null;
-    const parentRef = await firestore.collection("folders").doc(folderId).get();
-    return parentRef.data();
-  };
-
   const createGame = async (game) => {
     setIsLoading(true);
     try {
@@ -93,7 +87,7 @@ export const GameContainer = (props) => {
   return (
     <GameContainerCss>
       {resourceId === "vJY65JpTHMcW0KyaypOT" && (
-        <Bingo createGame={createGame} {...props} />
+        <Bingo createGame={createGame} isLoading={isLoading} {...props} />
       )}
       {/*hello-{resourceId}-{folderId}*/}
     </GameContainerCss>
