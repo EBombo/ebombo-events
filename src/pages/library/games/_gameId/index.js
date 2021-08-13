@@ -64,26 +64,22 @@ export const GameContainer = (props) => {
   };
 
   const createGame = async (game) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const gameToPlayRef = firestore.collection("gamesToPlay");
-      const newGameToPlayId = gameToPlayRef.doc().id;
+      const resource = await firestore
+        .collection("games")
+        .doc(resourceId)
+        .get();
 
-      const parent = await fetchParent();
-
-      await gameToPlayRef.doc(newGameToPlayId).set(
+      await Fetch(
+        `${resource.domain}/games/${resourceId}/users/${authUser.id}`,
+        "POST",
         {
           ...game,
-          id: newGameToPlayId,
-          parent,
-          imageUrl,
-          user: authUser,
-          usersIds: [authUser?.id],
           createAt: new Date(),
           updateAt: new Date(),
           deleted: false,
-        },
-        { merge: true }
+        }
       );
 
       props.fetchGames();
@@ -96,7 +92,9 @@ export const GameContainer = (props) => {
 
   return (
     <GameContainerCss>
-      {resourceId === "vJY65JpTHMcW0KyaypOT" && <Bingo {...props} />}
+      {resourceId === "vJY65JpTHMcW0KyaypOT" && (
+        <Bingo createGame={createGame} {...props} />
+      )}
       {/*hello-{resourceId}-{folderId}*/}
     </GameContainerCss>
   );
