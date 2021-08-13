@@ -10,7 +10,7 @@ import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import { firestore } from "../../../../firebase";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
@@ -73,15 +73,13 @@ export const ModalSettings = (props) => {
           <div className="main-container">
             <div className="left-side">
               <div className="label">Guardar en</div>
-              <div className="path">
-                {get(parent, "name", "Mis Juegos")}
-              </div>
+              <div className="path">{get(parent, "name", "Mis Juegos")}</div>
 
               <div className="label">Branding</div>
               <div className="branding">
                 Usar branding propio
                 <Switch
-                  defaultChecked
+                  defaultChecked={props.ownBranding}
                   onChange={() => props.setOwnBranding(!props.ownBranding)}
                 />
               </div>
@@ -91,6 +89,7 @@ export const ModalSettings = (props) => {
                 className="input-video"
                 type="url"
                 name="video"
+                defaultValue={get(props, "video", "")}
                 placeholder="Pegar link de youtube"
                 ref={register}
               />
@@ -128,6 +127,7 @@ export const ModalSettings = (props) => {
                 className="input-video"
                 name="music"
                 type="url"
+                defaultValue={get(props, "music", "")}
                 placeholder="Pegar link de youtube"
                 ref={register}
               />
