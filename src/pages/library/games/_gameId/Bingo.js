@@ -52,9 +52,9 @@ export const Bingo = (props) => {
     setCoverImg(file);
   };
 
-  const saveGame = async game => {
+  const saveGame = async data => {
     await props.createGame({
-      ...game,
+      ...data,
       coverImg,
       backgroundImg,
       imageUrl,

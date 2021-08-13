@@ -60,17 +60,14 @@ export const GameContainer = (props) => {
   const createGame = async (game) => {
     setIsLoading(true);
     try {
-      const resource = await firestore
+      const resourceRef = await firestore
         .collection("games")
         .doc(resourceId)
         .get();
 
-      await Fetch(getGameUrl(resource), "POST", {
-        ...game,
-        createAt: new Date(),
-        updateAt: new Date(),
-        deleted: false,
-      });
+      const resource = resourceRef.data();
+
+      await Fetch(getGameUrl(resource), "POST", game);
 
       props.fetchGames();
     } catch (error) {
@@ -82,8 +79,8 @@ export const GameContainer = (props) => {
 
   const getGameUrl = (resource) => {
     if (folderId)
-      return `${resource.domain}/games/${resourceId}/users/${authUser.id}?folderId=${folderId}`;
-    return `${resource.domain}/games/${resourceId}/users/${authUser.id}`;
+      return `${resource.domain}/api/games/new/users/${authUser.id}?folderId=${folderId}`;
+    return `${resource.domain}/api/games/new/users/${authUser.id}`;
   };
 
   return (
