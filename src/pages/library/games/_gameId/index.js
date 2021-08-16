@@ -67,6 +67,8 @@ export const GameContainer = (props) => {
 
       const resource = resourceRef.data();
 
+      console.log(getGameUrl(resourceId), game)
+
       await Fetch(getGameUrl(resource), "POST", game);
 
       props.fetchGames();

@@ -52,9 +52,21 @@ export const Bingo = (props) => {
     setCoverImg(file);
   };
 
-  const saveGame = async data => {
-    await props.createGame({
-      ...data,
+  const saveGame = async (data) => {
+    const game = {
+      letters: {
+        b: data.b,
+        i: data.i,
+        n: data.n,
+        g: data.g,
+        o: data.o,
+      },
+      blocksColor: data.blocksColor,
+      numberColor: data.numberColor,
+      titleColor: data.titleColor,
+      backgroundColor: data.backgroundColor,
+      title: data.title,
+      name: data.name,
       coverImg,
       backgroundImg,
       imageUrl,
@@ -63,8 +75,10 @@ export const Bingo = (props) => {
       allowDuplicate,
       visibility,
       music,
-    })
-  }
+    };
+
+    await props.createGame(game);
+  };
 
   return (
     <BingoContainer>
@@ -95,281 +109,284 @@ export const Bingo = (props) => {
           </Anchor>
         </Desktop>
       </div>
-      <div className="main-container">
-        <form onSubmit={handleSubmit(saveGame)}>
-          <div className="btns-container">
-            <ButtonAnt
-              variant={"outlined"}
-              color={"default"}
-              onClick={() => router.back()}
-            >
-              Cancelar
-            </ButtonAnt>
-            <Tablet>
+      <form onSubmit={handleSubmit(saveGame)}>
+        <div className="main-container">
+          <div>
+            <div className="btns-container">
               <ButtonAnt
-                variant={"contained"}
-                color={"primary"}
-                htmlType="submit"
-                loading={props.isLoading}
-                disabled={props.isLoading}
+                variant={"outlined"}
+                color={"default"}
+                onClick={() => router.back()}
               >
-                Guardar
+                Cancelar
               </ButtonAnt>
-            </Tablet>
-          </div>
-          {coverImg ? (
-            <Image
-              src={URL.createObjectURL(coverImg)}
-              width={"100%"}
-              height={"95px"}
-              size={"cover"}
-              margin={"0.5rem 0"}
-            />
-          ) : (
-            <>
-              <div className="cover" onClick={() => inputRef.current.click()}>
-                <Image
-                  src={`${config.storageUrl}/resources/no-image.svg`}
-                  width={"40px"}
-                  height={"40px"}
-                  size={"contain"}
-                  margin={"0"}
-                />
-                <div className="description">Añade una imagen de cover</div>
-              </div>
-              <input
-                type="file"
-                accept={props.accept || "image/*" || "application/pdf"}
-                ref={inputRef}
-                onChange={manageFile}
-                hidden
+              <Tablet>
+                <ButtonAnt
+                  variant={"contained"}
+                  color={"primary"}
+                  htmlType="submit"
+                  loading={props.isLoading}
+                  disabled={props.isLoading}
+                >
+                  Guardar
+                </ButtonAnt>
+              </Tablet>
+            </div>
+            {coverImg ? (
+              <Image
+                src={URL.createObjectURL(coverImg)}
+                width={"100%"}
+                height={"95px"}
+                size={"cover"}
+                margin={"0.5rem 0"}
               />
-            </>
-          )}
-          <div className="title">
-            <Input
-              marginBottom={"0"}
-              variant="primary"
-              type="text"
-              name="name"
-              ref={register}
-              error={errors.name}
-              placeholder="Título sin nombre"
-              className="name-input"
-            />
-
-            <ButtonAnt
-              variant="contained"
-              color="secondary"
-              size="small"
-              margin={"0 0 0 10px"}
-              onClick={() => setIsVisibleModalSettings(true)}
-            >
-              Ajustes
-            </ButtonAnt>
-          </div>
-          <div className="subtitle">Personalización de cartilla</div>
-          <div className="bingo-card">
-            <div className="item">
-              <div className="text">Titulo y columnas</div>
+            ) : (
+              <>
+                <div className="cover" onClick={() => inputRef.current.click()}>
+                  <Image
+                    src={`${config.storageUrl}/resources/no-image.svg`}
+                    width={"40px"}
+                    height={"40px"}
+                    size={"contain"}
+                    margin={"0"}
+                  />
+                  <div className="description">Añade una imagen de cover</div>
+                </div>
+                <input
+                  type="file"
+                  accept={props.accept || "image/*" || "application/pdf"}
+                  ref={inputRef}
+                  onChange={manageFile}
+                  hidden
+                />
+              </>
+            )}
+            <div className="title">
               <Input
                 marginBottom={"0"}
                 variant="primary"
                 type="text"
-                name="title"
+                name="name"
                 ref={register}
-                error={errors.title}
-                defaultValue={"Título"}
-                placeholder="Titulo"
-                className="title-input"
+                error={errors.name}
+                placeholder="Título sin nombre"
+                className="name-input"
               />
-              <div className="bingo-inputs">
-                <Input
-                  marginBottom={"0"}
-                  variant="primary"
-                  type="text"
-                  name="b"
-                  ref={register}
-                  error={errors.b}
-                  defaultValue={"B"}
-                  className="input-bingo"
-                  maxLength={1}
-                />
-                <Input
-                  marginBottom={"0"}
-                  variant="primary"
-                  type="text"
-                  name="i"
-                  ref={register}
-                  error={errors.i}
-                  defaultValue={"I"}
-                  className="input-bingo"
-                  maxLength={1}
-                />
-                <Input
-                  marginBottom={"0"}
-                  variant="primary"
-                  type="text"
-                  name="n"
-                  ref={register}
-                  error={errors.n}
-                  defaultValue={"N"}
-                  className="input-bingo"
-                  maxLength={1}
-                />
-                <Input
-                  marginBottom={"0"}
-                  variant="primary"
-                  type="text"
-                  name="g"
-                  ref={register}
-                  error={errors.g}
-                  defaultValue={"G"}
-                  className="input-bingo"
-                  maxLength={1}
-                />
-                <Input
-                  marginBottom={"0"}
-                  variant="primary"
-                  type="text"
-                  name="o"
-                  ref={register}
-                  error={errors.o}
-                  defaultValue={"O"}
-                  className="input-bingo"
-                  maxLength={1}
-                />
-              </div>
-            </div>
-            <Tablet>
-              <div className="card">
-                <CardContainer
-                  backgroundColor={watch("backgroundColor")}
-                  titleColor={watch("titleColor")}
-                  blocksColor={watch("blocksColor")}
-                  numberColor={watch("numberColor")}
-                >
-                  <div className="card-title">{watch("title")}</div>
-                  <table>
-                    <thead className="thead">
-                      <tr>
-                        <th>{watch("b")}</th>
-                        <th>{watch("i")}</th>
-                        <th>{watch("n")}</th>
-                        <th>{watch("g")}</th>
-                        <th>{watch("o")}</th>
-                      </tr>
-                    </thead>
-                    <tbody className="tbody">
-                      {bingoCard.map((arrNums, index) => (
-                        <tr key={`key-${index}`}>
-                          {arrNums.map((num, idx) => (
-                            <td key={`key-${num}-${idx}`}>{num}</td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </CardContainer>
-              </div>
-            </Tablet>
-          </div>
-          <div className="subtitle">Selecciona un color para cambiarlo</div>
-          <div className="colors-container">
-            <div className="color-pick">
-              <input
-                type="color"
-                name="backgroundColor"
-                defaultValue={darkTheme.basic.secondary}
-                ref={register}
-                error={errors.backgroundColor}
-              />
-              <label htmlFor="backgroundColor">
-                {watch("backgroundColor")}
-              </label>
-            </div>
-            <div className="color-pick">
-              <input
-                type="color"
-                name="titleColor"
-                defaultValue={darkTheme.basic.whiteLight}
-                ref={register}
-                error={errors.titleColor}
-              />
-              <label htmlFor="backgroundColor">{watch("titleColor")}</label>
-            </div>
-            <div className="color-pick">
-              <input
-                type="color"
-                name="blocksColor"
-                defaultValue={darkTheme.basic.primary}
-                ref={register}
-                error={errors.blocksColor}
-              />
-              <label htmlFor="backgroundColor">{watch("blocksColor")}</label>
-            </div>
-            <div className="color-pick">
-              <input
-                type="color"
-                name="numberColor"
-                defaultValue={darkTheme.basic.whiteLight}
-                ref={register}
-                error={errors.numberColor}
-              />
-              <label htmlFor="backgroundColor">{watch("numberColor")}</label>
-            </div>
-          </div>
-          <FileUpload
-            preview={"false"}
-            fileName="backgroundImage"
-            sizes="300x350"
-            onChange={(img) => setBackgroundImg(img)}
-          />
-        </form>
-        <Desktop>
-          <div className="right-container">
-            <div className="submit-btn">
+
               <ButtonAnt
-                variant={"contained"}
-                color={"primary"}
-                htmlType="submit"
-                loading={props.isLoading}
-                disabled={props.isLoading}
+                variant="contained"
+                color="secondary"
+                size="small"
+                margin={"0 0 0 10px"}
+                onClick={() => setIsVisibleModalSettings(true)}
               >
-                Guardar
+                Ajustes
               </ButtonAnt>
             </div>
-            <CardContainer
-              backgroundColor={watch("backgroundColor")}
-              titleColor={watch("titleColor")}
-              blocksColor={watch("blocksColor")}
-              numberColor={watch("numberColor")}
-            >
-              <div className="card-title">{watch("title")}</div>
-              <table>
-                <thead className="thead">
-                  <tr>
-                    <th>{watch("b")}</th>
-                    <th>{watch("i")}</th>
-                    <th>{watch("n")}</th>
-                    <th>{watch("g")}</th>
-                    <th>{watch("o")}</th>
-                  </tr>
-                </thead>
-                <tbody className="tbody">
-                  {bingoCard.map((arrNums, index) => (
-                    <tr key={`key-${index}`}>
-                      {arrNums.map((num, idx) => (
-                        <td key={`key-${num}-${idx}`}>{num}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </CardContainer>
+            <div className="subtitle">Personalización de cartilla</div>
+            <div className="bingo-card">
+              <div className="item">
+                <div className="text">Titulo y columnas</div>
+                <Input
+                  marginBottom={"0"}
+                  variant="primary"
+                  type="text"
+                  name="title"
+                  ref={register}
+                  error={errors.title}
+                  defaultValue={"Título"}
+                  placeholder="Titulo"
+                  className="title-input"
+                />
+                <div className="bingo-inputs">
+                  <Input
+                    marginBottom={"0"}
+                    variant="primary"
+                    type="text"
+                    name="b"
+                    ref={register}
+                    error={errors.b}
+                    defaultValue={"B"}
+                    className="input-bingo"
+                    maxLength={1}
+                  />
+                  <Input
+                    marginBottom={"0"}
+                    variant="primary"
+                    type="text"
+                    name="i"
+                    ref={register}
+                    error={errors.i}
+                    defaultValue={"I"}
+                    className="input-bingo"
+                    maxLength={1}
+                  />
+                  <Input
+                    marginBottom={"0"}
+                    variant="primary"
+                    type="text"
+                    name="n"
+                    ref={register}
+                    error={errors.n}
+                    defaultValue={"N"}
+                    className="input-bingo"
+                    maxLength={1}
+                  />
+                  <Input
+                    marginBottom={"0"}
+                    variant="primary"
+                    type="text"
+                    name="g"
+                    ref={register}
+                    error={errors.g}
+                    defaultValue={"G"}
+                    className="input-bingo"
+                    maxLength={1}
+                  />
+                  <Input
+                    marginBottom={"0"}
+                    variant="primary"
+                    type="text"
+                    name="o"
+                    ref={register}
+                    error={errors.o}
+                    defaultValue={"O"}
+                    className="input-bingo"
+                    maxLength={1}
+                  />
+                </div>
+              </div>
+              <Tablet>
+                <div className="card">
+                  <CardContainer
+                    backgroundColor={watch("backgroundColor")}
+                    titleColor={watch("titleColor")}
+                    blocksColor={watch("blocksColor")}
+                    numberColor={watch("numberColor")}
+                  >
+                    <div className="card-title">{watch("title")}</div>
+                    <table>
+                      <thead className="thead">
+                        <tr>
+                          <th>{watch("b")}</th>
+                          <th>{watch("i")}</th>
+                          <th>{watch("n")}</th>
+                          <th>{watch("g")}</th>
+                          <th>{watch("o")}</th>
+                        </tr>
+                      </thead>
+                      <tbody className="tbody">
+                        {bingoCard.map((arrNums, index) => (
+                          <tr key={`key-${index}`}>
+                            {arrNums.map((num, idx) => (
+                              <td key={`key-${num}-${idx}`}>{num}</td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </CardContainer>
+                </div>
+              </Tablet>
+            </div>
+            <div className="subtitle">Selecciona un color para cambiarlo</div>
+            <div className="colors-container">
+              <div className="color-pick">
+                <input
+                  type="color"
+                  name="backgroundColor"
+                  defaultValue={darkTheme.basic.secondary}
+                  ref={register}
+                  error={errors.backgroundColor}
+                />
+                <label htmlFor="backgroundColor">
+                  {watch("backgroundColor")}
+                </label>
+              </div>
+              <div className="color-pick">
+                <input
+                  type="color"
+                  name="titleColor"
+                  defaultValue={darkTheme.basic.whiteLight}
+                  ref={register}
+                  error={errors.titleColor}
+                />
+                <label htmlFor="titleColor">{watch("titleColor")}</label>
+              </div>
+              <div className="color-pick">
+                <input
+                  type="color"
+                  name="blocksColor"
+                  defaultValue={darkTheme.basic.primary}
+                  ref={register}
+                  error={errors.blocksColor}
+                />
+                <label htmlFor="blocksColor">{watch("blocksColor")}</label>
+              </div>
+              <div className="color-pick">
+                <input
+                  type="color"
+                  name="numberColor"
+                  defaultValue={darkTheme.basic.whiteLight}
+                  ref={register}
+                  error={errors.numberColor}
+                />
+                <label htmlFor="numberColor">{watch("numberColor")}</label>
+              </div>
+            </div>
+            <FileUpload
+              preview={"false"}
+              fileName="backgroundImage"
+              sizes="300x350"
+              onChange={(img) => setBackgroundImg(img)}
+            />
           </div>
-        </Desktop>
-      </div>
+
+          <Desktop>
+            <div className="right-container">
+              <div className="submit-btn">
+                <ButtonAnt
+                  variant={"contained"}
+                  color={"primary"}
+                  htmlType="submit"
+                  loading={props.isLoading}
+                  disabled={props.isLoading}
+                >
+                  Guardar
+                </ButtonAnt>
+              </div>
+              <CardContainer
+                backgroundColor={watch("backgroundColor")}
+                titleColor={watch("titleColor")}
+                blocksColor={watch("blocksColor")}
+                numberColor={watch("numberColor")}
+              >
+                <div className="card-title">{watch("title")}</div>
+                <table>
+                  <thead className="thead">
+                    <tr>
+                      <th>{watch("b")}</th>
+                      <th>{watch("i")}</th>
+                      <th>{watch("n")}</th>
+                      <th>{watch("g")}</th>
+                      <th>{watch("o")}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="tbody">
+                    {bingoCard.map((arrNums, index) => (
+                      <tr key={`key-${index}`}>
+                        {arrNums.map((num, idx) => (
+                          <td key={`key-${num}-${idx}`}>{num}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </CardContainer>
+            </div>
+          </Desktop>
+        </div>
+      </form>
     </BingoContainer>
   );
 };
@@ -414,6 +431,8 @@ const BingoContainer = styled.div`
       justify-content: space-evenly;
       flex-direction: column;
       margin-top: 1rem;
+      cursor: pointer;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
       .description {
         font-family: Lato;
@@ -568,8 +587,6 @@ const BingoContainer = styled.div`
     background: ${(props) => props.theme.basic.white};
 
     .right-container {
-      padding: 1rem;
-
       .submit-btn {
         width: 100%;
         display: flex;
@@ -583,10 +600,16 @@ const BingoContainer = styled.div`
       background: ${(props) => props.theme.basic.gray};
       max-width: 1000px;
       display: grid;
-      grid-template-columns: repeat(2, 50%);
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 1rem;
       border-radius: 4px;
       margin: 1rem auto;
       box-sizing: border-box;
+      padding: 1rem;
+
+      .cover {
+        height: 130px;
+      }
 
       .bingo-inputs {
         max-width: 160px;
