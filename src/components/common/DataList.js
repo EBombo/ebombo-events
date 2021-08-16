@@ -60,6 +60,12 @@ export const menus = [
     isAdmin: true,
     src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
+  {
+    name: "Lista de musica",
+    url: "/admin/music",
+    isAdmin: true,
+    src: `${config.storageUrl}/resources/footer/music-icon.svg`
+  }
 ];
 
 export const emailTemplates = [
