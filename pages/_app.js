@@ -44,9 +44,11 @@ const MyApp = ({ Component, pageProps }) => {
 
   const fetchGames = async () => {
     try {
-      const { response, error } = await Fetch(
-        `${config.serverUrl}/api/games/users/${authUser?.id}?folderId=${folderId}`
-      );
+      let url = `${config.serverUrl}/api/games/users/${authUser?.id}`;
+
+      if (folderId) url = url + `?folderId=${folderId}`;
+
+      const { response, error } = await Fetch(url);
 
       if (error) throw Error(error);
 

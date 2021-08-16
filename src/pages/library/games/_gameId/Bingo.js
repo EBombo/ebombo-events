@@ -116,6 +116,7 @@ export const Bingo = (props) => {
               <ButtonAnt
                 variant={"outlined"}
                 color={"default"}
+                disabled={props.isLoading}
                 onClick={() => router.back()}
               >
                 Cancelar

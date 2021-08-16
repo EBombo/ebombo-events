@@ -15,15 +15,19 @@ exports.getGames = async (req, res, next) => {
 
     const promises = gamesAdmin.map(async (game) => {
       try {
-        const response = await fetch(
-          `${game.domain}/api/games/folders/${folderId}/users/${userId}?folderId=${folderId}`,
-          { method: "GET" }
-        );
+        let url = `${game.domain}/api/games/users/${userId}`;
+
+        if (folderId) url = url + `?folderId=${folderId}`;
+
+        logger.log("game.domain", url);
+
+        const response = await fetch(url, { method: "GET" });
+
         if (!response.ok) throw Error(response.statusMessage);
 
         const responseJSON = await response.json();
 
-        return responseJSON;
+        return res.send({ games: flatMap(responseJSON) });
       } catch (error) {
         logger.error(error);
         return null;

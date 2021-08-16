@@ -109,7 +109,6 @@ export const WithConfiguration = (props) => {
         .where("deleted", "==", false)
         .get();
 
-      console.log("->", snapshotToArray(gamesRef));
       await setResources(snapshotToArray(gamesRef));
     };
 
