@@ -44,6 +44,8 @@ const MyApp = ({ Component, pageProps }) => {
 
   const fetchGames = async () => {
     try {
+      setGames([]);
+
       let url = `${config.serverUrl}/api/games/users/${authUser?.id}`;
 
       if (folderId) url = url + `?folderId=${folderId}`;
@@ -52,8 +54,12 @@ const MyApp = ({ Component, pageProps }) => {
 
       if (error) throw Error(error);
 
-      console.log("response", response);
-      const games_ = response?.games ?? [];
+      let games_ = response?.games ?? [];
+      console.log("games", games_);
+
+      if (folderId)
+        games_ = games_.filter((game) => game.parentId === folderId);
+
       setGames(games_);
     } catch (error) {
       console.error(error);
