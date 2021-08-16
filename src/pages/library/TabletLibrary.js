@@ -163,7 +163,7 @@ export const TabletLibrary = (props) => {
                     className="icon"
                     margin="0 20px 0 0"
                   />
-                  <div className="name">{game.game.name}</div>
+                  <div className="name">{game.name}</div>
                 </div>
               ))
             )}
