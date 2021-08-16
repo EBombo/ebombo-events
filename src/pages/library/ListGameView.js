@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
@@ -6,10 +6,22 @@ import { config } from "../../firebase";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import get from "lodash/get";
+import moment from "moment";
 
 export const ListGameView = (props) => {
+  const [authUser] = useGlobal("user");
+
   const getTimeCreation = () => {
-    return "7 dias";
+    const still = moment();
+    const time = moment(still).diff(moment(props.game.createAt));
+
+    const newTime = moment.duration(time);
+
+    return newTime.days() > 0
+      ? `Creado hace ${newTime.days()} día${newTime.days() > 1 ? "s" : ""}`
+      : newTime.hours() > 0
+      ? `Creado hace ${newTime.hours()} hora${newTime.hours() > 1 ? "s" : ""}`
+      : `Creado hace ${newTime.minutes()} minutos`;
   };
 
   const getTimesPlayed = () => {
@@ -31,11 +43,11 @@ export const ListGameView = (props) => {
             size="cover"
           />
           <div className="main-content">
-            <div className="description">{props.game.description}</div>
+            <div className="description">{props.game.name}</div>
             <div className="bottom-container">
               <div className="company">
                 <Image
-                  src={get(props, "game.company.imageUrl", "")}
+                  src={get(authUser, "company.imageUrl", "")}
                   height={"30px"}
                   width={"30px"}
                   borderRadius={"50%"}
@@ -47,7 +59,7 @@ export const ListGameView = (props) => {
                 </div>
               </div>
               <div className="dates">
-                Creado hace {getTimeCreation()} {getTimesPlayed()}
+                {getTimeCreation()} {getTimesPlayed()}
               </div>
               <div className="btns-container">
                 <ButtonAnt
@@ -71,7 +83,7 @@ export const ListGameView = (props) => {
             <div className="select">
               <Checkbox />
             </div>
-            <div className="description">{props.game.description}</div>
+            <div className="description">{props.game.name}</div>
           </div>
           <div className="right-content">
             <ButtonAnt variant="contained" color="blue" margin="0 1rem">
@@ -198,12 +210,12 @@ const IconsContainer = styled.div`
       padding: 0 1rem;
       background: ${(props) => props.theme.basic.whiteDark};
       border-radius: 0px 0px 5px 0px;
-      
-      .company{
+
+      .company {
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-        .name{
+        .name {
           font-family: Lato;
           font-style: normal;
           font-weight: normal;

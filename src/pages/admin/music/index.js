@@ -64,7 +64,7 @@ export const Music = (props) => {
       <div className="songs-container">
         {music.map((song, index) => (
           <div className="song" key={""}>
-            <div className="order">{index + 1}</div>
+            <div className="order">{index + 1}.-</div>
             <div className="title">
               <div className="buttons-container">
                 {currentTitle === song.title && isPlaying ? (
@@ -91,7 +91,7 @@ const MusicContainer = styled.div`
 
     .song {
       display: grid;
-      grid-template-columns: 50px auto auto;
+      grid-template-columns: 40px auto auto;
       align-items: center;
       font-family: Lato;
       font-style: normal;
@@ -100,8 +100,13 @@ const MusicContainer = styled.div`
       line-height: 18px;
       margin: 1rem 0;
 
+      .order {
+        color: ${(props) => props.theme.basic.secondary};
+      }
+
       .title {
-        display: flex;
+        display: grid;
+        grid-template-columns: 45px auto;
         align-items: center;
       }
 
