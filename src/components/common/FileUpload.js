@@ -163,7 +163,7 @@ export const FileUpload = (props) => {
 };
 
 const UploadContainer = styled.div`
-  width: 200px;
+  width: 150px;
   margin-top: 0.5rem;
   display: flex;
   align-items: center;

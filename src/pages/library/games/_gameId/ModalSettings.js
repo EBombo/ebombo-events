@@ -26,6 +26,7 @@ export const ModalSettings = (props) => {
         .get();
       setParent(parentRef.data());
     };
+    console.log(props.coverImgUrl);
     fetchParent();
   }, []);
 
@@ -46,7 +47,7 @@ export const ModalSettings = (props) => {
   };
 
   const resetToDefault = () => {
-    props.setImageUrl(false);
+    props.setCoverImgUrl(false);
     props.setOwnBranding(true);
     props.setVideo(null);
     props.setAllowDuplicate(true);
@@ -107,9 +108,10 @@ export const ModalSettings = (props) => {
             <div className="right-side">
               <div className="label">Imagen de portada</div>
               <FileUpload
-                fileName="imageUrl"
-                sizes="300x350"
-                onChange={(img) => props.setImageUrl(img)}
+                fileName="coverImgUrl"
+                sizes="350x300"
+                buttonLabel="Cambiar"
+                onChange={(img) => props.setCoverImgUrl(img)}
               />
 
               <div className="label">
