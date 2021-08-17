@@ -9,15 +9,6 @@
       "appId": "1:83072686764:web:2c5680dc46bfacb5d5dd09",
       "measurementId": "G-BWH1540T4Q"
     },
-    "fireBaseTrivia": {
-      "apiKey": "AIzaSyDS2MmKNTAEm-njfjTJhVa2GxK9Wwlw99s",
-      "authDomain": "trivia-321015.firebaseapp.com",
-      "projectId": "trivia-321015",
-      "storageBucket": "trivia-321015.appspot.com",
-      "messagingSenderId": "572522943169",
-      "appId": "1:572522943169:web:df69e5e1338539a9337a40",
-      "measurementId": "G-ME36PR278L"
-    },
     "storageUrl": "https://storage.googleapis.com/ebombo-events.appspot.com",
     "serverUrlLocal": "http://localhost:5001/ebombo-events/us-central1/api",
     "landingsStorageBucket": "ebombo-events-landings",
@@ -35,15 +26,6 @@
       "messagingSenderId": "400641140585",
       "appId": "1:400641140585:web:4edded714bb211fd8c7ff8",
       "measurementId": "G-NWBPEND5Q0"
-    },
-    "fireBaseTrivia": {
-      "apiKey": "AIzaSyC65t64h2xZ43kTDWyQaoclF-wKU-6k7bM",
-      "authDomain": "trivia-dev-321021.firebaseapp.com",
-      "projectId": "trivia-dev-321021",
-      "storageBucket": "trivia-dev-321021.appspot.com",
-      "messagingSenderId": "470557213444",
-      "appId": "1:470557213444:web:5d7d58357e8e5da4790651",
-      "measurementId": "G-HPYWX1LY90"
     },
     "storageUrl": "https://storage.googleapis.com/ebombo-events-dev.appspot.com",
     "landingsStorageBucket": "ebombo-events-landings-dev",
