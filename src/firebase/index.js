@@ -91,9 +91,6 @@ export {
   hostName,
   analytics,
   firestore,
-  authTrivia,
-  storageTrivia,
-  firestoreTrivia,
   analyticsTrivia,
   landingsStorageBucket,
 };
