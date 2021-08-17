@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "reactn";
+import React, { useState, useEffect, useRef } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { darkTheme } from "../../../../theme";
-import { ButtonAnt, Input } from "../../../../components/form";
+import { ButtonAnt } from "../../../../components/form";
 import { mediaQuery } from "../../../../constants";
 import get from "lodash/get";
 import { Switch, Radio } from "antd";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
-import { FileUpload } from "../../../../components/common/FileUpload";
 import { firestore } from "../../../../firebase";
 import { useRouter } from "next/router";
+import { config } from "../../../../firebase";
+import { Image } from "../../../../components/common/Image";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
+  const inputRef = useRef(null);
   const { folderId } = router.query;
   const [parent, setParent] = useState(null);
 
@@ -39,6 +41,11 @@ export const ModalSettings = (props) => {
     validationSchema: schema,
     reValidateMode: "onSubmit",
   });
+
+  const manageFile = (e) => {
+    const file = e.target.files[0];
+    props.setCoverImgUrl(URL.createObjectURL(file));
+  };
 
   const saveChanges = (data) => {
     props.setVideo(data.video);
@@ -107,12 +114,38 @@ export const ModalSettings = (props) => {
 
             <div className="right-side">
               <div className="label">Imagen de portada</div>
-              <FileUpload
-                fileName="coverImgUrl"
-                sizes="350x300"
-                buttonLabel="Cambiar"
-                onChange={(arr) => props.setCoverImgUrl(arr[0])}
-              />
+              {props.coverImgUrl ? (
+                <div className="cover">
+                  <Image
+                    src={props.coverImgUrl}
+                    width="212px"
+                    height="121px"
+                    size="cover"
+                    margin="0"
+                  />
+                  <ButtonAnt
+                    color="secondary"
+                    onClick={() => inputRef.current.click()}
+                  >
+                    Cambiar
+                  </ButtonAnt>
+                </div>
+              ) : (
+                <div
+                  className="upload-file"
+                  onClick={() => inputRef.current.click()}
+                >
+                  <Image
+                    src={`${config.storageUrl}/resources/no-image.svg`}
+                    width="40px"
+                    height="40px"
+                    size="contain"
+                    margin="0"
+                  />
+                  <span>Añade una imagen de cover</span>
+                </div>
+              )}
+              <input type="file" ref={inputRef} onChange={manageFile} hidden />
 
               <div className="label">
                 Permitir duplicar{" "}
@@ -220,6 +253,40 @@ const SettingsContainer = styled.div`
     margin-top: 5px;
   }
 
+  .main-container {
+    .cover {
+      display: flex;
+      align-items: center;
+      grid-gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .upload-file {
+      margin-top: 0.5rem;
+      width: 212px;
+      height: 121px;
+      background: ${(props) => props.theme.basic.whiteLight};
+      border: 1px solid ${(props) => props.theme.basic.grayLighten};
+      box-sizing: border-box;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      flex-direction: column;
+
+      span {
+        font-family: Lato;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 11px;
+        line-height: 13px;
+        text-align: center;
+        color: ${(props) => props.theme.basic.grayLight};
+      }
+    }
+  }
+
   ${mediaQuery.afterTablet} {
     .title {
       font-size: 32px;
@@ -231,6 +298,14 @@ const SettingsContainer = styled.div`
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 1rem;
+      margin-top: 0.5rem;
+
+      .cover {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        grid-gap: 1rem;
+      }
     }
   }
 `;
