@@ -75,14 +75,14 @@ export const DesktopLibraryFolders = (props) => {
             margin={"0 5px"}
             onClick={() => setIsVisibleModalFolder(true)}
           />
-          <Image
-            src={`${config.storageUrl}/resources/social.svg`}
-            height={"30px"}
-            width={"30px"}
-            size={"contain"}
-            margin={"0 5px"}
-            onClick={() => setIsVisibleModalFolder(true)}
-          />
+          {/*<Image*/}
+          {/*  src={`${config.storageUrl}/resources/social.svg`}*/}
+          {/*  height={"30px"}*/}
+          {/*  width={"30px"}*/}
+          {/*  size={"contain"}*/}
+          {/*  margin={"0 5px"}*/}
+          {/*  onClick={() => setIsVisibleModalFolder(true)}*/}
+          {/*/>*/}
 
           <div className="icons" onClick={() => setListType("icons")}>
             <div className={`${listType === "icons" ? "active" : ""}`} />

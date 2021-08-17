@@ -9,6 +9,7 @@ import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import { ModalNewFolder } from "./ModalNewFolder";
 import { ModalNewGame } from "./ModalNewGame";
+import { ListGameView } from "./ListGameView";
 
 export const TabletLibrary = (props) => {
   const router = useRouter();
@@ -151,20 +152,12 @@ export const TabletLibrary = (props) => {
               <div className="empty-message">No cuentas con juegos</div>
             ) : (
               props.games.map((game) => (
-                <div
+                <ListGameView
+                  game={game}
                   key={game.id}
-                  className="item games folder"
-                  onClick={() => router.push(`/library/folders/${game.id}`)}
-                >
-                  <Image
-                    src={`${config.storageUrl}/resources/purple-puzzle.svg`}
-                    width="20px"
-                    height="25px"
-                    className="icon"
-                    margin="0 20px 0 0"
-                  />
-                  <div className="name">{game.name}</div>
-                </div>
+                  listType={"icons"}
+                  {...props}
+                />
               ))
             )}
           </div>
