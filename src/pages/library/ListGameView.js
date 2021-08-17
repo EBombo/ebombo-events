@@ -37,11 +37,6 @@ export const ListGameView = (props) => {
     <>
       {props.listType === "icons" && (
         <IconsContainer>
-          <Desktop>
-            <div className="select">
-              <Checkbox />
-            </div>
-          </Desktop>
           <Image
             src={
               get(props, "game.coverImgUrl.file", null)
@@ -50,10 +45,11 @@ export const ListGameView = (props) => {
             }
             width="91px"
             height="65px"
-            desktopWidth="144px"
-            desktopHeight="131px"
+            desktopWidth="164px"
+            desktopHeight="141px"
             margin="0"
             size="cover"
+            borderRadius="4px 0px 0px 4px"
           />
           <div className="main-content">
             <div className="description">{props.game.name}</div>
@@ -210,7 +206,7 @@ const IconsContainer = styled.div`
   grid-template-columns: 91px auto;
   align-items: center;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
+  border-radius: 4px;
   margin: 1rem 0;
 
   .select {
@@ -289,7 +285,7 @@ const IconsContainer = styled.div`
   }
 
   ${mediaQuery.afterTablet} {
-    grid-template-columns: 80px 144px auto;
+    grid-template-columns: 164px auto;
 
     .main-content {
       .description {
