@@ -85,6 +85,7 @@ export const FileUpload = (props) => {
         : {
             image: images64.split(",")[1],
             fileName: `${props.fileName}_${size}`,
+            file,
             fileSuffix,
             size,
             type,
@@ -163,7 +164,7 @@ export const FileUpload = (props) => {
 };
 
 const UploadContainer = styled.div`
-  width: 200px;
+  width: 150px;
   margin-top: 0.5rem;
   display: flex;
   align-items: center;

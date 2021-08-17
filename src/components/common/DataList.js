@@ -61,10 +61,10 @@ export const menus = [
     src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
   {
-    name: "Lista de musica",
-    url: "/admin/music",
+    name: "Lista de audios",
+    url: "/admin/audios",
     isAdmin: true,
-    src: `${config.storageUrl}/resources/footer/music-icon.svg`
+    src: `${config.storageUrl}/resources/footer/audio-icon.svg`
   }
 ];
 

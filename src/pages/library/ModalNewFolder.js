@@ -101,10 +101,10 @@ export const ModalNewFolder = (props) => {
         >
           <Input
             variant="clear"
-            label="Nombre"
             defaultValue={props.folder ? props.folder.name : ""}
             placeholder="Folder sin nombre"
             name="name"
+            className="name-input"
             ref={register}
             error={errors.name}
           />
@@ -161,8 +161,13 @@ const NewFolderContainer = styled.div`
   }
 
   .form {
-    label {
-      display: none;
+    .name-input {
+      background: ${(props) => props.theme.basic.whiteLight} !important;
+      height: 42px !important;
+      border: none !important;
+      box-sizing: border-box !important;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+      border-radius: 2px !important;
     }
   }
 

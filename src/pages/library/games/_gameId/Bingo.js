@@ -22,18 +22,16 @@ const bingoCard = [
 ];
 
 export const Bingo = (props) => {
-  const [coverImg, setCoverImg] = useState(null);
+  const [coverImgUrl, setCoverImgUrl] = useState(null);
   const [backgroundImg, setBackgroundImg] = useState(null);
   const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
 
-  const [imageUrl, setImageUrl] = useState(false);
   const [ownBranding, setOwnBranding] = useState(true);
   const [video, setVideo] = useState(null);
   const [allowDuplicate, setAllowDuplicate] = useState(true);
   const [visibility, setVisibility] = useState(true);
   const [music, setMusic] = useState(null);
 
-  const inputRef = useRef(null);
   const router = useRouter();
 
   const schema = object().shape({
@@ -45,12 +43,6 @@ export const Bingo = (props) => {
     validationSchema: schema,
     reValidateMode: "onSubmit",
   });
-
-  const manageFile = async (event) => {
-    const file = event.target.files[0];
-    console.log(file);
-    setCoverImg(file);
-  };
 
   const saveGame = async (data) => {
     const game = {
@@ -67,9 +59,8 @@ export const Bingo = (props) => {
       backgroundColor: data.backgroundColor,
       title: data.title,
       name: data.name,
-      coverImg,
+      coverImgUrl,
       backgroundImg,
-      imageUrl,
       ownBranding,
       video,
       allowDuplicate,
@@ -86,8 +77,8 @@ export const Bingo = (props) => {
         <ModalSettings
           isVisibleModalSettings={isVisibleModalSettings}
           setIsVisibleModalSettings={setIsVisibleModalSettings}
-          setImageUrl={setImageUrl}
-          imageUrl={imageUrl}
+          setCoverImgUrl={setCoverImgUrl}
+          coverImgUrl={coverImgUrl}
           setOwnBranding={setOwnBranding}
           ownBranding={ownBranding}
           setVideo={setVideo}
@@ -133,35 +124,6 @@ export const Bingo = (props) => {
                 </ButtonAnt>
               </Tablet>
             </div>
-            {coverImg ? (
-              <Image
-                src={URL.createObjectURL(coverImg)}
-                width={"100%"}
-                height={"95px"}
-                size={"cover"}
-                margin={"0.5rem 0"}
-              />
-            ) : (
-              <>
-                <div className="cover" onClick={() => inputRef.current.click()}>
-                  <Image
-                    src={`${config.storageUrl}/resources/no-image.svg`}
-                    width={"40px"}
-                    height={"40px"}
-                    size={"contain"}
-                    margin={"0"}
-                  />
-                  <div className="description">Añade una imagen de cover</div>
-                </div>
-                <input
-                  type="file"
-                  accept={props.accept || "image/*" || "application/pdf"}
-                  ref={inputRef}
-                  onChange={manageFile}
-                  hidden
-                />
-              </>
-            )}
             <div className="title">
               <Input
                 marginBottom={"0"}
@@ -423,27 +385,6 @@ const BingoContainer = styled.div`
       justify-content: space-between;
     }
 
-    .cover {
-      width: 100%;
-      height: 85px;
-      background: ${(props) => props.theme.basic.whiteLight};
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      flex-direction: column;
-      margin-top: 1rem;
-      cursor: pointer;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-      .description {
-        font-family: Lato;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 11px;
-        line-height: 13px;
-      }
-    }
-
     .title {
       margin-top: 1rem;
       display: flex;
@@ -607,11 +548,7 @@ const BingoContainer = styled.div`
       margin: 1rem auto;
       box-sizing: border-box;
       padding: 1rem;
-
-      .cover {
-        height: 130px;
-      }
-
+      
       .bingo-inputs {
         max-width: 160px;
         margin: 0 auto;
