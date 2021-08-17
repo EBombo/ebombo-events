@@ -27,7 +27,7 @@ exports.getGames = async (req, res, next) => {
 
         const responseJSON = await response.json();
 
-        return res.send({ games: flatMap(responseJSON) });
+        return responseJSON;
       } catch (error) {
         logger.error(error);
         return null;
