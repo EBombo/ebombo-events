@@ -34,11 +34,6 @@ let firestore;
 let storage;
 let auth;
 
-let analyticsTrivia;
-let firestoreTrivia;
-let storageTrivia;
-let authTrivia;
-
 if (isEmpty(firebase.apps)) {
   try {
     console.log("initializeApp", firebase.apps);
@@ -52,21 +47,6 @@ if (isEmpty(firebase.apps)) {
     }
 
     firestore.settings({ ignoreUndefinedProperties: true });
-  } catch (error) {
-    console.error("error initializeApp", error);
-  }
-
-  try {
-    firebase.initializeApp(config.fireBaseTrivia, "trivia");
-    firestoreTrivia = firebase.app("trivia").firestore();
-    storageTrivia = firebase.app("trivia").storage();
-    authTrivia = firebase.app("trivia").auth();
-
-    if (typeof window !== "undefined") {
-      analyticsTrivia = firebase.app("trivia").analytics();
-    }
-
-    firestoreTrivia.settings({ ignoreUndefinedProperties: true });
   } catch (error) {
     console.error("error initializeApp", error);
   }
@@ -91,6 +71,5 @@ export {
   hostName,
   analytics,
   firestore,
-  analyticsTrivia,
   landingsStorageBucket,
 };
