@@ -34,7 +34,7 @@ exports.getGames = async (req, res, next) => {
       }
     });
 
-    let responses = await Promise.all(promises);
+    const responses = await Promise.all(promises);
     responses = responses.filter((game) => game);
 
     logger.log("responses", responses);
