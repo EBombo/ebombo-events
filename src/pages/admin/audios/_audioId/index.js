@@ -11,18 +11,18 @@ import { useForm } from "react-hook-form";
 import { mediaQuery } from "../../../../constants";
 import { notification } from "antd";
 
-export const Song = (props) => {
-  const [songId, setSongId] = useState(null);
-  const [songUrl, setSongUrl] = useState(null);
+export const Audio = (props) => {
+  const [audioId, setAudioId] = useState(null);
+  const [audioUrl, setAudioUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { sendError } = useSendError();
 
   useEffect(() => {
-    const musicRef = firestore.collection("music");
-    const songId_ = musicRef.doc().id;
+    const audiosRef = firestore.collection("audios");
+    const audioId_ = audiosRef.doc().id;
 
-    setSongId(songId_);
+    setAudioId(audioId_);
   }, []);
 
   const schema = object().shape({
@@ -34,21 +34,21 @@ export const Song = (props) => {
     reValidateMode: "onSubmit",
   });
 
-  const saveSong = async (data) => {
-    if (!songUrl)
+  const saveAudio = async (data) => {
+    if (!audioUrl)
       return notification.error({
         message: "Error",
-        description: "Añadir musica",
+        description: "Añadir audio",
       });
 
     setLoading(true);
     try {
       await firestore
-        .collection("music")
-        .doc(songId)
+        .collection("audios")
+        .doc(audioId)
         .set({
           ...data,
-          songUrl,
+          audioUrl,
           createAt: new Date(),
           updateAt: new Date(),
           deleted: false,
@@ -56,17 +56,17 @@ export const Song = (props) => {
     } catch (error) {
       await sendError(error);
     }
-    router.push("/admin/music");
+    router.push("/admin/audios");
     setLoading(false);
   };
 
   return (
-    <SongContainer>
-      <form onSubmit={handleSubmit(saveSong)}>
+    <AudioContainer>
+      <form onSubmit={handleSubmit(saveAudio)}>
         <Input
           type="text"
           name="title"
-          label="Titulo de la Canción"
+          label="Titulo del Audio"
           ref={register}
           variant="primary"
           placeholder="Titulo"
@@ -74,16 +74,16 @@ export const Song = (props) => {
         />
         <FileUpload
           preview={"false"}
-          fileName="songUrl"
-          filePath={`/Songs/${songId}`}
-          buttonLabel={"Subir Canción"}
-          afterUpload={(song) => setSongUrl(song)}
+          fileName="audio"
+          filePath={`/audios/${audioId}`}
+          buttonLabel={"Subir Audio"}
+          afterUpload={(song) => setAudioUrl(song)}
         />
         <div className="buttons-container">
           <ButtonAnt
             variant={"outlined"}
             color={"default"}
-            onClick={() => router.push("/admin/music")}
+            onClick={() => router.push("/admin/audios")}
             disabled={loading}
           >
             Cancelar
@@ -93,11 +93,11 @@ export const Song = (props) => {
           </ButtonAnt>
         </div>
       </form>
-    </SongContainer>
+    </AudioContainer>
   );
 };
 
-const SongContainer = styled.div`
+const AudioContainer = styled.div`
   width: 100%;
   padding: 1rem;
 

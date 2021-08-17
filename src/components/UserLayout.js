@@ -3,9 +3,7 @@ import styled from "styled-components";
 import { Layout } from "./index";
 import { Desktop, mediaQuery, sizes, Tablet } from "../constants";
 import { ModalContainer } from "./common/ModalContainer";
-import { useAcl } from "../hooks";
 import { RightDrawer } from "./right-drawer/RightDrawer";
-import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { spinLoaderMin } from "./common/loader";
 import { useAuth } from "../hooks/useAuth";
@@ -33,8 +31,6 @@ const ForgotPassword = dynamic(() => import("../pages/forgot-password"), {
 
 const UserLayout = (props) => {
   const { signOut } = useAuth();
-  const router = useRouter();
-  const { userAcls } = useAcl();
   const [authUser] = useGlobal("user");
   const [isVisibleLoginModal, setIsVisibleLoginModal] = useGlobal(
     "isVisibleLoginModal"
@@ -100,69 +96,9 @@ const UserLayout = (props) => {
   );
 };
 
-const SingIn = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-left: auto;
-
-  a {
-    padding: 0 10px 0 10px;
-    font-weight: bold;
-  }
-
-  .menu-icon-nav {
-    cursor: pointer;
-    font-size: ${sizes.font.normal};
-    margin: 5px;
-  }
-`;
-
 const LayoutMenu = styled.section`
   height: 100vh;
   padding: 0;
-`;
-
-const Header = styled.header`
-  height: 50px;
-  position: fixed;
-  z-index: 99;
-  display: flex;
-  align-items: center;
-  width: 100%;
-
-  color: ${(props) => props.theme.basic.white};
-  font-size: ${sizes.font.small};
-  font-weight: bold;
-  padding: 0 0 0 7px;
-
-  ${mediaQuery.afterTablet} {
-    font-size: ${sizes.font.small};
-    font-weight: normal;
-  }
-`;
-
-const HeaderLogo = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  .header-logo-desktop {
-    i {
-      cursor: pointer;
-      font-size: 25px;
-      margin-left: 4px;
-    }
-  }
-
-  .logo-dashboard {
-    cursor: pointer;
-    height: 25px;
-    margin-left: 10px;
-    opacity: 0.5;
-  }
-
-  .email {
-    margin: auto auto auto 15px;
-  }
 `;
 
 const Body = styled.section`

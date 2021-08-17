@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { spinLoader } from "../../../../src/components/common/loader";
 import { PrivateRoutes } from "../../../../src/routes/PrivateRoutes";
-import { Song } from "../../../../src/pages/admin/music/_musicId";
+import { Audio } from "../../../../src/pages/admin/audios/_audioId";
 
 const UserLayout = dynamic(
   () => import("../../../../src/components/UserLayout"),
@@ -11,14 +11,14 @@ const UserLayout = dynamic(
   }
 );
 
-const Game = (props) => {
+const AudioContainer = (props) => {
   return (
     <PrivateRoutes>
       <UserLayout {...props}>
-        <Song {...props} />
+        <Audio {...props} />
       </UserLayout>
     </PrivateRoutes>
   );
 };
 
-export default Game;
+export default AudioContainer;

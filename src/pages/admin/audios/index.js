@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { PlayCircleOutlined, PauseOutlined } from "@ant-design/icons";
 import { snapshotToArray } from "../../../utils";
 
-export const Music = (props) => {
+export const Audios = (props) => {
   const [music, setMusic] = useState([]);
   const [loading, setLoading] = useState(true);
   const [audio, setAudio] = useState(null);
@@ -22,7 +22,7 @@ export const Music = (props) => {
 
   const fetchMusic = () =>
     firestore
-      .collection("music")
+      .collection("audios")
       .where("deleted", "==", false)
       .onSnapshot((musicSnapshot) => {
         // if (!musicSnapshot.exists) return router.back();
@@ -53,13 +53,13 @@ export const Music = (props) => {
   if (loading) return spinLoader();
 
   return (
-    <MusicContainer>
+    <AudiosContainer>
       <ButtonAnt
         variant="contained"
         color="primary"
-        onClick={() => router.push("/admin/music/new")}
+        onClick={() => router.push("/admin/audios/new")}
       >
-        Añadir Musica
+        Añadir Audio
       </ButtonAnt>
       <div className="songs-container">
         {music.map((song, index) => (
@@ -78,11 +78,11 @@ export const Music = (props) => {
           </div>
         ))}
       </div>
-    </MusicContainer>
+    </AudiosContainer>
   );
 };
 
-const MusicContainer = styled.div`
+const AudiosContainer = styled.div`
   width: 100%;
   padding: 1rem;
 
