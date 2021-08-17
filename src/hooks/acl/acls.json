@@ -43,5 +43,15 @@
       "/admin/games/new": "Permitir crear juego",
       "/admin/games/#edit": "Permitir editar juego"
     }
+  },
+  "adminAudios": {
+    "label": "Formulario de audios",
+    "items": {
+      "/admin/audios": "Audios de juegos",
+      "/admin/audios/new": "Crear audio de juegos",
+      "/admin/audios/[audioId]": "Editar audio de juegos",
+      "/admin/audios/[audioId]#delete": "Editar audio de juegos",
+      "/admin/audios/[audioId]#edit": "Editar audio de juegos"
+    }
   }
 }
