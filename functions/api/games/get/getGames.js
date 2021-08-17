@@ -41,7 +41,7 @@ exports.getGames = async (req, res, next) => {
 
     const games = flatMap(responses);
 
-    return res.send(games);
+    return res.send({ games });
   } catch (error) {
     logger.error(error);
     next(error);
