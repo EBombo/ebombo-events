@@ -43,7 +43,11 @@ export const ListGameView = (props) => {
             </div>
           </Desktop>
           <Image
-            src={URL.createObjectURL(props.game.coverImgUrl)}
+            src={
+              get(props, "game.coverImgUrl.file", null)
+                ? URL.createObjectURL(get(props, "game.coverImgUrl.file", null))
+                : `${config.storageUrl}/resources/empty-cover.svg`
+            }
             width="91px"
             height="65px"
             desktopWidth="144px"
@@ -288,7 +292,6 @@ const IconsContainer = styled.div`
     grid-template-columns: 80px 144px auto;
 
     .main-content {
-      
       .description {
         padding: 1rem;
         font-size: 15px;

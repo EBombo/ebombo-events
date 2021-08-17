@@ -44,27 +44,31 @@ export const TabletLibrary = (props) => {
               className="item games"
               onClick={() => router.push("/library/games")}
             >
-              <Image
-                src={`${config.storageUrl}/resources/purple-puzzle.svg`}
-                width="20px"
-                height="25px"
-                className="icon"
-                margin="0 20px 0 0"
-              />
-              <div className="name">Mis juegos</div>
+              <div className="left">
+                <Image
+                  src={`${config.storageUrl}/resources/purple-puzzle.svg`}
+                  width="20px"
+                  height="25px"
+                  className="icon"
+                  margin="0 20px 0 0"
+                />
+                <div className="name">Mis juegos</div>
+              </div>
             </div>
             <div
               className="item favorites"
               onClick={() => router.push("/library/favorites")}
             >
-              <Image
-                src={`${config.storageUrl}/resources/purple-star.svg`}
-                width="20px"
-                height="25px"
-                className="icon"
-                margin="0 20px 0 0"
-              />
-              <div className="name">Favoritos</div>
+              <div className="left">
+                <Image
+                  src={`${config.storageUrl}/resources/purple-star.svg`}
+                  width="20px"
+                  height="25px"
+                  className="icon"
+                  margin="0 20px 0 0"
+                />
+                <div className="name">Favoritos</div>
+              </div>
             </div>
           </div>
         </>

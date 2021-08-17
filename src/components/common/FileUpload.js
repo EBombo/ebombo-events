@@ -85,6 +85,7 @@ export const FileUpload = (props) => {
         : {
             image: images64.split(",")[1],
             fileName: `${props.fileName}_${size}`,
+            file,
             fileSuffix,
             size,
             type,
