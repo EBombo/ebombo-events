@@ -111,7 +111,7 @@ export const ModalSettings = (props) => {
                 fileName="coverImgUrl"
                 sizes="350x300"
                 buttonLabel="Cambiar"
-                onChange={(img) => props.setCoverImgUrl(img)}
+                onChange={(arr) => props.setCoverImgUrl(arr[0])}
               />
 
               <div className="label">

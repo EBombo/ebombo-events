@@ -32,7 +32,6 @@ export const Bingo = (props) => {
   const [visibility, setVisibility] = useState(true);
   const [music, setMusic] = useState(null);
 
-  const inputRef = useRef(null);
   const router = useRouter();
 
   const schema = object().shape({
@@ -60,9 +59,8 @@ export const Bingo = (props) => {
       backgroundColor: data.backgroundColor,
       title: data.title,
       name: data.name,
-      coverImg,
+      coverImgUrl,
       backgroundImg,
-      imageUrl,
       ownBranding,
       video,
       allowDuplicate,

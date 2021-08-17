@@ -15,12 +15,14 @@ export const TabletLibrary = (props) => {
   const router = useRouter();
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
+  const [folder, setFolder] = useState(null);
 
   return (
     <TabletLibraryContainer>
       {isVisibleModalFolder && (
         <ModalNewFolder
           {...props}
+          folder={folder}
           isVisibleModalFolder={isVisibleModalFolder}
           setIsVisibleModalFolder={setIsVisibleModalFolder}
         />
@@ -129,19 +131,84 @@ export const TabletLibrary = (props) => {
               <div className="empty-message">No cuentas con folders</div>
             ) : (
               props.folders.map((folder) => (
-                <div
-                  key={folder.id}
-                  className="item games folder"
-                  onClick={() => router.push(`/library/folders/${folder.id}`)}
-                >
-                  <Image
-                    src={`${config.storageUrl}/resources/purple-puzzle.svg`}
-                    width="20px"
-                    height="25px"
-                    className="icon"
-                    margin="0 20px 0 0"
-                  />
-                  <div className="name">{folder.name}</div>
+                <div key={folder.id} className="item games folder">
+                  <div
+                    className="left"
+                    onClick={() => router.push(`/library/folders/${folder.id}`)}
+                  >
+                    <Image
+                      src={`${config.storageUrl}/resources/purple-puzzle.svg`}
+                      width="20px"
+                      height="25px"
+                      className="icon"
+                      margin="0 20px 0 0"
+                    />
+                    <div className="name">{folder.name}</div>
+                  </div>
+                  <Tooltip
+                    placement="bottomRight"
+                    trigger="click"
+                    title={
+                      <ToolTipContentOptions>
+                        <div
+                          className="folder-option"
+                          onClick={() => {
+                            setFolder(folder);
+                            setIsVisibleModalFolder(true);
+                          }}
+                        >
+                          <Image
+                            src={`${config.storageUrl}/resources/edit-name.svg`}
+                            width={"16px"}
+                            height={"16px"}
+                            size={"contain"}
+                            margin={"0 15px 0 0"}
+                          />
+                          Cambiar Nombre
+                        </div>
+                        <div className="folder-option">
+                          <Image
+                            src={`${config.storageUrl}/resources/move.svg`}
+                            width={"16px"}
+                            height={"16px"}
+                            size={"contain"}
+                            margin={"0 15px 0 0"}
+                          />
+                          Mover
+                        </div>
+                        <div className="folder-option">
+                          <Image
+                            src={`${config.storageUrl}/resources/duplicate.svg`}
+                            width={"16px"}
+                            height={"16px"}
+                            size={"contain"}
+                            margin={"0 15px 0 0"}
+                          />
+                          Duplicar
+                        </div>
+                        <div
+                          className="folder-option"
+                          onClick={() => deleteFolder(folder)}
+                        >
+                          <Image
+                            src={`${config.storageUrl}/resources/delete.svg`}
+                            width={"16px"}
+                            height={"16px"}
+                            size={"contain"}
+                            margin={"0 15px 0 0"}
+                          />
+                          Borrar
+                        </div>
+                      </ToolTipContentOptions>
+                    }
+                    color={darkTheme.basic.whiteLight}
+                  >
+                    <div className="right">
+                      <div />
+                      <div />
+                      <div />
+                    </div>
+                  </Tooltip>
                 </div>
               ))
             )}
@@ -185,13 +252,33 @@ const TabletLibraryContainer = styled.div`
 
     .item {
       padding: 0 1rem;
-      display: flex;
+      display: grid;
       align-items: center;
+      grid-template-columns: 90% 10%;
       width: 100%;
       height: 42px;
       background: ${(props) => props.theme.basic.whiteLight};
       border: 0.5px solid ${(props) => props.theme.basic.secondaryLight};
       box-sizing: border-box;
+
+      .left {
+        display: flex;
+        align-items: center;
+      }
+      .right {
+        height: 18px;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        align-items: center;
+
+        div {
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: ${(props) => props.theme.basic.black};
+        }
+      }
     }
 
     .folder {
@@ -234,5 +321,23 @@ const ToolTipContent = styled.div`
     color: ${(props) => props.theme.basic.grayLight};
     font-size: 13px;
     line-height: 16px;
+  }
+`;
+
+const ToolTipContentOptions = styled.div`
+  background: ${(props) => props.theme.basic.whiteLight};
+  box-sizing: border-box;
+  color: ${(props) => props.theme.basic.grayLight};
+
+  .folder-option {
+    display: flex;
+    align-items: center;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 0.5rem;
+    cursor: pointer;
   }
 `;

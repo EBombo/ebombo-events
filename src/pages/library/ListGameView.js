@@ -43,7 +43,7 @@ export const ListGameView = (props) => {
             </div>
           </Desktop>
           <Image
-            src={props.game.coverImgUrl}
+            src={URL.createObjectURL(props.game.coverImgUrl)}
             width="91px"
             height="65px"
             desktopWidth="144px"
