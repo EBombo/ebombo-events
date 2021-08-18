@@ -21,6 +21,7 @@ const MyApp = ({ Component, pageProps }) => {
   const { folderId } = router.query;
   const { Fetch } = useFetch();
   const [authUser] = useGlobal("user");
+  const [, setLoadingGames] = useGlobal("loadingGames");
   const [games, setGames] = useState([]);
   const [parent, setParent] = useState(null);
   const [folders, setFolders] = useState([]);
@@ -44,6 +45,7 @@ const MyApp = ({ Component, pageProps }) => {
 
   const fetchGames = async () => {
     try {
+      setLoadingGames(true);
       setGames([]);
 
       let url = `${config.serverUrl}/api/games/users/${authUser?.id}`;
@@ -61,6 +63,7 @@ const MyApp = ({ Component, pageProps }) => {
         games_ = games_.filter((game) => game.parentId === folderId);
 
       setGames(games_);
+      setLoadingGames(false);
     } catch (error) {
       console.error(error);
     }

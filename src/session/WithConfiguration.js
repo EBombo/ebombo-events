@@ -58,6 +58,7 @@ export const WithConfiguration = (props) => {
         resources: [],
         languageCode,
         register: null,
+        loadingGames: true,
         isLoadingUser: true,
         isLoadingCreateUser: true,
         isVisibleLoginModal: false,

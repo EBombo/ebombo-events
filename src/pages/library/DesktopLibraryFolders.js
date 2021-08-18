@@ -13,6 +13,7 @@ import { Tooltip } from "antd";
 import { useSendError } from "../../hooks";
 
 export const DesktopLibraryFolders = (props) => {
+  const [loadingGames] = useGlobal("loadingGames");
   const [listType, setListType] = useState("icons");
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
@@ -184,6 +185,7 @@ export const DesktopLibraryFolders = (props) => {
             variant="contained"
             color="primary"
             onClick={() => setIsVisibleModalGame(true)}
+            loading={loadingGames}
           >
             Crear juego
           </ButtonAnt>
