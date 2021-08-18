@@ -13,58 +13,37 @@ export const GameContainer = (props) => {
   const { sendError } = useSendError();
 
   const [authUser] = useGlobal("user");
+  const [games] = useGlobal("games");
   const [isLoading, setIsLoading] = useState(false);
   const [resource, setResource] = useState(null);
   const [game, setGame] = useState(null);
 
   useEffect(() => {
-    if (!resource || gameId === "new") return;
+    if (!gameId || gameId === "new") return;
 
-    const fetchGame = async () => {
-      try {
-        const { response, error } = await Fetch(
-          `${resource.domain}/api/games/${gameId}`
-        );
+    const _game = games.find((game) => game.id === gameId);
 
-        if (error) throw Error(error);
-
-        setGame(response?.game);
-      } catch (error) {
-        console.error(error);
-        sendError(error, "fetchGame");
-      }
-    };
-
-    fetchGame();
-  }, [resource]);
-
-  useEffect(() => {
-    if (!resourceId) return;
-
-    const fetchResource = () => {};
-
-    fetchResource();
+    setGame(_game);
   }, []);
 
   useEffect(() => {
-    if (!folderId) return;
-
-    const fetchFolder = () => {};
-
-    fetchFolder();
-  }, []);
-
-  const createGame = async (game) => {
-    setIsLoading(true);
-    try {
+    const fetchResource = async () => {
       const resourceRef = await firestore
         .collection("games")
         .doc(resourceId)
         .get();
+      setResource(resourceRef.data());
+    };
 
-      const resource = resourceRef.data();
+    fetchResource();
+  }, []);
 
-      await Fetch(getGameUrl(resource), "POST", { ...game, resourceId });
+  const submitGame = async (game) => {
+    setIsLoading(true);
+    try {
+      game
+        ? await Fetch(updateUrl(resource), "PUT", { ...game, resourceId })
+        : await Fetch(createUrl(resource), "POST", { ...game, resourceId });
 
       props.fetchGames();
       router.back();
@@ -75,7 +54,13 @@ export const GameContainer = (props) => {
     setIsLoading(false);
   };
 
-  const getGameUrl = (resource) => {
+  const updateUrl = (resource) => {
+    if (folderId)
+      return `${resource.domain}/api/games/${game.id}/users/${authUser.id}?folderId=${folderId}`;
+    return `${resource.domain}/api/games/${game.id}/users/${authUser.id}`;
+  };
+
+  const createUrl = (resource) => {
     if (folderId)
       return `${resource.domain}/api/games/new/users/${authUser.id}?folderId=${folderId}`;
     return `${resource.domain}/api/games/new/users/${authUser.id}`;
@@ -83,8 +68,13 @@ export const GameContainer = (props) => {
 
   return (
     <GameContainerCss>
-      {resourceId === "vJY65JpTHMcW0KyaypOT" && (
-        <Bingo createGame={createGame} isLoading={isLoading} {...props} />
+      {resource && resource.name === "Bingo" && (
+        <Bingo
+          submitGame={submitGame}
+          isLoading={isLoading}
+          game={game}
+          {...props}
+        />
       )}
       {/*hello-{resourceId}-{folderId}*/}
     </GameContainerCss>

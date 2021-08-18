@@ -1,15 +1,12 @@
-import React, { useState, useGlobal, useRef, useEffect } from "reactn";
+import React, { useState, useGlobal, useEffect } from "reactn";
 import styled from "styled-components";
 import { mediaQuery, Tablet, Desktop } from "../../../../constants";
 import { Anchor, ButtonAnt, Input } from "../../../../components/form";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import get from "lodash/get";
-import { Image } from "../../../../components/common/Image";
-import { config } from "../../../../firebase";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { darkTheme } from "../../../../theme";
-import defaultTo from "lodash/defaultTo";
 import { useRouter } from "next/router";
 import { ModalSettings } from "./ModalSettings";
 
@@ -22,7 +19,6 @@ const bingoCard = [
 ];
 
 export const Bingo = (props) => {
-  const [games, setGames] = useGlobal("games");
   const [coverImgUrl, setCoverImgUrl] = useState(null);
   const [backgroundImg, setBackgroundImg] = useState(null);
   const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
@@ -32,26 +28,17 @@ export const Bingo = (props) => {
   const [allowDuplicate, setAllowDuplicate] = useState(true);
   const [visibility, setVisibility] = useState(true);
   const [audio, setAudio] = useState(null);
-  const [game, setGame] = useState(null);
-  const router = useRouter();
-  const { gameId } = router.query;
 
   useEffect(() => {
-    if (!gameId || gameId === "new") return;
+    if (!props.game) return;
 
-    const _game = games.find((game) => game.id === gameId);
-
-    setOwnBranding(_game.ownBranding);
-    setVideo(_game.video);
-    setAllowDuplicate(_game.allowDuplicate);
-    setVisibility(_game.visibility);
-    setAudio(_game.audio);
-    setCoverImgUrl(_game.coverImgUrl);
-    setBackgroundImg(_game.backgroundImg);
-
-    setGame(_game);
-
-    console.log("this is the game", _game);
+    setOwnBranding(props.game.ownBranding);
+    setVideo(props.game.video);
+    setAllowDuplicate(props.game.allowDuplicate);
+    setVisibility(props.game.visibility);
+    setAudio(props.game.audio);
+    setCoverImgUrl(props.game.coverImgUrl);
+    setBackgroundImg(props.game.backgroundImg);
   }, []);
 
   const schema = object().shape({
@@ -65,7 +52,7 @@ export const Bingo = (props) => {
   });
 
   const saveGame = async (data) => {
-    const game = {
+    const _game = {
       letters: {
         b: data.b,
         i: data.i,
@@ -88,7 +75,7 @@ export const Bingo = (props) => {
       audio,
     };
 
-    await props.createGame(game);
+    await props.submitGame(_game);
   };
 
   return (
@@ -109,7 +96,6 @@ export const Bingo = (props) => {
           audio={audio}
           setAllowDuplicate={setAllowDuplicate}
           allowDuplicate={allowDuplicate}
-          game={game}
           {...props}
         />
       )}
@@ -147,7 +133,7 @@ export const Bingo = (props) => {
             </div>
             <div className="title">
               <Input
-                defaultValue={get(game, "name", "")}
+                defaultValue={get(props, "game.name", "")}
                 marginBottom={"0"}
                 variant="primary"
                 type="text"
@@ -173,7 +159,7 @@ export const Bingo = (props) => {
               <div className="item">
                 <div className="text">Titulo y columnas</div>
                 <Input
-                  defaultValue={get(game, "title", "")}
+                  defaultValue={get(props, "game.title", "")}
                   marginBottom={"0"}
                   variant="primary"
                   type="text"
@@ -191,7 +177,7 @@ export const Bingo = (props) => {
                     name="b"
                     ref={register}
                     error={errors.b}
-                    defaultValue={get(game, "letters.b", "B")}
+                    defaultValue={get(props, "game.letters.b", "B")}
                     className="input-bingo"
                     maxLength={1}
                   />
@@ -202,7 +188,7 @@ export const Bingo = (props) => {
                     name="i"
                     ref={register}
                     error={errors.i}
-                    defaultValue={get(game, "letters.i", "I")}
+                    defaultValue={get(props, "game.letters.i", "I")}
                     className="input-bingo"
                     maxLength={1}
                   />
@@ -213,7 +199,7 @@ export const Bingo = (props) => {
                     name="n"
                     ref={register}
                     error={errors.n}
-                    defaultValue={get(game, "letters.n", "N")}
+                    defaultValue={get(props, "game.letters.n", "N")}
                     className="input-bingo"
                     maxLength={1}
                   />
@@ -224,7 +210,7 @@ export const Bingo = (props) => {
                     name="g"
                     ref={register}
                     error={errors.g}
-                    defaultValue={get(game, "letters.g", "G")}
+                    defaultValue={get(props, "game.letters.g", "G")}
                     className="input-bingo"
                     maxLength={1}
                   />
@@ -235,7 +221,7 @@ export const Bingo = (props) => {
                     name="o"
                     ref={register}
                     error={errors.o}
-                    defaultValue={get(game, "letters.o", "O")}
+                    defaultValue={get(props, "game.letters.o", "O")}
                     className="input-bingo"
                     maxLength={1}
                   />
@@ -280,9 +266,12 @@ export const Bingo = (props) => {
                 <input
                   type="color"
                   name="backgroundColor"
-                  defaultValue={darkTheme.basic.secondary}
+                  defaultValue={get(
+                    props,
+                    "game.backgroundColor",
+                    darkTheme.basic.secondary
+                  )}
                   ref={register}
-                  error={errors.backgroundColor}
                 />
                 <label htmlFor="backgroundColor">
                   {watch("backgroundColor")}
@@ -292,9 +281,12 @@ export const Bingo = (props) => {
                 <input
                   type="color"
                   name="titleColor"
-                  defaultValue={darkTheme.basic.whiteLight}
+                  defaultValue={get(
+                    props,
+                    "game.titleColor",
+                    darkTheme.basic.whiteLight
+                  )}
                   ref={register}
-                  error={errors.titleColor}
                 />
                 <label htmlFor="titleColor">{watch("titleColor")}</label>
               </div>
@@ -302,9 +294,12 @@ export const Bingo = (props) => {
                 <input
                   type="color"
                   name="blocksColor"
-                  defaultValue={darkTheme.basic.primary}
+                  defaultValue={get(
+                    props,
+                    "game.blocksColor",
+                    darkTheme.basic.primary
+                  )}
                   ref={register}
-                  error={errors.blocksColor}
                 />
                 <label htmlFor="blocksColor">{watch("blocksColor")}</label>
               </div>
@@ -312,9 +307,12 @@ export const Bingo = (props) => {
                 <input
                   type="color"
                   name="numberColor"
-                  defaultValue={darkTheme.basic.whiteLight}
+                  defaultValue={get(
+                    props,
+                    "game.numberColor",
+                    darkTheme.basic.whiteLight
+                  )}
                   ref={register}
-                  error={errors.numberColor}
                 />
                 <label htmlFor="numberColor">{watch("numberColor")}</label>
               </div>
