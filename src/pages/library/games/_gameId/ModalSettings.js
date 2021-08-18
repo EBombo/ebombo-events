@@ -12,12 +12,15 @@ import { firestore } from "../../../../firebase";
 import { useRouter } from "next/router";
 import { config } from "../../../../firebase";
 import { Image } from "../../../../components/common/Image";
+import { snapshotToArray } from "../../../../utils";
+import defaultTo from "lodash/defaultTo";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
   const inputRef = useRef(null);
   const { folderId } = router.query;
   const [parent, setParent] = useState(null);
+  const [audios, setAudios] = useState([]);
 
   useEffect(() => {
     const fetchParent = async () => {
@@ -28,8 +31,17 @@ export const ModalSettings = (props) => {
         .get();
       setParent(parentRef.data());
     };
-    console.log(props.coverImgUrl);
+
+    const fetchAudios = () =>
+      firestore
+        .collection("audios")
+        .where("deleted", "==", false)
+        .onSnapshot((audiosSnapshot) =>
+          setAudios(snapshotToArray(audiosSnapshot))
+        );
+
     fetchParent();
+    fetchAudios();
   }, []);
 
   const schema = object().shape({
@@ -42,14 +54,14 @@ export const ModalSettings = (props) => {
     reValidateMode: "onSubmit",
   });
 
-  const manageFile = (e) => {
+  const manageFile = async (e) => {
     const file = e.target.files[0];
-    props.setCoverImgUrl(URL.createObjectURL(file));
+    props.setCoverImgUrl(file);
   };
 
   const saveChanges = (data) => {
     props.setVideo(data.video);
-    props.setMusic(data.music);
+    props.setAudio(data.audio);
     props.setIsVisibleModalSettings(false);
   };
 
@@ -117,7 +129,7 @@ export const ModalSettings = (props) => {
               {props.coverImgUrl ? (
                 <div className="cover">
                   <Image
-                    src={props.coverImgUrl}
+                    src={URL.createObjectURL(props.coverImgUrl)}
                     width="212px"
                     height="121px"
                     size="cover"
@@ -158,14 +170,11 @@ export const ModalSettings = (props) => {
               </div>
 
               <div className="label">Musica del lobby</div>
-              <input
-                className="input-video"
-                name="music"
-                type="url"
-                defaultValue={get(props, "music", "")}
-                placeholder="Pegar link de youtube"
-                ref={register}
-              />
+              <select ref={register} name="audio" className="audio-select">
+                {defaultTo(audios, []).map((audio) => (
+                  <option value={audio.audioUrl}>{audio.title}</option>
+                ))}
+              </select>
             </div>
           </div>
           <div className="btns-container">
@@ -251,6 +260,20 @@ const SettingsContainer = styled.div`
     border-radius: 4px;
     color: ${(props) => props.theme.basic.blackDarken};
     margin-top: 5px;
+  }
+
+  .audio-select {
+    width: 100%;
+    height: 36px;
+    border: 1px solid ${(props) => props.theme.basic.grayLighten};
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: ${(props) => props.theme.basic.blackDarken};
   }
 
   .main-container {

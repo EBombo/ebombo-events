@@ -39,8 +39,8 @@ export const ListGameView = (props) => {
         <IconsContainer>
           <Image
             src={
-              get(props, "game.coverImgUrl.file", null)
-                ? URL.createObjectURL(get(props, "game.coverImgUrl.file", null))
+              get(props, "game.coverImgUrl", null)
+                ? get(props, "game.coverImgUrl", null)
                 : `${config.storageUrl}/resources/empty-cover.svg`
             }
             width="91px"

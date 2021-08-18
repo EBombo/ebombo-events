@@ -30,7 +30,7 @@ export const Bingo = (props) => {
   const [video, setVideo] = useState(null);
   const [allowDuplicate, setAllowDuplicate] = useState(true);
   const [visibility, setVisibility] = useState(true);
-  const [music, setMusic] = useState(null);
+  const [audio, setAudio] = useState(null);
 
   const router = useRouter();
 
@@ -65,7 +65,7 @@ export const Bingo = (props) => {
       video,
       allowDuplicate,
       visibility,
-      music,
+      audio,
     };
 
     await props.createGame(game);
@@ -85,8 +85,8 @@ export const Bingo = (props) => {
           video={video}
           setVisibility={setVisibility}
           visibility={visibility}
-          setMusic={setMusic}
-          music={music}
+          setAudio={setAudio}
+          audio={audio}
           setAllowDuplicate={setAllowDuplicate}
           allowDuplicate={allowDuplicate}
           {...props}
@@ -548,7 +548,7 @@ const BingoContainer = styled.div`
       margin: 1rem auto;
       box-sizing: border-box;
       padding: 1rem;
-      
+
       .bingo-inputs {
         max-width: 160px;
         margin: 0 auto;
