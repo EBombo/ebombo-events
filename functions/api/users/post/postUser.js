@@ -21,40 +21,14 @@ const postUser = async (req, res, next) => {
         message: "Email es requerido",
       });
 
-    const email = get(user, "email", "").trim();
     const phoneNumber = get(user, "phoneNumber", null);
 
-    const promiseEmail = isEmailAlreadyExists(email);
-    const promisePhone =
+    const phoneNumberAlreadyExists =
       user.providerData.providerId === "password"
         ? await isPhoneNumberAlreadyExists(phoneNumber)
         : false;
-    const promiseUser = isUserExists(user.id);
 
-    const responseUser = await Promise.all([
-      promiseEmail,
-      promisePhone,
-      promiseUser,
-    ]);
-    logger.log("responseUser", responseUser);
-
-    const emailAlreadyExists = responseUser[0];
-    const phoneNumberAlreadyExists = responseUser[1];
-    const userExists = responseUser[2];
-
-    if (emailAlreadyExists)
-      return res.status(412).send({
-        statusText: "email-already-exists",
-        message: "Email ya esta registrado",
-      });
-
-    if (emailAlreadyExists && !userExists)
-      return res.status(412).send({
-        statusText: "email-already-exists",
-        message: "Email ya esta registrado",
-      });
-
-    if (phoneNumberAlreadyExists && !userExists)
+    if (phoneNumberAlreadyExists)
       return res.status(412).send({
         statusText: "phone-number-already-exists",
         message: "Número telefónico ya esta registrado",
@@ -73,17 +47,6 @@ const postUser = async (req, res, next) => {
   }
 };
 
-const isEmailAlreadyExists = async (email) => {
-  if (!email) return false;
-
-  const userQuerySnapshot = await firestore
-    .collection("users")
-    .where("email", "==", email)
-    .get();
-
-  return !userQuerySnapshot.empty;
-};
-
 const isPhoneNumberAlreadyExists = async (phoneNumber) => {
   if (!phoneNumber) return false;
 
@@ -93,15 +56,6 @@ const isPhoneNumberAlreadyExists = async (phoneNumber) => {
     .get();
 
   return !userQuerySnapshot.empty;
-};
-
-const isUserExists = async (userId) => {
-  const userDocumentSnapshot = await firestore
-    .collection("users")
-    .doc(userId)
-    .get();
-
-  return userDocumentSnapshot.exists;
 };
 
 const setUser = async (user, verificationCode, isVerified, origin) => {
