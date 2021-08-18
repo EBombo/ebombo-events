@@ -74,7 +74,7 @@ const MyApp = ({ Component, pageProps }) => {
 
     fetchFolders();
     fetchGames();
-  }, [folderId, isBack]);
+  }, [folderId, isBack, authUser]);
 
   useEffect(() => {
     if (!folderId || isBack) return setParent({});
