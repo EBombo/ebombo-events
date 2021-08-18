@@ -29,7 +29,7 @@ exports.getGames = async (req, res, next) => {
 
         return responseJSON;
       } catch (error) {
-        logger.error(error);
+        logger.error(`fetchGame ${game.name}`, error);
         return null;
       }
     });
