@@ -74,7 +74,7 @@ const MyApp = ({ Component, pageProps }) => {
   }, [folderId, isBack]);
 
   useEffect(() => {
-    if (!folderId || isBack) return;
+    if (!folderId || isBack) return setParent({});
 
     const fetchParent = async () => {
       const parentRef = await firestore

@@ -69,6 +69,7 @@ export const GameContainer = (props) => {
 
       await Fetch(getGameUrl(resource), "POST", game);
 
+      props.fetchGames();
       router.back();
     } catch (error) {
       console.error(error);

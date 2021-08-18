@@ -1,6 +1,5 @@
 import React, { useState, useGlobal } from "reactn";
 import styled from "styled-components";
-import get from "lodash/get";
 import { Input, ButtonAnt } from "../../components/form";
 import { Image } from "../../components/common/Image";
 import { ModalNewFolder } from "./ModalNewFolder";
@@ -14,11 +13,9 @@ import { Tooltip } from "antd";
 import { useSendError } from "../../hooks";
 
 export const DesktopLibraryFolders = (props) => {
-  const [authUser] = useGlobal("user");
   const [listType, setListType] = useState("icons");
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [folder, setFolder] = useState(null);
   const router = useRouter();
   const { sendError } = useSendError();
@@ -52,9 +49,7 @@ export const DesktopLibraryFolders = (props) => {
         />
       )}
       <div className="nav-container">
-        <div className="path">
-          {get(authUser, "company.name", "")} {props.parent?.path}
-        </div>
+        <div className="path">{props.parent?.path}</div>
 
         <div className="list-type">
           <div className="search-bar">
