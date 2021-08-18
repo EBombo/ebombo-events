@@ -1,8 +1,11 @@
 const {firestore} = require("../../config");
 
-const fetchSetting = async settingId => {
-    const settings = await firestore.doc(`settings/${settingId}`).get();
+const fetchSettings = async () => {
+    const settings = await firestore.doc("settings/default").get();
     return settings.data();
 };
 
-module.exports = {fetchSetting};
+const updateSetting = async (settingId, setting) =>
+    await firestore.doc(`settings/${settingId}`).update(setting);
+
+module.exports = {fetchSettings, updateSetting};

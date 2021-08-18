@@ -71,7 +71,7 @@ export const ModalSettings = (props) => {
     props.setVideo(get(props, "game.video", null));
     props.setAllowDuplicate(get(props, "game.allowDuplicate", false));
     props.setVisibility(get(props, "game.visibility", true));
-    props.setMusic(get(props, "game.music", null));
+    props.setAudio(get(props, "game.audio", null));
     props.setIsVisibleModalSettings(false);
   };
 

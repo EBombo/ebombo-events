@@ -7,7 +7,6 @@ import get from "lodash/get";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { darkTheme } from "../../../../theme";
-import { useRouter } from "next/router";
 import { ModalSettings } from "./ModalSettings";
 
 const bingoCard = [

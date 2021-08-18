@@ -19,12 +19,12 @@ export const GameContainer = (props) => {
   const [game, setGame] = useState(null);
 
   useEffect(() => {
-    if (!gameId || gameId === "new") return;
+    if (gameId === "new") return;
 
     const _game = games.find((game) => game.id === gameId);
 
     setGame(_game);
-  }, []);
+  }, [games]);
 
   useEffect(() => {
     const fetchResource = async () => {
