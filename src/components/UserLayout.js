@@ -37,8 +37,8 @@ const UserLayout = (props) => {
     "isVisibleLoginModal"
   );
 
-  //const [openLeftDrawer, setOpenLeftDrawer] = useGlobal("openLeftDrawer");
   const [isVisibleForgotPassword] = useGlobal("isVisibleForgotPassword");
+  const [isVisibleModalConfirm] = useGlobal("isVisibleModalConfirm");
 
   const loginModal = () =>
     isVisibleLoginModal && !authUser ? (
@@ -57,8 +57,9 @@ const UserLayout = (props) => {
     ) : null;
 
   const verifiedModalResendEmail = () =>
-    authUser && !authUser.isVerified ? (
+    isVisibleModalConfirm ? (
       <ModalContainer
+        background={darkTheme.basic.default}
         footer={null}
         closable={false}
         visible={!authUser.isVerified}

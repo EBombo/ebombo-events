@@ -62,6 +62,7 @@ export const WithConfiguration = (props) => {
         isLoadingUser: true,
         isLoadingCreateUser: true,
         isVisibleLoginModal: false,
+        isVisibleModalConfirm: false,
         isVisibleForgotPassword: false,
         openRightDrawer: false,
         openLeftDrawer: false,
