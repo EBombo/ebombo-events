@@ -10,6 +10,7 @@ import { useAuth } from "../hooks/useAuth";
 import { TabletNav } from "./nav/TabletNav";
 import { DesktopNav } from "./nav/DesktopNav";
 import { Footer } from "./Footer";
+import { darkTheme } from "../theme";
 
 const PWA = dynamic(() => import("./common/pwa"), { ssr: false });
 
@@ -42,6 +43,7 @@ const UserLayout = (props) => {
   const loginModal = () =>
     isVisibleLoginModal && !authUser ? (
       <ModalContainer
+        background={darkTheme.basic.default}
         visible={isVisibleLoginModal && !authUser}
         onCancel={() => setIsVisibleLoginModal(false)}
         footer={null}

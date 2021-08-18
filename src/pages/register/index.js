@@ -57,7 +57,7 @@ export const Register = (props) => {
           name="name"
           variant="primary"
           autoComplete="off"
-          placeholder="Nombres"
+          placeholder="Nombre"
         />
         <Input
           error={errors.lastName}

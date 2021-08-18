@@ -9,6 +9,7 @@ import { ModalContainer } from "../../components/common/ModalContainer";
 import dynamic from "next/dynamic";
 import { spinLoaderMin } from "../../components/common/loader";
 import { useAuth } from "../../hooks/useAuth";
+import { darkTheme } from "../../theme";
 
 const Login = dynamic(() => import("../login"), {
   loading: () => spinLoaderMin(),
@@ -30,6 +31,7 @@ export const HeaderLanding = (props) => {
   const loginModal = () =>
     isVisibleLoginModal && !authUser ? (
       <ModalContainer
+        background={darkTheme.basic.default}
         visible={isVisibleLoginModal && !authUser}
         onCancel={() => setIsVisibleLoginModal(false)}
         footer={null}
@@ -79,6 +81,14 @@ export const HeaderLanding = (props) => {
         </Desktop>
         <Tablet>
           <ul className={`nav-menu ${active ? "active" : ""}`}>
+            <li
+              className="nav-item"
+              onClick={() => setIsVisibleLoginModal(true)}
+            >
+              <Anchor variant="secondary" fontSize="18px">
+                Ingresar
+              </Anchor>
+            </li>
             <li
               className="nav-item"
               onClick={() => {
