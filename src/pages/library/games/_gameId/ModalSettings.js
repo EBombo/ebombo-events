@@ -66,12 +66,12 @@ export const ModalSettings = (props) => {
   };
 
   const resetToDefault = () => {
-    props.setCoverImgUrl(false);
-    props.setOwnBranding(true);
-    props.setVideo(null);
-    props.setAllowDuplicate(true);
-    props.setVisibility(true);
-    props.setMusic(null);
+    props.setCoverImgUrl(get(props, "game.coverImgUrl", false));
+    props.setOwnBranding(get(props, "game.ownBranding", true));
+    props.setVideo(get(props, "game.video", null));
+    props.setAllowDuplicate(get(props, "game.allowDuplicate", false));
+    props.setVisibility(get(props, "game.visibility", true));
+    props.setMusic(get(props, "game.music", null));
     props.setIsVisibleModalSettings(false);
   };
 

@@ -8,9 +8,11 @@ import { darkTheme } from "../../theme";
 import get from "lodash/get";
 import moment from "moment";
 import { Desktop, mediaQuery } from "../../constants";
+import { useRouter } from "next/router";
 
 export const ListGameView = (props) => {
   const [authUser] = useGlobal("user");
+  const router = useRouter();
 
   const getTimeCreation = () => {
     const still = moment();
@@ -83,6 +85,15 @@ export const ListGameView = (props) => {
                     variant="contained"
                     color="secondary"
                     margin="0 1rem"
+                    onClick={() => {
+                      get(props, "game.parentId", null)
+                        ? router.push(
+                            `/library/games/new?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+                          )
+                        : router.push(
+                            `/library/games/${props.game.id}?resourceId=${props.game.resourceId}`
+                          );
+                    }}
                   >
                     Editar
                   </ButtonAnt>
@@ -104,7 +115,20 @@ export const ListGameView = (props) => {
             <div className="description">{props.game.name}</div>
           </div>
           <div className="right-content">
-            <ButtonAnt variant="contained" color="secondary" margin="0 1rem">
+            <ButtonAnt
+              variant="contained"
+              color="secondary"
+              margin="0 1rem"
+              onClick={() => {
+                get(props, "game.parentId", null)
+                  ? router.push(
+                      `/library/games/new?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+                    )
+                  : router.push(
+                      `/library/games/${props.game.id}?resourceId=${props.game.resourceId}`
+                    );
+              }}
+            >
               Editar
             </ButtonAnt>
             <ButtonAnt variant="contained" color="primary" margin="0 1rem">

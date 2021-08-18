@@ -1,4 +1,4 @@
-import React, { useState, useGlobal, useRef } from "reactn";
+import React, { useState, useGlobal, useRef, useEffect } from "reactn";
 import styled from "styled-components";
 import { mediaQuery, Tablet, Desktop } from "../../../../constants";
 import { Anchor, ButtonAnt, Input } from "../../../../components/form";
@@ -22,6 +22,7 @@ const bingoCard = [
 ];
 
 export const Bingo = (props) => {
+  const [games, setGames] = useGlobal("games");
   const [coverImgUrl, setCoverImgUrl] = useState(null);
   const [backgroundImg, setBackgroundImg] = useState(null);
   const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
@@ -31,8 +32,27 @@ export const Bingo = (props) => {
   const [allowDuplicate, setAllowDuplicate] = useState(true);
   const [visibility, setVisibility] = useState(true);
   const [audio, setAudio] = useState(null);
-
+  const [game, setGame] = useState(null);
   const router = useRouter();
+  const { gameId } = router.query;
+
+  useEffect(() => {
+    if (!gameId || gameId === "new") return;
+
+    const _game = games.find((game) => game.id === gameId);
+
+    setOwnBranding(_game.ownBranding);
+    setVideo(_game.video);
+    setAllowDuplicate(_game.allowDuplicate);
+    setVisibility(_game.visibility);
+    setAudio(_game.audio);
+    setCoverImgUrl(_game.coverImgUrl);
+    setBackgroundImg(_game.backgroundImg);
+
+    setGame(_game);
+
+    console.log("this is the game", _game);
+  }, []);
 
   const schema = object().shape({
     title: string(),
@@ -89,6 +109,7 @@ export const Bingo = (props) => {
           audio={audio}
           setAllowDuplicate={setAllowDuplicate}
           allowDuplicate={allowDuplicate}
+          game={game}
           {...props}
         />
       )}
@@ -126,6 +147,7 @@ export const Bingo = (props) => {
             </div>
             <div className="title">
               <Input
+                defaultValue={get(game, "name", "")}
                 marginBottom={"0"}
                 variant="primary"
                 type="text"
@@ -151,13 +173,13 @@ export const Bingo = (props) => {
               <div className="item">
                 <div className="text">Titulo y columnas</div>
                 <Input
+                  defaultValue={get(game, "title", "")}
                   marginBottom={"0"}
                   variant="primary"
                   type="text"
                   name="title"
                   ref={register}
                   error={errors.title}
-                  defaultValue={"Título"}
                   placeholder="Titulo"
                   className="title-input"
                 />
@@ -169,7 +191,7 @@ export const Bingo = (props) => {
                     name="b"
                     ref={register}
                     error={errors.b}
-                    defaultValue={"B"}
+                    defaultValue={get(game, "letters.b", "B")}
                     className="input-bingo"
                     maxLength={1}
                   />
@@ -180,7 +202,7 @@ export const Bingo = (props) => {
                     name="i"
                     ref={register}
                     error={errors.i}
-                    defaultValue={"I"}
+                    defaultValue={get(game, "letters.i", "I")}
                     className="input-bingo"
                     maxLength={1}
                   />
@@ -191,7 +213,7 @@ export const Bingo = (props) => {
                     name="n"
                     ref={register}
                     error={errors.n}
-                    defaultValue={"N"}
+                    defaultValue={get(game, "letters.n", "N")}
                     className="input-bingo"
                     maxLength={1}
                   />
@@ -202,7 +224,7 @@ export const Bingo = (props) => {
                     name="g"
                     ref={register}
                     error={errors.g}
-                    defaultValue={"G"}
+                    defaultValue={get(game, "letters.g", "G")}
                     className="input-bingo"
                     maxLength={1}
                   />
@@ -213,7 +235,7 @@ export const Bingo = (props) => {
                     name="o"
                     ref={register}
                     error={errors.o}
-                    defaultValue={"O"}
+                    defaultValue={get(game, "letters.o", "O")}
                     className="input-bingo"
                     maxLength={1}
                   />

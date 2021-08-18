@@ -22,7 +22,7 @@ const MyApp = ({ Component, pageProps }) => {
   const { Fetch } = useFetch();
   const [authUser] = useGlobal("user");
   const [, setLoadingGames] = useGlobal("loadingGames");
-  const [games, setGames] = useState([]);
+  const [games, setGames] = useGlobal("games");
   const [parent, setParent] = useState(null);
   const [folders, setFolders] = useState([]);
   const [isBack, setIsBack] = useState(true);

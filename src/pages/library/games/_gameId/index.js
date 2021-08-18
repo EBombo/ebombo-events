@@ -6,9 +6,6 @@ import { useFetch } from "../../../../hooks/useFetch";
 import { firestore } from "../../../../firebase";
 import { Bingo } from "./Bingo";
 
-const imageUrl =
-  "https://mk0snacknation9jc4nw.kinstacdn.com/wp-content/uploads/2020/08/27-Virtual-Trivia-Ideas-For-People-Who-Know-Facts-And-Nothing-Else-copy.png";
-
 export const GameContainer = (props) => {
   const router = useRouter();
   const { gameId, resourceId, folderId } = router.query;
@@ -67,7 +64,7 @@ export const GameContainer = (props) => {
 
       const resource = resourceRef.data();
 
-      await Fetch(getGameUrl(resource), "POST", game);
+      await Fetch(getGameUrl(resource), "POST", { ...game, resourceId });
 
       props.fetchGames();
       router.back();
