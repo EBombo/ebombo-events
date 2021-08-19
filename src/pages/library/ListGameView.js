@@ -101,9 +101,9 @@ export const ListGameView = (props) => {
 
       if (error) throw Error(error);
 
-      console.log("customToken", response.token);
+      const redirectUrl = `${props.game.adminGame.domain}?tokenId=${tokenId}`;
 
-      window.open(props.game.adminGame.domain, "blank");
+      window.open(redirectUrl, "blank");
     } catch (error) {
       console.error(error);
     }
