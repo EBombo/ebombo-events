@@ -1,15 +1,14 @@
-import React, { useState } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Input } from "../../components/form";
-import get from "lodash/get";
 import { ListGameView } from "./ListGameView";
 import isEmpty from "lodash/isEmpty";
-import { useRouter } from "next/router";
+import { spinLoaderMin } from "../../components/common/loader";
 
 export const DesktopLibraryGames = (props) => {
   const [listType, setListType] = useState("icons");
   const [tab, setTab] = useState("all");
-  const router = useRouter();
+  const [loadingGames] = useGlobal("loadingGames");
 
   return (
     <GamesContainer>
@@ -68,9 +67,11 @@ export const DesktopLibraryGames = (props) => {
             {...props}
           />
         ))}
-        {isEmpty(props.games) && (
-          <div className="empty-container">No cuentas con juegos.</div>
-        )}
+        {loadingGames
+          ? spinLoaderMin()
+          : isEmpty(props.games) && (
+              <div className="empty-container">No cuentas con juegos.</div>
+            )}
       </div>
     </GamesContainer>
   );

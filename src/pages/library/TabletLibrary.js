@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { config } from "../../firebase";
@@ -10,12 +10,14 @@ import { darkTheme } from "../../theme";
 import { ModalNewFolder } from "./ModalNewFolder";
 import { ModalNewGame } from "./ModalNewGame";
 import { ListGameView } from "./ListGameView";
+import { spinLoaderMin } from "../../components/common/loader";
 
 export const TabletLibrary = (props) => {
   const router = useRouter();
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
   const [folder, setFolder] = useState(null);
+  const [loadingGames] = useGlobal("loadingGames");
 
   return (
     <TabletLibraryContainer>
@@ -219,7 +221,9 @@ export const TabletLibrary = (props) => {
 
             <div className="item-subtitle">Juegos ({props.games.length})</div>
 
-            {isEmpty(props.games) ? (
+            {loadingGames ? (
+              spinLoaderMin()
+            ) : isEmpty(props.games) ? (
               <div className="empty-message">No cuentas con juegos</div>
             ) : (
               props.games.map((game) => (
