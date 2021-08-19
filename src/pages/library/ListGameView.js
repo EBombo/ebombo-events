@@ -95,6 +95,22 @@ export const ListGameView = (props) => {
     }
   };
 
+  const createTokenToPlay = async () => {
+    try {
+      const { response, error } = await Fetch(
+        `${config.serverUrl}/api/tokens/${authUser.id}`
+      );
+
+      if (error) throw Error(error);
+
+      console.log("customToken", response.token);
+
+      window.open(props.game.domain, "blank");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       {props.listType === "icons" && (
@@ -215,7 +231,11 @@ export const ListGameView = (props) => {
                   >
                     Editar
                   </ButtonAnt>
-                  <ButtonAnt variant="contained" color="primary">
+                  <ButtonAnt
+                    variant="contained"
+                    color="primary"
+                    onClick={createTokenToPlay}
+                  >
                     Jugar
                   </ButtonAnt>
                 </div>
@@ -249,7 +269,12 @@ export const ListGameView = (props) => {
             >
               Editar
             </ButtonAnt>
-            <ButtonAnt variant="contained" color="primary" margin="0 1rem">
+            <ButtonAnt
+              variant="contained"
+              color="primary"
+              margin="0 1rem"
+              onClick={createTokenToPlay}
+            >
               Jugar
             </ButtonAnt>
             {props.game.isFavorite ? (
