@@ -1,18 +1,36 @@
-import React, { useGlobal } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
-import { config } from "../../firebase";
+import { config, firestore } from "../../firebase";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import get from "lodash/get";
 import moment from "moment";
 import { Desktop, mediaQuery } from "../../constants";
 import { useRouter } from "next/router";
+import { useSendError } from "../../hooks";
+import { useFetch } from "../../hooks/useFetch";
 
 export const ListGameView = (props) => {
   const [authUser] = useGlobal("user");
+  const [games, setGames] = useGlobal("games");
+  const [resource, setResource] = useState(null);
   const router = useRouter();
+  const { Fetch } = useFetch();
+  const { sendError } = useSendError();
+
+  useEffect(() => {
+    const fetchResource = async () => {
+      const resourceRef = await firestore
+        .collection("games")
+        .doc(props.game.resourceId)
+        .get();
+      setResource(resourceRef.data());
+    };
+
+    fetchResource();
+  }, []);
 
   const getTimeCreation = () => {
     const still = moment();
@@ -31,8 +49,50 @@ export const ListGameView = (props) => {
     return "7 reproducciones";
   };
 
-  const toggleFavorite = () => {
-    console.log("toggle favorite");
+  const toggleFavorite = async () => {
+    let newGames = games;
+    const gameIndex = newGames.findIndex((game) => game.id === props.game.id);
+
+    newGames[gameIndex].isFavorite = get(
+      newGames[gameIndex],
+      "isFavorite",
+      false
+    )
+      ? false
+      : true;
+
+    setGames(newGames);
+
+    try {
+      await Fetch(
+        `${resource.domain}/api/games/${props.game.id}/users/${authUser.id}`,
+        "PUT",
+        {
+          isFavorite: newGames[gameIndex].isFavorite,
+        }
+      );
+    } catch (error) {
+      await sendError(error, "createGame");
+    }
+  };
+
+  const deleteGame = async () => {
+    let newGames = games;
+    const gameIndex = newGames.findIndex((game) => game.id === props.game.id);
+    newGames.splice(gameIndex, 1);
+    setGames(newGames);
+
+    try {
+      await Fetch(
+        `${resource.domain}/api/games/${props.game.id}/users/${authUser.id}`,
+        "PUT",
+        {
+          deleted: true,
+        }
+      );
+    } catch (error) {
+      await sendError(error, "createGame");
+    }
   };
 
   return (
@@ -54,7 +114,65 @@ export const ListGameView = (props) => {
             borderRadius="4px 0px 0px 4px"
           />
           <div className="main-content">
-            <div className="description">{props.game.name}</div>
+            <div className="description">
+              {props.game.name}
+              <div className="right-content">
+                {props.game.isFavorite ? (
+                  <Image
+                    src={`${config.storageUrl}/resources/yellow-star.svg`}
+                    width="20px"
+                    height="20px"
+                    className="icon"
+                    margin="0 20px 0 0"
+                    onClick={() => toggleFavorite()}
+                  />
+                ) : (
+                  <Image
+                    src={`${config.storageUrl}/resources/star.svg`}
+                    width="20px"
+                    height="20px"
+                    className="icon"
+                    margin="0 20px 0 0"
+                    onClick={() => toggleFavorite()}
+                  />
+                )}
+                <Tooltip
+                  placement="bottomRight"
+                  trigger="click"
+                  title={
+                    <ToolTipContent>
+                      <div className="option">
+                        <Image
+                          src={`${config.storageUrl}/resources/move.svg`}
+                          width={"16px"}
+                          height={"16px"}
+                          size={"contain"}
+                          margin={"0 15px 0 0"}
+                        />
+                        Mover
+                      </div>
+                      <div className="option" onClick={() => deleteGame()}>
+                        <Image
+                          src={`${config.storageUrl}/resources/delete.svg`}
+                          width={"16px"}
+                          height={"16px"}
+                          size={"contain"}
+                          margin={"0 15px 0 0"}
+                        />
+                        Borrar
+                      </div>
+                    </ToolTipContent>
+                  }
+                  color={darkTheme.basic.whiteLight}
+                >
+                  <div className="right">
+                    <div />
+                    <div />
+                    <div />
+                  </div>
+                </Tooltip>
+              </div>
+            </div>
             <div className="bottom-container">
               <Desktop>
                 <div className="company">
@@ -172,7 +290,22 @@ export const ListGameView = (props) => {
   );
 };
 
-const ToolTipContent = styled.div``;
+const ToolTipContent = styled.div`
+  padding: 0.5rem;
+
+  .option {
+    display: flex;
+    align-items: center;
+    color: ${(props) => props.theme.basic.grayLight};
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+`;
 
 const ListContainer = styled.div`
   width: 100%;
@@ -251,6 +384,30 @@ const IconsContainer = styled.div`
       line-height: 16px;
       color: ${(props) => props.theme.basic.black};
       padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .right-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+
+      .right {
+        height: 18px;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        align-items: center;
+
+        div {
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: ${(props) => props.theme.basic.black};
+        }
+      }
     }
 
     .bottom-container {

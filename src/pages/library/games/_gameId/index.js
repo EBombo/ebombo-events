@@ -54,11 +54,8 @@ export const GameContainer = (props) => {
     setIsLoading(false);
   };
 
-  const updateUrl = (resource) => {
-    if (folderId)
-      return `${resource.domain}/api/games/${game.id}/users/${authUser.id}?folderId=${folderId}`;
-    return `${resource.domain}/api/games/${game.id}/users/${authUser.id}`;
-  };
+  const updateUrl = (resource) =>
+    `${resource.domain}/api/games/${game.id}/users/${authUser.id}`;
 
   const createUrl = (resource) => {
     if (folderId)
