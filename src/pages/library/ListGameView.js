@@ -2,15 +2,17 @@ import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
-import { config } from "../../firebase";
+import { auth, config, firestore } from "../../firebase";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import get from "lodash/get";
 import moment from "moment";
 import { Desktop, mediaQuery } from "../../constants";
+import { useFetch } from "../../hooks/useFetch";
 
 export const ListGameView = (props) => {
   const [authUser] = useGlobal("user");
+  const { Fetch } = useFetch();
 
   const getTimeCreation = () => {
     const still = moment();
@@ -31,6 +33,22 @@ export const ListGameView = (props) => {
 
   const toggleFavorite = () => {
     console.log("toggle favorite");
+  };
+
+  const createTokenToPlay = async () => {
+    try {
+      const { response, error } = await Fetch(
+        `${config.serverUrl}/api/tokens/${authUser.id}`
+      );
+
+      if (error) throw Error(error);
+
+      console.log("customToken", response.token);
+
+      window.open(props.game.domain, "blank");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -86,7 +104,11 @@ export const ListGameView = (props) => {
                   >
                     Editar
                   </ButtonAnt>
-                  <ButtonAnt variant="contained" color="primary">
+                  <ButtonAnt
+                    variant="contained"
+                    color="primary"
+                    onClick={createTokenToPlay}
+                  >
                     Jugar
                   </ButtonAnt>
                 </div>
@@ -107,7 +129,12 @@ export const ListGameView = (props) => {
             <ButtonAnt variant="contained" color="secondary" margin="0 1rem">
               Editar
             </ButtonAnt>
-            <ButtonAnt variant="contained" color="primary" margin="0 1rem">
+            <ButtonAnt
+              variant="contained"
+              color="primary"
+              margin="0 1rem"
+              onClick={createTokenToPlay}
+            >
               Jugar
             </ButtonAnt>
             {props.game.isFavorite ? (

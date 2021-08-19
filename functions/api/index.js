@@ -5,13 +5,12 @@ const { getSeo } = require("./seo/get");
 const { getError } = require("./error/getError");
 const { postError } = require("./error");
 const { getManifest } = require("./manifest/get");
-const { getResendVerifyCode } = require("./users/get");
+const { getResendVerifyCode, getCustomToken } = require("./users/get");
 const { getVerifyCode } = require("./users/get");
 const { validateRequest } = require("./validateRequest");
 const { deleteUser } = require("./users/delete");
 const { putUpdateUser } = require("./users/put");
 const { postUser } = require("./users/post");
-const { validateAdmin } = require("./validateAdmin");
 const { getGames } = require("./games/get");
 
 const api = express();
@@ -25,6 +24,8 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", async (req, res) => res.send("Hello!"));
+
+router.get("/tokens/:tokenId", getCustomToken);
 
 router.post("/users/:userId", validateRequest, postUser);
 
