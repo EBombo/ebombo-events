@@ -2,7 +2,7 @@ import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
-import { config, firestore } from "../../firebase";
+import { auth, config, firestore } from "../../firebase";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import get from "lodash/get";
@@ -95,13 +95,9 @@ export const ListGameView = (props) => {
 
   const createTokenToPlay = async () => {
     try {
-      const { response, error } = await Fetch(
-        `${config.serverUrl}/api/tokens/${authUser.id}`
-      );
+      const tokenId = await auth.currentUser.getIdToken();
 
-      if (error) throw Error(error);
-
-      const redirectUrl = `${props.game.adminGame.domain}?tokenId=${tokenId}`;
+      const redirectUrl = `${props.game.adminGame.domain}/lobby/game/${props.game.id}?tokenId=${tokenId}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {
