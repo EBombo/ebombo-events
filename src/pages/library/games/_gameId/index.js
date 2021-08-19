@@ -42,8 +42,12 @@ export const GameContainer = (props) => {
     setIsLoading(true);
     try {
       game
-        ? await Fetch(updateUrl(resource), "PUT", { ...game, resourceId })
-        : await Fetch(createUrl(resource), "POST", { ...game, resourceId });
+        ? await Fetch(updateUrl(resource), "PUT", { ...game })
+        : await Fetch(createUrl(resource), "POST", {
+            ...game,
+            resourceId,
+            user: authUser,
+          });
 
       props.fetchGames();
       router.back();
