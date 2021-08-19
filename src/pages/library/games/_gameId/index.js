@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useSendError } from "../../../../hooks";
 import { useFetch } from "../../../../hooks/useFetch";
-import { firestore } from "../../../../firebase";
+import isEmpty from "lodash/isEmpty";
 import { Bingo } from "./Bingo";
 
 export const GameContainer = (props) => {
@@ -14,40 +14,56 @@ export const GameContainer = (props) => {
 
   const [authUser] = useGlobal("user");
   const [games] = useGlobal("games");
+  const [resources] = useGlobal("resources");
   const [isLoading, setIsLoading] = useState(false);
   const [resource, setResource] = useState(null);
-  const [game, setGame] = useState(null);
+  const [currentGame, setCurrentGame] = useState(null);
 
   useEffect(() => {
     if (gameId === "new") return;
 
     const _game = games.find((game) => game.id === gameId);
 
-    setGame(_game);
+    setCurrentGame(_game);
   }, [games]);
 
   useEffect(() => {
-    const fetchResource = async () => {
-      const resourceRef = await firestore
-        .collection("games")
-        .doc(resourceId)
-        .get();
-      setResource(resourceRef.data());
-    };
+    if (isEmpty(resources)) return;
 
-    fetchResource();
-  }, []);
+    const currentResource = resources.find(
+      (resource_) => resource_.id === resourceId
+    );
+
+    setResource(currentResource);
+  }, [resources]);
 
   const submitGame = async (game) => {
     setIsLoading(true);
     try {
-      game
-        ? await Fetch(updateUrl(resource), "PUT", { ...game })
-        : await Fetch(createUrl(resource), "POST", {
-            ...game,
-            resourceId,
-            user: authUser,
-          });
+      let adminGame = resource;
+      delete adminGame.createAt;
+      delete adminGame.updateAt;
+
+      const fetchProps = {
+        url: currentGame ? updateUrl(resource) : createUrl(resource),
+        method: currentGame ? "PUT" : "POST",
+        body: currentGame
+          ? { ...game, adminGame }
+          : {
+              ...game,
+              adminGame,
+              resourceId,
+              user: authUser,
+            },
+      };
+
+      const { error } = await Fetch(
+        fetchProps.url,
+        fetchProps.method,
+        fetchProps.body
+      );
+
+      if (error) throw new Error(error);
 
       props.fetchGames();
       router.back();
@@ -59,7 +75,7 @@ export const GameContainer = (props) => {
   };
 
   const updateUrl = (resource) =>
-    `${resource.domain}/api/games/${game.id}/users/${authUser.id}`;
+    `${resource.domain}/api/games/${currentGame.id}/users/${authUser.id}`;
 
   const createUrl = (resource) => {
     if (folderId)
@@ -73,7 +89,7 @@ export const GameContainer = (props) => {
         <Bingo
           submitGame={submitGame}
           isLoading={isLoading}
-          game={game}
+          game={currentGame}
           {...props}
         />
       )}
