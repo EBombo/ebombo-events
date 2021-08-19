@@ -274,7 +274,30 @@ export const ListGameView = (props) => {
             <Tooltip
               placement="bottomLeft"
               trigger="click"
-              title={<ToolTipContent>Eliminar</ToolTipContent>}
+              title={
+                <ToolTipContent>
+                  <div className="option">
+                    <Image
+                      src={`${config.storageUrl}/resources/move.svg`}
+                      width={"16px"}
+                      height={"16px"}
+                      size={"contain"}
+                      margin={"0 15px 0 0"}
+                    />
+                    Mover
+                  </div>
+                  <div className="option" onClick={() => deleteGame()}>
+                    <Image
+                      src={`${config.storageUrl}/resources/delete.svg`}
+                      width={"16px"}
+                      height={"16px"}
+                      size={"contain"}
+                      margin={"0 15px 0 0"}
+                    />
+                    Borrar
+                  </div>
+                </ToolTipContent>
+              }
               color={darkTheme.basic.whiteLight}
             >
               <div className="more">
