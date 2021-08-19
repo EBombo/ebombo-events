@@ -6,6 +6,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { mediaQuery } from "../../constants";
 import styled from "styled-components";
 import { dialCodes } from "../../utils";
+import { Image } from "../../components/common/Image";
+import { config } from "../../firebase";
 import { useRouter } from "next/router";
 import { getData } from "country-list";
 import { object, string } from "yup";
@@ -48,14 +50,24 @@ export const Register = (props) => {
 
   return (
     <RegisterContainer>
-      <div className="title">Registrate</div>
+      <Divider>
+        <div className="divider-content">
+          <Image
+            margin="0"
+            width="15px"
+            height="15px"
+            src={`${config.storageUrl}/resources/personal-info.svg`}
+            size="contain"
+          />
+          <div className="subtitle">Información Personal</div>
+        </div>
+      </Divider>
       <form onSubmit={handleSubmit(signUp)} autoComplete="off" noValidate>
         <Input
           error={errors.name}
           type="text"
           ref={register}
           name="name"
-          variant="primary"
           autoComplete="off"
           placeholder="Nombre"
         />
@@ -64,7 +76,6 @@ export const Register = (props) => {
           type="text"
           ref={register}
           name="lastName"
-          variant="primary"
           autoComplete="off"
           placeholder="Apellidos"
         />
@@ -73,7 +84,6 @@ export const Register = (props) => {
           type="email"
           ref={register}
           name="email"
-          variant="primary"
           autoComplete="off"
           placeholder="Correo"
         />
@@ -82,7 +92,6 @@ export const Register = (props) => {
           type="password"
           ref={register}
           name="password"
-          variant="primary"
           autoComplete="off"
           placeholder="Contraseña"
         />
@@ -95,7 +104,6 @@ export const Register = (props) => {
                 placeholder="Country"
                 showSearch
                 virtual={false}
-                variant="primary"
                 autoComplete="off"
                 error={errors.countryCode}
                 optionFilterProp="children"
@@ -118,7 +126,6 @@ export const Register = (props) => {
             type="number"
             ref={register}
             name="phoneNumber"
-            variant="primary"
             autoComplete="off"
             placeholder="Celular"
           />
@@ -140,22 +147,32 @@ export const Register = (props) => {
 };
 
 const RegisterContainer = styled.div`
-  padding: 15px 10px;
   margin: 10px auto;
-
-  ${mediaQuery.afterTablet} {
-    max-width: 400px;
-  }
+  background-color: ${(props) => props.theme.basic.gray};
+  min-height: 100vh;
 
   .title {
     color: ${(props) => props.theme.basic.white};
     text-align: center;
   }
+  
+  .divider-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  form {
-    svg {
-      color: ${(props) => props.theme.basic.white};
+    .subtitle {
+      margin-left: 10px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      color: ${(props) => props.theme.basic.grayLight};
     }
+  }
+
+  ${mediaQuery.afterTablet} {
+    max-width: 400px;
+    
   }
 `;
 

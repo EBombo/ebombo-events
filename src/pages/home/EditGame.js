@@ -108,12 +108,10 @@ const EditGame = (props) => {
       </div>
       <form onSubmit={handleSubmit(saveIntegrationGame)}>
         <Input
-          variant="primary"
           name="name"
           ref={register}
           error={errors.name}
           required
-          label="Nombre:"
           defaultValue={get(props, "currentGame.name", "")}
           placeholder="Nombre del juego"
         />

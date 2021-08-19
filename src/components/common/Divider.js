@@ -17,7 +17,7 @@ const DividerCss = styled.div`
   margin-bottom: 10px;
 
   hr {
-    background-color: ${props => props.theme.basic.white};
+    background-color: ${props => props.theme.basic.grayLighten};
     border: none;
     width: 25%;
     height: 1px;

@@ -77,7 +77,6 @@ export const GameContainer = (props) => {
         <Input
           type="text"
           name="name"
-          label="Name"
           ref={register}
           variant="primary"
           defaultValue={game.name}
@@ -87,7 +86,6 @@ export const GameContainer = (props) => {
         <Input
           type="text"
           name="domain"
-          label="Domain"
           ref={register}
           variant="primary"
           defaultValue={game.domain}
