@@ -53,13 +53,11 @@ export const ListGameView = (props) => {
     let newGames = games;
     const gameIndex = newGames.findIndex((game) => game.id === props.game.id);
 
-    newGames[gameIndex].isFavorite = get(
-      newGames[gameIndex],
-      "isFavorite",
-      false
-    )
-      ? false
-      : true;
+    newGames[gameIndex].isFavorite = !get(
+        newGames[gameIndex],
+        "isFavorite",
+        false
+    );
 
     setGames(newGames);
 
