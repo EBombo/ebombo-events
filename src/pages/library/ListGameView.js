@@ -54,9 +54,9 @@ export const ListGameView = (props) => {
     const gameIndex = newGames.findIndex((game) => game.id === props.game.id);
 
     newGames[gameIndex].isFavorite = !get(
-        newGames[gameIndex],
-        "isFavorite",
-        false
+      newGames[gameIndex],
+      "isFavorite",
+      false
     );
 
     setGames(newGames);
@@ -103,7 +103,7 @@ export const ListGameView = (props) => {
 
       console.log("customToken", response.token);
 
-      window.open(props.game.domain, "blank");
+      window.open(props.game.adminGame.domain, "blank");
     } catch (error) {
       console.error(error);
     }
