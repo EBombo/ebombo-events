@@ -15,6 +15,7 @@ import get from "lodash/get";
 import { days, months, years } from "../../components/common/DataList";
 import { darkTheme } from "../../theme";
 import { sizes } from "../../constants";
+import moment from "moment";
 
 export const Register = (props) => {
   const validationSchema = object().shape({
@@ -27,6 +28,9 @@ export const Register = (props) => {
     password: string().required().min(6),
     countryCode: string().required(),
     phoneNumber: string().required().min(5),
+    day: string().required(),
+    month: string().required(),
+    year: string().required(),
   });
 
   const { signUp, ButtonsProviders } = useAuth();
@@ -51,9 +55,19 @@ export const Register = (props) => {
     return get(country, "dialCode", null);
   };
 
+  const signUpUser = async (user) => {
+    await signUp({
+      ...user,
+      birthDate: moment(
+        `${user.day}/${user.month}/${user.year}`,
+        "DD/MM/YYYY"
+      ).toDate(),
+    });
+  };
+
   return (
     <RegisterContainer>
-      <form onSubmit={handleSubmit(signUp)} autoComplete="off" noValidate>
+      <form onSubmit={handleSubmit(signUpUser)} autoComplete="off" noValidate>
         <Divider>
           <div className="divider-content">
             <Image
@@ -94,7 +108,6 @@ export const Register = (props) => {
               control={control}
               as={
                 <Select
-                  variant="clear"
                   placeholder="día"
                   showSearch
                   virtual={false}
@@ -115,7 +128,6 @@ export const Register = (props) => {
               control={control}
               as={
                 <Select
-                  variant="clear"
                   placeholder="mes"
                   showSearch
                   virtual={false}
@@ -136,7 +148,6 @@ export const Register = (props) => {
               control={control}
               as={
                 <Select
-                  variant="clear"
                   placeholder="año"
                   showSearch
                   virtual={false}
@@ -183,7 +194,6 @@ export const Register = (props) => {
               control={control}
               as={
                 <Select
-                  variant="clear"
                   placeholder="Pais"
                   showSearch
                   virtual={false}
