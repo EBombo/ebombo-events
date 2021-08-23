@@ -32,11 +32,28 @@ export const Input = forwardRef((props, ref) => {
 const InputContainer = styled.div`
   width: 100%;
   margin: 0;
+  height: 36px;
+
+  // This code is for the input type password
+  .ant-input-affix-wrapper {
+    width: 100%;
+    height: 100%;
+    border: 1px solid ${(props) => props.theme.basic.grayLighten};
+    box-sizing: border-box;
+    border-radius: 4px;
+    background: ${(props) => props.theme.basic.whiteLight};
+    color: ${(props) => props.theme.basic.blackDarken};
+
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
 `;
 
 const StyledInput = styled(InputAnt)`
   width: 100%;
-  height: 36px;
+  height: 100%;
   border: 1px solid ${(props) => props.theme.basic.grayLighten};
   box-sizing: border-box;
   border-radius: 4px;
