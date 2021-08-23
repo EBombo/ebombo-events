@@ -31,10 +31,12 @@ export const HeaderLanding = (props) => {
   const loginModal = () =>
     isVisibleLoginModal && !authUser ? (
       <ModalContainer
-        background={darkTheme.basic.default}
+        background={darkTheme.basic.gray}
         visible={isVisibleLoginModal && !authUser}
         onCancel={() => setIsVisibleLoginModal(false)}
         footer={null}
+        closable={false}
+        padding={"1rem"}
       >
         <Login {...props} />
       </ModalContainer>

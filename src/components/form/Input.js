@@ -8,7 +8,7 @@ import { Image } from "../common/Image";
 
 export const Input = forwardRef((props, ref) => {
   return (
-    <InputContainer>
+    <InputContainer {...props}>
       {props.type === "password" ? (
         <StyledInput.Password hasError={props.error} ref={ref} {...props} />
       ) : (
@@ -32,7 +32,7 @@ export const Input = forwardRef((props, ref) => {
 const InputContainer = styled.div`
   width: 100%;
   margin: 0;
-  height: 36px;
+  height: ${(props) => (props.height ? props.height : "36px")};
 
   // This code is for the input type password
   .ant-input-affix-wrapper {
