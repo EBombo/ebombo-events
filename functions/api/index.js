@@ -5,7 +5,11 @@ const { getSeo } = require("./seo/get");
 const { getError } = require("./error/getError");
 const { postError } = require("./error");
 const { getManifest } = require("./manifest/get");
-const { getResendVerifyCode, getCustomToken, getUserByToken} = require("./users/get");
+const {
+  getResendVerifyCode,
+  getCustomToken,
+  getUserByToken,
+} = require("./users/get");
 const { getVerifyCode } = require("./users/get");
 const { validateRequest } = require("./validateRequest");
 const { deleteUser } = require("./users/delete");
@@ -33,7 +37,7 @@ router.put("/users/:userId/edit", validateRequest, putUpdateUser);
 
 router.delete("/users/:userId", validateRequest, deleteUser);
 
-router.get("/tokens/:tokenId", validateRequest, getUserByToken);
+router.post("/tokens/:tokenId", validateRequest, getUserByToken);
 
 router.get(
   "/verify/:userId/verification-code/:verificationCode",
