@@ -8,7 +8,7 @@ import isEmpty from "lodash/isEmpty";
 import App from "../App";
 import {useLocation, useSettings} from "../hoc/useLocalStorageState";
 
-const version = "0.1";
+const version = "0.2";
 
 const CheckVersion = () => {
     const [settings, setSettings] = useGlobal("settings");
