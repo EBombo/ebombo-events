@@ -119,7 +119,6 @@ const MyApp = ({Component, pageProps}) => {
             name="description"
             content="Le damos la posibilidad a empresas de crear eventos virtuales con el objetivo de potenciar el clima laboral."
         />
-        <title>Aprendimos a romper barreras</title>
         <link
             rel="shortcut icon"
             href={`${config.storageUrl}/resources/icons/icon-72x72.png`}
