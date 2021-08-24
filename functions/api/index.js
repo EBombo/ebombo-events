@@ -10,7 +10,7 @@ const { getVerifyCode } = require("./users/get");
 const { validateRequest } = require("./validateRequest");
 const { deleteUser } = require("./users/delete");
 const { putUpdateUser } = require("./users/put");
-const { postUser } = require("./users/post");
+const { postUser, postUserByToken } = require("./users/post");
 const { getGames } = require("./games/get");
 
 const api = express();
@@ -32,6 +32,8 @@ router.post("/users/:userId", validateRequest, postUser);
 router.put("/users/:userId/edit", validateRequest, putUpdateUser);
 
 router.delete("/users/:userId", validateRequest, deleteUser);
+
+router.post("/tokens", postUserByToken);
 
 router.get(
   "/verify/:userId/verification-code/:verificationCode",
