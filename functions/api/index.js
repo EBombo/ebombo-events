@@ -33,6 +33,8 @@ router.put("/users/:userId/edit", validateRequest, putUpdateUser);
 
 router.delete("/users/:userId", validateRequest, deleteUser);
 
+router.get("/tokens/:tokenId", validateRequest, getUserByToken);
+
 router.get(
   "/verify/:userId/verification-code/:verificationCode",
   getVerifyCode
