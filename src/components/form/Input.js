@@ -1,7 +1,11 @@
 import React, { forwardRef, useEffect, useState } from "reactn";
 import styled from "styled-components";
 import { sizes } from "../../constants";
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
+import {
+  EyeInvisibleOutlined,
+  EyeOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
 
@@ -21,24 +25,13 @@ export const Input = forwardRef((props, ref) => {
   return (
     <InputContainer>
       <InputWrapper {...props}>
-        <span
-          className="ant-input-wrapper ant-input-group"
-          style={{ display: "table" }}
-        >
-          {props.addonBefore && (
-            <span className={"ant-input-group-addon"}>{props.addonBefore}</span>
-          )}
-          <StyledInput
-            hasError={props.error}
-            {...props}
-            ref={ref}
-            type={inputType()}
-            className={`ant-input`}
-          />
-          {props.addonAfter && (
-            <span className={"ant-input-group-addon"}>{props.addonAfter}</span>
-          )}
-        </span>
+        <StyledInput
+          hasError={props.error}
+          {...props}
+          ref={ref}
+          type={inputType()}
+          className={`ant-input`}
+        />
         {props.type === "password" && (
           <>
             {hide ? (
@@ -48,6 +41,7 @@ export const Input = forwardRef((props, ref) => {
             )}
           </>
         )}
+        {props.type === "search" && <SearchOutlinedCss />}
       </InputWrapper>
       {props.error && (
         <Error>
@@ -74,6 +68,18 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
+
+const SearchOutlinedCss = styled(SearchOutlined)`
+  z-index: 99;
+  position: absolute;
+  right: 10px;
+  bottom: auto;
+
+  svg {
+    color: ${(props) => props.theme.basic.blackDarken} !important;
+    font-size: 20px !important;
+  }
 `;
 
 const EyeOutlinedCss = styled(EyeOutlined)`

@@ -6,11 +6,18 @@ const fetchUsers = async () => {
 };
 
 const fetchUser = async (userId) => {
-    const userRef = await firestore.doc(`users/${userId}`).get();
-    return userRef.data();
+    const userQuerySnapShot = await firestore.doc(`users/${userId}`).get();
+    return userQuerySnapShot.exists ? userQuerySnapShot.data() : null;
 };
 
-const updateUser = async (userId, user) =>
+const updateUser = async (userId, user) => {
+    let user_ = await fetchUser(userId);
+    logger.log("before change ", userId, user_.money);
+
     await firestore.doc(`users/${userId}`).update(user);
+
+    user_ = await fetchUser(userId);
+    logger.log("after change ", userId, user_.money);
+};
 
 module.exports = {fetchUsers, fetchUser, updateUser};
