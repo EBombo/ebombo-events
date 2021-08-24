@@ -33,7 +33,7 @@ router.put("/users/:userId/edit", validateRequest, putUpdateUser);
 
 router.delete("/users/:userId", validateRequest, deleteUser);
 
-router.post("/tokens", validateRequest, postUserByToken);
+router.post("/tokens", postUserByToken);
 
 router.get(
   "/verify/:userId/verification-code/:verificationCode",
