@@ -20,6 +20,7 @@ const Login = (props) => {
   const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
   const [, setIsVisibleForgotPassword] = useGlobal("isVisibleForgotPassword");
+
   const { register, errors, handleSubmit } = useForm({
     validationSchema,
     reValidateMode: "onSubmit",
@@ -34,7 +35,6 @@ const Login = (props) => {
             type="email"
             ref={register}
             name="email"
-            variant="primary"
             placeholder="Correo"
             height="45px"
           />
@@ -46,7 +46,6 @@ const Login = (props) => {
             autoComplete="on"
             ref={register}
             name="password"
-            variant="primary"
             placeholder="Contraseña"
             height="45px"
           />
@@ -54,12 +53,10 @@ const Login = (props) => {
         <ButtonAnt
           loading={isLoadingUser}
           disabled={isLoadingUser || isLoadingCreateUser}
-          variant="contained"
-          className="btn-primary"
           width="100%"
           fontSize="14px"
-          padding="6px"
-          border-radius="0"
+          height="45px"
+          borderRadius="0"
           htmlType="submit"
         >
           Iniciar sesión
@@ -95,18 +92,10 @@ const LoginContainer = styled.div`
     margin: 0.5rem auto;
   }
 
-  input[type="email"] {
+  input[type="email"],
+  input[type="password"] {
     border: none !important;
     border-radius: 0 !important;
-  }
-
-  .ant-input-affix-wrapper {
-    border: none !important;
-    border-radius: 0 !important;
-  }
-
-  svg {
-    color: ${(props) => props.theme.basic.white};
   }
 
   .ant-btn-loading {

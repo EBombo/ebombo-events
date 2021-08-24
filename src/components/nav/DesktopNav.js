@@ -77,7 +77,7 @@ export const DesktopNav = (props) => {
         )}
       </div>
       {!authUser && (
-        <Anchor onClick={() => setIsVisibleLoginModal(true)} variant="primary">
+        <Anchor onClick={() => setIsVisibleLoginModal(true)} variant="default">
           Ingresa
         </Anchor>
       )}

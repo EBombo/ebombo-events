@@ -91,6 +91,7 @@ export const useAuth = () => {
   const signIn = async (user) => {
     try {
       await setIsLoadingUser(true);
+      console.log("trying to log in", user);
       await auth.signInWithEmailAndPassword(
         user.email.trim().toLowerCase(),
         user.password

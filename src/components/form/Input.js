@@ -1,19 +1,54 @@
 import React, { forwardRef, useEffect, useState } from "reactn";
-import { Input as InputAnt } from "antd";
 import styled from "styled-components";
 import { sizes } from "../../constants";
-import get from "lodash/get";
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
 
 export const Input = forwardRef((props, ref) => {
+  const [hide, setHide] = useState(false);
+
+  const inputType = () => {
+    if (props.type === "password") return hide ? "password" : "text";
+
+    return props.type;
+  };
+
+  useEffect(() => {
+    if (props.type === "password") setHide(true);
+  }, [props.type]);
+
   return (
-    <InputContainer {...props}>
-      {props.type === "password" ? (
-        <StyledInput.Password hasError={props.error} ref={ref} {...props} />
-      ) : (
-        <StyledInput hasError={props.error} ref={ref} {...props} />
-      )}
+    <InputContainer>
+      <InputWrapper {...props}>
+        <span
+          className="ant-input-wrapper ant-input-group"
+          style={{ display: "table" }}
+        >
+          {props.addonBefore && (
+            <span className={"ant-input-group-addon"}>{props.addonBefore}</span>
+          )}
+          <StyledInput
+            hasError={props.error}
+            {...props}
+            ref={ref}
+            type={inputType()}
+            className={`ant-input`}
+          />
+          {props.addonAfter && (
+            <span className={"ant-input-group-addon"}>{props.addonAfter}</span>
+          )}
+        </span>
+        {props.type === "password" && (
+          <>
+            {hide ? (
+              <EyeOutlinedCss onClick={() => setHide(!hide)} />
+            ) : (
+              <EyeInvisibleOutlinedCss onClick={() => setHide(!hide)} />
+            )}
+          </>
+        )}
+      </InputWrapper>
       {props.error && (
         <Error>
           <Image
@@ -22,7 +57,7 @@ export const Input = forwardRef((props, ref) => {
             width="11px"
             margin="0 5px 0 0"
           />
-          Falta rellenar esta información
+          {props.error.message}
         </Error>
       )}
     </InputContainer>
@@ -32,31 +67,43 @@ export const Input = forwardRef((props, ref) => {
 const InputContainer = styled.div`
   width: 100%;
   margin: 0;
-  height: ${(props) => (props.height ? props.height : "36px")};
+`;
 
-  // This code is for the input type password
-  .ant-input-affix-wrapper {
-    width: 100%;
-    height: 100%;
-    border: 1px solid ${(props) => props.theme.basic.grayLighten};
-    box-sizing: border-box;
-    border-radius: 4px;
-    background: ${(props) => props.theme.basic.whiteLight};
-    color: ${(props) => props.theme.basic.blackDarken};
+const InputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
-    &:focus {
-      outline: none;
-      border: none;
-    }
+const EyeOutlinedCss = styled(EyeOutlined)`
+  z-index: 99;
+  position: absolute;
+  right: 5px;
+  bottom: auto;
+
+  svg {
+    color: ${(props) => props.theme.basic.grayLighten} !important;
   }
 `;
 
-const StyledInput = styled(InputAnt)`
+const EyeInvisibleOutlinedCss = styled(EyeInvisibleOutlined)`
+  z-index: 99;
+  position: absolute;
+  right: 5px;
+  bottom: auto;
+
+  svg {
+    color: ${(props) => props.theme.basic.grayLighten} !important;
+  }
+`;
+
+const StyledInput = styled.input`
   width: 100%;
-  height: 100%;
+  height: ${(props) => (props.height ? props.height : "36px")};
   border: 1px solid ${(props) => props.theme.basic.grayLighten};
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 4px !important;
   background: ${(props) => props.theme.basic.whiteLight};
   color: ${(props) => props.theme.basic.blackDarken};
 

@@ -73,7 +73,7 @@ export const HeaderLanding = (props) => {
             ) : (
               <Anchor
                 onClick={() => setIsVisibleLoginModal(true)}
-                variant="secondary"
+                variant="default"
                 fontSize="18px"
               >
                 Ingresa
@@ -87,7 +87,7 @@ export const HeaderLanding = (props) => {
               className="nav-item"
               onClick={() => setIsVisibleLoginModal(true)}
             >
-              <Anchor variant="secondary" fontSize="18px">
+              <Anchor variant="default" fontSize="18px">
                 Ingresar
               </Anchor>
             </li>

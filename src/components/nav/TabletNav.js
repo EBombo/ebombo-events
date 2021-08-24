@@ -31,7 +31,7 @@ export const TabletNav = (props) => {
         width="88px"
       />
       {!authUser && (
-        <Anchor onClick={() => setIsVisibleLoginModal(true)} variant="primary">
+        <Anchor onClick={() => setIsVisibleLoginModal(true)} variant="default">
           Ingresa
         </Anchor>
       )}

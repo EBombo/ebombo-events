@@ -24,9 +24,11 @@ const ButtonAntCss = styled(Button)`
       ? "10px 30px"
       : ""};
   margin: ${(props) => props.margin || 0};
-  border-radius: 4px;
+  border-radius: ${(props) =>
+    props.borderRadius ? props.borderRadius : "auto"};
   cursor: pointer;
   width: ${(props) => props.width};
+  height: ${(props) => (props.height ? props.height : "auto")};
   display: flex;
   align-items: center;
   justify-content: center;
