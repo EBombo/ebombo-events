@@ -7,7 +7,7 @@ import configJson from "./config.json";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 
-const version = "0.1";
+const version = "0.2";
 
 let hostName =
   process.env.NODE_ENV === "development"
