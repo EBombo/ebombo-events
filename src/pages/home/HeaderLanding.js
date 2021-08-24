@@ -1,15 +1,14 @@
-import React, { useGlobal, useState, useEffect } from "reactn";
+import React, {useGlobal, useState} from "reactn";
 import styled from "styled-components";
-import { Desktop, Tablet } from "../../constants";
-import { config } from "../../firebase";
-import { mediaQuery } from "../../constants";
-import { Anchor, ButtonAnt } from "../../components/form";
-import { Image } from "../../components/common/Image";
-import { ModalContainer } from "../../components/common/ModalContainer";
+import {Desktop, mediaQuery, Tablet} from "../../constants";
+import {config} from "../../firebase";
+import {ButtonAnt} from "../../components/form";
+import {Image} from "../../components/common/Image";
+import {ModalContainer} from "../../components/common/ModalContainer";
 import dynamic from "next/dynamic";
-import { spinLoaderMin } from "../../components/common/loader";
-import { useAuth } from "../../hooks/useAuth";
-import { darkTheme } from "../../theme";
+import {spinLoaderMin} from "../../components/common/loader";
+import {useAuth} from "../../hooks/useAuth";
+import {darkTheme} from "../../theme";
 
 const Login = dynamic(() => import("../login"), {
   loading: () => spinLoaderMin(),
@@ -60,23 +59,6 @@ export const HeaderLanding = (props) => {
             </ul>
           </div>
           <div className="button-container">
-            {authUser ? (
-              <Anchor
-                onClick={() => signOut()}
-                variant="secondary"
-                fontSize="18px"
-              >
-                Cerrar Sesión
-              </Anchor>
-            ) : (
-              <Anchor
-                onClick={() => setIsVisibleLoginModal(true)}
-                variant="secondary"
-                fontSize="18px"
-              >
-                Ingresa
-              </Anchor>
-            )}
           </div>
         </Desktop>
         <Tablet>
@@ -85,9 +67,6 @@ export const HeaderLanding = (props) => {
               className="nav-item"
               onClick={() => setIsVisibleLoginModal(true)}
             >
-              <Anchor variant="secondary" fontSize="18px">
-                Ingresar
-              </Anchor>
             </li>
             <li
               className="nav-item"
