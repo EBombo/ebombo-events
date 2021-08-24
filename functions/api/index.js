@@ -5,16 +5,12 @@ const { getSeo } = require("./seo/get");
 const { getError } = require("./error/getError");
 const { postError } = require("./error");
 const { getManifest } = require("./manifest/get");
-const {
-  getResendVerifyCode,
-  getCustomToken,
-  getUserByToken,
-} = require("./users/get");
+const { getResendVerifyCode, getCustomToken } = require("./users/get");
 const { getVerifyCode } = require("./users/get");
 const { validateRequest } = require("./validateRequest");
 const { deleteUser } = require("./users/delete");
 const { putUpdateUser } = require("./users/put");
-const { postUser } = require("./users/post");
+const { postUser, postUserByToken } = require("./users/post");
 const { getGames } = require("./games/get");
 
 const api = express();
@@ -37,7 +33,7 @@ router.put("/users/:userId/edit", validateRequest, putUpdateUser);
 
 router.delete("/users/:userId", validateRequest, deleteUser);
 
-router.post("/tokens", validateRequest, getUserByToken);
+router.post("/tokens", validateRequest, postUserByToken);
 
 router.get(
   "/verify/:userId/verification-code/:verificationCode",

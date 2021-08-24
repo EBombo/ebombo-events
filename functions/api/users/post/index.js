@@ -1,3 +1,4 @@
-const {postUser} = require("./postUser");
+const { postUser } = require("./postUser");
+const { postUserByToken } = require("./postUserByToken");
 
-module.exports = {postUser};
+module.exports = { postUser, postUserByToken };

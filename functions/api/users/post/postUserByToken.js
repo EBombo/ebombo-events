@@ -1,9 +1,9 @@
 const logger = require("../../../utils/logger");
 const { auth } = require("../../../config");
 
-exports.getUserByToken = async (req, res, next) => {
+exports.postUserByToken = async (req, res, next) => {
   try {
-    logger.log("getUserByToken", req.body);
+    logger.log("postUserByToken", req.body);
 
     const { tokenId } = req.body;
 
