@@ -68,6 +68,7 @@ const setUser = async (user, verificationCode, isVerified, origin) => {
     .set(
       {
         id: user.id,
+        birthDate: get(user, "birthDate", null),
         name: get(user, "name", null),
         lastName: get(user, "lastName", null),
         searchName: searchName({ ...user, phoneNumber, email }),
