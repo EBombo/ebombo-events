@@ -87,6 +87,18 @@ export const DesktopNav = (props) => {
       )}
       {authUser && (
         <div className="menu-profile">
+          <button
+            className="premium-btn"
+            onClick={() => console.log("premium")}
+          >
+            <Image
+              src={`${config.storageUrl}/resources/premium.svg`}
+              height={"27px"}
+              weight={"27px"}
+              margin={"0 5px 0 0"}
+            />
+            Premium
+          </button>
           <ButtonAnt
             variant="contained"
             width="140px"
@@ -162,6 +174,23 @@ const DesktopNavContainer = styled.div`
 
   .menu-profile {
     display: flex;
+    align-items: center;
+
+    .premium-btn {
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-right: 1rem;
+      font-family: Lato;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 18px;
+      border: none;
+      color: ${(props) => props.theme.basic.primary};
+      cursor: pointer;
+    }
 
     .menu-icon-nav {
       margin: auto 10px;
