@@ -48,6 +48,7 @@ export const ModalNewGame = (props) => {
                 <ButtonAnt
                   variant="text"
                   margin="5px auto"
+                  color="black"
                   onClick={() => {
                     folderId
                       ? router.push(
