@@ -97,7 +97,7 @@ export const ListGameView = (props) => {
     try {
       const tokenId = await auth.currentUser.getIdToken();
 
-      const redirectUrl = `${props.game.adminGame.domain}/lobby/games/${props.game.id}?tokenId=${tokenId}`;
+      const redirectUrl = `${props.game.adminGame.domain}/games/${props.game.id}?tokenId=${tokenId}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {
