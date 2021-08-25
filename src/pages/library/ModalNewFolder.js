@@ -99,29 +99,25 @@ export const ModalNewFolder = (props) => {
           noValidate
           className="form"
         >
-          <Input
-            variant="clear"
-            defaultValue={props.folder ? props.folder.name : ""}
-            placeholder="Folder sin nombre"
-            name="name"
-            className="name-input"
-            ref={register}
-            error={errors.name}
-          />
+          <div className="input-container">
+            <Input
+              defaultValue={props.folder ? props.folder.name : ""}
+              placeholder="Folder sin nombre"
+              name="name"
+              ref={register}
+              error={errors.name}
+            />
+          </div>
           <div className="buttons-container">
             <ButtonAnt
-              variant="contained"
               color="default"
-              size="big"
               disabled={isLoading}
               onClick={() => props.setIsVisibleModalFolder(false)}
             >
               Cerrar
             </ButtonAnt>
             <ButtonAnt
-              variant="contained"
               color="primary"
-              size="big"
               disabled={isLoading}
               loading={isLoading}
               htmlType="submit"
@@ -161,16 +157,14 @@ const NewFolderContainer = styled.div`
   }
 
   .form {
-    .name-input {
-      background: ${(props) => props.theme.basic.whiteLight} !important;
-      height: 42px !important;
-      border: none !important;
-      box-sizing: border-box !important;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
-      border-radius: 2px !important;
+    .input-container {
+      margin: 1rem 0;
+    }
+
+    button {
+      padding: 5px 40px !important;
     }
   }
-
   .buttons-container {
     display: flex;
     align-items: center;
