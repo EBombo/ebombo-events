@@ -59,18 +59,10 @@ export const ModalSettings = (props) => {
   };
 
   const saveChanges = (data) => {
-    props.setVideo(data.video);
-    props.setAudio(data.audio);
-    props.setIsVisibleModalSettings(false);
-  };
+    const _audio = audios.find((audio) => audio.id === data.audioId);
 
-  const resetToDefault = () => {
-    props.setCoverImgUrl(get(props, "game.coverImgUrl", false));
-    props.setOwnBranding(get(props, "game.ownBranding", true));
-    props.setVideo(get(props, "game.video", null));
-    props.setAllowDuplicate(get(props, "game.allowDuplicate", false));
-    props.setVisibility(get(props, "game.visibility", true));
-    props.setAudio(get(props, "game.audio", null));
+    props.setVideo(data.video);
+    props.setAudio(_audio);
     props.setIsVisibleModalSettings(false);
   };
 
@@ -171,22 +163,23 @@ export const ModalSettings = (props) => {
               <div className="label">Musica del lobby</div>
               <div className="input-container">
                 <Controller
-                  name="audio"
+                  name="audioId"
                   control={control}
                   as={
                     <Select
-                      placeholder="audio"
+                      placeholder="Seleccione Audio"
                       showSearch
                       virtual={false}
                       borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
                       borderTop={`0.1px solid ${darkTheme.basic.grayLighten}`}
                       borderLeft={`0.1px solid ${darkTheme.basic.grayLighten}`}
                       borderBottom={`0.1px solid ${darkTheme.basic.grayLighten}`}
-                      error={errors.audio}
+                      error={errors.audioId}
+                      defaultValue={get(props, "audio.id", "")}
                       optionFilterProp="children"
                       optionsdom={audios.map((audio) => ({
-                        key: audio.audioUrl,
-                        code: audio.audioUrl,
+                        key: audio.id,
+                        code: audio.id,
                         name: audio.title,
                       }))}
                     />
@@ -200,7 +193,7 @@ export const ModalSettings = (props) => {
               variant="contained"
               color="default"
               className="btn"
-              onClick={() => resetToDefault()}
+              onClick={() => props.setIsVisibleModalSettings(false)}
             >
               Cerrar
             </ButtonAnt>
@@ -321,8 +314,8 @@ const SettingsContainer = styled.div`
   .btn {
     padding: 5px 40px;
   }
-  
-  .input-container{
+
+  .input-container {
     margin-top: 5px;
   }
 
