@@ -30,7 +30,7 @@ export const Input = forwardRef((props, ref) => {
           {...props}
           ref={ref}
           type={inputType()}
-          className={`ant-input`}
+          className={`ant-input ${props.className}`}
         />
         {props.type === "password" && (
           <>

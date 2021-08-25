@@ -2,18 +2,17 @@ import React, { useState, useEffect, useRef } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { darkTheme } from "../../../../theme";
-import { ButtonAnt } from "../../../../components/form";
+import { ButtonAnt, Input, Select } from "../../../../components/form";
 import { mediaQuery } from "../../../../constants";
 import get from "lodash/get";
 import { Switch, Radio } from "antd";
 import { object, string } from "yup";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { firestore } from "../../../../firebase";
 import { useRouter } from "next/router";
 import { config } from "../../../../firebase";
 import { Image } from "../../../../components/common/Image";
 import { snapshotToArray } from "../../../../utils";
-import defaultTo from "lodash/defaultTo";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
@@ -49,7 +48,7 @@ export const ModalSettings = (props) => {
     music: string(),
   });
 
-  const { handleSubmit, register } = useForm({
+  const { handleSubmit, register, control, errors } = useForm({
     validationSchema: schema,
     reValidateMode: "onSubmit",
   });
@@ -94,7 +93,6 @@ export const ModalSettings = (props) => {
             <div className="left-side">
               <div className="label">Guardar en</div>
               <div className="path">{get(parent, "name", "Mis Juegos")}</div>
-
               <div className="label">Branding</div>
               <div className="branding">
                 Usar branding propio
@@ -103,17 +101,17 @@ export const ModalSettings = (props) => {
                   onChange={() => props.setOwnBranding(!props.ownBranding)}
                 />
               </div>
-
               <div className="label">Video del Lobby</div>
-              <input
-                className="input-video"
-                type="url"
-                name="video"
-                defaultValue={get(props, "video", "")}
-                placeholder="Pegar link de youtube"
-                ref={register}
-              />
-
+              <div className="input-container">
+                <Input
+                  type="url"
+                  name="video"
+                  defaultValue={get(props, "video", "")}
+                  placeholder="Pegar link de youtube"
+                  ref={register}
+                  error={errors.video}
+                />
+              </div>
               <div className="label">Visibilidad</div>
               <Radio.Group
                 onChange={() => props.setVisibility(!props.visibility)}
@@ -153,6 +151,7 @@ export const ModalSettings = (props) => {
                     height="40px"
                     size="contain"
                     margin="0"
+                    cursor="pointer"
                   />
                   <span>Añade una imagen de cover</span>
                 </div>
@@ -170,17 +169,37 @@ export const ModalSettings = (props) => {
               </div>
 
               <div className="label">Musica del lobby</div>
-              <select ref={register} name="audio" className="audio-select">
-                {defaultTo(audios, []).map((audio) => (
-                  <option value={audio.audioUrl}>{audio.title}</option>
-                ))}
-              </select>
+              <div className="input-container">
+                <Controller
+                  name="audio"
+                  control={control}
+                  as={
+                    <Select
+                      placeholder="audio"
+                      showSearch
+                      virtual={false}
+                      borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
+                      borderTop={`0.1px solid ${darkTheme.basic.grayLighten}`}
+                      borderLeft={`0.1px solid ${darkTheme.basic.grayLighten}`}
+                      borderBottom={`0.1px solid ${darkTheme.basic.grayLighten}`}
+                      error={errors.audio}
+                      optionFilterProp="children"
+                      optionsdom={audios.map((audio) => ({
+                        key: audio.audioUrl,
+                        code: audio.audioUrl,
+                        name: audio.title,
+                      }))}
+                    />
+                  }
+                />
+              </div>
             </div>
           </div>
           <div className="btns-container">
             <ButtonAnt
-              variant={"contained"}
-              color={"gray"}
+              variant="contained"
+              color="default"
+              className="btn"
               onClick={() => resetToDefault()}
             >
               Cerrar
@@ -189,6 +208,7 @@ export const ModalSettings = (props) => {
               variant={"contained"}
               color={"secondary"}
               htmlType="submit"
+              className="btn"
             >
               Listo
             </ButtonAnt>
@@ -218,19 +238,6 @@ const SettingsContainer = styled.div`
     line-height: 18px;
     color: ${(props) => props.theme.basic.blackDarken};
     text-align: center;
-  }
-
-  .input-video {
-    margin-top: 5px;
-    width: 100%;
-    height: 36px;
-    background: ${(props) => props.theme.basic.whiteLight} !important;
-    color: ${(props) => props.theme.basic.grayLight} !important;
-    border-width: thin !important;
-    border-color: ${(props) => props.theme.basic.grayLighten} !important;
-    border-style: solid !important;
-    border-radius: 4px !important;
-    padding: 0 0.5rem;
   }
 
   .label {
@@ -297,6 +304,7 @@ const SettingsContainer = styled.div`
       align-items: center;
       justify-content: space-evenly;
       flex-direction: column;
+      cursor: pointer;
 
       span {
         font-family: Lato;
@@ -308,6 +316,14 @@ const SettingsContainer = styled.div`
         color: ${(props) => props.theme.basic.grayLight};
       }
     }
+  }
+
+  .btn {
+    padding: 5px 40px;
+  }
+  
+  .input-container{
+    margin-top: 5px;
   }
 
   ${mediaQuery.afterTablet} {

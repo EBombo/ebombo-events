@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { darkTheme } from "../../../../theme";
 import { ModalSettings } from "./ModalSettings";
+import { useRouter } from "next/router";
 
 const bingoCard = [
   [2, 4, 8, 13, 15],
@@ -27,6 +28,7 @@ export const Bingo = (props) => {
   const [allowDuplicate, setAllowDuplicate] = useState(true);
   const [visibility, setVisibility] = useState(true);
   const [audio, setAudio] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (!props.game) return;
@@ -140,7 +142,6 @@ export const Bingo = (props) => {
                 ref={register}
                 error={errors.name}
                 placeholder="Título sin nombre"
-                className="name-input"
               />
 
               <ButtonAnt
@@ -159,19 +160,14 @@ export const Bingo = (props) => {
                 <div className="text">Titulo y columnas</div>
                 <Input
                   defaultValue={get(props, "game.title", "")}
-                  marginBottom={"0"}
-                  variant="primary"
                   type="text"
                   name="title"
                   ref={register}
                   error={errors.title}
                   placeholder="Titulo"
-                  className="title-input"
                 />
                 <div className="bingo-inputs">
                   <Input
-                    marginBottom={"0"}
-                    variant="primary"
                     type="text"
                     name="b"
                     ref={register}
@@ -181,8 +177,6 @@ export const Bingo = (props) => {
                     maxLength={1}
                   />
                   <Input
-                    marginBottom={"0"}
-                    variant="primary"
                     type="text"
                     name="i"
                     ref={register}
@@ -192,8 +186,6 @@ export const Bingo = (props) => {
                     maxLength={1}
                   />
                   <Input
-                    marginBottom={"0"}
-                    variant="primary"
                     type="text"
                     name="n"
                     ref={register}
@@ -203,8 +195,6 @@ export const Bingo = (props) => {
                     maxLength={1}
                   />
                   <Input
-                    marginBottom={"0"}
-                    variant="primary"
                     type="text"
                     name="g"
                     ref={register}
@@ -214,8 +204,6 @@ export const Bingo = (props) => {
                     maxLength={1}
                   />
                   <Input
-                    marginBottom={"0"}
-                    variant="primary"
                     type="text"
                     name="o"
                     ref={register}
@@ -409,21 +397,6 @@ const BingoContainer = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      .name-input {
-        background: ${(props) => props.theme.basic.whiteLight} !important;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 15px;
-        line-height: 18px;
-        border: none;
-        box-sizing: border-box;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        color: ${(props) => props.theme.basic.grayLight};
-        border-radius: 4px;
-        height: 36px;
-      }
     }
 
     .subtitle {
@@ -456,40 +429,16 @@ const BingoContainer = styled.div`
         justify-content: center;
       }
 
-      .title-input {
-        background: ${(props) => props.theme.basic.whiteLight} !important;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 15px;
-        line-height: 18px;
-        border: none;
-        box-sizing: border-box;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        color: ${(props) => props.theme.basic.grayLight};
-        border-radius: 4px;
-        height: 42px;
-      }
-
       .bingo-inputs {
-        margin-top: 1rem;
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-gap: 5px;
+        max-width: 200px;
+        margin: 1rem auto;
 
         .input-bingo {
-          background: ${(props) => props.theme.basic.whiteLight} !important;
           padding: 0 !important;
-          text-align: center;
-          font-family: Lato;
-          font-style: normal;
-          font-weight: bold;
-          font-size: 15px;
-          line-height: 18px;
-          border-radius: 4px;
-          border: none !important;
-          height: 28px;
-          color: ${(props) => props.theme.basic.grayLight};
+          text-align: center !important;
         }
       }
     }
@@ -568,10 +517,6 @@ const BingoContainer = styled.div`
       box-sizing: border-box;
       padding: 1rem;
 
-      .bingo-inputs {
-        max-width: 160px;
-        margin: 0 auto;
-      }
       .bingo-card {
         grid-template-columns: 1fr;
       }
@@ -602,9 +547,10 @@ const CardContainer = styled.div`
   }
 
   table {
-    width: 100%;
+    width: 90%;
     border-collapse: separate;
     border-spacing: 2.5px;
+    margin: 0 auto;
 
     thead {
       th {
@@ -653,7 +599,6 @@ const CardContainer = styled.div`
 
     table {
       width: 400px;
-      margin: 0 auto;
       border-collapse: separate;
       border-spacing: 5px;
 

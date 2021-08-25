@@ -79,6 +79,7 @@ const StyledSelect = styled(AntSelect)`
     background-color: ${(props) => props.theme.basic.default} !important;
     border-radius: 0;
     outline: none;
+    
   }
 
   .ant-select-selection:hover {
