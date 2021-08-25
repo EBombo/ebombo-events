@@ -48,6 +48,7 @@ export const Audio = (props) => {
         .doc(audioId)
         .set({
           ...data,
+          id: audioId,
           audioUrl,
           createAt: new Date(),
           updateAt: new Date(),
