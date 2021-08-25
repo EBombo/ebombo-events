@@ -8,7 +8,7 @@ export const services = [
   {
     title: "Eventos virtuales",
     text:
-      "Hacemos más de 20 tipos de eventos virtuales. Como Integraciones, Speakers Motivacionales, Olimpiadas, Eventos Temáticos, Deportes Virtuales y más.",
+      "Hacemos más de 20 tipos de eventos virtuales. Como integraciones, speakers motivacionales, olimpiadas, eventos temáticos, deportes virtuales y más.",
     color: darkTheme.basic.danger,
     logoUrl: `${config.storageUrl}/resources/b2bLanding/laptop.svg`,
     imageUrl: `${config.storageUrl}/resources/b2bLanding/events.svg`,
@@ -16,7 +16,7 @@ export const services = [
   {
     title: "Nos adaptamos a tu empresa",
     text:
-      "Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización, tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad",
+      "Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.",
     color: "#FFD00D",
     logoUrl: `${config.storageUrl}/resources/b2bLanding/house.svg`,
     imageUrl: `${config.storageUrl}/resources/b2bLanding/adapt.svg`,

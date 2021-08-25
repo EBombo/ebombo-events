@@ -1,14 +1,15 @@
-import React, {useGlobal, useState} from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import {Desktop, mediaQuery, Tablet} from "../../constants";
-import {config} from "../../firebase";
-import {ButtonAnt} from "../../components/form";
-import {Image} from "../../components/common/Image";
-import {ModalContainer} from "../../components/common/ModalContainer";
+import { Desktop, mediaQuery, Tablet } from "../../constants";
+import { config } from "../../firebase";
+import { ButtonAnt } from "../../components/form";
+import { Image } from "../../components/common/Image";
+import { ModalContainer } from "../../components/common/ModalContainer";
 import dynamic from "next/dynamic";
-import {spinLoaderMin} from "../../components/common/loader";
-import {useAuth} from "../../hooks/useAuth";
-import {darkTheme} from "../../theme";
+import { spinLoaderMin } from "../../components/common/loader";
+import { useAuth } from "../../hooks/useAuth";
+import { darkTheme } from "../../theme";
+import { Anchor } from "../../components/form";
 
 const Login = dynamic(() => import("../login"), {
   loading: () => spinLoaderMin(),
@@ -44,8 +45,12 @@ export const HeaderLanding = (props) => {
       {loginModal()}
       <div className="navbar">
         <div className="logo-container">
-          <img
-            src={`${config.storageUrl}/resources/b2bLanding/b2bLogo.svg`}
+          <Image
+            src={`${config.storageUrl}/resources/b2bLanding/b2bLogo.png`}
+            height={"auto"}
+            width={"150px"}
+            size={"contain"}
+            margin={"0"}
             alt=""
           />
         </div>
@@ -59,15 +64,27 @@ export const HeaderLanding = (props) => {
             </ul>
           </div>
           <div className="button-container">
+            {authUser ? (
+              <Anchor
+                onClick={() => signOut()}
+                variant="secondary"
+                fontSize="18px"
+              >
+                Cerrar Sesión
+              </Anchor>
+            ) : (
+              <Anchor
+                onClick={() => setIsVisibleLoginModal(true)}
+                variant="secondary"
+                fontSize="18px"
+              >
+                Ingresa
+              </Anchor>
+            )}
           </div>
         </Desktop>
         <Tablet>
           <ul className={`nav-menu ${active ? "active" : ""}`}>
-            <li
-              className="nav-item"
-              onClick={() => setIsVisibleLoginModal(true)}
-            >
-            </li>
             <li
               className="nav-item"
               onClick={() => {
@@ -104,6 +121,18 @@ export const HeaderLanding = (props) => {
             >
               Contacto
             </li>
+            {!authUser ? (
+              <li
+                className="nav-item"
+                onClick={() => setIsVisibleLoginModal(true)}
+              >
+                Ingresa
+              </li>
+            ) : (
+              <li className="nav-item" onClick={() => signOut()}>
+                Cerrar Sesión
+              </li>
+            )}
           </ul>
           <div
             className={`hamburger ${active ? "active" : ""}`}
@@ -241,6 +270,10 @@ const HeaderLandingContainer = styled.section`
       text-align: center;
       transition: 0.3s;
       box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+
+      li {
+        cursor: pointer;
+      }
     }
 
     .nav-menu.active {

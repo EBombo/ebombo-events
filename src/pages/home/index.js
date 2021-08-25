@@ -29,10 +29,6 @@ export const Home = (props) => {
   const contactRef = useRef(null);
 
   useEffect(() => {
-    if (authUser) router.push("/library/games");
-  }, [authUser]);
-
-  useEffect(() => {
     const fetchLandingEvents = () =>
       firestore
         .collection("landings")

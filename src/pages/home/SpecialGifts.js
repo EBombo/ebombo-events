@@ -42,7 +42,7 @@ export const SpecialGifts = (props) => {
       <div className="description">
         ¡Deliciosas combinaciones de cervezas, tragos, piqueos, dulces y mucho
         más! Regalos personalizados para sus colaboradores. Nos encargamos del
-        empaquetado logística y envío en todo el Perú.
+        empaquetado, logística y envío en todo el Perú.
       </div>
       <div className="gifts">
         <div className="gifts-container">
