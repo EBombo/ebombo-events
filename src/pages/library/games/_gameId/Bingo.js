@@ -150,6 +150,7 @@ export const Bingo = (props) => {
                 size="small"
                 margin={"0 0 0 10px"}
                 onClick={() => setIsVisibleModalSettings(true)}
+                disabled={props.isLoading}
               >
                 Ajustes
               </ButtonAnt>
@@ -308,6 +309,7 @@ export const Bingo = (props) => {
               preview={"false"}
               fileName="backgroundImage"
               sizes="300x350"
+              disabled={props.isLoading}
               onChange={(img) => setBackgroundImg(img)}
             />
           </div>

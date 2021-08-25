@@ -147,6 +147,7 @@ export const FileUpload = (props) => {
           color="secondary"
           onClick={() => inputRef.current.click()}
           loading={loading}
+          disabled={props.disabled}
           key={loading}
         >
           {props.buttonLabel || "Subir Imagen"}
