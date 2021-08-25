@@ -111,7 +111,7 @@ export const ModalNewFolder = (props) => {
           <div className="buttons-container">
             <ButtonAnt
               variant="contained"
-              color="gray"
+              color="default"
               size="big"
               disabled={isLoading}
               onClick={() => props.setIsVisibleModalFolder(false)}

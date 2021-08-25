@@ -25,7 +25,7 @@ const ButtonAntCss = styled(Button)`
       : ""};
   margin: ${(props) => props.margin || 0};
   border-radius: ${(props) =>
-    props.borderRadius ? props.borderRadius : "auto"};
+    props.borderRadius ? props.borderRadius : "4px"};
   cursor: pointer;
   width: ${(props) => props.width};
   height: ${(props) => (props.height ? props.height : "auto")};
@@ -45,10 +45,31 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.warning
           : color === "danger"
           ? theme.basic.danger
+          : color === "default"
+          ? theme.basic.whiteDark
           : color
       };
-      color: ${color === "white" ? theme.basic.secondary : theme.basic.white};
+        color: ${
+          color === "white"
+            ? theme.basic.secondaryLight
+            : color === "default"
+            ? theme.basic.blackDarken
+            : theme.basic.white
+        };
       border: none;
+      box-shadow: 0 4px ${
+        color === "primary"
+          ? theme.basic.primaryDark
+          : color === "secondary"
+          ? theme.basic.secondaryDark
+          : color === "warning"
+          ? theme.basic.warning
+          : color === "danger"
+          ? theme.basic.danger
+          : color === "default"
+          ? "#979797"
+          : color
+      };
       `
       : variant === "outlined"
       ? `
@@ -62,6 +83,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.warning
           : color === "danger"
           ? theme.basic.danger
+          : color === "default"
+          ? theme.basic.blackDarken
           : color
       };
       border: 1px solid ${
@@ -73,6 +96,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.warning
           : color === "danger"
           ? theme.basic.danger
+          : color === "default"
+          ? theme.basic.whiteDark
           : color
       };
       `
@@ -87,16 +112,12 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.warning
           : color === "danger"
           ? theme.basic.danger
+          : color === "default"
+          ? theme.basic.blackDarken
           : color
       };  
       border: none;
       `}
-  .children {
-    width: 100%;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.02857em;
-  }
 
   &:hover {
     ${({ variant = "contained", theme = darkTheme, color = "primary" }) =>
@@ -104,17 +125,23 @@ const ButtonAntCss = styled(Button)`
         ? `
       background: ${
         color === "primary"
-          ? `${theme.basic.primary}CC`
+          ? theme.basic.primaryLight
           : color === "secondary"
-          ? `${theme.basic.secondary}CC`
+          ? theme.basic.secondaryLight
           : color === "warning"
-          ? `${theme.basic.warning}CC`
+          ? theme.basic.warning
           : color === "danger"
-          ? `${theme.basic.danger}CC`
-          : `${color}CC`
+          ? theme.basic.danger
+          : color === "default"
+          ? theme.basic.whiteDark
+          : `${color}90`
       };
       color: ${
-        color === "white" ? `${theme.basic.secondary}CC` : theme.basic.white
+        color === "white"
+          ? theme.basic.secondaryLight
+          : color === "default"
+          ? theme.basic.blackDarken
+          : theme.basic.white
       };
       border: none;
       `
@@ -123,24 +150,28 @@ const ButtonAntCss = styled(Button)`
       background: transparent;
       color: ${
         color === "primary"
-          ? theme.basic.primary
+          ? theme.basic.primaryLight
           : color === "secondary"
-          ? `${theme.basic.secondary}CC`
+          ? theme.basic.secondaryLight
           : color === "warning"
-          ? `${theme.basic.warning}CC`
+          ? theme.basic.warning
           : color === "danger"
-          ? `${theme.basic.danger}CC`
+          ? theme.basic.danger
+          : color === "default"
+          ? theme.basic.whiteDark
           : `${color}CC`
       };
       border: 1px solid ${
         color === "primary"
-          ? `${theme.basic.primary}CC`
+          ? theme.basic.primaryLight
           : color === "secondary"
-          ? `${theme.basic.secondary}CC`
+          ? theme.basic.secondaryLight
           : color === "warning"
-          ? `${theme.basic.warning}CC`
+          ? theme.basic.warning
           : color === "danger"
-          ? `${theme.basic.danger}CC`
+          ? theme.basic.danger
+          : color === "default"
+          ? theme.basic.whiteDark
           : `${color}CC`
       };
       `
@@ -148,16 +179,37 @@ const ButtonAntCss = styled(Button)`
       background: transparent;
       color: ${
         color === "primary"
-          ? `${theme.basic.primary}CC`
+          ? theme.basic.primaryLight
           : color === "secondary"
-          ? `${theme.basic.secondary}CC`
+          ? theme.basic.secondaryLight
           : color === "warning"
-          ? `${theme.basic.warning}CC`
+          ? theme.basic.warning
           : color === "danger"
-          ? `${theme.basic.danger}CC`
+          ? theme.basic.danger
+          : color === "default"
+          ? theme.basic.blackDarken
           : `${color}CC`
       };  
       border: none;
       `}
   }
+
+  &:active {
+    ${({ variant = "contained", theme = darkTheme, color = "primary" }) =>
+      variant === "contained" &&
+      `
+        box-shadow: 0 2px ${
+          color === "primary"
+            ? theme.basic.primary
+            : color === "secondary"
+            ? theme.basic.secondary
+            : color === "warning"
+            ? theme.basic.warning
+            : color === "danger"
+            ? theme.basic.danger
+            : color === "default"
+            ? "#979797"
+            : color
+        } !important;
+        transform: translateY(2px);`}
 `;

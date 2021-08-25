@@ -45,7 +45,7 @@ export const ModalNewGame = (props) => {
         <ButtonAnt
           margin="20px auto auto auto"
           variant="contained"
-          color="gray"
+          color="default"
           size="big"
           onClick={() => props.setIsVisibleModalGame(false)}
         >
