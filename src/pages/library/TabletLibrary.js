@@ -19,6 +19,13 @@ export const TabletLibrary = (props) => {
   const [folder, setFolder] = useState(null);
   const [loadingGames] = useGlobal("loadingGames");
 
+  const getGames = () => {
+    if (router.asPath.includes("/favorites"))
+      return games.filter((game) => !!game.isFavorite);
+
+    return games;
+  };
+
   return (
     <TabletLibraryContainer>
       {isVisibleModalFolder && (
@@ -226,7 +233,7 @@ export const TabletLibrary = (props) => {
             ) : isEmpty(props.games) ? (
               <div className="empty-message">No cuentas con juegos</div>
             ) : (
-              props.games.map((game) => (
+              getGames().map((game) => (
                 <ListGameView
                   game={game}
                   key={game.id}

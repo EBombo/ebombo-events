@@ -1,4 +1,4 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useGlobal, useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { Input } from "../../components/form";
 import { ListGameView } from "./ListGameView";
@@ -6,9 +6,19 @@ import isEmpty from "lodash/isEmpty";
 import { spinLoaderMin } from "../../components/common/loader";
 
 export const DesktopLibraryGames = (props) => {
+  const [games, setGames] = useGlobal("games");
   const [listType, setListType] = useState("icons");
   const [tab, setTab] = useState("all");
   const [loadingGames] = useGlobal("loadingGames");
+
+  useEffect(() => {
+    if (tab === "favorites") {
+      const _games = games.filter((game) => !!game.isFavorite);
+      setGames(_games);
+    } else {
+      props.fetchGames();
+    }
+  }, [tab]);
 
   return (
     <GamesContainer>
@@ -27,12 +37,12 @@ export const DesktopLibraryGames = (props) => {
             >
               Favoritos
             </div>
-            <div
-              className={`tab ${tab === "drafts" ? "active" : ""}`}
-              onClick={() => setTab("drafts")}
-            >
-              Borradores
-            </div>
+            {/*<div*/}
+            {/*  className={`tab ${tab === "drafts" ? "active" : ""}`}*/}
+            {/*  onClick={() => setTab("drafts")}*/}
+            {/*>*/}
+            {/*  Borradores*/}
+            {/*</div>*/}
           </div>
 
           <div className="search-bar">
@@ -163,7 +173,7 @@ const GamesContainer = styled.div`
 
       .middle {
         border-left: 2px solid ${(props) => props.theme.basic.grayLighten};
-        border-right: 2px solid ${(props) => props.theme.basic.grayLighten};
+        //border-right: 2px solid ${(props) => props.theme.basic.grayLighten};
       }
 
       .active {
