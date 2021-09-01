@@ -355,14 +355,7 @@ export const GameView = (props) => {
             <Desktop>
               <div className="description">Descripcción:</div>
               <div className="amount-numbers">
-                <Image
-                  src={`${config.storageUrl}/resources/amount.svg`}
-                  height="19px"
-                  width="19px"
-                  size="contain"
-                  margin="0 5px 0 0"
-                />
-                {get(game, "amountNumbers", 75)}
+                1- {get(game, "amountNumbers", 75)} números
               </div>
             </Desktop>
             <div className="left-container">
@@ -643,6 +636,11 @@ const GameViewContainer = styled.div`
         display: flex;
         align-items: center;
         padding: 0.5rem 0;
+        font-family: Lato;
+        font-style: normal;
+        font-size: 13px;
+        line-height: 16px;
+        color: ${(props) => props.theme.basic.grayLight};
       }
 
       .left-container {
