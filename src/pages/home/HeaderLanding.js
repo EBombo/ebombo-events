@@ -9,6 +9,8 @@ import dynamic from "next/dynamic";
 import { spinLoaderMin } from "../../components/common/loader";
 import { useAuth } from "../../hooks/useAuth";
 import { darkTheme } from "../../theme";
+import { useRouter } from "next/router";
+import get from "lodash/get";
 
 const Login = dynamic(() => import("../login"), {
   loading: () => spinLoaderMin(),
@@ -20,6 +22,7 @@ const ForgotPassword = dynamic(() => import("../forgot-password"), {
 
 export const HeaderLanding = (props) => {
   const { signOut } = useAuth();
+  const router = useRouter();
   const [active, setActive] = useState(false);
   const [authUser] = useGlobal("user");
   const [isVisibleLoginModal, setIsVisibleLoginModal] = useGlobal(
@@ -53,6 +56,11 @@ export const HeaderLanding = (props) => {
             size={"contain"}
             margin={"0"}
             alt=""
+            onClick={() => {
+              if (get(authUser, "isAdmin", null)) {
+                router.push("/library");
+              }
+            }}
           />
         </div>
         <Desktop>

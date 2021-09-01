@@ -29,6 +29,12 @@ export const Home = (props) => {
   const contactRef = useRef(null);
 
   useEffect(() => {
+    if (!authUser || authUser.isAdmin) return;
+
+    router.push("/library");
+  }, [authUser]);
+
+  useEffect(() => {
     const fetchLandingEvents = () =>
       firestore
         .collection("landings")
