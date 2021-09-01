@@ -73,6 +73,7 @@ export const Bingo = (props) => {
       allowDuplicate,
       visibility,
       audio,
+      id: newId,
     };
 
     await props.submitGame(_game);
