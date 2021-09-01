@@ -9,14 +9,7 @@ import { object, string } from "yup";
 import { darkTheme } from "../../../../theme";
 import { ModalSettings } from "./ModalSettings";
 import { useRouter } from "next/router";
-
-const bingoCard = [
-  [2, 4, 8, 13, 15],
-  [16, 22, 25, 27, 30],
-  [31, 33, 36, 38, 45],
-  [46, 48, 56, 59, 60],
-  [61, 63, 68, 72, 75],
-];
+import { bingoCard } from "../../../../components/common/DataList";
 
 export const Bingo = (props) => {
   const [coverImgUrl, setCoverImgUrl] = useState(null);
@@ -526,7 +519,7 @@ const BingoContainer = styled.div`
   }
 `;
 
-const CardContainer = styled.div`
+export const CardContainer = styled.div`
   width: 100%;
   height: 210px;
   max-width: 200px;

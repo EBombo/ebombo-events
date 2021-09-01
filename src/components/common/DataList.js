@@ -7,24 +7,21 @@ export const userLinks = [];
 export const services = [
   {
     title: "Eventos virtuales",
-    text:
-      "Hacemos más de 20 tipos de eventos virtuales. Como integraciones, speakers motivacionales, olimpiadas, eventos temáticos, deportes virtuales y más.",
+    text: "Hacemos más de 20 tipos de eventos virtuales. Como integraciones, speakers motivacionales, olimpiadas, eventos temáticos, deportes virtuales y más.",
     color: darkTheme.basic.danger,
     logoUrl: `${config.storageUrl}/resources/b2bLanding/laptop.svg`,
     imageUrl: `${config.storageUrl}/resources/b2bLanding/events.svg`,
   },
   {
     title: "Nos adaptamos a tu empresa",
-    text:
-      "Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.",
+    text: "Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.",
     color: "#FFD00D",
     logoUrl: `${config.storageUrl}/resources/b2bLanding/house.svg`,
     imageUrl: `${config.storageUrl}/resources/b2bLanding/adapt.svg`,
   },
   {
     title: "Nos encargamos de todo el evento",
-    text:
-      "Tenemos un estudio de grabación con cámaras, luces, pantalla verde, animadores, moderadores, streamers, speakers y todo lo que necesitas para tener el mejor evento que te puedas imaginar.",
+    text: "Tenemos un estudio de grabación con cámaras, luces, pantalla verde, animadores, moderadores, streamers, speakers y todo lo que necesitas para tener el mejor evento que te puedas imaginar.",
     color: "#6C63FF",
     logoUrl: `${config.storageUrl}/resources/b2bLanding/referi.svg`,
     imageUrl: `${config.storageUrl}/resources/b2bLanding/organization.svg`,
@@ -417,4 +414,12 @@ export const years = [
     key: "1972",
     value: "1972",
   },
+];
+
+export const bingoCard = [
+  [2, 4, 8, 13, 15],
+  [16, 22, 25, 27, 30],
+  [31, 33, 36, 38, 45],
+  [46, 48, 56, 59, 60],
+  [61, 63, 68, 72, 75],
 ];

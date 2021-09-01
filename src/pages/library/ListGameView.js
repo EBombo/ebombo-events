@@ -108,7 +108,17 @@ export const ListGameView = (props) => {
   return (
     <>
       {props.listType === "icons" && (
-        <IconsContainer>
+        <IconsContainer
+          onClick={() => {
+            get(props, "game.parentId", null)
+              ? router.push(
+                  `/library/games/${props.game.id}/view?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+                )
+              : router.push(
+                  `/library/games/${props.game.id}/view?resourceId=${props.game.resourceId}`
+                );
+          }}
+        >
           <Image
             src={
               get(props, "game.coverImgUrl", null)
@@ -216,7 +226,7 @@ export const ListGameView = (props) => {
                     onClick={() => {
                       get(props, "game.parentId", null)
                         ? router.push(
-                            `/library/games/new?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+                            `/library/games/${props.game.id}?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
                           )
                         : router.push(
                             `/library/games/${props.game.id}?resourceId=${props.game.resourceId}`
@@ -407,6 +417,7 @@ const IconsContainer = styled.div`
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   margin: 1rem 0;
+  cursor: pointer;
 
   .select {
     display: flex;
