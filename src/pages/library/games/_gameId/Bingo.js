@@ -10,6 +10,7 @@ import { darkTheme } from "../../../../theme";
 import { ModalSettings } from "./ModalSettings";
 import { useRouter } from "next/router";
 import { bingoCard } from "../../../../components/common/DataList";
+import { firestore } from "../../../../firebase";
 
 export const Bingo = (props) => {
   const [coverImgUrl, setCoverImgUrl] = useState(null);
@@ -21,9 +22,13 @@ export const Bingo = (props) => {
   const [allowDuplicate, setAllowDuplicate] = useState(true);
   const [visibility, setVisibility] = useState(true);
   const [audio, setAudio] = useState(null);
+  const [newId, setNewId] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
+    const _newId = firestore.collection("bingo").doc().id;
+    setNewId(_newId);
+
     if (!props.game) return;
 
     setOwnBranding(props.game.ownBranding);
@@ -33,6 +38,7 @@ export const Bingo = (props) => {
     setAudio(props.game.audio);
     setCoverImgUrl(props.game.coverImgUrl);
     setBackgroundImg(props.game.backgroundImg);
+    setNewId(props.game.id);
   }, []);
 
   const schema = object().shape({
@@ -90,6 +96,7 @@ export const Bingo = (props) => {
           audio={audio}
           setAllowDuplicate={setAllowDuplicate}
           allowDuplicate={allowDuplicate}
+          newId={newId}
           {...props}
         />
       )}
@@ -298,13 +305,19 @@ export const Bingo = (props) => {
                 <label htmlFor="numberColor">{watch("numberColor")}</label>
               </div>
             </div>
-            <FileUpload
-              preview={"false"}
-              fileName="backgroundImage"
-              sizes="300x350"
-              disabled={props.isLoading}
-              onChange={(img) => setBackgroundImg(img)}
-            />
+            <div className="upload-container">
+              <FileUpload
+                file={backgroundImg}
+                preview={false}
+                fileName="backgroundImg"
+                filePath={`/games/Bingo/${newId}`}
+                sizes="470x570"
+                disabled={props.isLoading}
+                afterUpload={(resizeImages) =>
+                  setBackgroundImg(resizeImages[0].url)
+                }
+              />
+            </div>
           </div>
 
           <Desktop>
@@ -484,6 +497,10 @@ const BingoContainer = styled.div`
         border: 1px solid ${(props) => props.theme.basic.grayLight};
         border-radius: 4px;
       }
+    }
+
+    .upload-container {
+      margin-top: 1rem;
     }
   }
 

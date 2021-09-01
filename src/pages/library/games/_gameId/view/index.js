@@ -87,7 +87,7 @@ export const GameView = (props) => {
     try {
       const tokenId = await auth.currentUser.getIdToken();
 
-      const redirectUrl = `${props.game.adminGame.domain}/games/${props.game.id}?tokenId=${tokenId}`;
+      const redirectUrl = `${game.adminGame.domain}/games/${game.id}?tokenId=${tokenId}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {
@@ -97,7 +97,7 @@ export const GameView = (props) => {
 
   const toggleFavorite = async () => {
     let newGames = games;
-    const gameIndex = newGames.findIndex((game) => game.id === props.game.id);
+    const gameIndex = newGames.findIndex((game) => game.id === game.id);
 
     newGames[gameIndex].isFavorite = !get(
       newGames[gameIndex],
@@ -109,7 +109,7 @@ export const GameView = (props) => {
 
     try {
       await Fetch(
-        `${resource.domain}/api/games/${props.game.id}/users/${authUser.id}`,
+        `${resource.domain}/api/games/${game.id}/users/${authUser.id}`,
         "PUT",
         {
           isFavorite: newGames[gameIndex].isFavorite,
@@ -262,10 +262,10 @@ export const GameView = (props) => {
                 onClick={() => {
                   get(props, "game.parentId", null)
                     ? router.push(
-                        `/library/games/${props.game.id}?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+                        `/library/games/${game.id}?resourceId=${resourceId}&folderId=${folderId}`
                       )
                     : router.push(
-                        `/library/games/${props.game.id}?resourceId=${props.game.resourceId}`
+                        `/library/games/${game.id}?resourceId=${resourceId}`
                       );
                 }}
               >

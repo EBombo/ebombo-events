@@ -93,6 +93,7 @@ export const AdminManifest = (props) => {
                 <div>
                   {!domain.includes("domain") && (
                     <FileUpload
+                      preview={true}
                       file={get(manifests[domain], "icons[0].src", null)}
                       fileName="src"
                       filePath={`manifests/${domain}/`}

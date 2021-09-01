@@ -33,13 +33,11 @@ const EditSpecials = (props) => {
         (special) => special.id === props.currentElement.id
       )
     ) {
-      elements = defaultTo(
-        get(props, `events.${props.currentField}`),
-        []
-      ).map((special) =>
-        special.id === props.currentElement.id
-          ? mapElement(data, special)
-          : special
+      elements = defaultTo(get(props, `events.${props.currentField}`), []).map(
+        (special) =>
+          special.id === props.currentElement.id
+            ? mapElement(data, special)
+            : special
       );
     } else {
       elements = defaultTo(get(props, `events.${props.currentField}`), []);
@@ -103,6 +101,7 @@ const EditSpecials = (props) => {
         />
         <div className="image-component">
           <FileUpload
+            preview={true}
             file={get(props, "currentElement.imageUrl", "")}
             fileName="imageUrl"
             filePath={`/events/specials/${props.currentElement.id}`}

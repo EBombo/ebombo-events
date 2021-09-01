@@ -80,6 +80,7 @@ const EditHeldEvent = (props) => {
         />
         <div className="image-component">
           <FileUpload
+            preview={true}
             file={get(props, "currentEvent.backgroundImageUrl", "")}
             fileName="imageUrl"
             filePath={`/events/held-events/${props.currentEvent.id}`}

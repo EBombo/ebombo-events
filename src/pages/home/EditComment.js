@@ -79,6 +79,7 @@ const EditComment = (props) => {
         />
         <div className="image-component">
           <FileUpload
+            preview={true}
             file={get(props, "currentComment.imageUrl", "")}
             fileName="imageUrl"
             filePath={`/events/comments/${props.currentComment.id}`}

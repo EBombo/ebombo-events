@@ -74,7 +74,7 @@ export const Audio = (props) => {
           error={errors.title}
         />
         <FileUpload
-          preview={"false"}
+          preview={false}
           fileName="audio"
           filePath={`/audios/${audioId}`}
           buttonLabel={"Subir Audio"}

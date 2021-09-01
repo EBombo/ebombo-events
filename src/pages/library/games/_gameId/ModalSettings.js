@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 import { config } from "../../../../firebase";
 import { Image } from "../../../../components/common/Image";
 import { snapshotToArray } from "../../../../utils";
+import {useResizeImage, useUploadToStorage} from "../../../../hooks";
+import {FileUpload} from "../../../../components/common/FileUpload";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
@@ -20,6 +22,8 @@ export const ModalSettings = (props) => {
   const { folderId } = router.query;
   const [parent, setParent] = useState(null);
   const [audios, setAudios] = useState([]);
+  const { resize } = useResizeImage();
+  const { uploadToStorageAndGetURL } = useUploadToStorage();
 
   useEffect(() => {
     const fetchParent = async () => {
@@ -116,40 +120,15 @@ export const ModalSettings = (props) => {
 
             <div className="right-side">
               <div className="label">Imagen de portada</div>
-              {props.coverImgUrl ? (
-                <div className="cover">
-                  <Image
-                    src={URL.createObjectURL(props.coverImgUrl)}
-                    width="212px"
-                    height="121px"
-                    size="cover"
-                    margin="0"
-                  />
-                  <ButtonAnt
-                    color="secondary"
-                    onClick={() => inputRef.current.click()}
-                  >
-                    Cambiar
-                  </ButtonAnt>
-                </div>
-              ) : (
-                <div
-                  className="upload-file"
-                  onClick={() => inputRef.current.click()}
-                >
-                  <Image
-                    src={`${config.storageUrl}/resources/no-image.svg`}
-                    width="40px"
-                    height="40px"
-                    size="contain"
-                    margin="0"
-                    cursor="pointer"
-                  />
-                  <span>Añade una imagen de cover</span>
-                </div>
-              )}
-              <input type="file" ref={inputRef} onChange={manageFile} hidden />
-
+              <FileUpload
+                  file={props.coverImgUrl}
+                  preview={true}
+                  fileName="coverImgUrl"
+                  filePath={`/games/Bingo/${props.newId}`}
+                  sizes="300x350"
+                  disabled={props.isLoading}
+                  afterUpload={(coverImgs) => props.setCoverImgUrl(coverImgs[0].url)}
+              />
               <div className="label">
                 Permitir duplicar{" "}
                 <Switch
@@ -274,41 +253,6 @@ const SettingsContainer = styled.div`
     font-size: 14px;
     line-height: 17px;
     color: ${(props) => props.theme.basic.blackDarken};
-  }
-
-  .main-container {
-    .cover {
-      display: flex;
-      align-items: center;
-      grid-gap: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    .upload-file {
-      margin-top: 0.5rem;
-      width: 212px;
-      height: 121px;
-      background: ${(props) => props.theme.basic.whiteLight};
-      border: 1px solid ${(props) => props.theme.basic.grayLighten};
-      box-sizing: border-box;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      flex-direction: column;
-      cursor: pointer;
-
-      span {
-        font-family: Lato;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 11px;
-        line-height: 13px;
-        text-align: center;
-        color: ${(props) => props.theme.basic.grayLight};
-      }
-    }
   }
 
   .btn {

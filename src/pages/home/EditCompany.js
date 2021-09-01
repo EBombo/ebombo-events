@@ -84,6 +84,7 @@ const EditCompany = (props) => {
         />
         <div className="image-component">
           <FileUpload
+            preview={true}
             file={get(props, "currentCompany.imageUrl", "")}
             fileName="imageUrl"
             filePath={`/events/integration-games/${props.currentCompany.id}`}

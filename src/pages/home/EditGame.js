@@ -127,6 +127,7 @@ const EditGame = (props) => {
         />
         <div className="image-component">
           <FileUpload
+            preview={true}
             file={get(props, "currentGame.backgroundImageUrl", "")}
             fileName="imageUrl"
             filePath={`/events/integration-games/${props.currentGame.id}`}
