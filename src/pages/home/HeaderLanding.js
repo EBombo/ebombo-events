@@ -55,6 +55,7 @@ export const HeaderLanding = (props) => {
             width={"150px"}
             size={"contain"}
             margin={"0"}
+            cursor={"pointer"}
             alt=""
             onClick={() => {
               if (get(authUser, "isAdmin", null)) {
