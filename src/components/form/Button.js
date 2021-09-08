@@ -85,6 +85,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.danger
           : color === "default"
           ? theme.basic.blackDarken
+          : color === "dark"
+          ? theme.basic.blackDarken
           : color
       };
       border: 1px solid ${
@@ -98,6 +100,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.danger
           : color === "default"
           ? theme.basic.whiteDark
+          : color === "dark"
+          ? theme.basic.blackDarken
           : color
       };
       `
