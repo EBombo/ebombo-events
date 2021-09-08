@@ -82,7 +82,7 @@ export const DesktopNav = (props) => {
           variant="primary"
           fontSize={"1rem"}
         >
-          Ingresa
+          Iniciar sesión
         </Anchor>
       )}
       {authUser && (

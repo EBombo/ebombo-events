@@ -1,6 +1,5 @@
 import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import { Tooltip } from "antd";
 import { Image } from "../common/Image";
 import { config } from "../../firebase";
 import { Anchor } from "../form";
@@ -36,7 +35,7 @@ export const TabletNav = (props) => {
           variant="primary"
           fontSize={"1rem"}
         >
-          Ingresa
+          Iniciar sesión
         </Anchor>
       )}
       {authUser && (
