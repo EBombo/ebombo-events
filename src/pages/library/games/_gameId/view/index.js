@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useGlobal } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import isEmpty from "lodash/isEmpty";
 import get from "lodash/get";
@@ -393,7 +393,7 @@ export const GameView = (props) => {
         </div>
         <Tablet>
           <div className="btn-container">
-            <ButtonAnt>Jugar</ButtonAnt>
+            <ButtonAnt onClick={createTokenToPlay}>Jugar</ButtonAnt>
           </div>
         </Tablet>
       </div>
