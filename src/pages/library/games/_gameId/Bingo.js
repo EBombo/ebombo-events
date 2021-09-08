@@ -1,6 +1,6 @@
-import React, { useState, useGlobal, useEffect } from "reactn";
+import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
-import { mediaQuery, Tablet, Desktop } from "../../../../constants";
+import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { Anchor, ButtonAnt, Input } from "../../../../components/form";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import get from "lodash/get";
@@ -42,7 +42,7 @@ export const Bingo = (props) => {
   }, []);
 
   const schema = object().shape({
-    title: string(),
+    title: string().max(25),
     name: string().required(),
   });
 
@@ -224,7 +224,7 @@ export const Bingo = (props) => {
                     blocksColor={watch("blocksColor")}
                     numberColor={watch("numberColor")}
                   >
-                    <div className="card-title">{watch("title")}</div>
+                    <div className="card-title no-wrap">{watch("title")}</div>
                     <table>
                       <thead className="thead">
                         <tr>
@@ -340,7 +340,7 @@ export const Bingo = (props) => {
                 blocksColor={watch("blocksColor")}
                 numberColor={watch("numberColor")}
               >
-                <div className="card-title">{watch("title")}</div>
+                <div className="card-title no-wrap">{watch("title")}</div>
                 <table>
                   <thead className="thead">
                     <tr>
