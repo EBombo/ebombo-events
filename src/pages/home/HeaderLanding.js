@@ -2,7 +2,7 @@ import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { config } from "../../firebase";
-import { ButtonAnt, Anchor } from "../../components/form";
+import { Anchor, ButtonAnt } from "../../components/form";
 import { Image } from "../../components/common/Image";
 import { ModalContainer } from "../../components/common/ModalContainer";
 import dynamic from "next/dynamic";
@@ -83,13 +83,23 @@ export const HeaderLanding = (props) => {
                 Cerrar Sesión
               </Anchor>
             ) : (
-              <Anchor
-                onClick={() => setIsVisibleLoginModal(true)}
-                variant="secondary"
-                fontSize="18px"
-              >
-                Ingresa
-              </Anchor>
+              <>
+                <Anchor
+                  onClick={() => router.push("/register")}
+                  variant="secondary"
+                  fontSize="18px"
+                  margin="auto 8px"
+                >
+                  Regístrate
+                </Anchor>
+                <Anchor
+                  onClick={() => setIsVisibleLoginModal(true)}
+                  variant="secondary"
+                  fontSize="18px"
+                >
+                  Iniciar sesión
+                </Anchor>
+              </>
             )}
           </div>
         </Desktop>
@@ -132,12 +142,20 @@ export const HeaderLanding = (props) => {
               Contacto
             </li>
             {!authUser ? (
-              <li
-                className="nav-item"
-                onClick={() => setIsVisibleLoginModal(true)}
-              >
-                Ingresa
-              </li>
+              <>
+                <li
+                  className="nav-item"
+                  onClick={() => setIsVisibleLoginModal(true)}
+                >
+                  Iniciar sesión
+                </li>
+                <li
+                  className="nav-item"
+                  onClick={() => router.push("/register")}
+                >
+                  Regístrate
+                </li>
+              </>
             ) : (
               <li className="nav-item" onClick={() => signOut()}>
                 Cerrar Sesión
