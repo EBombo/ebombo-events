@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
 import { FileUpload } from "../../../../components/common/FileUpload";
-import get from "lodash/get";
 import { useRouter } from "next/router";
 import { useSendError } from "../../../../hooks";
 import { firestore } from "../../../../firebase";
@@ -74,6 +73,7 @@ export const Audio = (props) => {
           error={errors.title}
         />
         <FileUpload
+          accept="audio/*"
           preview={false}
           fileName="audio"
           filePath={`/audios/${audioId}`}
