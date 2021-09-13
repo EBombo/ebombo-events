@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "reactn";
+import React, { useEffect, useRef, useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { Anchor, ButtonAnt, Input } from "../../../../components/form";
@@ -23,7 +23,26 @@ export const Bingo = (props) => {
   const [visibility, setVisibility] = useState(true);
   const [audio, setAudio] = useState(null);
   const [newId, setNewId] = useState(null);
+
+  const [backgroundColor, setBackgroundColor] = useState(
+    get(props, "game.backgroundColor", darkTheme.basic.secondary)
+  );
+  const [titleColor, setTitleColor] = useState(
+    get(props, "game.titleColor", darkTheme.basic.whiteLight)
+  );
+  const [numberColor, setNumberColor] = useState(
+    get(props, "game.numberColor", darkTheme.basic.whiteLight)
+  );
+  const [blocksColor, setBlocksColor] = useState(
+    get(props, "game.blocksColor", darkTheme.basic.primary)
+  );
+
   const router = useRouter();
+
+  const colorTitleRef = useRef(null);
+  const colorBlocksRef = useRef(null);
+  const colorNumberRef = useRef(null);
+  const colorBackgroundRef = useRef(null);
 
   useEffect(() => {
     const _newId = firestore.collection("bingo").doc().id;
@@ -46,7 +65,7 @@ export const Bingo = (props) => {
     name: string().required(),
   });
 
-  const { handleSubmit, register, errors, watch } = useForm({
+  const { handleSubmit, register, errors, watch, trigger } = useForm({
     validationSchema: schema,
     reValidateMode: "onSubmit",
   });
@@ -75,8 +94,8 @@ export const Bingo = (props) => {
       audio,
       id: newId,
     };
-
-    await props.submitGame(_game);
+    console.log(_game);
+    // await props.submitGame(_game);
   };
 
   return (
@@ -252,58 +271,80 @@ export const Bingo = (props) => {
             <div className="subtitle">Selecciona un color para cambiarlo</div>
             <div className="colors-container">
               <div className="color-pick">
+                <div className="label">Fondo</div>
                 <input
                   type="color"
                   name="backgroundColor"
-                  defaultValue={get(
-                    props,
-                    "game.backgroundColor",
-                    darkTheme.basic.secondary
-                  )}
-                  ref={register}
+                  defaultValue={backgroundColor}
+                  ref={colorBackgroundRef}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setBackgroundColor(e.currentTarget.value);
+                  }}
                 />
-                <label htmlFor="backgroundColor">
-                  {watch("backgroundColor")}
+                <label
+                  htmlFor="backgroundColor"
+                  onClick={() => colorBackgroundRef.current.click()}
+                >
+                  {backgroundColor.toUpperCase()}
                 </label>
               </div>
               <div className="color-pick">
+                <div className="label">Titulo</div>
                 <input
                   type="color"
                   name="titleColor"
-                  defaultValue={get(
-                    props,
-                    "game.titleColor",
-                    darkTheme.basic.whiteLight
-                  )}
-                  ref={register}
+                  defaultValue={titleColor}
+                  ref={colorTitleRef}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setTitleColor(e.currentTarget.value);
+                  }}
                 />
-                <label htmlFor="titleColor">{watch("titleColor")}</label>
+                <label
+                  htmlFor="titleColor"
+                  onClick={() => colorTitleRef.current.click()}
+                >
+                  {titleColor.toUpperCase()}
+                </label>
               </div>
               <div className="color-pick">
+                <div className="label">Bloques</div>
                 <input
                   type="color"
                   name="blocksColor"
-                  defaultValue={get(
-                    props,
-                    "game.blocksColor",
-                    darkTheme.basic.primary
-                  )}
-                  ref={register}
+                  defaultValue={blocksColor}
+                  ref={colorBlocksRef}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setBlocksColor(e.currentTarget.value);
+                  }}
                 />
-                <label htmlFor="blocksColor">{watch("blocksColor")}</label>
+                <label
+                  htmlFor="blocksColor"
+                  onClick={() => colorBlocksRef.current.click()}
+                >
+                  {blocksColor.toUpperCase()}
+                </label>
               </div>
               <div className="color-pick">
+                <div className="label">Número</div>
                 <input
                   type="color"
                   name="numberColor"
-                  defaultValue={get(
-                    props,
-                    "game.numberColor",
-                    darkTheme.basic.whiteLight
-                  )}
-                  ref={register}
+                  defaultValue={numberColor}
+                  ref={colorNumberRef}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setNumberColor(e.currentTarget.value);
+                  }}
                 />
-                <label htmlFor="numberColor">{watch("numberColor")}</label>
+                <label
+                  htmlFor="numberColor"
+                  onClick={() => colorNumberRef.current.click()}
+                >
+                  {numberColor.toUpperCase()}
+                </label>
               </div>
             </div>
             <div className="upload-container">
@@ -460,8 +501,9 @@ const BingoContainer = styled.div`
 
       .color-pick {
         display: flex;
-        align-items: center;
-        justify-content: space-evenly;
+        flex-direction: column;
+        
+        
       }
 
       input[type="color"] {
@@ -497,6 +539,7 @@ const BingoContainer = styled.div`
         color: ${(props) => props.theme.basic.grayLight};
         border: 1px solid ${(props) => props.theme.basic.grayLight};
         border-radius: 4px;
+        cursor: pointer;
       }
     }
 
