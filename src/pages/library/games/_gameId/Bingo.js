@@ -383,34 +383,36 @@ export const Bingo = (props) => {
                   Guardar
                 </ButtonAnt>
               </div>
-              <CardContainer
-                backgroundColor={watch("backgroundColor")}
-                titleColor={watch("titleColor")}
-                blocksColor={watch("blocksColor")}
-                numberColor={watch("numberColor")}
-              >
-                <div className="card-title no-wrap">{watch("title")}</div>
-                <table>
-                  <thead className="thead">
-                    <tr>
-                      <th>{watch("b")}</th>
-                      <th>{watch("i")}</th>
-                      <th>{watch("n")}</th>
-                      <th>{watch("g")}</th>
-                      <th>{watch("o")}</th>
-                    </tr>
-                  </thead>
-                  <tbody className="tbody">
-                    {bingoCard.map((arrNums, index) => (
-                      <tr key={`key-${index}`}>
-                        {arrNums.map((num, idx) => (
-                          <td key={`key-${num}-${idx}`}>{num}</td>
-                        ))}
+              <div className="card-container">
+                <CardContainer
+                  backgroundColor={watch("backgroundColor")}
+                  titleColor={watch("titleColor")}
+                  blocksColor={watch("blocksColor")}
+                  numberColor={watch("numberColor")}
+                >
+                  <div className="card-title no-wrap">{watch("title")}</div>
+                  <table>
+                    <thead className="thead">
+                      <tr>
+                        <th>{watch("b")}</th>
+                        <th>{watch("i")}</th>
+                        <th>{watch("n")}</th>
+                        <th>{watch("g")}</th>
+                        <th>{watch("o")}</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </CardContainer>
+                    </thead>
+                    <tbody className="tbody">
+                      {bingoCard.map((arrNums, index) => (
+                        <tr key={`key-${index}`}>
+                          {arrNums.map((num, idx) => (
+                            <td key={`key-${num}-${idx}`}>{num}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </CardContainer>
+              </div>
             </div>
           </Desktop>
         </div>
@@ -579,6 +581,12 @@ const BingoContainer = styled.div`
         display: flex;
         align-items: center;
         margin-bottom: 0.5rem;
+        justify-content: flex-end;
+      }
+      
+      .card-container{
+        display: flex;
+        align-items: center;
         justify-content: flex-end;
       }
     }
