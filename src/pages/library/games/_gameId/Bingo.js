@@ -238,10 +238,10 @@ export const Bingo = (props) => {
               <Tablet>
                 <div className="card">
                   <CardContainer
-                    backgroundColor={watch("backgroundColor")}
-                    titleColor={watch("titleColor")}
-                    blocksColor={watch("blocksColor")}
-                    numberColor={watch("numberColor")}
+                    backgroundColor={backgroundColor}
+                    titleColor={titleColor}
+                    blocksColor={blocksColor}
+                    numberColor={numberColor}
                   >
                     <div className="card-title no-wrap">{watch("title")}</div>
                     <table>
@@ -271,80 +271,88 @@ export const Bingo = (props) => {
             <div className="subtitle">Selecciona un color para cambiarlo</div>
             <div className="colors-container">
               <div className="color-pick">
-                <div className="label">Fondo</div>
-                <input
-                  type="color"
-                  name="backgroundColor"
-                  defaultValue={backgroundColor}
-                  ref={colorBackgroundRef}
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setBackgroundColor(e.currentTarget.value);
-                  }}
-                />
-                <label
-                  htmlFor="backgroundColor"
-                  onClick={() => colorBackgroundRef.current.click()}
-                >
-                  {backgroundColor.toUpperCase()}
-                </label>
+                <div className="color-title">Fondo</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="backgroundColor"
+                    defaultValue={backgroundColor}
+                    ref={colorBackgroundRef}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setBackgroundColor(e.currentTarget.value);
+                    }}
+                  />
+                  <label
+                    htmlFor="backgroundColor"
+                    onClick={() => colorBackgroundRef.current.click()}
+                  >
+                    {backgroundColor.toUpperCase()}
+                  </label>
+                </div>
               </div>
               <div className="color-pick">
-                <div className="label">Titulo</div>
-                <input
-                  type="color"
-                  name="titleColor"
-                  defaultValue={titleColor}
-                  ref={colorTitleRef}
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setTitleColor(e.currentTarget.value);
-                  }}
-                />
-                <label
-                  htmlFor="titleColor"
-                  onClick={() => colorTitleRef.current.click()}
-                >
-                  {titleColor.toUpperCase()}
-                </label>
+                <div className="color-title">Titulo</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="titleColor"
+                    defaultValue={titleColor}
+                    ref={colorTitleRef}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setTitleColor(e.currentTarget.value);
+                    }}
+                  />
+                  <label
+                    htmlFor="titleColor"
+                    onClick={() => colorTitleRef.current.click()}
+                  >
+                    {titleColor.toUpperCase()}
+                  </label>
+                </div>
               </div>
               <div className="color-pick">
-                <div className="label">Bloques</div>
-                <input
-                  type="color"
-                  name="blocksColor"
-                  defaultValue={blocksColor}
-                  ref={colorBlocksRef}
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setBlocksColor(e.currentTarget.value);
-                  }}
-                />
-                <label
-                  htmlFor="blocksColor"
-                  onClick={() => colorBlocksRef.current.click()}
-                >
-                  {blocksColor.toUpperCase()}
-                </label>
+                <div className="color-title">Bloques</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="blocksColor"
+                    defaultValue={blocksColor}
+                    ref={colorBlocksRef}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setBlocksColor(e.currentTarget.value);
+                    }}
+                  />
+                  <label
+                    htmlFor="blocksColor"
+                    onClick={() => colorBlocksRef.current.click()}
+                  >
+                    {blocksColor.toUpperCase()}
+                  </label>
+                </div>
               </div>
               <div className="color-pick">
-                <div className="label">Número</div>
-                <input
-                  type="color"
-                  name="numberColor"
-                  defaultValue={numberColor}
-                  ref={colorNumberRef}
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setNumberColor(e.currentTarget.value);
-                  }}
-                />
-                <label
-                  htmlFor="numberColor"
-                  onClick={() => colorNumberRef.current.click()}
-                >
-                  {numberColor.toUpperCase()}
-                </label>
+                <div className="color-title">Número</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="numberColor"
+                    defaultValue={numberColor}
+                    ref={colorNumberRef}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setNumberColor(e.currentTarget.value);
+                    }}
+                  />
+                  <label
+                    htmlFor="numberColor"
+                    onClick={() => colorNumberRef.current.click()}
+                  >
+                    {numberColor.toUpperCase()}
+                  </label>
+                </div>
               </div>
             </div>
             <div className="upload-container">
@@ -502,6 +510,20 @@ const BingoContainer = styled.div`
       .color-pick {
         display: flex;
         flex-direction: column;
+
+        .color-title {
+          font-family: Lato;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 13px;
+          line-height: 16px;
+          color: ${(props) => props.theme.basic.grayLight};
+        }
+
+        .input-container {
+          display: flex;
+          align-items: center;
+        }
       }
 
       input[type="color"] {
@@ -538,6 +560,7 @@ const BingoContainer = styled.div`
         border: 1px solid ${(props) => props.theme.basic.grayLight};
         border-radius: 4px;
         cursor: pointer;
+        margin-left: 10px;
       }
     }
 
