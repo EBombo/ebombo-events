@@ -79,10 +79,10 @@ export const Bingo = (props) => {
         g: data.g,
         o: data.o,
       },
-      blocksColor: data.blocksColor,
-      numberColor: data.numberColor,
-      titleColor: data.titleColor,
-      backgroundColor: data.backgroundColor,
+      blocksColor,
+      numberColor,
+      titleColor,
+      backgroundColor,
       title: data.title,
       name: data.name,
       coverImgUrl,
@@ -94,8 +94,8 @@ export const Bingo = (props) => {
       audio,
       id: newId,
     };
-    console.log(_game);
-    // await props.submitGame(_game);
+
+    await props.submitGame(_game);
   };
 
   return (
@@ -502,8 +502,6 @@ const BingoContainer = styled.div`
       .color-pick {
         display: flex;
         flex-direction: column;
-        
-        
       }
 
       input[type="color"] {
