@@ -153,7 +153,7 @@ export const Bingo = (props) => {
                 onClick={() => setIsVisibleModalSettings(true)}
                 disabled={props.isLoading}
               >
-                -Ajustes-
+                Ajustes
               </ButtonAnt>
             </div>
             <div className="subtitle">Personalización de cartilla</div>
