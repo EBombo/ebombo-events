@@ -8,8 +8,6 @@ export const RightDrawer = (props) => {
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
   const [tab, setTab] = useState("menu");
 
-  const drawerRef = useRef();
-
   const tabContent = () => {
     switch (tab) {
       case "menu":
@@ -19,7 +17,7 @@ export const RightDrawer = (props) => {
     }
   };
 
-  const domNodeRef = useClickOutside(() => {
+  let domNodeRef = useClickOutside(() => {
     setOpenRightDrawer(false);
   });
 

@@ -23,26 +23,7 @@ export const Bingo = (props) => {
   const [visibility, setVisibility] = useState(true);
   const [audio, setAudio] = useState(null);
   const [newId, setNewId] = useState(null);
-
-  const [backgroundColor, setBackgroundColor] = useState(
-    get(props, "game.backgroundColor", darkTheme.basic.secondary)
-  );
-  const [titleColor, setTitleColor] = useState(
-    get(props, "game.titleColor", darkTheme.basic.whiteLight)
-  );
-  const [numberColor, setNumberColor] = useState(
-    get(props, "game.numberColor", darkTheme.basic.whiteLight)
-  );
-  const [blocksColor, setBlocksColor] = useState(
-    get(props, "game.blocksColor", darkTheme.basic.primary)
-  );
-
   const router = useRouter();
-
-  const colorTitleRef = useRef(null);
-  const colorBlocksRef = useRef(null);
-  const colorNumberRef = useRef(null);
-  const colorBackgroundRef = useRef(null);
 
   useEffect(() => {
     const _newId = firestore.collection("bingo").doc().id;
@@ -65,7 +46,7 @@ export const Bingo = (props) => {
     name: string().required(),
   });
 
-  const { handleSubmit, register, errors, watch, trigger } = useForm({
+  const { handleSubmit, register, errors, watch } = useForm({
     validationSchema: schema,
     reValidateMode: "onSubmit",
   });
@@ -79,10 +60,10 @@ export const Bingo = (props) => {
         g: data.g,
         o: data.o,
       },
-      blocksColor,
-      numberColor,
-      titleColor,
-      backgroundColor,
+      blocksColor: data.blocksColor,
+      numberColor: data.numberColor,
+      titleColor: data.titleColor,
+      backgroundColor: data.backgroundColor,
       title: data.title,
       name: data.name,
       coverImgUrl,
@@ -238,10 +219,10 @@ export const Bingo = (props) => {
               <Tablet>
                 <div className="card">
                   <CardContainer
-                    backgroundColor={backgroundColor}
-                    titleColor={titleColor}
-                    blocksColor={blocksColor}
-                    numberColor={numberColor}
+                    backgroundColor={watch("backgroundColor")}
+                    titleColor={watch("titleColor")}
+                    blocksColor={watch("blocksColor")}
+                    numberColor={watch("numberColor")}
                   >
                     <div className="card-title no-wrap">{watch("title")}</div>
                     <table>
@@ -276,18 +257,21 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="backgroundColor"
-                    defaultValue={backgroundColor}
-                    ref={colorBackgroundRef}
-                    onChange={(e) => {
-                      e.preventDefault();
-                      setBackgroundColor(e.currentTarget.value);
-                    }}
+                    defaultValue={get(
+                      props,
+                      "game.backgroundColor",
+                      darkTheme.basic.secondary
+                    )}
+                    ref={register}
+                    id="input-color-background"
                   />
                   <label
                     htmlFor="backgroundColor"
-                    onClick={() => colorBackgroundRef.current.click()}
+                    onClick={() =>
+                      document.getElementById("input-color-background").click()
+                    }
                   >
-                    {backgroundColor.toUpperCase()}
+                    {watch("backgroundColor")}
                   </label>
                 </div>
               </div>
@@ -297,18 +281,21 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="titleColor"
-                    defaultValue={titleColor}
-                    ref={colorTitleRef}
-                    onChange={(e) => {
-                      e.preventDefault();
-                      setTitleColor(e.currentTarget.value);
-                    }}
+                    defaultValue={get(
+                      props,
+                      "game.titleColor",
+                      darkTheme.basic.whiteLight
+                    )}
+                    id="input-color-title"
+                    ref={register}
                   />
                   <label
                     htmlFor="titleColor"
-                    onClick={() => colorTitleRef.current.click()}
+                    onClick={() =>
+                      document.getElementById("input-color-title").click()
+                    }
                   >
-                    {titleColor.toUpperCase()}
+                    {watch("titleColor")}
                   </label>
                 </div>
               </div>
@@ -318,18 +305,21 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="blocksColor"
-                    defaultValue={blocksColor}
-                    ref={colorBlocksRef}
-                    onChange={(e) => {
-                      e.preventDefault();
-                      setBlocksColor(e.currentTarget.value);
-                    }}
+                    defaultValue={get(
+                      props,
+                      "game.blocksColor",
+                      darkTheme.basic.primary
+                    )}
+                    id="input-color-blocks"
+                    ref={register}
                   />
                   <label
                     htmlFor="blocksColor"
-                    onClick={() => colorBlocksRef.current.click()}
+                    onClick={() =>
+                      document.getElementById("input-color-blocks").click()
+                    }
                   >
-                    {blocksColor.toUpperCase()}
+                    {watch("blocksColor")}
                   </label>
                 </div>
               </div>
@@ -339,18 +329,21 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="numberColor"
-                    defaultValue={numberColor}
-                    ref={colorNumberRef}
-                    onChange={(e) => {
-                      e.preventDefault();
-                      setNumberColor(e.currentTarget.value);
-                    }}
+                    defaultValue={get(
+                      props,
+                      "game.numberColor",
+                      darkTheme.basic.whiteLight
+                    )}
+                    ref={register}
+                    id="input-color-number"
                   />
                   <label
                     htmlFor="numberColor"
-                    onClick={() => colorNumberRef.current.click()}
+                    onClick={() =>
+                      document.getElementById("input-color-number").click()
+                    }
                   >
-                    {numberColor.toUpperCase()}
+                    {watch("numberColor")}
                   </label>
                 </div>
               </div>
@@ -535,6 +528,7 @@ const BingoContainer = styled.div`
         outline: none;
         border-radius: 3px;
         -webkit-appearance: none;
+        cursor: pointer;
       }
 
       input[type="color"]::-webkit-color-swatch-wrapper {
@@ -583,8 +577,8 @@ const BingoContainer = styled.div`
         margin-bottom: 0.5rem;
         justify-content: flex-end;
       }
-      
-      .card-container{
+
+      .card-container {
         display: flex;
         align-items: center;
         justify-content: flex-end;

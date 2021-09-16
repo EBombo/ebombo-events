@@ -16,4 +16,6 @@ export const useClickOutside = (handler) => {
       document.removeEventListener("mousedown", innerHandler);
     };
   }, []);
+
+  return domNodeRef;
 };
