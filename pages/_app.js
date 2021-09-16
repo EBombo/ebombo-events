@@ -1,25 +1,25 @@
-import {ErrorFallback} from "../src/components/error-fallback/ErrorFallback";
-import {WithAuthentication} from "../src/session/withAuthentication";
-import {WithConfiguration} from "../src/session/WithConfiguration";
-import {darkTheme, GlobalStyle, lightTheme} from "../src/theme";
-import React, {useEffect, useGlobal, useState} from "reactn";
-import {ErrorBoundary} from "react-error-boundary";
-import {config, firestore} from "../src/firebase";
-import {ThemeProvider} from "styled-components";
-import {snapshotToArray} from "../src/utils";
-import {useRouter} from "next/router";
-import {useUser} from "../src/hooks";
-import {notification} from "antd";
+import { ErrorFallback } from "../src/components/error-fallback/ErrorFallback";
+import { WithAuthentication } from "../src/session/WithAuthentication";
+import { WithConfiguration } from "../src/session/WithConfiguration";
+import { darkTheme, GlobalStyle, lightTheme } from "../src/theme";
+import React, { useEffect, useGlobal, useState } from "reactn";
+import { ErrorBoundary } from "react-error-boundary";
+import { config, firestore } from "../src/firebase";
+import { ThemeProvider } from "styled-components";
+import { snapshotToArray } from "../src/utils";
+import { useRouter } from "next/router";
+import { useUser } from "../src/hooks";
+import { notification } from "antd";
 import get from "lodash/get";
 import Head from "next/head";
 import "antd/dist/antd.css";
-import {useFetch} from "../src/hooks/useFetch";
+import { useFetch } from "../src/hooks/useFetch";
 
-const MyApp = ({Component, pageProps}) => {
+const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
   const [authUserLS] = useUser();
-  const {folderId} = router.query;
-  const {Fetch} = useFetch();
+  const { folderId } = router.query;
+  const { Fetch } = useFetch();
   const [authUser] = useGlobal("user");
   const [, setLoadingGames] = useGlobal("loadingGames");
   const [games, setGames] = useGlobal("games");
@@ -100,34 +100,34 @@ const MyApp = ({Component, pageProps}) => {
     <ThemeProvider
       theme={get(authUserLS, "theme") === "lightTheme" ? lightTheme : darkTheme}
     >
-      <GlobalStyle/>
+      <GlobalStyle />
       <Head>
         <title>Aprendimos a romper barreras</title>
-        <meta charSet="UTF-8"/>
-        <meta name="google" value="notranslate"/>
+        <meta charSet="UTF-8" />
+        <meta name="google" value="notranslate" />
         <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1.0,user-scalable=0, shrink-to-fit=no"
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1.0,user-scalable=0, shrink-to-fit=no"
         />
         <meta
-            name="keywords"
-            content="Esports, Fifa21, videogames, videojuegos, ganar dinero real, juegos que te hacen ganar dinero, fifa 21 precio, fifa 21 pro clubs, Esports Tournament Platform, fifa 21 pro clubes, ganar dinero con videojuegos, juega online y gana dinero"
+          name="keywords"
+          content="Esports, Fifa21, videogames, videojuegos, ganar dinero real, juegos que te hacen ganar dinero, fifa 21 precio, fifa 21 pro clubs, Esports Tournament Platform, fifa 21 pro clubes, ganar dinero con videojuegos, juega online y gana dinero"
         />
         <meta
-            name="description"
-            content="Le damos la posibilidad a empresas de crear eventos virtuales con el objetivo de potenciar el clima laboral."
+          name="description"
+          content="Le damos la posibilidad a empresas de crear eventos virtuales con el objetivo de potenciar el clima laboral."
         />
         <title>Aprendimos a romper barreras</title>
         <link
-            rel="shortcut icon"
-            href={`${config.storageUrl}/resources/icons/icon-72x72.png`}
+          rel="shortcut icon"
+          href={`${config.storageUrl}/resources/icons/icon-72x72.png`}
         />
         <link
-            rel="shortcut icon"
-            href={`${config.storageUrl}/resources/icons/icon-512x512.png`}
+          rel="shortcut icon"
+          href={`${config.storageUrl}/resources/icons/icon-512x512.png`}
         />
         <link
-            rel="apple-touch-icon-precomposed"
+          rel="apple-touch-icon-precomposed"
           sizes="144x144"
           href={`${config.storageUrl}/resources/icons/icon-512x512.png`}
         />
