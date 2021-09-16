@@ -1,0 +1,57 @@
+{
+  "common": {
+    "label": "Acceso común",
+    "items": {
+      "/library": "Library mobile",
+      "/library/favorites": "Lista favoritos",
+      "/library/games": "Lista de juegos",
+      "/library/games/new": "Crear juego",
+      "/library/games/[gameId]": "Editar juego",
+      "/library/folders": "Lista de folders",
+      "/library/folders/new": "Crear sub folders",
+      "/library/folders/[folderId]": "Ver sub folders",
+      "/reports": "Formulario de Reportes"
+    }
+  },
+  "adminUsers": {
+    "label": "Formulario de usuarios",
+    "items": {
+      "/admin/users": "Lista de usuario",
+      "/admin/users/[userId]": "Detalles de usuarios",
+      "/admin/users/[userId]/acls": "Editar permisos de usuarios"
+    }
+  },
+  "adminSettings": {
+    "label": "Formulario de configuracion de la APP",
+    "items": {
+      "/admin/settings/manifests": "Edicion de manifests",
+      "/admin/settings/templates": "Edicion de templates"
+    }
+  },
+  "adminSEO": {
+    "label": "Formulario de configuracion de SEO",
+    "items": {
+      "/admin/seo": "Edicion de SEO",
+      "/admin/seo/[hostId]": "Edicion de SEO (rutas)"
+    }
+  },
+  "adminGames": {
+    "label": "Formulario de juegos",
+    "items": {
+      "/admin/games": "Lista de juegos",
+      "/admin/games/[gameId]": "Formulario de edicion de juego",
+      "/admin/games/new": "Permitir crear juego",
+      "/admin/games/#edit": "Permitir editar juego"
+    }
+  },
+  "adminAudios": {
+    "label": "Formulario de audios",
+    "items": {
+      "/admin/audios": "Audios de juegos",
+      "/admin/audios/new": "Crear audio de juegos",
+      "/admin/audios/[audioId]": "Editar audio de juegos",
+      "/admin/audios/[audioId]#delete": "Editar audio de juegos",
+      "/admin/audios/[audioId]#edit": "Editar audio de juegos"
+    }
+  }
+}

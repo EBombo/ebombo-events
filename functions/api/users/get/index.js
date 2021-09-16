@@ -1,11 +1,7 @@
-const {userPlayers} = require("./userPlayers");
-const {userTeams} = require("./userTeams");
-const {userAwards} = require("./userAwards");
-const {verifyCode} = require("./verifyCode");
-const {resendVerifyCode} = require("./resendVerifyCode");
+const { getVerifyCode } = require("./getVerifyCode");
+const { getResendVerifyCode } = require("./getResendVerifyCode");
+const { getCustomToken } = require("./getCustomToken");
 
-exports.userPlayers = userPlayers;
-exports.userTeams = userTeams;
-exports.userAwards = userAwards;
-exports.verifyCode = verifyCode;
-exports.resendVerifyCode = resendVerifyCode;
+exports.getVerifyCode = getVerifyCode;
+exports.getCustomToken = getCustomToken;
+exports.getResendVerifyCode = getResendVerifyCode;

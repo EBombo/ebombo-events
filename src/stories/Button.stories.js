@@ -1,33 +1,32 @@
 import React from "react";
-
-import { ButtonBombo } from "../components";
+import { ButtonAnt } from "../components/form";
+import { darkTheme } from "../theme";
 
 export default {
-  title: "Components/UI Elements/Button",
-  component: ButtonBombo,
+  title: "Components/Form/Buttons",
+  component: ButtonAnt,
 };
 
-const Template = (args) => <ButtonBombo {...args} />;
+const Template = (args) => <ButtonAnt {...args} />;
 
 export const OutlinedPrimary = Template.bind({});
 OutlinedPrimary.args = {
   variant: "outlined",
   color: "primary",
-  children: "PRIMARY",
 };
 
 export const OutlinedSecondary = Template.bind({});
 OutlinedSecondary.args = {
   variant: "outlined",
   color: "secondary",
-  children: "SECONDARY",
+  theme: darkTheme,
 };
 
-export const OutlinedAction = Template.bind({});
-OutlinedAction.args = {
+export const OutlinedWarning = Template.bind({});
+OutlinedWarning.args = {
   variant: "outlined",
-  color: "action",
-  children: "ACTION",
+  color: "warning",
+  children: "WARNING",
 };
 
 export const OutlinedDanger = Template.bind({});
@@ -51,11 +50,11 @@ ContainedSecondary.args = {
   children: "SECONDARY",
 };
 
-export const ContainedAction = Template.bind({});
-ContainedAction.args = {
+export const ContainedWarning = Template.bind({});
+ContainedWarning.args = {
   variant: "contained",
-  color: "action",
-  children: "ACTION",
+  color: "warning",
+  children: "WARNING",
 };
 
 export const ContainedDanger = Template.bind({});

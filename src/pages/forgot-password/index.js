@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Card, message } from "antd";
-import get from "lodash/get";
-import {
-  authenticationErrors,
-  doSendPasswordResetEmail,
-} from "../../firebase/authentication";
+import React, { useGlobal, useState } from "reactn";
+import { Card } from "antd";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { useErrorHandler } from "react-error-boundary";
-import { ButtonBombo, Input } from "../../components";
+import { Anchor, ButtonAnt, Input } from "../../components/form";
+import { useAuth } from "../../hooks/useAuth";
+import { useSendError } from "../../hooks";
 
-export const ForgotPassword = (props) => {
+const ForgotPassword = (props) => {
+  const { sendError } = useSendError();
+  const { recoveryPassword } = useAuth();
   const [emailSent, setEmailSent] = useState(false);
   const [loadingSendEmailStatus, setLoadingSendEmailStatus] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
-
-  const handleError = useErrorHandler();
+  const [, setIsVisibleForgotPassword] = useGlobal("isVisibleForgotPassword");
 
   const schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -27,64 +24,48 @@ export const ForgotPassword = (props) => {
     reValidateMode: "onSubmit",
   });
 
-  useEffect(() => messageConfig(), []);
-
-  const messageConfig = () => message.config({ duration: 3, maxCount: 2 });
-
   const recoverPassword = async (data) => {
     try {
       setLoadingSendEmailStatus(true);
 
-      const userRecord = await doSendPasswordResetEmail(
-        data.email.toLowerCase()
-      );
+      const response = await recoveryPassword(data.email.toLowerCase());
 
-      if (!userRecord.success)
-        return errorSendPasswordResetEmail(userRecord.error);
+      if (!response.success) {
+        setErrorMessage(response.error);
+        throw response.error;
+      }
 
       setEmailSent(true);
-      message.success("Se envió el correo.");
     } catch (error) {
-      handleError({ ...error, action: "recoverPassword" });
+      console.error(error);
+      await sendError(error, "recoverPassword");
     }
     setLoadingSendEmailStatus(false);
   };
 
-  const cancelButton = () => props.forgotPasswordVisible(false);
-
-  const errorSendPasswordResetEmail = (error) => {
-    setErrorMessage(
-      get(
-        authenticationErrors,
-        [error.code],
-        "Hubo un problema, inténtelo de nuevo!"
-      )
-    );
-    setLoadingSendEmailStatus(false);
-  };
+  const cancelButton = () => setIsVisibleForgotPassword(false);
 
   return (
     <ContainerForgotPassword>
       <Card className="content-forgot-password">
         {emailSent ? (
           <React.Fragment>
-            <h1 className="title">!Excelente!</h1>
+            <h1 className="title">!Excellent!</h1>
             <p className="forgot-password-note">
-              Te hemos enviado un correo electrónico con instrucciones para
-              volver a establecer tu contraseña.
+              We have sent you an email with instructions to reset your
+              password.
             </p>
-            <ButtonBombo
-              className="btn-primary btn-recover-password btn-go-back"
-              block={true}
+            <Anchor
+              variant="primary"
               onClick={() => cancelButton()}
               disabled={errorMessage}
             >
               Volver
-            </ButtonBombo>
+            </Anchor>
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <h1 className="title">RECUPERAR CONTRASEÑA</h1>
+            <h1 className="title">Recuperar clave</h1>
             <p className="forgot-password-note">
               Por favor, introduce la dirección de correo electrónico asociada a
               tu cuenta. Te enviaremos un correo electrónico que te permitirá
@@ -99,34 +80,35 @@ export const ForgotPassword = (props) => {
               <Input
                 required
                 variant="primary"
-                style={{ margin: 0 }}
                 type="email"
                 name="email"
                 ref={register}
                 autoComplete="off"
                 error={errors.email}
-                placeholder="Ingresa tu email"
+                className="input-forgot-password-desktop"
+                placeholder="Email"
               />
               <div className="btn-footer-password">
-                <ButtonBombo
-                  margin="0"
-                  className="btn-register btn-cancelar"
+                <ButtonAnt
                   block={true}
                   disabled={loadingSendEmailStatus}
+                  height="35px"
+                  width="170px"
+                  variant="outlined"
                   onClick={() => cancelButton()}
                 >
-                  Cancelar
-                </ButtonBombo>
-                <ButtonBombo
-                  margin="0"
-                  className="btn-recover-password"
+                  CANCELAR
+                </ButtonAnt>
+                <ButtonAnt
                   block={true}
+                  height="35px"
+                  width="170px"
                   htmlType="submit"
                   loading={loadingSendEmailStatus}
                   disabled={loadingSendEmailStatus}
                 >
-                  Enviar
-                </ButtonBombo>
+                  ENVIAR
+                </ButtonAnt>
               </div>
             </form>
           </React.Fragment>
@@ -137,22 +119,19 @@ export const ForgotPassword = (props) => {
 };
 
 const ContainerForgotPassword = styled.div`
+  color: ${(props) => props.theme.white};
+
   .content-forgot-password {
     margin: auto;
     background: none;
     border: none;
-    padding: 0px;
+    padding: 0;
 
     .ant-card-body {
-      padding: 20px;
+      padding: 0 20px;
 
       h1 {
-        color: ${(props) => props.theme.basic.white};
       }
-    }
-
-    .btn-forgot-password {
-      margin-bottom: 1rem;
     }
 
     .btn-go-back {
@@ -160,6 +139,7 @@ const ContainerForgotPassword = styled.div`
     }
 
     .title {
+      color: ${(props) => props.theme.basic.white};
       font-size: 18px;
       margin-bottom: 10px;
     }
@@ -168,7 +148,7 @@ const ContainerForgotPassword = styled.div`
       color: ${(props) => props.theme.basic.white};
       font-size: 15px;
       text-align: justify;
-      margin-bottom: 0px;
+      margin-bottom: 0;
       line-height: 17px;
     }
 
@@ -184,17 +164,17 @@ const ContainerForgotPassword = styled.div`
       .btn-footer-password {
         display: flex;
         justify-content: space-between;
+      }
 
-        .btn-recover-password {
-          text-align: center;
-        }
-
-        .btn-cancelar {
-          background: transparent;
-          border: 1px solid ${(props) => props.theme.basic.primary};
-          color: ${(props) => props.theme.basic.white};
+      .input-forgot-password-desktop {
+        span {
+          i {
+            color: ${(props) => props.theme.basic.white} !important;
+          }
         }
       }
     }
   }
 `;
+
+export default ForgotPassword;

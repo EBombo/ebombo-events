@@ -1,13 +1,4 @@
-const {withdraw} = require("./withdraw");
-const {charge} = require("./charge");
-const {chargeVisanet} = require("./chargeVisanet");
-const {chargePaypal} = require("./chargePaypal");
-const {withdrawRapyd} = require("./rapydWithdraw");
-const {paypalWithdraw} = require("./paypalWithdraw");
+const { postUser } = require("./postUser");
+const { postUserByToken } = require("./postUserByToken");
 
-exports.withdraw = withdraw;
-exports.withdrawRapyd = withdrawRapyd;
-exports.charge = charge;
-exports.chargeVisanet = chargeVisanet;
-exports.chargePaypal = chargePaypal;
-exports.paypalWithdraw = paypalWithdraw;
+module.exports = { postUser, postUserByToken };

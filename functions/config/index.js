@@ -8,13 +8,17 @@ const adminFirestore = admin.firestore;
 const firestore = admin.firestore();
 const auth = admin.auth();
 const projectId = process.env.GCLOUD_PROJECT;
-const currentEnvironment = projectId.includes("bombo-sport-dev")
-    ? "dev"
-    : "production";
+const currentEnvironment = projectId.includes("-dev") ? "dev" : "production";
 
-const config = projectId.includes("bombo-sport-dev")
-    ? configJson.devConfig
-    : configJson.productionConfig;
+try {
+  firestore.settings({ ignoreUndefinedProperties: true });
+} catch (error) {
+  console.error("ignoreUndefinedProperties", error);
+}
+
+const config = projectId.includes("-dev")
+  ? configJson.development
+  : configJson.production;
 
 const hostname = (req) => url.parse(req.headers.origin).hostname;
 
