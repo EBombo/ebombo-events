@@ -526,7 +526,7 @@ const IconsContainer = styled.div`
 
           span {
             position: relative;
-            left: -10px;
+            left: -5px;
           }
         }
       }
