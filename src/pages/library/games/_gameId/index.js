@@ -75,12 +75,12 @@ export const GameContainer = (props) => {
   };
 
   const updateUrl = (resource) =>
-    `${resource.domain}/api/games/${currentGame.id}/users/${authUser.id}`;
+    `${resource.api}/api/games/${currentGame.id}/users/${authUser.id}`;
 
   const createUrl = (resource) => {
     if (folderId)
-      return `${resource.domain}/api/games/new/users/${authUser.id}?folderId=${folderId}`;
-    return `${resource.domain}/api/games/new/users/${authUser.id}`;
+      return `${resource.api}/api/games/new/users/${authUser.id}?folderId=${folderId}`;
+    return `${resource.api}/api/games/new/users/${authUser.id}`;
   };
 
   return (

@@ -92,6 +92,15 @@ export const GameContainer = (props) => {
           placeholder="Domain"
           error={errors.domain}
         />
+        <Input
+          type="text"
+          name="api"
+          ref={register}
+          variant="primary"
+          defaultValue={game.api}
+          placeholder="Domain"
+          error={errors.api}
+        />
         <ButtonAnt
           htmlType="submit"
           loading={isSaving || loading}
