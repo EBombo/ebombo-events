@@ -10,7 +10,7 @@ const WspIcon = () => (
 );
 
 const WspIconCss = styled.div`
-  background-image: url(${`${config.storageUrl}/resources/wsp-icon.svg`});
+  background-image: url(${`${config.storageUrl}/resources/wsp-icon-purple.svg`});
   background-color: ${(props) => props.theme.basic.blackDarken};
   background-size: 60%;
   background-position: center;
