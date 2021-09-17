@@ -5,13 +5,12 @@ import { mediaQuery } from "../../constants";
 
 const WspIcon = () => (
   <WspIconCss
-    onClick={() => window.open("http://wa.me/51922662007", "_blank")}
+    onClick={() => window.open("http://wa.me/51948879888", "_blank")}
   />
 );
 
 const WspIconCss = styled.div`
-  filter: hue-rotate(45deg);
-  background-image: url(${`${config.storageUrl}/resources/wsp-icon.svg`});
+  background-image: url(${`${config.storageUrl}/resources/wsp-icon-purple.svg`});
   background-color: ${(props) => props.theme.basic.blackDarken};
   background-size: 60%;
   background-position: center;
