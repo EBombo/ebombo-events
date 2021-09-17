@@ -1,6 +1,5 @@
-const index = require("firebase-functions");
+const functions = require("firebase-functions");
 const api = require("./api");
-const { serverExpress } = require("../src");
 
 const runtimeOptions = {
   timeoutSeconds: 60,
@@ -9,12 +8,7 @@ const runtimeOptions = {
 
 const apiRegion = "us-central1";
 
-exports.api = index
-  .runWith(runtimeOptions)
-  .region(apiRegion)
-  .https.onRequest(api.api);
-
-exports.next = index
-  .runWith(runtimeOptions)
-  .region(apiRegion)
-  .https.onRequest(serverExpress);
+exports.api = functions
+    .runWith(runtimeOptions)
+    .region(apiRegion)
+    .https.onRequest(api.api);
