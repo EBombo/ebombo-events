@@ -2,7 +2,6 @@
   "name": "ebombo-events",
   "version": "0.1.0",
   "private": true,
-  "main": "functions/index.js",
   "scripts": {
     "dev": "next dev && cross-env NODE_ENV=development",
     "build": "next build",
