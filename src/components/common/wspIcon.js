@@ -10,7 +10,6 @@ const WspIcon = () => (
 );
 
 const WspIconCss = styled.div`
-  filter: hue-rotate(45deg);
   background-image: url(${`${config.storageUrl}/resources/wsp-icon.svg`});
   background-color: ${(props) => props.theme.basic.blackDarken};
   background-size: 60%;
