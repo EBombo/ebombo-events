@@ -12,7 +12,7 @@ const Games = (props) => {
   return (
     <PrivateRoutes>
       <UserLayout {...props}>
-        <GamesContainer {...props} />;
+        <GamesContainer {...props} />
       </UserLayout>
     </PrivateRoutes>
   );
