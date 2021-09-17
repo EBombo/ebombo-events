@@ -16,6 +16,7 @@ export const ListGameView = (props) => {
   const [authUser] = useGlobal("user");
   const [games, setGames] = useGlobal("games");
   const [resource, setResource] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
@@ -94,6 +95,7 @@ export const ListGameView = (props) => {
   };
 
   const createTokenToPlay = async () => {
+    setIsLoading(true);
     try {
       const tokenId = await auth.currentUser.getIdToken();
 
@@ -103,6 +105,7 @@ export const ListGameView = (props) => {
     } catch (error) {
       console.error(error);
     }
+    setIsLoading(false);
   };
 
   const redirectToGameView = () => {
@@ -227,7 +230,9 @@ export const ListGameView = (props) => {
                     variant="contained"
                     color="secondary"
                     margin="0 1rem"
+                    loading={isLoading}
                     onClick={() => {
+                      setIsLoading(true);
                       get(props, "game.parentId", null)
                         ? router.push(
                             `/library/games/${props.game.id}?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
@@ -235,6 +240,7 @@ export const ListGameView = (props) => {
                         : router.push(
                             `/library/games/${props.game.id}?resourceId=${props.game.resourceId}`
                           );
+                      setIsLoading(false);
                     }}
                   >
                     Editar
@@ -242,6 +248,7 @@ export const ListGameView = (props) => {
                   <ButtonAnt
                     variant="contained"
                     color="primary"
+                    loading={isLoading}
                     onClick={createTokenToPlay}
                   >
                     Jugar
@@ -445,12 +452,12 @@ const IconsContainer = styled.div`
       align-items: flex-start;
       grid-template-columns: 80% 20%;
       height: 80%;
-      
-      ${mediaQuery.afterTablet}{
+
+      ${mediaQuery.afterTablet} {
         grid-template-columns: 90% 10%;
       }
-      
-      .name{
+
+      .name {
         height: 100%;
         cursor: pointer;
       }
@@ -519,7 +526,7 @@ const IconsContainer = styled.div`
 
           span {
             position: relative;
-            left: -10px;
+            left: -5px;
           }
         }
       }

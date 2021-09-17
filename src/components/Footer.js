@@ -10,7 +10,7 @@ export const Footer = (props) => {
     <FooterContainer>
       <div className="logos">
         <Image
-          src={`${config.storageUrl}/resources/ebombo-white.svg`}
+          src={`${config.storageUrl}/resources/ebombo-white.png`}
           width={"auto"}
           height={"35px"}
           size={"contain"}

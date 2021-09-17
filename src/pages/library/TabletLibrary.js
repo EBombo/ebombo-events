@@ -111,7 +111,7 @@ export const TabletLibrary = (props) => {
                     onClick={() => setIsVisibleModalFolder(true)}
                   >
                     <Image
-                      src={`${config.storageUrl}/resources/purple-star.svg`}
+                      src={`${config.storageUrl}/resources/purple-folder.svg`}
                       width="20px"
                       height="25px"
                       className="icon"
@@ -151,7 +151,7 @@ export const TabletLibrary = (props) => {
                     onClick={() => router.push(`/library/folders/${folder.id}`)}
                   >
                     <Image
-                      src={`${config.storageUrl}/resources/purple-puzzle.svg`}
+                      src={`${config.storageUrl}/resources/purple-folder.svg`}
                       width="20px"
                       height="25px"
                       className="icon"

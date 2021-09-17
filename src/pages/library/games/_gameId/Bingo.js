@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "reactn";
+import React, { useEffect, useRef, useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { Anchor, ButtonAnt, Input } from "../../../../components/form";
@@ -252,58 +252,100 @@ export const Bingo = (props) => {
             <div className="subtitle">Selecciona un color para cambiarlo</div>
             <div className="colors-container">
               <div className="color-pick">
-                <input
-                  type="color"
-                  name="backgroundColor"
-                  defaultValue={get(
-                    props,
-                    "game.backgroundColor",
-                    darkTheme.basic.secondary
-                  )}
-                  ref={register}
-                />
-                <label htmlFor="backgroundColor">
-                  {watch("backgroundColor")}
-                </label>
+                <div className="color-title">Fondo</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="backgroundColor"
+                    defaultValue={get(
+                      props,
+                      "game.backgroundColor",
+                      darkTheme.basic.secondary
+                    )}
+                    ref={register}
+                    id="input-color-background"
+                  />
+                  <label
+                    htmlFor="backgroundColor"
+                    onClick={() =>
+                      document.getElementById("input-color-background").click()
+                    }
+                  >
+                    {watch("backgroundColor")}
+                  </label>
+                </div>
               </div>
               <div className="color-pick">
-                <input
-                  type="color"
-                  name="titleColor"
-                  defaultValue={get(
-                    props,
-                    "game.titleColor",
-                    darkTheme.basic.whiteLight
-                  )}
-                  ref={register}
-                />
-                <label htmlFor="titleColor">{watch("titleColor")}</label>
+                <div className="color-title">Titulo</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="titleColor"
+                    defaultValue={get(
+                      props,
+                      "game.titleColor",
+                      darkTheme.basic.whiteLight
+                    )}
+                    id="input-color-title"
+                    ref={register}
+                  />
+                  <label
+                    htmlFor="titleColor"
+                    onClick={() =>
+                      document.getElementById("input-color-title").click()
+                    }
+                  >
+                    {watch("titleColor")}
+                  </label>
+                </div>
               </div>
               <div className="color-pick">
-                <input
-                  type="color"
-                  name="blocksColor"
-                  defaultValue={get(
-                    props,
-                    "game.blocksColor",
-                    darkTheme.basic.primary
-                  )}
-                  ref={register}
-                />
-                <label htmlFor="blocksColor">{watch("blocksColor")}</label>
+                <div className="color-title">Bloques</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="blocksColor"
+                    defaultValue={get(
+                      props,
+                      "game.blocksColor",
+                      darkTheme.basic.primary
+                    )}
+                    id="input-color-blocks"
+                    ref={register}
+                  />
+                  <label
+                    htmlFor="blocksColor"
+                    onClick={() =>
+                      document.getElementById("input-color-blocks").click()
+                    }
+                  >
+                    {watch("blocksColor")}
+                  </label>
+                </div>
               </div>
               <div className="color-pick">
-                <input
-                  type="color"
-                  name="numberColor"
-                  defaultValue={get(
-                    props,
-                    "game.numberColor",
-                    darkTheme.basic.whiteLight
-                  )}
-                  ref={register}
-                />
-                <label htmlFor="numberColor">{watch("numberColor")}</label>
+                <div className="color-title">Número</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="numberColor"
+                    defaultValue={get(
+                      props,
+                      "game.numberColor",
+                      darkTheme.basic.whiteLight
+                    )}
+                    ref={register}
+                    id="input-color-number"
+                  />
+                  <label
+                    htmlFor="numberColor"
+                    onClick={() =>
+                      document.getElementById("input-color-number").click()
+                    }
+                  >
+                    {watch("numberColor")}
+                  </label>
+                </div>
               </div>
             </div>
             <div className="upload-container">
@@ -334,34 +376,36 @@ export const Bingo = (props) => {
                   Guardar
                 </ButtonAnt>
               </div>
-              <CardContainer
-                backgroundColor={watch("backgroundColor")}
-                titleColor={watch("titleColor")}
-                blocksColor={watch("blocksColor")}
-                numberColor={watch("numberColor")}
-              >
-                <div className="card-title no-wrap">{watch("title")}</div>
-                <table>
-                  <thead className="thead">
-                    <tr>
-                      <th>{watch("b")}</th>
-                      <th>{watch("i")}</th>
-                      <th>{watch("n")}</th>
-                      <th>{watch("g")}</th>
-                      <th>{watch("o")}</th>
-                    </tr>
-                  </thead>
-                  <tbody className="tbody">
-                    {bingoCard.map((arrNums, index) => (
-                      <tr key={`key-${index}`}>
-                        {arrNums.map((num, idx) => (
-                          <td key={`key-${num}-${idx}`}>{num}</td>
-                        ))}
+              <div className="card-container">
+                <CardContainer
+                  backgroundColor={watch("backgroundColor")}
+                  titleColor={watch("titleColor")}
+                  blocksColor={watch("blocksColor")}
+                  numberColor={watch("numberColor")}
+                >
+                  <div className="card-title no-wrap">{watch("title")}</div>
+                  <table>
+                    <thead className="thead">
+                      <tr>
+                        <th>{watch("b")}</th>
+                        <th>{watch("i")}</th>
+                        <th>{watch("n")}</th>
+                        <th>{watch("g")}</th>
+                        <th>{watch("o")}</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </CardContainer>
+                    </thead>
+                    <tbody className="tbody">
+                      {bingoCard.map((arrNums, index) => (
+                        <tr key={`key-${index}`}>
+                          {arrNums.map((num, idx) => (
+                            <td key={`key-${num}-${idx}`}>{num}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </CardContainer>
+              </div>
             </div>
           </Desktop>
         </div>
@@ -460,8 +504,21 @@ const BingoContainer = styled.div`
 
       .color-pick {
         display: flex;
-        align-items: center;
-        justify-content: space-evenly;
+        flex-direction: column;
+
+        .color-title {
+          font-family: Lato;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 13px;
+          line-height: 16px;
+          color: ${(props) => props.theme.basic.grayLight};
+        }
+
+        .input-container {
+          display: flex;
+          align-items: center;
+        }
       }
 
       input[type="color"] {
@@ -471,6 +528,7 @@ const BingoContainer = styled.div`
         outline: none;
         border-radius: 3px;
         -webkit-appearance: none;
+        cursor: pointer;
       }
 
       input[type="color"]::-webkit-color-swatch-wrapper {
@@ -497,6 +555,8 @@ const BingoContainer = styled.div`
         color: ${(props) => props.theme.basic.grayLight};
         border: 1px solid ${(props) => props.theme.basic.grayLight};
         border-radius: 4px;
+        cursor: pointer;
+        margin-left: 10px;
       }
     }
 
@@ -515,6 +575,12 @@ const BingoContainer = styled.div`
         display: flex;
         align-items: center;
         margin-bottom: 0.5rem;
+        justify-content: flex-end;
+      }
+
+      .card-container {
+        display: flex;
+        align-items: center;
         justify-content: flex-end;
       }
     }

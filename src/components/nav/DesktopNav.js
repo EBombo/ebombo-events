@@ -13,7 +13,7 @@ export const DesktopNav = (props) => {
   const router = useRouter();
   const { userAcls } = useAcl();
   const [authUser] = useGlobal("user");
-  const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
+  const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
 
@@ -28,7 +28,7 @@ export const DesktopNav = (props) => {
       )}
       <div className="items-container">
         <Image
-          src={`${config.storageUrl}/resources/ebombo-white.svg`}
+          src={`${config.storageUrl}/resources/ebombo-white.png`}
           onClick={() =>
             userAcls.some((acl) => acl.includes("admin"))
               ? router.push("/admin")
@@ -107,10 +107,17 @@ export const DesktopNav = (props) => {
             Crear
           </ButtonAnt>
           <div
-            className="menu-icon-nav"
-            onClick={() => setOpenRightDrawer(true)}
+            className="hamburger"
+            onClick={() => setOpenRightDrawer(!openRightDrawer)}
           >
-            <MenuOutlined />
+            <Image
+              src={`${config.storageUrl}/resources/user-profile.svg`}
+              height="31px"
+              width="31px"
+              borderRadius="50%"
+              size="contain"
+              cursor="pointer"
+            />
           </div>
         </div>
       )}
@@ -192,9 +199,10 @@ const DesktopNavContainer = styled.div`
       cursor: pointer;
     }
 
-    .menu-icon-nav {
-      margin: auto 10px;
-      color: ${(props) => props.theme.basic.white};
+    .hamburger {
+      display: block;
+      cursor: pointer;
+      margin: 0 1rem;
     }
   }
 `;

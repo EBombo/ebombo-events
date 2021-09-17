@@ -215,5 +215,25 @@ const ButtonAntCss = styled(Button)`
             ? "#979797"
             : color
         } !important;
+        background: ${
+          color === "primary"
+            ? theme.basic.primary
+            : color === "secondary"
+            ? theme.basic.secondary
+            : color === "warning"
+            ? theme.basic.warning
+            : color === "danger"
+            ? theme.basic.danger
+            : color === "default"
+            ? theme.basic.whiteDark
+            : color
+        } !important;
+        color: ${
+          color === "white"
+            ? theme.basic.secondaryLight
+            : color === "default"
+            ? theme.basic.blackDarken
+            : theme.basic.white
+        };
         transform: translateY(2px);`}
 `;
