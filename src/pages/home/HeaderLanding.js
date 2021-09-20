@@ -28,7 +28,7 @@ export const HeaderLanding = (props) => {
   const [isVisibleLoginModal, setIsVisibleLoginModal] = useGlobal(
     "isVisibleLoginModal"
   );
-  const [isVisibleForgotPassword] = useGlobal(isVisibleForgotPassword);
+  const [isVisibleForgotPassword] = useGlobal("isVisibleForgotPassword");
 
   const loginModal = () =>
     isVisibleLoginModal && !authUser ? (
@@ -40,7 +40,11 @@ export const HeaderLanding = (props) => {
         closable={false}
         padding={"1rem"}
       >
-        <Login {...props} />
+        {isVisibleForgotPassword ? (
+          <ForgotPassword {...props} />
+        ) : (
+          <Login {...props} />
+        )}
       </ModalContainer>
     ) : null;
 
