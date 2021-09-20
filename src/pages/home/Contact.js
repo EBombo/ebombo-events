@@ -6,9 +6,9 @@ import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
-import { useErrorHandler } from "react-error-boundary";
 import { useFetch } from "../../hooks/useFetch";
 import { Desktop } from "../../constants";
+import { useSendError } from "../../hooks";
 
 const salesTeam = [
   {
@@ -32,7 +32,7 @@ const salesTeam = [
 ];
 
 export const Contact = (props) => {
-  const handleError = useErrorHandler();
+  const { sendError } = useSendError();
   const { Fetch } = useFetch();
   const [loadingSendingEmail, setLoadingSendingEmail] = useState(false);
 
@@ -48,20 +48,21 @@ export const Contact = (props) => {
   });
 
   const sendEmail = async (data) => {
+    setLoadingSendingEmail(true);
     try {
-      setLoadingSendingEmail(true);
+      const { response, error } = await Fetch(`${config.serverUrl}/api/contact`, "POST", data);
 
-      await Fetch(`${config.serverUrl}/business-email`, "POST", data);
+      if (error) throw Error(error);
 
       reset({
         message: null,
         email: null,
         phoneNumber: null,
       });
-      setLoadingSendingEmail(false);
     } catch (error) {
-      handleError({ ...error, action: "sendEmail" });
+      sendError({ ...error, action: "sendEmail" });
     }
+    setLoadingSendingEmail(false);
   };
 
   return (

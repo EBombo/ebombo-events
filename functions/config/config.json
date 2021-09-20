@@ -6,7 +6,7 @@
       "from": "Bombo Perú Team",
       "user": "hello@bombo.pe",
       "password": "Bomboperu123",
-      "storageUrl": ""
+      "storageUrl": ["santiago@bombo.pe"]
     },
     "phone": "",
     "currency": "",
@@ -28,10 +28,7 @@
     "currency": "",
     "serverUrl": "https://ebombo-events.web.app",
     "serverUrlTrivia": "https://trivia-dev-321021.web.app",
-    "mails": [
-      "mendo@bombo.pe",
-      "pabloynciorivera@gmail.com"
-    ],
+    "mails": ["mendo@bombo.pe", "pabloynciorivera@gmail.com", "tech@bombo.pe"],
     "maxAgeCache": "86400"
   }
 }

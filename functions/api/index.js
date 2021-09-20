@@ -12,6 +12,7 @@ const { deleteUser } = require("./users/delete");
 const { putUpdateUser } = require("./users/put");
 const { postUser, postUserByToken } = require("./users/post");
 const { getGames } = require("./games/get");
+const { businessEmail } = require("./contact/post");
 
 const api = express();
 const router = express.Router();
@@ -47,6 +48,8 @@ router.get("/manifest", getManifest);
 router.get("/games/users/:userId", getGames);
 
 router.post("/error-boundary", postError);
+
+router.post("/contact", businessEmail);
 
 router.get("/error-vanilla", getError);
 
