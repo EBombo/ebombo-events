@@ -2,18 +2,19 @@ import React, { useState, useEffect, useRef } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { darkTheme } from "../../../../theme";
-import { ButtonAnt } from "../../../../components/form";
+import { ButtonAnt, Input, Select } from "../../../../components/form";
 import { mediaQuery } from "../../../../constants";
 import get from "lodash/get";
 import { Switch, Radio } from "antd";
 import { object, string } from "yup";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { firestore } from "../../../../firebase";
 import { useRouter } from "next/router";
 import { config } from "../../../../firebase";
 import { Image } from "../../../../components/common/Image";
 import { snapshotToArray } from "../../../../utils";
-import defaultTo from "lodash/defaultTo";
+import {useResizeImage, useUploadToStorage} from "../../../../hooks";
+import {FileUpload} from "../../../../components/common/FileUpload";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
@@ -21,6 +22,8 @@ export const ModalSettings = (props) => {
   const { folderId } = router.query;
   const [parent, setParent] = useState(null);
   const [audios, setAudios] = useState([]);
+  const { resize } = useResizeImage();
+  const { uploadToStorageAndGetURL } = useUploadToStorage();
 
   useEffect(() => {
     const fetchParent = async () => {
@@ -49,7 +52,7 @@ export const ModalSettings = (props) => {
     music: string(),
   });
 
-  const { handleSubmit, register } = useForm({
+  const { handleSubmit, register, control, errors } = useForm({
     validationSchema: schema,
     reValidateMode: "onSubmit",
   });
@@ -60,18 +63,10 @@ export const ModalSettings = (props) => {
   };
 
   const saveChanges = (data) => {
-    props.setVideo(data.video);
-    props.setAudio(data.audio);
-    props.setIsVisibleModalSettings(false);
-  };
+    const _audio = audios.find((audio) => audio.id === data.audioId);
 
-  const resetToDefault = () => {
-    props.setCoverImgUrl(get(props, "game.coverImgUrl", false));
-    props.setOwnBranding(get(props, "game.ownBranding", true));
-    props.setVideo(get(props, "game.video", null));
-    props.setAllowDuplicate(get(props, "game.allowDuplicate", false));
-    props.setVisibility(get(props, "game.visibility", true));
-    props.setAudio(get(props, "game.audio", null));
+    props.setVideo(data.video);
+    props.setAudio(_audio);
     props.setIsVisibleModalSettings(false);
   };
 
@@ -94,7 +89,6 @@ export const ModalSettings = (props) => {
             <div className="left-side">
               <div className="label">Guardar en</div>
               <div className="path">{get(parent, "name", "Mis Juegos")}</div>
-
               <div className="label">Branding</div>
               <div className="branding">
                 Usar branding propio
@@ -103,17 +97,17 @@ export const ModalSettings = (props) => {
                   onChange={() => props.setOwnBranding(!props.ownBranding)}
                 />
               </div>
-
               <div className="label">Video del Lobby</div>
-              <input
-                className="input-video"
-                type="url"
-                name="video"
-                defaultValue={get(props, "video", "")}
-                placeholder="Pegar link de youtube"
-                ref={register}
-              />
-
+              <div className="input-container">
+                <Input
+                  type="url"
+                  name="video"
+                  defaultValue={get(props, "video", "")}
+                  placeholder="Pegar link de youtube"
+                  ref={register}
+                  error={errors.video}
+                />
+              </div>
               <div className="label">Visibilidad</div>
               <Radio.Group
                 onChange={() => props.setVisibility(!props.visibility)}
@@ -126,39 +120,15 @@ export const ModalSettings = (props) => {
 
             <div className="right-side">
               <div className="label">Imagen de portada</div>
-              {props.coverImgUrl ? (
-                <div className="cover">
-                  <Image
-                    src={URL.createObjectURL(props.coverImgUrl)}
-                    width="212px"
-                    height="121px"
-                    size="cover"
-                    margin="0"
-                  />
-                  <ButtonAnt
-                    color="secondary"
-                    onClick={() => inputRef.current.click()}
-                  >
-                    Cambiar
-                  </ButtonAnt>
-                </div>
-              ) : (
-                <div
-                  className="upload-file"
-                  onClick={() => inputRef.current.click()}
-                >
-                  <Image
-                    src={`${config.storageUrl}/resources/no-image.svg`}
-                    width="40px"
-                    height="40px"
-                    size="contain"
-                    margin="0"
-                  />
-                  <span>Añade una imagen de cover</span>
-                </div>
-              )}
-              <input type="file" ref={inputRef} onChange={manageFile} hidden />
-
+              <FileUpload
+                  file={props.coverImgUrl}
+                  preview={true}
+                  fileName="coverImgUrl"
+                  filePath={`/games/Bingo/${props.newId}`}
+                  sizes="300x350"
+                  disabled={props.isLoading}
+                  afterUpload={(coverImgs) => props.setCoverImgUrl(coverImgs[0].url)}
+              />
               <div className="label">
                 Permitir duplicar{" "}
                 <Switch
@@ -170,18 +140,39 @@ export const ModalSettings = (props) => {
               </div>
 
               <div className="label">Musica del lobby</div>
-              <select ref={register} name="audio" className="audio-select">
-                {defaultTo(audios, []).map((audio) => (
-                  <option value={audio.audioUrl}>{audio.title}</option>
-                ))}
-              </select>
+              <div className="input-container">
+                <Controller
+                  name="audioId"
+                  control={control}
+                  as={
+                    <Select
+                      placeholder="Seleccione Audio"
+                      showSearch
+                      virtual={false}
+                      borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
+                      borderTop={`0.1px solid ${darkTheme.basic.grayLighten}`}
+                      borderLeft={`0.1px solid ${darkTheme.basic.grayLighten}`}
+                      borderBottom={`0.1px solid ${darkTheme.basic.grayLighten}`}
+                      error={errors.audioId}
+                      defaultValue={get(props, "audio.id", "")}
+                      optionFilterProp="children"
+                      optionsdom={audios.map((audio) => ({
+                        key: audio.id,
+                        code: audio.id,
+                        name: audio.title,
+                      }))}
+                    />
+                  }
+                />
+              </div>
             </div>
           </div>
           <div className="btns-container">
             <ButtonAnt
-              variant={"contained"}
-              color={"gray"}
-              onClick={() => resetToDefault()}
+              variant="contained"
+              color="default"
+              className="btn"
+              onClick={() => props.setIsVisibleModalSettings(false)}
             >
               Cerrar
             </ButtonAnt>
@@ -189,6 +180,7 @@ export const ModalSettings = (props) => {
               variant={"contained"}
               color={"secondary"}
               htmlType="submit"
+              className="btn"
             >
               Listo
             </ButtonAnt>
@@ -218,19 +210,6 @@ const SettingsContainer = styled.div`
     line-height: 18px;
     color: ${(props) => props.theme.basic.blackDarken};
     text-align: center;
-  }
-
-  .input-video {
-    margin-top: 5px;
-    width: 100%;
-    height: 36px;
-    background: ${(props) => props.theme.basic.whiteLight} !important;
-    color: ${(props) => props.theme.basic.grayLight} !important;
-    border-width: thin !important;
-    border-color: ${(props) => props.theme.basic.grayLighten} !important;
-    border-style: solid !important;
-    border-radius: 4px !important;
-    padding: 0 0.5rem;
   }
 
   .label {
@@ -276,38 +255,12 @@ const SettingsContainer = styled.div`
     color: ${(props) => props.theme.basic.blackDarken};
   }
 
-  .main-container {
-    .cover {
-      display: flex;
-      align-items: center;
-      grid-gap: 1rem;
-      margin-top: 0.5rem;
-    }
+  .btn {
+    padding: 5px 40px;
+  }
 
-    .upload-file {
-      margin-top: 0.5rem;
-      width: 212px;
-      height: 121px;
-      background: ${(props) => props.theme.basic.whiteLight};
-      border: 1px solid ${(props) => props.theme.basic.grayLighten};
-      box-sizing: border-box;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      flex-direction: column;
-
-      span {
-        font-family: Lato;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 11px;
-        line-height: 13px;
-        text-align: center;
-        color: ${(props) => props.theme.basic.grayLight};
-      }
-    }
+  .input-container {
+    margin-top: 5px;
   }
 
   ${mediaQuery.afterTablet} {

@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "reactn";
-import styled from "styled-components";
-import { Anchor, Input } from "../../../components/form";
-import { firestore } from "../../../firebase";
-import { snapshotToArray } from "../../../utils";
-import moment from "moment";
-import { useRouter } from "next/router";
 import { spinLoader } from "../../../components/common/loader";
+import { Anchor, Input } from "../../../components/form";
+import { LoadingOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "reactn";
+import { snapshotToArray } from "../../../utils";
+import { firestore } from "../../../firebase";
+import { useRouter } from "next/router";
+import styled from "styled-components";
+import moment from "moment";
+
+const defaultLimit = 10;
 
 export const AdminUsers = () => {
   const router = useRouter();
@@ -13,7 +16,7 @@ export const AdminUsers = () => {
   const [loadingSearch, setLoadingSearch] = useState(true);
   const [loadingLimit, setLoadingLimit] = useState(false);
   const [users, setUsers] = useState([]);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(defaultLimit);
 
   useEffect(() => {
     setLoadingSearch(true);
@@ -48,16 +51,14 @@ export const AdminUsers = () => {
         <div className="body">
           <Input
             label="Buscar usuario"
-            addonAfter={
-              <Anchor onClick={() => findUser()} variant="primary">
-                Buscar
-              </Anchor>
-            }
             variant="primary"
             defaultValue={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Buscar por nombre, email, tlf"
           />
+          <Anchor onClick={() => findUser()} variant="primary">
+            Buscar
+          </Anchor>
         </div>
         <div className="list">
           {loadingSearch
@@ -96,7 +97,7 @@ export const AdminUsers = () => {
             display="block"
             disabled={loadingSearch || limit > users.length}
             onClick={() => {
-              setLimit(limit + 10);
+              setLimit(limit + defaultLimit);
               setLoadingLimit(true);
             }}
           >

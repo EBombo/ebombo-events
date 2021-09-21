@@ -108,55 +108,6 @@ export const GlobalStyle = createGlobalStyle`
     -moz-appearance: textfield;
   }
 
-  /*-------------- INPUT NUMBER WITH OUT ARROWS ----------------*/
-
-  /*-------------- SELECT ANT----------------*/
-
-  .ant-select-dropdown, .ant-select-dropdown--single, .ant-select-dropdown-placement-bottomLeft {
-    background-color: ${(props) => props.theme.basic.default} !important;
-  }
-
-
-  /*-------------- PRIMARY----------------*/
-  .ant-select-item-option.primary {
-    .ant-select-item-option-content {
-      color: ${(props) => props.theme.basic.primary};
-    }
-  }
-
-  /*-------------- PRIMARY----------------*/
-  .ant-select-item-option.secondary {
-    .ant-select-item-option-content {
-      color: ${(props) => props.theme.basic.secondary};
-    }
-  }
-
-  /*-------------- WARNING----------------*/
-  .ant-select-item-option.warning {
-    .ant-select-item-option-content {
-      color: ${(props) => props.theme.basic.warning};
-    }
-  }
-
-  /*-------------- DANGER----------------*/
-  .ant-select-item-option.danger {
-    .ant-select-item-option-content {
-      color: ${(props) => props.theme.basic.danger};
-    }
-  }
-
-  /*-------------- BACKGROUNDS ACTIVE/SELECT----------------*/
-  .ant-select-item-option.primary.ant-select-item-option-active {
-    background-color: ${(props) => props.theme.basic.grayDarken} !important;
-  }
-
-  .ant-select-item-option.primary.ant-select-item-option-selected {
-    background-color: ${(props) => props.theme.basic.blackLighten} !important;
-  }
-
-  /*-------------- SELECT ANT----------------*/
-
-
   /*-------------- NOTIFICATIONS ANT---------------*/
   .ant-message {
     z-index: 999999;
@@ -273,7 +224,6 @@ export const GlobalStyle = createGlobalStyle`
   /*-------------- MODAL CONFIRM ---------------*/
   .ant-modal-content {
     background: ${(props) => props.theme.basic.blackDarken};
-    border: 1px solid ${(props) => props.theme.basic.primary};
 
     .ant-modal-body {
       .ant-modal-confirm-body-wrapper {

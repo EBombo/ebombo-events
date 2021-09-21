@@ -54,21 +54,14 @@ export const DesktopLibraryFolders = (props) => {
 
         <div className="list-type">
           <div className="search-bar">
-            <Input
-              variant="clear"
-              placeholder="Buscar"
-              marginBottom="0"
-              border={`2px solid #C4C4C4`}
-              borderRadius="4px"
-              width="225px"
-            />
+            <Input type="search" placeholder="Buscar" />
           </div>
           <Image
             src={`${config.storageUrl}/resources/folder.svg`}
             height={"30px"}
             width={"30px"}
             size={"contain"}
-            margin={"0 1rem"}
+            margin={"0 25px"}
             cursor={"pointer"}
             onClick={() => setIsVisibleModalFolder(true)}
           />
@@ -273,7 +266,7 @@ const FoldersContainer = styled.div`
     justify-content: space-between;
 
     .search-bar {
-      margin-right: 20px;
+      width: 250px;
     }
 
     .list-type {

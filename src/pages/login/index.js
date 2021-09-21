@@ -19,6 +19,7 @@ const Login = (props) => {
   const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
   const [, setIsVisibleForgotPassword] = useGlobal("isVisibleForgotPassword");
+
   const { register, errors, handleSubmit } = useForm({
     validationSchema,
     reValidateMode: "onSubmit",
@@ -26,34 +27,35 @@ const Login = (props) => {
 
   return (
     <LoginContainer>
-      <Divider>Iniciar sesión</Divider>
       <form onSubmit={handleSubmit(signIn)} autoComplete="on" noValidate>
-        <Input
-          error={errors.email}
-          type="email"
-          ref={register}
-          name="email"
-          variant="primary"
-          placeholder="email"
-        />
-        <Input
-          error={errors.password}
-          type="password"
-          autoComplete="on"
-          ref={register}
-          name="password"
-          variant="primary"
-          placeholder="password"
-        />
+        <div className="input-container">
+          <Input
+            error={errors.email}
+            type="email"
+            ref={register}
+            name="email"
+            placeholder="Correo"
+            height="45px"
+          />
+        </div>
+        <div className="input-container">
+          <Input
+            error={errors.password}
+            type="password"
+            autoComplete="on"
+            ref={register}
+            name="password"
+            placeholder="Contraseña"
+            height="45px"
+          />
+        </div>
         <ButtonAnt
           loading={isLoadingUser}
           disabled={isLoadingUser || isLoadingCreateUser}
-          variant="contained"
-          className="btn-primary"
           width="100%"
           fontSize="14px"
-          padding="6px"
-          border-radius="0"
+          height="45px"
+          borderRadius="0"
           htmlType="submit"
         >
           Iniciar sesión
@@ -65,7 +67,7 @@ const Login = (props) => {
         display="flex"
         margin="10px auto"
       >
-        Recuperar clave
+        Recuperar contraseña
       </Anchor>
       <Anchor
         onClick={() => {
@@ -85,8 +87,14 @@ const Login = (props) => {
 };
 
 const LoginContainer = styled.div`
-  svg {
-    color: ${(props) => props.theme.basic.white};
+  .input-container {
+    margin: 0.5rem auto;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    border: none !important;
+    border-radius: 0 !important;
   }
 
   .ant-btn-loading {

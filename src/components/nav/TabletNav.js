@@ -1,10 +1,8 @@
 import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import { Tooltip } from "antd";
 import { Image } from "../common/Image";
 import { config } from "../../firebase";
 import { Anchor } from "../form";
-import { MenuOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 import { useAcl } from "../../hooks";
 
@@ -12,14 +10,14 @@ export const TabletNav = (props) => {
   const router = useRouter();
   const { userAcls } = useAcl();
   const [authUser] = useGlobal("user");
-  const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
+  const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
 
   return (
     <TabletNavContainer>
       <div />
       <Image
-        src={`${config.storageUrl}/resources/ebombo-white.svg`}
+        src={`${config.storageUrl}/resources/ebombo-white.png`}
         onClick={() =>
           userAcls.some((acl) => acl.includes("admin"))
             ? router.push("/admin")
@@ -29,15 +27,30 @@ export const TabletNav = (props) => {
         }
         height="23px"
         width="88px"
+        size="contain"
       />
       {!authUser && (
-        <Anchor onClick={() => setIsVisibleLoginModal(true)} variant="primary">
-          Ingresa
+        <Anchor
+          onClick={() => setIsVisibleLoginModal(true)}
+          variant="primary"
+          fontSize={"1rem"}
+        >
+          Iniciar sesión
         </Anchor>
       )}
       {authUser && (
-        <div className="menu-icon-nav" onClick={() => setOpenRightDrawer(true)}>
-          <MenuOutlined />
+        <div
+          className="hamburger"
+          onClick={() => setOpenRightDrawer(!openRightDrawer)}
+        >
+          <Image
+            src={`${config.storageUrl}/resources/user-profile.svg`}
+            height="31px"
+            width="31px"
+            borderRadius="50%"
+            size="contain"
+            cursor="pointer"
+          />
         </div>
       )}
     </TabletNavContainer>
@@ -58,7 +71,9 @@ const TabletNavContainer = styled.div`
   padding: 0 0.5rem;
   background: ${(props) => props.theme.basic.secondary};
 
-  .menu-icon-nav {
-    color: ${(props) => props.theme.basic.white};
+  .hamburger {
+    display: block;
+    cursor: pointer;
+    margin: 0;
   }
 `;

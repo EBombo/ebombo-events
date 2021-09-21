@@ -7,6 +7,7 @@
       "/library/games": "Lista de juegos",
       "/library/games/new": "Crear juego",
       "/library/games/[gameId]": "Editar juego",
+      "/library/games/[gameId]/view": "Vista del juego",
       "/library/folders": "Lista de folders",
       "/library/folders/new": "Crear sub folders",
       "/library/folders/[folderId]": "Ver sub folders",

@@ -18,6 +18,14 @@ export const TabletLibrary = (props) => {
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
   const [folder, setFolder] = useState(null);
   const [loadingGames] = useGlobal("loadingGames");
+  const [games] = useGlobal("games");
+
+  const getGames = () => {
+    if (router.asPath.includes("/favorites"))
+      return games.filter((game) => !!game.isFavorite);
+
+    return games;
+  };
 
   return (
     <TabletLibraryContainer>
@@ -103,7 +111,7 @@ export const TabletLibrary = (props) => {
                     onClick={() => setIsVisibleModalFolder(true)}
                   >
                     <Image
-                      src={`${config.storageUrl}/resources/purple-star.svg`}
+                      src={`${config.storageUrl}/resources/purple-folder.svg`}
                       width="20px"
                       height="25px"
                       className="icon"
@@ -143,7 +151,7 @@ export const TabletLibrary = (props) => {
                     onClick={() => router.push(`/library/folders/${folder.id}`)}
                   >
                     <Image
-                      src={`${config.storageUrl}/resources/purple-puzzle.svg`}
+                      src={`${config.storageUrl}/resources/purple-folder.svg`}
                       width="20px"
                       height="25px"
                       className="icon"
@@ -226,7 +234,7 @@ export const TabletLibrary = (props) => {
             ) : isEmpty(props.games) ? (
               <div className="empty-message">No cuentas con juegos</div>
             ) : (
-              props.games.map((game) => (
+              getGames().map((game) => (
                 <ListGameView
                   game={game}
                   key={game.id}

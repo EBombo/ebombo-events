@@ -91,6 +91,7 @@ export const useAuth = () => {
   const signIn = async (user) => {
     try {
       await setIsLoadingUser(true);
+
       await auth.signInWithEmailAndPassword(
         user.email.trim().toLowerCase(),
         user.password
@@ -241,11 +242,11 @@ const ButtonsCss = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
-  padding: 0.8em;
+  height: 40px;
   border: 1px solid ${(props) => props.border || props.theme.basic.gray};
   background-color: ${(props) => props.background || props.theme.basic.white};
   color: ${(props) => props.color || props.theme.basic.white};
-  border-radius: 3px;
+  border-radius: 4px;
   font-size: 13px;
   font-weight: normal;
   text-align: center;

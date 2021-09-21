@@ -12,7 +12,9 @@
     "currency": "",
     "serverUrl": "https://ebombo-events.web.app",
     "serverUrlTrivia": "https://trivia-321015.web.app",
-    "mails": "",
+    "mails": [
+      "santiago@bombo.pe"
+    ],
     "maxAgeCache": "86400"
   },
   "development": {
@@ -28,10 +30,7 @@
     "currency": "",
     "serverUrl": "https://ebombo-events.web.app",
     "serverUrlTrivia": "https://trivia-dev-321021.web.app",
-    "mails": [
-      "mendo@bombo.pe",
-      "pabloynciorivera@gmail.com"
-    ],
+    "mails": ["mendo@bombo.pe", "pabloynciorivera@gmail.com", "tech@bombo.pe"],
     "maxAgeCache": "86400"
   }
 }

@@ -38,7 +38,6 @@ const MyApp = ({ Component, pageProps }) => {
       : folderRef.where("parentId", "==", null);
 
     folderRef.onSnapshot((foldersQuery) => {
-      console.log("1->", snapshotToArray(foldersQuery));
       setFolders(snapshotToArray(foldersQuery));
     });
   };
@@ -57,7 +56,6 @@ const MyApp = ({ Component, pageProps }) => {
       if (error) throw Error(error);
 
       let games_ = response?.games ?? [];
-      console.log("games", games_);
 
       if (folderId)
         games_ = games_.filter((game) => game.parentId === folderId);

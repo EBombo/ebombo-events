@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./Image";
 import get from "lodash/get";
-import { CloudUploadOutlined } from "@ant-design/icons";
 import { ButtonAnt } from "../form";
 import { useResizeImage, useUploadToStorage } from "../../hooks";
 import { Icon } from "./Icons";
 import defaultTo from "lodash/defaultTo";
+import { config } from "../../firebase";
 
 export const FileUpload = (props) => {
   const { resize } = useResizeImage();
@@ -114,43 +114,56 @@ export const FileUpload = (props) => {
 
   return (
     <UploadContainer>
-      {props.preview !== "false" &&
-        (previewFile ? (
-          <div className="image-container">
-            {get(props, "accept", "image").includes("image") ? (
-              <Image
-                src={previewFile}
-                height="100px"
-                width="100px"
-                margin="0"
-                borderRadius="5px"
-              />
-            ) : (
-              <>
-                {previewFile} <Icon type="check-circle" />
-              </>
-            )}
-          </div>
-        ) : (
-          <div className="dashed" onClick={() => inputRef.current.click()}>
-            <CloudUploadOutlined />
-          </div>
-        ))}
-      {props.preview === "false" && fileName && !loading && (
+      {previewFile && props.preview && (
+        <div className="cover">
+          <Image
+            src={previewFile}
+            width="212px"
+            height="121px"
+            size="cover"
+            margin="0"
+          />
+          <ButtonAnt
+            color="secondary"
+            onClick={() => inputRef.current.click()}
+            loading={loading}
+            disabled={props.disabled}
+          >
+            {props.buttonLabel || "Subir Imagen"}
+          </ButtonAnt>
+        </div>
+      )}
+      {!previewFile && props.preview && (
+        <div className="upload-file" onClick={() => inputRef.current.click()}>
+          <Image
+            src={`${config.storageUrl}/resources/no-image.svg`}
+            width="40px"
+            height="40px"
+            size="contain"
+            margin="0"
+            cursor="pointer"
+          />
+          <span>Añade una imagen de cover</span>
+        </div>
+      )}
+
+      {!props.preview && fileName && !loading && (
         <div className="file-name">
           {fileName} <Icon type="check-circle" />
         </div>
       )}
-      <div className="input-container">
+      {!props.preview && (
         <ButtonAnt
-          variant="contained"
           color="secondary"
           onClick={() => inputRef.current.click()}
           loading={loading}
-          key={loading}
+          disabled={props.disabled}
         >
           {props.buttonLabel || "Subir Imagen"}
         </ButtonAnt>
+      )}
+
+      <div className="input-container">
         <input
           type="file"
           accept={props.accept || "image/*" || "application/pdf"}
@@ -164,33 +177,41 @@ export const FileUpload = (props) => {
 };
 
 const UploadContainer = styled.div`
-  width: 150px;
-  margin-top: 0.5rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
+  margin: 0;
 
-  .image-container {
-    color: ${(props) => props.theme.basic.success};
-  }
-
-  .dashed {
-    cursor: pointer;
-    height: 100px;
-    width: 100px;
-    border: 1px dashed ${(props) => props.theme.basic.grayLighten};
+  .cover {
     display: flex;
-    justify-content: center;
     align-items: center;
-
-    svg {
-      width: 35px;
-      height: 35px;
-      color: ${(props) => props.theme.basic.grayLighten};
-    }
+    grid-gap: 1rem;
+    margin-top: 0.5rem;
   }
 
-  .input-container {
+  .upload-file {
     margin-top: 0.5rem;
+    width: 212px;
+    height: 121px;
+    background: ${(props) => props.theme.basic.whiteLight};
+    border: 1px solid ${(props) => props.theme.basic.grayLighten};
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    cursor: pointer;
+
+    span {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 11px;
+      line-height: 13px;
+      text-align: center;
+      color: ${(props) => props.theme.basic.grayLight};
+    }
   }
 `;

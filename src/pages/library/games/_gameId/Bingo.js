@@ -1,6 +1,6 @@
-import React, { useState, useGlobal, useEffect } from "reactn";
+import React, { useEffect, useRef, useState } from "reactn";
 import styled from "styled-components";
-import { mediaQuery, Tablet, Desktop } from "../../../../constants";
+import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { Anchor, ButtonAnt, Input } from "../../../../components/form";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import get from "lodash/get";
@@ -8,14 +8,9 @@ import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { darkTheme } from "../../../../theme";
 import { ModalSettings } from "./ModalSettings";
-
-const bingoCard = [
-  [2, 4, 8, 13, 15],
-  [16, 22, 25, 27, 30],
-  [31, 33, 36, 38, 45],
-  [46, 48, 56, 59, 60],
-  [61, 63, 68, 72, 75],
-];
+import { useRouter } from "next/router";
+import { bingoCard } from "../../../../components/common/DataList";
+import { firestore } from "../../../../firebase";
 
 export const Bingo = (props) => {
   const [coverImgUrl, setCoverImgUrl] = useState(null);
@@ -27,8 +22,13 @@ export const Bingo = (props) => {
   const [allowDuplicate, setAllowDuplicate] = useState(true);
   const [visibility, setVisibility] = useState(true);
   const [audio, setAudio] = useState(null);
+  const [newId, setNewId] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
+    const _newId = firestore.collection("bingo").doc().id;
+    setNewId(_newId);
+
     if (!props.game) return;
 
     setOwnBranding(props.game.ownBranding);
@@ -38,10 +38,11 @@ export const Bingo = (props) => {
     setAudio(props.game.audio);
     setCoverImgUrl(props.game.coverImgUrl);
     setBackgroundImg(props.game.backgroundImg);
+    setNewId(props.game.id);
   }, []);
 
   const schema = object().shape({
-    title: string(),
+    title: string().max(25),
     name: string().required(),
   });
 
@@ -72,6 +73,7 @@ export const Bingo = (props) => {
       allowDuplicate,
       visibility,
       audio,
+      id: newId,
     };
 
     await props.submitGame(_game);
@@ -95,6 +97,7 @@ export const Bingo = (props) => {
           audio={audio}
           setAllowDuplicate={setAllowDuplicate}
           allowDuplicate={allowDuplicate}
+          newId={newId}
           {...props}
         />
       )}
@@ -112,7 +115,7 @@ export const Bingo = (props) => {
             <div className="btns-container">
               <ButtonAnt
                 variant={"outlined"}
-                color={"default"}
+                color={"dark"}
                 disabled={props.isLoading}
                 onClick={() => router.back()}
               >
@@ -140,7 +143,6 @@ export const Bingo = (props) => {
                 ref={register}
                 error={errors.name}
                 placeholder="Título sin nombre"
-                className="name-input"
               />
 
               <ButtonAnt
@@ -149,6 +151,7 @@ export const Bingo = (props) => {
                 size="small"
                 margin={"0 0 0 10px"}
                 onClick={() => setIsVisibleModalSettings(true)}
+                disabled={props.isLoading}
               >
                 Ajustes
               </ButtonAnt>
@@ -159,19 +162,14 @@ export const Bingo = (props) => {
                 <div className="text">Titulo y columnas</div>
                 <Input
                   defaultValue={get(props, "game.title", "")}
-                  marginBottom={"0"}
-                  variant="primary"
                   type="text"
                   name="title"
                   ref={register}
                   error={errors.title}
                   placeholder="Titulo"
-                  className="title-input"
                 />
                 <div className="bingo-inputs">
                   <Input
-                    marginBottom={"0"}
-                    variant="primary"
                     type="text"
                     name="b"
                     ref={register}
@@ -181,8 +179,6 @@ export const Bingo = (props) => {
                     maxLength={1}
                   />
                   <Input
-                    marginBottom={"0"}
-                    variant="primary"
                     type="text"
                     name="i"
                     ref={register}
@@ -192,8 +188,6 @@ export const Bingo = (props) => {
                     maxLength={1}
                   />
                   <Input
-                    marginBottom={"0"}
-                    variant="primary"
                     type="text"
                     name="n"
                     ref={register}
@@ -203,8 +197,6 @@ export const Bingo = (props) => {
                     maxLength={1}
                   />
                   <Input
-                    marginBottom={"0"}
-                    variant="primary"
                     type="text"
                     name="g"
                     ref={register}
@@ -214,8 +206,6 @@ export const Bingo = (props) => {
                     maxLength={1}
                   />
                   <Input
-                    marginBottom={"0"}
-                    variant="primary"
                     type="text"
                     name="o"
                     ref={register}
@@ -234,7 +224,7 @@ export const Bingo = (props) => {
                     blocksColor={watch("blocksColor")}
                     numberColor={watch("numberColor")}
                   >
-                    <div className="card-title">{watch("title")}</div>
+                    <div className="card-title no-wrap">{watch("title")}</div>
                     <table>
                       <thead className="thead">
                         <tr>
@@ -262,66 +252,115 @@ export const Bingo = (props) => {
             <div className="subtitle">Selecciona un color para cambiarlo</div>
             <div className="colors-container">
               <div className="color-pick">
-                <input
-                  type="color"
-                  name="backgroundColor"
-                  defaultValue={get(
-                    props,
-                    "game.backgroundColor",
-                    darkTheme.basic.secondary
-                  )}
-                  ref={register}
-                />
-                <label htmlFor="backgroundColor">
-                  {watch("backgroundColor")}
-                </label>
+                <div className="color-title">Fondo</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="backgroundColor"
+                    defaultValue={get(
+                      props,
+                      "game.backgroundColor",
+                      darkTheme.basic.secondary
+                    )}
+                    ref={register}
+                    id="input-color-background"
+                  />
+                  <label
+                    htmlFor="backgroundColor"
+                    onClick={() =>
+                      document.getElementById("input-color-background").click()
+                    }
+                  >
+                    {watch("backgroundColor")}
+                  </label>
+                </div>
               </div>
               <div className="color-pick">
-                <input
-                  type="color"
-                  name="titleColor"
-                  defaultValue={get(
-                    props,
-                    "game.titleColor",
-                    darkTheme.basic.whiteLight
-                  )}
-                  ref={register}
-                />
-                <label htmlFor="titleColor">{watch("titleColor")}</label>
+                <div className="color-title">Titulo</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="titleColor"
+                    defaultValue={get(
+                      props,
+                      "game.titleColor",
+                      darkTheme.basic.whiteLight
+                    )}
+                    id="input-color-title"
+                    ref={register}
+                  />
+                  <label
+                    htmlFor="titleColor"
+                    onClick={() =>
+                      document.getElementById("input-color-title").click()
+                    }
+                  >
+                    {watch("titleColor")}
+                  </label>
+                </div>
               </div>
               <div className="color-pick">
-                <input
-                  type="color"
-                  name="blocksColor"
-                  defaultValue={get(
-                    props,
-                    "game.blocksColor",
-                    darkTheme.basic.primary
-                  )}
-                  ref={register}
-                />
-                <label htmlFor="blocksColor">{watch("blocksColor")}</label>
+                <div className="color-title">Bloques</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="blocksColor"
+                    defaultValue={get(
+                      props,
+                      "game.blocksColor",
+                      darkTheme.basic.primary
+                    )}
+                    id="input-color-blocks"
+                    ref={register}
+                  />
+                  <label
+                    htmlFor="blocksColor"
+                    onClick={() =>
+                      document.getElementById("input-color-blocks").click()
+                    }
+                  >
+                    {watch("blocksColor")}
+                  </label>
+                </div>
               </div>
               <div className="color-pick">
-                <input
-                  type="color"
-                  name="numberColor"
-                  defaultValue={get(
-                    props,
-                    "game.numberColor",
-                    darkTheme.basic.whiteLight
-                  )}
-                  ref={register}
-                />
-                <label htmlFor="numberColor">{watch("numberColor")}</label>
+                <div className="color-title">Número</div>
+                <div className="input-container">
+                  <input
+                    type="color"
+                    name="numberColor"
+                    defaultValue={get(
+                      props,
+                      "game.numberColor",
+                      darkTheme.basic.whiteLight
+                    )}
+                    ref={register}
+                    id="input-color-number"
+                  />
+                  <label
+                    htmlFor="numberColor"
+                    onClick={() =>
+                      document.getElementById("input-color-number").click()
+                    }
+                  >
+                    {watch("numberColor")}
+                  </label>
+                </div>
               </div>
             </div>
-            <FileUpload
-              preview={"false"}
-              fileName="backgroundImage"
-              sizes="300x350"
-              onChange={(img) => setBackgroundImg(img)}
-            />
+            <div className="upload-container">
+              <FileUpload
+                file={backgroundImg}
+                preview={false}
+                fileName="backgroundImg"
+                filePath={`/games/Bingo/${newId}`}
+                sizes="470x570"
+                disabled={props.isLoading}
+                afterUpload={(resizeImages) =>
+                  setBackgroundImg(resizeImages[0].url)
+                }
+              />
+            </div>
           </div>
 
           <Desktop>
@@ -337,34 +376,36 @@ export const Bingo = (props) => {
                   Guardar
                 </ButtonAnt>
               </div>
-              <CardContainer
-                backgroundColor={watch("backgroundColor")}
-                titleColor={watch("titleColor")}
-                blocksColor={watch("blocksColor")}
-                numberColor={watch("numberColor")}
-              >
-                <div className="card-title">{watch("title")}</div>
-                <table>
-                  <thead className="thead">
-                    <tr>
-                      <th>{watch("b")}</th>
-                      <th>{watch("i")}</th>
-                      <th>{watch("n")}</th>
-                      <th>{watch("g")}</th>
-                      <th>{watch("o")}</th>
-                    </tr>
-                  </thead>
-                  <tbody className="tbody">
-                    {bingoCard.map((arrNums, index) => (
-                      <tr key={`key-${index}`}>
-                        {arrNums.map((num, idx) => (
-                          <td key={`key-${num}-${idx}`}>{num}</td>
-                        ))}
+              <div className="card-container">
+                <CardContainer
+                  backgroundColor={watch("backgroundColor")}
+                  titleColor={watch("titleColor")}
+                  blocksColor={watch("blocksColor")}
+                  numberColor={watch("numberColor")}
+                >
+                  <div className="card-title no-wrap">{watch("title")}</div>
+                  <table>
+                    <thead className="thead">
+                      <tr>
+                        <th>{watch("b")}</th>
+                        <th>{watch("i")}</th>
+                        <th>{watch("n")}</th>
+                        <th>{watch("g")}</th>
+                        <th>{watch("o")}</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </CardContainer>
+                    </thead>
+                    <tbody className="tbody">
+                      {bingoCard.map((arrNums, index) => (
+                        <tr key={`key-${index}`}>
+                          {arrNums.map((num, idx) => (
+                            <td key={`key-${num}-${idx}`}>{num}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </CardContainer>
+              </div>
             </div>
           </Desktop>
         </div>
@@ -409,21 +450,6 @@ const BingoContainer = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      .name-input {
-        background: ${(props) => props.theme.basic.whiteLight} !important;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 15px;
-        line-height: 18px;
-        border: none;
-        box-sizing: border-box;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        color: ${(props) => props.theme.basic.grayLight};
-        border-radius: 4px;
-        height: 36px;
-      }
     }
 
     .subtitle {
@@ -456,40 +482,16 @@ const BingoContainer = styled.div`
         justify-content: center;
       }
 
-      .title-input {
-        background: ${(props) => props.theme.basic.whiteLight} !important;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 15px;
-        line-height: 18px;
-        border: none;
-        box-sizing: border-box;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        color: ${(props) => props.theme.basic.grayLight};
-        border-radius: 4px;
-        height: 42px;
-      }
-
       .bingo-inputs {
-        margin-top: 1rem;
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-gap: 5px;
+        max-width: 200px;
+        margin: 1rem auto;
 
         .input-bingo {
-          background: ${(props) => props.theme.basic.whiteLight} !important;
           padding: 0 !important;
-          text-align: center;
-          font-family: Lato;
-          font-style: normal;
-          font-weight: bold;
-          font-size: 15px;
-          line-height: 18px;
-          border-radius: 4px;
-          border: none !important;
-          height: 28px;
-          color: ${(props) => props.theme.basic.grayLight};
+          text-align: center !important;
         }
       }
     }
@@ -502,8 +504,21 @@ const BingoContainer = styled.div`
 
       .color-pick {
         display: flex;
-        align-items: center;
-        justify-content: space-evenly;
+        flex-direction: column;
+
+        .color-title {
+          font-family: Lato;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 13px;
+          line-height: 16px;
+          color: ${(props) => props.theme.basic.grayLight};
+        }
+
+        .input-container {
+          display: flex;
+          align-items: center;
+        }
       }
 
       input[type="color"] {
@@ -513,6 +528,7 @@ const BingoContainer = styled.div`
         outline: none;
         border-radius: 3px;
         -webkit-appearance: none;
+        cursor: pointer;
       }
 
       input[type="color"]::-webkit-color-swatch-wrapper {
@@ -539,7 +555,13 @@ const BingoContainer = styled.div`
         color: ${(props) => props.theme.basic.grayLight};
         border: 1px solid ${(props) => props.theme.basic.grayLight};
         border-radius: 4px;
+        cursor: pointer;
+        margin-left: 10px;
       }
+    }
+
+    .upload-container {
+      margin-top: 1rem;
     }
   }
 
@@ -555,6 +577,12 @@ const BingoContainer = styled.div`
         margin-bottom: 0.5rem;
         justify-content: flex-end;
       }
+
+      .card-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
     }
 
     .main-container {
@@ -568,10 +596,6 @@ const BingoContainer = styled.div`
       box-sizing: border-box;
       padding: 1rem;
 
-      .bingo-inputs {
-        max-width: 160px;
-        margin: 0 auto;
-      }
       .bingo-card {
         grid-template-columns: 1fr;
       }
@@ -579,7 +603,7 @@ const BingoContainer = styled.div`
   }
 `;
 
-const CardContainer = styled.div`
+export const CardContainer = styled.div`
   width: 100%;
   height: 210px;
   max-width: 200px;
@@ -602,9 +626,10 @@ const CardContainer = styled.div`
   }
 
   table {
-    width: 100%;
+    width: 90%;
     border-collapse: separate;
     border-spacing: 2.5px;
+    margin: 0 auto;
 
     thead {
       th {
@@ -653,7 +678,6 @@ const CardContainer = styled.div`
 
     table {
       width: 400px;
-      margin: 0 auto;
       border-collapse: separate;
       border-spacing: 5px;
 

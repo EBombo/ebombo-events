@@ -77,7 +77,6 @@ export const GameContainer = (props) => {
         <Input
           type="text"
           name="name"
-          label="Name"
           ref={register}
           variant="primary"
           defaultValue={game.name}
@@ -87,12 +86,20 @@ export const GameContainer = (props) => {
         <Input
           type="text"
           name="domain"
-          label="Domain"
           ref={register}
           variant="primary"
           defaultValue={game.domain}
           placeholder="Domain"
           error={errors.domain}
+        />
+        <Input
+          type="text"
+          name="api"
+          ref={register}
+          variant="primary"
+          defaultValue={game.api}
+          placeholder="Domain"
+          error={errors.api}
         />
         <ButtonAnt
           htmlType="submit"

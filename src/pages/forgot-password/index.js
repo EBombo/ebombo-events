@@ -52,8 +52,8 @@ const ForgotPassword = (props) => {
           <React.Fragment>
             <h1 className="title">!Excellent!</h1>
             <p className="forgot-password-note">
-              We have sent you an email with instructions to reset your
-              password.
+              Le hemos enviado un correo electrónico con instrucciones para
+              restablecer su contraseña.
             </p>
             <Anchor
               variant="primary"
@@ -65,7 +65,7 @@ const ForgotPassword = (props) => {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <h1 className="title">Recuperar clave</h1>
+            <h1 className="title">Recuperar contraseña</h1>
             <p className="forgot-password-note">
               Por favor, introduce la dirección de correo electrónico asociada a
               tu cuenta. Te enviaremos un correo electrónico que te permitirá
@@ -94,7 +94,8 @@ const ForgotPassword = (props) => {
                   disabled={loadingSendEmailStatus}
                   height="35px"
                   width="170px"
-                  variant="outlined"
+                  variant="contained"
+                  color="default"
                   onClick={() => cancelButton()}
                 >
                   CANCELAR
@@ -119,7 +120,7 @@ const ForgotPassword = (props) => {
 };
 
 const ContainerForgotPassword = styled.div`
-  color: ${(props) => props.theme.white};
+  color: ${(props) => props.theme.basic.primary};
 
   .content-forgot-password {
     margin: auto;
@@ -139,13 +140,13 @@ const ContainerForgotPassword = styled.div`
     }
 
     .title {
-      color: ${(props) => props.theme.basic.white};
+      color: ${(props) => props.theme.basic.primary};
       font-size: 18px;
       margin-bottom: 10px;
     }
 
     .forgot-password-note {
-      color: ${(props) => props.theme.basic.white};
+      color: ${(props) => props.theme.basic.primary};
       font-size: 15px;
       text-align: justify;
       margin-bottom: 0;
@@ -163,6 +164,7 @@ const ContainerForgotPassword = styled.div`
 
       .btn-footer-password {
         display: flex;
+        margin-top: 10px;
         justify-content: space-between;
       }
 

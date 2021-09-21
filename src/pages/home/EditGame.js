@@ -108,12 +108,10 @@ const EditGame = (props) => {
       </div>
       <form onSubmit={handleSubmit(saveIntegrationGame)}>
         <Input
-          variant="primary"
           name="name"
           ref={register}
           error={errors.name}
           required
-          label="Nombre:"
           defaultValue={get(props, "currentGame.name", "")}
           placeholder="Nombre del juego"
         />
@@ -129,6 +127,7 @@ const EditGame = (props) => {
         />
         <div className="image-component">
           <FileUpload
+            preview={true}
             file={get(props, "currentGame.backgroundImageUrl", "")}
             fileName="imageUrl"
             filePath={`/events/integration-games/${props.currentGame.id}`}

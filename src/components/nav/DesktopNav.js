@@ -13,7 +13,7 @@ export const DesktopNav = (props) => {
   const router = useRouter();
   const { userAcls } = useAcl();
   const [authUser] = useGlobal("user");
-  const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
+  const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
 
@@ -28,7 +28,7 @@ export const DesktopNav = (props) => {
       )}
       <div className="items-container">
         <Image
-          src={`${config.storageUrl}/resources/ebombo-white.svg`}
+          src={`${config.storageUrl}/resources/ebombo-white.png`}
           onClick={() =>
             userAcls.some((acl) => acl.includes("admin"))
               ? router.push("/admin")
@@ -77,12 +77,28 @@ export const DesktopNav = (props) => {
         )}
       </div>
       {!authUser && (
-        <Anchor onClick={() => setIsVisibleLoginModal(true)} variant="primary">
-          Ingresa
+        <Anchor
+          onClick={() => setIsVisibleLoginModal(true)}
+          variant="primary"
+          fontSize={"1rem"}
+        >
+          Iniciar sesión
         </Anchor>
       )}
       {authUser && (
         <div className="menu-profile">
+          <button
+            className="premium-btn"
+            onClick={() => console.log("premium")}
+          >
+            <Image
+              src={`${config.storageUrl}/resources/premium.svg`}
+              height={"27px"}
+              weight={"27px"}
+              margin={"0 5px 0 0"}
+            />
+            Premium
+          </button>
           <ButtonAnt
             variant="contained"
             width="140px"
@@ -91,10 +107,17 @@ export const DesktopNav = (props) => {
             Crear
           </ButtonAnt>
           <div
-            className="menu-icon-nav"
-            onClick={() => setOpenRightDrawer(true)}
+            className="hamburger"
+            onClick={() => setOpenRightDrawer(!openRightDrawer)}
           >
-            <MenuOutlined />
+            <Image
+              src={`${config.storageUrl}/resources/user-profile.svg`}
+              height="31px"
+              width="31px"
+              borderRadius="50%"
+              size="contain"
+              cursor="pointer"
+            />
           </div>
         </div>
       )}
@@ -158,10 +181,28 @@ const DesktopNavContainer = styled.div`
 
   .menu-profile {
     display: flex;
+    align-items: center;
 
-    .menu-icon-nav {
-      margin: auto 10px;
-      color: ${(props) => props.theme.basic.white};
+    .premium-btn {
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-right: 1rem;
+      font-family: Lato;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 18px;
+      border: none;
+      color: ${(props) => props.theme.basic.primary};
+      cursor: pointer;
+    }
+
+    .hamburger {
+      display: block;
+      cursor: pointer;
+      margin: 0 1rem;
     }
   }
 `;

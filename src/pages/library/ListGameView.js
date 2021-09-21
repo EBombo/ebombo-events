@@ -16,6 +16,7 @@ export const ListGameView = (props) => {
   const [authUser] = useGlobal("user");
   const [games, setGames] = useGlobal("games");
   const [resource, setResource] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
@@ -94,15 +95,27 @@ export const ListGameView = (props) => {
   };
 
   const createTokenToPlay = async () => {
+    setIsLoading(true);
     try {
       const tokenId = await auth.currentUser.getIdToken();
 
-      const redirectUrl = `${props.game.adminGame.domain}/lobby/games/${props.game.id}?tokenId=${tokenId}`;
+      const redirectUrl = `${props.game.adminGame.domain}/games/${props.game.id}?tokenId=${tokenId}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {
       console.error(error);
     }
+    setIsLoading(false);
+  };
+
+  const redirectToGameView = () => {
+    get(props, "game.parentId", null)
+      ? router.push(
+          `/library/games/${props.game.id}/view?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+        )
+      : router.push(
+          `/library/games/${props.game.id}/view?resourceId=${props.game.resourceId}`
+        );
   };
 
   return (
@@ -122,10 +135,14 @@ export const ListGameView = (props) => {
             margin="0"
             size="cover"
             borderRadius="4px 0px 0px 4px"
+            cursor="pointer"
+            onClick={() => redirectToGameView()}
           />
           <div className="main-content">
             <div className="description">
-              {props.game.name}
+              <div className="name" onClick={() => redirectToGameView()}>
+                {props.game.name}
+              </div>
               <div className="right-content">
                 {props.game.isFavorite ? (
                   <Image
@@ -213,14 +230,17 @@ export const ListGameView = (props) => {
                     variant="contained"
                     color="secondary"
                     margin="0 1rem"
+                    loading={isLoading}
                     onClick={() => {
+                      setIsLoading(true);
                       get(props, "game.parentId", null)
                         ? router.push(
-                            `/library/games/new?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+                            `/library/games/${props.game.id}?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
                           )
                         : router.push(
                             `/library/games/${props.game.id}?resourceId=${props.game.resourceId}`
                           );
+                      setIsLoading(false);
                     }}
                   >
                     Editar
@@ -228,6 +248,7 @@ export const ListGameView = (props) => {
                   <ButtonAnt
                     variant="contained"
                     color="primary"
+                    loading={isLoading}
                     onClick={createTokenToPlay}
                   >
                     Jugar
@@ -407,6 +428,7 @@ const IconsContainer = styled.div`
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   margin: 1rem 0;
+  cursor: pointer;
 
   .select {
     display: flex;
@@ -426,9 +448,19 @@ const IconsContainer = styled.div`
       line-height: 16px;
       color: ${(props) => props.theme.basic.black};
       padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: grid;
+      align-items: flex-start;
+      grid-template-columns: 80% 20%;
+      height: 80%;
+
+      ${mediaQuery.afterTablet} {
+        grid-template-columns: 90% 10%;
+      }
+
+      .name {
+        height: 100%;
+        cursor: pointer;
+      }
 
       .right-content {
         display: flex;
@@ -494,7 +526,7 @@ const IconsContainer = styled.div`
 
           span {
             position: relative;
-            left: -10px;
+            left: -5px;
           }
         }
       }

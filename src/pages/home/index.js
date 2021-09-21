@@ -29,6 +29,12 @@ export const Home = (props) => {
   const contactRef = useRef(null);
 
   useEffect(() => {
+    if (!authUser || authUser.isAdmin) return;
+
+    router.push("/library");
+  }, [authUser]);
+
+  useEffect(() => {
     const fetchLandingEvents = () =>
       firestore
         .collection("landings")
@@ -101,8 +107,4 @@ const LandingContainer = styled.div`
     position: relative;
     z-index: 1;
   }
-`;
-
-const FooterSection = styled.section`
-  width: 100%;
 `;

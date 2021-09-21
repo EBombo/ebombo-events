@@ -1,4 +1,4 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useGlobal, useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { Input } from "../../components/form";
 import { ListGameView } from "./ListGameView";
@@ -6,43 +6,48 @@ import isEmpty from "lodash/isEmpty";
 import { spinLoaderMin } from "../../components/common/loader";
 
 export const DesktopLibraryGames = (props) => {
+  const [games, setGames] = useGlobal("games");
   const [listType, setListType] = useState("icons");
   const [tab, setTab] = useState("all");
   const [loadingGames] = useGlobal("loadingGames");
 
+  useEffect(() => {
+    if (tab === "favorites") {
+      const _games = games.filter((game) => !!game.isFavorite);
+      setGames(_games);
+    } else {
+      props.fetchGames();
+    }
+  }, [tab]);
+
   return (
     <GamesContainer>
       <div className="nav-container">
-        <div className="tabs-container">
-          <div
-            className={`tab ${tab === "all" ? "active" : ""}`}
-            onClick={() => setTab("all")}
-          >
-            Mis juegos
+        <div className="tabs-search-container">
+          <div className="tabs-container">
+            <div
+              className={`tab ${tab === "all" ? "active" : ""}`}
+              onClick={() => setTab("all")}
+            >
+              Mis juegos
+            </div>
+            <div
+              className={`tab middle ${tab === "favorites" ? "active" : ""}`}
+              onClick={() => setTab("favorites")}
+            >
+              Favoritos
+            </div>
+            {/*<div*/}
+            {/*  className={`tab ${tab === "drafts" ? "active" : ""}`}*/}
+            {/*  onClick={() => setTab("drafts")}*/}
+            {/*>*/}
+            {/*  Borradores*/}
+            {/*</div>*/}
           </div>
-          <div
-            className={`tab middle ${tab === "favorites" ? "active" : ""}`}
-            onClick={() => setTab("favorites")}
-          >
-            Favoritos
-          </div>
-          <div
-            className={`tab ${tab === "drafts" ? "active" : ""}`}
-            onClick={() => setTab("drafts")}
-          >
-            Borradores
-          </div>
-        </div>
 
-        <div className="search-bar">
-          <Input
-            variant="clear"
-            placeholder="Buscar"
-            marginBottom="0"
-            border={`2px solid #C4C4C4`}
-            borderRadius="4px"
-            width="225px"
-          />
+          <div className="search-bar">
+            <Input type="search" placeholder="Buscar" />
+          </div>
         </div>
 
         <div className="list-type">
@@ -141,6 +146,13 @@ const GamesContainer = styled.div`
     align-items: center;
     justify-content: space-between;
 
+    .tabs-search-container {
+      display: grid;
+      grid-template-columns: auto 300px;
+      grid-gap: 1rem;
+      background: transparent;
+    }
+
     .tabs-container {
       display: flex;
       align-items: center;
@@ -161,7 +173,7 @@ const GamesContainer = styled.div`
 
       .middle {
         border-left: 2px solid ${(props) => props.theme.basic.grayLighten};
-        border-right: 2px solid ${(props) => props.theme.basic.grayLighten};
+        //border-right: 2px solid ${(props) => props.theme.basic.grayLighten};
       }
 
       .active {
