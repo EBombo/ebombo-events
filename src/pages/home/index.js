@@ -108,7 +108,3 @@ const LandingContainer = styled.div`
     z-index: 1;
   }
 `;
-
-const FooterSection = styled.section`
-  width: 100%;
-`;

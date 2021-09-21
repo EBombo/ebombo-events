@@ -6,7 +6,6 @@ import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { object, string } from "yup";
 import { useRouter } from "next/router";
-import { mediaQuery } from "../../constants";
 
 const Login = (props) => {
   const router = useRouter();
@@ -68,7 +67,7 @@ const Login = (props) => {
         display="flex"
         margin="10px auto"
       >
-        Recuperar clave
+        Recuperar contraseña
       </Anchor>
       <Anchor
         onClick={() => {
