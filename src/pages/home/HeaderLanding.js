@@ -60,11 +60,7 @@ export const HeaderLanding = (props) => {
             margin={"0"}
             cursor={"pointer"}
             alt=""
-            onClick={() => {
-              if (authUser) {
-                router.push("/library");
-              }
-            }}
+            onClick={() => router.push("/library")}
           />
         </div>
         <Desktop>
