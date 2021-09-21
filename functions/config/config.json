@@ -13,7 +13,8 @@
     "serverUrl": "https://ebombo-events.web.app",
     "serverUrlTrivia": "https://trivia-321015.web.app",
     "mails": [
-      "santiago@bombo.pe"
+      "santiago@bombo.pe",
+      "tech@bombo.pe"
     ],
     "maxAgeCache": "86400"
   },
