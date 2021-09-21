@@ -12,7 +12,7 @@
     "storageUrl": "https://storage.googleapis.com/ebombo-events.appspot.com",
     "serverUrlLocal": "http://localhost:5001/ebombo-events/us-central1/api",
     "landingsStorageBucket": "ebombo-events-landings",
-    "serverUrl": "https://us-central1-ebombo-events.cloudfunctions.net/api",
+    "serverUrl": "https://api.ebombo.com",
     "environment": "production",
     "analytics": "UA-174451724-1",
     "maxAgeCache": 86400
@@ -30,7 +30,7 @@
     "storageUrl": "https://storage.googleapis.com/ebombo-events-dev.appspot.com",
     "landingsStorageBucket": "ebombo-events-landings-dev",
     "serverUrlLocal": "http://localhost:5001/ebombo-events-dev/us-central1/api",
-    "serverUrl": "https://us-central1-ebombo-events-dev.cloudfunctions.net/api",
+    "serverUrl": "https://red-api.ebombo.com",
     "environment": "development",
     "analytics": "UA-174451724-1",
     "maxAgeCache": 86400
