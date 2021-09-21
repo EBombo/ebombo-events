@@ -28,9 +28,7 @@ export const Footer = (props) => {
               margin={"0 5px 0"}
             />
           </Anchor>
-          <Anchor
-            href={"https://www.facebook.com/ebombogames"}
-          >
+          <Anchor href={"https://www.facebook.com/ebombogames"}>
             <Image
               src={`${config.storageUrl}/resources/facebook-gray.svg`}
               width={"25px"}
@@ -39,9 +37,7 @@ export const Footer = (props) => {
               margin={"0 5px 0"}
             />
           </Anchor>
-          <Anchor
-            href={"https://twitter.com/ebombogames"}
-          >
+          <Anchor href={"https://twitter.com/ebombogames"}>
             <Image
               src={`${config.storageUrl}/resources/twitter-gray.svg`}
               width={"25px"}

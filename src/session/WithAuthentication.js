@@ -1,80 +1,82 @@
-import React, {useEffect, useGlobal, useRef} from "reactn";
-import {auth, firestore} from "../firebase";
-import {useAuth} from "../hooks/useAuth";
-import {useUser} from "../hooks";
+import React, { useEffect, useGlobal, useRef } from "reactn";
+import { auth, firestore } from "../firebase";
+import { useAuth } from "../hooks/useAuth";
+import { useUser } from "../hooks";
 
-export const WithAuthentication = props => {
-    const {createAccount} = useAuth();
-    const [, setAuthUser] = useGlobal("user");
-    const [, setAuthUserLocalStorage] = useUser();
-    const [isLoadingUser, setIsLoadingUser] = useGlobal("isLoadingUser");
-    const [isLoadingCreateUser, setIsLoadingCreateUser] = useGlobal("isLoadingCreateUser");
+export const WithAuthentication = (props) => {
+  const { createAccount } = useAuth();
+  const [, setAuthUser] = useGlobal("user");
+  const [, setAuthUserLocalStorage] = useUser();
+  const [isLoadingUser, setIsLoadingUser] = useGlobal("isLoadingUser");
+  const [isLoadingCreateUser, setIsLoadingCreateUser] = useGlobal(
+    "isLoadingCreateUser"
+  );
 
-    const unSubScribeAuthUser = useRef(null);
+  const unSubScribeAuthUser = useRef(null);
 
-    useEffect(() => {
-        const fetchAuthUser = user =>
-            unSubScribeAuthUser.current = firestore
-                .collection("users")
-                .doc(user.uid)
-                .onSnapshot(async onSnapShotUser => {
+  useEffect(() => {
+    const fetchAuthUser = (user) =>
+      (unSubScribeAuthUser.current = firestore
+        .collection("users")
+        .doc(user.uid)
+        .onSnapshot(async (onSnapShotUser) => {
+          if (!onSnapShotUser.exists) {
+            return auth.currentUser.delete();
+          }
 
-                    if (!onSnapShotUser.exists) {
-                        return auth.currentUser.delete();
-                    }
+          const currentUser = onSnapShotUser.data();
+          await setAuthUser(currentUser);
+          setAuthUserLocalStorage(currentUser);
 
-                    const currentUser = onSnapShotUser.data();
-                    await setAuthUser(currentUser);
-                    setAuthUserLocalStorage(currentUser);
+          await setIsLoadingUser(false);
+          await setIsLoadingCreateUser(false);
+        }));
 
-                    await setIsLoadingUser(false);
-                    await setIsLoadingCreateUser(false);
-                });
+    const unsubscribeAuthStateChanged = auth.onAuthStateChanged(
+      async (user) => {
+        if (!user) unSubScribeAuthUser.current && unSubScribeAuthUser.current();
 
-        const unsubscribeAuthStateChanged = auth.onAuthStateChanged(async user => {
+        if (isLoadingCreateUser || !user) return;
 
-            if (!user) unSubScribeAuthUser.current && unSubScribeAuthUser.current();
+        unSubScribeAuthUser.current && unSubScribeAuthUser.current();
+        fetchAuthUser(user);
+      }
+    );
 
-            if (isLoadingCreateUser || !user) return;
+    return () => unsubscribeAuthStateChanged();
+  }, [isLoadingUser, isLoadingCreateUser]);
 
-            unSubScribeAuthUser.current && unSubScribeAuthUser.current();
-            fetchAuthUser(user);
-        });
+  useEffect(() => {
+    const afterRedirect = async () => {
+      const result = await auth.getRedirectResult();
 
-        return () => unsubscribeAuthStateChanged();
-    }, [isLoadingUser, isLoadingCreateUser]);
+      if (!result.user || !result?.additionalUserInfo?.isNewUser) {
+        await setIsLoadingUser(false);
+        await setIsLoadingCreateUser(false);
+        return;
+      }
 
-    useEffect(() => {
-        const afterRedirect = async () => {
-            const result = await auth.getRedirectResult();
+      const mapRegister = (user) => ({
+        id: user.uid,
+        firstName: user.displayName.split(" ")[0],
+        name: user.displayName.split(" ")[0],
+        lastName: user.displayName.split(" ")[1],
+        email: user.email,
+        imageUrl: user.photoURL,
+        thumbImageUrl: user.photoURL,
+        providerData: { ...user.providerData[0] },
+      });
 
-            if (!result.user || !result?.additionalUserInfo?.isNewUser) {
-                await setIsLoadingUser(false);
-                await setIsLoadingCreateUser(false);
-                return;
-            }
+      const register = mapRegister(result.user);
 
-            const mapRegister = user => ({
-                id: user.uid,
-                firstName: user.displayName.split(" ")[0],
-                name: user.displayName.split(" ")[0],
-                lastName: user.displayName.split(" ")[1],
-                email: user.email,
-                imageUrl: user.photoURL,
-                thumbImageUrl: user.photoURL,
-                providerData: {...user.providerData[0]},
-            });
+      await createAccount(register);
 
-            const register = mapRegister(result.user);
+      await setIsLoadingUser(false);
+      await setIsLoadingCreateUser(false);
+    };
 
-            await createAccount(register);
+    afterRedirect();
+  }, []);
 
-            await setIsLoadingUser(false);
-            await setIsLoadingCreateUser(false);
-        };
-
-        afterRedirect();
-    }, []);
-
-    return props.children;
+  return props.children;
 };

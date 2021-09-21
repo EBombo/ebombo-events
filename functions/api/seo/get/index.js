@@ -1,3 +1,3 @@
-const {getSeo} = require("./getSeo");
+const { getSeo } = require("./getSeo");
 
 exports.getSeo = getSeo;

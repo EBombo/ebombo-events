@@ -21,7 +21,11 @@ console.log("projectId", hostName);
 
 let config;
 
-if (hostName.includes("beta.") || hostName.includes("-dev") || hostName.includes("localhost")) {
+if (
+  hostName.includes("beta.") ||
+  hostName.includes("-dev") ||
+  hostName.includes("localhost")
+) {
   config = configJson.development;
   console.log("dev", version);
 } else {

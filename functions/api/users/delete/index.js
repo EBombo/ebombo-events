@@ -1,3 +1,3 @@
-const {deleteUser} = require("./deleteUser");
+const { deleteUser } = require("./deleteUser");
 
-module.exports = {deleteUser};
+module.exports = { deleteUser };

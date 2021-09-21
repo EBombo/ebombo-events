@@ -31,7 +31,7 @@ export const Home = (props) => {
   useEffect(() => {
     if (!authUser || authUser.isAdmin) return;
 
-    router.push("/library");
+    router.push("/");
   }, [authUser]);
 
   useEffect(() => {

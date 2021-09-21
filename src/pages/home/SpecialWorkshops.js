@@ -7,8 +7,7 @@ import { ButtonAnt } from "../../components/form";
 import { Carousel } from "../../components/common/Carousel";
 import { ModalContainer } from "../../components/common/ModalContainer";
 import { Icon } from "../../components/common/Icons";
-import { mediaQuery } from "../../constants";
-import { Desktop, Tablet } from "../../constants";
+import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { firestore } from "../../firebase";
 import chunk from "lodash/chunk";
 import EditSpecials from "./EditSpecials";
@@ -78,8 +77,8 @@ export const SpecialWorkshops = (props) => {
       </Divider>
       <Desktop>
         <div className="wrapper">
-          {defaultTo(get(props, "events.specialWorkshops"), []).map((workshop) =>
-            guestContent(workshop)
+          {defaultTo(get(props, "events.specialWorkshops"), []).map(
+            (workshop) => guestContent(workshop)
           )}
         </div>
       </Desktop>

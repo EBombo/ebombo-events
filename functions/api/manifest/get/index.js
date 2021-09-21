@@ -1,3 +1,3 @@
-const {getManifest} = require("./getManifest")
+const { getManifest } = require("./getManifest");
 
 exports.getManifest = getManifest;
