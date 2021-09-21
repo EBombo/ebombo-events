@@ -2,7 +2,7 @@ const { firestore } = require("../../config");
 const logger = require("../../utils/logger");
 
 const fetchUsers = async () => {
-    return null;
+  return null;
 };
 
 const fetchUser = async (userId) => {
