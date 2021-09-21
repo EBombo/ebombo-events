@@ -6,22 +6,6 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "rewrites": [
-      {
-        "source": "/api/**",
-        "run": {
-          "serviceId": "events-dev-api",
-          "region": "us-central1"
-        }
-      },
-      {
-        "source": "**",
-        "run": {
-          "serviceId": "events-dev",
-          "region": "us-central1"
-        }
-      }
-    ],
     "headers": [
       {
         "source": "**/*.@(jpg|jpeg|gif|png|svg|ico)",
