@@ -1,14 +1,14 @@
-const {validationResult} = require("express-validator");
+const { validationResult } = require("express-validator");
 
 const validateRequest = async (req, res, next) => {
-    const errors = validationResult(req);
+  const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-        res.status(400).send(errors.array());
-        return;
-    }
+  if (!errors.isEmpty()) {
+    res.status(400).send(errors.array());
+    return;
+  }
 
-    next();
+  next();
 };
 
-module.exports = {validateRequest};
+module.exports = { validateRequest };

@@ -1,3 +1,3 @@
-const {putUpdateUser} = require("./putUpdateUser");
+const { putUpdateUser } = require("./putUpdateUser");
 
-module.exports = { putUpdateUser};
+module.exports = { putUpdateUser };

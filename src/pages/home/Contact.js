@@ -3,11 +3,10 @@ import { config } from "../../firebase";
 import { ButtonAnt, Input, TextArea } from "../../components/form";
 import { Image } from "../../components/common/Image";
 import styled from "styled-components";
-import { mediaQuery } from "../../constants";
+import { Desktop, mediaQuery } from "../../constants";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { useFetch } from "../../hooks/useFetch";
-import { Desktop } from "../../constants";
 import { useSendError } from "../../hooks";
 
 const salesTeam = [
@@ -50,7 +49,11 @@ export const Contact = (props) => {
   const sendEmail = async (data) => {
     setLoadingSendingEmail(true);
     try {
-      const { response, error } = await Fetch(`${config.serverUrl}/api/contact`, "POST", data);
+      const { response, error } = await Fetch(
+        `${config.serverUrl}/api/contact`,
+        "POST",
+        data
+      );
 
       if (error) throw Error(error);
 

@@ -3,7 +3,7 @@ import { Divider } from "../../components/common/Divider";
 import { Controller, useForm } from "react-hook-form";
 import React, { useEffect, useGlobal } from "reactn";
 import { useAuth } from "../../hooks/useAuth";
-import { mediaQuery } from "../../constants";
+import { mediaQuery, sizes } from "../../constants";
 import styled from "styled-components";
 import { dialCodes } from "../../utils";
 import { Image } from "../../components/common/Image";
@@ -14,7 +14,6 @@ import { object, string } from "yup";
 import get from "lodash/get";
 import { days, months, years } from "../../components/common/DataList";
 import { darkTheme } from "../../theme";
-import { sizes } from "../../constants";
 import moment from "moment";
 
 export const Register = (props) => {

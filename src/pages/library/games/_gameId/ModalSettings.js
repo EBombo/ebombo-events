@@ -1,20 +1,18 @@
-import React, { useState, useEffect, useRef } from "reactn";
+import React, { useEffect, useRef, useState } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { darkTheme } from "../../../../theme";
 import { ButtonAnt, Input, Select } from "../../../../components/form";
 import { mediaQuery } from "../../../../constants";
 import get from "lodash/get";
-import { Switch, Radio } from "antd";
+import { Radio, Switch } from "antd";
 import { object, string } from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { firestore } from "../../../../firebase";
 import { useRouter } from "next/router";
-import { config } from "../../../../firebase";
-import { Image } from "../../../../components/common/Image";
 import { snapshotToArray } from "../../../../utils";
-import {useResizeImage, useUploadToStorage} from "../../../../hooks";
-import {FileUpload} from "../../../../components/common/FileUpload";
+import { useResizeImage, useUploadToStorage } from "../../../../hooks";
+import { FileUpload } from "../../../../components/common/FileUpload";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
@@ -121,13 +119,15 @@ export const ModalSettings = (props) => {
             <div className="right-side">
               <div className="label">Imagen de portada</div>
               <FileUpload
-                  file={props.coverImgUrl}
-                  preview={true}
-                  fileName="coverImgUrl"
-                  filePath={`/games/Bingo/${props.newId}`}
-                  sizes="300x350"
-                  disabled={props.isLoading}
-                  afterUpload={(coverImgs) => props.setCoverImgUrl(coverImgs[0].url)}
+                file={props.coverImgUrl}
+                preview={true}
+                fileName="coverImgUrl"
+                filePath={`/games/Bingo/${props.newId}`}
+                sizes="300x350"
+                disabled={props.isLoading}
+                afterUpload={(coverImgs) =>
+                  props.setCoverImgUrl(coverImgs[0].url)
+                }
               />
               <div className="label">
                 Permitir duplicar{" "}

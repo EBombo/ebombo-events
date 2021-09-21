@@ -1,16 +1,16 @@
-import React, {useEffect} from "react";
-import {spinLoader} from "../../../src/components/common/loader";
-import {useRouter} from "next/router";
-import {hostName} from "../../../src/firebase";
+import React, { useEffect } from "react";
+import { spinLoader } from "../../../src/components/common/loader";
+import { useRouter } from "next/router";
+import { hostName } from "../../../src/firebase";
 
 const Seo = () => {
-    const router = useRouter();
+  const router = useRouter();
 
-    useEffect(() => {
-        router.push(`/admin/seo/${hostName}`)
-    }, [])
+  useEffect(() => {
+    router.push(`/admin/seo/${hostName}`);
+  }, []);
 
-    return spinLoader();
+  return spinLoader();
 };
 
 export default Seo;

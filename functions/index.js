@@ -9,6 +9,6 @@ const runtimeOptions = {
 const apiRegion = "us-central1";
 
 exports.api = functions
-    .runWith(runtimeOptions)
-    .region(apiRegion)
-    .https.onRequest(api.api);
+  .runWith(runtimeOptions)
+  .region(apiRegion)
+  .https.onRequest(api.api);
