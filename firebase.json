@@ -17,20 +17,6 @@
           "serviceId": "events",
           "region": "us-central1"
         }
-      },
-      {
-        "source": "red.ebombo.com/api/**",
-        "run": {
-          "serviceId": "events-dev-api",
-          "region": "us-central1"
-        }
-      },
-      {
-        "source": "red.ebombo.com/**",
-        "run": {
-          "serviceId": "events-dev",
-          "region": "us-central1"
-        }
       }
     ],
     "headers": [
