@@ -10,7 +10,6 @@ import { spinLoaderMin } from "../../components/common/loader";
 import { useAuth } from "../../hooks/useAuth";
 import { darkTheme } from "../../theme";
 import { useRouter } from "next/router";
-import get from "lodash/get";
 
 const Login = dynamic(() => import("../login"), {
   loading: () => spinLoaderMin(),
@@ -62,7 +61,7 @@ export const HeaderLanding = (props) => {
             cursor={"pointer"}
             alt=""
             onClick={() => {
-              if (get(authUser, "isAdmin", null)) {
+              if (authUser) {
                 router.push("/library");
               }
             }}
