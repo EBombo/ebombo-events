@@ -22,7 +22,7 @@ console.log("projectId", hostName);
 let config;
 
 if (
-  hostName.includes("beta.") ||
+  hostName.includes("red.") ||
   hostName.includes("-dev") ||
   hostName.includes("localhost")
 ) {
