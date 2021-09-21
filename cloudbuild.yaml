@@ -1,19 +1,19 @@
 steps:
   # Build the container image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/ebombo-events/events-dev", "."]
+    args: ["build", "-t", "gcr.io/ebombo-events/events-gold", "."]
   # Push the container image to Container Registry
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/ebombo-events/events-dev"]
+    args: ["push", "gcr.io/ebombo-events/events-gold"]
   # Deploy container image to Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
     args:
       [
         "run",
         "deploy",
-        "events-dev",
+        "events-gold",
         "--image",
-        "gcr.io/ebombo-events/events-dev",
+        "gcr.io/ebombo-events/events-gold",
         "--region",
         "us-central1",
         "--platform",
@@ -21,7 +21,7 @@ steps:
         "--allow-unauthenticated",
       ]
 images:
-  - "gcr.io/ebombo-events/events-dev"
+  - "gcr.io/ebombo-events/events-gold"
 options:
   logging: CLOUD_LOGGING_ONLY
   # TODO: Solicitar confirmacion de build y deploy de una nueva version.
