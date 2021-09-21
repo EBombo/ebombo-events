@@ -1,18 +1,25 @@
 {
   "hosting": {
     "public": "public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "redirects": [
-      {
-        "source": "**",
-        "destination": "https://events-dev-f24z2j2oaq-uc.a.run.app",
-        "type": 301
-      }
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
     ],
     "rewrites": [
       {
         "source": "/api/**",
-        "function": "api"
+        "run": {
+          "serviceId": "events-dev-api",
+          "region": "us-central1"
+        }
+      },
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "events-dev",
+          "region": "us-central1"
+        }
       }
     ],
     "headers": [
