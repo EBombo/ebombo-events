@@ -1,4 +1,4 @@
-import React, { forwardRef } from "reactn";
+import React, {forwardRef} from "reactn";
 import styled from "styled-components";
 import Button from "antd/lib/button";
 
@@ -123,7 +123,7 @@ const ButtonAntCss = styled(Button)`
       border: none;
       `}
 
-  &:hover {
+  &:hover,&:focus {
     ${({ variant = "contained", theme = darkTheme, color = "primary" }) =>
       variant === "contained"
         ? `
@@ -236,4 +236,5 @@ const ButtonAntCss = styled(Button)`
             : theme.basic.white
         };
         transform: translateY(2px);`}
+  }
 `;
