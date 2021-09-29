@@ -57,6 +57,7 @@ export const GameContainer = (props) => {
           createAt: isNew ? new Date() : game.createAt.toDate(),
           updateAt: new Date(),
           deleted: false,
+          isGameToPlay: true,
         },
         { merge: true }
       );

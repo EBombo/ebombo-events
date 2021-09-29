@@ -109,6 +109,7 @@ export const WithConfiguration = (props) => {
       const gamesRef = await firestore
         .collection("games")
         .where("deleted", "==", false)
+        .where("isGameToPlay", "==", true)
         .get();
 
       await setResources(snapshotToArray(gamesRef));
