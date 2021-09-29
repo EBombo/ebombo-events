@@ -17,6 +17,7 @@ export const GamesContainer = () => {
       const gamesRef = await firestore
         .collection("games")
         .where("deleted", "==", false)
+        .where("isGameToPlay", "==", true)
         .get();
 
       setGames(snapshotToArray(gamesRef));
