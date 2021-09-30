@@ -213,7 +213,7 @@ export const ListGameView = (props) => {
                 {getTimeCreation()}{" "}
                 <ul>
                   <li>
-                    <span>{props?.game?.countPlays ?? 0}</span>
+                    <span>{props?.game?.countPlays ?? 0} reproducciones</span>
                   </li>
                 </ul>
               </div>
