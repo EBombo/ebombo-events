@@ -46,10 +46,6 @@ export const ListGameView = (props) => {
       : `Creado hace ${newTime.minutes()} minutos`;
   };
 
-  const getTimesPlayed = () => {
-    return "7 reproducciones";
-  };
-
   const toggleFavorite = async () => {
     let newGames = games;
     const gameIndex = newGames.findIndex((game) => game.id === props.game.id);
@@ -220,7 +216,7 @@ export const ListGameView = (props) => {
                 {getTimeCreation()}{" "}
                 <ul>
                   <li>
-                    <span>{getTimesPlayed()}</span>
+                    <span>{props?.game?.countPlays ?? 0}</span>
                   </li>
                 </ul>
               </div>
