@@ -6,7 +6,12 @@ import { useRouter } from "next/router";
 import { Desktop, mediaQuery, Tablet } from "../../../../../constants";
 import { Image } from "../../../../../components/common/Image";
 import { CloseCircleOutlined } from "@ant-design/icons";
-import { auth, config, firestore } from "../../../../../firebase";
+import {
+  auth,
+  config,
+  firestore,
+  firestoreBingo,
+} from "../../../../../firebase";
 import { ButtonAnt } from "../../../../../components/form";
 import { darkTheme } from "../../../../../theme";
 import { Tooltip } from "antd";
@@ -42,8 +47,13 @@ export const GameView = (props) => {
   }, [resources]);
 
   const deleteGame = async () => {
+    let newGames = games;
+    const gameIndex = newGames.findIndex((game) => game.id === props.game.id);
+    newGames.splice(gameIndex, 1);
+    setGames(newGames);
+
     try {
-      await firestore.doc(`games/${game.id}`).update({
+      await firestoreBingo.doc(`games/${game.id}`).update({
         deleted: true,
       });
     } catch (error) {

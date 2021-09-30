@@ -2,7 +2,7 @@ import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
-import { auth, config, firestore } from "../../firebase";
+import { auth, config, firestore, firestoreBingo } from "../../firebase";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import get from "lodash/get";
@@ -78,15 +78,12 @@ export const ListGameView = (props) => {
     setGames(newGames);
 
     try {
-      await Fetch(
-        `${resource.domain}/api/games/${props.game.id}/users/${authUser.id}`,
-        "PUT",
-        {
-          deleted: true,
-        }
-      );
+      await firestoreBingo.doc(`games/${props.game.id}`).update({
+        deleted: true,
+      });
     } catch (error) {
-      await sendError(error, "createGame");
+      console.error(error);
+      sendError(error, "deleteGame");
     }
   };
 
