@@ -1,7 +1,7 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
-import { config } from "../../firebase";
+import { config, firestore } from "../../firebase";
 import { useRouter } from "next/router";
 import isEmpty from "lodash/isEmpty";
 import { ButtonAnt } from "../../components/form";
@@ -11,6 +11,7 @@ import { ModalNewFolder } from "./ModalNewFolder";
 import { ModalNewGame } from "./ModalNewGame";
 import { ListGameView } from "./ListGameView";
 import { spinLoaderMin } from "../../components/common/loader";
+import { useSendError } from "../../hooks";
 
 export const TabletLibrary = (props) => {
   const router = useRouter();
@@ -19,12 +20,24 @@ export const TabletLibrary = (props) => {
   const [folder, setFolder] = useState(null);
   const [loadingGames] = useGlobal("loadingGames");
   const [games] = useGlobal("games");
+  const { sendError } = useSendError();
 
   const getGames = () => {
     if (router.asPath.includes("/favorites"))
       return games.filter((game) => !!game.isFavorite);
 
     return games;
+  };
+
+  const deleteFolder = async (folder) => {
+    try {
+      await firestore.doc(`folders/${folder.id}`).update({
+        deleted: true,
+      });
+    } catch (error) {
+      console.error(error);
+      sendError(error, "deleteFolder");
+    }
   };
 
   return (

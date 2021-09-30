@@ -185,3 +185,5 @@ export default MyApp;
 //roles[acls]
 //PWA[SW] notifications
 //Image
+
+//considerar eliminar por el API url del juego
