@@ -60,7 +60,7 @@ export const ListGameView = (props) => {
 
     try {
       await Fetch(
-        `${resource.domain}/api/games/${props.game.id}/users/${authUser.id}`,
+        `${resource.api}/games/${props.game.id}/users/${authUser.id}`,
         "PUT",
         {
           isFavorite: newGames[gameIndex].isFavorite,
