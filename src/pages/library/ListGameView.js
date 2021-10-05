@@ -544,7 +544,7 @@ const IconsContainer = styled.div`
       }
 
       .bottom-container {
-        height: 45px;
+        height: 56px;
 
         .dates {
           font-size: 13px;
