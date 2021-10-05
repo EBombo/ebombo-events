@@ -32,6 +32,7 @@ export const ModalNewFolder = (props) => {
 
       await firestore.doc(`folders/${props.folder.id}`).update({
         name: data.name,
+        path: `/${data.name}`,
       });
 
       props.fetchFolders();
@@ -89,7 +90,7 @@ export const ModalNewFolder = (props) => {
       }
     >
       <NewFolderContainer>
-        <div className="title">Crear folder</div>
+        <div className="title">{props.folder ? "Editar" : "Crear"} folder</div>
         <Desktop>
           <div className="label">Nombre</div>
         </Desktop>
@@ -122,7 +123,7 @@ export const ModalNewFolder = (props) => {
               loading={isLoading}
               htmlType="submit"
             >
-              Crear
+              {props.folder ? "Editar" : "Crear"}
             </ButtonAnt>
           </div>
         </form>
