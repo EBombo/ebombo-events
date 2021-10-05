@@ -30,9 +30,13 @@ export const ModalNewFolder = (props) => {
     try {
       setIsLoading(true);
 
+      const path = folderId
+        ? `${props.parent.path}/${data.name}`
+        : `/${data.name}`;
+
       await firestore.doc(`folders/${props.folder.id}`).update({
         name: data.name,
-        path: `/${data.name}`,
+        path,
       });
 
       props.fetchFolders();

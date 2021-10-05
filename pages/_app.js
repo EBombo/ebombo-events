@@ -167,6 +167,7 @@ const MyApp = ({ Component, pageProps }) => {
               parent={parent}
               folders={folders}
               fetchGames={fetchGames}
+              fetchFolders={fetchFolders}
               showNotification={showNotificationAnt}
             />
           </WithAuthentication>
