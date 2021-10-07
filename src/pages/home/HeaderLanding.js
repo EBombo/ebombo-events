@@ -72,35 +72,35 @@ export const HeaderLanding = (props) => {
               <li onClick={() => props.executeScroll("contact")}>Contacto</li>
             </ul>
           </div>
-          <div className="button-container">
-            {authUser ? (
+          {authUser ? (
+            <Anchor
+              onClick={() => signOut()}
+              variant="secondary"
+              fontSize="18px"
+            >
+              Cerrar Sesión
+            </Anchor>
+          ) : (
+            <div className="btns-container">
               <Anchor
-                onClick={() => signOut()}
+                onClick={() => router.push("/register")}
                 variant="secondary"
                 fontSize="18px"
+                margin="auto 8px"
+                className="anchor"
               >
-                Cerrar Sesión
+                Regístrate
               </Anchor>
-            ) : (
-              <>
-                <Anchor
-                  onClick={() => router.push("/register")}
-                  variant="secondary"
-                  fontSize="18px"
-                  margin="auto 8px"
-                >
-                  Regístrate
-                </Anchor>
-                <Anchor
-                  onClick={() => setIsVisibleLoginModal(true)}
-                  variant="secondary"
-                  fontSize="18px"
-                >
-                  Iniciar sesión
-                </Anchor>
-              </>
-            )}
-          </div>
+              <ButtonAnt
+                onClick={() => setIsVisibleLoginModal(true)}
+                color="secondary"
+                variant="outlined"
+                fontSize="18px"
+              >
+                Iniciar sesión
+              </ButtonAnt>
+            </div>
+          )}
         </Desktop>
         <Tablet>
           <ul className={`nav-menu ${active ? "active" : ""}`}>
@@ -182,6 +182,7 @@ export const HeaderLanding = (props) => {
                 variant="contained"
                 color="secondary"
                 onClick={() => props.executeScroll("contact")}
+                margi="0 0 0 10px"
               >
                 Contáctanos
               </ButtonAnt>
@@ -313,6 +314,11 @@ const HeaderLandingContainer = styled.section`
     .hamburger {
       display: block;
       cursor: pointer;
+    }
+    
+    .btns-container{
+      display: flex;
+      align-items: center;
     }
   }
 

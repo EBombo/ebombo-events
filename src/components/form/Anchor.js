@@ -26,7 +26,7 @@ const AnchorTag = styled.a`
     variant === "primary"
       ? theme.basic.primary
       : variant === "secondary"
-      ? theme.basic.secondary
+      ? theme.basic.blackDarken
       : variant === "warning"
       ? theme.basic.warning
       : variant === "danger"
@@ -35,12 +35,11 @@ const AnchorTag = styled.a`
 
   :hover {
     text-decoration: ${(props) => (props.underlined ? `underline` : "")};
-    text-shadow: 0 0 10px
-      ${({ variant = "default", theme }) =>
+    color: ${({ variant = "default", theme }) =>
         variant === "primary"
           ? theme.basic.primary
           : variant === "secondary"
-          ? theme.basic.secondary
+          ? theme.basic.secondaryDark
           : variant === "warning"
           ? theme.basic.warning
           : variant === "danger"
