@@ -284,7 +284,7 @@ const FoldersContainer = styled.div`
         background-position: center;
 
         :hover {
-          background-image: url(${`${config.storageUrl}/resources/folder-shiny.svg`});
+          background-image: url(${`${config.storageUrl}/resources/folder-hover.svg`});
         }
       }
       
