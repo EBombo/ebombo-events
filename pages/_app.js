@@ -178,13 +178,3 @@ const MyApp = ({ Component, pageProps }) => {
 };
 
 export default MyApp;
-
-//Optimizacion
-
-//GA
-//fb PIXEL
-//roles[acls]
-//PWA[SW] notifications
-//Image
-
-//considerar eliminar por el API url del juego
