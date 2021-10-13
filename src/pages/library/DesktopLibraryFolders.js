@@ -58,11 +58,9 @@ export const DesktopLibraryFolders = (props) => {
           </div>
 
           <div
-            id="folder-icon"
-            class="icon-button"
-            size={"contain"}
+            className="folder-icon"
             onClick={() => setIsVisibleModalFolder(true)}
-          ></div>
+          />
 
           {/*<Image*/}
           {/*  src={`${config.storageUrl}/resources/social.svg`}*/}
@@ -272,8 +270,7 @@ const FoldersContainer = styled.div`
       display: flex;
       align-items: center;
 
-
-      #folder-icon {
+      .folder-icon {
         width: 30px;
         height: 30px;
         margin: 0 25px;
@@ -287,7 +284,7 @@ const FoldersContainer = styled.div`
           background-image: url(${`${config.storageUrl}/resources/folder-hover.svg`});
         }
       }
-      
+
       .icons {
         margin-right: 5px;
         cursor: pointer;
