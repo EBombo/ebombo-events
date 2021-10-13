@@ -6,6 +6,7 @@ export const darkTheme = {
     secondary: "#382079",
     secondaryDark: "#170D33",
     secondaryLight: "#38207990",
+    secondaryHover: "#62518f",
     white: "#ffffff",
     whiteDarken: "#D2D2D2",
     whiteDark: "#F2F2F2",

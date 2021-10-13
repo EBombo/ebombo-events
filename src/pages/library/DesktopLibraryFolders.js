@@ -56,15 +56,12 @@ export const DesktopLibraryFolders = (props) => {
           <div className="search-bar">
             <Input type="search" placeholder="Buscar" />
           </div>
-          <Image
-            src={`${config.storageUrl}/resources/folder.svg`}
-            height={"30px"}
-            width={"30px"}
-            size={"contain"}
-            margin={"0 25px"}
-            cursor={"pointer"}
+
+          <div
+            className="folder-icon"
             onClick={() => setIsVisibleModalFolder(true)}
           />
+
           {/*<Image*/}
           {/*  src={`${config.storageUrl}/resources/social.svg`}*/}
           {/*  height={"30px"}*/}
@@ -273,6 +270,21 @@ const FoldersContainer = styled.div`
       display: flex;
       align-items: center;
 
+      .folder-icon {
+        width: 30px;
+        height: 30px;
+        margin: 0 25px;
+        cursor: pointer;
+        background-image: url(${`${config.storageUrl}/resources/folder.svg`});
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        :hover {
+          background-image: url(${`${config.storageUrl}/resources/folder-hover.svg`});
+        }
+      }
+
       .icons {
         margin-right: 5px;
         cursor: pointer;
@@ -287,6 +299,11 @@ const FoldersContainer = styled.div`
 
         .active {
           border: 2px solid ${(props) => props.theme.basic.secondary};
+        }
+        :hover:not(.active) {
+          div {
+            border-color: ${(props) => props.theme.basic.secondaryHover};
+          }
         }
       }
 
@@ -303,6 +320,11 @@ const FoldersContainer = styled.div`
 
         .active {
           border: 2px solid ${(props) => props.theme.basic.secondary};
+        }
+        :hover:not(.active) {
+          div {
+            border-color: ${(props) => props.theme.basic.secondaryHover};
+          }
         }
       }
     }

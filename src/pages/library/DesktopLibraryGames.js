@@ -122,6 +122,11 @@ const GamesContainer = styled.div`
       .active {
         border: 2px solid ${(props) => props.theme.basic.secondary};
       }
+      :hover:not(.active) {
+        div {
+          border-color: ${(props) => props.theme.basic.secondaryHover};
+        }
+      }
     }
 
     .list {
@@ -134,9 +139,13 @@ const GamesContainer = styled.div`
         height: 9px;
         margin-bottom: 2px;
       }
-
       .active {
         border: 2px solid ${(props) => props.theme.basic.secondary};
+      }
+      :hover:not(.active) {
+        div {
+          border-color: ${(props) => props.theme.basic.secondaryHover};
+        }
       }
     }
   }
