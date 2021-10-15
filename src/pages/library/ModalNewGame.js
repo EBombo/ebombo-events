@@ -6,6 +6,8 @@ import { darkTheme } from "../../theme";
 import { sizes } from "../../constants";
 import { useRouter } from "next/router";
 import { Tablet, Desktop, mediaQuery } from "../../constants";
+import { Image } from "../../components/common/Image";
+import get from "lodash/get";
 
 export const ModalNewGame = (props) => {
   const router = useRouter();
@@ -27,9 +29,12 @@ export const ModalNewGame = (props) => {
         <div className="games">
           {games.map((game) => (
             <div className="game" key={game.id}>
-              <div className="title-game">
-                <Tablet>{game.name}</Tablet>
-              </div>
+              <Desktop>
+                <GameImage src={get(game, "coverUrl", null)} />
+              </Desktop>
+              <Tablet>
+                <div className="title-game">{game.name}</div>
+              </Tablet>
               <Tablet>
                 <ButtonAnt
                   margin="5px auto"
@@ -113,12 +118,22 @@ const NewGameContainer = styled.div`
     .title {
       padding: 1rem 1rem 3rem 1rem;
     }
-    .games {
-      .game {
-        .title-game {
-          height: 126px;
-        }
-      }
-    }
   }
+`;
+
+const GameImage = styled.div`
+  height: 126px;
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+  ${(props) =>
+    props.src
+      ? `
+        background-image: url("${props.src}");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      `
+      : `
+        background: ${props.theme.basic.black}
+      `};
 `;
