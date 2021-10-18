@@ -11,8 +11,8 @@ import { Controller, useForm } from "react-hook-form";
 import { firestore } from "../../../../firebase";
 import { useRouter } from "next/router";
 import { snapshotToArray } from "../../../../utils";
-import { useResizeImage, useUploadToStorage } from "../../../../hooks";
 import { FileUpload } from "../../../../components/common/FileUpload";
+import { ModalMove } from "../../../../components/common/ModalMove";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
@@ -20,8 +20,7 @@ export const ModalSettings = (props) => {
   const { folderId } = router.query;
   const [parent, setParent] = useState(null);
   const [audios, setAudios] = useState([]);
-  const { resize } = useResizeImage();
-  const { uploadToStorageAndGetURL } = useUploadToStorage();
+  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
 
   useEffect(() => {
     const fetchParent = async () => {
@@ -55,17 +54,17 @@ export const ModalSettings = (props) => {
     reValidateMode: "onSubmit",
   });
 
-  const manageFile = async (e) => {
-    const file = e.target.files[0];
-    props.setCoverImgUrl(file);
-  };
-
   const saveChanges = (data) => {
     const _audio = audios.find((audio) => audio.id === data.audioId);
 
     props.setVideo(data.video);
     props.setAudio(_audio);
     props.setIsVisibleModalSettings(false);
+  };
+
+  const moveToFolder = (folder) => {
+    console.log(folder);
+    setParent(folder);
   };
 
   return (
@@ -79,6 +78,12 @@ export const ModalSettings = (props) => {
         props.setIsVisibleModalSettings(!props.isVisibleModalSettings)
       }
     >
+      <ModalMove
+        moveToFolder={moveToFolder}
+        setIsVisibleModalMove={setIsVisibleModalMove}
+        isVisibleModalMove={isVisibleModalMove}
+        {...props}
+      />
       <SettingsContainer>
         <div className="title">Ajustes</div>
 
@@ -86,7 +91,15 @@ export const ModalSettings = (props) => {
           <div className="main-container">
             <div className="left-side">
               <div className="label">Guardar en</div>
-              <div className="path">{get(parent, "name", "Mis Juegos")}</div>
+              <div className="path">
+                {get(parent, "name", "Mis Juegos")}
+                <ButtonAnt
+                  className="btn-move"
+                  onClick={() => setIsVisibleModalMove(true)}
+                >
+                  Cambiar
+                </ButtonAnt>
+              </div>
               <div className="label">Branding</div>
               <div className="branding">
                 Usar branding propio
@@ -239,6 +252,22 @@ const SettingsContainer = styled.div`
     border-radius: 4px;
     color: ${(props) => props.theme.basic.blackDarken};
     margin-top: 5px;
+    position: relative;
+
+    .btn-move {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      font-family: Lato;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 10px;
+      line-height: 12px;
+      width: 60px;
+      height: 18px;
+      padding: 5px;
+    }
   }
 
   .audio-select {

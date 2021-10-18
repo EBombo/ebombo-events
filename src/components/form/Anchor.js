@@ -37,7 +37,7 @@ const AnchorTag = styled.a`
     text-decoration: ${(props) => (props.underlined ? `underline` : "")};
     color: ${({ variant = "default", theme }) =>
         variant === "primary"
-          ? theme.basic.primary
+          ? theme.basic.primaryDark
           : variant === "secondary"
           ? theme.basic.secondaryDark
           : variant === "warning"
