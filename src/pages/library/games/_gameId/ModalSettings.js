@@ -9,29 +9,15 @@ import { Radio, Switch } from "antd";
 import { object, string } from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { firestore } from "../../../../firebase";
-import { useRouter } from "next/router";
 import { snapshotToArray } from "../../../../utils";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import { ModalMove } from "../../../../components/common/ModalMove";
 
 export const ModalSettings = (props) => {
-  const router = useRouter();
-  const inputRef = useRef(null);
-  const { folderId } = router.query;
-  const [parent, setParent] = useState(null);
   const [audios, setAudios] = useState([]);
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
 
   useEffect(() => {
-    const fetchParent = async () => {
-      if (!folderId) return null;
-      const parentRef = await firestore
-        .collection("folders")
-        .doc(folderId)
-        .get();
-      setParent(parentRef.data());
-    };
-
     const fetchAudios = () =>
       firestore
         .collection("audios")
@@ -40,7 +26,6 @@ export const ModalSettings = (props) => {
           setAudios(snapshotToArray(audiosSnapshot))
         );
 
-    fetchParent();
     fetchAudios();
   }, []);
 
@@ -64,7 +49,7 @@ export const ModalSettings = (props) => {
 
   const moveToFolder = (folder) => {
     console.log(folder);
-    setParent(folder);
+    props.setParent(folder);
   };
 
   return (
@@ -92,7 +77,7 @@ export const ModalSettings = (props) => {
             <div className="left-side">
               <div className="label">Guardar en</div>
               <div className="path">
-                {get(parent, "name", "Mis Juegos")}
+                {get(props, "parent.name", "Mis Juegos")}
                 <ButtonAnt
                   className="btn-move"
                   onClick={() => setIsVisibleModalMove(true)}

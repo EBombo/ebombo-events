@@ -2,31 +2,43 @@ import React, { useEffect, useGlobal, useState, useRef } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "./ModalContainer";
 import { darkTheme } from "../../theme";
-import { Anchor, ButtonAnt } from "../form";
+import { Anchor, ButtonAnt, Input } from "../form";
 import { config, firestore } from "../../firebase";
 import { snapshotToArray } from "../../utils";
 import { Image } from "./Image";
 import get from "lodash/get";
+import { useRouter } from "next/router";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
 
 let timer = 0;
 let delay = 200;
 let prevent = false;
 
 export const ModalMove = (props) => {
+  const router = useRouter();
+  const { resourceId } = router.query;
   const [authUser] = useGlobal("user");
   const [folderId, setFolderId] = useState(null);
   const [folders, setFolders] = useState([]);
   const [folderSelected, setFolderSelected] = useState(null);
+  const [isVisibleNewFolder, setIsVisibleNewFolder] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const schema = yup.object().shape({
+    name: yup.string().required(),
+  });
+
+  const { register, errors, handleSubmit } = useForm({
+    validationSchema: schema,
+    reValidateMode: "onSubmit",
+  });
 
   useEffect(() => {
     if (!authUser) return;
 
     fetchFolders();
   }, [authUser, folderId]);
-
-  const createFolder = () => {
-    console.log("creating");
-  };
 
   const fetchFolders = async () => {
     let folderRef = firestore
@@ -45,6 +57,9 @@ export const ModalMove = (props) => {
   };
 
   const doClickAction = (folder) => {
+    router.push({
+      query: { resourceId, folderId: folder.id },
+    });
     setFolderSelected(folder);
   };
 
@@ -65,6 +80,39 @@ export const ModalMove = (props) => {
     clearTimeout(timer);
     prevent = true;
     doDoubleClickAction(e);
+  };
+
+  const saveNewFolder = async (data) => {
+    try {
+      setIsLoading(true);
+      const folderRef = firestore.collection("folders");
+      const newFolderId = folderRef.doc().id;
+
+      const path = props.parent
+        ? `${props.parent.path}/${data.name}`
+        : `/${data.name}`;
+
+      await folderRef.doc(newFolderId).set(
+        {
+          ...data,
+          id: newFolderId,
+          path,
+          parent: props.parent || null,
+          parentId: props.parent?.id || null,
+          createAt: new Date(),
+          updateAt: new Date(),
+          deleted: false,
+          user: authUser,
+          usersIds: [authUser?.id],
+        },
+        { merge: true }
+      );
+    } catch (error) {
+      console.error(error);
+      sendError(error, "saveNewFolder");
+    }
+    setIsVisibleNewFolder(false);
+    setIsLoading(false);
   };
 
   return (
@@ -95,12 +143,60 @@ export const ModalMove = (props) => {
             />
             Atrás
           </div>
-          <Anchor underlined variant="primary" onClick={() => createFolder()}>
+          <Anchor
+            underlined
+            variant="primary"
+            onClick={() => setIsVisibleNewFolder(true)}
+          >
             Nuevo folder
           </Anchor>
         </div>
         <div className="folders-container">
           <div className="subtitle">Selecciona el lugar</div>
+
+          {isVisibleNewFolder && (
+            <div className="new-folder">
+              <NewFolderContent>
+                <Image
+                  src={`${config.storageUrl}/resources/folder.svg`}
+                  width="25px"
+                  height="20px"
+                  size="contain"
+                  margin="0 10px 0 0"
+                />
+                <form
+                  onSubmit={handleSubmit(saveNewFolder)}
+                  autoComplete="off"
+                  noValidate
+                  className="form"
+                >
+                  <div className="input-container">
+                    <Input
+                      placeholder="Folder sin nombre"
+                      name="name"
+                      ref={register}
+                      error={errors.name}
+                    />
+                  </div>
+                  <ButtonAnt
+                    color="default"
+                    disabled={isLoading}
+                    onClick={() => isVisibleNewFolder(false)}
+                  >
+                    Cancelar
+                  </ButtonAnt>
+                  <ButtonAnt
+                    color="primary"
+                    disabled={isLoading}
+                    loading={isLoading}
+                    htmlType="submit"
+                  >
+                    Crear
+                  </ButtonAnt>
+                </form>
+              </NewFolderContent>
+            </div>
+          )}
           <div className="folders">
             {folders.map((folder) => (
               <FolderContent
@@ -216,5 +312,36 @@ const FolderContent = styled.button`
     font-size: 13px;
     line-height: 16px;
     color: ${(props) => props.theme.basic.grayLight};
+  }
+`;
+
+const NewFolderContent = styled.div`
+  width: 100%;
+  background: ${(props) => props.theme.basic.whiteLight};
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  height: 46px;
+  padding: 0.5rem;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 25px auto;
+  grid-gap: 1rem;
+  margin: 1rem auto;
+  cursor: pointer;
+  border: none;
+
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: bold;
+      height: 30px;
+      padding: 5px 10px;
+      margin-bottom: 4px;
+    }
   }
 `;

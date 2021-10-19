@@ -5,6 +5,7 @@ import { useSendError } from "../../../../hooks";
 import { useFetch } from "../../../../hooks/useFetch";
 import isEmpty from "lodash/isEmpty";
 import { Bingo } from "./Bingo";
+import { firestore } from "../../../../firebase";
 
 export const GameContainer = (props) => {
   const router = useRouter();
@@ -16,8 +17,22 @@ export const GameContainer = (props) => {
   const [games] = useGlobal("games");
   const [resources] = useGlobal("resources");
   const [isLoading, setIsLoading] = useState(false);
+  const [parent, setParent] = useState(null);
   const [resource, setResource] = useState(null);
   const [currentGame, setCurrentGame] = useState(null);
+
+  useEffect(() => {
+    const fetchParent = async () => {
+      if (!folderId) return null;
+      const parentRef = await firestore
+        .collection("folders")
+        .doc(folderId)
+        .get();
+      setParent(parentRef.data());
+    };
+
+    fetchParent();
+  }, []);
 
   useEffect(() => {
     if (gameId === "new") return;
@@ -54,6 +69,7 @@ export const GameContainer = (props) => {
               adminGame,
               resourceId,
               user: authUser,
+              parentId: parent?.id || null,
             },
       };
 
@@ -77,11 +93,8 @@ export const GameContainer = (props) => {
   const updateUrl = (resource) =>
     `${resource.api}/games/${currentGame.id}/users/${authUser.id}`;
 
-  const createUrl = (resource) => {
-    if (folderId)
-      return `${resource.api}/games/new/users/${authUser.id}?folderId=${folderId}`;
-    return `${resource.api}/games/new/users/${authUser.id}`;
-  };
+  const createUrl = (resource) =>
+    `${resource.api}/games/new/users/${authUser.id}`;
 
   return (
     <GameContainerCss>
@@ -90,6 +103,8 @@ export const GameContainer = (props) => {
           submitGame={submitGame}
           isLoading={isLoading}
           game={currentGame}
+          parent={parent}
+          setParent={setParent}
           {...props}
         />
       )}
