@@ -350,6 +350,7 @@ export const Bingo = (props) => {
             </div>
             <div className="upload-container">
               <FileUpload
+                buttonLabel="Subir imagen de fondo para cartilla"
                 file={backgroundImg}
                 preview={false}
                 fileName="backgroundImg"
