@@ -28,9 +28,19 @@ export const ModalNewGame = (props) => {
         <div className="title">Crear un nuevo juego</div>
         <div className="games">
           {games.map((game) => (
-            <div className="game" key={game.id}>
+            <div className="game" key={game.id}
+            >
               <Desktop>
-                <GameImage src={get(game, "coverUrl", null)} />
+                <GameImage
+                  src={get(game, "coverUrl", null)}
+                  onClick={() => {
+                     folderId
+                       ? router.push(
+                         `/library/games/new?resourceId=${game.id}&folderId=${folderId}`
+                       )
+                       : router.push(`/library/games/new?resourceId=${game.id}`);
+                   }}
+                />
               </Desktop>
               <Tablet>
                 <div className="title-game">{game.name}</div>
@@ -125,6 +135,7 @@ const GameImage = styled.div`
   height: 126px;
   width: 100%;
   border-radius: 5px 5px 0 0;
+  cursor: pointer;
   ${(props) =>
     props.src
       ? `
