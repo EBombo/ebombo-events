@@ -139,7 +139,7 @@ export const ModalMove = (props) => {
               height="10px"
               size="contain"
               margin="0 5px 0 0"
-              filter="grayscale(100%)"
+              filter="brightness(0.5)"
             />
             Atrás
           </div>
