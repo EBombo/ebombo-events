@@ -63,7 +63,7 @@ export const GameContainer = (props) => {
         url: currentGame ? updateUrl(resource) : createUrl(resource),
         method: currentGame ? "PUT" : "POST",
         body: currentGame
-          ? { ...game, adminGame }
+          ? { ...game, adminGame, parentId: parent?.id || null }
           : {
               ...game,
               adminGame,
