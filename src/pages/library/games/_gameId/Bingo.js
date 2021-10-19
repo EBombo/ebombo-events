@@ -264,6 +264,7 @@ export const Bingo = (props) => {
                     )}
                     ref={register}
                     id="input-color-background"
+                    onChange={() => setBackgroundImg(null)}
                   />
                   <label
                     htmlFor="backgroundColor"
@@ -350,6 +351,7 @@ export const Bingo = (props) => {
             </div>
             <div className="upload-container">
               <FileUpload
+                key={watch("backgroundColor")}
                 file={backgroundImg}
                 preview={false}
                 fileName="backgroundImg"
@@ -378,6 +380,7 @@ export const Bingo = (props) => {
               </div>
               <div className="card-container">
                 <CardContainer
+                  backgroundImage={backgroundImg}
                   backgroundColor={watch("backgroundColor")}
                   titleColor={watch("titleColor")}
                   blocksColor={watch("blocksColor")}
@@ -607,10 +610,12 @@ export const CardContainer = styled.div`
   width: 100%;
   height: 210px;
   max-width: 200px;
-  background: ${(props) =>
-    props.backgroundColor
-      ? props.backgroundColor
-      : props.theme.basic.secondary};
+  background: ${(props) => {
+    if (props.backgroundImage) return `url(${props.backgroundImage})` 
+    if (props.backgroundColor) return props.backgroundColor
+    return props.theme.basic.secondary
+  }};
+  background-position: center; 
   border-radius: 3px;
 
   .card-title {

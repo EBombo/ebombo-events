@@ -65,6 +65,7 @@ export const GameView = (props) => {
   const showBingoCard = () => (
     <CardContainer
       backgroundColor={get(game, "backgroundColor", "")}
+      backgroundImage={get(game, "backgroundImg", "")}
       titleColor={get(game, "titleColor", "")}
       blocksColor={get(game, "blocksColor", "")}
       numberColor={get(game, "numberColor", "")}
@@ -371,10 +372,16 @@ export const GameView = (props) => {
             <div className="left-container">
               <div className="color">
                 <div className="label">Fondo</div>
-                <div className="name">
-                  <ColorBlock color={get(game, "backgroundColor", "")} />
-                  {get(game, "backgroundColor", "").toUpperCase()}
-                </div>
+                {get(game, "backgroundImg", null) ? (
+                  <div className="name">
+                    (Imagen)
+                  </div>
+                ) : (
+                  <div className="name">
+                    <ColorBlock color={get(game, "backgroundColor", "")} />
+                    {get(game, "backgroundColor", "").toUpperCase()}
+                  </div>
+                )}
               </div>
               <div className="color">
                 <div className="label">Bloques</div>
