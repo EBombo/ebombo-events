@@ -62,15 +62,6 @@ export const DesktopLibraryFolders = (props) => {
             onClick={() => setIsVisibleModalFolder(true)}
           />
 
-          {/*<Image*/}
-          {/*  src={`${config.storageUrl}/resources/social.svg`}*/}
-          {/*  height={"30px"}*/}
-          {/*  width={"30px"}*/}
-          {/*  size={"contain"}*/}
-          {/*  margin={"0 5px"}*/}
-          {/*  onClick={() => setIsVisibleModalFolder(true)}*/}
-          {/*/>*/}
-
           <div className="icons" onClick={() => setListType("icons")}>
             <div className={`${listType === "icons" ? "active" : ""}`} />
             <div className={`${listType === "icons" ? "active" : ""}`} />
@@ -169,6 +160,7 @@ export const DesktopLibraryFolders = (props) => {
           ))
         )}
       </div>
+
       {isEmpty(props.games) ? (
         <div className="btn-container">
           <ButtonAnt

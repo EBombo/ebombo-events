@@ -19,7 +19,7 @@ export const TabletLibrary = (props) => {
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
   const [folder, setFolder] = useState(null);
   const [loadingGames] = useGlobal("loadingGames");
-  const [games] = useGlobal("games");
+  const [games] = useGlobal("userGames");
   const { sendError } = useSendError();
 
   const getGames = () => {

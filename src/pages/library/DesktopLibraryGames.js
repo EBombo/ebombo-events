@@ -6,7 +6,7 @@ import isEmpty from "lodash/isEmpty";
 import { spinLoaderMin } from "../../components/common/loader";
 
 export const DesktopLibraryGames = (props) => {
-  const [games, setGames] = useGlobal("games");
+  const [games, setGames] = useGlobal("userGames");
   const [listType, setListType] = useState("icons");
   const [tab, setTab] = useState("all");
   const [loadingGames] = useGlobal("loadingGames");

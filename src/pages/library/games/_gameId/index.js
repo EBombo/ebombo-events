@@ -9,21 +9,22 @@ import { firestore } from "../../../../firebase";
 
 export const GameContainer = (props) => {
   const router = useRouter();
-  const { gameId, resourceId, folderId } = router.query;
+  const { gameId, adminGameId, folderId } = router.query;
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
 
   const [authUser] = useGlobal("user");
-  const [games] = useGlobal("games");
-  const [resources] = useGlobal("resources");
+  const [games] = useGlobal("userGames");
+  const [adminGames] = useGlobal("adminGames");
   const [isLoading, setIsLoading] = useState(false);
   const [parent, setParent] = useState(null);
-  const [resource, setResource] = useState(null);
+  const [currentAdminGame, setCurrentCurrentAdminGame] = useState(null);
   const [currentGame, setCurrentGame] = useState(null);
 
   useEffect(() => {
+    if (!folderId) return null;
+
     const fetchParent = async () => {
-      if (!folderId) return null;
       const parentRef = await firestore
         .collection("folders")
         .doc(folderId)
@@ -32,7 +33,7 @@ export const GameContainer = (props) => {
     };
 
     fetchParent();
-  }, []);
+  }, [folderId]);
 
   useEffect(() => {
     if (gameId === "new") return;
@@ -40,34 +41,34 @@ export const GameContainer = (props) => {
     const _game = games.find((game) => game.id === gameId);
 
     setCurrentGame(_game);
-  }, [games]);
+  }, [gameId, games]);
 
   useEffect(() => {
-    if (isEmpty(resources)) return;
+    if (isEmpty(adminGames)) return;
 
-    const currentResource = resources.find(
-      (resource_) => resource_.id === resourceId
+    const currentAdminGame_ = adminGames.find(
+      (adminGame_) => adminGame_.id === adminGameId
     );
 
-    setResource(currentResource);
-  }, [resources]);
+    setCurrentCurrentAdminGame(currentAdminGame_);
+  }, [adminGames]);
 
   const submitGame = async (game) => {
     setIsLoading(true);
     try {
-      let adminGame = resource;
+      let adminGame = currentAdminGame;
       delete adminGame.createAt;
       delete adminGame.updateAt;
 
       const fetchProps = {
-        url: currentGame ? updateUrl(resource) : createUrl(resource),
+        url: currentGame ? updateUrl(adminGame) : createUrl(adminGame),
         method: currentGame ? "PUT" : "POST",
         body: currentGame
           ? { ...game, adminGame, parentId: parent?.id || null }
           : {
               ...game,
               adminGame,
-              resourceId,
+              adminGameId,
               user: authUser,
               parentId: parent?.id || null,
             },
@@ -90,15 +91,15 @@ export const GameContainer = (props) => {
     setIsLoading(false);
   };
 
-  const updateUrl = (resource) =>
-    `${resource.api}/games/${currentGame.id}/users/${authUser.id}`;
+  const updateUrl = (adminGame) =>
+    `${adminGame.api}/games/${currentGame.id}/users/${authUser.id}`;
 
-  const createUrl = (resource) =>
-    `${resource.api}/games/new/users/${authUser.id}`;
+  const createUrl = (adminGame) =>
+    `${adminGame.api}/games/new/users/${authUser.id}`;
 
   return (
     <GameContainerCss>
-      {resource && resource.name === "Bingo" && (
+      {currentAdminGame && currentAdminGame.name === "Bingo" && (
         <Bingo
           submitGame={submitGame}
           isLoading={isLoading}
@@ -108,7 +109,6 @@ export const GameContainer = (props) => {
           {...props}
         />
       )}
-      {/*hello-{resourceId}-{folderId}*/}
     </GameContainerCss>
   );
 };

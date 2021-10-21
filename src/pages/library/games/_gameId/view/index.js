@@ -21,14 +21,14 @@ import { spinLoader } from "../../../../../components/common/loader";
 
 export const GameView = (props) => {
   const [authUser] = useGlobal("user");
-  const [resources] = useGlobal("resources");
-  const [games, setGames] = useGlobal("games");
+  const [adminGames] = useGlobal("adminGames");
+  const [games, setGames] = useGlobal("userGames");
   const [resource, setResource] = useState(null);
   const [game, setGame] = useState(null);
 
   const router = useRouter();
 
-  const { gameId, resourceId, folderId } = router.query;
+  const { gameId, adminGameId, folderId } = router.query;
 
   useEffect(() => {
     const _game = games.find((game) => game.id === gameId);
@@ -37,14 +37,14 @@ export const GameView = (props) => {
   }, [games]);
 
   useEffect(() => {
-    if (isEmpty(resources)) return;
+    if (isEmpty(adminGames)) return;
 
-    const currentResource = resources.find(
-      (resource_) => resource_.id === resourceId
+    const currentResource = adminGames.find(
+      (resource_) => resource_.id === adminGameId
     );
 
     setResource(currentResource);
-  }, [resources]);
+  }, [adminGames]);
 
   const deleteGame = async () => {
     let newGames = games;
@@ -188,10 +188,10 @@ export const GameView = (props) => {
               onClick={() => {
                 folderId
                   ? router.push(
-                      `/library/games/${game.id}?resourceId=${resourceId}&folderId=${folderId}`
+                      `/library/games/${game.id}?adminGameId=${adminGameId}&folderId=${folderId}`
                     )
                   : router.push(
-                      `/library/games/${game.id}?resourceId=${resourceId}`
+                      `/library/games/${game.id}?adminGameId=${adminGameId}`
                     );
               }}
             >
@@ -273,10 +273,10 @@ export const GameView = (props) => {
                 onClick={() => {
                   get(props, "game.parentId", null)
                     ? router.push(
-                        `/library/games/${game.id}?resourceId=${resourceId}&folderId=${folderId}`
+                        `/library/games/${game.id}?adminGameId=${adminGameId}&folderId=${folderId}`
                       )
                     : router.push(
-                        `/library/games/${game.id}?resourceId=${resourceId}`
+                        `/library/games/${game.id}?adminGameId=${adminGameId}`
                       );
                 }}
               >
@@ -373,9 +373,7 @@ export const GameView = (props) => {
               <div className="color">
                 <div className="label">Fondo</div>
                 {get(game, "backgroundImg", null) ? (
-                  <div className="name">
-                    (Imagen)
-                  </div>
+                  <div className="name">(Imagen)</div>
                 ) : (
                   <div className="name">
                     <ColorBlock color={get(game, "backgroundColor", "")} />

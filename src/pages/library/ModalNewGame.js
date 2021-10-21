@@ -6,13 +6,12 @@ import { darkTheme } from "../../theme";
 import { sizes } from "../../constants";
 import { useRouter } from "next/router";
 import { Tablet, Desktop, mediaQuery } from "../../constants";
-import { Image } from "../../components/common/Image";
 import get from "lodash/get";
 
 export const ModalNewGame = (props) => {
   const router = useRouter();
   const { folderId } = router.query;
-  const [games] = useGlobal("resources");
+  const [adminGames] = useGlobal("adminGames");
 
   return (
     <ModalContainer
@@ -27,19 +26,20 @@ export const ModalNewGame = (props) => {
       <NewGameContainer>
         <div className="title">Crear un nuevo juego</div>
         <div className="games">
-          {games.map((game) => (
-            <div className="game" key={game.id}
-            >
+          {adminGames.map((game) => (
+            <div className="game" key={game.id}>
               <Desktop>
                 <GameImage
                   src={get(game, "coverUrl", null)}
                   onClick={() => {
-                     folderId
-                       ? router.push(
-                         `/library/games/new?resourceId=${game.id}&folderId=${folderId}`
-                       )
-                       : router.push(`/library/games/new?resourceId=${game.id}`);
-                   }}
+                    folderId
+                      ? router.push(
+                          `/library/games/new?adminGameId=${game.id}&folderId=${folderId}`
+                        )
+                      : router.push(
+                          `/library/games/new?adminGameId=${game.id}`
+                        );
+                  }}
                 />
               </Desktop>
               <Tablet>
@@ -51,9 +51,11 @@ export const ModalNewGame = (props) => {
                   onClick={() => {
                     folderId
                       ? router.push(
-                          `/library/games/new?resourceId=${game.id}&folderId=${folderId}`
+                          `/library/games/new?adminGameId=${game.id}&folderId=${folderId}`
                         )
-                      : router.push(`/library/games/new?resourceId=${game.id}`);
+                      : router.push(
+                          `/library/games/new?adminGameId=${game.id}`
+                        );
                   }}
                 >
                   Crear
@@ -67,9 +69,11 @@ export const ModalNewGame = (props) => {
                   onClick={() => {
                     folderId
                       ? router.push(
-                          `/library/games/new?resourceId=${game.id}&folderId=${folderId}`
+                          `/library/games/new?adminGameId=${game.id}&folderId=${folderId}`
                         )
-                      : router.push(`/library/games/new?resourceId=${game.id}`);
+                      : router.push(
+                          `/library/games/new?adminGameId=${game.id}`
+                        );
                   }}
                 >
                   {game.name}

@@ -14,7 +14,7 @@ import { useFetch } from "../../hooks/useFetch";
 
 export const ListGameView = (props) => {
   const [authUser] = useGlobal("user");
-  const [games, setGames] = useGlobal("games");
+  const [games, setGames] = useGlobal("userGames");
   const [resource, setResource] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -25,7 +25,7 @@ export const ListGameView = (props) => {
     const fetchResource = async () => {
       const resourceRef = await firestore
         .collection("games")
-        .doc(props.game.resourceId)
+        .doc(props.game.adminGameId)
         .get();
       setResource(resourceRef.data());
     };
@@ -104,10 +104,10 @@ export const ListGameView = (props) => {
   const redirectToGameView = () => {
     get(props, "game.parentId", null)
       ? router.push(
-          `/library/games/${props.game.id}/view?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+          `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
         )
       : router.push(
-          `/library/games/${props.game.id}/view?resourceId=${props.game.resourceId}`
+          `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}`
         );
   };
 
@@ -228,10 +228,10 @@ export const ListGameView = (props) => {
                       setIsLoading(true);
                       get(props, "game.parentId", null)
                         ? router.push(
-                            `/library/games/${props.game.id}?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+                            `/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
                           )
                         : router.push(
-                            `/library/games/${props.game.id}?resourceId=${props.game.resourceId}`
+                            `/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`
                           );
                       setIsLoading(false);
                     }}
@@ -268,10 +268,10 @@ export const ListGameView = (props) => {
               onClick={() => {
                 get(props, "game.parentId", null)
                   ? router.push(
-                      `/library/games/new?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+                      `/library/games/new?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
                     )
                   : router.push(
-                      `/library/games/${props.game.id}?resourceId=${props.game.resourceId}`
+                      `/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`
                     );
               }}
             >

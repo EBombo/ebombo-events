@@ -7,7 +7,6 @@ import { config, firestore } from "../../firebase";
 import { snapshotToArray } from "../../utils";
 import { Image } from "./Image";
 import get from "lodash/get";
-import { useRouter } from "next/router";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 
@@ -16,14 +15,12 @@ let delay = 200;
 let prevent = false;
 
 export const ModalMove = (props) => {
-  const router = useRouter();
-  const { resourceId } = router.query;
   const [authUser] = useGlobal("user");
-  const [folderId, setFolderId] = useState(null);
   const [folders, setFolders] = useState([]);
+  const [folderId, setFolderId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [folderSelected, setFolderSelected] = useState(null);
   const [isVisibleNewFolder, setIsVisibleNewFolder] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const schema = yup.object().shape({
     name: yup.string().required(),
@@ -37,49 +34,41 @@ export const ModalMove = (props) => {
   useEffect(() => {
     if (!authUser) return;
 
+    const fetchFolders = async () => {
+      let folderRef = firestore
+        .collection("folders")
+        .where("usersIds", "array-contains", authUser?.id ?? null)
+        .where("deleted", "==", false);
+
+      folderRef = folderId
+        ? folderRef.where("parentId", "==", folderId)
+        : folderRef.where("parentId", "==", null);
+
+      const foldersQuery = await folderRef.get();
+      const folders_ = snapshotToArray(foldersQuery);
+      setFolderSelected(null);
+      setFolders(folders_);
+    };
+
     fetchFolders();
   }, [authUser, folderId]);
 
-  const fetchFolders = async () => {
-    let folderRef = firestore
-      .collection("folders")
-      .where("usersIds", "array-contains", authUser?.id ?? null)
-      .where("deleted", "==", false);
+  const doClickAction = (folder) => setFolderSelected(folder);
 
-    folderRef = folderId
-      ? folderRef.where("parentId", "==", folderId)
-      : folderRef.where("parentId", "==", null);
+  const doDoubleClickAction = (folder) => setFolderId(folder.id);
 
-    folderRef.onSnapshot((foldersQuery) => {
-      const folders_ = snapshotToArray(foldersQuery);
-      setFolders(folders_);
-    });
-  };
+  const handleClick = (folder) => {
+    timer = setTimeout(() => {
+      if (!prevent) doClickAction(folder);
 
-  const doClickAction = (folder) => {
-    router.push({
-      query: { resourceId, folderId: folder.id },
-    });
-    setFolderSelected(folder);
-  };
-
-  const doDoubleClickAction = (folder) => {
-    setFolderId(folder.id);
-  };
-
-  const handleClick = (e) => {
-    timer = setTimeout(function () {
-      if (!prevent) {
-        doClickAction(e);
-      }
       prevent = false;
     }, delay);
   };
 
-  const handleDoubleClick = (e) => {
+  const handleDoubleClick = (folder) => {
     clearTimeout(timer);
     prevent = true;
-    doDoubleClickAction(e);
+    doDoubleClickAction(folder);
   };
 
   const saveNewFolder = async (data) => {
@@ -128,10 +117,7 @@ export const ModalMove = (props) => {
         <div className="second-container">
           <div
             className="go-back"
-            onClick={() => {
-              console.log(folders[0]);
-              setFolderId(folders[0]?.parent?.parentId || null);
-            }}
+            onClick={() => setFolderId(folders[0]?.parent?.parentId || null)}
           >
             <Image
               src={`${config.storageUrl}/resources/arrows/arrowLeft.svg`}
@@ -181,7 +167,7 @@ export const ModalMove = (props) => {
                   <ButtonAnt
                     color="default"
                     disabled={isLoading}
-                    onClick={() => isVisibleNewFolder(false)}
+                    onClick={() => setIsVisibleNewFolder(false)}
                   >
                     Cancelar
                   </ButtonAnt>

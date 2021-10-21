@@ -12,8 +12,11 @@ import { firestore } from "../../../../firebase";
 import { snapshotToArray } from "../../../../utils";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import { ModalMove } from "../../../../components/common/ModalMove";
+import { useRouter } from "next/router";
 
 export const ModalSettings = (props) => {
+  const router = useRouter();
+  const { adminGameId } = router.query;
   const [audios, setAudios] = useState([]);
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
 
@@ -48,7 +51,9 @@ export const ModalSettings = (props) => {
   };
 
   const moveToFolder = (folder) => {
-    console.log(folder);
+    router.push({
+      query: { adminGameId, folderId: folder.id },
+    });
     props.setParent(folder);
   };
 
