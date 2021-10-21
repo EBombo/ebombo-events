@@ -11,6 +11,8 @@ import { ListGameView } from "./ListGameView";
 import { darkTheme } from "../../theme";
 import { Tooltip } from "antd";
 import { useSendError } from "../../hooks";
+import { ModalMove } from "../../components/common/ModalMove";
+import { updateGame } from "./games/_gameId"
 
 export const DesktopLibraryFolders = (props) => {
   const [loadingGames] = useGlobal("loadingGames");
@@ -20,6 +22,21 @@ export const DesktopLibraryFolders = (props) => {
   const [folder, setFolder] = useState(null);
   const router = useRouter();
   const { sendError } = useSendError();
+  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
+  const [authUser] = useGlobal("user");
+  const [selectedGameToMove, setSelectedGameToMove] = useState(null);
+
+  const moveGameToFolder = async (folder) => {
+    if (!selectedGameToMove) return;
+    
+    try {
+      await updateGame(selectedGameToMove.adminGame, { id: game.id, parentId: folder?.id }, authUser);
+      
+      props.fetchGames();
+    } catch (error) {
+      await sendError(error);
+    }
+  };
 
   const deleteFolder = async (folder) => {
     try {
@@ -34,6 +51,13 @@ export const DesktopLibraryFolders = (props) => {
 
   return (
     <FoldersContainer>
+      <ModalMove
+        moveToFolder={moveGameToFolder}
+        setIsVisibleModalMove={setIsVisibleModalMove}
+        isVisibleModalMove={isVisibleModalMove}
+        {...props}
+      />
+      
       {isVisibleModalFolder && (
         <ModalNewFolder
           {...props}
@@ -113,6 +137,7 @@ export const DesktopLibraryFolders = (props) => {
                       />
                       Cambiar Nombre
                     </div>
+                    {/*
                     <div className="folder-option">
                       <Image
                         src={`${config.storageUrl}/resources/move.svg`}
@@ -123,6 +148,7 @@ export const DesktopLibraryFolders = (props) => {
                       />
                       Mover
                     </div>
+                    */}
                     <div className="folder-option">
                       <Image
                         src={`${config.storageUrl}/resources/duplicate.svg`}
@@ -179,6 +205,7 @@ export const DesktopLibraryFolders = (props) => {
               game={game}
               key={game.id}
               listType={listType}
+              initModalMove={(toggle) => { setIsVisibleModalMove(toggle); setSelectedGameToMove(game) }}
               {...props}
             />
           ))}

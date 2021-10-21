@@ -7,6 +7,30 @@ import isEmpty from "lodash/isEmpty";
 import { Bingo } from "./Bingo";
 import { firestore } from "../../../../firebase";
 
+export const updateGameUrl = (adminGame, game, authUser) =>
+  `${adminGame.api}/games/${game.id}/users/${authUser.id}`;
+
+export const updateGame = async (adminGame, game, authUser) => {
+  const { Fetch } = useFetch();
+
+  delete adminGame.createAt;
+  delete adminGame.updateAt;
+
+  const fetchProps = {
+    url: updateGameUrl(adminGame, game, authUser),
+    method: "PUT",
+    body: { ...game, adminGame },
+  };
+
+  const { error } = await Fetch(
+    fetchProps.url,
+    fetchProps.method,
+    fetchProps.body
+  );
+
+  if (error) throw new Error(error);
+}
+
 export const GameContainer = (props) => {
   const router = useRouter();
   const { gameId, adminGameId, folderId } = router.query;

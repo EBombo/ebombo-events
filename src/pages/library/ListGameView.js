@@ -161,7 +161,7 @@ export const ListGameView = (props) => {
                   trigger="click"
                   title={
                     <ToolTipContent>
-                      <div className="option">
+                      <div className="option" onClick={() => props?.initModalMove(true)}>
                         <Image
                           src={`${config.storageUrl}/resources/move.svg`}
                           width={"16px"}
@@ -309,7 +309,7 @@ export const ListGameView = (props) => {
               trigger="click"
               title={
                 <ToolTipContent>
-                  <div className="option">
+                  <div className="option" onClick={() => props.setIsVisibleModalMove(true)}>
                     <Image
                       src={`${config.storageUrl}/resources/move.svg`}
                       width={"16px"}
