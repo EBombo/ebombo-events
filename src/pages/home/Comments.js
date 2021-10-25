@@ -5,6 +5,7 @@ import get from "lodash/get";
 import { Icon } from "../../components/common/Icons";
 import { Image } from "../../components/common/Image";
 import { ModalContainer } from "../../components/common/ModalContainer";
+import { Modal } from "antd";
 import { firestore } from "../../firebase";
 import { mediaQuery } from "../../constants";
 import { Desktop, Tablet } from "../../constants";
@@ -36,36 +37,48 @@ export const Comments = (props) => {
         <div className="title">COMENTARIOS</div>
         <div className="comments">
           <div className="comments-container">
-            {defaultTo(get(props, "events.comments"), []).map((comment) => (
+            {defaultTo(get(props, "comments"), []).map((comment) => (
               <Comment
                 backgroundImage={comment.backgroundImageUrl}
                 key={comment.id}
               >
-                <Desktop>
-                  <Image
-                    src={comment.imageUrl}
-                    width="123px"
-                    height="123px"
-                    borderRadius="50%"
-                    margin="0.5rem auto"
-                    size="cover"
-                  />
-                </Desktop>
-                <Tablet>
-                  <Image
-                    src={comment.imageUrl}
-                    width="74px"
-                    height="74px"
-                    borderRadius="50%"
-                    margin="0.5rem auto"
-                    size="cover"
-                  />
-                </Tablet>
-                <div className="description">
-                  <strong> {comment.description.split("-")[0]} </strong>
-                  <br />
-                  {comment.description.split("-")[1]}
+                <div className="card-header">
+                  <Desktop>
+                    <Image
+                      src={comment.imageUrl}
+                      width="70px"
+                      height="70px"
+                      borderRadius="50%"
+                      margin="0.5rem 0.5rem"
+                      size="cover"
+                      className="profile-photo"
+                    />
+                  </Desktop>
+                  <Tablet>
+                    <Image
+                      src={comment.imageUrl}
+                      width="51px"
+                      height="51px"
+                      borderRadius="50%"
+                      margin="0.1 rem"
+                      size="cover"
+                      className="profile-photo"
+                    />
+                  </Tablet>
+                  <div className="subject">
+                    <h3>{comment.subjectName}</h3>
+                    <h4>{comment.subjectJob}</h4>
+                  </div>
                 </div>
+                <div className="description">
+                  {comment.description}
+                </div>
+                {get(comment, "logoUrl") && (
+                  <div className="logo-container">
+                    {/* TODO use <Image .../> */}
+                    <img src={comment.logoUrl} height="32px"/>
+                  </div>
+                )}
                 {get(authUser, "isAdmin") && (
                   <div className="container-edit">
                     <Icon
@@ -80,7 +93,14 @@ export const Comments = (props) => {
                       className="icon-delete"
                       type="delete"
                       onClick={() => {
-                        props.deleteElement(comment, "comments");
+                        Modal.confirm({
+                          title: '¿Seguro que quieres eliminar este item?',
+                          content: 'Una vez eliminado no se podrá revertir el cambio',
+                          onOk() {
+                            return props.deleteDocument(comment, "comments")
+                          },
+                          onCancel() {},
+                        })
                       }}
                     />
                   </div>
@@ -141,7 +161,6 @@ const CommentsContainer = styled.section`
     .comments {
       max-width: 100%;
       overflow: auto;
-      text-align: center;
 
       .comments-container {
         display: inline-flex;
@@ -162,8 +181,8 @@ const CommentsContainer = styled.section`
       position: absolute;
       height: 15px;
       cursor: pointer;
-      top: 0;
-      right: -11px;
+      top: 12px;
+      right: 10px;
 
       svg {
         width: 15px;
@@ -183,22 +202,70 @@ const CommentsContainer = styled.section`
 `;
 
 const Comment = styled.div`
-  width: 250px;
   margin: 1rem;
   position: relative;
+  font-family: Lato, sans-serif;
+  background: ${(props) => props.theme.basic.whiteLight};
+  padding: 1rem 1.2rem 0.5rem;
+  box-shadow: -4.63898px 3.31356px 19.8813px -1.32542px rgba(0, 0, 0, 0.14);
+  border-radius: 0.4rem;
+
+
+  .card-header {
+    display: grid;
+    grid-template-columns: min-content minmax(180px, 250px);
+    ${mediaQuery.afterTablet} {
+      grid-template-columns: min-content minmax(200px, 250px);
+    }
+
+    .profile-photo {
+      align-self: center;
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+  }
 
   ${mediaQuery.afterTablet} {
-    width: 250px;
+    max-width: 400px;
+    padding: 3rem 3rem 0.5rem;
+  }
+
+  .subject {
+    text-align: left;
+    h3, h4 {
+      margin: 1px 0.25rem;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: 0.85rem;
+      ${mediaQuery.afterTablet} {
+        font-size: 1.125rem;
+        line-height: 1.25rem;
+      }
+    }
+    h4 {
+      font-weight: 400;
+      font-size: 0.7rem;
+      line-height: 0.875rem;
+      ${mediaQuery.afterTablet} {
+        font-size: 1rem;
+        line-height: 1.25rem;
+      }
+    }
+  }
+  .logo-container {
+    margin-bottom: 1rem;
   }
 
   .description {
     padding-top: 1rem;
+    padding-bottom: 1.2rem;
+
     font-style: normal;
     font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    text-align: center;
-    color: ${(props) => props.theme.basic.black};
+    font-size: 0.80rem;
+    line-height: 16px;
+    color: ${(props) => props.theme.basic.grayLight};
 
     ${mediaQuery.afterTablet} {
       font-size: 18px;
