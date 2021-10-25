@@ -34,7 +34,7 @@ export const Comments = (props) => {
         </ModalContainer>
       )}
       <div className="main-container">
-        <div className="title">COMENTARIOS</div>
+        <div className="title">¡Únete a quienes ya han confiado en nosotros!</div>
         <div className="comments">
           <div className="comments-container">
             {defaultTo(get(props, "comments"), []).map((comment) => (
@@ -138,16 +138,16 @@ const CommentsContainer = styled.section`
 
   .main-container {
     width: 100%;
-    max-width: 1300px;
     margin: 0 auto;
     position: relative;
     z-index: 999;
     .title {
-      font-weight: bold;
+      font-family: Lato, sans-serif;
+      font-weight: 700;
       font-size: 20px;
       line-height: 25px;
       text-align: center;
-      color: ${(props) => props.theme.basic.black};
+      color: ${(props) => props.theme.basic.primaryDark};
       margin-bottom: 1rem;
     }
 
@@ -228,6 +228,7 @@ const Comment = styled.div`
   ${mediaQuery.afterTablet} {
     max-width: 400px;
     padding: 3rem 3rem 0.5rem;
+    margin: 1rem 0.75rem;
   }
 
   .subject {
