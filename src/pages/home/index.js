@@ -16,6 +16,7 @@ import { Footer } from "../../components/Footer";
 import { SpecialWorkshops } from "./SpecialWorkshops";
 import { SpecialShows } from "./SpecialShows";
 import { useRouter } from "next/router";
+import { Subscriptions } from "./Subscriptions/Subscriptions";
 
 export const Home = (props) => {
   const router = useRouter();
@@ -73,6 +74,7 @@ export const Home = (props) => {
       <div className="landing-container">
         <HeaderLanding executeScroll={executeScroll} />
         <Companies events={events} deleteElement={deleteElement} />
+        <Subscriptions {...props} />
         <Services refProp={servicesRef} />
         <Games
           refProp={gamesRef}
