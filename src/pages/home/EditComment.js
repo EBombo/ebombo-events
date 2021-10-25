@@ -1,7 +1,7 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
 import { FileUpload } from "../../components/common/FileUpload";
-import { ButtonAnt, TextArea } from "../../components/form";
+import { ButtonAnt, TextArea, Input } from "../../components/form";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import get from "lodash/get";
@@ -10,9 +10,12 @@ import defaultTo from "lodash/defaultTo";
 
 const EditComment = (props) => {
   const [imageUrl, setImageUrl] = useState(null);
+  const [logoUrl, setLogoUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const schema = object().shape({
+    subjectName: string().required(),
+    subjectJob: string().default(""),
     description: string().required(),
   });
 
@@ -24,42 +27,22 @@ const EditComment = (props) => {
   const saveComment = async (data) => {
     setLoading(true);
 
-    let comments;
-
-    if (
-      defaultTo(get(props, "events.comments"), []).some(
-        (game) => game.id === props.currentComment.id
-      )
-    ) {
-      comments = defaultTo(get(props, "events.comments"), []).map((game) =>
-        game.id === props.currentComment.id ? mapComment(data, game) : game
-      );
-    } else {
-      comments = defaultTo(get(props, "events.comments"), []);
-      comments.push(mapComment(data));
-    }
-
-    await firestore.doc(`landings/events`).update({
-      comments,
+    await firestore.collection(`settings/landing/comments`).doc(props.currentComment.id).set({
+      ...mapComment(props.currentComment, data),
     });
 
     props.setIsVisibleModal(false);
     setLoading(false);
   };
 
-  const mapComment = (data, oldGame = null) => {
-    if (oldGame) {
-      const comment = {
-        ...props.currentComment,
-        description: data.description,
-      };
-      if (imageUrl) comment["imageUrl"] = imageUrl;
-      return comment;
-    }
+  const mapComment = (oldData = null, data) => {
     return {
       ...props.currentComment,
+      subjectName: data.subjectName,
+      subjectJob: data.subjectJob,
       description: data.description,
-      imageUrl: imageUrl,
+      imageUrl: imageUrl ? imageUrl : oldData.imageUrl,
+      logoUrl: logoUrl ? logoUrl : oldData.logoUrl,
     };
   };
 
@@ -67,6 +50,39 @@ const EditComment = (props) => {
     <Container>
       <div className="title">Comentarios</div>
       <form onSubmit={handleSubmit(saveComment)}>
+
+        <div className="input-container">
+          <label>Nombre:</label>
+          <Input
+            type="text"
+            variant="primary"
+            name="subjectName"
+            ref={register}
+            error={errors.subjectName}
+            required
+            defaultValue={get(props, "currentComment.subjectName", "")}
+            placeholder="Nombre"
+            border={(props) => `1px solid  ${props.theme.basic.primary}`}
+            background="transparent"
+          />
+        </div>
+
+        <div className="input-container">
+          <label>Puesto:</label>
+          <Input
+            type="text"
+            variant="primary"
+            name="subjectJob"
+            ref={register}
+            error={errors.subjectJob}
+            label="Puesto:"
+            defaultValue={get(props, "currentComment.subjectJob", "")}
+            placeholder="Cargo o Puesto de trabajo"
+            border={(props) => `1px solid  ${props.theme.basic.primary}`}
+            background="transparent"
+          />
+        </div>
+        
         <TextArea
           variant="primary"
           name="description"
@@ -77,6 +93,8 @@ const EditComment = (props) => {
           defaultValue={get(props, "currentComment.description", "")}
           placeholder="Descripción del comentario"
         />
+
+        <label>Imagen de perfil</label>
         <div className="image-component">
           <FileUpload
             preview={true}
@@ -86,6 +104,19 @@ const EditComment = (props) => {
             bucket="landings"
             sizes="300x300"
             afterUpload={(imageUrls) => setImageUrl(imageUrls[0].url)}
+          />
+        </div>
+        <label>Imagen de logo</label>
+        <div className="image-component">
+          <FileUpload
+            preview={true}
+            file={get(props, "currentComment.logoUrl", "")}
+            fileName="logoUrl"
+            filePath={`/events/comments/${props.currentComment.id}`}
+            bucket="landings"
+            sizes="300x300"
+            afterUpload={(logoUrls) => setLogoUrl(logoUrls[0].url)}
+            buttonLabel="Agregar logo"
           />
         </div>
         <div className="buttons-container">
@@ -137,6 +168,21 @@ const Container = styled.div`
       justify-content: center;
       align-items: center;
     }
+
+    .input-container {
+      margin-bottom: 1rem !important;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem !important;
+        font-size: 10px;
+        color: ${(props) => props.theme.basic.primary};
+      }
+      Input {
+        color: ${(props) => props.theme.basic.white};
+      }
+    }
+
   }
 `;
 

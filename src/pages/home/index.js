@@ -21,6 +21,7 @@ export const Home = (props) => {
   const router = useRouter();
   const [authUser] = useGlobal("user");
   const [events, setEvents] = useState(null);
+  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const servicesRef = useRef(null);
@@ -46,6 +47,22 @@ export const Home = (props) => {
 
     fetchLandingEvents();
   }, []);
+
+  useEffect(() => {
+    const fetchComments = () =>
+      firestore
+        .collection("settings/landing/comments")
+        .onSnapshot((snapshot) => {
+          setComments(snapshot.docs.map((doc) => doc.data()));
+          setLoading(false);
+        });
+
+    fetchComments();
+  }, []);
+
+  const deleteDocument = async (document, collection) => {
+    await firestore.collection(`settings/landing/${collection}`).doc(document.id).delete();
+  };
 
   const deleteElement = async (element, field) => {
     const newElements = get(events, `${field}`, []).filter(
@@ -92,7 +109,7 @@ export const Home = (props) => {
           events={events}
           deleteElement={deleteElement}
         />
-        <Comments events={events} deleteElement={deleteElement} />
+        <Comments comments={comments} deleteDocument={deleteDocument} />
         <Contact refProp={contactRef} />
         <Footer />
       </div>
