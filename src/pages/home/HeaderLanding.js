@@ -53,9 +53,9 @@ export const HeaderLanding = (props) => {
       <div className="navbar">
         <div className="logo-container">
           <Image
-            src={`${config.storageUrl}/resources/b2bLanding/b2bLogo.png`}
+            src={`${config.storageUrl}/resources/ebombo.svg`}
             height={"auto"}
-            width={"150px"}
+            width={"125px"}
             size={"contain"}
             margin={"0"}
             cursor={"pointer"}
@@ -227,15 +227,7 @@ export const HeaderLanding = (props) => {
 
 const HeaderLandingContainer = styled.section`
   width: 100%;
-  padding: 1rem;
-  background: conic-gradient(
-      from -7.32deg at 50% 50%,
-      rgba(255, 255, 255, 0) -26.25deg,
-      #c4adff 127.5deg,
-      rgba(255, 255, 255, 0) 333.75deg,
-      #956dfc 487.5deg
-    ),
-    #956dfc;
+  background: ${(props) => props.theme.basic.whiteLight};
 
   li {
     list-style: none;
@@ -245,6 +237,9 @@ const HeaderLandingContainer = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 100px;
+    background: ${(props) => props.theme.basic.whiteLight};
+    padding: 0 1rem;
 
     .nav-links {
       ul {
@@ -254,7 +249,7 @@ const HeaderLandingContainer = styled.section`
 
         li {
           padding: 0 1rem;
-          color: ${(props) => props.theme.basic.white};
+          color: ${(props) => props.theme.basic.secondary};
           font-style: normal;
           font-weight: bold;
           font-size: 20px;
@@ -315,8 +310,8 @@ const HeaderLandingContainer = styled.section`
       display: block;
       cursor: pointer;
     }
-    
-    .btns-container{
+
+    .btns-container {
       display: flex;
       align-items: center;
     }
@@ -327,6 +322,7 @@ const HeaderLandingContainer = styled.section`
     align-items: center;
     flex-direction: column;
     padding: 1rem;
+    background: ${(props) => props.theme.basic.secondary};
 
     .first-content {
       .title {
