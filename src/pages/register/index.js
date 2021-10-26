@@ -67,44 +67,59 @@ export const Register = (props) => {
     return (
         <RegisterContainer>
             <Desktop>
-                <Image src={`${config.storageUrl}/resoruces/ebombo-white.png`} />
+                <Image src={`${config.storageUrl}/resources/register-img.png`}
+                    height="100%"
+                    width="100%"
+                    size="contain" />
             </Desktop>
 
-            <form onSubmit={handleSubmit(signUpUser)} autoComplete="off" noValidate>
-                <Divider>
-                    <div className="divider-content">
-                        <Image
-                            margin="0"
-                            width="15px"
-                            height="15px"
-                            src={`${config.storageUrl}/resources/personal-info.svg`}
-                            size="contain"
-                        />
-                        <div className="subtitle">Información Personal</div>
-                    </div>
-                </Divider>
+            <form onSubmit={handleSubmit(signUpUser)} autoComplete="off" className="form-container" noValidate>
+
+                <div className="title">
+                    Regístrate
+                </div>
+
+                <div className="providers-content">
+
+                    <Divider> o </Divider>
+
+                    <ButtonsProviders google />
+                
+                </div>
+
                 <div className="inputs-container">
                     <Input
                         error={errors.name}
                         type="text"
                         ref={register}
+                        height="40px"
                         name="name"
                         autoComplete="off"
                         placeholder="Nombre"
                     />
-                </div>
-                <div className="inputs-container">
                     <Input
                         error={errors.lastName}
                         type="text"
                         ref={register}
+                        height="40px"
                         name="lastName"
                         autoComplete="off"
                         placeholder="Apellidos"
                     />
                 </div>
+
                 <div className="inputs-container">
-                    <div className="label">Fecha de Nacimiento</div>
+
+                    <Input
+                        error={errors.email}
+                        type="email"
+                        ref={register}
+                        name="email"
+                        height="40px"
+                        autoComplete="off"
+                        placeholder="Correo"
+                    />
+
                     <InputGroupSelect>
                         <Controller
                             name="day"
@@ -115,6 +130,8 @@ export const Register = (props) => {
                                     showSearch
                                     virtual={false}
                                     error={errors.day}
+                                    marginbottom="0"
+                                    height="40px"
                                     borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
                                     optionFilterProp="children"
                                     borderRadius="3px 0px 0px 3px"
@@ -135,6 +152,8 @@ export const Register = (props) => {
                                     showSearch
                                     virtual={false}
                                     error={errors.month}
+                                    marginbottom="0"
+                                    height="40px"
                                     borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
                                     borderRadius="0px 0px 0px 0px"
                                     optionFilterProp="children"
@@ -156,6 +175,8 @@ export const Register = (props) => {
                                     virtual={false}
                                     borderRadius="0px 3px 3px 0px"
                                     error={errors.year}
+                                    marginbottom="0"
+                                    height="40px"
                                     optionFilterProp="children"
                                     optionsdom={years.map((year) => ({
                                         key: year.key,
@@ -166,32 +187,12 @@ export const Register = (props) => {
                             }
                         />
                     </InputGroupSelect>
+
                 </div>
 
-                <Divider>
-                    <div className="divider-content">
-                        <Image
-                            margin="0"
-                            width="15px"
-                            height="15px"
-                            src={`${config.storageUrl}/resources/contact-info.svg`}
-                            size="contain"
-                        />
-                        <div className="subtitle">Contacto</div>
-                    </div>
-                </Divider>
                 <div className="inputs-container">
-                    <Input
-                        error={errors.email}
-                        type="email"
-                        ref={register}
-                        name="email"
-                        autoComplete="off"
-                        placeholder="Correo"
-                    />
-                </div>
-                <div className="inputs-container">
-                    <InputGroup gridTemplateColumns="2fr 50px 3fr">
+
+                    <InputGroup gridTemplateColumns="2fr 50px">
                         <Controller
                             name="countryCode"
                             control={control}
@@ -200,6 +201,8 @@ export const Register = (props) => {
                                     placeholder="Pais"
                                     showSearch
                                     virtual={false}
+                                    marginbottom="0"
+                                    height="40px"
                                     error={errors.countryCode}
                                     optionFilterProp="children"
                                     optionsdom={getData().map((country) => ({
@@ -211,55 +214,54 @@ export const Register = (props) => {
                             }
                         />
                         <CountryCode>{dialCode(watch("countryCode"))}</CountryCode>
-                        <Input
-                            error={errors.phoneNumber}
-                            type="number"
-                            ref={register}
-                            name="phoneNumber"
-                            autoComplete="off"
-                            placeholder="Celular"
-                        />
                     </InputGroup>
+
+                    <Input
+                        error={errors.phoneNumber}
+                        type="number"
+                        ref={register}
+                        height="40px"
+                        name="phoneNumber"
+                        autoComplete="off"
+                        placeholder="Celular"
+                    />
+
                 </div>
-                <Divider>
-                    <div className="divider-content">
-                        <Image
-                            margin="0"
-                            width="15px"
-                            height="15px"
-                            src={`${config.storageUrl}/resources/access-data.svg`}
-                            size="contain"
-                        />
-                        <div className="subtitle">Datos de acceso</div>
-                    </div>
-                </Divider>
+
                 <div className="inputs-container">
                     <Input
                         error={errors.password}
                         type="password"
                         ref={register}
+                        height="40px"
                         name="password"
                         autoComplete="off"
                         placeholder="Contraseña"
                     />
-                    <ButtonAnt
-                        loading={isLoadingCreateUser}
-                        disabled={isLoadingUser || isLoadingCreateUser}
-                        variant="contained"
-                        htmlType="submit"
-                        width="100%"
-                        margin="0.5rem 0"
-                    >
-                        Registrar
-          </ButtonAnt>
+
+                    <Input
+                        error={errors.password}
+                        type="password"
+                        ref={register}
+                        height="40px"
+                        name="password"
+                        autoComplete="off"
+                        placeholder="Contraseña"
+                    />
                 </div>
+
+                <ButtonAnt width="auto"
+                    htmlType="submit"
+                    margin="2rem auto"
+                    size="big"
+                    variant="contained"
+                    loading={isLoadingCreateUser}
+                    disabled={isLoadingUser || isLoadingCreateUser}>
+                    Registrar
+                </ButtonAnt>
+
             </form>
-            <Divider>
-                <div className="divider-content">O</div>
-            </Divider>
-            <div className="inputs-container">
-                <ButtonsProviders google />
-            </div>
+
         </RegisterContainer>
     );
 };
@@ -274,28 +276,36 @@ const RegisterContainer = styled.div`
       grid-template-columns:1fr 1fr;
   }
 
-  .title {
-    color: ${(props) => props.theme.basic.white};
-    text-align: center;
+  .form-container{
+      margin: auto;
   }
 
-  .divider-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      color: ${(props) => props.theme.basic.secondary};
+  }
 
-    .subtitle {
-      margin-left: 10px;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 17px;
-      color: ${(props) => props.theme.basic.grayLight};
-    }
+  .providers-content {
+      display:grid;
+      margin: auto 10px;
+      
+      ${mediaQuery.afterDesktop}{
+          margin: auto 5rem;
+      }
   }
 
   .inputs-container {
     padding: 0 0.5rem;
-    margin: 0.5rem auto;
+    margin: 0.7rem auto;
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    
+    ${mediaQuery.afterDesktop}{
+        grid-template-columns: 1fr 1fr;
+    }
   }
 
   .label {
@@ -315,7 +325,7 @@ const RegisterContainer = styled.div`
 
 const CountryCode = styled.div`
   width: 45px;
-  height: 36px;
+  height: 40px;
   border: 1px solid ${(props) => props.theme.basic.grayLighten};
   border-radius: 4px;
   background: ${(props) => props.theme.basic.whiteLight};
@@ -330,5 +340,4 @@ const InputGroupSelect = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
-  margin: 0.5rem 0;
 `;

@@ -58,7 +58,7 @@ const SelectContainer = styled.div`
 const StyledSelect = styled(AntSelect)`
   width: 100%;
   margin-bottom: ${(props) => props.marginbottom || "1rem"} !important;
-  height: 36px;
+  height: ${(props) => (props.height ? props.height : "36px")};
 
   color: ${(props) => props.theme.basic.blackDarken};
 
