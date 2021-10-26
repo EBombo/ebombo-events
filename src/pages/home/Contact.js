@@ -12,18 +12,21 @@ import { useSendError } from "../../hooks";
 const salesTeam = [
   {
     name: "Daniel Vega",
+    description: "Sub Gerente de Comunicación Interna en Ripley Perú",
     imageUrl: `${config.storageUrl}/resources/team-sales/danielvega.svg`,
     phoneNumber: "+51 991 175 288",
     email: "daniel@bombo.pe",
   },
   {
     name: "Santiago Suarez",
+    description: "Sub Gerente de Comunicación Interna en Ripley Perú",
     imageUrl: `${config.storageUrl}/resources/team-sales/santiagosuarez.svg`,
     phoneNumber: "+51 948 879 888",
     email: "santiago@bombo.pe",
   },
   {
     name: "Vivian Sejuro",
+    description: "Sub Gerente de Comunicación Interna en Ripley Perú",
     imageUrl: `${config.storageUrl}/resources/team-sales/viviansejuro.svg`,
     phoneNumber: "+51 983 645 002",
     email: "vivian@bombo.pe",
@@ -71,9 +74,7 @@ export const Contact = (props) => {
   return (
     <ContactSection ref={props.refProp}>
       <div className="title">
-        ¿Deseas mayor información?
-        <br />
-        <span>Ponte en contacto con el equipo de ventas</span>
+        Sobre nosotros
       </div>
 
       <div className="team-container">
@@ -81,38 +82,38 @@ export const Contact = (props) => {
           <MemberContainer key={member.imageUrl}>
             <Image
               src={member.imageUrl}
-              width={"120px"}
-              height={"120px"}
-              desktopWidth={"260px"}
-              desktopHeight={"260px"}
-              borderRadius={"15px"}
+              width={"180px"}
+              height={"180px"}
+              borderRadius={"50%"}
               margin={"1rem 0"}
+              className="member-image"
             />
             <div className="main-container">
               <div className="name">{member.name}</div>
-              <div className="number-container">
-                <Desktop>
-                  <img
-                    src={`${config.storageUrl}/resources/wsp-icon.svg`}
-                    alt=""
-                  />
-                </Desktop>
-                <div className="info">
-                  Whatsapp: <br />
+              <div className="description">{member.description}</div>
+
+              <div className="contact-data">
+                <Image
+                  src={`${config.storageUrl}/resources/b2bLanding/wsp-icon.svg`}
+                  width="20px"
+                  height="20px"
+                  alt=""
+                  className="icon"
+                />
+                <span className="info">
                   {member.phoneNumber}
-                </div>
-              </div>
-              <div className="email-container">
-                <Desktop>
-                  <img
-                    src={`${config.storageUrl}/resources/b2bLanding/email.svg`}
-                    alt=""
-                  />
-                </Desktop>
-                <div className="info">
-                  Correo: <br />
+                </span>
+
+                <Image
+                  src={`${config.storageUrl}/resources/b2bLanding/email.svg`}
+                  width="20px"
+                  height="20px"
+                  alt=""
+                  className="icon"
+                />
+                <span className="info">
                   {member.email}
-                </div>
+                </span>
               </div>
             </div>
           </MemberContainer>
@@ -168,14 +169,14 @@ const ContactSection = styled.section`
   width: 100%;
 
   .title {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 22px;
+    font-family: Lato, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 26px;
     text-align: center;
-    span {
-      font-weight: normal;
-    }
+    color: ${(props) => props.theme.basic.primaryDark};
+    margin-bottom: 42px;
+    font-style: normal;
   }
 
   form {
@@ -219,77 +220,66 @@ const ContactSection = styled.section`
     padding: 2rem;
 
     .title {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 24px;
-      line-height: 30px;
-      text-align: left;
+      font-size: 34px;
+      line-height: 41px;
     }
 
     .team-container {
       justify-content: space-around;
       align-items: center;
       flex-direction: row;
+      max-width: 1300px;
+      margin: 0 auto;
     }
   }
 `;
 
 const MemberContainer = styled.div`
-  display: flex;
-  align-items: center;
+  text-align: center;
+  max-width: 250px;
+  margin: 0 auto 110px auto;
 
-  div:first-child {
-    margin-right: 1rem;
+  .member-image {
+    display: inline-block;
+    margin-bottom: 64px;
   }
 
   .main-container {
     .name {
       font-style: normal;
       font-weight: bold;
-      font-size: 20px;
+      font-size: 18px;
       line-height: 25px;
-      text-align: left;
+      text-align: center;
+      ${mediaQuery.afterTablet} {
+        font-size: 20px;
+      }
+    }
+    .description {
+      margin: 7px 0 14px 0;
+      font-size: 16px;
     }
 
-    .number-container,
-    .email-container {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+    .contact-data {
+      display: inline-grid;
+      grid-template-columns: 43px 1fr;
+      grid-template-rows: auto auto;
+      row-gap: 0.5rem;
 
+      .icon {
+        margin: 0 auto 0 0;
+      }
       .info {
         text-align: left;
         font-style: normal;
         font-weight: 500;
-        font-size: 12px;
-        line-height: 15px;
-      }
-
-      img {
-        margin-right: 10px;
+        font-size: 16px;
+        line-height: 19px;
       }
     }
   }
 
   ${mediaQuery.afterTablet} {
-    flex-direction: column;
-    align-items: flex-start;
-    div:first-child {
-      margin-right: 0;
-    }
-
-    .main-container {
-      .number-container,
-      .email-container {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-
-        .info {
-          font-size: 15px;
-          line-height: 19px;
-        }
-      }
-    }
+    display: inline-block;
   }
 `;
