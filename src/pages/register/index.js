@@ -10,7 +10,7 @@ import { Image } from "../../components/common/Image";
 import { config } from "../../firebase";
 import { useRouter } from "next/router";
 import { getData } from "country-list";
-import { object, string } from "yup";
+import { object, string, ref } from "yup";
 import get from "lodash/get";
 import { days, months, years } from "../../components/common/DataList";
 import { darkTheme } from "../../theme";
@@ -25,6 +25,7 @@ export const Register = (props) => {
             .email()
             .test("", "Email invalid!", (email_) => !email_.includes("yopmail.com")),
         password: string().required().min(6),
+        passwordConfirmation: string().oneOf([ref('password'), null], 'Passwords must match'),
         countryCode: string().required(),
         phoneNumber: string().required().min(5),
         day: string().required(),
@@ -240,11 +241,11 @@ export const Register = (props) => {
                     />
 
                     <Input
-                        error={errors.password}
+                        error={errors.passwordConfirmation}
                         type="password"
                         ref={register}
                         height="40px"
-                        name="password"
+                        name="passwordConfirmation"
                         autoComplete="off"
                         placeholder="Contraseña"
                     />
