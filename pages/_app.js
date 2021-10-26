@@ -153,7 +153,7 @@ const MyApp = ({ Component, pageProps }) => {
           rel="stylesheet"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
           rel="stylesheet"
         />
         <link rel="manifest" href={`${config.serverUrl}/api/manifest`} />
