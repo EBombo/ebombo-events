@@ -19,6 +19,7 @@ export const Plans = (props) => {
   const [subscriptions, setSubscriptions] = useState(null);
   const [tab, setTab] = useState(0);
   const [currentSubscription, setCurrentSubscription] = useState(null);
+  const [currentPlan, setCurrentPlan] = useState(null);
 
   useEffect(() => {
     const fetchSubscriptions = async () =>
@@ -38,93 +39,104 @@ export const Plans = (props) => {
   if (!subscriptions) return spinLoader();
 
   return (
-    <PlansContainer>
-      <ModalSubscriptions
-        isVisibleModalSubscriptions={isVisibleModalSubscriptions}
-        setIsVisibleModalSubscriptions={setIsVisibleModalSubscriptions}
-        subscription={currentSubscription}
-        {...props}
-      />
-      <div className="title">Conoce nuestros planes</div>
-      <div className="tabs">
-        {subscriptions.map((subscription, index) => (
-          <div className={`tab ${tab === index && "active"}`} onClick={() => setTab(index)} key={index}>
-            {subscription.type}
-            {get(authUser, "isAdmin") && (
-              <div className="container-edit">
-                <Icon
-                  className="icon"
-                  type="edit"
-                  onClick={() => {
-                    setCurrentSubscription(subscription);
-                    setIsVisibleModalSubscriptions(true);
-                  }}
-                />
-                <Icon
-                  className="icon-delete"
-                  type="delete"
-                  onClick={() => {
-                    console.log("Delete");
-                  }}
-                />
-              </div>
-            )}
+    <>
+      <PlansContainer>
+        <ModalSubscriptions
+          isVisibleModalSubscriptions={isVisibleModalSubscriptions}
+          setIsVisibleModalSubscriptions={setIsVisibleModalSubscriptions}
+          subscription={currentSubscription}
+          {...props}
+        />
+        <div className="title">Conoce nuestros planes</div>
+        <div className="tabs">
+          {subscriptions.map((subscription, index) => (
+            <div className={`tab ${tab === index && "active"}`} onClick={() => setTab(index)} key={index}>
+              {subscription.type}
+              {get(authUser, "isAdmin") && (
+                <div className="container-edit">
+                  <Icon
+                    className="icon"
+                    type="edit"
+                    onClick={() => {
+                      setCurrentSubscription(subscription);
+                      setIsVisibleModalSubscriptions(true);
+                    }}
+                  />
+                  <Icon
+                    className="icon-delete"
+                    type="delete"
+                    onClick={() => {
+                      console.log("Delete");
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+          {get(authUser, "isAdmin") && (
+            <ButtonAnt
+              variant="outlined"
+              color="warning"
+              onClick={() => {
+                setCurrentSubscription({
+                  id: firestore.collection("settings").doc("landing").collection("subscriptions").doc().id,
+                });
+                setIsVisibleModalSubscriptions(true);
+              }}
+            >
+              Añadir
+            </ButtonAnt>
+          )}
+        </div>
+        <div className="subscriptions">
+          <div className="plan standard" onClick={() => setCurrentPlan("standard")}>
+            <div className="name">{subscriptions[tab]?.standardPlan?.name || "Estandar"}</div>
+            <div className="promo">{subscriptions[tab]?.standardPlan?.promo || ""}</div>
+            <div className="price">$ {subscriptions[tab]?.standardPlan?.price || ""}</div>
+            <div className="divider" />
+            <div className="description">{subscriptions[tab]?.standardPlan?.description || ""}</div>
+            <button className="btn standard">Comprar ahora</button>
           </div>
-        ))}
-        {get(authUser, "isAdmin") && (
-          <ButtonAnt
-            variant="outlined"
-            color="warning"
-            onClick={() => {
-              setCurrentSubscription({
-                id: firestore.collection("settings").doc("landing").collection("subscriptions").doc().id,
-              });
-              setIsVisibleModalSubscriptions(true);
-            }}
-          >
-            Añadir
-          </ButtonAnt>
+
+          <div className="plan pro" onClick={() => setCurrentPlan("pro")}>
+            <div className="name">{subscriptions[tab]?.proPlan?.name || "Estandar"}</div>
+            <div className="promo">{subscriptions[tab]?.proPlan?.promo || ""}</div>
+            <div className="price">$ {subscriptions[tab]?.proPlan?.price || ""}</div>
+            <div className="divider" />
+            <div className="description">{subscriptions[tab]?.proPlan?.description || ""}</div>
+
+            <button className="btn standard">Comprar ahora</button>
+          </div>
+          <div className="plan presenter" onClick={() => setCurrentPlan("presenter")}>
+            <div className="name">{subscriptions[tab]?.presenterPlan?.name || "Estandar"}</div>
+            <div className="promo">{subscriptions[tab]?.presenterPlan?.promo || ""}</div>
+            <div className="price">$ {subscriptions[tab]?.presenterPlan?.price || ""}</div>
+            <div className="divider" />
+            <div className="description">{subscriptions[tab]?.presenterPlan?.description || ""}</div>
+
+            <button className="btn standard">Comprar ahora</button>
+          </div>
+        </div>
+        {!router.asPath.includes("/subscriptions") && (
+          <div className="more-info">
+            <button className="btn-subs" onClick={() => router.push("/subscriptions")}>
+              Ver más planes <ArrowRightOutlined />
+            </button>
+          </div>
         )}
-      </div>
-      <div className="subscriptions">
-        <div className="plan standard">
-          <div className="name">{subscriptions[tab]?.standardPlan?.name || "Estandar"}</div>
-          <div className="promo">{subscriptions[tab]?.standardPlan?.promo || ""}</div>
-          <div className="price">$ {subscriptions[tab]?.standardPlan?.price || ""}</div>
-          <div className="divider" />
-          <div className="description">{subscriptions[tab]?.standardPlan?.description || ""}</div>
-          <button className="btn standard">Comprar ahora</button>
-        </div>
-
-        <div className="plan pro">
-          <div className="name">{subscriptions[tab]?.proPlan?.name || "Estandar"}</div>
-          <div className="promo">{subscriptions[tab]?.proPlan?.promo || ""}</div>
-          <div className="price">$ {subscriptions[tab]?.proPlan?.price || ""}</div>
-          <div className="divider" />
-          <div className="description">{subscriptions[tab]?.proPlan?.description || ""}</div>
-
-          <button className="btn standard">Comprar ahora</button>
-        </div>
-        <div className="plan presenter">
-          <div className="name">{subscriptions[tab]?.presenterPlan?.name || "Estandar"}</div>
-          <div className="promo">{subscriptions[tab]?.presenterPlan?.promo || ""}</div>
-          <div className="price">$ {subscriptions[tab]?.presenterPlan?.price || ""}</div>
-          <div className="divider" />
-          <div className="description">{subscriptions[tab]?.presenterPlan?.description || ""}</div>
-
-          <button className="btn standard">Comprar ahora</button>
-        </div>
-      </div>
-      {router.asPath.includes("/subscriptions") ? (
-        <PlansTable subscriptions={subscriptions} {...props} />
-      ) : (
-        <div className="more-info">
-          <button className="btn-subs" onClick={() => router.push("/subscriptions")}>
-            Ver más planes <ArrowRightOutlined />
-          </button>
-        </div>
+      </PlansContainer>
+      {router.asPath.includes("/subscriptions") && (
+        <TableContainer>
+          <PlansTable
+            currentPlan={currentPlan}
+            key={currentSubscription}
+            subscriptions={subscriptions}
+            tab={tab}
+            {...props}
+          />
+        </TableContainer>
       )}
-    </PlansContainer>
+    </>
   );
 };
 
@@ -222,6 +234,7 @@ const PlansContainer = styled.div`
       width: 250px;
       height: 315px;
       margin: 1rem 0;
+      cursor: pointer;
 
       .name {
         font-family: Lato;
@@ -286,6 +299,9 @@ const PlansContainer = styled.div`
     }
 
     .standard {
+      .price {
+        color: ${(props) => props.theme.basic.primary};
+      }
       .promo {
         width: 125px;
         height: 25px;
@@ -411,4 +427,10 @@ const PlansContainer = styled.div`
       }
     }
   }
+`;
+
+const TableContainer = styled.div`
+  width: 100%;
+  overflow: auto;
+  margin: 0 auto;
 `;
