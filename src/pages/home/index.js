@@ -16,7 +16,8 @@ import { Footer } from "../../components/Footer";
 import { SpecialWorkshops } from "./SpecialWorkshops";
 import { SpecialShows } from "./SpecialShows";
 import { useRouter } from "next/router";
-import { Subscriptions } from "./Subscriptions/Subscriptions";
+import { Plans } from "./subscriptions/Plans";
+import {Navbar} from "./Navbar";
 
 export const Home = (props) => {
   const router = useRouter();
@@ -72,9 +73,10 @@ export const Home = (props) => {
   return (
     <LandingContainer>
       <div className="landing-container">
+        <Navbar executeScroll={executeScroll} />
         <HeaderLanding executeScroll={executeScroll} />
         <Companies events={events} deleteElement={deleteElement} />
-        <Subscriptions {...props} />
+        <Plans {...props} />
         <Services refProp={servicesRef} />
         <Games
           refProp={gamesRef}

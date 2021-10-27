@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState, useRef } from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../../components/common/ModalContainer";
 import { darkTheme } from "../../../theme";
@@ -10,6 +10,8 @@ import { Typography } from "antd";
 import { firestore } from "../../../firebase";
 
 export const ModalSubscriptions = (props) => {
+  const [loading, setLoading] = useState(false);
+
   const { Title } = Typography;
 
   const schema = object().shape({
@@ -31,6 +33,8 @@ export const ModalSubscriptions = (props) => {
   });
 
   const saveSubscription = async (data) => {
+    setLoading(true);
+
     const sub = {
       id: props.subscription.id,
       type: data.type,
@@ -70,6 +74,7 @@ export const ModalSubscriptions = (props) => {
         .set(sub);
     }
 
+    setLoading(false);
     props.setIsVisibleModalSubscriptions(false);
   };
 
@@ -183,13 +188,13 @@ export const ModalSubscriptions = (props) => {
           />
           <div className="btns-container">
             <ButtonAnt
-              htmlType="submit"
               color="default"
+              disabled={loading}
               onClick={() => props.setIsVisibleModalSubscriptions(false)}
             >
               Cancelar
             </ButtonAnt>
-            <ButtonAnt htmlType="submit" color="primary">
+            <ButtonAnt htmlType="submit" color="primary" loading={loading}>
               Guardar
             </ButtonAnt>
           </div>

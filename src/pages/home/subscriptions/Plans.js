@@ -6,10 +6,13 @@ import { snapshotToArray } from "../../../utils";
 import { spinLoader } from "../../../components/common/loader";
 import get from "lodash/get";
 import { Icon } from "../../../components/common/Icons";
-import { ButtonAnt } from "../../../components/form";
+import { Anchor, ButtonAnt } from "../../../components/form";
 import { ModalSubscriptions } from "./ModalSubscriptions";
+import { ArrowRightOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
 
-export const Subscriptions = (props) => {
+export const Plans = (props) => {
+  const router = useRouter();
   const [authUser] = useGlobal("user");
   const [isVisibleModalSubscriptions, setIsVisibleModalSubscriptions] =
     useState(false);
@@ -33,7 +36,7 @@ export const Subscriptions = (props) => {
   if (!subscriptions) return spinLoader();
 
   return (
-    <SubscriptionsContainer>
+    <PlansContainer>
       <ModalSubscriptions
         isVisibleModalSubscriptions={isVisibleModalSubscriptions}
         setIsVisibleModalSubscriptions={setIsVisibleModalSubscriptions}
@@ -142,14 +145,39 @@ export const Subscriptions = (props) => {
           <button className="btn standard">Comprar ahora</button>
         </div>
       </div>
-    </SubscriptionsContainer>
+      <div className="more-info">
+        <button
+          className="btn-subs"
+          onClick={() => router.push("/subscriptions")}
+        >
+          Ver más planes <ArrowRightOutlined />
+        </button>
+      </div>
+    </PlansContainer>
   );
 };
 
-const SubscriptionsContainer = styled.div`
+const PlansContainer = styled.div`
   width: 100%;
   padding: 1rem;
   background: ${(props) => props.theme.basic.whiteLighten};
+
+  .more-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn-subs {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 23px;
+      color: ${(props) => props.theme.basic.secondary};
+      background: none;
+      border: none;
+    }
+  }
 
   .title {
     font-family: Lato;
