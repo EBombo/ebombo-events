@@ -4,7 +4,7 @@ import { HeaderLanding } from "./HeaderLanding";
 import { Services } from "./Services";
 import { firestore } from "../../firebase";
 import { HeldEvents } from "./HeldEvents";
-import { Comments } from "./Comments";
+import { Comments } from "./comments/Comments";
 import { Contact } from "./Contact";
 import { Companies } from "./Companies";
 import get from "lodash/get";
@@ -21,6 +21,7 @@ export const Home = (props) => {
   const router = useRouter();
   const [authUser] = useGlobal("user");
   const [events, setEvents] = useState(null);
+  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const servicesRef = useRef(null);
@@ -47,10 +48,22 @@ export const Home = (props) => {
     fetchLandingEvents();
   }, []);
 
+  useEffect(() => {
+    const fetchComments = () =>
+      firestore.collection("settings/landing/comments").onSnapshot((snapshot) => {
+        setComments(snapshot.docs.map((doc) => doc.data()));
+        setLoading(false);
+      });
+
+    fetchComments();
+  }, []);
+
+  const deleteDocument = async (document, collection) => {
+    await firestore.collection(`settings/landing/${collection}`).doc(document.id).delete();
+  };
+
   const deleteElement = async (element, field) => {
-    const newElements = get(events, `${field}`, []).filter(
-      (ele) => ele.id !== element.id
-    );
+    const newElements = get(events, `${field}`, []).filter((ele) => ele.id !== element.id);
 
     await firestore.doc(`landings/events`).update({
       [field]: newElements,
@@ -74,25 +87,13 @@ export const Home = (props) => {
         <HeaderLanding executeScroll={executeScroll} />
         <Companies events={events} deleteElement={deleteElement} />
         <Services refProp={servicesRef} />
-        <Games
-          refProp={gamesRef}
-          events={events}
-          deleteElement={deleteElement}
-        />
+        <Games refProp={gamesRef} events={events} deleteElement={deleteElement} />
         <SpecialGuests deleteElement={deleteElement} events={events} />
-        <SpecialGifts
-          deleteElement={deleteElement}
-          events={events}
-          executeScroll={executeScroll}
-        />
+        <SpecialGifts deleteElement={deleteElement} events={events} executeScroll={executeScroll} />
         <SpecialShows deleteElement={deleteElement} events={events} />
         <SpecialWorkshops deleteElement={deleteElement} events={events} />
-        <HeldEvents
-          refProp={eventsRef}
-          events={events}
-          deleteElement={deleteElement}
-        />
-        <Comments events={events} deleteElement={deleteElement} />
+        <HeldEvents refProp={eventsRef} events={events} deleteElement={deleteElement} />
+        <Comments comments={comments} deleteDocument={deleteDocument} />
         <Contact refProp={contactRef} />
         <Footer />
       </div>
