@@ -13,7 +13,6 @@ const footerContent = [
   {
     title: "Comienza con",
     classKey: "start-with",
-    key: "1",
     children: [
       { title: "Games" },
       { title: "Paquetes" },
@@ -24,7 +23,6 @@ const footerContent = [
   {
     title: "Contáctanos",
     classKey: "contact-us",
-    key: "2",
     children: [
       { title: "informes@ebombo.com.pe", icon: `${config.storageUrl}/resources/b2bLanding/email.svg` },
       { title: "Lunes - Viernes 6:00 am - 5:00 pm" },
@@ -34,7 +32,6 @@ const footerContent = [
   {
     title: "¡Síguenos!",
     classKey: "follow-us",
-    key: "3",
     children: [
       {
         title: "Facebook",
@@ -70,10 +67,10 @@ export const Footer = (props) => (
         expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 180 : 0} />}
       >
         {footerContent.map((content) => (
-          <Panel header={content.title} key={content.key}>
+          <Panel header={content.title} key={content.title}>
             <div className="items-container">
               {content.children.map((item) => (
-                <Anchor href={item.link} key={item.link} target={item.target}>
+                <Anchor href={item.link} key={item.title} target={item.target}>
                   <div className={`item-body ${content.classKey}`}>
                     {item.icon ? (
                       <Image
@@ -98,11 +95,11 @@ export const Footer = (props) => (
     </Tablet>
     <Desktop>
       {footerContent.map((content) => (
-        <div className="content-wrapper" key={content.key}>
+        <div className="content-wrapper" key={content.title}>
           <div className="title">{content.title}</div>
           <div className="items-container">
             {content.children.map((item) => (
-              <Anchor href={item.link} key={item.link} target={item.target}>
+              <Anchor href={item.link} key={item.title} target={item.target}>
                 <div className={`item-body ${content.classKey}`}>
                   {item.icon ? (
                     <Image
