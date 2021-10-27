@@ -6,12 +6,7 @@ import { useRouter } from "next/router";
 import { Desktop, mediaQuery, Tablet } from "../../../../../constants";
 import { Image } from "../../../../../components/common/Image";
 import { CloseCircleOutlined } from "@ant-design/icons";
-import {
-  auth,
-  config,
-  firestore,
-  firestoreBingo,
-} from "../../../../../firebase";
+import { config, firestoreBingo } from "../../../../../firebase";
 import { ButtonAnt } from "../../../../../components/form";
 import { darkTheme } from "../../../../../theme";
 import { Tooltip } from "antd";
@@ -19,9 +14,8 @@ import { bingoCard } from "../../../../../components/common/DataList";
 import { CardContainer } from "../Bingo";
 import { spinLoader } from "../../../../../components/common/loader";
 import { ModalMove } from "../../../../../components/common/ModalMove";
-import { updateGame } from "../../_gameId"
+import { updateGame } from "../index";
 import { useSendError } from "../../../../../hooks";
-
 
 export const GameView = (props) => {
   const [authUser] = useGlobal("user");
@@ -37,12 +31,8 @@ export const GameView = (props) => {
 
   const redirectToGameViewWithFolder = (folderId) => {
     folderId
-      ? router.push(
-          `/library/games/${gameId}/view?adminGameId=${adminGameId}&folderId=${folderId}`
-        )
-      : router.push(
-          `/library/games/${gameId}/view?adminGameId=${adminGameId}`
-        );
+      ? router.push(`/library/games/${gameId}/view?adminGameId=${adminGameId}&folderId=${folderId}`)
+      : router.push(`/library/games/${gameId}/view?adminGameId=${adminGameId}`);
   };
 
   const moveGameToFolder = async (folder) => {
@@ -51,13 +41,11 @@ export const GameView = (props) => {
     try {
       await updateGame(game.adminGame, { id: game.id, parentId: folder?.id }, authUser);
 
-      redirectToGameViewWithFolder(folder?.id); 
+      redirectToGameViewWithFolder(folder?.id);
     } catch (error) {
       await sendError(error);
     }
   };
-
-
 
   useEffect(() => {
     const _game = games.find((game) => game.id === gameId);
@@ -68,9 +56,7 @@ export const GameView = (props) => {
   useEffect(() => {
     if (isEmpty(adminGames)) return;
 
-    const currentResource = adminGames.find(
-      (resource_) => resource_.id === adminGameId
-    );
+    const currentResource = adminGames.find((resource_) => resource_.id === adminGameId);
 
     setResource(currentResource);
   }, [adminGames]);
@@ -131,9 +117,7 @@ export const GameView = (props) => {
 
   const createTokenToPlay = async () => {
     try {
-      const tokenId = await auth.currentUser.getIdToken();
-
-      const redirectUrl = `${game.adminGame.domain}/games/${game.id}?tokenId=${tokenId}`;
+      const redirectUrl = `${game.adminGame.domain}/games/${game.id}?userId=${authUser?.id}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {
@@ -145,22 +129,14 @@ export const GameView = (props) => {
     let newGames = games;
     const gameIndex = newGames.findIndex((game) => game.id === game.id);
 
-    newGames[gameIndex].isFavorite = !get(
-      newGames[gameIndex],
-      "isFavorite",
-      false
-    );
+    newGames[gameIndex].isFavorite = !get(newGames[gameIndex], "isFavorite", false);
 
     setGames(newGames);
 
     try {
-      await Fetch(
-        `${resource.domain}/api/games/${game.id}/users/${authUser.id}`,
-        "PUT",
-        {
-          isFavorite: newGames[gameIndex].isFavorite,
-        }
-      );
+      await Fetch(`${resource.domain}/api/games/${game.id}/users/${authUser.id}`, "PUT", {
+        isFavorite: newGames[gameIndex].isFavorite,
+      });
     } catch (error) {
       await sendError(error, "createGame");
     }
@@ -173,11 +149,7 @@ export const GameView = (props) => {
       <Tablet>
         <div className="cover-container">
           <Image
-            src={
-              game.coverImgUrl
-                ? game.coverImgUrl
-                : `${config.storageUrl}/resources/empty-cover.svg`
-            }
+            src={game.coverImgUrl ? game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
             width="100%"
             height="100px"
             size="cover"
@@ -222,12 +194,8 @@ export const GameView = (props) => {
               className="edit"
               onClick={() => {
                 folderId
-                  ? router.push(
-                      `/library/games/${game.id}?adminGameId=${adminGameId}&folderId=${folderId}`
-                    )
-                  : router.push(
-                      `/library/games/${game.id}?adminGameId=${adminGameId}`
-                    );
+                  ? router.push(`/library/games/${game.id}?adminGameId=${adminGameId}&folderId=${folderId}`)
+                  : router.push(`/library/games/${game.id}?adminGameId=${adminGameId}`);
               }}
             >
               <Image
@@ -243,10 +211,7 @@ export const GameView = (props) => {
               trigger="click"
               title={
                 <ToolTipContent>
-                  <div
-                    className="option"
-                    onClick={() => setIsVisibleModalMove(true)}
-                  >
+                  <div className="option" onClick={() => setIsVisibleModalMove(true)}>
                     <Image
                       src={`${config.storageUrl}/resources/move.svg`}
                       width={"16px"}
@@ -292,11 +257,7 @@ export const GameView = (props) => {
       <Desktop>
         <div className="left-container-desktop">
           <Image
-            src={
-              game.coverImgUrl
-                ? game.coverImgUrl
-                : `${config.storageUrl}/resources/empty-cover.svg`
-            }
+            src={game.coverImgUrl ? game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
             width="100%"
             height="194px"
             size="cover"
@@ -310,21 +271,13 @@ export const GameView = (props) => {
                 margin="0 1rem"
                 onClick={() => {
                   get(props, "game.parentId", null)
-                    ? router.push(
-                        `/library/games/${game.id}?adminGameId=${adminGameId}&folderId=${folderId}`
-                      )
-                    : router.push(
-                        `/library/games/${game.id}?adminGameId=${adminGameId}`
-                      );
+                    ? router.push(`/library/games/${game.id}?adminGameId=${adminGameId}&folderId=${folderId}`)
+                    : router.push(`/library/games/${game.id}?adminGameId=${adminGameId}`);
                 }}
               >
                 Editar
               </ButtonAnt>
-              <ButtonAnt
-                variant="contained"
-                color="primary"
-                onClick={createTokenToPlay}
-              >
+              <ButtonAnt variant="contained" color="primary" onClick={createTokenToPlay}>
                 Jugar
               </ButtonAnt>
             </div>
@@ -353,10 +306,7 @@ export const GameView = (props) => {
                 trigger="click"
                 title={
                   <ToolTipContent>
-                    <div 
-                      className="option"
-                      onClick={() => setIsVisibleModalMove(true)}
-                    >
+                    <div className="option" onClick={() => setIsVisibleModalMove(true)}>
                       <Image
                         src={`${config.storageUrl}/resources/move.svg`}
                         width={"16px"}
@@ -406,9 +356,7 @@ export const GameView = (props) => {
           <div>
             <Desktop>
               <div className="description">Descripcción:</div>
-              <div className="amount-numbers">
-                1- {get(game, "amountNumbers", 75)} números
-              </div>
+              <div className="amount-numbers">1- {get(game, "amountNumbers", 75)} números</div>
             </Desktop>
             <div className="left-container">
               <div className="color">
@@ -460,8 +408,7 @@ export const GameView = (props) => {
 const ColorBlock = styled.div`
   width: 29px;
   height: 36px;
-  background: ${(props) =>
-    props.color ? props.color : props.theme.basic.whiteLight};
+  background: ${(props) => (props.color ? props.color : props.theme.basic.whiteLight)};
   border: 1px solid ${(props) => props.theme.basic.grayLight};
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

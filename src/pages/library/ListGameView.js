@@ -2,7 +2,7 @@ import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
-import { auth, config, firestore, firestoreBingo } from "../../firebase";
+import { config, firestore, firestoreBingo } from "../../firebase";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import get from "lodash/get";
@@ -23,10 +23,7 @@ export const ListGameView = (props) => {
 
   useEffect(() => {
     const fetchResource = async () => {
-      const resourceRef = await firestore
-        .collection("games")
-        .doc(props.game.adminGameId)
-        .get();
+      const resourceRef = await firestore.collection("games").doc(props.game.adminGameId).get();
       setResource(resourceRef.data());
     };
 
@@ -50,22 +47,14 @@ export const ListGameView = (props) => {
     let newGames = games;
     const gameIndex = newGames.findIndex((game) => game.id === props.game.id);
 
-    newGames[gameIndex].isFavorite = !get(
-      newGames[gameIndex],
-      "isFavorite",
-      false
-    );
+    newGames[gameIndex].isFavorite = !get(newGames[gameIndex], "isFavorite", false);
 
     setGames(newGames);
 
     try {
-      await Fetch(
-        `${resource.api}/games/${props.game.id}/users/${authUser.id}`,
-        "PUT",
-        {
-          isFavorite: newGames[gameIndex].isFavorite,
-        }
-      );
+      await Fetch(`${resource.api}/games/${props.game.id}/users/${authUser.id}`, "PUT", {
+        isFavorite: newGames[gameIndex].isFavorite,
+      });
     } catch (error) {
       await sendError(error, "createGame");
     }
@@ -90,9 +79,7 @@ export const ListGameView = (props) => {
   const createTokenToPlay = async () => {
     setIsLoading(true);
     try {
-      const tokenId = await auth.currentUser.getIdToken();
-
-      const redirectUrl = `${props.game.adminGame.domain}/games/${props.game.id}?tokenId=${tokenId}`;
+      const redirectUrl = `${props.game.adminGame.domain}/games/${props.game.id}?userId=${authUser?.id}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {
@@ -106,9 +93,7 @@ export const ListGameView = (props) => {
       ? router.push(
           `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
         )
-      : router.push(
-          `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}`
-        );
+      : router.push(`/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}`);
   };
 
   return (
@@ -204,9 +189,7 @@ export const ListGameView = (props) => {
                     margin={"0 5px 0 0"}
                     size="cover"
                   />
-                  <div className="name">
-                    {get(props, "game.company.name", "")}
-                  </div>
+                  <div className="name">{get(props, "game.company.name", "")}</div>
                 </div>
               </Desktop>
               <div className="dates">
@@ -230,20 +213,13 @@ export const ListGameView = (props) => {
                         ? router.push(
                             `/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
                           )
-                        : router.push(
-                            `/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`
-                          );
+                        : router.push(`/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`);
                       setIsLoading(false);
                     }}
                   >
                     Editar
                   </ButtonAnt>
-                  <ButtonAnt
-                    variant="contained"
-                    color="primary"
-                    loading={isLoading}
-                    onClick={createTokenToPlay}
-                  >
+                  <ButtonAnt variant="contained" color="primary" loading={isLoading} onClick={createTokenToPlay}>
                     Jugar
                   </ButtonAnt>
                 </div>
@@ -270,19 +246,12 @@ export const ListGameView = (props) => {
                   ? router.push(
                       `/library/games/new?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
                     )
-                  : router.push(
-                      `/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`
-                    );
+                  : router.push(`/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`);
               }}
             >
               Editar
             </ButtonAnt>
-            <ButtonAnt
-              variant="contained"
-              color="primary"
-              margin="0 1rem"
-              onClick={createTokenToPlay}
-            >
+            <ButtonAnt variant="contained" color="primary" margin="0 1rem" onClick={createTokenToPlay}>
               Jugar
             </ButtonAnt>
             {props.game.isFavorite ? (
