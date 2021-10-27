@@ -68,7 +68,7 @@ const Login = (props) => {
             Iniciar sesión
           </ButtonAnt>
           <Anchor
-            onClick={() => setIsVisibleForgotPassword(true)}
+            onClick={() => router.push("/recovery")}
             variant="primary"
             display="block"
             margin="1rem auto"
