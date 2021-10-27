@@ -1,92 +1,79 @@
 import React from "reactn";
 import styled from "styled-components";
-import { mediaQuery,Desktop, Tablet } from "../constants";
+import { Desktop, mediaQuery, Tablet } from "../constants";
 import { Image } from "./common/Image";
 import { Anchor } from "./form";
 import { config } from "../firebase";
-import { Collapse } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Collapse } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 
 const { Panel } = Collapse;
-
 
 const footerContent = [
   {
     title: "Comienza con",
     classKey: "start-with",
-    key:"1",
+    key: "1",
     children: [
       { title: "Games" },
       { title: "Paquetes" },
-      { title: "Iniciar sesión" },
-      { title: "Registrate", link: "/register" },
-    ]
+      { title: "Iniciar sesión", link: "/login", target: "_self" },
+      { title: "Registrate", link: "/register", target: "_self" },
+    ],
   },
   {
     title: "Contáctanos",
     classKey: "contact-us",
-    key:"2",
+    key: "2",
     children: [
       { title: "informes@ebombo.com.pe", icon: `${config.storageUrl}/resources/b2bLanding/email.svg` },
       { title: "Lunes - Viernes 6:00 am - 5:00 pm" },
       { title: "+51 983 645 002", icon: `${config.storageUrl}/resources/b2bLanding/wsp-icon.svg` },
-    ]
+    ],
   },
   {
     title: "¡Síguenos!",
     classKey: "follow-us",
-    key:"3",
+    key: "3",
     children: [
-      { title: "Facebook", icon: `${config.storageUrl}/resources/facebook-gray.svg`, link: "https://www.facebook.com/ebombogames" },
-      { title: "Instagram", icon: `${config.storageUrl}/resources/instagram-gray.svg`, link: "https://instagram.com/ebombo_events?utm_medium=copy_link" },
-      { title: "LinkedIn", icon: `${config.storageUrl}/resources/linkedin-gray.svg`, link: "https://instagram.com/ebombo_events?utm_medium=copy_link" },
-      { title: "Twitter", icon: `${config.storageUrl}/resources/twitter-gray.svg`, link: "https://twitter.com/ebombogames" },
-    ]
-  }
+      {
+        title: "Facebook",
+        icon: `${config.storageUrl}/resources/facebook-gray.svg`,
+        link: "https://www.facebook.com/ebombogames",
+      },
+      {
+        title: "Instagram",
+        icon: `${config.storageUrl}/resources/instagram-gray.svg`,
+        link: "https://instagram.com/ebombo_events?utm_medium=copy_link",
+      },
+      {
+        title: "LinkedIn",
+        icon: `${config.storageUrl}/resources/linkedin-gray.svg`,
+        link: "https://instagram.com/ebombo_events?utm_medium=copy_link",
+      },
+      {
+        title: "Twitter",
+        icon: `${config.storageUrl}/resources/twitter-gray.svg`,
+        link: "https://twitter.com/ebombogames",
+      },
+    ],
+  },
 ];
 
-export const Footer = (props) => {
-  return (
-    <FooterContainer>
-      <Tablet>
-        <Collapse
-          defaultActiveKey={[]}
-          ghost
-          expandIconPosition="right"
-          expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 180 : 0} />}
-          >
-          {footerContent.map(content => (
-            <Panel header={content.title} key={content.key} >
-              <div className="items-container">
-                {content.children.map(item => (
-                  <Anchor href={item.link}>
-                    <div className={`item-body ${content.classKey}`}>
-                      {item.icon ? (
-                        <Image
-                          src={item.icon}
-                          width={"25px"}
-                          height={"25px"}
-                          size={"contain"}
-                          margin={"0 auto 0 0"}
-                          className="icon"
-                        />
-                      ) : <span></span>}
-                      <span>{item.title}</span>
-                    </div>
-                  </Anchor>
-                ))}
-              </div>
-            </Panel>
-          ))}
-        </Collapse>
-      </Tablet>
-      <Desktop>
-        {footerContent.map(content => (
-          <div className="content-wrapper">
-            <div className="title">{content.title}</div>
+export const Footer = (props) => (
+  <FooterContainer>
+    <Tablet>
+      <Collapse
+        defaultActiveKey={[]}
+        ghost
+        expandIconPosition="right"
+        expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 180 : 0} />}
+      >
+        {footerContent.map((content) => (
+          <Panel header={content.title} key={content.key}>
             <div className="items-container">
-              {content.children.map(item => (
-                <Anchor href={item.link}>
+              {content.children.map((item) => (
+                <Anchor href={item.link} key={item.link} target={item.target}>
                   <div className={`item-body ${content.classKey}`}>
                     {item.icon ? (
                       <Image
@@ -97,20 +84,48 @@ export const Footer = (props) => {
                         margin={"0 auto 0 0"}
                         className="icon"
                       />
-                    ) : <span></span>}
+                    ) : (
+                      <span />
+                    )}
                     <span>{item.title}</span>
                   </div>
                 </Anchor>
-
               ))}
             </div>
-
-          </div>
+          </Panel>
         ))}
-      </Desktop>
-    </FooterContainer>
-  );
-};
+      </Collapse>
+    </Tablet>
+    <Desktop>
+      {footerContent.map((content) => (
+        <div className="content-wrapper" key={content.key}>
+          <div className="title">{content.title}</div>
+          <div className="items-container">
+            {content.children.map((item) => (
+              <Anchor href={item.link} key={item.link} target={item.target}>
+                <div className={`item-body ${content.classKey}`}>
+                  {item.icon ? (
+                    <Image
+                      src={item.icon}
+                      width={"25px"}
+                      height={"25px"}
+                      size={"contain"}
+                      margin={"0 auto 0 0"}
+                      className="icon"
+                    />
+                  ) : (
+                    <span />
+                  )}
+                  <span>{item.title}</span>
+                </div>
+              </Anchor>
+            ))}
+          </div>
+        </div>
+      ))}
+    </Desktop>
+  </FooterContainer>
+);
 
 const FooterContainer = styled.div`
   padding: 1rem;
@@ -138,7 +153,7 @@ const FooterContainer = styled.div`
     margin-bottom: 19px;
     color: ${(props) => props.theme.basic.secondary};
   }
-	.item-body {
+  .item-body {
     margin: 12px 0;
     text-align: left;
     display: grid;
