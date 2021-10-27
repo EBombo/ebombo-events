@@ -1,95 +1,181 @@
 import React from "reactn";
 import styled from "styled-components";
-import { mediaQuery } from "../constants";
+import { Desktop, mediaQuery, Tablet } from "../constants";
 import { Image } from "./common/Image";
 import { Anchor } from "./form";
 import { config } from "../firebase";
+import { Collapse } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 
-export const Footer = (props) => {
-  return (
-    <FooterContainer>
-      <div className="logos">
-        <Image
-          src={`${config.storageUrl}/resources/ebombo-white.png`}
-          width={"auto"}
-          height={"35px"}
-          size={"contain"}
-          margin={"0"}
-        />
-        <div className="social-media">
-          <Anchor
-            href={"https://instagram.com/ebombo_events?utm_medium=copy_link"}
-          >
-            <Image
-              src={`${config.storageUrl}/resources/instagram-gray.svg`}
-              width={"25px"}
-              height={"25px"}
-              size={"contain"}
-              margin={"0 5px 0"}
-            />
-          </Anchor>
-          <Anchor href={"https://www.facebook.com/ebombogames"}>
-            <Image
-              src={`${config.storageUrl}/resources/facebook-gray.svg`}
-              width={"25px"}
-              height={"25px"}
-              size={"contain"}
-              margin={"0 5px 0"}
-            />
-          </Anchor>
-          <Anchor href={"https://twitter.com/ebombogames"}>
-            <Image
-              src={`${config.storageUrl}/resources/twitter-gray.svg`}
-              width={"25px"}
-              height={"25px"}
-              size={"contain"}
-              margin={"0 5px 0"}
-            />
-          </Anchor>
+const { Panel } = Collapse;
+
+const footerContent = [
+  {
+    title: "Comienza con",
+    classKey: "start-with",
+    children: [
+      { title: "Games" },
+      { title: "Paquetes" },
+      { title: "Iniciar sesión", link: "/login", target: "_self" },
+      { title: "Registrate", link: "/register", target: "_self" },
+    ],
+  },
+  {
+    title: "Contáctanos",
+    classKey: "contact-us",
+    children: [
+      { title: "informes@ebombo.com.pe", icon: `${config.storageUrl}/resources/b2bLanding/email.svg` },
+      { title: "Lunes - Viernes 6:00 am - 5:00 pm" },
+      { title: "+51 983 645 002", icon: `${config.storageUrl}/resources/b2bLanding/wsp-icon.svg` },
+    ],
+  },
+  {
+    title: "¡Síguenos!",
+    classKey: "follow-us",
+    children: [
+      {
+        title: "Facebook",
+        icon: `${config.storageUrl}/resources/facebook-gray.svg`,
+        link: "https://www.facebook.com/ebombogames",
+      },
+      {
+        title: "Instagram",
+        icon: `${config.storageUrl}/resources/instagram-gray.svg`,
+        link: "https://instagram.com/ebombo_events?utm_medium=copy_link",
+      },
+      {
+        title: "LinkedIn",
+        icon: `${config.storageUrl}/resources/linkedin-gray.svg`,
+        link: "https://instagram.com/ebombo_events?utm_medium=copy_link",
+      },
+      {
+        title: "Twitter",
+        icon: `${config.storageUrl}/resources/twitter-gray.svg`,
+        link: "https://twitter.com/ebombogames",
+      },
+    ],
+  },
+];
+
+export const Footer = (props) => (
+  <FooterContainer>
+    <Tablet>
+      <Collapse
+        defaultActiveKey={[]}
+        ghost
+        expandIconPosition="right"
+        expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 180 : 0} />}
+      >
+        {footerContent.map((content) => (
+          <Panel header={content.title} key={content.title}>
+            <div className="items-container">
+              {content.children.map((item) => (
+                <Anchor href={item.link} key={item.title} target={item.target}>
+                  <div className={`item-body ${content.classKey}`}>
+                    {item.icon ? (
+                      <Image
+                        src={item.icon}
+                        width={"25px"}
+                        height={"25px"}
+                        size={"contain"}
+                        margin={"0 auto 0 0"}
+                        className="icon"
+                      />
+                    ) : (
+                      <span />
+                    )}
+                    <span>{item.title}</span>
+                  </div>
+                </Anchor>
+              ))}
+            </div>
+          </Panel>
+        ))}
+      </Collapse>
+    </Tablet>
+    <Desktop>
+      {footerContent.map((content) => (
+        <div className="content-wrapper" key={content.title}>
+          <div className="title">{content.title}</div>
+          <div className="items-container">
+            {content.children.map((item) => (
+              <Anchor href={item.link} key={item.title} target={item.target}>
+                <div className={`item-body ${content.classKey}`}>
+                  {item.icon ? (
+                    <Image
+                      src={item.icon}
+                      width={"25px"}
+                      height={"25px"}
+                      size={"contain"}
+                      margin={"0 auto 0 0"}
+                      className="icon"
+                    />
+                  ) : (
+                    <span />
+                  )}
+                  <span>{item.title}</span>
+                </div>
+              </Anchor>
+            ))}
+          </div>
         </div>
-      </div>
-
-      <div className="description">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc libero
-        scelerisque maecenas ut dui. Vitae vestibulum sit interdum velit egestas
-        amet, senectus. Tempus, enim id egestas sollicitudin molestie eu. At
-        lectus nisi aliquam libero a sit aliquam.
-      </div>
-    </FooterContainer>
-  );
-};
+      ))}
+    </Desktop>
+  </FooterContainer>
+);
 
 const FooterContainer = styled.div`
   padding: 1rem;
   width: 100%;
-  background: ${(props) => props.theme.basic.secondaryDark};
+  background: ${(props) => props.theme.basic.white};
   position: absolute;
 
-  .logos {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    .social-media {
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-    }
+  display: inline-flex;
+  justify-content: space-evenly;
+
+  .ant-collapse {
+    width: 100%;
+  }
+  .ant-collapse-arrow {
+    font-size: 16px !important;
   }
 
-  .description {
+  .ant-collapse-header,
+  .title {
+    font-family: Lato;
     font-style: normal;
-    font-weight: 500;
-    font-size: 10px;
-    line-height: 15px;
-    color: ${(props) => props.theme.basic.whiteDarken};
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    margin-bottom: 19px;
+    color: ${(props) => props.theme.basic.secondary};
   }
+  .item-body {
+    margin: 12px 0;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 48px auto;
+    grid-template-rows: auto;
 
-  .container-img {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 400px;
+    &.start-with {
+      grid-template-columns: 0px auto;
+      span:first-child {
+        width: 0px;
+      }
+    }
+
+    .icon {
+      display: inline-block;
+      align-self: start;
+    }
+    span {
+      font-size: 18px;
+      font-family: Lato;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 22px;
+      color: ${(props) => props.theme.basic.grayDarken};
+    }
   }
 
   ${mediaQuery.afterTablet} {

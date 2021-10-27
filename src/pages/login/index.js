@@ -6,6 +6,9 @@ import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { object, string } from "yup";
 import { useRouter } from "next/router";
+import { Desktop, mediaQuery } from "../../constants";
+import { Image } from "../../components/common/Image";
+import { config } from "../../firebase";
 
 const Login = (props) => {
   const router = useRouter();
@@ -27,78 +30,87 @@ const Login = (props) => {
 
   return (
     <LoginContainer>
-      <form onSubmit={handleSubmit(signIn)} autoComplete="on" noValidate>
-        <div className="input-container">
-          <Input
-            error={errors.email}
-            type="email"
-            ref={register}
-            name="email"
-            placeholder="Correo"
+      <div className="container">
+        <Desktop>
+          <Image src={`${config.storageUrl}/resources/register-img.png`} height="100%" width="100%" size="contain" />
+        </Desktop>
+
+        <form onSubmit={handleSubmit(signIn)} autoComplete="on" className="form-container" noValidate>
+          <div className="title">Iniciar sesión</div>
+
+          <Divider> o </Divider>
+
+          <ButtonsProviders google />
+
+          <div className="input-container">
+            <Input error={errors.email} type="email" ref={register} name="email" placeholder="Correo" height="45px" />
+          </div>
+          <div className="input-container">
+            <Input
+              error={errors.password}
+              type="password"
+              autoComplete="on"
+              ref={register}
+              name="password"
+              placeholder="Contraseña"
+              height="45px"
+            />
+          </div>
+          <ButtonAnt
+            loading={isLoadingUser}
+            disabled={isLoadingUser || isLoadingCreateUser}
+            width="100%"
+            fontSize="14px"
             height="45px"
-          />
-        </div>
-        <div className="input-container">
-          <Input
-            error={errors.password}
-            type="password"
-            autoComplete="on"
-            ref={register}
-            name="password"
-            placeholder="Contraseña"
-            height="45px"
-          />
-        </div>
-        <ButtonAnt
-          loading={isLoadingUser}
-          disabled={isLoadingUser || isLoadingCreateUser}
-          width="100%"
-          fontSize="14px"
-          height="45px"
-          borderRadius="0"
-          htmlType="submit"
-        >
-          Iniciar sesión
-        </ButtonAnt>
-      </form>
-      <Anchor
-        onClick={() => setIsVisibleForgotPassword(true)}
-        variant="primary"
-        display="flex"
-        margin="10px auto"
-      >
-        Recuperar contraseña
-      </Anchor>
-      <Anchor
-        onClick={() => {
-          setIsVisibleLoginModal(false);
-          router.push("/register");
-        }}
-        variant="primary"
-        display="flex"
-        margin="10px auto"
-      >
-        Registrate
-      </Anchor>
-      <Divider>o</Divider>
-      <ButtonsProviders google />
+            borderRadius="0"
+            htmlType="submit"
+          >
+            Iniciar sesión
+          </ButtonAnt>
+          <Anchor
+            onClick={() => setIsVisibleForgotPassword(true)}
+            variant="primary"
+            display="block"
+            margin="1rem auto"
+            fontSize="1rem"
+            fontWeight="bold"
+          >
+            Recuperar contraseña
+          </Anchor>
+        </form>
+      </div>
     </LoginContainer>
   );
 };
 
 const LoginContainer = styled.div`
+  display: flex;
+  height: 100vh;
+
+  .container {
+    margin: auto;
+    display: grid;
+    background-color: ${(props) => props.theme.basic.gray};
+
+    ${mediaQuery.afterDesktop} {
+      grid-template-columns: 1fr 1.5fr;
+    }
+  }
+
+  .form-container {
+    margin: auto;
+    min-width: 300px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: ${(props) => props.theme.basic.secondary};
+  }
+
   .input-container {
     margin: 0.5rem auto;
-  }
-
-  input[type="email"],
-  input[type="password"] {
-    border: none !important;
-    border-radius: 0 !important;
-  }
-
-  .ant-btn-loading {
-    color: ${(props) => props.theme.basic.white};
   }
 `;
 
