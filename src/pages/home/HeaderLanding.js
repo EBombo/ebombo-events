@@ -8,51 +8,31 @@ import { Image } from "../../components/common/Image";
 export const HeaderLanding = (props) => {
   return (
     <HeaderLandingContainer>
-      <div className="header-content">
-        <div className="first-content">
-          <div className="title">
-            Somos una empresa <span>que aprendió a romper barreras</span>
-          </div>
-          <Desktop>
-            <div className="button-container">
-              <ButtonAnt
-                variant="contained"
-                color="secondary"
-                onClick={() => props.executeScroll("contact")}
-                margi="0 0 0 10px"
-              >
-                Contáctanos
-              </ButtonAnt>
-            </div>
-          </Desktop>
+      <div className="left-container">
+        <div className="title">Haz que tus eventos sean todo un éxito.</div>
+        <div className="subtitle">Hazlos al estilo Ebombo.</div>
+        <div className="description">
+          Facilita tus sesiones de integración o crea un momento de relajo entre tus colaboradores con actividades
+          divertidas como Bingo, trivia, entre otros.
         </div>
-        <div className="second-content">
-          <Desktop>
-            <Image
-              src={`${config.storageUrl}/resources/b2bLanding/desktop-header.png`}
-              width={"100%"}
-              height={"400px"}
-              margin={"0"}
-              size={"contain"}
-            />
-          </Desktop>
-          <Tablet>
-            <Image
-              src={`${config.storageUrl}/resources/b2bLanding/mobile-header.png`}
-              width={"auto"}
-              height={"250px"}
-              margin={"0"}
-              size={"contain"}
-            />
-          </Tablet>
+        <div className="companies">
+          <Image
+            src={`${config.storageUrl}/resources/companies.svg`}
+            height={"30px"}
+            desktopHeight={"40px"}
+            margin={"1rem 0"}
+            size={"contain"}
+          />
         </div>
-        <Tablet>
-          <div className="button-container">
-            <ButtonAnt variant="contained" color="white" onClick={() => props.executeScroll("contact")}>
-              Contáctanos
-            </ButtonAnt>
-          </div>
-        </Tablet>
+      </div>
+      <div className="right-container">
+        <Image
+          src={`${config.storageUrl}/resources/header.png`}
+          width={"100%"}
+          height={"400px"}
+          margin={"0"}
+          size={"contain"}
+        />
       </div>
     </HeaderLandingContainer>
   );
@@ -60,67 +40,64 @@ export const HeaderLanding = (props) => {
 
 const HeaderLandingContainer = styled.section`
   width: 100%;
-  background: ${(props) => props.theme.basic.whiteLight};
+  background: ${(props) => props.theme.basic.secondary};
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
 
-  .header-content {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 1rem;
-    background: ${(props) => props.theme.basic.secondary};
+  .title {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 25px;
+    letter-spacing: 0.03em;
+    color: ${(props) => props.theme.basic.whiteLight};
+    margin: 1rem 0;
+  }
 
-    .first-content {
-      .title {
-        text-align: center;
-        font-size: 28px;
-        line-height: 35px;
-        font-weight: normal;
-        color: ${(props) => props.theme.basic.secondary};
+  .subtitle {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: ${(props) => props.theme.basic.whiteLight};
+    margin: 1rem 0;
+  }
 
-        span {
-          font-weight: bold;
-        }
-      }
-
-      .button-container {
-        margin: 1rem auto;
-      }
-    }
-
-    .second-content {
-      max-width: 100%;
-      height: 280px;
-    }
+  .description {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: ${(props) => props.theme.basic.whiteLight};
+    margin: 1rem 0;
   }
 
   ${mediaQuery.afterTablet} {
-    .header-content {
-      flex-direction: row;
-      padding: 2rem;
+    flex-direction: row;
+    padding: 2rem;
 
-      .first-content {
-        width: 50%;
+    .left-container {
+      max-width: 485px;
+    }
+    
+    .title {
+      font-size: 40px;
+      line-height: 44px;
+    }
 
-        .title {
-          font-size: 39px;
-          line-height: 49px;
-          color: ${(props) => props.theme.basic.white};
-          text-align: left;
+    .subtitle {
+      font-size: 24px;
+      line-height: 29px;
+    }
 
-          span {
-            font-weight: bold;
-          }
-        }
-
-        .button-container {
-          margin: 1rem 0;
-        }
-      }
-
-      .second-content {
-        width: 50%;
-        height: 400px;
-      }
+    .description {
+      font-size: 18px;
+      line-height: 22px;
     }
   }
 `;
