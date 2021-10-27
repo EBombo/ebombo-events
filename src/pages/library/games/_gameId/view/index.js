@@ -18,6 +18,10 @@ import { Tooltip } from "antd";
 import { bingoCard } from "../../../../../components/common/DataList";
 import { CardContainer } from "../Bingo";
 import { spinLoader } from "../../../../../components/common/loader";
+import { ModalMove } from "../../../../../components/common/ModalMove";
+import { updateGame } from "../../_gameId"
+import { useSendError } from "../../../../../hooks";
+
 
 export const GameView = (props) => {
   const [authUser] = useGlobal("user");
@@ -25,10 +29,35 @@ export const GameView = (props) => {
   const [games, setGames] = useGlobal("userGames");
   const [resource, setResource] = useState(null);
   const [game, setGame] = useState(null);
+  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
+  const { sendError } = useSendError();
 
   const router = useRouter();
-
   const { gameId, adminGameId, folderId } = router.query;
+
+  const redirectToGameViewWithFolder = (folderId) => {
+    folderId
+      ? router.push(
+          `/library/games/${gameId}/view?adminGameId=${adminGameId}&folderId=${folderId}`
+        )
+      : router.push(
+          `/library/games/${gameId}/view?adminGameId=${adminGameId}`
+        );
+  };
+
+  const moveGameToFolder = async (folder) => {
+    if (!game) return;
+
+    try {
+      await updateGame(game.adminGame, { id: game.id, parentId: folder?.id }, authUser);
+
+      redirectToGameViewWithFolder(folder?.id); 
+    } catch (error) {
+      await sendError(error);
+    }
+  };
+
+
 
   useEffect(() => {
     const _game = games.find((game) => game.id === gameId);
@@ -70,6 +99,12 @@ export const GameView = (props) => {
       blocksColor={get(game, "blocksColor", "")}
       numberColor={get(game, "numberColor", "")}
     >
+      <ModalMove
+        moveToFolder={moveGameToFolder}
+        setIsVisibleModalMove={setIsVisibleModalMove}
+        isVisibleModalMove={isVisibleModalMove}
+        {...props}
+      />
       <div className="card-title">{get(game, "title", "")}</div>
       <table>
         <thead className="thead">
@@ -208,7 +243,10 @@ export const GameView = (props) => {
               trigger="click"
               title={
                 <ToolTipContent>
-                  <div className="option">
+                  <div
+                    className="option"
+                    onClick={() => setIsVisibleModalMove(true)}
+                  >
                     <Image
                       src={`${config.storageUrl}/resources/move.svg`}
                       width={"16px"}
@@ -315,7 +353,10 @@ export const GameView = (props) => {
                 trigger="click"
                 title={
                   <ToolTipContent>
-                    <div className="option">
+                    <div 
+                      className="option"
+                      onClick={() => setIsVisibleModalMove(true)}
+                    >
                       <Image
                         src={`${config.storageUrl}/resources/move.svg`}
                         width={"16px"}

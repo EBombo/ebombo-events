@@ -7,54 +7,54 @@ import { useRouter } from "next/router";
 import { useAcl } from "../../hooks";
 
 export const TabletNav = (props) => {
-  const router = useRouter();
-  const { userAcls } = useAcl();
-  const [authUser] = useGlobal("user");
-  const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
-  const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
+    const router = useRouter();
+    const { userAcls } = useAcl();
+    const [authUser] = useGlobal("user");
+    const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
+    const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
 
-  return (
-    <TabletNavContainer>
-      <div />
-      <Image
-        src={`${config.storageUrl}/resources/ebombo-white.png`}
-        onClick={() =>
-          userAcls.some((acl) => acl.includes("admin"))
-            ? router.push("/admin")
-            : authUser
-            ? router.push("/library/games")
-            : router.push("/")
-        }
-        height="23px"
-        width="88px"
-        size="contain"
-      />
-      {!authUser && (
-        <Anchor
-          onClick={() => setIsVisibleLoginModal(true)}
-          variant="primary"
-          fontSize={"1rem"}
-        >
-          Iniciar sesión
-        </Anchor>
-      )}
-      {authUser && (
-        <div
-          className="hamburger"
-          onClick={() => setOpenRightDrawer(!openRightDrawer)}
-        >
-          <Image
-            src={`${config.storageUrl}/resources/user-profile.svg`}
-            height="31px"
-            width="31px"
-            borderRadius="50%"
-            size="contain"
-            cursor="pointer"
-          />
-        </div>
-      )}
-    </TabletNavContainer>
-  );
+    return (
+        <TabletNavContainer>
+            <div />
+            <Image
+                src={`${config.storageUrl}/resources/ebombo-white.png`}
+                onClick={() =>
+                    userAcls.some((acl) => acl.includes("admin"))
+                        ? router.push("/admin")
+                        : authUser
+                            ? router.push("/library/games")
+                            : router.push("/")
+                }
+                height="23px"
+                width="88px"
+                size="contain"
+            />
+            {!authUser && (
+                <Anchor
+                    onClick={() => router.push("/login")}
+                    variant="primary"
+                    fontSize={"1rem"}
+                >
+                    Iniciar sesión
+                </Anchor>
+            )}
+            {authUser && (
+                <div
+                    className="hamburger"
+                    onClick={() => setOpenRightDrawer(!openRightDrawer)}
+                >
+                    <Image
+                        src={`${config.storageUrl}/resources/user-profile.svg`}
+                        height="31px"
+                        width="31px"
+                        borderRadius="50%"
+                        size="contain"
+                        cursor="pointer"
+                    />
+                </div>
+            )}
+        </TabletNavContainer>
+    );
 };
 
 const TabletNavContainer = styled.div`
