@@ -20,13 +20,11 @@ const ForgotPassword = dynamic(() => import("../forgot-password"), {
 });
 
 export const HeaderLanding = (props) => {
-  const { signOut } = useAuth();
   const router = useRouter();
+  const { signOut } = useAuth();
   const [active, setActive] = useState(false);
   const [authUser] = useGlobal("user");
-  const [isVisibleLoginModal, setIsVisibleLoginModal] = useGlobal(
-    "isVisibleLoginModal"
-  );
+  const [isVisibleLoginModal, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
   const [isVisibleForgotPassword] = useGlobal("isVisibleForgotPassword");
 
   const loginModal = () =>
@@ -39,11 +37,7 @@ export const HeaderLanding = (props) => {
         closable={false}
         padding={"1rem"}
       >
-        {isVisibleForgotPassword ? (
-          <ForgotPassword {...props} />
-        ) : (
-          <Login {...props} />
-        )}
+        {isVisibleForgotPassword ? <ForgotPassword {...props} /> : <Login {...props} />}
       </ModalContainer>
     ) : null;
 
@@ -73,11 +67,7 @@ export const HeaderLanding = (props) => {
             </ul>
           </div>
           {authUser ? (
-            <Anchor
-              onClick={() => signOut()}
-              variant="secondary"
-              fontSize="18px"
-            >
+            <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
               Cerrar Sesión
             </Anchor>
           ) : (
@@ -91,12 +81,7 @@ export const HeaderLanding = (props) => {
               >
                 Regístrate
               </Anchor>
-              <ButtonAnt
-                onClick={() => setIsVisibleLoginModal(true)}
-                color="secondary"
-                variant="outlined"
-                fontSize="18px"
-              >
+              <ButtonAnt onClick={() => router.push("/login")} color="secondary" variant="outlined" fontSize="18px">
                 Iniciar sesión
               </ButtonAnt>
             </div>
@@ -142,16 +127,10 @@ export const HeaderLanding = (props) => {
             </li>
             {!authUser ? (
               <>
-                <li
-                  className="nav-item"
-                  onClick={() => setIsVisibleLoginModal(true)}
-                >
+                <li className="nav-item" onClick={() => router.push("/login")}>
                   Iniciar sesión
                 </li>
-                <li
-                  className="nav-item"
-                  onClick={() => router.push("/register")}
-                >
+                <li className="nav-item" onClick={() => router.push("/register")}>
                   Regístrate
                 </li>
               </>
@@ -161,13 +140,10 @@ export const HeaderLanding = (props) => {
               </li>
             )}
           </ul>
-          <div
-            className={`hamburger ${active ? "active" : ""}`}
-            onClick={() => setActive(!active)}
-          >
-            <span className="bar"></span>
-            <span className="bar"></span>
-            <span className="bar"></span>
+          <div className={`hamburger ${active ? "active" : ""}`} onClick={() => setActive(!active)}>
+            <span className="bar" />
+            <span className="bar" />
+            <span className="bar" />
           </div>
         </Tablet>
       </div>
@@ -211,11 +187,7 @@ export const HeaderLanding = (props) => {
         </div>
         <Tablet>
           <div className="button-container">
-            <ButtonAnt
-              variant="contained"
-              color="white"
-              onClick={() => props.executeScroll("contact")}
-            >
+            <ButtonAnt variant="contained" color="white" onClick={() => props.executeScroll("contact")}>
               Contáctanos
             </ButtonAnt>
           </div>
@@ -315,8 +287,8 @@ const HeaderLandingContainer = styled.section`
       display: block;
       cursor: pointer;
     }
-    
-    .btns-container{
+
+    .btns-container {
       display: flex;
       align-items: center;
     }
