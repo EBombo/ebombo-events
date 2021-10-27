@@ -1,12 +1,11 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { FileUpload } from "../../components/common/FileUpload";
-import { ButtonAnt, TextArea, Input } from "../../components/form";
+import { FileUpload } from "../../../components/common/FileUpload";
+import { ButtonAnt, Input, TextArea } from "../../../components/form";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import get from "lodash/get";
-import { firestore } from "../../firebase";
-import defaultTo from "lodash/defaultTo";
+import { firestore } from "../../../firebase";
 
 const EditComment = (props) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -27,30 +26,30 @@ const EditComment = (props) => {
   const saveComment = async (data) => {
     setLoading(true);
 
-    await firestore.collection(`settings/landing/comments`).doc(props.currentComment.id).set({
-      ...mapComment(props.currentComment, data),
-    });
+    await firestore
+      .collection(`settings/landing/comments`)
+      .doc(props.currentComment.id)
+      .set({
+        ...mapComment(props.currentComment, data),
+      });
 
     props.setIsVisibleModal(false);
     setLoading(false);
   };
 
-  const mapComment = (oldData = null, data) => {
-    return {
-      ...props.currentComment,
-      subjectName: data.subjectName,
-      subjectJob: data.subjectJob,
-      description: data.description,
-      imageUrl: imageUrl ? imageUrl : oldData.imageUrl,
-      logoUrl: logoUrl ? logoUrl : oldData.logoUrl,
-    };
-  };
+  const mapComment = (oldData = null, data) => ({
+    ...props.currentComment,
+    subjectName: data.subjectName,
+    subjectJob: data.subjectJob,
+    description: data.description,
+    imageUrl: imageUrl ? imageUrl : oldData.imageUrl,
+    logoUrl: logoUrl ? logoUrl : oldData.logoUrl,
+  });
 
   return (
     <Container>
       <div className="title">Comentarios</div>
       <form onSubmit={handleSubmit(saveComment)}>
-
         <div className="input-container">
           <label>Nombre:</label>
           <Input
@@ -82,7 +81,7 @@ const EditComment = (props) => {
             background="transparent"
           />
         </div>
-        
+
         <TextArea
           variant="primary"
           name="description"
@@ -120,13 +119,7 @@ const EditComment = (props) => {
           />
         </div>
         <div className="buttons-container">
-          <ButtonAnt
-            variant="contained"
-            color="primary"
-            loading={loading}
-            disabled={loading}
-            htmlType="submit"
-          >
+          <ButtonAnt variant="contained" color="primary" loading={loading} disabled={loading} htmlType="submit">
             Guardar
           </ButtonAnt>
           <ButtonAnt
@@ -182,7 +175,6 @@ const Container = styled.div`
         color: ${(props) => props.theme.basic.white};
       }
     }
-
   }
 `;
 

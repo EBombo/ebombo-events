@@ -2,14 +2,13 @@ import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { Icon } from "../../components/common/Icons";
-import { Image } from "../../components/common/Image";
-import { ModalContainer } from "../../components/common/ModalContainer";
+import { Icon } from "../../../components/common/Icons";
+import { Image } from "../../../components/common/Image";
+import { ModalContainer } from "../../../components/common/ModalContainer";
 import { Modal } from "antd";
-import { firestore } from "../../firebase";
-import { mediaQuery } from "../../constants";
-import { Desktop, Tablet } from "../../constants";
-import { ButtonAnt } from "../../components/form";
+import { firestore } from "../../../firebase";
+import { Desktop, mediaQuery, Tablet } from "../../../constants";
+import { ButtonAnt } from "../../../components/form";
 import EditComment from "./EditComment";
 
 export const Comments = (props) => {
@@ -20,11 +19,7 @@ export const Comments = (props) => {
   return (
     <CommentsContainer>
       {isVisibleModal && get(authUser, "isAdmin") && (
-        <ModalContainer
-          footer={null}
-          visible={isVisibleModal}
-          onCancel={() => setIsVisibleModal(!isVisibleModal)}
-        >
+        <ModalContainer footer={null} visible={isVisibleModal} onCancel={() => setIsVisibleModal(!isVisibleModal)}>
           <EditComment
             setIsVisibleModal={setIsVisibleModal}
             isVisibleModal={isVisibleModal}
@@ -38,10 +33,7 @@ export const Comments = (props) => {
         <div className="comments">
           <div className="comments-container">
             {defaultTo(get(props, "comments"), []).map((comment) => (
-              <Comment
-                backgroundImage={comment.backgroundImageUrl}
-                key={comment.id}
-              >
+              <Comment backgroundImage={comment.backgroundImageUrl} key={comment.id}>
                 <div className="card-header">
                   <Desktop>
                     <Image
@@ -70,13 +62,11 @@ export const Comments = (props) => {
                     <h4>{comment.subjectJob}</h4>
                   </div>
                 </div>
-                <div className="description">
-                  {comment.description}
-                </div>
+                <div className="description">{comment.description}</div>
                 {get(comment, "logoUrl") && (
                   <div className="logo-container">
                     {/* TODO use <Image .../> */}
-                    <img src={comment.logoUrl} height="32px"/>
+                    <img src={comment.logoUrl} height="32px" />
                   </div>
                 )}
                 {get(authUser, "isAdmin") && (
@@ -94,13 +84,13 @@ export const Comments = (props) => {
                       type="delete"
                       onClick={() => {
                         Modal.confirm({
-                          title: '¿Seguro que quieres eliminar este item?',
-                          content: 'Una vez eliminado no se podrá revertir el cambio',
+                          title: "¿Seguro que quieres eliminar este item?",
+                          content: "Una vez eliminado no se podrá revertir el cambio",
                           onOk() {
-                            return props.deleteDocument(comment, "comments")
+                            return props.deleteDocument(comment, "comments");
                           },
                           onCancel() {},
-                        })
+                        });
                       }}
                     />
                   </div>
@@ -141,6 +131,7 @@ const CommentsContainer = styled.section`
     margin: 0 auto;
     position: relative;
     z-index: 999;
+
     .title {
       font-family: Lato, sans-serif;
       font-weight: 700;
@@ -210,10 +201,10 @@ const Comment = styled.div`
   box-shadow: -4.63898px 3.31356px 19.8813px -1.32542px rgba(0, 0, 0, 0.14);
   border-radius: 0.4rem;
 
-
   .card-header {
     display: grid;
     grid-template-columns: min-content minmax(180px, 250px);
+
     ${mediaQuery.afterTablet} {
       grid-template-columns: min-content minmax(200px, 250px);
     }
@@ -233,27 +224,34 @@ const Comment = styled.div`
 
   .subject {
     text-align: left;
-    h3, h4 {
+
+    h3,
+    h4 {
       margin: 1px 0.25rem;
     }
+
     h3 {
       font-weight: 700;
       font-size: 0.85rem;
+
       ${mediaQuery.afterTablet} {
         font-size: 1.125rem;
         line-height: 1.25rem;
       }
     }
+
     h4 {
       font-weight: 400;
       font-size: 0.7rem;
       line-height: 0.875rem;
+
       ${mediaQuery.afterTablet} {
         font-size: 1rem;
         line-height: 1.25rem;
       }
     }
   }
+
   .logo-container {
     margin-bottom: 1rem;
   }
@@ -264,7 +262,7 @@ const Comment = styled.div`
 
     font-style: normal;
     font-weight: 400;
-    font-size: 0.80rem;
+    font-size: 0.8rem;
     line-height: 16px;
     color: ${(props) => props.theme.basic.grayLight};
 
