@@ -4,11 +4,34 @@ import { Image } from "../../components/common/Image";
 import { config } from "../../firebase";
 import { Desktop, Tablet } from "../../constants";
 import { Anchor, ButtonAnt } from "../../components/form";
+import { useRouter } from "next/router";
+import { useAuth } from "../../hooks/useAuth";
+import { Menu, Dropdown, message } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 
 export const Navbar = (props) => {
+  const router = useRouter();
+  const { signOut } = useAuth();
+  const [authUser] = useGlobal("user");
+  const [active, setActive] = useState(false);
+  const [isVisibleNavGames, setIsVisibleNavGames] = useState(false);
+
+  const onClick = ({ key }) => {
+    message.info(`Click on item ${key}`);
+  };
+
+  const menu = (
+    <Menu onClick={onClick}>
+      <Menu.Item key="1">Bingo</Menu.Item>
+      <Menu.Item key="2">Charadas</Menu.Item>
+      <Menu.Item key="3">Canta y Gana</Menu.Item>
+      <Menu.Item key="4">Trivia</Menu.Item>
+    </Menu>
+  );
+
   return (
     <NavContainer>
-      <div className="logo-container">
+      <div className="left-container">
         <Image
           src={`${config.storageUrl}/resources/ebombo.svg`}
           height={"auto"}
@@ -19,16 +42,27 @@ export const Navbar = (props) => {
           alt=""
           onClick={() => authUser && router.push("/library")}
         />
+        <Desktop>
+          <Dropdown overlay={menu}>
+            <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+              Games <DownOutlined />
+            </a>
+          </Dropdown>
+          <Anchor onClick={() => router.push("/subscriptions")} className="link">
+            Planes
+          </Anchor>
+          <Anchor variant="secondary" onClick={() => router.push("/")} className="link">
+            Eventos pasados
+          </Anchor>
+          <Anchor variant="secondary" onClick={() => router.push("/")} className="link">
+            Sobre nosotros
+          </Anchor>
+          <Anchor variant="secondary" onClick={() => router.push("/")} className="link">
+            Contacto
+          </Anchor>
+        </Desktop>
       </div>
       <Desktop>
-        <div className="nav-links">
-          <ul>
-            <li onClick={() => props.executeScroll("services")}>Servicios</li>
-            <li onClick={() => props.executeScroll("games")}>Juegos</li>
-            <li onClick={() => props.executeScroll("events")}>Eventos</li>
-            <li onClick={() => props.executeScroll("contact")}>Contacto</li>
-          </ul>
-        </div>
         {authUser ? (
           <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
             Cerrar Sesión
@@ -39,17 +73,13 @@ export const Navbar = (props) => {
               onClick={() => router.push("/register")}
               variant="secondary"
               fontSize="18px"
+              fontWeight="500"
               margin="auto 8px"
               className="anchor"
             >
               Regístrate
             </Anchor>
-            <ButtonAnt
-              onClick={() => setIsVisibleLoginModal(true)}
-              color="secondary"
-              variant="outlined"
-              fontSize="18px"
-            >
+            <ButtonAnt onClick={() => router.push("login")} color="secondary" variant="outlined" fontSize="18px">
               Iniciar sesión
             </ButtonAnt>
           </div>
@@ -57,50 +87,32 @@ export const Navbar = (props) => {
       </Desktop>
       <Tablet>
         <ul className={`nav-menu ${active ? "active" : ""}`}>
-          <li
-            className="nav-item"
-            onClick={() => {
-              setActive(!active);
-              props.executeScroll("services");
-            }}
-          >
-            Servicios
+          <li className="nav-item" onClick={() => setIsVisibleNavGames(!isVisibleNavGames)}>
+            Games <DownOutlined />
           </li>
-          <li
-            className="nav-item"
-            onClick={() => {
-              setActive(!active);
-              props.executeScroll("games");
-            }}
-          >
-            Juegos
-          </li>
-          <li
-            className="nav-item"
-            onClick={() => {
-              setActive(!active);
-              props.executeScroll("events");
-            }}
-          >
-            Eventos
-          </li>
-          <li
-            className="nav-item"
-            onClick={() => {
-              setActive(!active);
-              props.executeScroll("contact");
-            }}
-          >
-            Contacto
-          </li>
+          {isVisibleNavGames && (
+            <>
+              <li className="games-item">Bingo</li>
+              <li className="games-item">Charadas</li>
+              <li className="games-item">Canta y Gana</li>
+              <li className="games-item last">Trivia</li>
+            </>
+          )}
+          <li className="nav-item">Planes</li>
+          <li className="nav-item">Eventos pasados</li>
+          <li className="nav-item">Sobre nosotros</li>
+          <li className="nav-item">Contacto</li>
           {!authUser ? (
             <>
-              <li
-                className="nav-item"
-                onClick={() => setIsVisibleLoginModal(true)}
+              <ButtonAnt
+                margin="1.5rem auto"
+                onClick={() => router.push("login")}
+                color="secondary"
+                variant="outlined"
+                fontSize="18px"
               >
                 Iniciar sesión
-              </li>
+              </ButtonAnt>
               <li className="nav-item" onClick={() => router.push("/register")}>
                 Regístrate
               </li>
@@ -111,10 +123,7 @@ export const Navbar = (props) => {
             </li>
           )}
         </ul>
-        <div
-          className={`hamburger ${active ? "active" : ""}`}
-          onClick={() => setActive(!active)}
-        >
+        <div className={`hamburger ${active ? "active" : ""}`} onClick={() => setActive(!active)}>
           <span className="bar"></span>
           <span className="bar"></span>
           <span className="bar"></span>
@@ -126,87 +135,104 @@ export const Navbar = (props) => {
 
 const NavContainer = styled.div`
   width: 100%;
-  .navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  background: ${(props) => props.theme.basic.whiteLight};
+  padding: 0 1rem;
+
+  .left-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 100px;
-    background: ${(props) => props.theme.basic.whiteLight};
-    padding: 0 1rem;
 
-    .nav-links {
-      ul {
-        display: flex;
-        align-items: center;
-        margin: 0;
-
-        li {
-          padding: 0 1rem;
-          color: ${(props) => props.theme.basic.secondary};
-          font-style: normal;
-          font-weight: bold;
-          font-size: 20px;
-          line-height: 25px;
-          cursor: pointer;
-        }
-      }
+    .ant-dropdown-link,
+    .link {
+      color: ${(props) => props.theme.basic.secondary};
+      margin: 0 1rem;
+      font-family: Lato;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
     }
+  }
 
-    .bar {
-      display: block;
-      width: 25px;
-      height: 3px;
-      margin: 5px auto;
-      -webkit-transition: all 0.3s ease-in-out;
-      transition: all 0.3s ease-in-out;
-      background-color: ${(props) => props.theme.basic.white};
-    }
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: ${(props) => props.theme.basic.primary};
+  }
 
-    .hamburger.active .bar:nth-child(2) {
-      opacity: 0;
-    }
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
 
-    .hamburger.active .bar:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
 
-    .hamburger.active .bar:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
 
-    .nav-menu {
-      position: fixed;
-      z-index: 999;
-      left: -100%;
-      top: 5rem;
-      flex-direction: column;
-      background-color: #fff;
-      width: 100%;
-      text-align: center;
-      transition: 0.3s;
-      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+  .nav-menu {
+    position: fixed;
+    z-index: 999;
+    left: -100%;
+    top: 5rem;
+    flex-direction: column;
+    background-color: ${(props) => props.theme.basic.whiteLight};
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
 
-      li {
-        cursor: pointer;
-      }
-    }
-
-    .nav-menu.active {
-      left: 0;
-    }
-
-    .nav-item {
-      margin: 2.5rem 0;
-    }
-
-    .hamburger {
-      display: block;
+    li {
       cursor: pointer;
     }
+  }
 
-    .btns-container {
-      display: flex;
-      align-items: center;
-    }
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .games-item {
+    padding: 1rem 0;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: ${(props) => props.theme.basic.blackDarken};
+  }
+
+  .last{
+    border-bottom: 1px solid ${(props) => props.theme.basic.whiteDarken};
+  }
+
+  .nav-item {
+    padding: 1.5rem 0;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: ${(props) => props.theme.basic.secondary};
+    border-bottom: 1px solid ${(props) => props.theme.basic.whiteDarken};
+  }
+
+  .hamburger {
+    display: block;
+    cursor: pointer;
+  }
+
+  .btns-container {
+    display: flex;
+    align-items: center;
   }
 `;

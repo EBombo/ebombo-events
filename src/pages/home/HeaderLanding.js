@@ -1,152 +1,13 @@
-import React, { useGlobal, useState } from "reactn";
+import React from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { config } from "../../firebase";
-import { Anchor, ButtonAnt } from "../../components/form";
+import { ButtonAnt } from "../../components/form";
 import { Image } from "../../components/common/Image";
-import { ModalContainer } from "../../components/common/ModalContainer";
-import dynamic from "next/dynamic";
-import { spinLoaderMin } from "../../components/common/loader";
-import { useAuth } from "../../hooks/useAuth";
-import { darkTheme } from "../../theme";
-import { useRouter } from "next/router";
-
-const Login = dynamic(() => import("../login"), {
-  loading: () => spinLoaderMin(),
-});
-
-const ForgotPassword = dynamic(() => import("../forgot-password"), {
-  loading: () => spinLoaderMin(),
-});
 
 export const HeaderLanding = (props) => {
-  const router = useRouter();
-  const { signOut } = useAuth();
-  const [active, setActive] = useState(false);
-  const [authUser] = useGlobal("user");
-  const [isVisibleLoginModal, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
-  const [isVisibleForgotPassword] = useGlobal("isVisibleForgotPassword");
-
-  const loginModal = () =>
-    isVisibleLoginModal && !authUser ? (
-      <ModalContainer
-        background={darkTheme.basic.gray}
-        visible={isVisibleLoginModal && !authUser}
-        onCancel={() => setIsVisibleLoginModal(false)}
-        footer={null}
-        closable={false}
-        padding={"1rem"}
-      >
-        {isVisibleForgotPassword ? <ForgotPassword {...props} /> : <Login {...props} />}
-      </ModalContainer>
-    ) : null;
-
   return (
     <HeaderLandingContainer>
-      {loginModal()}
-      <div className="navbar">
-        <div className="logo-container">
-          <Image
-            src={`${config.storageUrl}/resources/b2bLanding/b2bLogo.png`}
-            height={"auto"}
-            width={"150px"}
-            size={"contain"}
-            margin={"0"}
-            cursor={"pointer"}
-            alt=""
-            onClick={() => authUser && router.push("/library")}
-          />
-        </div>
-        <Desktop>
-          <div className="nav-links">
-            <ul>
-              <li onClick={() => props.executeScroll("services")}>Servicios</li>
-              <li onClick={() => props.executeScroll("games")}>Juegos</li>
-              <li onClick={() => props.executeScroll("events")}>Eventos</li>
-              <li onClick={() => props.executeScroll("contact")}>Contacto</li>
-            </ul>
-          </div>
-          {authUser ? (
-            <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
-              Cerrar Sesión
-            </Anchor>
-          ) : (
-            <div className="btns-container">
-              <Anchor
-                onClick={() => router.push("/register")}
-                variant="secondary"
-                fontSize="18px"
-                margin="auto 8px"
-                className="anchor"
-              >
-                Regístrate
-              </Anchor>
-              <ButtonAnt onClick={() => router.push("/login")} color="secondary" variant="outlined" fontSize="18px">
-                Iniciar sesión
-              </ButtonAnt>
-            </div>
-          )}
-        </Desktop>
-        <Tablet>
-          <ul className={`nav-menu ${active ? "active" : ""}`}>
-            <li
-              className="nav-item"
-              onClick={() => {
-                setActive(!active);
-                props.executeScroll("services");
-              }}
-            >
-              Servicios
-            </li>
-            <li
-              className="nav-item"
-              onClick={() => {
-                setActive(!active);
-                props.executeScroll("games");
-              }}
-            >
-              Juegos
-            </li>
-            <li
-              className="nav-item"
-              onClick={() => {
-                setActive(!active);
-                props.executeScroll("events");
-              }}
-            >
-              Eventos
-            </li>
-            <li
-              className="nav-item"
-              onClick={() => {
-                setActive(!active);
-                props.executeScroll("contact");
-              }}
-            >
-              Contacto
-            </li>
-            {!authUser ? (
-              <>
-                <li className="nav-item" onClick={() => router.push("/login")}>
-                  Iniciar sesión
-                </li>
-                <li className="nav-item" onClick={() => router.push("/register")}>
-                  Regístrate
-                </li>
-              </>
-            ) : (
-              <li className="nav-item" onClick={() => signOut()}>
-                Cerrar Sesión
-              </li>
-            )}
-          </ul>
-          <div className={`hamburger ${active ? "active" : ""}`} onClick={() => setActive(!active)}>
-            <span className="bar" />
-            <span className="bar" />
-            <span className="bar" />
-          </div>
-        </Tablet>
-      </div>
       <div className="header-content">
         <div className="first-content">
           <div className="title">
@@ -200,10 +61,6 @@ export const HeaderLanding = (props) => {
 const HeaderLandingContainer = styled.section`
   width: 100%;
   background: ${(props) => props.theme.basic.whiteLight};
-
-  li {
-    list-style: none;
-  }
 
   .header-content {
     display: flex;

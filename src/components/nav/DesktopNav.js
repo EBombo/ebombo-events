@@ -10,119 +10,101 @@ import { sizes } from "../../constants";
 import { ModalNewGame } from "../../pages/library/ModalNewGame";
 
 export const DesktopNav = (props) => {
-    const router = useRouter();
-    const { userAcls } = useAcl();
-    const [authUser] = useGlobal("user");
-    const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
-    const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
-    const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
+  const router = useRouter();
+  const { userAcls } = useAcl();
+  const [authUser] = useGlobal("user");
+  const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
+  const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
+  const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
 
-    return (
-        <DesktopNavContainer>
-            {isVisibleModalGame && (
-                <ModalNewGame
-                    {...props}
-                    isVisibleModalGame={isVisibleModalGame}
-                    setIsVisibleModalGame={setIsVisibleModalGame}
-                />
-            )}
-            <div className="items-container">
+  return (
+    <DesktopNavContainer>
+      {isVisibleModalGame && (
+        <ModalNewGame
+          {...props}
+          isVisibleModalGame={isVisibleModalGame}
+          setIsVisibleModalGame={setIsVisibleModalGame}
+        />
+      )}
+      <div className="items-container">
+        <Image
+          src={`${config.storageUrl}/resources/ebombo-white.png`}
+          onClick={() =>
+            userAcls.some((acl) => acl.includes("admin"))
+              ? router.push("/admin")
+              : authUser
+              ? router.push("/library/games")
+              : router.push("/")
+          }
+          height="23px"
+          width="88px"
+        />
+        {authUser && (
+          <div className="nav-items">
+            <ul>
+              <li
+                className={`${router.asPath.includes("library") ? "active" : ""}`}
+                onClick={() => router.push("/library/games")}
+              >
                 <Image
-                    src={`${config.storageUrl}/resources/ebombo-white.png`}
-                    onClick={() =>
-                        userAcls.some((acl) => acl.includes("admin"))
-                            ? router.push("/admin")
-                            : authUser
-                                ? router.push("/library/games")
-                                : router.push("/")
-                    }
-                    height="23px"
-                    width="88px"
+                  src={`${config.storageUrl}/resources/library-icon.svg`}
+                  width="auto"
+                  height="30px"
+                  className="icon"
+                  margin="0 5px 0 0"
                 />
-                {authUser && (
-                    <div className="nav-items">
-                        <ul>
-                            <li
-                                className={`${
-                                    router.asPath.includes("library") ? "active" : ""
-                                    }`}
-                                onClick={() => router.push("/library/games")}
-                            >
-                                <Image
-                                    src={`${config.storageUrl}/resources/library-icon.svg`}
-                                    width="auto"
-                                    height="30px"
-                                    className="icon"
-                                    margin="0 5px 0 0"
-                                />
                 Librería
               </li>
-                            <li
-                                className={`${
-                                    router.asPath.includes("reports") ? "active" : ""
-                                    }`}
-                                onClick={() => router.push("/reports")}
-                            >
-                                <Image
-                                    src={`${config.storageUrl}/resources/reports-icon.svg`}
-                                    width="auto"
-                                    height="30px"
-                                    className="icon"
-                                    margin="0 5px 0 0"
-                                />
+              <li
+                className={`${router.asPath.includes("reports") ? "active" : ""}`}
+                onClick={() => router.push("/reports")}
+              >
+                <Image
+                  src={`${config.storageUrl}/resources/reports-icon.svg`}
+                  width="auto"
+                  height="30px"
+                  className="icon"
+                  margin="0 5px 0 0"
+                />
                 Reportes
               </li>
-                        </ul>
-                    </div>
-                )}
-            </div>
-            {!authUser && (
-                <Anchor
-                    onClick={() => router.push("/login")}
-                    variant="primary"
-                    fontSize={"1rem"}
-                >
-                    Iniciar sesión
-                </Anchor>
-            )}
-            {authUser && (
-                <div className="menu-profile">
-                    <button
-                        className="premium-btn"
-                        onClick={() => console.log("premium")}
-                    >
-                        <Image
-                            src={`${config.storageUrl}/resources/premium.svg`}
-                            height={"27px"}
-                            weight={"27px"}
-                            margin={"0 5px 0 0"}
-                        />
+            </ul>
+          </div>
+        )}
+      </div>
+      {!authUser && (
+        <Anchor onClick={() => router.push("/login")} variant="primary" fontSize={"1rem"}>
+          Iniciar sesión
+        </Anchor>
+      )}
+      {authUser && (
+        <div className="menu-profile">
+          <button className="premium-btn" onClick={() => console.log("premium")}>
+            <Image
+              src={`${config.storageUrl}/resources/premium.svg`}
+              height={"27px"}
+              weight={"27px"}
+              margin={"0 5px 0 0"}
+            />
             Premium
           </button>
-                    <ButtonAnt
-                        variant="contained"
-                        width="140px"
-                        onClick={() => setIsVisibleModalGame(true)}
-                    >
-                        Crear
+          <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
+            Crear
           </ButtonAnt>
-                    <div
-                        className="hamburger"
-                        onClick={() => setOpenRightDrawer(!openRightDrawer)}
-                    >
-                        <Image
-                            src={`${config.storageUrl}/resources/user-profile.svg`}
-                            height="31px"
-                            width="31px"
-                            borderRadius="50%"
-                            size="contain"
-                            cursor="pointer"
-                        />
-                    </div>
-                </div>
-            )}
-        </DesktopNavContainer>
-    );
+          <div className="hamburger" onClick={() => setOpenRightDrawer(!openRightDrawer)}>
+            <Image
+              src={`${config.storageUrl}/resources/user-profile.svg`}
+              height="31px"
+              width="31px"
+              borderRadius="50%"
+              size="contain"
+              cursor="pointer"
+            />
+          </div>
+        </div>
+      )}
+    </DesktopNavContainer>
+  );
 };
 
 const DesktopNavContainer = styled.div`
