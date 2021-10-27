@@ -1,8 +1,8 @@
+import React, { useEffect, useGlobal } from "reactn";
 import { Anchor, ButtonAnt, Input } from "../../components/form";
 import { Divider } from "../../components/common/Divider";
 import { useAuth } from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
-import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { object, string } from "yup";
 import { useRouter } from "next/router";
@@ -18,6 +18,7 @@ const Login = (props) => {
   });
 
   const { ButtonsProviders, signIn } = useAuth();
+  const [authUser] = useGlobal("user");
   const [isLoadingUser] = useGlobal("isLoadingUser");
   const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
@@ -27,6 +28,10 @@ const Login = (props) => {
     validationSchema,
     reValidateMode: "onSubmit",
   });
+
+  useEffect(() => {
+    if (authUser) return router.push("/library");
+  }, [authUser]);
 
   return (
     <LoginContainer>
