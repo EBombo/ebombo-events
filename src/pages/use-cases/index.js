@@ -11,8 +11,43 @@ import { UseCases as UseCasesView } from "./UseCases";
 
 const useCasesData = [
     {
-        imageUrl: "https://via.placeholder.com/274/130",
-        title: "Ripley Fest",
+        imageUrl: "https://via.placeholder.com/274x130",
+        title: "1 Ripley Fest",
+        date: "12 Ene 21",
+    },
+    {
+        imageUrl: "https://via.placeholder.com/274x130",
+        title: "2 Ripley Fest",
+        date: "12 Ene 21",
+    },
+    {
+        imageUrl: "https://via.placeholder.com/274x130",
+        title: "3 Ripley Fest",
+        date: "12 Ene 21",
+    },
+    {
+        imageUrl: "https://via.placeholder.com/274x130",
+        title: "4 Ripley Fest",
+        date: "12 Ene 21",
+    },
+    {
+        imageUrl: "https://via.placeholder.com/274x130",
+        title: "5 Ripley Fest",
+        date: "12 Ene 21",
+    },
+    {
+        imageUrl: "https://via.placeholder.com/274x130",
+        title: "6 Ripley Fest",
+        date: "12 Ene 21",
+    },
+    {
+        imageUrl: "https://via.placeholder.com/274x130",
+        title: "7 Ripley Fest",
+        date: "12 Ene 21",
+    },
+    {
+        imageUrl: "https://via.placeholder.com/274x130",
+        title: "8 Ripley Fest",
         date: "12 Ene 21",
     }
 ]
@@ -21,7 +56,7 @@ export const UseCases = (props) => {
 //   const router = useRouter();
 //   const [authUser] = useGlobal("user");
   const [events, setEvents] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const servicesRef = useRef(null);
   const gamesRef = useRef(null);
