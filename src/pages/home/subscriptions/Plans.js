@@ -10,12 +10,12 @@ import { Anchor, ButtonAnt } from "../../../components/form";
 import { ModalSubscriptions } from "./ModalSubscriptions";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
+import { PlansTable } from "./PlansTable";
 
 export const Plans = (props) => {
   const router = useRouter();
   const [authUser] = useGlobal("user");
-  const [isVisibleModalSubscriptions, setIsVisibleModalSubscriptions] =
-    useState(false);
+  const [isVisibleModalSubscriptions, setIsVisibleModalSubscriptions] = useState(false);
   const [subscriptions, setSubscriptions] = useState(null);
   const [tab, setTab] = useState(0);
   const [currentSubscription, setCurrentSubscription] = useState(null);
@@ -27,7 +27,9 @@ export const Plans = (props) => {
         .doc("landing")
         .collection("subscriptions")
         .onSnapshot((subscriptionsSnapshop) => {
-          setSubscriptions(snapshotToArray(subscriptionsSnapshop));
+          const _subs = snapshotToArray(subscriptionsSnapshop);
+          setSubscriptions(_subs);
+          if (_subs.length) setCurrentSubscription(_subs[0]);
         });
 
     fetchSubscriptions();
@@ -46,11 +48,7 @@ export const Plans = (props) => {
       <div className="title">Conoce nuestros planes</div>
       <div className="tabs">
         {subscriptions.map((subscription, index) => (
-          <div
-            className={`tab ${tab === index && "active"}`}
-            onClick={() => setTab(index)}
-            key={index}
-          >
+          <div className={`tab ${tab === index && "active"}`} onClick={() => setTab(index)} key={index}>
             {subscription.type}
             {get(authUser, "isAdmin") && (
               <div className="container-edit">
@@ -79,11 +77,7 @@ export const Plans = (props) => {
             color="warning"
             onClick={() => {
               setCurrentSubscription({
-                id: firestore
-                  .collection("settings")
-                  .doc("landing")
-                  .collection("subscriptions")
-                  .doc().id,
+                id: firestore.collection("settings").doc("landing").collection("subscriptions").doc().id,
               });
               setIsVisibleModalSubscriptions(true);
             }}
@@ -94,65 +88,42 @@ export const Plans = (props) => {
       </div>
       <div className="subscriptions">
         <div className="plan standard">
-          <div className="name">
-            {subscriptions[tab]?.standardPlan?.name || "Estandar"}
-          </div>
-          <div className="promo">
-            {subscriptions[tab]?.standardPlan?.promo || ""}
-          </div>
-          <div className="price">
-            $ {subscriptions[tab]?.standardPlan?.price || ""}
-          </div>
+          <div className="name">{subscriptions[tab]?.standardPlan?.name || "Estandar"}</div>
+          <div className="promo">{subscriptions[tab]?.standardPlan?.promo || ""}</div>
+          <div className="price">$ {subscriptions[tab]?.standardPlan?.price || ""}</div>
           <div className="divider" />
-          <div className="description">
-            {subscriptions[tab]?.standardPlan?.description || ""}
-          </div>
+          <div className="description">{subscriptions[tab]?.standardPlan?.description || ""}</div>
           <button className="btn standard">Comprar ahora</button>
         </div>
 
         <div className="plan pro">
-          <div className="name">
-            {subscriptions[tab]?.proPlan?.name || "Estandar"}
-          </div>
-          <div className="promo">
-            {subscriptions[tab]?.proPlan?.promo || ""}
-          </div>
-          <div className="price">
-            $ {subscriptions[tab]?.proPlan?.price || ""}
-          </div>
+          <div className="name">{subscriptions[tab]?.proPlan?.name || "Estandar"}</div>
+          <div className="promo">{subscriptions[tab]?.proPlan?.promo || ""}</div>
+          <div className="price">$ {subscriptions[tab]?.proPlan?.price || ""}</div>
           <div className="divider" />
-          <div className="description">
-            {subscriptions[tab]?.proPlan?.description || ""}
-          </div>
+          <div className="description">{subscriptions[tab]?.proPlan?.description || ""}</div>
 
           <button className="btn standard">Comprar ahora</button>
         </div>
         <div className="plan presenter">
-          <div className="name">
-            {subscriptions[tab]?.presenterPlan?.name || "Estandar"}
-          </div>
-          <div className="promo">
-            {subscriptions[tab]?.presenterPlan?.promo || ""}
-          </div>
-          <div className="price">
-            $ {subscriptions[tab]?.presenterPlan?.price || ""}
-          </div>
+          <div className="name">{subscriptions[tab]?.presenterPlan?.name || "Estandar"}</div>
+          <div className="promo">{subscriptions[tab]?.presenterPlan?.promo || ""}</div>
+          <div className="price">$ {subscriptions[tab]?.presenterPlan?.price || ""}</div>
           <div className="divider" />
-          <div className="description">
-            {subscriptions[tab]?.presenterPlan?.description || ""}
-          </div>
+          <div className="description">{subscriptions[tab]?.presenterPlan?.description || ""}</div>
 
           <button className="btn standard">Comprar ahora</button>
         </div>
       </div>
-      <div className="more-info">
-        <button
-          className="btn-subs"
-          onClick={() => router.push("/subscriptions")}
-        >
-          Ver más planes <ArrowRightOutlined />
-        </button>
-      </div>
+      {router.asPath.includes("/subscriptions") ? (
+        <PlansTable subscriptions={subscriptions} {...props} />
+      ) : (
+        <div className="more-info">
+          <button className="btn-subs" onClick={() => router.push("/subscriptions")}>
+            Ver más planes <ArrowRightOutlined />
+          </button>
+        </div>
+      )}
     </PlansContainer>
   );
 };

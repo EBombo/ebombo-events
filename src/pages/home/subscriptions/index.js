@@ -1,14 +1,14 @@
 import React, { useEffect, useGlobal, useState, useRef } from "reactn";
 import styled from "styled-components";
-import { HeaderLanding } from "../HeaderLanding";
 import { Plans } from "./Plans";
+import { Navbar } from "../Navbar";
 
 export const Subscriptions = (props) => {
   const [authUser] = useGlobal("user");
 
   return (
     <SubscriptionsContainer>
-      <HeaderLanding {...props} />
+      <Navbar {...props} />
       <Plans {...props} />
     </SubscriptionsContainer>
   );
