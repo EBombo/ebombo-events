@@ -6,7 +6,6 @@ import { firestore } from "../../firebase";
 import { HeldEvents } from "./HeldEvents";
 import { Comments } from "./comments/Comments";
 import { Contact } from "./Contact";
-import { Companies } from "./Companies";
 import get from "lodash/get";
 import { spinLoader } from "../../components/common/loader";
 import { SpecialGifts } from "./SpecialGifts";
@@ -88,7 +87,6 @@ export const Home = (props) => {
       <div className="landing-container">
         <Navbar executeScroll={executeScroll} />
         <HeaderLanding executeScroll={executeScroll} />
-        <Companies events={events} deleteElement={deleteElement} />
         <Plans {...props} />
         <Services refProp={servicesRef} />
         <Games refProp={gamesRef} events={events} deleteElement={deleteElement} />
