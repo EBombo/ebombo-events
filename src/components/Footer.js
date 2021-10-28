@@ -59,6 +59,7 @@ const footerContent = [
 
 export const Footer = (props) => (
   <FooterContainer>
+  <FooterContent>
     <Tablet>
       <Collapse
         defaultActiveKey={[]}
@@ -121,18 +122,38 @@ export const Footer = (props) => (
         </div>
       ))}
     </Desktop>
+  </FooterContent>
+  <div className="copyright-container">
+    <hr/>
+    <div><Image className="icon" src={`${config.storageUrl}/resources/copyright.svg`} width="15px" height="15px" /> ebombo 2021</div>
+  </div>
   </FooterContainer>
 );
 
 const FooterContainer = styled.div`
+  background: ${(props) => props.theme.basic.white};
+  .copyright-container {
+    .icon {
+      display: inline-block;
+    }
+    & > div {
+      padding: 30px;
+      font-family: Lato;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      text-align: center;
+    }
+  }
+`;
+
+const FooterContent = styled.div`
   padding: 1rem;
   width: 100%;
-  background: ${(props) => props.theme.basic.white};
-  position: absolute;
 
   display: inline-flex;
   justify-content: space-evenly;
-
   .ant-collapse {
     width: 100%;
   }
