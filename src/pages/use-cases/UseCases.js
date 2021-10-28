@@ -61,7 +61,6 @@ const USE_CASES_PER_PAGE_DESKTOP = 9;
 const getCurrentUseCases = (useCases, currentPageNumber, length) => {
   const startIndex = (currentPageNumber - 1) * length
   const resultList = useCases.slice(startIndex, startIndex + length)
-  console.log("startIndex",startIndex, "startIndex + length", startIndex + length);
   return resultList;
   return useCases.slice(startIndex, startIndex + length);
 }
@@ -75,14 +74,12 @@ export const UseCases = (props) => {
   const [currentUseCases, setCurrentUseCases] = useState(getCurrentUseCases(props.useCases, currentPageNumber, pageSize));
   const windowSize = useWindowSize();
 
+
+  // TODO refactor window Size breakpoint
   useEffect(() => {
-    console.log("windowSize, desktop", windowSize, breakPoints.desktop);
-    console.log("windowSize > breakPoints.desktop", windowSize > breakPoints.desktop);
-    if (windowSize > breakPoints.desktop) {
-      setPageSize(USE_CASES_PER_PAGE_DESKTOP);
-    } else {
-      setPageSize(USE_CASES_PER_PAGE);
-    }
+    windowSize > breakPoints.desktop
+      ? setPageSize(USE_CASES_PER_PAGE_DESKTOP)
+      : setPageSize(USE_CASES_PER_PAGE);
   }, [windowSize]);
 
   useEffect(() => {
@@ -102,6 +99,7 @@ export const UseCases = (props) => {
           visible={isVisibleModal}
           onCancel={() => setIsVisibleModal(!isVisibleModal)}
         >
+          {/* TODO add admin functionalities */}
           {/* <EditCompany
             setIsVisibleModal={setIsVisibleModal}
             isVisibleModal={isVisibleModal}
@@ -228,41 +226,4 @@ const UseCasesStyled = styled.section`
 
 
 `;
-
-const CompaniesContent = styled.div`
-  width: 140px;
-  height: 70px;
-  position: relative;
-  margin-right: 2rem;
-  background-image: url(${(props) => props.backgroundImage});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-
-  .container-edit {
-    position: absolute;
-    height: 15px;
-    cursor: pointer;
-    top: 0;
-    right: 0;
-    display: flex;
-
-    svg {
-      width: 15px;
-      height: 15px;
-      color: ${(props) => props.theme.basic.action};
-    }
-
-    .icon-delete {
-      margin-left: 5px;
-
-      svg {
-        color: ${(props) => props.theme.basic.danger};
-      }
-    }
-  }
-
-
-`;
-
 
