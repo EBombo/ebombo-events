@@ -3,48 +3,46 @@ import styled from "styled-components";
 import { useRouter } from 'next/router'
 import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { ButtonAnt } from "../../components/form";
-import { Image } from "../../components/common/Image";
-import { ModalContainer } from "../../components/common/ModalContainer";
-import { Icon } from "../../components/common/Icons";
-import { firestore } from "../../firebase";
-import { mediaQuery, breakPoints } from "../../constants";
-import { Desktop, Tablet } from "../../constants";
+import { ButtonAnt } from "../../../components/form";
+import { Image } from "../../../components/common/Image";
+import { ModalContainer } from "../../../components/common/ModalContainer";
+import { Icon } from "../../../components/common/Icons";
+import { DesktopNav } from "../../../components/nav/DesktopNav";
+import { TabletNav } from "../../../components/nav/TabletNav";
+import { firestore } from "../../../firebase";
+import { mediaQuery, breakPoints } from "../../../constants";
+import { Desktop, Tablet } from "../../../constants";
 import { Pagination } from "antd";
 import { HeaderLanding } from "../../home/HeaderLanding";
-import { Footer } from "../../components/Footer";
+import { Footer } from "../../../components/Footer";
+import { useCasesData } from "../../use-cases";
 
 export const UseCaseDetail = (props) => {
 
-  const useCaseData = {
-    "1": {
-      name: "Ripley fest",
-      imageUrl: "https://via.placeholder.com/350x150",
-      title: "",
-      text: `What is Lorem Ipsum?
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-    }
-  };
-
-  
   const router = useRouter()
   const { caseId } = router.query
 
   return (
     <UseCaseDetailStyled>
-      <HeaderLanding />
+      <Desktop>
+        <DesktopNav {...props} />
+      </Desktop>
+      <Tablet>
+        <TabletNav {...props} />
+      </Tablet>
     
-      <div class="main-container">
-        <h1>{useCaseData[caseId].name}</h1>
-        <div class="image-container">
-          <Image
-            width: "200px"
-            height: "100px"
-            src={useCaseData[caseId].imageUrl} />
+      <div className="main-container">
+        <div className="title-container">
+          <h1>{useCasesData[caseId].name}</h1>
         </div>
-        <div>
-          <p>{useCaseData[caseId].text}</p>
+        <div className="image-container">
+          <Image
+            width="200px"
+            height="100px"
+            src={useCasesData[caseId].imageUrl} />
+        </div>
+        <div class="text-container">
+          <p>{useCasesData[caseId].text}</p>
         </div>
       </div>
       
@@ -54,5 +52,29 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 };
 
 const UseCaseDetailStyled = styled.section`
-  
+  margin-top: 50px;
+
+  .title-container {
+    background: ${props => props.theme.basic.secondary};
+    padding: 66px 0;
+    text-align: center;
+
+    h1 {
+      color: ${props => props.theme.basic.whiteLight};
+      font-family: Lato, sans-serif;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 22px;
+      line-height: 26px;
+      letter-spacing: 0.03em;
+    }
+  }
+
+  .image-container {
+    margin-top: -36px;
+    margin-bottom: 36px;
+  }
+  .text-container{
+    margin: 0 2rem 4rem 2rem;
+  }
 `;
