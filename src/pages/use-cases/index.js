@@ -49,7 +49,22 @@ const useCasesData = [
         imageUrl: "https://via.placeholder.com/274x130",
         title: "8 Ripley Fest",
         date: "12 Ene 21",
-    }
+    },
+    {
+        imageUrl: "https://via.placeholder.com/274x130",
+        title: "9 Ripley Fest",
+        date: "12 Ene 21",
+    },
+    {
+        imageUrl: "https://via.placeholder.com/274x130",
+        title: "10 Ripley Fest",
+        date: "12 Ene 21",
+    },
+    {
+        imageUrl: "https://via.placeholder.com/274x130",
+        title: "11 Ripley Fest",
+        date: "12 Ene 21",
+    },
 ]
 
 export const UseCases = (props) => {
