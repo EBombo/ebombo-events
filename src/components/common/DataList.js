@@ -2,6 +2,20 @@ import { darkTheme } from "../../theme";
 import { config } from "../../firebase";
 import React from "reactn";
 
+export const heldEvents = [
+  {
+    name: "Ripley",
+    image: `${config.storageUrl}/resources/ripley.png`,
+    date: "12 Ene. 21",
+  },
+  {
+    name: "Festival online Ulima",
+    image: `${config.storageUrl}/resources/ulima.png`,
+    date: "12 Ene. 21",
+  },
+  { name: "VU Games UDEP", image: `${config.storageUrl}/resources/udep.png`, date: "12 Ene. 21" },
+];
+
 export const userLinks = [];
 
 export const services = [
