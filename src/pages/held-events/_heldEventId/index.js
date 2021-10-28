@@ -1,26 +1,17 @@
 import React, { useGlobal, useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { useRouter } from 'next/router'
-import defaultTo from "lodash/defaultTo";
-import get from "lodash/get";
-import { ButtonAnt } from "../../../components/form";
 import { Image } from "../../../components/common/Image";
-import { ModalContainer } from "../../../components/common/ModalContainer";
-import { Icon } from "../../../components/common/Icons";
 import { DesktopNav } from "../../../components/nav/DesktopNav";
 import { TabletNav } from "../../../components/nav/TabletNav";
-import { firestore } from "../../../firebase";
-import { mediaQuery, breakPoints } from "../../../constants";
 import { Desktop, Tablet } from "../../../constants";
-import { Pagination } from "antd";
-import { HeaderLanding } from "../../home/HeaderLanding";
 import { Footer } from "../../../components/Footer";
-import { useCasesData } from "../../use-cases";
+import { useCasesData } from "..";
 
 export const UseCaseDetail = (props) => {
 
   const router = useRouter()
-  const { caseId } = router.query
+  const { heldEventId } = router.query
 
   return (
     <UseCaseDetailStyled>
@@ -33,16 +24,16 @@ export const UseCaseDetail = (props) => {
     
       <div className="main-container">
         <div className="title-container">
-          <h1>{useCasesData[caseId].name}</h1>
+          <h1>{useCasesData[heldEventId].title}</h1>
         </div>
         <div className="image-container">
           <Image
             width="200px"
             height="100px"
-            src={useCasesData[caseId].imageUrl} />
+            src={useCasesData[heldEventId].imageUrl} />
         </div>
         <div class="text-container">
-          <p>{useCasesData[caseId].text}</p>
+          <p>{useCasesData[heldEventId].text}</p>
         </div>
       </div>
       

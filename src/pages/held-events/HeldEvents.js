@@ -1,37 +1,37 @@
 import React, { useGlobal, useState, useEffect } from "reactn";
 import styled from "styled-components";
-import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
-import { ButtonAnt } from "../../components/form";
 import { Image } from "../../components/common/Image";
 import { ModalContainer } from "../../components/common/ModalContainer";
-import { Icon } from "../../components/common/Icons";
-import { useWindowSize } from "../../hooks";
-import { firestore } from "../../firebase";
-import { mediaQuery, breakPoints } from "../../constants";
+import { mediaQuery } from "../../constants";
 import { Desktop, Tablet } from "../../constants";
-import { Pagination } from "antd";
+import { List } from "antd";
+import { Icon } from "../../components/common/Icons";
+import { useRouter } from "next/router";
 
 const UseCase = (props) => {
-    return (
-        <UseCaseStyled {...props}>
-            <div className="image-wrapper">
-                <Image src={props.useCase.imageUrl}/>
-            </div>
-            <h3>{props.useCase.title}</h3>
-            <p>{props.useCase.date}</p>
-        </UseCaseStyled>
-    );
+  const router = useRouter();
+  return (
+      <UseCaseStyled
+        {...props}
+        onClick={() => {  router.push(`/held-events/${props.useCase.id}`) }}>
+          <div className="image-wrapper">
+              <Image src={props.useCase.imageUrl}/>
+          </div>
+          <h3>{props.useCase.title}</h3>
+          <p>{props.useCase.date}</p>
+      </UseCaseStyled>
+  );
 };
 
 const UseCaseStyled = styled.div`
     background: ${(props) => props.theme.basic.white};
     border-radius: 8px;
-    //max-width: 293px;
-    padding-bottom: 27px;
+    padding: 9px 9px 27px 9px;
+    cursor: pointer;
 
     .image-wrapper {
-        margin: 9px 9px 18px 9px;
+        margin-bottom: 18px;
     }
     h3 {
         font-family: Lato, sans-serif;
@@ -56,40 +56,10 @@ const UseCaseStyled = styled.div`
     }
 `;
 
-const USE_CASES_PER_PAGE = 3;
-const USE_CASES_PER_PAGE_DESKTOP = 9;
-const getCurrentUseCases = (useCases, currentPageNumber, length) => {
-  const startIndex = (currentPageNumber - 1) * length
-  const resultList = useCases.slice(startIndex, startIndex + length)
-  return resultList;
-  return useCases.slice(startIndex, startIndex + length);
-}
-
 export const UseCases = (props) => {
   const [authUser] = useGlobal("user");
-  const [currentCompany, setCurrentCompany] = useState(null);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
-  const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(USE_CASES_PER_PAGE);
-  const [currentUseCases, setCurrentUseCases] = useState(getCurrentUseCases(props.useCases, currentPageNumber, pageSize));
-  const windowSize = useWindowSize();
 
-
-  // TODO refactor window Size breakpoint
-  useEffect(() => {
-    windowSize > breakPoints.desktop
-      ? setPageSize(USE_CASES_PER_PAGE_DESKTOP)
-      : setPageSize(USE_CASES_PER_PAGE);
-  }, [windowSize]);
-
-  useEffect(() => {
-    setCurrentUseCases(getCurrentUseCases(props.useCases, currentPageNumber, pageSize));
-  }, [pageSize]);
-
-  const onPaginationChange = (pageNumber) => {
-    setCurrentPageNumber(pageNumber);
-    setCurrentUseCases(getCurrentUseCases(props.useCases, pageNumber, pageSize));
-  };
 
   return (
     <UseCasesStyled {...props}>
@@ -108,14 +78,40 @@ export const UseCases = (props) => {
           /> */}
         </ModalContainer>
       )}
-      <div className="title">Eventos pasados</div>
+      <div className="title"><Icon className="back-icon" type="left" /> Eventos pasados</div>
       <div className="main-container">
         <div className="use-cases-container">
-          {currentUseCases.map(
-            (useCase, index) => (
-							<UseCase key={index} useCase={useCase}/>
-            )
-          )}
+          <Desktop>
+            <List
+              grid={{ gutter: 36, column: 3 }}
+              pagination={{
+                pageSize: 9,
+              }}
+              dataSource={props.useCases}
+              renderItem={item => (
+                <List.Item>
+                  <UseCase useCase={item} />
+                </List.Item>
+              )}
+            />
+          </Desktop>
+          <Tablet>
+            <List
+              itemLayout="vertical"
+              size="large"
+              pagination={{
+                pageSize: 3,
+              }}
+              dataSource={props.useCases}
+              renderItem={item => (
+                <List.Item>
+                  <UseCase useCase={item} />
+                </List.Item>
+              )}
+            />
+          </Tablet>
+          {/* 
+          // TODO add admin feature
           {get(authUser, "isAdmin") && (
             <ButtonAnt
               variant="outlined"
@@ -129,15 +125,7 @@ export const UseCases = (props) => {
             >
               Añadir
             </ButtonAnt>
-          )}
-        </div>
-        <div class="pagination-container">
-          <Pagination
-            defaultCurrent={1}
-            total={Math.ceil(props.useCases.length)}
-            pageSize={pageSize}
-            onChange={onPaginationChange}
-          />
+          )} */}
         </div>
       </div>
     </UseCasesStyled>
@@ -150,6 +138,23 @@ const UseCasesStyled = styled.section`
   padding-bottom: 84px;
   padding-top: 66px;
 
+  .back-icon {
+    border-radius: 50%;
+    padding: 6px;
+    background: ${(props) => props.theme.basic.primary};
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    svg {
+      font-size: 12px;
+    }
+    ${mediaQuery.afterTablet} {
+      position: relative;
+      margin-right: 1.5rem;
+      vertical-align: bottom;
+    }
+  }
   .title {
     font-family: Lato;
     font-style: normal;
@@ -158,14 +163,15 @@ const UseCasesStyled = styled.section`
     line-height: 26px;
     letter-spacing: 0.03em;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 24px;
+    position: relative;
 
     color: ${(props) => props.theme.basic.whiteLight};
-    text-align: center;
 
-    ${mediaQuery.afterDesktop} {
+    ${mediaQuery.afterTablet} {
       text-align: left;
       margin-bottom: 33px;
+    margin: 0 auto;
     }
   }
 
@@ -181,16 +187,7 @@ const UseCasesStyled = styled.section`
     }
 
     .use-cases-container {
-      display: flex;
-      flex-direction: column;
-      gap: 48px;
-      align-items: center;
       margin: 1rem 0 56px 0;
-
-      ${mediaQuery.afterDesktop} {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-      }
     }
     .pagination-container {
       text-align: center;
@@ -222,6 +219,17 @@ const UseCasesStyled = styled.section`
     }
   }
   .ant-pagination-item-active {
+  }
+
+  .ant-list-item:last-child {
+    border-bottom: none !important;
+  }
+  .ant-list-split .ant-list-item {
+    border-bottom: none;
+    margin-bottom: 24px;
+    ${mediaQuery.afterTablet} {
+      margin-bottom: 48px;
+    }
   }
 
 

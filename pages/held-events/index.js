@@ -1,5 +1,5 @@
 import React from "reactn";
-import { UseCases } from "../../src/pages/use-cases";
+import { UseCases } from "../../src/pages/held-events";
 import { SEOMeta } from "../../src/components/common/seo";
 
 const Init = (props) => (

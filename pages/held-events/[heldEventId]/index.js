@@ -1,6 +1,6 @@
 import React from "reactn";
 import { SEOMeta } from "../../../src/components/common/seo";
-import { UseCaseDetail } from "../../../src/pages/use-cases/_caseId";
+import { UseCaseDetail } from "../../../src/pages/held-events/_heldEventId";
 
 const Init = (props) => (
   <>
