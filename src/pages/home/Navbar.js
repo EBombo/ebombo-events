@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState, useRef } from "reactn";
+import React, { useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { config } from "../../firebase";
@@ -6,8 +6,10 @@ import { Desktop, Tablet } from "../../constants";
 import { Anchor, ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { useAuth } from "../../hooks/useAuth";
-import { Menu, Dropdown, message } from "antd";
+import { Dropdown, Menu, message } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+
+const menus = [{ title: "Bingo" }, { title: "Charadas" }, { title: "Canta y Gana" }, { title: "Trivia" }];
 
 export const Navbar = (props) => {
   const router = useRouter();
@@ -20,13 +22,15 @@ export const Navbar = (props) => {
     message.info(`Click on item ${key}`);
   };
 
-  const menu = (
-    <Menu onClick={onClick}>
-      <Menu.Item key="1">Bingo</Menu.Item>
-      <Menu.Item key="2">Charadas</Menu.Item>
-      <Menu.Item key="3">Canta y Gana</Menu.Item>
-      <Menu.Item key="4">Trivia</Menu.Item>
-    </Menu>
+  const menu = useMemo(
+    () => (
+      <Menu onClick={onClick}>
+        {menus.map((menu, index) => (
+          <Menu.Item key={index}>Bingo</Menu.Item>
+        ))}
+      </Menu>
+    ),
+    [menus]
   );
 
   return (
@@ -34,13 +38,13 @@ export const Navbar = (props) => {
       <div className="left-container">
         <Image
           src={`${config.storageUrl}/resources/ebombo.svg`}
-          height={"auto"}
-          width={"125px"}
-          size={"contain"}
-          margin={"0"}
-          cursor={"pointer"}
+          height="auto"
+          width="125px"
+          size="contain"
+          margin="0"
+          cursor="pointer"
           alt=""
-          onClick={() => authUser && router.push("/library")}
+          onClick={() => router.push(authUser ? "/library" : "/")}
         />
         <Desktop>
           <Dropdown overlay={menu}>
@@ -211,7 +215,7 @@ const NavContainer = styled.div`
     color: ${(props) => props.theme.basic.blackDarken};
   }
 
-  .last{
+  .last {
     border-bottom: 1px solid ${(props) => props.theme.basic.whiteDarken};
   }
 

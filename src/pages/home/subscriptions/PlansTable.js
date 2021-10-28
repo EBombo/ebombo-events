@@ -7,106 +7,109 @@ export const PlansTable = (props) => {
   return (
     <TableContainer>
       <table border="0">
-        <tr>
-          <td>
-            <div className="plan table-title">Comparar planes</div>
-          </td>
-          <td>Lorem ipsum</td>
-          <td>Lorem ipsum</td>
-          <td>Lorem ipsum</td>
-          <td>Lorem ipsum</td>
-          <td>Lorem ipsum</td>
-          <td>Lorem ipsum</td>
-          <td>Lorem ipsum</td>
-        </tr>
-        <tr>
-          <td>
-            <div className="plan standard">
-              <div className="name">{props.subscriptions[props.tab]?.standardPlan?.name || "Estandar"}</div>
-              <div className="price">$ {props.subscriptions[props.tab]?.standardPlan?.price || ""}</div>
-              <div className="divider" />
-              <div className="description">{props.subscriptions[props.tab]?.standardPlan?.description || ""}</div>
-            </div>
-          </td>
-          <td>20</td>
-          <td>
-            <CheckOutlined />
-          </td>
-          <td>
-            <CheckOutlined />
-          </td>
-          <td>
-            <CloseOutlined />
-          </td>
-          <td>
-            <CloseOutlined />
-          </td>
-          <td>
-            <CloseOutlined />
-          </td>
-          <td>
-            <CloseOutlined />
-          </td>
-          {props.currentPlan === "standard" && <div className="selected" />}
-        </tr>
-        <tr>
-          <td>
-            <div className="plan pro">
-              <div className="name">{props.subscriptions[props.tab]?.proPlan?.name || "Estandar"}</div>
-              <div className="price">$ {props.subscriptions[props.tab]?.proPlan?.price || ""}</div>
-              <div className="description">{props.subscriptions[props.tab]?.proPlan?.description || ""}</div>
-            </div>
-          </td>
-          <td>20</td>
-          <td>
-            <CheckOutlined />
-          </td>
-          <td>
-            <CheckOutlined />
-          </td>
-          <td>
-            <CheckOutlined />
-          </td>
-          <td>
-            <CheckOutlined />
-          </td>
-          <td>
-            <CheckOutlined />
-          </td>
-          <td>
-            <CheckOutlined />
-          </td>
-          {props.currentPlan === "pro" && <div className="selected" />}
-        </tr>
-        <tr>
-          <td>
-            <div className="plan presenter">
-              <div className="name">{props.subscriptions[props.tab]?.presenterPlan?.name || "Estandar"}</div>
-              <div className="price">$ {props.subscriptions[props.tab]?.presenterPlan?.price || ""}</div>
-              <div className="description">{props.subscriptions[props.tab]?.presenterPlan?.description || ""}</div>
-            </div>
-          </td>
-          <td>20</td>
-          <td>
-            <CheckOutlined />
-          </td>
-          <td>
-            <CheckOutlined />
-          </td>
-          <td>
-            <CheckOutlined />
-          </td>
-          <td>
-            <CheckOutlined />
-          </td>
-          <td>
-            <CloseOutlined />
-          </td>
-          <td>
-            <CloseOutlined />
-          </td>
-          {props.currentPlan === "presenter" && <div className="selected" />}
-        </tr>
+        <tbody>
+          <tr>
+            <td>
+              <div className="plan table-title">Comparar planes</div>
+            </td>
+            <td>Lorem ipsum</td>
+            <td>Lorem ipsum</td>
+            <td>Lorem ipsum</td>
+            <td>Lorem ipsum</td>
+            <td>Lorem ipsum</td>
+            <td>Lorem ipsum</td>
+            <td>Lorem ipsum</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div className="plan standard">
+                <div className="name">{props.subscriptions[props.tab]?.standardPlan?.name || "Estandar"}</div>
+                <div className="price">$ {props.subscriptions[props.tab]?.standardPlan?.price || ""}</div>
+                <div className="divider" />
+                <div className="description">{props.subscriptions[props.tab]?.standardPlan?.description || ""}</div>
+              </div>
+            </td>
+            <td>20</td>
+            <td>
+              <CheckOutlined />
+            </td>
+            <td>
+              <CheckOutlined />
+            </td>
+            <td>
+              <CloseOutlined />
+            </td>
+            <td>
+              <CloseOutlined />
+            </td>
+            <td>
+              <CloseOutlined />
+            </td>
+            <td>
+              <CloseOutlined />
+            </td>
+            {props.currentPlan === "standard" && <div className="selected" />}
+          </tr>
+          <tr>
+            <td>
+              <div className="plan pro">
+                <div className="name">{props.subscriptions[props.tab]?.proPlan?.name || "Estandar"}</div>
+                <div className="price">$ {props.subscriptions[props.tab]?.proPlan?.price || ""}</div>
+                <div className="description">{props.subscriptions[props.tab]?.proPlan?.description || ""}</div>
+              </div>
+            </td>
+            <td>20</td>
+            <td>
+              <CheckOutlined />
+            </td>
+            <td>
+              <CheckOutlined />
+            </td>
+            <td>
+              <CheckOutlined />
+            </td>
+            <td>
+              <CheckOutlined />
+            </td>
+            <td>
+              <CheckOutlined />
+            </td>
+            <td>
+              <CheckOutlined />
+            </td>
+            {props.currentPlan === "pro" && <div className="selected" />}
+          </tr>
+          <tr>
+            <td>
+              <div className="plan presenter">
+                <div className="name">{props.subscriptions[props.tab]?.presenterPlan?.name || "Estandar"}</div>
+                <div className="price">$ {props.subscriptions[props.tab]?.presenterPlan?.price || ""}</div>
+                <div className="description">{props.subscriptions[props.tab]?.presenterPlan?.description || ""}</div>
+              </div>
+            </td>
+            <td>20</td>
+            <td>
+              <CheckOutlined />
+            </td>
+            <td>
+              <CheckOutlined />
+            </td>
+            <td>
+              <CheckOutlined />
+            </td>
+            <td>
+              <CheckOutlined />
+            </td>
+            <td>
+              <CloseOutlined />
+            </td>
+            <td>
+              <CloseOutlined />
+            </td>
+            {props.currentPlan === "presenter" && <div className="selected" />}
+          </tr>
+        </tbody>
       </table>
     </TableContainer>
   );
@@ -116,7 +119,7 @@ const TableContainer = styled.div`
   width: 1000px;
   padding: 1rem;
   background: #f5f2fb;
-  
+
   .table-title {
     font-family: Lato;
     font-style: normal;
