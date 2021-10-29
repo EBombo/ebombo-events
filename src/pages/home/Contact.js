@@ -1,6 +1,6 @@
 import React, { useState } from "reactn";
 import { config } from "../../firebase";
-import { ButtonAnt, Input, TextArea } from "../../components/form";
+import { ButtonAnt, Input, TextArea, Anchor } from "../../components/form";
 import { Image } from "../../components/common/Image";
 import styled from "styled-components";
 import { Desktop, mediaQuery } from "../../constants";
@@ -15,21 +15,27 @@ const salesTeam = [
     description: "Sub Gerente de Comunicación Interna en Ripley Perú",
     imageUrl: `${config.storageUrl}/resources/team-sales/danielvega.svg`,
     phoneNumber: "+51 991 175 288",
+    phoneNumberHref: "https://wa.me/51991175288",
     email: "daniel@bombo.pe",
+    emailHref: "mailto:daniel@bombo.pe",
   },
   {
     name: "Santiago Suarez",
     description: "Sub Gerente de Comunicación Interna en Ripley Perú",
     imageUrl: `${config.storageUrl}/resources/team-sales/santiagosuarez.svg`,
     phoneNumber: "+51 948 879 888",
+    phoneNumberHref: "https://wa.me/51948879888",
     email: "santiago@bombo.pe",
+    emailHref: "mailto:santiago@bombo.pe",
   },
   {
     name: "Vivian Sejuro",
     description: "Sub Gerente de Comunicación Interna en Ripley Perú",
     imageUrl: `${config.storageUrl}/resources/team-sales/viviansejuro.svg`,
     phoneNumber: "+51 983 645 002",
+    phoneNumberHref: "https://wa.me/51983645002",
     email: "vivian@bombo.pe",
+    emailHref: "mailto:vivian@bombo.pe",
   },
 ];
 
@@ -101,7 +107,11 @@ export const Contact = (props) => {
                   className="icon"
                 />
                 <span className="info">
-                  {member.phoneNumber}
+                  <Anchor 
+                    href={member.phoneNumberHref}
+                    target="_blank">
+                    {member.phoneNumber}
+                  </Anchor>
                 </span>
 
                 <Image
@@ -111,8 +121,13 @@ export const Contact = (props) => {
                   alt=""
                   className="icon"
                 />
+
                 <span className="info">
-                  {member.email}
+                  <Anchor 
+                    href={member.emailHref}
+                    target="_blank">
+                    {member.email}
+                  </Anchor>
                 </span>
               </div>
             </div>
