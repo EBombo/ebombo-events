@@ -24,9 +24,9 @@ const footerContent = [
     title: "Contáctanos",
     classKey: "contact-us",
     children: [
-      { title: "informes@ebombo.com.pe", icon: `${config.storageUrl}/resources/b2bLanding/email.svg` },
+      { title: "informes@ebombo.com.pe", link: "mailto:santiago@bombo.pe", icon: `${config.storageUrl}/resources/b2bLanding/email.svg` },
       { title: "Lunes - Viernes 6:00 am - 5:00 pm" },
-      { title: "+51 983 645 002", icon: `${config.storageUrl}/resources/b2bLanding/wsp-icon.svg` },
+      { title: "+51 983 645 002", link: "https://wa.me/5198888888", target: "_blank", icon: `${config.storageUrl}/resources/b2bLanding/wsp-icon.svg` },
     ],
   },
   {
