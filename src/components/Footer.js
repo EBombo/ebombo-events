@@ -133,6 +133,9 @@ export const Footer = (props) => (
 const FooterContainer = styled.div`
   background: ${(props) => props.theme.basic.white};
   .copyright-container {
+    hr {
+      border-top: 0;
+    }
     .icon {
       display: inline-block;
     }
