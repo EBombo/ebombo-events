@@ -3,7 +3,7 @@ import { config } from "../../firebase";
 import { ButtonAnt, Input, TextArea } from "../../components/form";
 import { Image } from "../../components/common/Image";
 import styled from "styled-components";
-import { Desktop, mediaQuery } from "../../constants";
+import { Desktop, Tablet, mediaQuery } from "../../constants";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { useFetch } from "../../hooks/useFetch";
@@ -56,14 +56,33 @@ export const ContactForm = (props) => {
 
   return (
     <ContactFormSection ref={props.refProp}>
-        <div className="contact-form-section">
-          <div className="title">
-            ¿Deseas mayor información?
-          </div>
-          <div className="description">
-            Deja tu consulta y nos pondremos en contacto con usted
-          </div>
-          <form onSubmit={handleSubmit(sendEmail)}>
+      <div className="contact-form-section">
+        <div className="title">
+          ¿Deseas mayor información?
+        </div>
+        <div className="description">
+          Deja tu consulta y nos pondremos en contacto con usted
+        </div>
+        <form onSubmit={handleSubmit(sendEmail)}>
+          <Desktop>
+            <div className="info-contact">
+              <Input
+                error={errors.name}
+                type="text"
+                ref={register}
+                name="name"
+                placeholder="Nombre"
+              />
+              <Input
+                error={errors.lastName}
+                type="text"
+                ref={register}
+                name="lastName"
+                placeholder="Apellido"
+              />
+            </div>
+          </Desktop>
+          <Tablet>
             <Input
               error={errors.name}
               type="text"
@@ -78,6 +97,34 @@ export const ContactForm = (props) => {
               name="lastName"
               placeholder="Apellido"
             />
+          </Tablet>
+          <Input
+            error={errors.email}
+            type="email"
+            ref={register}
+            name="email"
+            placeholder="Correo electrónico"
+          />
+
+          <Desktop>
+            <div className="info-contact">
+              <Input
+                error={errors.company}
+                type="text"
+                ref={register}
+                name="company"
+                placeholder="Empresa"
+              />
+              <Input
+                error={errors.phoneNumber}
+                type="text"
+                ref={register}
+                name="phoneNumber"
+                placeholder="Número de teléfono"
+              />
+            </div>
+          </Desktop>
+          <Tablet>
             <Input
               error={errors.company}
               type="text"
@@ -86,19 +133,13 @@ export const ContactForm = (props) => {
               placeholder="Empresa"
             />
             <Input
-              error={errors.email}
-              type="email"
-              ref={register}
-              name="email"
-              placeholder="Correo electrónico"
-            />
-            <Input
               error={errors.phoneNumber}
               type="text"
               ref={register}
               name="phoneNumber"
               placeholder="Número de teléfono"
             />
+          </Tablet>
           <TextArea
             error={errors.message}
             name="message"
@@ -106,7 +147,6 @@ export const ContactForm = (props) => {
             rows="10"
             placeholder="Déjanos tu consulta aquí"
           />
-          
           <div className="submit-container">
             <ButtonAnt
               variant="contained"
@@ -155,6 +195,10 @@ const ContactFormSection = styled.section`
     button {
       display: inline-block;
     }
+
+    ${mediaQuery.afterTablet} {
+      text-align: left;
+    }
   }
 
   form {
@@ -184,21 +228,11 @@ const ContactFormSection = styled.section`
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 1rem;
-      margin: 0.5rem 0;
-
-      input {
-        width: 100%;
-        background: #d0e4e8;
-        color: #3f3d56;
-        border-radius: 6px;
-        border: none;
-        padding: 1rem;
-      }
     }
   }
 
   ${mediaQuery.afterTablet} {
-    padding: 2rem;
+    padding: 2rem 4rem;
 
     .title {
       font-size: 34px;
