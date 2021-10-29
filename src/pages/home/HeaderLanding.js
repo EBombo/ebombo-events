@@ -80,6 +80,7 @@ const HeaderLandingContainer = styled.section`
   ${mediaQuery.afterTablet} {
     flex-direction: row;
     padding: 2rem;
+    justify-content: center;
 
     .left-container {
       max-width: 485px;
