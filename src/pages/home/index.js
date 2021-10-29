@@ -6,6 +6,7 @@ import { firestore } from "../../firebase";
 import { HeldEvents } from "./HeldEvents";
 import { Comments } from "./comments/Comments";
 import { Contact } from "./Contact";
+import { ContactForm } from "./ContactForm";
 import get from "lodash/get";
 import { spinLoader } from "../../components/common/loader";
 import { SpecialGifts } from "./SpecialGifts";
@@ -29,6 +30,7 @@ export const Home = (props) => {
   const gamesRef = useRef(null);
   const eventsRef = useRef(null);
   const contactRef = useRef(null);
+  const contactFormRef = useRef(null);
 
   useEffect(() => {
     if (!authUser || authUser.isAdmin) return;
@@ -97,6 +99,7 @@ export const Home = (props) => {
         <HeldEvents refProp={eventsRef} events={events} deleteElement={deleteElement} />
         <Comments comments={comments} deleteDocument={deleteDocument} />
         <Contact refProp={contactRef} />
+        <ContactForm refProp={contactFormRef} />
         <Footer />
       </div>
     </LandingContainer>
