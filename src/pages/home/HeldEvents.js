@@ -1,17 +1,21 @@
 import React from "reactn";
 import styled from "styled-components";
+import {useRouter} from "next/router";
 import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { Image } from "../../components/common/Image";
-import { heldEvents } from "../../components/common/DataList";
+import { heldEventsData } from "../../components/common/DataList";
 import { Carousel } from "../../components/common/Carousel";
 import { config } from "../../firebase";
 
 export const HeldEvents = (props) => {
+  const router = useRouter();
   const carouselContent = (event, index) => (
-    <EventContent key={index}>
-      <Image src={event.image} height="162px" width="100%" borderRadius="8px 8px 0 0" margin="0" size="cover" />
+    <EventContent
+      key={index}
+      onClick={() => router.push(`/held-events/${event.id}`)}>
+      <Image src={event.imageUrl} height="162px" width="100%" borderRadius="8px 8px 0 0" margin="0" size="cover" />
       <div className="bottom-section">
-        <div className="name">{event.name}</div>
+        <div className="title">{event.title}</div>
         <div className="date">{event.date}</div>
       </div>
     </EventContent>
@@ -26,10 +30,10 @@ export const HeldEvents = (props) => {
       </div>
 
       <Tablet>
-        <Carousel components={heldEvents.map((event, index) => carouselContent(event, index))} />
+        <Carousel components={heldEventsData.slice(0, 3).map((event, index) => carouselContent(event, index))} />
       </Tablet>
       <Desktop>
-        <div className="held-events">{heldEvents.map((event, index) => carouselContent(event, index))}</div>
+        <div className="held-events">{heldEventsData.slice(0, 3).map((event, index) => carouselContent(event, index))}</div>
       </Desktop>
     </EventsContainer>
   );
@@ -102,6 +106,7 @@ const EventContent = styled.div`
   background: ${(props) => props.theme.basic.whiteLight};
   border-radius: 8px;
   margin: 0 auto;
+  cursor: pointer;
 
   .bottom-section {
     padding: 0.5rem;
@@ -109,7 +114,7 @@ const EventContent = styled.div`
     height: 133px;
     border-radius: 0 0 8px 8px;
 
-    .name {
+    .title {
       font-family: Lato;
       font-style: normal;
       font-weight: 800;

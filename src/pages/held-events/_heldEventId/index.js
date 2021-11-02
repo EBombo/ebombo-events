@@ -3,23 +3,21 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { Image } from "../../../components/common/Image";
 import { Footer } from "../../../components/Footer";
-import { useCasesData } from "..";
+import { heldEventsData } from "../../../components/common/DataList";
 import { Navbar } from "../../home/Navbar";
 
-// TODO: Should be maned HeldEventDetails.
-export const UseCaseDetail = (props) => {
+export const HeldEventDetails = (props) => {
   const router = useRouter();
   const { heldEventId } = router.query;
 
   const currentHeldEvent = useMemo(() => {
     if (!heldEventId) return {};
 
-    // TODO: It should be called "heldEvents" or "heldEventsData" [as parent folder] not useCasesData.
-    return useCasesData.find((useCaseData) => useCaseData.id === heldEventId);
+    return heldEventsData.find((heldEvent) => heldEvent.id === heldEventId);
   }, [heldEventId]);
 
   return (
-    <UseCaseDetailStyled>
+    <HeldEventDetailsStyled>
       <Navbar />
 
       <div className="main-container">
@@ -35,12 +33,11 @@ export const UseCaseDetail = (props) => {
       </div>
 
       <Footer />
-    </UseCaseDetailStyled>
+    </HeldEventDetailsStyled>
   );
 };
 
-// TODO: Should be maned HeldEventDetailsStyled.
-const UseCaseDetailStyled = styled.section`
+const HeldEventDetailsStyled = styled.section`
   .title-container {
     background: ${(props) => props.theme.basic.secondary};
     padding: 66px 0;
