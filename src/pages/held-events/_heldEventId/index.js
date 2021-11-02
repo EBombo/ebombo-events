@@ -1,10 +1,10 @@
-import React, {useMemo} from "reactn";
+import React, { useMemo } from "reactn";
 import styled from "styled-components";
-import {useRouter} from "next/router";
-import {Image} from "../../../components/common/Image";
-import {Footer} from "../../../components/Footer";
-import {useCasesData} from "..";
-import {Navbar} from "../../home/Navbar";
+import { useRouter } from "next/router";
+import { Image } from "../../../components/common/Image";
+import { Footer } from "../../../components/Footer";
+import { useCasesData } from "..";
+import { Navbar } from "../../home/Navbar";
 
 // TODO: Should be maned HeldEventDetails.
 export const UseCaseDetail = (props) => {
