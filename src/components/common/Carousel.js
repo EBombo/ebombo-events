@@ -36,7 +36,7 @@ export const Carousel = (props) => {
       <CarouselStyled
         ref={slider}
         dots={false}
-        autoplay={props.autoplay ? true : false}
+        autoplay={!!props.autoplay}
         afterChange={(current) => setIndicator(current)}
         width={props.width}
         height={props.height}
@@ -47,15 +47,7 @@ export const Carousel = (props) => {
           </div>
         ))}
       </CarouselStyled>
-      {!props.hideIndicators && (
-        <Arrows
-          next={next}
-          prev={prev}
-          indicator={indicator}
-          goTo={goTo}
-          {...props}
-        />
-      )}
+      {!props.hideIndicators && <Arrows next={next} prev={prev} indicator={indicator} goTo={goTo} {...props} />}
     </Container>
   );
 };
@@ -74,8 +66,7 @@ const Container = styled.div`
 const CarouselStyled = styled(CarouselAntd)`
   .content-carousel {
     width: ${(props) => (props.width ? props.width : "auto")};
-    height: ${(props) =>
-      props.height ? `calc(${props.height} - 20px)` : "100%"};
+    height: ${(props) => (props.height ? `calc(${props.height} - 20px)` : "100%")};
     padding: 10px 20px;
   }
 
