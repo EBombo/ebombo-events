@@ -1,21 +1,18 @@
 import React, { useEffect, useGlobal, useRef, useState } from "reactn";
 import styled from "styled-components";
 import { HeaderLanding } from "./HeaderLanding";
-import { Services } from "./Services";
 import { firestore } from "../../firebase";
 import { HeldEvents } from "./HeldEvents";
 import { Comments } from "./comments/Comments";
 import { Contact } from "./Contact";
-import { Companies } from "./Companies";
+import { ContactForm } from "./ContactForm";
 import get from "lodash/get";
 import { spinLoader } from "../../components/common/loader";
-import { SpecialGifts } from "./SpecialGifts";
-import { SpecialGuests } from "./SpecialGuests";
-import { Games } from "./Games";
 import { Footer } from "../../components/Footer";
-import { SpecialWorkshops } from "./SpecialWorkshops";
-import { SpecialShows } from "./SpecialShows";
 import { useRouter } from "next/router";
+import { Plans } from "./subscriptions/Plans";
+import { Navbar } from "./Navbar";
+import { Products } from "./Products";
 
 export const Home = (props) => {
   const router = useRouter();
@@ -28,6 +25,7 @@ export const Home = (props) => {
   const gamesRef = useRef(null);
   const eventsRef = useRef(null);
   const contactRef = useRef(null);
+  const contactFormRef = useRef(null);
 
   useEffect(() => {
     if (!authUser || authUser.isAdmin) return;
@@ -62,14 +60,6 @@ export const Home = (props) => {
     await firestore.collection(`settings/landing/${collection}`).doc(document.id).delete();
   };
 
-  const deleteElement = async (element, field) => {
-    const newElements = get(events, `${field}`, []).filter((ele) => ele.id !== element.id);
-
-    await firestore.doc(`landings/events`).update({
-      [field]: newElements,
-    });
-  };
-
   const executeScroll = (section) =>
     section === "services"
       ? servicesRef.current.scrollIntoView()
@@ -84,17 +74,14 @@ export const Home = (props) => {
   return (
     <LandingContainer>
       <div className="landing-container">
+        <Navbar executeScroll={executeScroll} />
         <HeaderLanding executeScroll={executeScroll} />
-        <Companies events={events} deleteElement={deleteElement} />
-        <Services refProp={servicesRef} />
-        <Games refProp={gamesRef} events={events} deleteElement={deleteElement} />
-        <SpecialGuests deleteElement={deleteElement} events={events} />
-        <SpecialGifts deleteElement={deleteElement} events={events} executeScroll={executeScroll} />
-        <SpecialShows deleteElement={deleteElement} events={events} />
-        <SpecialWorkshops deleteElement={deleteElement} events={events} />
-        <HeldEvents refProp={eventsRef} events={events} deleteElement={deleteElement} />
-        <Comments comments={comments} deleteDocument={deleteDocument} />
+        <Products />
+        <Plans {...props} />
+        <HeldEvents />
         <Contact refProp={contactRef} />
+        <Comments comments={comments} deleteDocument={deleteDocument} />
+        <ContactForm refProp={contactFormRef} />
         <Footer />
       </div>
     </LandingContainer>
