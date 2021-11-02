@@ -24,9 +24,9 @@ const footerContent = [
     title: "Contáctanos",
     classKey: "contact-us",
     children: [
-      { title: "informes@ebombo.com.pe", icon: `${config.storageUrl}/resources/b2bLanding/email.svg` },
+      { title: "informes@ebombo.com.pe", link: "mailto:informes@ebombo.com.pe", icon: `${config.storageUrl}/resources/b2bLanding/email.svg` },
       { title: "Lunes - Viernes 6:00 am - 5:00 pm" },
-      { title: "+51 983 645 002", icon: `${config.storageUrl}/resources/b2bLanding/wsp-icon.svg` },
+      { title: "+51 983 645 002", link: "https://wa.me/51983645002", target: "_blank", icon: `${config.storageUrl}/resources/b2bLanding/wsp-icon.svg` },
     ],
   },
   {
@@ -37,21 +37,25 @@ const footerContent = [
         title: "Facebook",
         icon: `${config.storageUrl}/resources/facebook-gray.svg`,
         link: "https://www.facebook.com/ebombogames",
+        target: "_blank",
       },
       {
         title: "Instagram",
         icon: `${config.storageUrl}/resources/instagram-gray.svg`,
         link: "https://instagram.com/ebombo_events?utm_medium=copy_link",
+        target: "_blank",
       },
       {
         title: "LinkedIn",
         icon: `${config.storageUrl}/resources/linkedin-gray.svg`,
         link: "https://instagram.com/ebombo_events?utm_medium=copy_link",
+        target: "_blank",
       },
       {
         title: "Twitter",
         icon: `${config.storageUrl}/resources/twitter-gray.svg`,
         link: "https://twitter.com/ebombogames",
+        target: "_blank",
       },
     ],
   },
@@ -59,6 +63,7 @@ const footerContent = [
 
 export const Footer = (props) => (
   <FooterContainer>
+  <FooterContent>
     <Tablet>
       <Collapse
         defaultActiveKey={[]}
@@ -121,18 +126,41 @@ export const Footer = (props) => (
         </div>
       ))}
     </Desktop>
+  </FooterContent>
+  <div className="copyright-container">
+    <hr/>
+    <div><Image className="icon" src={`${config.storageUrl}/resources/copyright.svg`} width="15px" height="15px" /> ebombo 2021</div>
+  </div>
   </FooterContainer>
 );
 
 const FooterContainer = styled.div`
+  background: ${(props) => props.theme.basic.white};
+  .copyright-container {
+    hr {
+      border-top: 0;
+    }
+    .icon {
+      display: inline-block;
+    }
+    & > div {
+      padding: 30px;
+      font-family: Lato;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      text-align: center;
+    }
+  }
+`;
+
+const FooterContent = styled.div`
   padding: 1rem;
   width: 100%;
-  background: ${(props) => props.theme.basic.white};
-  position: absolute;
 
   display: inline-flex;
   justify-content: space-evenly;
-
   .ant-collapse {
     width: 100%;
   }
