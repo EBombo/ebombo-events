@@ -1,13 +1,9 @@
-import React, { useState } from "reactn";
+import React from "reactn";
 import { config } from "../../firebase";
-import { ButtonAnt, Input, TextArea, Anchor } from "../../components/form";
+import { Anchor } from "../../components/form";
 import { Image } from "../../components/common/Image";
 import styled from "styled-components";
-import { Desktop, mediaQuery } from "../../constants";
-import { object, string } from "yup";
-import { useForm } from "react-hook-form";
-import { useFetch } from "../../hooks/useFetch";
-import { useSendError } from "../../hooks";
+import { mediaQuery } from "../../constants";
 
 const salesTeam = [
   {
@@ -42,10 +38,8 @@ const salesTeam = [
 export const Contact = (props) => {
   return (
     <ContactSection ref={props.refProp}>
+      <div className="title">Sobre nosotros</div>
       <div className="team-container">
-        <div className="title">
-          Sobre nosotros
-        </div>
         {salesTeam.map((member) => (
           <MemberContainer key={member.imageUrl}>
             <Image
@@ -69,9 +63,7 @@ export const Contact = (props) => {
                   className="icon"
                 />
                 <span className="info">
-                  <Anchor 
-                    href={member.phoneNumberHref}
-                    target="_blank">
+                  <Anchor href={member.phoneNumberHref} target="_blank">
                     {member.phoneNumber}
                   </Anchor>
                 </span>
@@ -85,9 +77,7 @@ export const Contact = (props) => {
                 />
 
                 <span className="info">
-                  <Anchor 
-                    href={member.emailHref}
-                    target="_blank">
+                  <Anchor href={member.emailHref} target="_blank">
                     {member.email}
                   </Anchor>
                 </span>
