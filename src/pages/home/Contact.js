@@ -40,50 +40,12 @@ const salesTeam = [
 ];
 
 export const Contact = (props) => {
-  const { sendError } = useSendError();
-  const { Fetch } = useFetch();
-  const [loadingSendingEmail, setLoadingSendingEmail] = useState(false);
-
-  const schema = object().shape({
-    phoneNumber: string().required(),
-    message: string().required(),
-    email: string().required(),
-  });
-
-  const { register, handleSubmit, errors, reset } = useForm({
-    validationSchema: schema,
-    reValidateMode: "onSubmit",
-  });
-
-  const sendEmail = async (data) => {
-    setLoadingSendingEmail(true);
-    try {
-      const { response, error } = await Fetch(
-        `${config.serverUrl}/api/contact`,
-        "POST",
-        data
-      );
-
-      if (error) throw Error(error);
-
-      reset({
-        message: null,
-        email: null,
-        phoneNumber: null,
-      });
-    } catch (error) {
-      sendError({ ...error, action: "sendEmail" });
-    }
-    setLoadingSendingEmail(false);
-  };
-
   return (
     <ContactSection ref={props.refProp}>
-      <div className="title">
-        Sobre nosotros
-      </div>
-
       <div className="team-container">
+        <div className="title">
+          Sobre nosotros
+        </div>
         {salesTeam.map((member) => (
           <MemberContainer key={member.imageUrl}>
             <Image
@@ -134,45 +96,6 @@ export const Contact = (props) => {
           </MemberContainer>
         ))}
       </div>
-
-      <div className="title">
-        Deja tu consulta y nos pondremos en contacto con usted
-      </div>
-      <form onSubmit={handleSubmit(sendEmail)}>
-        <TextArea
-          error={errors.message}
-          name="message"
-          ref={register}
-          rows="10"
-          placeholder="Déjanos tu consulta aquí"
-        />
-        <div className="info-contact">
-          <Input
-            error={errors.email}
-            type="email"
-            ref={register}
-            name="email"
-            placeholder="Correo electrónico"
-          />
-          <Input
-            error={errors.phoneNumber}
-            type="text"
-            ref={register}
-            name="phoneNumber"
-            placeholder="Número de teléfono"
-          />
-        </div>
-        <ButtonAnt
-          variant="contained"
-          color="primary"
-          width="100%"
-          loading={loadingSendingEmail}
-          disabled={loadingSendingEmail}
-          htmlType="submit"
-        >
-          Enviar
-        </ButtonAnt>
-      </form>
     </ContactSection>
   );
 };
@@ -194,34 +117,15 @@ const ContactSection = styled.section`
     font-style: normal;
   }
 
-  form {
-    max-width: 660px;
-    textarea {
-      margin-top: 0.5rem;
-      width: 100%;
-      background: #d0e4e8;
-      color: #3f3d56;
-      border-radius: 6px;
-      border: none;
-      padding: 1rem;
-      height: 100px;
-    }
-
-    .info-contact {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-gap: 1rem;
-      margin: 0.5rem 0;
-
-      input {
-        width: 100%;
-        background: #d0e4e8;
-        color: #3f3d56;
-        border-radius: 6px;
-        border: none;
-        padding: 1rem;
-      }
-    }
+  .description {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 100;
+    font-size: 18px;
+    line-height: 22px;
+    color: ${(props) => props.theme.basic.white};
+    margin-bottom: 24px;
+    font-style: normal;
   }
 
   .team-container {
