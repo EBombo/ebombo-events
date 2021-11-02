@@ -149,10 +149,6 @@ const MyApp = ({ Component, pageProps }) => {
           content={`${config.storageUrl}/resources/icons/icon-512x512.png`}
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap"
-          rel="stylesheet"
-        />
-        <link
           href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
           rel="stylesheet"
         />
