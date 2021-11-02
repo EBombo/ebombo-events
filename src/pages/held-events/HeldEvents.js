@@ -1,75 +1,74 @@
-import React, { useGlobal, useState, useEffect } from "reactn";
+import React, {useGlobal, useState} from "reactn";
 import styled from "styled-components";
 import get from "lodash/get";
-import { Image } from "../../components/common/Image";
-import { ModalContainer } from "../../components/common/ModalContainer";
-import { mediaQuery } from "../../constants";
-import { Desktop, Tablet } from "../../constants";
-import { List } from "antd";
-import { Icon } from "../../components/common/Icons";
-import { useRouter } from "next/router";
+import {Image} from "../../components/common/Image";
+import {ModalContainer} from "../../components/common/ModalContainer";
+import {Desktop, mediaQuery, Tablet} from "../../constants";
+import {List} from "antd";
+import {Icon} from "../../components/common/Icons";
+import {useRouter} from "next/router";
 
+// TODO: Don't create child inside a component file.
 const UseCase = (props) => {
   const router = useRouter();
   return (
-      <UseCaseStyled
-        {...props}
-        onClick={() => {  router.push(`/held-events/${props.useCase.id}`) }}>
-          <div className="image-wrapper">
-              <Image src={props.useCase.imageUrl}/>
-          </div>
-          <h3>{props.useCase.title}</h3>
-          <p>{props.useCase.date}</p>
-      </UseCaseStyled>
+    <UseCaseStyled
+      {...props}
+      onClick={() => {
+        router.push(`/held-events/${props.useCase.id}`);
+      }}
+    >
+      <div className="image-wrapper">
+        <Image src={props.useCase.imageUrl} />
+      </div>
+      <h3>{props.useCase.title}</h3>
+      <p>{props.useCase.date}</p>
+    </UseCaseStyled>
   );
 };
 
 const UseCaseStyled = styled.div`
-    background: ${(props) => props.theme.basic.white};
-    border-radius: 8px;
-    padding: 9px 9px 27px 9px;
-    cursor: pointer;
+  background: ${(props) => props.theme.basic.white};
+  border-radius: 8px;
+  padding: 9px 9px 27px 9px;
+  cursor: pointer;
 
-    .image-wrapper {
-        margin-bottom: 18px;
-    }
-    h3 {
-        font-family: Lato, sans-serif;
-        font-style: normal;
-        font-weight: 800;
-        font-size: 22px;
-        line-height: 26px;
-        letter-spacing: 0.03em;
+  .image-wrapper {
+    margin-bottom: 18px;
+  }
+  h3 {
+    font-family: Lato, sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 26px;
+    letter-spacing: 0.03em;
 
-        margin: 0px 22px 4px 27px;
-        color: ${(props) => props.theme.basic.blackDarken};
-    }
-    p {
-        font-family: Lato, sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 19px;
-        letter-spacing: 0.03em;
-        color: ${(props) => props.theme.basic.blackDarken};
-        margin: 0px 22px 4px 27px;
-    }
+    margin: 0px 22px 4px 27px;
+    color: ${(props) => props.theme.basic.blackDarken};
+  }
+  p {
+    font-family: Lato, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.03em;
+    color: ${(props) => props.theme.basic.blackDarken};
+    margin: 0 22px 4px 27px;
+  }
 `;
 
+//TODO: It should be named HelpEvent [singular] not UseCasesView.
 export const UseCases = (props) => {
   const [authUser] = useGlobal("user");
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-
   return (
     <UseCasesStyled {...props}>
       {isVisibleModal && get(authUser, "isAdmin") && (
-        <ModalContainer
-          footer={null}
-          visible={isVisibleModal}
-          onCancel={() => setIsVisibleModal(!isVisibleModal)}
-        >
-          {/* TODO add admin functionalities */}
+        <ModalContainer footer={null} visible={isVisibleModal} onCancel={() => setIsVisibleModal(!isVisibleModal)}>
+          {/* TODO: Add admin functionalities. */}
           {/* <EditCompany
             setIsVisibleModal={setIsVisibleModal}
             isVisibleModal={isVisibleModal}
@@ -78,17 +77,20 @@ export const UseCases = (props) => {
           /> */}
         </ModalContainer>
       )}
-      <div className="title"><Icon className="back-icon" type="left" /> Eventos pasados</div>
+      <div className="title">
+        <Icon className="back-icon" type="left" /> Eventos pasados
+      </div>
       <div className="main-container">
         <div className="use-cases-container">
           <Desktop>
+            {/*TODO: Do not use List from antd instead it use css grid. */}
             <List
               grid={{ gutter: 36, column: 3 }}
               pagination={{
                 pageSize: 9,
               }}
               dataSource={props.useCases}
-              renderItem={item => (
+              renderItem={(item) => (
                 <List.Item>
                   <UseCase useCase={item} />
                 </List.Item>
@@ -96,6 +98,7 @@ export const UseCases = (props) => {
             />
           </Desktop>
           <Tablet>
+            {/*TODO: Consider use mediaQuery.*/}
             <List
               itemLayout="vertical"
               size="large"
@@ -103,15 +106,15 @@ export const UseCases = (props) => {
                 pageSize: 3,
               }}
               dataSource={props.useCases}
-              renderItem={item => (
+              renderItem={(item) => (
                 <List.Item>
                   <UseCase useCase={item} />
                 </List.Item>
               )}
             />
           </Tablet>
-          {/* 
-          // TODO add admin feature
+          {/*
+          // TODO add admin feature.
           {get(authUser, "isAdmin") && (
             <ButtonAnt
               variant="outlined"
@@ -171,7 +174,7 @@ const UseCasesStyled = styled.section`
     ${mediaQuery.afterTablet} {
       text-align: left;
       margin-bottom: 33px;
-    margin: 0 auto;
+      margin: 0 auto;
     }
   }
 
@@ -231,7 +234,4 @@ const UseCasesStyled = styled.section`
       margin-bottom: 48px;
     }
   }
-
-
 `;
-

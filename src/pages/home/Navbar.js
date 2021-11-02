@@ -55,7 +55,7 @@ export const Navbar = (props) => {
           <Anchor onClick={() => router.push("/subscriptions")} className="link">
             Planes
           </Anchor>
-          <Anchor variant="secondary" onClick={() => router.push("/")} className="link">
+          <Anchor variant="secondary" onClick={() => router.push("/held-events")} className="link">
             Eventos pasados
           </Anchor>
           <Anchor variant="secondary" onClick={() => router.push("/")} className="link">

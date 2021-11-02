@@ -1,8 +1,7 @@
-import React, { useGlobal, useState } from "reactn";
+import React from "reactn";
 import styled from "styled-components";
-import { mediaQuery } from "../../constants";
+import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { Image } from "../../components/common/Image";
-import { Desktop, Tablet } from "../../constants";
 import { heldEvents } from "../../components/common/DataList";
 import { Carousel } from "../../components/common/Carousel";
 import { config } from "../../firebase";
