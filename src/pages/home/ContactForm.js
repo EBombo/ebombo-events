@@ -1,9 +1,8 @@
 import React, { useState } from "reactn";
 import { config } from "../../firebase";
 import { ButtonAnt, Input, TextArea } from "../../components/form";
-import { Image } from "../../components/common/Image";
 import styled from "styled-components";
-import { Desktop, Tablet, mediaQuery } from "../../constants";
+import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { useFetch } from "../../hooks/useFetch";
@@ -29,14 +28,9 @@ export const ContactForm = (props) => {
   });
 
   const sendEmail = async (data) => {
-    console.log('sendEmail', data);
     setLoadingSendingEmail(true);
     try {
-      const { response, error } = await Fetch(
-        `${config.serverUrl}/api/contact`,
-        "POST",
-        data
-      );
+      const { error } = await Fetch(`${config.serverUrl}/api/contact`, "POST", data);
 
       if (error) throw Error(error);
 
@@ -49,7 +43,7 @@ export const ContactForm = (props) => {
         company: null,
       });
     } catch (error) {
-      sendError({ ...error, action: "sendEmail" });
+      sendError({ error, action: "sendEmail" });
     }
     setLoadingSendingEmail(false);
   };
@@ -57,64 +51,24 @@ export const ContactForm = (props) => {
   return (
     <ContactFormSection ref={props.refProp}>
       <div className="contact-form-section">
-        <div className="title">
-          ¿Deseas mayor información?
-        </div>
-        <div className="description">
-          Deja tu consulta y nos pondremos en contacto con usted
-        </div>
+        <div className="title">¿Deseas mayor información?</div>
+        <div className="description">Deja tu consulta y nos pondremos en contacto con usted</div>
         <form onSubmit={handleSubmit(sendEmail)}>
           <Desktop>
             <div className="info-contact">
-              <Input
-                error={errors.name}
-                type="text"
-                ref={register}
-                name="name"
-                placeholder="Nombre"
-              />
-              <Input
-                error={errors.lastName}
-                type="text"
-                ref={register}
-                name="lastName"
-                placeholder="Apellido"
-              />
+              <Input error={errors.name} type="text" ref={register} name="name" placeholder="Nombre" />
+              <Input error={errors.lastName} type="text" ref={register} name="lastName" placeholder="Apellido" />
             </div>
           </Desktop>
           <Tablet>
-            <Input
-              error={errors.name}
-              type="text"
-              ref={register}
-              name="name"
-              placeholder="Nombre"
-            />
-            <Input
-              error={errors.lastName}
-              type="text"
-              ref={register}
-              name="lastName"
-              placeholder="Apellido"
-            />
+            <Input error={errors.name} type="text" ref={register} name="name" placeholder="Nombre" />
+            <Input error={errors.lastName} type="text" ref={register} name="lastName" placeholder="Apellido" />
           </Tablet>
-          <Input
-            error={errors.email}
-            type="email"
-            ref={register}
-            name="email"
-            placeholder="Correo electrónico"
-          />
+          <Input error={errors.email} type="email" ref={register} name="email" placeholder="Correo electrónico" />
 
           <Desktop>
             <div className="info-contact">
-              <Input
-                error={errors.company}
-                type="text"
-                ref={register}
-                name="company"
-                placeholder="Empresa"
-              />
+              <Input error={errors.company} type="text" ref={register} name="company" placeholder="Empresa" />
               <Input
                 error={errors.phoneNumber}
                 type="text"
@@ -125,13 +79,7 @@ export const ContactForm = (props) => {
             </div>
           </Desktop>
           <Tablet>
-            <Input
-              error={errors.company}
-              type="text"
-              ref={register}
-              name="company"
-              placeholder="Empresa"
-            />
+            <Input error={errors.company} type="text" ref={register} name="company" placeholder="Empresa" />
             <Input
               error={errors.phoneNumber}
               type="text"
@@ -160,7 +108,6 @@ export const ContactForm = (props) => {
           </div>
         </form>
       </div>
-
     </ContactFormSection>
   );
 };
@@ -203,21 +150,22 @@ const ContactFormSection = styled.section`
 
   form {
     max-width: 660px;
-    input, textarea {
+    input,
+    textarea {
       padding-left: 24px;
       border-radius: 4px;
       margin: 7px 0;
       padding: 8px;
     }
     input {
-      background: ${props => props.theme.basic.whiteDark};
-      color: ${props => props.theme.basic.grayLight};;
+      background: ${(props) => props.theme.basic.whiteDark};
+      color: ${(props) => props.theme.basic.grayLight};
     }
     textarea {
       margin-top: 0.5rem;
       width: 100%;
-      background: ${props => props.theme.basic.whiteDark};
-      color: ${props => props.theme.basic.grayLight};;
+      background: ${(props) => props.theme.basic.whiteDark};
+      color: ${(props) => props.theme.basic.grayLight};
       border-radius: 6px;
       border: none;
       padding: 1rem;
