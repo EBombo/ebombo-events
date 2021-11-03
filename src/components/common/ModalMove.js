@@ -218,7 +218,7 @@ export const ModalMove = (props) => {
               props.setIsVisibleModalMove(false);
             }}
           >
-            Mover aca
+            Mover
           </ButtonAnt>
         </div>
       </Content>
