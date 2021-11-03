@@ -1,17 +1,13 @@
 import React from "reactn";
 import styled from "styled-components";
-import {Image} from "../../components/common/Image";
-import {useRouter} from "next/router";
+import { Image } from "../../components/common/Image";
+import { useRouter } from "next/router";
 
 export const HeldEvent = (props) => {
   const router = useRouter();
+
   return (
-    <HelpEventStyled
-      {...props}
-      onClick={() => {
-        router.push(`/held-events/${props.heldEvent.id}`);
-      }}
-    >
+    <HelpEventStyled onClick={() => router.push(`/held-events/${props.heldEvent.id}`)}>
       <div className="image-wrapper">
         <Image src={props.heldEvent.imageUrl} />
       </div>
@@ -30,6 +26,7 @@ const HelpEventStyled = styled.div`
   .image-wrapper {
     margin-bottom: 18px;
   }
+
   h3 {
     font-family: Lato, sans-serif;
     font-style: normal;
@@ -38,9 +35,10 @@ const HelpEventStyled = styled.div`
     line-height: 26px;
     letter-spacing: 0.03em;
 
-    margin: 0px 22px 4px 27px;
+    margin: 0 22px 4px 27px;
     color: ${(props) => props.theme.basic.blackDarken};
   }
+
   p {
     font-family: Lato, sans-serif;
     font-style: normal;

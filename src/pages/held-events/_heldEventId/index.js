@@ -15,7 +15,8 @@ export const HeldEventDetails = (props) => {
   const currentHeldEvent = useMemo(() => {
     if (!heldEventId) return {};
 
-    return heldEventsData.find((heldEvent) => heldEvent.id === heldEventId);
+    const currentHeldEvent_ = heldEventsData.find((heldEvent) => heldEvent.id === heldEventId);
+    return currentHeldEvent_ ?? {};
   }, [heldEventId]);
 
   return (
@@ -24,7 +25,8 @@ export const HeldEventDetails = (props) => {
       <div className="main-container">
         <div className="title-container">
           <div className="title">
-            <Icon className="back-icon" type="left" onClick={() => router.back()} />  {currentHeldEvent.title}</div>
+            <Icon className="back-icon" type="left" onClick={() => router.back()} /> {currentHeldEvent.title}
+          </div>
         </div>
         <div className="image-container">
           <Desktop>

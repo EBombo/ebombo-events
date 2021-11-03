@@ -6,25 +6,29 @@ import { HeldEvent } from "./HeldEvent";
 import { mediaQuery } from "../../constants";
 
 export const HeldEventGrid = (props) => {
-  const heldEventChunks = chunk(props.heldEvents, props.pageSize)
+  const heldEventChunks = chunk(props.heldEvents, props.pageSize);
   const [currentHeldEvents, setCurrentHeldEvents] = useState(heldEventChunks[0]);
+
   const onPaginationChange = (pageNumber) => setCurrentHeldEvents(heldEventChunks[pageNumber - 1]);
-  
+
   return (
     <HeldEventsGridContainer>
       <div className="held-events-container">
-        { currentHeldEvents.map(heldEvent => <HeldEvent heldEvent={heldEvent}/>) }
+        {currentHeldEvents.map((heldEvent) => (
+          <HeldEvent heldEvent={heldEvent} key={heldEvent.id} />
+        ))}
       </div>
       <div className="pagination-container">
         <Pagination
           defaultCurrent={1}
           total={props.heldEvents.length}
           pageSize={props.pageSize}
-          onChange={onPaginationChange} />
+          onChange={onPaginationChange}
+        />
       </div>
     </HeldEventsGridContainer>
-    )
-  };
+  );
+};
 
 const HeldEventsGridContainer = styled.div`
   .held-events-container {
@@ -76,5 +80,3 @@ const HeldEventsGridContainer = styled.div`
     }
   }
 `;
-  
-  
