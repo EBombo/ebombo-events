@@ -75,6 +75,7 @@ const EventsContainer = styled.section`
     display: flex;
     align-items: center;
     overflow: auto;
+    gap: 1rem;
   }
 
   ${mediaQuery.afterTablet} {
