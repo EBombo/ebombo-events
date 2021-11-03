@@ -1,6 +1,6 @@
 import React from "reactn";
 import styled from "styled-components";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { Image } from "../../components/common/Image";
 import { heldEventsData } from "../../components/common/DataList";
@@ -9,11 +9,11 @@ import { config } from "../../firebase";
 
 export const HeldEvents = (props) => {
   const router = useRouter();
+
   const carouselContent = (event, index) => (
-    <EventContent
-      key={index}
-      onClick={() => router.push(`/held-events/${event.id}`)}>
+    <EventContent key={index} onClick={() => router.push(`/held-events/${event.id}`)}>
       <Image src={event.imageUrl} height="162px" width="100%" borderRadius="8px 8px 0 0" margin="0" size="cover" />
+
       <div className="bottom-section">
         <div className="title">{event.title}</div>
         <div className="date">{event.date}</div>
@@ -32,8 +32,11 @@ export const HeldEvents = (props) => {
       <Tablet>
         <Carousel components={heldEventsData.slice(0, 3).map((event, index) => carouselContent(event, index))} />
       </Tablet>
+
       <Desktop>
-        <div className="held-events">{heldEventsData.slice(0, 3).map((event, index) => carouselContent(event, index))}</div>
+        <div className="held-events">
+          {heldEventsData.slice(0, 3).map((event, index) => carouselContent(event, index))}
+        </div>
       </Desktop>
     </EventsContainer>
   );
