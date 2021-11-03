@@ -5,7 +5,8 @@ import { Image } from "../../../components/common/Image";
 import { Footer } from "../../../components/Footer";
 import { heldEventsData } from "../../../components/common/DataList";
 import { Navbar } from "../../home/Navbar";
-import { Icon } from "../../components/common/Icons";
+import { Icon } from "../../../components/common/Icons";
+import { mediaQuery, Desktop, Tablet } from "../../../constants";
 
 export const HeldEventDetails = (props) => {
   const router = useRouter();
@@ -22,10 +23,16 @@ export const HeldEventDetails = (props) => {
       <Navbar />
       <div className="main-container">
         <div className="title-container">
-          <h1><Icon className="back-icon" type="left" />  {currentHeldEvent.title}</h1>
+          <div className="title">
+            <Icon className="back-icon" type="left" onClick={() => router.back()} />  {currentHeldEvent.title}</div>
         </div>
         <div className="image-container">
-          <Image width="200px" height="100px" src={currentHeldEvent.imageUrl} />
+          <Desktop>
+            <Image className="image" width="400px" height="200px" size="cover" src={currentHeldEvent.imageUrl} />
+          </Desktop>
+          <Tablet>
+            <Image className="image" width="274px" height="130px" size="cover" src={currentHeldEvent.imageUrl} />
+          </Tablet>
         </div>
         <div className="text-container">
           <p>{currentHeldEvent.text}</p>
@@ -42,7 +49,7 @@ const HeldEventDetailsStyled = styled.section`
     padding: 66px 0;
     text-align: center;
 
-    h1 {
+    .title {
       color: ${(props) => props.theme.basic.whiteLight};
       font-family: Lato, sans-serif;
       font-style: normal;
@@ -50,15 +57,39 @@ const HeldEventDetailsStyled = styled.section`
       font-size: 22px;
       line-height: 26px;
       letter-spacing: 0.03em;
+      position: relative;
+
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    ${mediaQuery.afterTablet} {
+      text-align: left;
     }
   }
 
   .image-container {
     margin-top: -36px;
     margin-bottom: 36px;
+
+    ${mediaQuery.afterTablet} {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      .image {
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        top: -100px;
+      }
+    }
   }
   .text-container {
     margin: 0 2rem 4rem 2rem;
+    ${mediaQuery.afterTablet} {
+      max-width: 900px;
+      margin: 8rem auto 4rem auto;
+    }
   }
   .back-icon {
     border-radius: 50%;
@@ -66,17 +97,18 @@ const HeldEventDetailsStyled = styled.section`
     background: ${(props) => props.theme.basic.primary};
 
     position: absolute;
+    cursor: pointer;
     bottom: 0;
-    left: 0;
+    left: 32px;
     vertical-align: bottom;
     svg {
       font-size: 12px;
     }
     ${mediaQuery.afterTablet} {
       position: relative;
-      margin-right: 1.5rem;
+      left: 0;
+      margin-right: 2.5rem;
       vertical-align: bottom;
     }
   }
-
 `;
