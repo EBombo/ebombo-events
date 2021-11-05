@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Image } from "../../../components/common/Image";
 import { Footer } from "../../../components/Footer";
 import { heldEventsData } from "../../../components/common/DataList";
-import { Navbar } from "../../home/Navbar";
+import { Navbar } from "../../../components/Navbar";
 import { Icon } from "../../../components/common/Icons";
 import { mediaQuery, Desktop, Tablet } from "../../../constants";
 

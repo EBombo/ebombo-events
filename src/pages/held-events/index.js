@@ -2,7 +2,7 @@ import React from "reactn";
 import styled from "styled-components";
 import {Footer} from "../../components/Footer";
 import { HeldEventGrid } from "./HeldEventGrid";
-import {Navbar} from "../home/Navbar";
+import {Navbar} from "../../components/Navbar";
 import { heldEventsData } from "../../components/common/DataList";
 import { mediaQuery, Desktop, Tablet } from "../../constants";
 

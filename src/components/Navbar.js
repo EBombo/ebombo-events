@@ -1,11 +1,11 @@
 import React, { useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
-import { Image } from "../../components/common/Image";
-import { config } from "../../firebase";
-import { Desktop, Tablet } from "../../constants";
-import { Anchor, ButtonAnt } from "../../components/form";
+import { Image } from "./common/Image";
+import { config } from "../firebase";
+import { Desktop, Tablet } from "../constants";
+import { Anchor, ButtonAnt } from "./form";
 import { useRouter } from "next/router";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import { Dropdown, Menu, message } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 

@@ -11,7 +11,7 @@ import { spinLoader } from "../../components/common/loader";
 import { Footer } from "../../components/Footer";
 import { useRouter } from "next/router";
 import { Plans } from "./subscriptions/Plans";
-import { Navbar } from "./Navbar";
+import { Navbar } from "../../components/Navbar";
 import { Products } from "./Products";
 
 export const Home = (props) => {
