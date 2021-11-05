@@ -25,9 +25,7 @@ export const ModalSettings = (props) => {
       firestore
         .collection("audios")
         .where("deleted", "==", false)
-        .onSnapshot((audiosSnapshot) =>
-          setAudios(snapshotToArray(audiosSnapshot))
-        );
+        .onSnapshot((audiosSnapshot) => setAudios(snapshotToArray(audiosSnapshot)));
 
     fetchAudios();
   }, []);
@@ -64,9 +62,7 @@ export const ModalSettings = (props) => {
       visible={props.isVisibleModalSettings}
       padding={"1rem"}
       background={darkTheme.basic.whiteLight}
-      onCancel={() =>
-        props.setIsVisibleModalSettings(!props.isVisibleModalSettings)
-      }
+      onCancel={() => props.setIsVisibleModalSettings(!props.isVisibleModalSettings)}
     >
       <ModalMove
         moveToFolder={moveToFolder}
@@ -83,63 +79,29 @@ export const ModalSettings = (props) => {
               <div className="label">Guardar en</div>
               <div className="path">
                 {get(props, "parent.name", "Mis Juegos")}
-                <ButtonAnt
-                  className="btn-move"
-                  onClick={() => setIsVisibleModalMove(true)}
-                >
+                <ButtonAnt className="btn-move" onClick={() => setIsVisibleModalMove(true)}>
                   Cambiar
                 </ButtonAnt>
               </div>
-              <div className="label">Branding</div>
-              <div className="branding">
-                Usar branding propio
-                <Switch
-                  defaultChecked={props.ownBranding}
-                  onChange={() => props.setOwnBranding(!props.ownBranding)}
-                />
-              </div>
-              <div className="label">Video del Lobby</div>
-              <div className="input-container">
-                <Input
-                  type="url"
-                  name="video"
-                  defaultValue={get(props, "video", "")}
-                  placeholder="Pegar link de youtube"
-                  ref={register}
-                  error={errors.video}
-                />
-              </div>
-              <div className="label">Visibilidad</div>
-              <Radio.Group
-                onChange={() => props.setVisibility(!props.visibility)}
-                value={props.visibility}
-              >
-                <Radio value={true}>Organización</Radio>
-                <Radio value={false}>Nadie</Radio>
-              </Radio.Group>
-            </div>
-
-            <div className="right-side">
-              <div className="label">Imagen de portada</div>
-              <FileUpload
-                file={props.coverImgUrl}
-                preview={true}
-                fileName="coverImgUrl"
-                filePath={`/games/Bingo/${props.newId}`}
-                sizes="300x350"
-                disabled={props.isLoading}
-                afterUpload={(coverImgs) =>
-                  props.setCoverImgUrl(coverImgs[0].url)
-                }
-              />
+              {/*<div className="label">Branding</div>*/}
+              {/*<div className="branding">*/}
+              {/*  Usar branding propio*/}
+              {/*  <Switch defaultChecked={props.ownBranding} onChange={() => props.setOwnBranding(!props.ownBranding)} />*/}
+              {/*</div>*/}
+              {/*<div className="label">Video del Lobby</div>*/}
+              {/*<div className="input-container">*/}
+              {/*  <Input*/}
+              {/*    type="url"*/}
+              {/*    name="video"*/}
+              {/*    defaultValue={get(props, "video", "")}*/}
+              {/*    placeholder="Pegar link de youtube"*/}
+              {/*    ref={register}*/}
+              {/*    error={errors.video}*/}
+              {/*  />*/}
+              {/*</div>*/}
               <div className="label">
                 Permitir duplicar{" "}
-                <Switch
-                  defaultChecked
-                  onChange={() =>
-                    props.setAllowDuplicate(!props.allowDuplicate)
-                  }
-                />
+                <Switch defaultChecked onChange={() => props.setAllowDuplicate(!props.allowDuplicate)} />
               </div>
 
               <div className="label">Musica del lobby</div>
@@ -168,6 +130,24 @@ export const ModalSettings = (props) => {
                   }
                 />
               </div>
+              <div className="label">Visibilidad</div>
+              <Radio.Group onChange={() => props.setVisibility(!props.visibility)} value={props.visibility}>
+                <Radio value={true}>Organización</Radio>
+                <Radio value={false}>Nadie</Radio>
+              </Radio.Group>
+            </div>
+
+            <div className="right-side">
+              <div className="label">Imagen de portada</div>
+              <FileUpload
+                file={props.coverImgUrl}
+                preview={true}
+                fileName="coverImgUrl"
+                filePath={`/games/Bingo/${props.newId}`}
+                sizes="300x350"
+                disabled={props.isLoading}
+                afterUpload={(coverImgs) => props.setCoverImgUrl(coverImgs[0].url)}
+              />
             </div>
           </div>
           <div className="btns-container">
@@ -179,12 +159,7 @@ export const ModalSettings = (props) => {
             >
               Cerrar
             </ButtonAnt>
-            <ButtonAnt
-              variant={"contained"}
-              color={"secondary"}
-              htmlType="submit"
-              className="btn"
-            >
+            <ButtonAnt variant={"contained"} color={"secondary"} htmlType="submit" className="btn">
               Listo
             </ButtonAnt>
           </div>
@@ -280,6 +255,10 @@ const SettingsContainer = styled.div`
 
   .input-container {
     margin-top: 5px;
+
+    .ant-select {
+      margin-bottom: 0 !important;
+    }
   }
 
   ${mediaQuery.afterTablet} {
