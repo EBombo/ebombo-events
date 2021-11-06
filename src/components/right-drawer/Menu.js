@@ -149,8 +149,7 @@ const MenuItem = styled.div`
   span {
     display: flex;
     font-size: 14px;
-    color: ${(props) =>
-      props.logout ? props.theme.basic.danger : props.theme.basic.blackLighten};
+    color: ${(props) => (props.logout ? props.theme.basic.danger : props.theme.basic.blackLighten)};
     align-items: center;
     height: 100%;
 

@@ -15,9 +15,7 @@ export const DesktopLibrary = (props) => {
       <div className="left-menu">
         <div className="subtitle">Libreria</div>
         <div
-          className={`item games ${
-            get(router, "asPath", "") === "/library/games" ? "active" : ""
-          }`}
+          className={`item games ${get(router, "asPath", "") === "/library/games" ? "active" : ""}`}
           onClick={() => router.push("/library/games")}
         >
           <Image
@@ -30,11 +28,7 @@ export const DesktopLibrary = (props) => {
           <div className="name">Mis juegos</div>
         </div>
         <div
-          className={`item favorites ${
-            get(router, "asPath", "").includes("/library/folders")
-              ? "active"
-              : ""
-          }`}
+          className={`item favorites ${get(router, "asPath", "").includes("/library/folders") ? "active" : ""}`}
           onClick={() => router.push("/library/folders")}
         >
           <Image
@@ -47,11 +41,7 @@ export const DesktopLibrary = (props) => {
           <div className="name">Folders</div>
         </div>
       </div>
-      {router.asPath.includes("/folders") ? (
-        <DesktopLibraryFolders {...props} />
-      ) : (
-        <DesktopLibraryGames {...props} />
-      )}
+      {router.asPath.includes("/folders") ? <DesktopLibraryFolders {...props} /> : <DesktopLibraryGames {...props} />}
     </DesktopLibraryContainer>
   );
 };

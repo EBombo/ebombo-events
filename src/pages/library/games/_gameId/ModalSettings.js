@@ -25,9 +25,7 @@ export const ModalSettings = (props) => {
       firestore
         .collection("audios")
         .where("deleted", "==", false)
-        .onSnapshot((audiosSnapshot) =>
-          setAudios(snapshotToArray(audiosSnapshot))
-        );
+        .onSnapshot((audiosSnapshot) => setAudios(snapshotToArray(audiosSnapshot)));
 
     fetchAudios();
   }, []);
@@ -64,9 +62,7 @@ export const ModalSettings = (props) => {
       visible={props.isVisibleModalSettings}
       padding={"1rem"}
       background={darkTheme.basic.whiteLight}
-      onCancel={() =>
-        props.setIsVisibleModalSettings(!props.isVisibleModalSettings)
-      }
+      onCancel={() => props.setIsVisibleModalSettings(!props.isVisibleModalSettings)}
     >
       <ModalMove
         moveToFolder={moveToFolder}
@@ -83,20 +79,14 @@ export const ModalSettings = (props) => {
               <div className="label">Guardar en</div>
               <div className="path">
                 {get(props, "parent.name", "Mis Juegos")}
-                <ButtonAnt
-                  className="btn-move"
-                  onClick={() => setIsVisibleModalMove(true)}
-                >
+                <ButtonAnt className="btn-move" onClick={() => setIsVisibleModalMove(true)}>
                   Cambiar
                 </ButtonAnt>
               </div>
               <div className="label">Branding</div>
               <div className="branding">
                 Usar branding propio
-                <Switch
-                  defaultChecked={props.ownBranding}
-                  onChange={() => props.setOwnBranding(!props.ownBranding)}
-                />
+                <Switch defaultChecked={props.ownBranding} onChange={() => props.setOwnBranding(!props.ownBranding)} />
               </div>
               <div className="label">Video del Lobby</div>
               <div className="input-container">
@@ -110,10 +100,7 @@ export const ModalSettings = (props) => {
                 />
               </div>
               <div className="label">Visibilidad</div>
-              <Radio.Group
-                onChange={() => props.setVisibility(!props.visibility)}
-                value={props.visibility}
-              >
+              <Radio.Group onChange={() => props.setVisibility(!props.visibility)} value={props.visibility}>
                 <Radio value={true}>Organización</Radio>
                 <Radio value={false}>Nadie</Radio>
               </Radio.Group>
@@ -128,18 +115,11 @@ export const ModalSettings = (props) => {
                 filePath={`/games/Bingo/${props.newId}`}
                 sizes="300x350"
                 disabled={props.isLoading}
-                afterUpload={(coverImgs) =>
-                  props.setCoverImgUrl(coverImgs[0].url)
-                }
+                afterUpload={(coverImgs) => props.setCoverImgUrl(coverImgs[0].url)}
               />
               <div className="label">
                 Permitir duplicar{" "}
-                <Switch
-                  defaultChecked
-                  onChange={() =>
-                    props.setAllowDuplicate(!props.allowDuplicate)
-                  }
-                />
+                <Switch defaultChecked onChange={() => props.setAllowDuplicate(!props.allowDuplicate)} />
               </div>
 
               <div className="label">Musica del lobby</div>
@@ -179,12 +159,7 @@ export const ModalSettings = (props) => {
             >
               Cerrar
             </ButtonAnt>
-            <ButtonAnt
-              variant={"contained"}
-              color={"secondary"}
-              htmlType="submit"
-              className="btn"
-            >
+            <ButtonAnt variant={"contained"} color={"secondary"} htmlType="submit" className="btn">
               Listo
             </ButtonAnt>
           </div>

@@ -113,12 +113,7 @@ export const Bingo = (props) => {
         <div className="main-container">
           <div>
             <div className="btns-container">
-              <ButtonAnt
-                variant={"outlined"}
-                color={"dark"}
-                disabled={props.isLoading}
-                onClick={() => router.back()}
-              >
+              <ButtonAnt variant={"outlined"} color={"dark"} disabled={props.isLoading} onClick={() => router.back()}>
                 Cancelar
               </ButtonAnt>
               <Tablet>
@@ -257,20 +252,14 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="backgroundColor"
-                    defaultValue={get(
-                      props,
-                      "game.backgroundColor",
-                      darkTheme.basic.secondary
-                    )}
+                    defaultValue={get(props, "game.backgroundColor", darkTheme.basic.secondary)}
                     ref={register}
                     id="input-color-background"
                     onChange={() => setBackgroundImg(null)}
                   />
                   <label
                     htmlFor="backgroundColor"
-                    onClick={() =>
-                      document.getElementById("input-color-background").click()
-                    }
+                    onClick={() => document.getElementById("input-color-background").click()}
                   >
                     {watch("backgroundColor")}
                   </label>
@@ -282,20 +271,11 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="titleColor"
-                    defaultValue={get(
-                      props,
-                      "game.titleColor",
-                      darkTheme.basic.whiteLight
-                    )}
+                    defaultValue={get(props, "game.titleColor", darkTheme.basic.whiteLight)}
                     id="input-color-title"
                     ref={register}
                   />
-                  <label
-                    htmlFor="titleColor"
-                    onClick={() =>
-                      document.getElementById("input-color-title").click()
-                    }
-                  >
+                  <label htmlFor="titleColor" onClick={() => document.getElementById("input-color-title").click()}>
                     {watch("titleColor")}
                   </label>
                 </div>
@@ -306,20 +286,11 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="blocksColor"
-                    defaultValue={get(
-                      props,
-                      "game.blocksColor",
-                      darkTheme.basic.primary
-                    )}
+                    defaultValue={get(props, "game.blocksColor", darkTheme.basic.primary)}
                     id="input-color-blocks"
                     ref={register}
                   />
-                  <label
-                    htmlFor="blocksColor"
-                    onClick={() =>
-                      document.getElementById("input-color-blocks").click()
-                    }
-                  >
+                  <label htmlFor="blocksColor" onClick={() => document.getElementById("input-color-blocks").click()}>
                     {watch("blocksColor")}
                   </label>
                 </div>
@@ -330,20 +301,11 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="numberColor"
-                    defaultValue={get(
-                      props,
-                      "game.numberColor",
-                      darkTheme.basic.whiteLight
-                    )}
+                    defaultValue={get(props, "game.numberColor", darkTheme.basic.whiteLight)}
                     ref={register}
                     id="input-color-number"
                   />
-                  <label
-                    htmlFor="numberColor"
-                    onClick={() =>
-                      document.getElementById("input-color-number").click()
-                    }
-                  >
+                  <label htmlFor="numberColor" onClick={() => document.getElementById("input-color-number").click()}>
                     {watch("numberColor")}
                   </label>
                 </div>
@@ -351,7 +313,7 @@ export const Bingo = (props) => {
             </div>
             <div className="upload-container">
               <FileUpload
-                  key={watch("backgroundColor")}
+                key={watch("backgroundColor")}
                 buttonLabel="Subir imagen de fondo para cartilla"
                 file={backgroundImg}
                 preview={false}
@@ -359,9 +321,7 @@ export const Bingo = (props) => {
                 filePath={`/games/Bingo/${newId}`}
                 sizes="470x570"
                 disabled={props.isLoading}
-                afterUpload={(resizeImages) =>
-                  setBackgroundImg(resizeImages[0].url)
-                }
+                afterUpload={(resizeImages) => setBackgroundImg(resizeImages[0].url)}
               />
             </div>
           </div>
@@ -612,12 +572,12 @@ export const CardContainer = styled.div`
   height: 210px;
   max-width: 200px;
   background: ${(props) => {
-    if (props.backgroundImage) return `url(${props.backgroundImage})` 
-    if (props.backgroundColor) return props.backgroundColor
-    
-    return props.theme.basic.secondary
+    if (props.backgroundImage) return `url(${props.backgroundImage})`;
+    if (props.backgroundColor) return props.backgroundColor;
+
+    return props.theme.basic.secondary;
   }};
-  background-position: center; 
+  background-position: center;
   border-radius: 3px;
 
   .card-title {
@@ -626,8 +586,7 @@ export const CardContainer = styled.div`
     font-weight: 700;
     font-size: 15px;
     line-height: 18px;
-    color: ${(props) =>
-      props.titleColor ? props.titleColor : props.theme.basic.white};
+    color: ${(props) => (props.titleColor ? props.titleColor : props.theme.basic.white)};
     text-align: center;
     padding: 0.5rem;
   }
@@ -663,10 +622,8 @@ export const CardContainer = styled.div`
           font-weight: bold;
           font-size: 13px;
           line-height: 15px;
-          color: ${(props) =>
-            props.numberColor ? props.numberColor : props.theme.basic.white};
-          background: ${(props) =>
-            props.blocksColor ? props.blocksColor : props.theme.basic.primary};
+          color: ${(props) => (props.numberColor ? props.numberColor : props.theme.basic.white)};
+          background: ${(props) => (props.blocksColor ? props.blocksColor : props.theme.basic.primary)};
         }
       }
     }

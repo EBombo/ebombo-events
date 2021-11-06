@@ -33,12 +33,8 @@ export const ModalNewGame = (props) => {
                   src={get(game, "coverUrl", null)}
                   onClick={() => {
                     folderId
-                      ? router.push(
-                          `/library/games/new?adminGameId=${game.id}&folderId=${folderId}`
-                        )
-                      : router.push(
-                          `/library/games/new?adminGameId=${game.id}`
-                        );
+                      ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
+                      : router.push(`/library/games/new?adminGameId=${game.id}`);
                   }}
                 />
               </Desktop>
@@ -50,12 +46,8 @@ export const ModalNewGame = (props) => {
                   margin="5px auto"
                   onClick={() => {
                     folderId
-                      ? router.push(
-                          `/library/games/new?adminGameId=${game.id}&folderId=${folderId}`
-                        )
-                      : router.push(
-                          `/library/games/new?adminGameId=${game.id}`
-                        );
+                      ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
+                      : router.push(`/library/games/new?adminGameId=${game.id}`);
                   }}
                 >
                   Crear
@@ -68,12 +60,8 @@ export const ModalNewGame = (props) => {
                   color="black"
                   onClick={() => {
                     folderId
-                      ? router.push(
-                          `/library/games/new?adminGameId=${game.id}&folderId=${folderId}`
-                        )
-                      : router.push(
-                          `/library/games/new?adminGameId=${game.id}`
-                        );
+                      ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
+                      : router.push(`/library/games/new?adminGameId=${game.id}`);
                   }}
                 >
                   {game.name}

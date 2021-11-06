@@ -40,9 +40,7 @@ export const ModalMove = (props) => {
         .where("usersIds", "array-contains", authUser?.id ?? null)
         .where("deleted", "==", false);
 
-      folderRef = folderId
-        ? folderRef.where("parentId", "==", folderId)
-        : folderRef.where("parentId", "==", null);
+      folderRef = folderId ? folderRef.where("parentId", "==", folderId) : folderRef.where("parentId", "==", null);
 
       const foldersQuery = await folderRef.get();
       const folders_ = snapshotToArray(foldersQuery);
@@ -77,9 +75,7 @@ export const ModalMove = (props) => {
       const folderRef = firestore.collection("folders");
       const newFolderId = folderRef.doc().id;
 
-      const path = props.parent
-        ? `${props.parent.path}/${data.name}`
-        : `/${data.name}`;
+      const path = props.parent ? `${props.parent.path}/${data.name}` : `/${data.name}`;
 
       await folderRef.doc(newFolderId).set(
         {
@@ -115,10 +111,7 @@ export const ModalMove = (props) => {
       <Content>
         <div className="title">Mover juego</div>
         <div className="second-container">
-          <div
-            className="go-back"
-            onClick={() => setFolderId(folders[0]?.parent?.parentId || null)}
-          >
+          <div className="go-back" onClick={() => setFolderId(folders[0]?.parent?.parentId || null)}>
             <Image
               src={`${config.storageUrl}/resources/arrows/arrowLeft.svg`}
               width="12px"
@@ -129,11 +122,7 @@ export const ModalMove = (props) => {
             />
             Atrás
           </div>
-          <Anchor
-            underlined
-            variant="primary"
-            onClick={() => setIsVisibleNewFolder(true)}
-          >
+          <Anchor underlined variant="primary" onClick={() => setIsVisibleNewFolder(true)}>
             Nuevo folder
           </Anchor>
         </div>
@@ -150,33 +139,14 @@ export const ModalMove = (props) => {
                   size="contain"
                   margin="0 10px 0 0"
                 />
-                <form
-                  onSubmit={handleSubmit(saveNewFolder)}
-                  autoComplete="off"
-                  noValidate
-                  className="form"
-                >
+                <form onSubmit={handleSubmit(saveNewFolder)} autoComplete="off" noValidate className="form">
                   <div className="input-container">
-                    <Input
-                      placeholder="Folder sin nombre"
-                      name="name"
-                      ref={register}
-                      error={errors.name}
-                    />
+                    <Input placeholder="Folder sin nombre" name="name" ref={register} error={errors.name} />
                   </div>
-                  <ButtonAnt
-                    color="default"
-                    disabled={isLoading}
-                    onClick={() => setIsVisibleNewFolder(false)}
-                  >
+                  <ButtonAnt color="default" disabled={isLoading} onClick={() => setIsVisibleNewFolder(false)}>
                     Cancelar
                   </ButtonAnt>
-                  <ButtonAnt
-                    color="primary"
-                    disabled={isLoading}
-                    loading={isLoading}
-                    htmlType="submit"
-                  >
+                  <ButtonAnt color="primary" disabled={isLoading} loading={isLoading} htmlType="submit">
                     Crear
                   </ButtonAnt>
                 </form>
@@ -204,10 +174,7 @@ export const ModalMove = (props) => {
           </div>
         </div>
         <div className="btns-container">
-          <ButtonAnt
-            color="default"
-            onClick={() => props.setIsVisibleModalMove(false)}
-          >
+          <ButtonAnt color="default" onClick={() => props.setIsVisibleModalMove(false)}>
             Cancelar
           </ButtonAnt>
           <ButtonAnt
@@ -288,8 +255,7 @@ const FolderContent = styled.button`
   margin: 1rem auto;
   cursor: pointer;
   border: none;
-  ${(props) =>
-    props.selected && `border: 1px solid ${props.theme.basic.primary};`}
+  ${(props) => props.selected && `border: 1px solid ${props.theme.basic.primary};`}
 
   .name {
     font-family: Lato;

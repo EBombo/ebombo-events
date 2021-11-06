@@ -20,8 +20,7 @@ const ModalContainerCss = styled(Modal)`
   .ant-modal-content {
     margin-bottom: 50px;
     ${(props) => (props.height ? `height:${props.height}!important;` : "")}
-    border-radius: ${(props) =>
-      props.borderRadius ? props.borderRadius : "6px"};
+    border-radius: ${(props) => (props.borderRadius ? props.borderRadius : "6px")};
   }
 
   .ant-modal-close {
@@ -29,11 +28,9 @@ const ModalContainerCss = styled(Modal)`
   }
 
   .ant-modal-body {
-    padding: ${(props) =>
-      props.padding ? props.padding : "45px 24px 24px 24px"};
+    padding: ${(props) => (props.padding ? props.padding : "45px 24px 24px 24px")};
     background: ${(props) => props.background || props.theme.basic.blackDarken};
     color: ${(props) => props.color || props.theme.basic.white};
-    border-radius: ${(props) =>
-      props.borderRadius ? props.borderRadius : "6px"};
+    border-radius: ${(props) => (props.borderRadius ? props.borderRadius : "6px")};
   }
 `;

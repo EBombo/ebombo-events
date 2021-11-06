@@ -193,8 +193,8 @@ const ProductsContainer = styled.div`
       align-items: center;
       grid-gap: 10%;
       margin: 3rem 0;
-      
-      .description{
+
+      .description {
         max-width: 400px;
       }
     }

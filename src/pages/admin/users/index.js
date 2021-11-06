@@ -28,17 +28,9 @@ export const AdminUsers = () => {
 
     let userRef = firestore.collection("users");
 
-    if (search)
-      userRef = userRef.where(
-        "searchName",
-        "array-contains",
-        search.toUpperCase()
-      );
+    if (search) userRef = userRef.where("searchName", "array-contains", search.toUpperCase());
 
-    const userQuery = await userRef
-      .orderBy("createAt", "desc")
-      .limit(limit)
-      .get();
+    const userQuery = await userRef.orderBy("createAt", "desc").limit(limit).get();
 
     setUsers(snapshotToArray(userQuery));
     setLoadingSearch(false);
@@ -75,17 +67,10 @@ export const AdminUsers = () => {
                     <br />
                     Verificado: {user.isVerified ? "SI" : "NO"}
                     <br />
-                    <div className="create-at">
-                      {moment(user.createAt.toDate()).format("LLLL")}
-                    </div>
+                    <div className="create-at">{moment(user.createAt.toDate()).format("LLLL")}</div>
                   </div>
                   <div className="options">
-                    <Anchor
-                      variant="primary"
-                      onClick={() =>
-                        router.push(`/admin/users/${user.id}/acls`)
-                      }
-                    >
+                    <Anchor variant="primary" onClick={() => router.push(`/admin/users/${user.id}/acls`)}>
                       PERMISOS
                     </Anchor>
                   </div>

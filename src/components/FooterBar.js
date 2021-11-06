@@ -14,11 +14,9 @@ const FooterBar = (props) => {
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
 
-  const getCurrentMenu = () =>
-    aclMenus({ menus: menus.filter((menu) => !menu.isAdmin) });
+  const getCurrentMenu = () => aclMenus({ menus: menus.filter((menu) => !menu.isAdmin) });
 
-  const isSelected = (path) =>
-    path === window.location.pathname ? "item item-selected" : "item";
+  const isSelected = (path) => (path === window.location.pathname ? "item item-selected" : "item");
 
   return (
     <ContainerFooter authUser={authUser} itemLenght={getCurrentMenu().length}>
@@ -35,12 +33,7 @@ const FooterBar = (props) => {
                 : setIsVisibleLoginModal(true)
             }
           >
-            <Image
-              src={userLink.src}
-              width="auto"
-              height="30px"
-              className="icon"
-            />
+            <Image src={userLink.src} width="auto" height="30px" className="icon" />
             <span className="label">{userLink.name}</span>
           </div>
         ))}
@@ -74,10 +67,7 @@ const ContainerFooter = styled.section`
     width: 100%;
     background: ${(props) => props.theme.basic.secondary};
     direction: rtl;
-    grid-template-columns: repeat(
-      ${(props) => (props.authUser ? props.itemLenght : props.itemLenght - 1)},
-      1fr
-    );
+    grid-template-columns: repeat(${(props) => (props.authUser ? props.itemLenght : props.itemLenght - 1)}, 1fr);
 
     .item {
       position: relative;

@@ -54,11 +54,7 @@ export const Audios = (props) => {
 
   return (
     <AudiosContainer>
-      <ButtonAnt
-        variant="contained"
-        color="primary"
-        onClick={() => router.push("/admin/audios/new")}
-      >
+      <ButtonAnt variant="contained" color="primary" onClick={() => router.push("/admin/audios/new")}>
         Añadir Audio
       </ButtonAnt>
       <div className="songs-container">

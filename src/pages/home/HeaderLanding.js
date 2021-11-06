@@ -85,7 +85,7 @@ const HeaderLandingContainer = styled.section`
     .left-container {
       max-width: 485px;
     }
-    
+
     .title {
       font-size: 40px;
       line-height: 44px;

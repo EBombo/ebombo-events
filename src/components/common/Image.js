@@ -22,10 +22,8 @@ const ImageCss = styled.div`
   border-radius: ${(props) => (props.borderRadius ? props.borderRadius : "0")};
 
   ${mediaQuery.afterTablet} {
-    height: ${(props) =>
-      props.desktopHeight ? props.desktopHeight : props.height};
-    width: ${(props) =>
-      props.desktopWidth ? props.desktopWidth : props.width};
+    height: ${(props) => (props.desktopHeight ? props.desktopHeight : props.height)};
+    width: ${(props) => (props.desktopWidth ? props.desktopWidth : props.width)};
   }
 
   img {

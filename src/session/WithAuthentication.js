@@ -8,9 +8,7 @@ export const WithAuthentication = (props) => {
   const [, setAuthUser] = useGlobal("user");
   const [, setAuthUserLocalStorage] = useUser();
   const [isLoadingUser, setIsLoadingUser] = useGlobal("isLoadingUser");
-  const [isLoadingCreateUser, setIsLoadingCreateUser] = useGlobal(
-    "isLoadingCreateUser"
-  );
+  const [isLoadingCreateUser, setIsLoadingCreateUser] = useGlobal("isLoadingCreateUser");
 
   const unSubScribeAuthUser = useRef(null);
 
@@ -32,16 +30,14 @@ export const WithAuthentication = (props) => {
           await setIsLoadingCreateUser(false);
         }));
 
-    const unsubscribeAuthStateChanged = auth.onAuthStateChanged(
-      async (user) => {
-        if (!user) unSubScribeAuthUser.current && unSubScribeAuthUser.current();
+    const unsubscribeAuthStateChanged = auth.onAuthStateChanged(async (user) => {
+      if (!user) unSubScribeAuthUser.current && unSubScribeAuthUser.current();
 
-        if (isLoadingCreateUser || !user) return;
+      if (isLoadingCreateUser || !user) return;
 
-        unSubScribeAuthUser.current && unSubScribeAuthUser.current();
-        fetchAuthUser(user);
-      }
-    );
+      unSubScribeAuthUser.current && unSubScribeAuthUser.current();
+      fetchAuthUser(user);
+    });
 
     return () => unsubscribeAuthStateChanged();
   }, [isLoadingUser, isLoadingCreateUser]);

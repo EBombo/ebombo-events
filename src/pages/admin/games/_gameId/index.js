@@ -102,11 +102,7 @@ export const GameContainer = (props) => {
           placeholder="Domain"
           error={errors.api}
         />
-        <ButtonAnt
-          htmlType="submit"
-          loading={isSaving || loading}
-          disabled={isSaving || loading}
-        >
+        <ButtonAnt htmlType="submit" loading={isSaving || loading} disabled={isSaving || loading}>
           GUARDAR
         </ButtonAnt>
       </form>

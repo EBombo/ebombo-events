@@ -12,7 +12,7 @@ import { darkTheme } from "../../theme";
 import { Tooltip } from "antd";
 import { useSendError } from "../../hooks";
 import { ModalMove } from "../../components/common/ModalMove";
-import { updateGame } from "./games/_gameId"
+import { updateGame } from "./games/_gameId";
 
 export const DesktopLibraryFolders = (props) => {
   const [loadingGames] = useGlobal("loadingGames");
@@ -28,10 +28,10 @@ export const DesktopLibraryFolders = (props) => {
 
   const moveGameToFolder = async (folder) => {
     if (!selectedGameToMove) return;
-    
+
     try {
       await updateGame(selectedGameToMove.adminGame, { id: game.id, parentId: folder?.id }, authUser);
-      
+
       props.fetchGames();
     } catch (error) {
       await sendError(error);
@@ -57,7 +57,7 @@ export const DesktopLibraryFolders = (props) => {
         isVisibleModalMove={isVisibleModalMove}
         {...props}
       />
-      
+
       {isVisibleModalFolder && (
         <ModalNewFolder
           {...props}
@@ -81,10 +81,7 @@ export const DesktopLibraryFolders = (props) => {
             <Input type="search" placeholder="Buscar" />
           </div>
 
-          <div
-            className="folder-icon"
-            onClick={() => setIsVisibleModalFolder(true)}
-          />
+          <div className="folder-icon" onClick={() => setIsVisibleModalFolder(true)} />
 
           <div className="icons" onClick={() => setListType("icons")}>
             <div className={`${listType === "icons" ? "active" : ""}`} />
@@ -103,10 +100,7 @@ export const DesktopLibraryFolders = (props) => {
         ) : (
           props.folders.map((folder) => (
             <div key={folder.id} className="folder">
-              <div
-                className="left"
-                onClick={() => router.push(`/library/folders/${folder.id}`)}
-              >
+              <div className="left" onClick={() => router.push(`/library/folders/${folder.id}`)}>
                 <Image
                   src={`${config.storageUrl}/resources/folder-black.svg`}
                   width="20px"
@@ -159,10 +153,7 @@ export const DesktopLibraryFolders = (props) => {
                       />
                       Duplicar
                     </div>
-                    <div
-                      className="folder-option"
-                      onClick={() => deleteFolder(folder)}
-                    >
+                    <div className="folder-option" onClick={() => deleteFolder(folder)}>
                       <Image
                         src={`${config.storageUrl}/resources/delete.svg`}
                         width={"16px"}
@@ -205,7 +196,10 @@ export const DesktopLibraryFolders = (props) => {
               game={game}
               key={game.id}
               listType={listType}
-              initModalMove={(toggle) => { setIsVisibleModalMove(toggle); setSelectedGameToMove(game) }}
+              initModalMove={(toggle) => {
+                setIsVisibleModalMove(toggle);
+                setSelectedGameToMove(game);
+              }}
               {...props}
             />
           ))}

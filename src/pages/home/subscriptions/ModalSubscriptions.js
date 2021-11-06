@@ -118,11 +118,7 @@ export const ModalSubscriptions = (props) => {
             placeholder="Precio del plan"
           />
           <TextArea
-            defaultValue={get(
-              props,
-              "subscription.standardPlan.description",
-              ""
-            )}
+            defaultValue={get(props, "subscription.standardPlan.description", "")}
             color={darkTheme.basic.blackDarken}
             error={errors.standardDescription}
             name="standardDescription"
@@ -174,11 +170,7 @@ export const ModalSubscriptions = (props) => {
             placeholder="Precio del plan"
           />
           <TextArea
-            defaultValue={get(
-              props,
-              "subscription.presenterPlan.description",
-              ""
-            )}
+            defaultValue={get(props, "subscription.presenterPlan.description", "")}
             color={darkTheme.basic.blackDarken}
             error={errors.presenterDescription}
             name="presenterDescription"
@@ -187,11 +179,7 @@ export const ModalSubscriptions = (props) => {
             placeholder="Descripción del plan"
           />
           <div className="btns-container">
-            <ButtonAnt
-              color="default"
-              disabled={loading}
-              onClick={() => props.setIsVisibleModalSubscriptions(false)}
-            >
+            <ButtonAnt color="default" disabled={loading} onClick={() => props.setIsVisibleModalSubscriptions(false)}>
               Cancelar
             </ButtonAnt>
             <ButtonAnt htmlType="submit" color="primary" loading={loading}>
