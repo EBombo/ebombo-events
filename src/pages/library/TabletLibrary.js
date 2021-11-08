@@ -5,7 +5,7 @@ import { config, firestore } from "../../firebase";
 import { useRouter } from "next/router";
 import isEmpty from "lodash/isEmpty";
 import { ButtonAnt } from "../../components/form";
-import { Tooltip } from "antd";
+import { Tooltip, Modal } from "antd";
 import { darkTheme } from "../../theme";
 import { ModalNewFolder } from "./ModalNewFolder";
 import { ModalNewGame } from "./ModalNewGame";
@@ -30,14 +30,22 @@ export const TabletLibrary = (props) => {
   };
 
   const deleteFolder = async (folder) => {
-    try {
-      await firestore.doc(`folders/${folder.id}`).update({
-        deleted: true,
-      });
-    } catch (error) {
-      console.error(error);
-      sendError(error, "deleteFolder");
-    }
+    Modal.confirm({
+      title: "¿Seguro que quieres eliminar este folder y su contenido?",
+      content: "No se podrá revertir el cambio una vez eliminado el folder y su contenido.",
+      okText: "Eliminar",
+      async onOk() {
+        try {
+          await firestore.doc(`folders/${folder.id}`).update({
+            deleted: true,
+          });
+        } catch (error) {
+          console.error(error);
+          sendError(error, "deleteFolder");
+        }
+      },
+      onCancel() {},
+    });
   };
 
   return (
