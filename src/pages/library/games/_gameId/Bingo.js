@@ -17,7 +17,7 @@ export const Bingo = (props) => {
   const [backgroundImg, setBackgroundImg] = useState(null);
   const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
 
-  const [ownBranding, setOwnBranding] = useState(true);
+  const [ownBranding, setOwnBranding] = useState(false);
   const [video, setVideo] = useState(null);
   const [allowDuplicate, setAllowDuplicate] = useState(true);
   const [visibility, setVisibility] = useState(true);
