@@ -6,9 +6,7 @@ import { HeldEvents } from "./HeldEvents";
 import { Comments } from "./comments/Comments";
 import { Contact } from "./Contact";
 import { ContactForm } from "./ContactForm";
-import get from "lodash/get";
 import { spinLoader } from "../../components/common/loader";
-import { Footer } from "../../components/Footer";
 import { useRouter } from "next/router";
 import { Plans } from "./subscriptions/Plans";
 import { Navbar } from "../../components/Navbar";
@@ -74,15 +72,17 @@ export const Home = (props) => {
   return (
     <LandingContainer>
       <div className="landing-container">
-        <Navbar executeScroll={executeScroll} />
-        <HeaderLanding executeScroll={executeScroll} />
-        <Products />
-        <Plans {...props} />
-        <HeldEvents />
-        <Contact refProp={contactRef} />
-        <Comments comments={comments} deleteDocument={deleteDocument} />
-        <ContactForm refProp={contactFormRef} />
-        <Footer />
+        <Navbar>
+          <>
+            <HeaderLanding />
+            <Products />
+            <Plans {...props} />
+            <HeldEvents />
+            <Contact refProp={contactRef} />
+            <Comments comments={comments} deleteDocument={deleteDocument} />
+            <ContactForm refProp={contactFormRef} />
+          </>
+        </Navbar>
       </div>
     </LandingContainer>
   );
