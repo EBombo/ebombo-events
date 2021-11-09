@@ -1,31 +1,30 @@
 import React from "reactn";
 import styled from "styled-components";
-import {Footer} from "../../components/Footer";
+import { Footer } from "../../components/Footer";
 import { HeldEventGrid } from "./HeldEventGrid";
-import {Navbar} from "../../components/Navbar";
+import { Navbar } from "../../components/Navbar";
 import { heldEventsData } from "../../components/common/DataList";
 import { mediaQuery, Desktop, Tablet } from "../../constants";
 
 export const HeldEvents = (props) => (
   <LandingContainer>
     <div className="landing-container">
-      <Navbar />
-      <HeldEventsContainer>
-        <div className="title">
-          Eventos pasados
-        </div>
-        <div className="main-container">
-          <Desktop>
-            <HeldEventGrid heldEvents={heldEventsData} pageSize={9}/>
-          </Desktop>
-          <Tablet>
-            <HeldEventGrid heldEvents={heldEventsData} pageSize={3}/>
-          </Tablet>
-        </div>
-      </HeldEventsContainer>
-      <Footer />
+      <Navbar>
+        <HeldEventsContainer>
+          <div className="title">Eventos pasados</div>
+          <div className="main-container">
+            <Desktop>
+              <HeldEventGrid heldEvents={heldEventsData} pageSize={9} />
+            </Desktop>
+            <Tablet>
+              <HeldEventGrid heldEvents={heldEventsData} pageSize={3} />
+            </Tablet>
+          </div>
+        </HeldEventsContainer>
+      </Navbar>
     </div>
-  </LandingContainer>);
+  </LandingContainer>
+);
 
 const LandingContainer = styled.div`
   width: 100%;

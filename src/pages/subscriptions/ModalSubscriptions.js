@@ -1,13 +1,13 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { ModalContainer } from "../../../components/common/ModalContainer";
-import { darkTheme } from "../../../theme";
-import { ButtonAnt, Input, TextArea } from "../../../components/form";
+import { ModalContainer } from "../../components/common/ModalContainer";
+import { darkTheme } from "../../theme";
+import { ButtonAnt, Input, TextArea } from "../../components/form";
 import { object, string, number } from "yup";
 import { useForm } from "react-hook-form";
 import get from "lodash/get";
 import { Typography } from "antd";
-import { firestore } from "../../../firebase";
+import { firestore } from "../../firebase";
 
 export const ModalSubscriptions = (props) => {
   const [loading, setLoading] = useState(false);

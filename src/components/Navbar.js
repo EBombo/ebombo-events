@@ -59,9 +59,9 @@ export const Navbar = (props) => {
               <Anchor onClick={() => router.push("/subscriptions")} className="link">
                 Planes
               </Anchor>
-              <Anchor variant="secondary" onClick={() => router.push("/held-events")} className="link">
-                Eventos pasados
-              </Anchor>
+              {/*<Anchor variant="secondary" onClick={() => router.push("/held-events")} className="link">*/}
+              {/*  Eventos pasados*/}
+              {/*</Anchor>*/}
               <Anchor variant="secondary" onClick={() => router.push("/")} className="link">
                 Sobre nosotros
               </Anchor>
@@ -107,7 +107,7 @@ export const Navbar = (props) => {
                 </>
               )}
               <li className="nav-item">Planes</li>
-              <li className="nav-item">Eventos pasados</li>
+              {/*<li className="nav-item">Eventos pasados</li>*/}
               <li className="nav-item">Sobre nosotros</li>
               <li className="nav-item">Contacto</li>
               {!authUser ? (
@@ -154,7 +154,6 @@ const LayoutMenu = styled.section`
 
 const Body = styled.section`
   width: 100vw;
-  min-height: 100%;
   overflow: auto;
   flex: 1 1 auto;
 `;

@@ -1,7 +1,7 @@
 import React from "reactn";
 import styled from "styled-components";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { mediaQuery } from "../../../constants";
+import { mediaQuery } from "../../constants";
 
 export const PlansTable = (props) => {
   return (

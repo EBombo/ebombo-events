@@ -8,7 +8,7 @@ import { Contact } from "./Contact";
 import { ContactForm } from "./ContactForm";
 import { spinLoader } from "../../components/common/loader";
 import { useRouter } from "next/router";
-import { Plans } from "./subscriptions/Plans";
+import { Plans } from "../subscriptions/Plans";
 import { Navbar } from "../../components/Navbar";
 import { Products } from "./Products";
 
@@ -78,7 +78,6 @@ export const Home = (props) => {
             <Products />
             <Plans {...props} />
             <HeldEvents />
-            <Contact refProp={contactRef} />
             <Comments comments={comments} deleteDocument={deleteDocument} />
             <ContactForm refProp={contactFormRef} />
           </>

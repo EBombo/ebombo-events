@@ -1,12 +1,12 @@
 import React, { useEffect, useGlobal, useState, useRef } from "reactn";
 import styled from "styled-components";
-import { mediaQuery } from "../../../constants";
-import { firestore } from "../../../firebase";
-import { snapshotToArray } from "../../../utils";
-import { spinLoader } from "../../../components/common/loader";
+import { mediaQuery } from "../../constants";
+import { firestore } from "../../firebase";
+import { snapshotToArray } from "../../utils";
+import { spinLoader } from "../../components/common/loader";
 import get from "lodash/get";
-import { Icon } from "../../../components/common/Icons";
-import { Anchor, ButtonAnt } from "../../../components/form";
+import { Icon } from "../../components/common/Icons";
+import { Anchor, ButtonAnt } from "../../components/form";
 import { ModalSubscriptions } from "./ModalSubscriptions";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
