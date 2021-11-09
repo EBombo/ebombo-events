@@ -1,139 +1,134 @@
-import React, { useEffect, useGlobal, useState, useRef } from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
-import { mediaQuery } from "../../constants";
-import { firestore } from "../../firebase";
-import { snapshotToArray } from "../../utils";
-import { spinLoader } from "../../components/common/loader";
-import get from "lodash/get";
-import { Icon } from "../../components/common/Icons";
+import { Desktop, mediaQuery } from "../../constants";
+import { config } from "../../firebase";
 import { Anchor, ButtonAnt } from "../../components/form";
-import { ModalSubscriptions } from "./ModalSubscriptions";
-import { ArrowRightOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 import { PlansTable } from "./PlansTable";
+import { Image } from "../../components/common/Image";
+import { plans } from "../../components/common/DataList";
 
 export const Plans = (props) => {
   const router = useRouter();
-  const [authUser] = useGlobal("user");
-  const [isVisibleModalSubscriptions, setIsVisibleModalSubscriptions] = useState(false);
-  const [subscriptions, setSubscriptions] = useState(null);
-  const [tab, setTab] = useState(0);
-  const [currentSubscription, setCurrentSubscription] = useState(null);
-  const [currentPlan, setCurrentPlan] = useState(null);
+  const [tab, setTab] = useState("online");
 
-  useEffect(() => {
-    const fetchSubscriptions = async () =>
-      firestore
-        .collection("settings")
-        .doc("landing")
-        .collection("subscriptions")
-        .onSnapshot((subscriptionsSnapshop) => {
-          const _subs = snapshotToArray(subscriptionsSnapshop);
-          setSubscriptions(_subs);
-          if (_subs.length) setCurrentSubscription(_subs[0]);
-        });
+  const contactInfo = () => (
+    <ContactContent>
+      <div className="info">
+        <Image
+          src={`${config.storageUrl}/resources/b2bLanding/wsp-icon.svg`}
+          width="20px"
+          height="20px"
+          margin="0 5px 0 0"
+          className="icon"
+        />
+        <div className="info-content">Mateo Suarez Stewart: +51 945 693 597</div>
+      </div>
+      <div className="info">
+        <Image
+          src={`${config.storageUrl}/resources/b2bLanding/email.svg`}
+          width="20px"
+          height="20px"
+          margin="0 5px 0 0"
+          className="icon"
+        />
+        <div className="info-content">Mail: mateo@ebombo.com</div>
+      </div>
+    </ContactContent>
+  );
 
-    fetchSubscriptions();
-  }, []);
-
-  if (!subscriptions) return spinLoader();
+  const tabContent = () => {
+    switch (tab) {
+      case "online":
+        return (
+          <PlanContent>
+            <Desktop>
+              <Image src={`${config.storageUrl}/resources/plan.png`} height="385px" width="519px" size="contain" />
+            </Desktop>
+            <div className="main-container">
+              <div className="title">Evento Virtual</div>
+              <div className="subtitle">Eventos desde 10 - 10000 colaboradores</div>
+              <div className="divider" />
+              <div className="description">Realizamos eventos virutales de todo tipo.</div>
+              <ButtonAnt color="secondary">Contáctanos</ButtonAnt>
+              {contactInfo()}
+            </div>
+          </PlanContent>
+        );
+      case "onsite":
+        return (
+          <PlanContent>
+            <Desktop>
+              <Image src={`${config.storageUrl}/resources/plan.png`} height="385px" width="519px" size="contain" />
+            </Desktop>
+            <div className="main-container">
+              <div className="title">Evento Presencial</div>
+              <div className="subtitle">Eventos desde 10 - 10000 colaboradores</div>
+              <div className="divider" />
+              <div className="description">Realizamos eventos presenciales de todo tipo.</div>
+              <ButtonAnt color="secondary">Contáctanos</ButtonAnt>
+              {contactInfo()}
+            </div>
+          </PlanContent>
+        );
+      default:
+        return (
+          <PlansPrices>
+            {plans.map((plan, index) => (
+              <PlanPriceContent plan={plan.name} color={plan.color} background={plan.background} key={index}>
+                <div className="plan free">
+                  {plan.name === "Avanzado" && <div className="header">Recomendado</div>}
+                  <div className="name">{plan.name}</div>
+                  <div className="price">
+                    {plan.name !== "Exclusivo" && "$"} {plan.price}
+                  </div>
+                  <div className="time">por mes</div>
+                  <div className="divider" />
+                  <div className="users">{plan.users} usuarios</div>
+                  <div className="games">{plan.games} juegos</div>
+                  {!router.asPath.includes("/subscriptions") && (
+                    <Anchor
+                      targe="_self"
+                      underlined
+                      variant="secondary"
+                      fontSize="16px"
+                      lineHeight="19px"
+                      textAlign="left"
+                      margin="0p"
+                      onClick={() => router.push("/subscriptions")}
+                    >
+                      Ver más
+                    </Anchor>
+                  )}
+                  <button className="btn-register">Registrarme</button>
+                </div>
+              </PlanPriceContent>
+            ))}
+          </PlansPrices>
+        );
+    }
+  };
 
   return (
     <>
       <PlansContainer>
-        <ModalSubscriptions
-          isVisibleModalSubscriptions={isVisibleModalSubscriptions}
-          setIsVisibleModalSubscriptions={setIsVisibleModalSubscriptions}
-          subscription={currentSubscription}
-          {...props}
-        />
         <div className="title">Conoce nuestros planes</div>
         <div className="tabs">
-          {subscriptions.map((subscription, index) => (
-            <div className={`tab ${tab === index && "active"}`} onClick={() => setTab(index)} key={index}>
-              {subscription.type}
-              {get(authUser, "isAdmin") && (
-                <div className="container-edit">
-                  <Icon
-                    className="icon"
-                    type="edit"
-                    onClick={() => {
-                      setCurrentSubscription(subscription);
-                      setIsVisibleModalSubscriptions(true);
-                    }}
-                  />
-                  <Icon
-                    className="icon-delete"
-                    type="delete"
-                    onClick={() => {
-                      console.log("Delete");
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-          ))}
-          {get(authUser, "isAdmin") && (
-            <ButtonAnt
-              variant="outlined"
-              color="warning"
-              onClick={() => {
-                setCurrentSubscription({
-                  id: firestore.collection("settings").doc("landing").collection("subscriptions").doc().id,
-                });
-                setIsVisibleModalSubscriptions(true);
-              }}
-            >
-              Añadir
-            </ButtonAnt>
-          )}
-        </div>
-        <div className="subscriptions">
-          <div className="plan standard" onClick={() => setCurrentPlan("standard")}>
-            <div className="name">{subscriptions[tab]?.standardPlan?.name || "Estandar"}</div>
-            <div className="promo">{subscriptions[tab]?.standardPlan?.promo || ""}</div>
-            <div className="price">$ {subscriptions[tab]?.standardPlan?.price || ""}</div>
-            <div className="divider" />
-            <div className="description">{subscriptions[tab]?.standardPlan?.description || ""}</div>
-            <button className="btn standard">Comprar ahora</button>
+          <div className={`tab ${tab === "online" && "active"}`} onClick={() => setTab("online")}>
+            Evento Virtual
           </div>
-
-          <div className="plan pro" onClick={() => setCurrentPlan("pro")}>
-            <div className="name">{subscriptions[tab]?.proPlan?.name || "Estandar"}</div>
-            <div className="promo">{subscriptions[tab]?.proPlan?.promo || ""}</div>
-            <div className="price">$ {subscriptions[tab]?.proPlan?.price || ""}</div>
-            <div className="divider" />
-            <div className="description">{subscriptions[tab]?.proPlan?.description || ""}</div>
-
-            <button className="btn standard">Comprar ahora</button>
+          <div className={`tab middle-tab ${tab === "onsite" && "active"}`} onClick={() => setTab("onsite")}>
+            Evento Presencial
           </div>
-          <div className="plan presenter" onClick={() => setCurrentPlan("presenter")}>
-            <div className="name">{subscriptions[tab]?.presenterPlan?.name || "Estandar"}</div>
-            <div className="promo">{subscriptions[tab]?.presenterPlan?.promo || ""}</div>
-            <div className="price">$ {subscriptions[tab]?.presenterPlan?.price || ""}</div>
-            <div className="divider" />
-            <div className="description">{subscriptions[tab]?.presenterPlan?.description || ""}</div>
-
-            <button className="btn standard">Comprar ahora</button>
+          <div className={`tab ${tab === "games" && "active"}`} onClick={() => setTab("games")}>
+            Juegos de integración
           </div>
         </div>
-        {!router.asPath.includes("/subscriptions") && (
-          <div className="more-info">
-            <button className="btn-subs" onClick={() => router.push("/subscriptions")}>
-              Ver más planes <ArrowRightOutlined />
-            </button>
-          </div>
-        )}
+        {tabContent()}
       </PlansContainer>
       {router.asPath.includes("/subscriptions") && (
         <TableContainer>
-          <PlansTable
-            currentPlan={currentPlan}
-            key={currentSubscription}
-            subscriptions={subscriptions}
-            tab={tab}
-            {...props}
-          />
+          <PlansTable {...props} />
         </TableContainer>
       )}
     </>
@@ -173,196 +168,42 @@ const PlansContainer = styled.div`
   }
 
   .tabs {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
-    justify-content: space-evenly;
-    margin: 1rem 0;
+    background: transparent;
+    border: 2px solid ${(props) => props.theme.basic.primary};
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin: 1rem auto;
+    max-width: 1100px;
 
     .tab {
       font-family: Lato;
       font-style: normal;
       font-weight: bold;
-      font-size: 10px;
-      line-height: 11px;
-      color: ${(props) => props.theme.basic.grayLighten};
+      font-size: 12px;
+      line-height: 16px;
+      color: ${(props) => props.theme.basic.primary};
       cursor: pointer;
-      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
 
-      .container-edit {
-        position: absolute;
-        height: 15px;
-        cursor: pointer;
-        top: -15px;
-        right: -30px;
-
-        svg {
-          width: 15px;
-          height: 15px;
-          color: ${(props) => props.theme.basic.action};
-        }
-
-        .icon-delete {
-          margin-left: 5px;
-
-          svg {
-            color: ${(props) => props.theme.basic.danger};
-          }
-        }
-      }
+    .middle-tab {
+      border-left: 2px solid ${(props) => props.theme.basic.primary};
+      border-right: 2px solid ${(props) => props.theme.basic.primary};
     }
 
     .active {
-      color: ${(props) => props.theme.basic.secondary};
-      text-decoration: underline;
+      color: ${(props) => props.theme.basic.whiteLight};
+      background: ${(props) => props.theme.basic.primary};
     }
   }
-
-  .subscriptions {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-
-    .plan {
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      flex-direction: column;
-      background: ${(props) => props.theme.basic.whiteLight};
-      box-shadow: -7px 5px 30px -2px rgba(0, 0, 0, 0.14);
-      border-radius: 8px;
-      width: 250px;
-      height: 315px;
-      margin: 1rem 0;
-      cursor: pointer;
-
-      .name {
-        font-family: Lato;
-        font-style: normal;
-        font-weight: 800;
-        font-size: 17px;
-        line-height: 21px;
-        text-align: center;
-        color: ${(props) => props.theme.basic.primary};
-      }
-
-      .price {
-        font-family: Lato;
-        font-style: normal;
-        font-weight: 800;
-        font-size: 47.2172px;
-        line-height: 57px;
-      }
-
-      .divider {
-        height: 1px;
-        background: #e4e4e4;
-        width: 90%;
-      }
-
-      .description {
-        font-family: Lato;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 13px;
-        line-height: 16px;
-        color: ${(props) => props.theme.basic.black};
-        text-align: center;
-        max-width: 80%;
-      }
-
-      .promo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 14px;
-      }
-
-      .btn {
-        width: 90%;
-        height: 45px;
-        top: 3031.43px;
-        background: ${(props) => props.theme.basic.primary};
-        border-radius: 5px;
-        border: none;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: 800;
-        font-size: 13px;
-        line-height: 16px;
-        color: ${(props) => props.theme.basic.whiteLight};
-      }
-    }
-
-    .standard {
-      .price {
-        color: ${(props) => props.theme.basic.primary};
-      }
-      .promo {
-        width: 125px;
-        height: 25px;
-        background: ${(props) => props.theme.basic.primary};
-        border-radius: 15px;
-        color: ${(props) => props.theme.basic.whiteLight};
-      }
-    }
-
-    .pro {
-      width: 295px;
-      height: 377px;
-
-      .name {
-        font-family: Lato;
-        font-style: normal;
-        font-weight: 800;
-        font-size: 27px;
-        line-height: 32px;
-        color: ${(props) => props.theme.basic.blackDarken};
-      }
-
-      .promo {
-        width: 132px;
-        height: 28px;
-        background: ${(props) => props.theme.basic.blackDarken};
-        border-radius: 15px;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 16px;
-        color: ${(props) => props.theme.basic.whiteLight};
-      }
-
-      .btn {
-        background: ${(props) => props.theme.basic.blackDarken};
-      }
-    }
-
-    .presenter {
-      .name {
-        color: ${(props) => props.theme.basic.primaryLighten};
-      }
-
-      .price {
-        color: ${(props) => props.theme.basic.primaryLighten};
-      }
-
-      .promo {
-        width: 125px;
-        height: 25px;
-        background: ${(props) => props.theme.basic.primaryLighten};
-        border-radius: 15px;
-        color: ${(props) => props.theme.basic.whiteLight};
-      }
-
-      .btn {
-        background: ${(props) => props.theme.basic.primaryLighten};
-      }
-    }
+  
   }
 
   ${mediaQuery.afterTablet} {
@@ -374,56 +215,16 @@ const PlansContainer = styled.div`
     }
 
     .tabs {
-      margin: 2rem 0;
+      margin: 2rem auto;
+      border: 4px solid ${(props) => props.theme.basic.primary};
       .tab {
         font-size: 24px;
-        line-height: 29px;
-      }
-    }
-
-    .subscriptions {
-      flex-direction: row;
-      .plan {
-        width: 336px;
-        height: 429px;
-
-        .price {
-          font-size: 64px;
-          line-height: 77px;
-        }
+        line-height: 28px;
       }
 
-      .standard,
-      .presenter {
-        .name {
-          font-size: 24px;
-          line-height: 29px;
-        }
-
-        .promo {
-          width: 172px;
-          height: 32px;
-          border-radius: 20px;
-          font-size: 16px;
-          line-height: 19px;
-        }
-      }
-
-      .pro {
-        width: 400px;
-        height: 511px;
-
-        .name {
-          font-size: 36px;
-          line-height: 43px;
-        }
-
-        .promo {
-          width: 178px;
-          height: 38px;
-          font-size: 18px;
-          line-height: 22px;
-        }
+      .middle-tab {
+        border-left: 4px solid ${(props) => props.theme.basic.primary};
+        border-right: 4px solid ${(props) => props.theme.basic.primary};
       }
     }
   }
@@ -433,4 +234,203 @@ const TableContainer = styled.div`
   width: 100%;
   overflow: auto;
   margin: 0 auto;
+`;
+
+const PlanContent = styled.div`
+  width: 100%;
+  max-width: 1350px;
+  background: ${(props) => props.theme.basic.whiteLight};
+  box-shadow: 6px 7px 30px 15px rgba(0, 0, 0, 0.14);
+  border-radius: 8px;
+  margin: 1rem auto;
+
+  .main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 2rem;
+
+    .title {
+      margin-top: 2rem;
+    }
+
+    .subtitle {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 29px;
+      color: ${(props) => props.theme.basic.grayLighten};
+      margin: 1rem;
+      text-align: center;
+    }
+
+    .divider {
+      margin: 1rem auto;
+      height: 2px;
+      background: ${(props) => props.theme.basic.gray};
+      width: 50%;
+    }
+
+    .description {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 22px;
+      letter-spacing: 0.03em;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: ${(props) => props.theme.basic.blackDarken};
+    }
+  }
+
+  ${mediaQuery.afterTablet} {
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+  }
+`;
+
+const ContactContent = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  margin: 2rem auto 1rem auto;
+
+  .info {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0.5rem 0;
+
+    .info-content {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 16px;
+      color: ${(props) => props.theme.basic.blackDarken};
+    }
+  }
+
+  ${mediaQuery.afterTablet} {
+    flex-direction: row;
+
+    .info {
+      margin: 0;
+    }
+  }
+`;
+
+const PlansPrices = styled.div`
+  width: 100%;
+  max-width: 1350px;
+  margin: 1rem auto;
+  display: grid;
+  grid-gap: 1rem;
+  align-items: center;
+  overflow: auto;
+
+  ${mediaQuery.afterTablet} {
+    grid-template-columns: repeat(5, 1fr);
+    margin: 2rem auto;
+  }
+`;
+
+const PlanPriceContent = styled.div`
+  width: ${(props) => (props.plan === "Avanzado" ? "280px" : "234px")};
+  height: ${(props) => (props.plan === "Avanzado" ? "431px" : "377px")};
+  background: ${(props) => props.theme.basic.whiteLight};
+  box-shadow: -7px 5px 30px -2px rgba(0, 0, 0, 0.14);
+  border-radius: 8px;
+  margin: auto;
+
+  .header {
+    width: 100%;
+    padding: 0.5rem;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: ${(props) => props.theme.basic.grayLight};
+    border-bottom: 2px solid ${(props) => props.theme.basic.gray};
+  }
+
+  .plan {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  .name {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    color: ${(props) => props.color};
+    text-align: center;
+    margin: 1rem auto;
+  }
+
+  .price {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 800;
+    font-size: ${(props) => (props.plan === "Exclusivo" ? "26px" : "50px")};
+    line-height: ${(props) => (props.plan === "Exclusivo" ? "31px" : "60px")};
+    color: ${(props) => props.color};
+    margin: 1rem auto;
+  }
+
+  .divider {
+    height: 2px;
+    background: ${(props) => props.theme.basic.gray};
+    width: 90%;
+    margin: 1rem auto;
+  }
+
+  .btn-register {
+    height: 45px;
+    background: ${(props) => props.background};
+    border: none;
+    cursor: pointer;
+    width: 90%;
+    margin: 0.5rem auto;
+    border-radius: 8px;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 22px;
+    color: ${(props) => props.theme.basic.whiteLight};
+  }
+
+  .time,
+  .users,
+  .games {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: ${(props) => props.theme.basic.grayLight};
+    text-align: left;
+    width: 90%;
+    margin: 5px 0;
+  }
+
+  .time {
+    text-align: center;
+  }
 `;

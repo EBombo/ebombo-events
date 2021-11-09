@@ -1,9 +1,11 @@
-import React from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { mediaQuery } from "../../constants";
+import { plans } from "../../components/common/DataList";
 
 export const PlansTable = (props) => {
+  const [currentPlan, ] = useState("Avanzado");
+
   return (
     <TableContainer>
       <table border="0">
@@ -12,103 +14,47 @@ export const PlansTable = (props) => {
             <td>
               <div className="plan table-title">Comparar planes</div>
             </td>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
+            <td>Personas por juego</td>
+            <td>Juegos </td>
+            <td>Licencias </td>
+            <td>Chat vivo</td>
+            <td>Premio personalizados </td>
+            <td>Modificar la múscia</td>
+            <td>Reporte</td>
+            <td>Trackear progreso</td>
+            <td>Identificar participantes </td>
+            <td>Encuesta de satisfacción al final del juego </td>
+            <td>Modo equipo </td>
+            <td>Capacitación de plataforma</td>
+            <td>Modificación de colores del juego </td>
+            <td>Logo de la empresa dentro del juego</td>
           </tr>
 
-          <tr>
-            <td>
-              <div className="plan standard">
-                <div className="name">{props.subscriptions[props.tab]?.standardPlan?.name || "Estandar"}</div>
-                <div className="price">$ {props.subscriptions[props.tab]?.standardPlan?.price || ""}</div>
-                <div className="divider" />
-                <div className="description">{props.subscriptions[props.tab]?.standardPlan?.description || ""}</div>
-              </div>
-            </td>
-            <td>20</td>
-            <td>
-              <CheckOutlined />
-            </td>
-            <td>
-              <CheckOutlined />
-            </td>
-            <td>
-              <CloseOutlined />
-            </td>
-            <td>
-              <CloseOutlined />
-            </td>
-            <td>
-              <CloseOutlined />
-            </td>
-            <td>
-              <CloseOutlined />
-            </td>
-            {props.currentPlan === "standard" && <div className="selected" />}
-          </tr>
-          <tr>
-            <td>
-              <div className="plan pro">
-                <div className="name">{props.subscriptions[props.tab]?.proPlan?.name || "Estandar"}</div>
-                <div className="price">$ {props.subscriptions[props.tab]?.proPlan?.price || ""}</div>
-                <div className="description">{props.subscriptions[props.tab]?.proPlan?.description || ""}</div>
-              </div>
-            </td>
-            <td>20</td>
-            <td>
-              <CheckOutlined />
-            </td>
-            <td>
-              <CheckOutlined />
-            </td>
-            <td>
-              <CheckOutlined />
-            </td>
-            <td>
-              <CheckOutlined />
-            </td>
-            <td>
-              <CheckOutlined />
-            </td>
-            <td>
-              <CheckOutlined />
-            </td>
-            {props.currentPlan === "pro" && <div className="selected" />}
-          </tr>
-          <tr>
-            <td>
-              <div className="plan presenter">
-                <div className="name">{props.subscriptions[props.tab]?.presenterPlan?.name || "Estandar"}</div>
-                <div className="price">$ {props.subscriptions[props.tab]?.presenterPlan?.price || ""}</div>
-                <div className="description">{props.subscriptions[props.tab]?.presenterPlan?.description || ""}</div>
-              </div>
-            </td>
-            <td>20</td>
-            <td>
-              <CheckOutlined />
-            </td>
-            <td>
-              <CheckOutlined />
-            </td>
-            <td>
-              <CheckOutlined />
-            </td>
-            <td>
-              <CheckOutlined />
-            </td>
-            <td>
-              <CloseOutlined />
-            </td>
-            <td>
-              <CloseOutlined />
-            </td>
-            {props.currentPlan === "presenter" && <div className="selected" />}
-          </tr>
+          {plans.map((plan, index) => (
+            <tr key={`${plan.name}-index`}>
+              <td>
+                <div className={`plan ${plan.name.toLowerCase()}`}>
+                  <div className="name">{plan.name}</div>
+                  {plan.name === "Exclusivo" ? (
+                    <button className="btn-contact">
+                      Contactar
+                      <br />
+                      ventas
+                    </button>
+                  ) : (
+                    <div className="price">$ {plan.price}</div>
+                  )}
+
+                  <div className="divider" />
+                  <div className="description">{plan.description}</div>
+                </div>
+              </td>
+              {plan.specs.map((spec, index) => (
+                <td key={index}>{spec}</td>
+              ))}
+              {currentPlan === plan.name && <div className="selected" />}
+            </tr>
+          ))}
         </tbody>
       </table>
     </TableContainer>
@@ -133,9 +79,12 @@ const TableContainer = styled.div`
   table {
     display: table;
     border-radius: 8px;
+    margin: auto;
+
     tr {
       display: table-cell;
       position: relative;
+      width: 190px;
       td {
         border: 1px solid ${(props) => props.theme.basic.grayLighten};
         display: flex;
@@ -196,7 +145,7 @@ const TableContainer = styled.div`
       font-size: 17px;
       line-height: 21px;
       text-align: center;
-      color: ${(props) => props.theme.basic.primary};
+      color: ${(props) => props.theme.basic.blackDarken};
     }
 
     .price {
@@ -205,7 +154,7 @@ const TableContainer = styled.div`
       font-weight: 800;
       font-size: 47.2172px;
       line-height: 57px;
-      color: ${(props) => props.theme.basic.primary};
+      color: ${(props) => props.theme.basic.blackDarken};
     }
 
     .description {
@@ -214,28 +163,33 @@ const TableContainer = styled.div`
       font-weight: normal;
       font-size: 13px;
       line-height: 16px;
-      color: ${(props) => props.theme.basic.black};
+      color: ${(props) => props.theme.basic.grayLight};
       text-align: center;
       max-width: 80%;
     }
   }
 
-  .pro {
-    .name {
-      color: ${(props) => props.theme.basic.blackDarken};
-    }
-    .price {
-      color: ${(props) => props.theme.basic.blackDarken};
-    }
+  .btn-contact {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 22px;
+    color: ${(props) => props.theme.basic.whiteLighten};
+    background: linear-gradient(90.24deg, #d2a137 -3.57%, #eeca5a 23.9%, #d2a137 99.85%);
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
   }
 
-  .presenter {
+  .avanzado {
     .name {
-      color: ${(props) => props.theme.basic.primaryLighten};
+      color: ${(props) => props.theme.basic.primary};
     }
 
     .price {
-      color: ${(props) => props.theme.basic.primaryLighten};
+      color: ${(props) => props.theme.basic.primary};
     }
   }
 

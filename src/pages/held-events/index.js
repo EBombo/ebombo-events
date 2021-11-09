@@ -9,19 +9,17 @@ import { mediaQuery, Desktop, Tablet } from "../../constants";
 export const HeldEvents = (props) => (
   <LandingContainer>
     <div className="landing-container">
-      <Navbar>
-        <HeldEventsContainer>
-          <div className="title">Eventos pasados</div>
-          <div className="main-container">
-            <Desktop>
-              <HeldEventGrid heldEvents={heldEventsData} pageSize={9} />
-            </Desktop>
-            <Tablet>
-              <HeldEventGrid heldEvents={heldEventsData} pageSize={3} />
-            </Tablet>
-          </div>
-        </HeldEventsContainer>
-      </Navbar>
+      <HeldEventsContainer>
+        <div className="title">Eventos pasados</div>
+        <div className="main-container">
+          <Desktop>
+            <HeldEventGrid heldEvents={heldEventsData} pageSize={9} />
+          </Desktop>
+          <Tablet>
+            <HeldEventGrid heldEvents={heldEventsData} pageSize={3} />
+          </Tablet>
+        </div>
+      </HeldEventsContainer>
     </div>
   </LandingContainer>
 );

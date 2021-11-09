@@ -10,8 +10,7 @@ import { Dropdown, Menu, message } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { Layout } from "./common/Layout";
 import { Footer } from "./Footer";
-
-const menus = [{ title: "Bingo" }, { title: "Charadas" }, { title: "Canta y Gana" }, { title: "Trivia" }];
+import { navMenus } from "./common/DataList";
 
 export const Navbar = (props) => {
   const router = useRouter();
@@ -27,12 +26,14 @@ export const Navbar = (props) => {
   const menu = useMemo(
     () => (
       <Menu onClick={onClick}>
-        {menus.map((menu, index) => (
-          <Menu.Item key={index}>Bingo</Menu.Item>
+        {navMenus.map((menu, index) => (
+          <Menu.Item key={index} onClick={() => router.push(`/games/${menu.id}`)}>
+            {menu.title}
+          </Menu.Item>
         ))}
       </Menu>
     ),
-    [menus]
+    [navMenus]
   );
 
   return (
