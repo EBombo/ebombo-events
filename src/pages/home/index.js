@@ -4,9 +4,7 @@ import { HeaderLanding } from "./HeaderLanding";
 import { firestore } from "../../firebase";
 import { HeldEvents } from "./HeldEvents";
 import { Comments } from "./comments/Comments";
-import { Contact } from "./Contact";
 import { ContactForm } from "./ContactForm";
-import get from "lodash/get";
 import { spinLoader } from "../../components/common/loader";
 import { Footer } from "../../components/Footer";
 import { useRouter } from "next/router";
@@ -17,7 +15,6 @@ import { Products } from "./Products";
 export const Home = (props) => {
   const router = useRouter();
   const [authUser] = useGlobal("user");
-  const [events, setEvents] = useState(null);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -32,19 +29,6 @@ export const Home = (props) => {
 
     router.push("/library");
   }, [authUser]);
-
-  useEffect(() => {
-    const fetchLandingEvents = () =>
-      firestore
-        .collection("landings")
-        .doc("events")
-        .onSnapshot((snapshot) => {
-          setEvents(snapshot.data());
-          setLoading(false);
-        });
-
-    fetchLandingEvents();
-  }, []);
 
   useEffect(() => {
     const fetchComments = () =>
@@ -79,7 +63,6 @@ export const Home = (props) => {
         <Products />
         <Plans {...props} />
         <HeldEvents />
-        <Contact refProp={contactRef} />
         <Comments comments={comments} deleteDocument={deleteDocument} />
         <ContactForm refProp={contactFormRef} />
         <Footer />
