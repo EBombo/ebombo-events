@@ -16,7 +16,7 @@ export const Home = (props) => {
   const router = useRouter();
 
   const [authUser] = useGlobal("user");
-  
+
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
