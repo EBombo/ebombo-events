@@ -4,18 +4,15 @@ import { HeaderLanding } from "./HeaderLanding";
 import { firestore } from "../../firebase";
 import { HeldEvents } from "./HeldEvents";
 import { Comments } from "./comments/Comments";
-import { Contact } from "./Contact";
 import { ContactForm } from "./ContactForm";
 import { spinLoader } from "../../components/common/loader";
 import { useRouter } from "next/router";
 import { Plans } from "../subscriptions/Plans";
-import { Navbar } from "../../components/Navbar";
 import { Products } from "./Products";
 
 export const Home = (props) => {
   const router = useRouter();
   const [authUser] = useGlobal("user");
-  const [events, setEvents] = useState(null);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -30,19 +27,6 @@ export const Home = (props) => {
 
     router.push("/library");
   }, [authUser]);
-
-  useEffect(() => {
-    const fetchLandingEvents = () =>
-      firestore
-        .collection("landings")
-        .doc("events")
-        .onSnapshot((snapshot) => {
-          setEvents(snapshot.data());
-          setLoading(false);
-        });
-
-    fetchLandingEvents();
-  }, []);
 
   useEffect(() => {
     const fetchComments = () =>
@@ -72,16 +56,12 @@ export const Home = (props) => {
   return (
     <LandingContainer>
       <div className="landing-container">
-        <Navbar>
-          <>
-            <HeaderLanding />
-            <Products />
-            <Plans {...props} />
-            <HeldEvents />
-            <Comments comments={comments} deleteDocument={deleteDocument} />
-            <ContactForm refProp={contactFormRef} />
-          </>
-        </Navbar>
+        <HeaderLanding executeScroll={executeScroll} />
+        <Products />
+        <Plans {...props} />
+        <HeldEvents />
+        <Comments comments={comments} deleteDocument={deleteDocument} />
+        <ContactForm refProp={contactFormRef} />
       </div>
     </LandingContainer>
   );
