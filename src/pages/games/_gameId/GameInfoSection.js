@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { mediaQuery } from "../../../constants";
 import { Image } from "../../../components/common/Image";
 
-
 export const GameInfoSection = (props) => (
   <GameInfoSectionStyled>
     <div>

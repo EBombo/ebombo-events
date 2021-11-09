@@ -13,7 +13,6 @@ export const GameDetail = (props) => {
   const { gameId } = router.query;
   const infoGame = infoGamesData.find(infoGame => infoGame.id === gameId);
 
-
   return (
   <LandingContainer>
     <div className="landing-container">
@@ -34,7 +33,6 @@ const LandingContainer = styled.div`
     z-index: 1;
   }
 `;
-
 
 const GameInfoSectionsContainer = styled.div`
   section:nth-child(even) {
