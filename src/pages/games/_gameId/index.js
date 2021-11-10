@@ -16,11 +16,9 @@ export const GameDetail = (props) => {
   return (
   <LandingContainer>
     <div className="landing-container">
-      <Navbar />
       <GameInfoSectionsContainer>
         { infoGame && infoGame.sections.map(infoSection => <GameInfoSection infoGame={infoSection} />) }
       </GameInfoSectionsContainer>
-      <Footer />
     </div>
   </LandingContainer>);
 };

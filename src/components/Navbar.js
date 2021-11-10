@@ -2,15 +2,17 @@ import React, { useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./common/Image";
 import { config } from "../firebase";
-import { Desktop, mediaQuery, Tablet } from "../constants";
+import { Desktop, Tablet } from "../constants";
 import { Anchor, ButtonAnt } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
-import { Dropdown, Menu, message } from "antd";
+import { Dropdown, Menu } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { Layout } from "./common/Layout";
 import { Footer } from "./Footer";
-import { navMenus } from "./common/DataList";
+import { infoGamesData } from "./common/DataList";
+
+const menus = infoGamesData.map((infoGame) => ({ menuLabel: infoGame.menuLabel, id: infoGame.id }));
 
 export const Navbar = (props) => {
   const router = useRouter();
@@ -20,20 +22,18 @@ export const Navbar = (props) => {
   const [isVisibleNavGames, setIsVisibleNavGames] = useState(false);
 
   const onClick = ({ key }) => {
-    message.info(`Click on item ${key}`);
+    router.push(`/games/${menus[key].id}`);
   };
 
   const menu = useMemo(
     () => (
       <Menu onClick={onClick}>
-        {navMenus.map((menu, index) => (
-          <Menu.Item key={index} onClick={() => router.push(`/games/${menu.id}`)}>
-            {menu.title}
-          </Menu.Item>
+        {menus.map((menu, index) => (
+          <Menu.Item key={index}>{menu.menuLabel}</Menu.Item>
         ))}
       </Menu>
     ),
-    [navMenus]
+    [menus]
   );
 
   return (
