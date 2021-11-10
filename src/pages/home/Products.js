@@ -30,14 +30,13 @@ export const Products = (props) => {
           </div>
         </div>
         <div className="bottom-container">
-          <div className="subtitle">Eventos</div>
+          <div className="subtitle">Eventos Virtuales</div>
           <div className="description">
-            Permítenos ayudarte a que tu evento sea uno inolvidable. Contamos con diversas herramientas que nos permiten
-            adaptarnos a lo que necesitas.
+            Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.
           </div>
           <div className="link">
             <Anchor underlined variant="secondary" margin="1rem 0">
-              Explorar juegos <ArrowRightOutlined />
+              Explorar <ArrowRightOutlined />
             </Anchor>
           </div>
         </div>
@@ -46,31 +45,6 @@ export const Products = (props) => {
         <div className="top-container">
           <div className="background bg-games" />
           <div className="img-container img-games">
-            <Image
-              src={`${config.storageUrl}/resources/games.png`}
-              height="100%"
-              width="100%"
-              size="contain"
-              margin="0"
-            />
-          </div>
-        </div>
-        <div className="bottom-container">
-          <div className="subtitle">Juegos</div>
-          <div className="description">
-            Bingo, trivia, charadas, ¡y muchos otros más! Tenemos una gran variedad de juegos de los cuales disfrutar.
-          </div>
-          <div className="link">
-            <Anchor underlined variant="secondary">
-              Explorar juegos <ArrowRightOutlined />
-            </Anchor>
-          </div>
-        </div>
-      </div>
-      <div className="product">
-        <div className="top-container">
-          <div className="background bg-reports" />
-          <div className="img-container img-reports">
             <Image
               src={`${config.storageUrl}/resources/reports.png`}
               height="100%"
@@ -81,14 +55,38 @@ export const Products = (props) => {
           </div>
         </div>
         <div className="bottom-container">
-          <div className="subtitle">Reportes</div>
+          <div className="subtitle">Eventos Presenciales</div>
           <div className="description">
-            Descubre el rendimiento y participación de tus colaboradores con los reportes que se generan en cada
-            actividad.
+            Realizamos eventos presenciales de todo tipo. Eventos de integración, Hinkanas, integraciones, celebraciones, eventos de todo tipo.
+          </div>
+          <div className="link">
+            <Anchor underlined variant="secondary">
+              Explorar <ArrowRightOutlined />
+            </Anchor>
+          </div>
+        </div>
+      </div>
+      <div className="product">
+        <div className="top-container">
+          <div className="background bg-reports" />
+          <div className="img-container img-reports">
+            <Image
+              src={`${config.storageUrl}/resources/games.png`}
+              height="100%"
+              width="100%"
+              size="contain"
+              margin="0"
+            />
+          </div>
+        </div>
+        <div className="bottom-container">
+          <div className="subtitle">Juegos de integración</div>
+          <div className="description">
+            Juegos de integración para tus trabajadores para mantenerlos motivados y con buen clima laboral.
           </div>
           <div className="link">
             <Anchor underlined variant="secondary" margin="1rem 0">
-              Explorar juegos <ArrowRightOutlined />
+              Explorar <ArrowRightOutlined />
             </Anchor>
           </div>
         </div>
@@ -175,6 +173,9 @@ const ProductsContainer = styled.div`
 
     .link {
       margin: 1rem 0;
+      a {
+        font-weight: bold;
+      }
     }
   }
 
