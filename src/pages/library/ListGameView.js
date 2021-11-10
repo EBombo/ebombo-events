@@ -13,13 +13,16 @@ import { useSendError } from "../../hooks";
 import { useFetch } from "../../hooks/useFetch";
 
 export const ListGameView = (props) => {
-  const [authUser] = useGlobal("user");
-  const [games, setGames] = useGlobal("userGames");
-  const [resource, setResource] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
+
+  const [authUser] = useGlobal("user");
+  const [games, setGames] = useGlobal("userGames");
+
+  const [resource, setResource] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchResource = async () => {
@@ -79,7 +82,8 @@ export const ListGameView = (props) => {
   const createTokenToPlay = async () => {
     setIsLoading(true);
     try {
-      const redirectUrl = `${props.game.adminGame.domain}/lobbies/new?gameId=${props.game.id}&userId=${authUser?.id}`;
+      const gameName = props.game.adminGame.name.toLowerCase();
+      const redirectUrl = `${config.bomboGamesUrl}/${gameName}/lobbies/new?gameId=${props.game.id}&userId=${authUser?.id}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {

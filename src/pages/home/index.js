@@ -52,6 +52,7 @@ export const Home = (props) => {
       : contactRef.current.scrollIntoView();
 
   // TODO: If the data is static consider remove spin [it can be better to SEO].
+  // TODO: If the spin is necessary then consider optimize load with localStorage.
   if (loading) return spinLoader();
 
   return (
