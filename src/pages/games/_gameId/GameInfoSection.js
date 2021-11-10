@@ -21,13 +21,12 @@ export const GameInfoSection = (props) => (
 
 const GameInfoSectionStyled = styled.section`
   .body-container {
-    padding-top: 84px;
     padding-bottom: 64px;
 
     ${mediaQuery.afterTablet} {
       display: grid;
       grid-template-columns: 70% auto;
-      max-width: 1200px;
+      max-width: 900px;
       margin: 0 auto;
     }
   }
