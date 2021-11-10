@@ -2,15 +2,16 @@ import React from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { mediaQuery } from "../../../constants";
-import { infoGamesData } from "../../../components/common/DataList";
-import { GameInfoSection } from "./GameInfoSection";
+import { products } from "../../../components/common/DataList";
+import { ContactForm } from "../../home/ContactForm";
+import { ProductInfo } from "./ProductInfo";
 import { Icon } from "../../../components/common/Icons";
 
-export const GameDetail = (props) => {
+export const ProductDetail = (props) => {
   const router = useRouter();
 
-  const { gameId } = router.query;
-  const infoGame = infoGamesData.find(infoGame => infoGame.id === gameId);
+  const { productId } = router.query;
+  const product = products.find(product => product.id === productId);
 
   return (
   <LandingContainer>
@@ -18,9 +19,10 @@ export const GameDetail = (props) => {
       <div className="back-container">
         <Icon className="back-icon" type="left" onClick={() => router.back()} />
       </div>
-      <GameInfoSectionsContainer>
-        { infoGame && <GameInfoSection infoGame={infoGame} /> }
-      </GameInfoSectionsContainer>
+      <ProductInfoSectionsContainer>
+        { product && <ProductInfo product={product} /> }
+      </ProductInfoSectionsContainer>
+      <ContactForm />
     </div>
   </LandingContainer>);
 };
@@ -34,18 +36,13 @@ const LandingContainer = styled.div`
     z-index: 1;
   }
   .back-container {
-    max-width: 1200px;
-    margin: 0 auto 0 auto;
+    margin: 0 auto 1rem 1rem;
     padding-top: 32px;
     span {
       border-radius: 50%;
       padding: 6px;
       background: ${(props) => props.theme.basic.primary};
-
-      // position: absolute;
       cursor: pointer;
-      // bottom: 0;
-      // left: 32px;
       vertical-align: bottom;
       color: ${(props) => props.theme.basic.white};
       svg {
@@ -55,7 +52,7 @@ const LandingContainer = styled.div`
   }
 `;
 
-const GameInfoSectionsContainer = styled.div`
+const ProductInfoSectionsContainer = styled.div`
   section:nth-child(even) {
     background: ${props => props.theme.basic.blackDarken};
     color: ${props => props.theme.basic.white};
@@ -80,3 +77,4 @@ const GameInfoSectionsContainer = styled.div`
     }
   }
 `;
+

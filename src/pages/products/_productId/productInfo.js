@@ -3,30 +3,32 @@ import styled from "styled-components";
 import { mediaQuery } from "../../../constants";
 import { Image } from "../../../components/common/Image";
 
-export const GameInfoSection = (props) => (
-  <GameInfoSectionStyled>
+export const ProductInfo = (props) => (
+  <ProductInfoStyled>
     <div>
       <div className="body-container">
         <div className="image-container">
-          <Image src={props.infoGame.imageUrl} width="100%" height="100%"/>
+          <Image src={props.product.imageUrl} width="100%" height="100%"/>
         </div>
         <div className="description">
-          <h1>{props.infoGame.title}</h1>
-          <p>{props.infoGame.description}</p>
+          <h1>{props.product.title}</h1>
+          <div className="content">
+            {props.product.content}
+          </div>
         </div>
       </div>
     </div>
-  </GameInfoSectionStyled>
+  </ProductInfoStyled>
 );
 
-const GameInfoSectionStyled = styled.section`
+const ProductInfoStyled = styled.section`
   .body-container {
     padding-bottom: 64px;
 
     ${mediaQuery.afterTablet} {
       display: grid;
       grid-template-columns: 70% auto;
-      max-width: 900px;
+      max-width: 1200px;
       margin: 0 auto;
     }
   }
@@ -51,17 +53,22 @@ const GameInfoSectionStyled = styled.section`
         text-align: left;
       }
     }
-    p {
+
+    .content {
       font-family: Lato;
       font-style: normal;
       font-weight: normal;
-      font-size: 14px;
-      line-height: 15px;
-      text-align: center;
+      font-size: 18px;
+      line-height: 25px;
+      text-align: left;
       letter-spacing: 0.03em;
-      ${mediaQuery.afterTablet} {
-        text-align: left;
+
+      ul {
+        margin: 1rem 0;
+        list-style-position: inside;
       }
+
     }
   }
 `;
+
