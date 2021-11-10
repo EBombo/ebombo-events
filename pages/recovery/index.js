@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { spinLoader } from "../../src/components/common/loader";
 import { SEOMeta } from "../../src/components/common/seo";
 import ForgotPassword from "../../src/pages/forgot-password";
+import { Navbar } from "../../src/components/Navbar";
 
 const UserLayout = dynamic(() => import("../../src/components/UserLayout"), {
   ssr: false,
@@ -12,9 +13,9 @@ const UserLayout = dynamic(() => import("../../src/components/UserLayout"), {
 const Registration = (props) => (
   <>
     <SEOMeta {...props} />
-    <UserLayout {...props}>
+    <Navbar>
       <ForgotPassword {...props} />
-    </UserLayout>
+    </Navbar>
   </>
 );
 

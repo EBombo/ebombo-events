@@ -50,7 +50,7 @@ const ForgotPassword = (props) => {
     <ContainerForgotPassword>
       <div className="container">
         <Desktop>
-          <Image src={`${config.storageUrl}/resources/register-img.png`} height="100%" width="100%" size="contain" />
+          <Image src={`${config.storageUrl}/resources/login-img.png`} height="100%" width="100%" size="cover" />
         </Desktop>
 
         <div className="content">
@@ -103,14 +103,16 @@ const ForgotPassword = (props) => {
 
 const ContainerForgotPassword = styled.div`
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 100px);
+  width: 100%;
 
   .container {
-    margin: auto;
+    margin: 0;
+    width: 100%;
     display: grid;
     background-color: ${(props) => props.theme.basic.gray};
 
-    ${mediaQuery.afterDesktop} {
+    ${mediaQuery.afterTablet} {
       grid-template-columns: 1fr 1.5fr;
     }
 

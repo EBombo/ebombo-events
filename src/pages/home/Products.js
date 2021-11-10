@@ -192,9 +192,10 @@ const ProductsContainer = styled.div`
       grid-template-columns: repeat(2, 1fr);
       align-items: center;
       grid-gap: 10%;
-      margin: 3rem 0;
-      
-      .description{
+      max-width: 1350px;
+      margin: 3rem auto;
+
+      .description {
         max-width: 400px;
       }
     }

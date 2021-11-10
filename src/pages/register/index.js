@@ -66,121 +66,121 @@ export const Register = (props) => {
     <RegisterContainer>
       <div className="container">
         <Desktop>
-          <Image src={`${config.storageUrl}/resources/register-img.png`} height="100%" width="100%" size="contain" />
+          <Image src={`${config.storageUrl}/resources/register-img.png`} height="100%" width="100%" size="cover" />
         </Desktop>
 
         <form onSubmit={handleSubmit(signUpUser)} autoComplete="off" className="form-container" noValidate>
-          <div className="title">Regístrate</div>
+          <div className="form-content">
+            <div className="title">Regístrate</div>
 
-          <div className="providers-content">
-            <Divider> o </Divider>
+            <div className="providers-content">
+              <Divider> o </Divider>
 
-            <ButtonsProviders google />
-          </div>
+              <ButtonsProviders google />
+            </div>
 
-          <div className="inputs-container">
-            <Input
-              error={errors.name}
-              type="text"
-              ref={register}
-              height="40px"
-              name="name"
-              autoComplete="off"
-              placeholder="Nombre"
-            />
-            <Input
-              error={errors.lastName}
-              type="text"
-              ref={register}
-              height="40px"
-              name="lastName"
-              autoComplete="off"
-              placeholder="Apellidos"
-            />
-          </div>
-
-          <div className="inputs-container">
-            <Input
-              error={errors.email}
-              type="email"
-              ref={register}
-              name="email"
-              height="40px"
-              autoComplete="off"
-              placeholder="Correo"
-            />
-
-            <InputGroupSelect>
-              <Controller
-                name="day"
-                control={control}
-                as={
-                  <Select
-                    placeholder="día"
-                    showSearch
-                    virtual={false}
-                    error={errors.day}
-                    marginbottom="0"
-                    height="40px"
-                    borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
-                    optionFilterProp="children"
-                    borderRadius="3px 0px 0px 3px"
-                    optionsdom={days.map((day) => ({
-                      key: day.key,
-                      name: day.value,
-                      code: day.value,
-                    }))}
-                  />
-                }
+            <div className="inputs-container">
+              <Input
+                error={errors.name}
+                type="text"
+                ref={register}
+                height="40px"
+                name="name"
+                autoComplete="off"
+                placeholder="Nombre"
               />
-              <Controller
-                name="month"
-                control={control}
-                as={
-                  <Select
-                    placeholder="mes"
-                    showSearch
-                    virtual={false}
-                    error={errors.month}
-                    marginbottom="0"
-                    height="40px"
-                    borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
-                    borderRadius="0px 0px 0px 0px"
-                    optionFilterProp="children"
-                    optionsdom={months.map((month) => ({
-                      key: month.key,
-                      code: month.key,
-                      name: month.value,
-                    }))}
-                  />
-                }
+              <Input
+                error={errors.lastName}
+                type="text"
+                ref={register}
+                height="40px"
+                name="lastName"
+                autoComplete="off"
+                placeholder="Apellidos"
               />
-              <Controller
-                name="year"
-                control={control}
-                as={
-                  <Select
-                    placeholder="año"
-                    showSearch
-                    virtual={false}
-                    borderRadius="0px 3px 3px 0px"
-                    error={errors.year}
-                    marginbottom="0"
-                    height="40px"
-                    optionFilterProp="children"
-                    optionsdom={years.map((year) => ({
-                      key: year.key,
-                      name: year.value,
-                      code: year.value,
-                    }))}
-                  />
-                }
-              />
-            </InputGroupSelect>
-          </div>
+            </div>
 
-          <div className="inputs-container">
-            <InputGroup gridTemplateColumns="2fr 50px">
+            <div className="inputs-container">
+              <Input
+                error={errors.email}
+                type="email"
+                ref={register}
+                name="email"
+                height="40px"
+                autoComplete="off"
+                placeholder="Correo"
+              />
+
+              <InputGroupSelect>
+                <Controller
+                  name="day"
+                  control={control}
+                  as={
+                    <Select
+                      placeholder="día"
+                      showSearch
+                      virtual={false}
+                      error={errors.day}
+                      marginbottom="0"
+                      height="40px"
+                      borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
+                      optionFilterProp="children"
+                      borderRadius="3px 0px 0px 3px"
+                      optionsdom={days.map((day) => ({
+                        key: day.key,
+                        name: day.value,
+                        code: day.value,
+                      }))}
+                    />
+                  }
+                />
+                <Controller
+                  name="month"
+                  control={control}
+                  as={
+                    <Select
+                      placeholder="mes"
+                      showSearch
+                      virtual={false}
+                      error={errors.month}
+                      marginbottom="0"
+                      height="40px"
+                      borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
+                      borderRadius="0px 0px 0px 0px"
+                      optionFilterProp="children"
+                      optionsdom={months.map((month) => ({
+                        key: month.key,
+                        code: month.key,
+                        name: month.value,
+                      }))}
+                    />
+                  }
+                />
+                <Controller
+                  name="year"
+                  control={control}
+                  as={
+                    <Select
+                      placeholder="año"
+                      showSearch
+                      virtual={false}
+                      borderRadius="0px 3px 3px 0px"
+                      error={errors.year}
+                      marginbottom="0"
+                      height="40px"
+                      optionFilterProp="children"
+                      optionsdom={years.map((year) => ({
+                        key: year.key,
+                        name: year.value,
+                        code: year.value,
+                      }))}
+                    />
+                  }
+                />
+              </InputGroupSelect>
+            </div>
+
+            <div className="inputs-container">
               <Controller
                 name="countryCode"
                 control={control}
@@ -201,53 +201,49 @@ export const Register = (props) => {
                   />
                 }
               />
-              <CountryCode>{dialCode(watch("countryCode"))}</CountryCode>
-            </InputGroup>
 
-            <Input
-              error={errors.phoneNumber}
-              type="number"
-              ref={register}
-              height="40px"
-              name="phoneNumber"
-              autoComplete="off"
-              placeholder="Celular"
-            />
+              <Input
+                error={errors.phoneNumber}
+                type="number"
+                ref={register}
+                height="40px"
+                name="phoneNumber"
+                autoComplete="off"
+                placeholder="Celular"
+              />
+            </div>
+
+            <div className="inputs-container">
+              <Input
+                error={errors.password}
+                type="password"
+                ref={register}
+                height="40px"
+                name="password"
+                autoComplete="off"
+                placeholder="Contraseña"
+              />
+
+              <Input
+                error={errors.passwordConfirmation}
+                type="password"
+                ref={register}
+                height="40px"
+                name="passwordConfirmation"
+                autoComplete="off"
+                placeholder="Contraseña"
+              />
+            </div>
+
+            <ButtonAnt
+              htmlType="submit"
+              className="btn-submit"
+              loading={isLoadingCreateUser}
+              disabled={isLoadingUser || isLoadingCreateUser}
+            >
+              Regístrate
+            </ButtonAnt>
           </div>
-
-          <div className="inputs-container">
-            <Input
-              error={errors.password}
-              type="password"
-              ref={register}
-              height="40px"
-              name="password"
-              autoComplete="off"
-              placeholder="Contraseña"
-            />
-
-            <Input
-              error={errors.passwordConfirmation}
-              type="password"
-              ref={register}
-              height="40px"
-              name="passwordConfirmation"
-              autoComplete="off"
-              placeholder="Contraseña"
-            />
-          </div>
-
-          <ButtonAnt
-            width="auto"
-            htmlType="submit"
-            margin="2rem auto"
-            size="big"
-            variant="contained"
-            loading={isLoadingCreateUser}
-            disabled={isLoadingUser || isLoadingCreateUser}
-          >
-            Registrar
-          </ButtonAnt>
         </form>
       </div>
     </RegisterContainer>
@@ -256,19 +252,31 @@ export const Register = (props) => {
 
 const RegisterContainer = styled.div`
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 100px);
+  width: 100%;
 
   .container {
-    margin: auto;
+    margin: 0;
+    width: 100%;
+    padding: 1rem;
     display: grid;
     background-color: ${(props) => props.theme.basic.gray};
 
-    ${mediaQuery.afterDesktop} {
+    ${mediaQuery.afterTablet} {
+      padding: 0;
+      margin: 0;
       grid-template-columns: 1fr 1.5fr;
     }
 
     .form-container {
-      margin: auto;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+
+      .form-content {
+        width: 100%;
+      }
     }
 
     .title {
@@ -282,7 +290,7 @@ const RegisterContainer = styled.div`
       display: grid;
       margin: auto 10px;
 
-      ${mediaQuery.afterDesktop} {
+      ${mediaQuery.afterTablet} {
         margin: auto 5rem;
       }
     }
@@ -294,7 +302,8 @@ const RegisterContainer = styled.div`
       grid-template-columns: 1fr;
       grid-gap: 10px;
 
-      ${mediaQuery.afterDesktop} {
+      ${mediaQuery.afterTablet} {
+        margin: 1rem 5rem;
         grid-template-columns: 1fr 1fr;
       }
     }
@@ -305,27 +314,16 @@ const RegisterContainer = styled.div`
       font-size: ${sizes.font.medium};
     }
 
-    ${mediaQuery.afterTablet} {
-      .inputs-container {
-        padding: 0;
-        width: 100%;
-        max-width: 400px;
+    .btn-submit {
+      width: 100%;
+      margin: 0 auto;
+      height: 45px;
+
+      ${mediaQuery.afterTablet} {
+        max-width: 380px;
       }
     }
   }
-`;
-
-const CountryCode = styled.div`
-  width: 45px;
-  height: 40px;
-  border: 1px solid ${(props) => props.theme.basic.grayLighten};
-  border-radius: 4px;
-  background: ${(props) => props.theme.basic.whiteLight};
-  color: ${(props) => props.theme.basic.blackDarken};
-  font-size: ${sizes.font.medium};
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const InputGroupSelect = styled.div`

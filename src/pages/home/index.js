@@ -6,17 +6,13 @@ import { HeldEvents } from "./HeldEvents";
 import { Comments } from "./comments/Comments";
 import { ContactForm } from "./ContactForm";
 import { spinLoader } from "../../components/common/loader";
-import { Footer } from "../../components/Footer";
 import { useRouter } from "next/router";
-import { Plans } from "./subscriptions/Plans";
-import { Navbar } from "./Navbar";
+import { Plans } from "../subscriptions/Plans";
 import { Products } from "./Products";
 
 export const Home = (props) => {
   const router = useRouter();
-
   const [authUser] = useGlobal("user");
-
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -60,14 +56,12 @@ export const Home = (props) => {
   return (
     <LandingContainer>
       <div className="landing-container">
-        <Navbar executeScroll={executeScroll} />
         <HeaderLanding executeScroll={executeScroll} />
         <Products />
         <Plans {...props} />
         <HeldEvents />
         <Comments comments={comments} deleteDocument={deleteDocument} />
         <ContactForm refProp={contactFormRef} />
-        <Footer />
       </div>
     </LandingContainer>
   );

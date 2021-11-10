@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Image } from "../../../components/common/Image";
 import { Footer } from "../../../components/Footer";
 import { heldEventsData } from "../../../components/common/DataList";
-import { Navbar } from "../../home/Navbar";
+import { Navbar } from "../../../components/Navbar";
 import { Icon } from "../../../components/common/Icons";
 import { mediaQuery, Desktop, Tablet } from "../../../constants";
 
@@ -21,26 +21,26 @@ export const HeldEventDetails = (props) => {
 
   return (
     <HeldEventDetailsStyled>
-      <Navbar />
-      <div className="main-container">
-        <div className="title-container">
-          <div className="title">
-            <Icon className="back-icon" type="left" onClick={() => router.back()} /> {currentHeldEvent.title}
+      <Navbar>
+        <div className="main-container">
+          <div className="title-container">
+            <div className="title">
+              <Icon className="back-icon" type="left" onClick={() => router.back()} /> {currentHeldEvent.title}
+            </div>
+          </div>
+          <div className="image-container">
+            <Desktop>
+              <Image className="image" width="400px" height="200px" size="cover" src={currentHeldEvent.imageUrl} />
+            </Desktop>
+            <Tablet>
+              <Image className="image" width="274px" height="130px" size="cover" src={currentHeldEvent.imageUrl} />
+            </Tablet>
+          </div>
+          <div className="text-container">
+            <p>{currentHeldEvent.text}</p>
           </div>
         </div>
-        <div className="image-container">
-          <Desktop>
-            <Image className="image" width="400px" height="200px" size="cover" src={currentHeldEvent.imageUrl} />
-          </Desktop>
-          <Tablet>
-            <Image className="image" width="274px" height="130px" size="cover" src={currentHeldEvent.imageUrl} />
-          </Tablet>
-        </div>
-        <div className="text-container">
-          <p>{currentHeldEvent.text}</p>
-        </div>
-      </div>
-      <Footer />
+      </Navbar>
     </HeldEventDetailsStyled>
   );
 };
