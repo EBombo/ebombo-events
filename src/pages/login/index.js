@@ -37,51 +37,54 @@ const Login = (props) => {
     <LoginContainer>
       <div className="container">
         <Desktop>
-          <Image src={`${config.storageUrl}/resources/register-img.png`} height="100%" width="100%" size="contain" />
+          <Image src={`${config.storageUrl}/resources/login-img.png`} height="100%" width="100%" size="cover" />
         </Desktop>
 
         <form onSubmit={handleSubmit(signIn)} autoComplete="on" className="form-container" noValidate>
-          <div className="title">Iniciar sesión</div>
+          <div className="form-content">
+            <div className="title">Iniciar sesión</div>
 
-          <Divider> o </Divider>
+            <div className="providers-content">
+              <Divider> o </Divider>
 
-          <ButtonsProviders google />
+              <ButtonsProviders google />
+            </div>
 
-          <div className="input-container">
-            <Input error={errors.email} type="email" ref={register} name="email" placeholder="Correo" height="45px" />
-          </div>
-          <div className="input-container">
-            <Input
-              error={errors.password}
-              type="password"
-              autoComplete="on"
-              ref={register}
-              name="password"
-              placeholder="Contraseña"
+            <div className="input-container">
+              <Input error={errors.email} type="email" ref={register} name="email" placeholder="Correo" height="45px" />
+            </div>
+            <div className="input-container">
+              <Input
+                error={errors.password}
+                type="password"
+                autoComplete="on"
+                ref={register}
+                name="password"
+                placeholder="Contraseña"
+                height="45px"
+              />
+            </div>
+            <ButtonAnt
+              loading={isLoadingUser}
+              disabled={isLoadingUser || isLoadingCreateUser}
+              className="btn-submit"
+              fontSize="14px"
               height="45px"
-            />
+              htmlType="submit"
+            >
+              Iniciar sesión
+            </ButtonAnt>
+            <Anchor
+              onClick={() => router.push("/recovery")}
+              variant="primary"
+              display="block"
+              margin="1rem auto"
+              fontSize="1rem"
+              fontWeight="bold"
+            >
+              Recuperar contraseña
+            </Anchor>
           </div>
-          <ButtonAnt
-            loading={isLoadingUser}
-            disabled={isLoadingUser || isLoadingCreateUser}
-            width="100%"
-            fontSize="14px"
-            height="45px"
-            borderRadius="0"
-            htmlType="submit"
-          >
-            Iniciar sesión
-          </ButtonAnt>
-          <Anchor
-            onClick={() => router.push("/recovery")}
-            variant="primary"
-            display="block"
-            margin="1rem auto"
-            fontSize="1rem"
-            fontWeight="bold"
-          >
-            Recuperar contraseña
-          </Anchor>
         </form>
       </div>
     </LoginContainer>
@@ -90,32 +93,65 @@ const Login = (props) => {
 
 const LoginContainer = styled.div`
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 100px);
+  width: 100%;
 
   .container {
-    margin: auto;
+    margin: 0;
+    width: 100%;
+    padding: 1rem;
     display: grid;
     background-color: ${(props) => props.theme.basic.gray};
 
-    ${mediaQuery.afterDesktop} {
-      grid-template-columns: 1fr 1.5fr;
+    ${mediaQuery.afterTablet} {
+      padding: 0;
+      margin: 0;
+      grid-template-columns: 1fr 1.25fr;
     }
-  }
 
-  .form-container {
-    margin: auto;
-    min-width: 300px;
-  }
+    .form-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
 
-  .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    color: ${(props) => props.theme.basic.secondary};
-  }
+      .form-content {
+        width: 100%;
+      }
+    }
 
-  .input-container {
-    margin: 0.5rem auto;
+    .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      color: ${(props) => props.theme.basic.secondary};
+    }
+
+    .input-container {
+      margin: 0.5rem auto;
+
+      ${mediaQuery.afterTablet} {
+        margin: 1rem 5rem;
+      }
+    }
+
+    .providers-content {
+      display: grid;
+      margin: auto 10px;
+
+      ${mediaQuery.afterTablet} {
+        margin: auto 5rem;
+      }
+    }
+
+    .btn-submit {
+      width: 100%;
+      margin: 0 auto;
+
+      ${mediaQuery.afterTablet} {
+        max-width: 380px;
+      }
+    }
   }
 `;
 
