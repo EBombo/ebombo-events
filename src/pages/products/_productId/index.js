@@ -36,7 +36,7 @@ const LandingContainer = styled.div`
     z-index: 1;
   }
   .back-container {
-    margin: 0 auto 0 1rem;
+    margin: 0 auto 1rem 1rem;
     padding-top: 32px;
     span {
       border-radius: 50%;

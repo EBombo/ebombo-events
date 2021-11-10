@@ -58,9 +58,9 @@ const ProductInfoStyled = styled.section`
       font-family: Lato;
       font-style: normal;
       font-weight: normal;
-      font-size: 14px;
-      line-height: 15px;
-      text-align: center;
+      font-size: 18px;
+      line-height: 25px;
+      text-align: left;
       letter-spacing: 0.03em;
 
       ul {
@@ -68,9 +68,6 @@ const ProductInfoStyled = styled.section`
         list-style-position: inside;
       }
 
-      ${mediaQuery.afterTablet} {
-        text-align: left;
-      }
     }
   }
 `;
