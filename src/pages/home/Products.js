@@ -42,7 +42,7 @@ export const Products = (props) => {
               underlined
               variant="secondary"
               margin="1rem 0"
-              onClick={() => router.push("/products/eventos-presenciales")}
+              onClick={() => router.push("/products/eventos-virtuales")}
             >
               Explorar <ArrowRightOutlined />
             </Anchor>
@@ -102,7 +102,7 @@ export const Products = (props) => {
               underlined
               variant="secondary"
               margin="1rem 0"
-              onClick={() => router.push("/products/eventos-presenciales")}
+              onClick={() => router.push("/products/juegos-de-integracion")}
             >
               Explorar <ArrowRightOutlined />
             </Anchor>
