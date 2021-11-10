@@ -117,7 +117,7 @@ export const GameView = (props) => {
 
   const createTokenToPlay = async () => {
     try {
-      const redirectUrl = `${game.adminGame.domain}/games/${game.id}?userId=${authUser?.id}`;
+      const redirectUrl = `${game.adminGame.domain}/lobbies/new?gameId=${game.id}&userId=${authUser?.id}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {

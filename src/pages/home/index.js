@@ -51,6 +51,7 @@ export const Home = (props) => {
       ? eventsRef.current.scrollIntoView()
       : contactRef.current.scrollIntoView();
 
+  // TODO: If the data is static consider remove spin [it can be better to SEO].
   if (loading) return spinLoader();
 
   return (
