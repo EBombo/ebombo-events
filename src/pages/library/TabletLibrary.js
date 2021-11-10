@@ -12,15 +12,20 @@ import { ModalNewGame } from "./ModalNewGame";
 import { ListGameView } from "./ListGameView";
 import { spinLoaderMin } from "../../components/common/loader";
 import { useSendError } from "../../hooks";
+import { ModalMove } from "../../components/common/ModalMove";
+import { updateGame } from "./games/_gameId"
 
 export const TabletLibrary = (props) => {
   const router = useRouter();
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
+  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
   const [folder, setFolder] = useState(null);
   const [loadingGames] = useGlobal("loadingGames");
   const [games] = useGlobal("userGames");
   const { sendError } = useSendError();
+  const [selectedGameToMove, setSelectedGameToMove] = useState(null);
+  const [authUser] = useGlobal("user");
 
   const getGames = () => {
     if (router.asPath.includes("/favorites"))
@@ -48,6 +53,18 @@ export const TabletLibrary = (props) => {
     });
   };
 
+  const moveGameToFolder = async (folder) => {
+    if (!selectedGameToMove) return;
+    
+    try {
+      await updateGame(selectedGameToMove.adminGame, { id: selectedGameToMove.id, parentId: folder?.id }, authUser);
+      
+      props.fetchGames();
+    } catch (error) {
+      await sendError(error);
+    }
+  };
+
   return (
     <TabletLibraryContainer>
       {isVisibleModalFolder && (
@@ -65,6 +82,12 @@ export const TabletLibrary = (props) => {
           setIsVisibleModalGame={setIsVisibleModalGame}
         />
       )}
+      <ModalMove
+        moveToFolder={moveGameToFolder}
+        setIsVisibleModalMove={setIsVisibleModalMove}
+        isVisibleModalMove={isVisibleModalMove}
+        {...props}
+      />
       {router.asPath === "/library" && (
         <>
           <div className="subtitle">Librería</div>
@@ -260,6 +283,7 @@ export const TabletLibrary = (props) => {
                   game={game}
                   key={game.id}
                   listType={"icons"}
+                  initModalMove={(toggle) => { setIsVisibleModalMove(toggle); setSelectedGameToMove(game) }}
                   {...props}
                 />
               ))
