@@ -6,10 +6,11 @@ import { Desktop, Tablet } from "../../constants";
 import { Anchor, ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { useAuth } from "../../hooks/useAuth";
-import { Dropdown, Menu, message } from "antd";
+import { Dropdown, Menu } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import { infoGamesData } from "../../components/common/DataList";
 
-const menus = [{ title: "Bingo" }, { title: "Charadas" }, { title: "Canta y Gana" }, { title: "Trivia" }];
+const menus = infoGamesData.map(infoGame => ({ menuLabel: infoGame.menuLabel, id: infoGame.id }));
 
 export const Navbar = (props) => {
   const router = useRouter();
@@ -19,14 +20,14 @@ export const Navbar = (props) => {
   const [isVisibleNavGames, setIsVisibleNavGames] = useState(false);
 
   const onClick = ({ key }) => {
-    message.info(`Click on item ${key}`);
+    router.push(`/games/${menus[key].id}`);
   };
 
   const menu = useMemo(
     () => (
       <Menu onClick={onClick}>
         {menus.map((menu, index) => (
-          <Menu.Item key={index}>Bingo</Menu.Item>
+          <Menu.Item key={index}>{menu.menuLabel}</Menu.Item>
         ))}
       </Menu>
     ),
