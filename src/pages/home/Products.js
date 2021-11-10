@@ -35,7 +35,7 @@ export const Products = (props) => {
             Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.
           </div>
           <div className="link">
-            <Anchor underlined variant="secondary" margin="1rem 0">
+            <Anchor underlined variant="secondary" margin="1rem 0" url="/products/eventos-virtuales" target="_self">
               Explorar <ArrowRightOutlined />
             </Anchor>
           </div>
@@ -60,7 +60,7 @@ export const Products = (props) => {
             Realizamos eventos presenciales de todo tipo. Eventos de integración, Hinkanas, integraciones, celebraciones, eventos de todo tipo.
           </div>
           <div className="link">
-            <Anchor underlined variant="secondary">
+            <Anchor underlined variant="secondary" url="/products/eventos-presenciales" target="_self">
               Explorar <ArrowRightOutlined />
             </Anchor>
           </div>
@@ -85,7 +85,7 @@ export const Products = (props) => {
             Juegos de integración para tus trabajadores para mantenerlos motivados y con buen clima laboral.
           </div>
           <div className="link">
-            <Anchor underlined variant="secondary" margin="1rem 0">
+            <Anchor underlined variant="secondary" margin="1rem 0" url="/products/eventos-presenciales" target="_self">
               Explorar <ArrowRightOutlined />
             </Anchor>
           </div>
