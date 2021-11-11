@@ -71,6 +71,7 @@ export const Navbar = (props) => {
               </Anchor>
             </Desktop>
           </div>
+          {/* TODO remove for dev purposes
           <Desktop>
             {authUser ? (
               <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
@@ -94,6 +95,7 @@ export const Navbar = (props) => {
               </div>
             )}
           </Desktop>
+          */}
           <Tablet>
             <ul className={`nav-menu ${active ? "active" : ""}`}>
               <li className="nav-item" onClick={() => setIsVisibleNavGames(!isVisibleNavGames)}>
@@ -111,6 +113,7 @@ export const Navbar = (props) => {
               {/*<li className="nav-item">Eventos pasados</li>*/}
               <li className="nav-item">Sobre nosotros</li>
               <li className="nav-item">Contacto</li>
+              {/* TODO remove for dev purposes
               {!authUser ? (
                 <>
                   <ButtonAnt
@@ -131,6 +134,7 @@ export const Navbar = (props) => {
                   Cerrar Sesión
                 </li>
               )}
+              */}
             </ul>
             <div className={`hamburger ${active ? "active" : ""}`} onClick={() => setActive(!active)}>
               <span className="bar"></span>
