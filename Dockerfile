@@ -14,7 +14,6 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY . /app
 
 # install dependencies
-#--only=production
 RUN npm install --force
 
 # set port
@@ -26,7 +25,6 @@ EXPOSE $SERVER_PORT
 ENV NODE_ENV=production
 
 # create build
-#&& rm -rf .next/cache
 RUN npm run build
 
 # start app

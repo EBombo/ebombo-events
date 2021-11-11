@@ -1,240 +1,144 @@
-import React, { useGlobal, useState } from "reactn";
-import { lazy, Suspense } from "react";
+import React from "reactn";
 import styled from "styled-components";
-import get from "lodash/get";
-import defaultTo from "lodash/defaultTo";
-import { mediaQuery } from "../../constants";
-import { firestore } from "../../firebase";
-import { Divider } from "antd";
-import { spinLoader } from "../../components/common/loader";
-import { ModalContainer } from "../../components/common/ModalContainer";
-import { Icon } from "../../components/common/Icons";
-import { ButtonAnt } from "../../components/form";
-
-const EditHeldEvent = lazy(() => import("./EditHeldEvent"));
+import { useRouter } from "next/router";
+import { Desktop, mediaQuery, Tablet } from "../../constants";
+import { Image } from "../../components/common/Image";
+import { heldEventsData } from "../../components/common/DataList";
+import { Carousel } from "../../components/common/Carousel";
+import { config } from "../../firebase";
 
 export const HeldEvents = (props) => {
-  const [authUser] = useGlobal("user");
-  const [currentEvent, setCurrentEvent] = useState(null);
-  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const router = useRouter();
+
+  const carouselContent = (event, index) => (
+    <EventContent key={index} onClick={() => router.push(`/held-events/${event.id}`)}>
+      <Image src={event.imageUrl} height="162px" width="100%" borderRadius="8px 8px 0 0" margin="0" size="cover" />
+
+      <div className="bottom-section">
+        <div className="title">{event.title}</div>
+        <div className="date">{event.date}</div>
+      </div>
+    </EventContent>
+  );
 
   return (
     <EventsContainer ref={props.refProp}>
-      {isVisibleModal && get(authUser, "isAdmin") && (
-        <ModalContainer
-          footer={null}
-          visible={isVisibleModal}
-          onCancel={() => setIsVisibleModal(!isVisibleModal)}
-        >
-          <Suspense fallback={spinLoader()}>
-            <EditHeldEvent
-              setIsVisibleModal={setIsVisibleModal}
-              isVisibleModal={isVisibleModal}
-              currentEvent={currentEvent}
-              {...props}
-            />
-          </Suspense>
-        </ModalContainer>
-      )}
-      <Divider>
-        <div className="title">Algunos eventos realizados</div>
-      </Divider>
-      <div className="held-events">
-        <div className="events-container">
-          {defaultTo(get(props, "events.heldEvents"), []).map((event) => (
-            <EventContent
-              backgroundImage={event.backgroundImageUrl}
-              key={event.id}
-            >
-              <div className="the-card">
-                <div className="front">
-                  <div className="cover" />
-                </div>
-                <div className="back">
-                  <div className="description">{event.description}</div>
-                </div>
-              </div>
-              {get(authUser, "isAdmin") && (
-                <div className="container-edit">
-                  <Icon
-                    className="icon"
-                    type="edit"
-                    onClick={() => {
-                      setCurrentEvent(event);
-                      setIsVisibleModal(true);
-                    }}
-                  />
-                  <Icon
-                    className="icon-delete"
-                    type="delete"
-                    onClick={() => {
-                      props.deleteElement(event, "heldEvents");
-                    }}
-                  />
-                </div>
-              )}
-            </EventContent>
-          ))}
-          {get(authUser, "isAdmin") && (
-            <ButtonAnt
-              variant="outlined"
-              color="warning"
-              onClick={() => {
-                setCurrentEvent({
-                  id: firestore.collection("events").doc().id,
-                });
-                setIsVisibleModal(true);
-              }}
-            >
-              Añadir
-            </ButtonAnt>
-          )}
-        </div>
+      <div className="title">Échale un vistazo a los eventos que hemos organizado</div>
+
+      <div className="video-container">
+        <video src={`${config.storageUrl}/resources/event-video.mp4`} />
       </div>
+
+      <Tablet>
+        <Carousel components={heldEventsData.slice(0, 3).map((event, index) => carouselContent(event, index))} />
+      </Tablet>
+
+      <Desktop>
+        <div className="held-events">
+          {heldEventsData.slice(0, 3).map((event, index) => carouselContent(event, index))}
+        </div>
+      </Desktop>
     </EventsContainer>
   );
 };
 
 const EventsContainer = styled.section`
   width: 100%;
-  margin: 0 auto;
-  background: ${(props) => props.theme.basic.white};
-  position: relative;
-  padding: 1rem 0;
+  padding: 1rem;
+  background: ${(props) => props.theme.basic.blackDarken};
+
+  .video-container {
+    width: 100%;
+    height: 295px;
+    margin: 2rem 0;
+
+    video {
+      object-fit: contain;
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
 
   .title {
+    font-family: Lato;
     font-style: normal;
     font-weight: bold;
-    font-size: 20px;
-    line-height: 25px;
+    font-size: 22px;
+    line-height: 26px;
     text-align: center;
-    color: ${(props) => props.theme.basic.black};
+    letter-spacing: 0.03em;
+    margin: 1rem 0;
+    color: ${(props) => props.theme.basic.whiteLight};
   }
 
   .held-events {
-    max-width: 100%;
+    display: flex;
+    align-items: center;
     overflow: auto;
-    text-align: center;
-
-    ::-webkit-scrollbar {
-      display: none;
-    }
-
-    .events-container {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin: 1rem 0;
-    }
+    gap: 1rem;
   }
 
   ${mediaQuery.afterTablet} {
-    padding: 2rem 0;
+    padding: 2rem;
+
     .title {
-      font-size: 30px;
-      line-height: 37px;
+      font-size: 34px;
+      line-height: 41px;
+      margin: 2rem 0;
     }
 
     .held-events {
-      ::-webkit-scrollbar {
-        height: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+
+      .event {
+        width: 33%;
       }
+    }
+
+    .video-container {
+      height: 395px;
     }
   }
 `;
 
 const EventContent = styled.div`
-  position: relative;
-  width: 230px;
-  height: 340px;
-  margin: 0;
+  width: 100%;
+  height: 295px;
+  max-width: 330px;
+  background: ${(props) => props.theme.basic.whiteLight};
+  border-radius: 8px;
+  margin: 0 auto;
+  cursor: pointer;
 
-  ${mediaQuery.afterTablet} {
-    width: 260px;
-    height: 380px;
-  }
+  .bottom-section {
+    padding: 0.5rem;
+    position: relative;
+    height: 133px;
+    border-radius: 0 0 8px 8px;
 
-  .the-card {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: all 0.5s ease;
+    .title {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 24px;
+      line-height: 29px;
+      letter-spacing: 0.03em;
+      color: ${(props) => props.theme.basic.blackDarken};
+    }
 
-    .cover {
+    .date {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      background-repeat: no-repeat;
-      background-position: center;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 3;
-    }
-
-    .front {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      background-image: url(${(props) => props.backgroundImage});
-      color: ${(props) => props.theme.basic.white};
-      box-shadow: 0px 0px 13px 3px rgba(255, 255, 255, 0.25);
-      z-index: 2;
-    }
-
-    .back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      background: #1d2447;
-      color: ${(props) => props.theme.basic.white};
-      transform: rotateY(180deg);
-      padding: 0.5rem;
-
-      .description {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        font-weight: normal;
-        font-size: 15px;
-        line-height: 19px;
-      }
-    }
-  }
-
-  .the-card:hover {
-    transform: rotateY(180deg);
-  }
-
-  .container-edit {
-    position: absolute;
-    width: auto;
-    height: 25px;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-    display: flex;
-    align-items: center;
-
-    svg {
-      width: 20px;
-      height: 20px;
-      color: ${(props) => props.theme.basic.action};
-      margin: 0 1rem;
-    }
-
-    .icon-delete {
-      svg {
-        color: ${(props) => props.theme.basic.danger};
-      }
+      left: 0.5rem;
+      bottom: 10px;
+      font-family: Lato;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 22px;
+      letter-spacing: 0.03em;
+      color: ${(props) => props.theme.basic.blackDarken};
     }
   }
 `;

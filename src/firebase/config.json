@@ -9,6 +9,16 @@
       "appId": "1:83072686764:web:2c5680dc46bfacb5d5dd09",
       "measurementId": "G-BWH1540T4Q"
     },
+    "firebaseBingo": {
+      "apiKey": "AIzaSyAimWwi9guF5NMRTLps8D062lPvLtJcp0c",
+      "authDomain": "bingo-322514.firebaseapp.com",
+      "projectId": "bingo-322514",
+      "storageBucket": "bingo-322514.appspot.com",
+      "messagingSenderId": "1028641251477",
+      "appId": "1:1028641251477:web:d37e7c7640a645e3b13b9c",
+      "measurementId": "G-X09GR2PC73"
+    },
+    "bomboGamesUrl": "https://ebombo.io",
     "storageUrl": "https://storage.googleapis.com/ebombo-events.appspot.com",
     "serverUrlLocal": "http://localhost:8080",
     "landingsStorageBucket": "ebombo-events-landings",
@@ -27,6 +37,16 @@
       "appId": "1:400641140585:web:4edded714bb211fd8c7ff8",
       "measurementId": "G-NWBPEND5Q0"
     },
+    "firebaseBingo": {
+      "apiKey": "AIzaSyDOsWCQ680tRldHqnkDnGSuxiPKH4aFUo8",
+      "authDomain": "bingo-dev-322514.firebaseapp.com",
+      "projectId": "bingo-dev-322514",
+      "storageBucket": "bingo-dev-322514.appspot.com",
+      "messagingSenderId": "513515398141",
+      "appId": "1:513515398141:web:3777fcb7c543a72bea2f94",
+      "measurementId": "G-E79L7Y61V4"
+    },
+    "bomboGamesUrl": "https://red.ebombo.io",
     "storageUrl": "https://storage.googleapis.com/ebombo-events-dev.appspot.com",
     "landingsStorageBucket": "ebombo-events-landings-dev",
     "serverUrlLocal": "http://localhost:8080",

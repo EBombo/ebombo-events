@@ -1,32 +1,26 @@
 import React, { useEffect, useGlobal, useRef, useState } from "reactn";
 import styled from "styled-components";
 import { HeaderLanding } from "./HeaderLanding";
-import { Services } from "./Services";
 import { firestore } from "../../firebase";
 import { HeldEvents } from "./HeldEvents";
-import { Comments } from "./Comments";
-import { Contact } from "./Contact";
-import { Companies } from "./Companies";
-import get from "lodash/get";
+import { Comments } from "./comments/Comments";
+import { ContactForm } from "./ContactForm";
 import { spinLoader } from "../../components/common/loader";
-import { SpecialGifts } from "./SpecialGifts";
-import { SpecialGuests } from "./SpecialGuests";
-import { Games } from "./Games";
-import { Footer } from "../../components/Footer";
-import { SpecialWorkshops } from "./SpecialWorkshops";
-import { SpecialShows } from "./SpecialShows";
 import { useRouter } from "next/router";
+import { Plans } from "../subscriptions/Plans";
+import { Products } from "./Products";
 
 export const Home = (props) => {
   const router = useRouter();
   const [authUser] = useGlobal("user");
-  const [events, setEvents] = useState(null);
+  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const servicesRef = useRef(null);
   const gamesRef = useRef(null);
   const eventsRef = useRef(null);
   const contactRef = useRef(null);
+  const contactFormRef = useRef(null);
 
   useEffect(() => {
     if (!authUser || authUser.isAdmin) return;
@@ -35,26 +29,17 @@ export const Home = (props) => {
   }, [authUser]);
 
   useEffect(() => {
-    const fetchLandingEvents = () =>
-      firestore
-        .collection("landings")
-        .doc("events")
-        .onSnapshot((snapshot) => {
-          setEvents(snapshot.data());
-          setLoading(false);
-        });
+    const fetchComments = () =>
+      firestore.collection("settings/landing/comments").onSnapshot((snapshot) => {
+        setComments(snapshot.docs.map((doc) => doc.data()));
+        setLoading(false);
+      });
 
-    fetchLandingEvents();
+    fetchComments();
   }, []);
 
-  const deleteElement = async (element, field) => {
-    const newElements = get(events, `${field}`, []).filter(
-      (ele) => ele.id !== element.id
-    );
-
-    await firestore.doc(`landings/events`).update({
-      [field]: newElements,
-    });
+  const deleteDocument = async (document, collection) => {
+    await firestore.collection(`settings/landing/${collection}`).doc(document.id).delete();
   };
 
   const executeScroll = (section) =>
@@ -66,35 +51,19 @@ export const Home = (props) => {
       ? eventsRef.current.scrollIntoView()
       : contactRef.current.scrollIntoView();
 
+  // TODO: If the data is static consider remove spin [it can be better to SEO].
+  // TODO: If the spin is necessary then consider optimize load with localStorage.
   if (loading) return spinLoader();
 
   return (
     <LandingContainer>
       <div className="landing-container">
         <HeaderLanding executeScroll={executeScroll} />
-        <Companies events={events} deleteElement={deleteElement} />
-        <Services refProp={servicesRef} />
-        <Games
-          refProp={gamesRef}
-          events={events}
-          deleteElement={deleteElement}
-        />
-        <SpecialGuests deleteElement={deleteElement} events={events} />
-        <SpecialGifts
-          deleteElement={deleteElement}
-          events={events}
-          executeScroll={executeScroll}
-        />
-        <SpecialShows deleteElement={deleteElement} events={events} />
-        <SpecialWorkshops deleteElement={deleteElement} events={events} />
-        <HeldEvents
-          refProp={eventsRef}
-          events={events}
-          deleteElement={deleteElement}
-        />
-        <Comments events={events} deleteElement={deleteElement} />
-        <Contact refProp={contactRef} />
-        <Footer />
+        <Products />
+        <Plans {...props} />
+        <HeldEvents />
+        <Comments comments={comments} deleteDocument={deleteDocument} />
+        <ContactForm refProp={contactFormRef} />
       </div>
     </LandingContainer>
   );

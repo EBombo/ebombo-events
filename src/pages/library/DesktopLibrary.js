@@ -12,7 +12,7 @@ export const DesktopLibrary = (props) => {
 
   return (
     <DesktopLibraryContainer>
-      <div className="left-container">
+      <div className="left-menu">
         <div className="subtitle">Libreria</div>
         <div
           className={`item games ${
@@ -62,7 +62,7 @@ const DesktopLibraryContainer = styled.div`
   display: grid;
   grid-template-columns: 250px auto;
 
-  .left-container {
+  .left-menu {
     background: ${(props) => props.theme.basic.whiteLight};
     color: ${(props) => props.theme.basic.grayLight};
     box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.25);

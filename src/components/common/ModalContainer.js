@@ -4,7 +4,9 @@ import { Modal } from "antd";
 import { mediaQuery } from "../../constants";
 
 export const ModalContainer = (props) => (
-  <ModalContainerCss {...props}>{props.children}</ModalContainerCss>
+  <ModalContainerCss {...props} maskStyle={{ transition: "none" }}>
+    {props.children}
+  </ModalContainerCss>
 );
 
 const ModalContainerCss = styled(Modal)`
@@ -18,6 +20,8 @@ const ModalContainerCss = styled(Modal)`
   .ant-modal-content {
     margin-bottom: 50px;
     ${(props) => (props.height ? `height:${props.height}!important;` : "")}
+    border-radius: ${(props) =>
+      props.borderRadius ? props.borderRadius : "6px"};
   }
 
   .ant-modal-close {

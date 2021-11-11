@@ -1,11 +1,13 @@
 import React, { useGlobal, useState } from "reactn";
-import { Card } from "antd";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { Anchor, ButtonAnt, Input } from "../../components/form";
+import { ButtonAnt, Input } from "../../components/form";
 import { useAuth } from "../../hooks/useAuth";
 import { useSendError } from "../../hooks";
+import { Image } from "../../components/common/Image";
+import { config } from "../../firebase";
+import { Desktop, mediaQuery } from "../../constants";
 
 const ForgotPassword = (props) => {
   const { sendError } = useSendError();
@@ -27,7 +29,6 @@ const ForgotPassword = (props) => {
   const recoverPassword = async (data) => {
     try {
       setLoadingSendEmailStatus(true);
-
       const response = await recoveryPassword(data.email.toLowerCase());
 
       if (!response.success) {
@@ -47,133 +48,88 @@ const ForgotPassword = (props) => {
 
   return (
     <ContainerForgotPassword>
-      <Card className="content-forgot-password">
-        {emailSent ? (
-          <React.Fragment>
-            <h1 className="title">!Excellent!</h1>
-            <p className="forgot-password-note">
-              Le hemos enviado un correo electrónico con instrucciones para
-              restablecer su contraseña.
-            </p>
-            <Anchor
-              variant="primary"
-              onClick={() => cancelButton()}
-              disabled={errorMessage}
-            >
-              Volver
-            </Anchor>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <h1 className="title">Recuperar contraseña</h1>
-            <p className="forgot-password-note">
-              Por favor, introduce la dirección de correo electrónico asociada a
-              tu cuenta. Te enviaremos un correo electrónico que te permitirá
-              crear una nueva contraseña.
-            </p>
-            <form
-              onSubmit={handleSubmit(recoverPassword)}
-              className="login-form form-forgot-password"
-              noValidate
-            >
-              {errorMessage ? <h3>{errorMessage}</h3> : <br />}
-              <Input
-                required
-                variant="primary"
-                type="email"
-                name="email"
-                ref={register}
-                autoComplete="off"
-                error={errors.email}
-                className="input-forgot-password-desktop"
-                placeholder="Email"
-              />
-              <div className="btn-footer-password">
-                <ButtonAnt
-                  block={true}
-                  disabled={loadingSendEmailStatus}
-                  height="35px"
-                  width="170px"
-                  variant="contained"
-                  color="default"
-                  onClick={() => cancelButton()}
-                >
-                  CANCELAR
-                </ButtonAnt>
+      <div className="container">
+        <Desktop>
+          <Image src={`${config.storageUrl}/resources/login-img.png`} height="100%" width="100%" size="cover" />
+        </Desktop>
+
+        <div className="content">
+          {emailSent ? (
+            <React.Fragment>
+              <h1 className="title">Muy bien!</h1>
+              <p className="forgot-password-note">
+                Le hemos enviado un correo electrónico con instrucciones para restablecer su contraseña.
+              </p>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <h1 className="title">Recuperar contraseña</h1>
+              <p className="forgot-password-note">
+                Por favor, introduce la dirección de correo electrónico asociada a tu cuenta. Te enviaremos un correo
+                electrónico que te permitirá crear una nueva contraseña.
+              </p>
+              <form onSubmit={handleSubmit(recoverPassword)} noValidate>
+                {errorMessage ? <h3>{errorMessage}</h3> : <br />}
+                <Input
+                  required
+                  variant="primary"
+                  type="email"
+                  name="email"
+                  ref={register}
+                  autoComplete="off"
+                  error={errors.email}
+                  className="input-forgot-password-desktop"
+                  placeholder="Email"
+                />
                 <ButtonAnt
                   block={true}
                   height="35px"
                   width="170px"
+                  margin="1rem auto"
                   htmlType="submit"
                   loading={loadingSendEmailStatus}
                   disabled={loadingSendEmailStatus}
                 >
-                  ENVIAR
+                  Recuperar contraseña
                 </ButtonAnt>
-              </div>
-            </form>
-          </React.Fragment>
-        )}
-      </Card>
+              </form>
+            </React.Fragment>
+          )}
+        </div>
+      </div>
     </ContainerForgotPassword>
   );
 };
 
 const ContainerForgotPassword = styled.div`
-  color: ${(props) => props.theme.basic.primary};
+  display: flex;
+  height: calc(100vh - 100px);
+  width: 100%;
 
-  .content-forgot-password {
-    margin: auto;
-    background: none;
-    border: none;
-    padding: 0;
+  .container {
+    margin: 0;
+    width: 100%;
+    display: grid;
+    background-color: ${(props) => props.theme.basic.gray};
 
-    .ant-card-body {
-      padding: 0 20px;
-
-      h1 {
-      }
+    ${mediaQuery.afterTablet} {
+      grid-template-columns: 1fr 1.5fr;
     }
 
-    .btn-go-back {
-      margin-top: 15px;
-    }
+    .content {
+      margin: auto;
+      min-width: 300px;
+      max-width: 400px;
 
-    .title {
-      color: ${(props) => props.theme.basic.primary};
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .forgot-password-note {
-      color: ${(props) => props.theme.basic.primary};
-      font-size: 15px;
-      text-align: justify;
-      margin-bottom: 0;
-      line-height: 17px;
-    }
-
-    .form-forgot-password {
-      h3 {
-        color: ${(props) => props.theme.basic.danger};
+      .title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        color: ${(props) => props.theme.basic.secondary};
       }
 
-      .ant-form-item {
-        margin-bottom: 10px;
-      }
-
-      .btn-footer-password {
-        display: flex;
-        margin-top: 10px;
-        justify-content: space-between;
-      }
-
-      .input-forgot-password-desktop {
-        span {
-          i {
-            color: ${(props) => props.theme.basic.white} !important;
-          }
-        }
+      .forgot-password-note {
+        text-align: center;
       }
     }
   }

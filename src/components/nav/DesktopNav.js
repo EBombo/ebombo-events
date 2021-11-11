@@ -43,9 +43,7 @@ export const DesktopNav = (props) => {
           <div className="nav-items">
             <ul>
               <li
-                className={`${
-                  router.asPath.includes("library") ? "active" : ""
-                }`}
+                className={`${router.asPath.includes("library") ? "active" : ""}`}
                 onClick={() => router.push("/library/games")}
               >
                 <Image
@@ -58,9 +56,7 @@ export const DesktopNav = (props) => {
                 Librería
               </li>
               <li
-                className={`${
-                  router.asPath.includes("reports") ? "active" : ""
-                }`}
+                className={`${router.asPath.includes("reports") ? "active" : ""}`}
                 onClick={() => router.push("/reports")}
               >
                 <Image
@@ -77,20 +73,13 @@ export const DesktopNav = (props) => {
         )}
       </div>
       {!authUser && (
-        <Anchor
-          onClick={() => setIsVisibleLoginModal(true)}
-          variant="primary"
-          fontSize={"1rem"}
-        >
+        <Anchor onClick={() => router.push("/login")} variant="primary" fontSize={"1rem"}>
           Iniciar sesión
         </Anchor>
       )}
       {authUser && (
         <div className="menu-profile">
-          <button
-            className="premium-btn"
-            onClick={() => console.log("premium")}
-          >
+          <button className="premium-btn" onClick={() => console.log("premium")}>
             <Image
               src={`${config.storageUrl}/resources/premium.svg`}
               height={"27px"}
@@ -99,17 +88,10 @@ export const DesktopNav = (props) => {
             />
             Premium
           </button>
-          <ButtonAnt
-            variant="contained"
-            width="140px"
-            onClick={() => setIsVisibleModalGame(true)}
-          >
+          <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
             Crear
           </ButtonAnt>
-          <div
-            className="hamburger"
-            onClick={() => setOpenRightDrawer(!openRightDrawer)}
-          >
+          <div className="hamburger" onClick={() => setOpenRightDrawer(!openRightDrawer)}>
             <Image
               src={`${config.storageUrl}/resources/user-profile.svg`}
               height="31px"

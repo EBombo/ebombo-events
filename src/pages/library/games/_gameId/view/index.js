@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import isEmpty from "lodash/isEmpty";
 import get from "lodash/get";
@@ -6,44 +6,74 @@ import { useRouter } from "next/router";
 import { Desktop, mediaQuery, Tablet } from "../../../../../constants";
 import { Image } from "../../../../../components/common/Image";
 import { CloseCircleOutlined } from "@ant-design/icons";
-import { auth, config, firestore } from "../../../../../firebase";
+import { config, firestoreBingo } from "../../../../../firebase";
 import { ButtonAnt } from "../../../../../components/form";
 import { darkTheme } from "../../../../../theme";
 import { Tooltip } from "antd";
 import { bingoCard } from "../../../../../components/common/DataList";
 import { CardContainer } from "../Bingo";
 import { spinLoader } from "../../../../../components/common/loader";
+import { ModalMove } from "../../../../../components/common/ModalMove";
+import { updateGame } from "../index";
+import { useSendError } from "../../../../../hooks";
 
+// TODO: This component is long consider a refactoring.
 export const GameView = (props) => {
-  const [authUser] = useGlobal("user");
-  const [resources] = useGlobal("resources");
-  const [games, setGames] = useGlobal("games");
-  const [resource, setResource] = useState(null);
-  const [game, setGame] = useState(null);
-
   const router = useRouter();
+  const { gameId, adminGameId, folderId } = router.query;
 
-  const { gameId, resourceId, folderId } = router.query;
+  const { sendError } = useSendError();
+
+  const [authUser] = useGlobal("user");
+  const [adminGames] = useGlobal("adminGames");
+  const [games, setGames] = useGlobal("userGames");
+
+  const [resource, setResource] = useState(null);
+  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
+
+  const game = useMemo(() => {
+    if (!gameId) return {};
+    if (!games?.length) return {};
+
+    const currentGame = games.find((game) => game.id === gameId);
+
+    return currentGame ?? {};
+  }, [games, gameId]);
 
   useEffect(() => {
-    const _game = games.find((game) => game.id === gameId);
+    if (isEmpty(adminGames)) return;
 
-    setGame(_game);
-  }, [games]);
-
-  useEffect(() => {
-    if (isEmpty(resources)) return;
-
-    const currentResource = resources.find(
-      (resource_) => resource_.id === resourceId
-    );
+    const currentResource = adminGames.find((resource_) => resource_.id === adminGameId);
 
     setResource(currentResource);
-  }, [resources]);
+  }, [adminGames]);
+
+  const redirectToGameViewWithFolder = (folderId) => {
+    folderId
+      ? router.push(`/library/games/${gameId}/view?adminGameId=${adminGameId}&folderId=${folderId}`)
+      : router.push(`/library/games/${gameId}/view?adminGameId=${adminGameId}`);
+  };
+
+  const moveGameToFolder = async (folder) => {
+    if (!game) return;
+
+    try {
+      await updateGame(game.adminGame, { id: game.id, parentId: folder?.id }, authUser);
+
+      redirectToGameViewWithFolder(folder?.id);
+    } catch (error) {
+      await sendError(error);
+    }
+  };
 
   const deleteGame = async () => {
+    let newGames = games;
+    const gameIndex = newGames.findIndex((game) => game.id === props.game.id);
+    newGames.splice(gameIndex, 1);
+    setGames(newGames);
+
     try {
-      await firestore.doc(`games/${game.id}`).update({
+      await firestoreBingo.doc(`games/${game.id}`).update({
         deleted: true,
       });
     } catch (error) {
@@ -55,10 +85,17 @@ export const GameView = (props) => {
   const showBingoCard = () => (
     <CardContainer
       backgroundColor={get(game, "backgroundColor", "")}
+      backgroundImage={get(game, "backgroundImg", "")}
       titleColor={get(game, "titleColor", "")}
       blocksColor={get(game, "blocksColor", "")}
       numberColor={get(game, "numberColor", "")}
     >
+      <ModalMove
+        moveToFolder={moveGameToFolder}
+        setIsVisibleModalMove={setIsVisibleModalMove}
+        isVisibleModalMove={isVisibleModalMove}
+        {...props}
+      />
       <div className="card-title">{get(game, "title", "")}</div>
       <table>
         <thead className="thead">
@@ -85,9 +122,8 @@ export const GameView = (props) => {
 
   const createTokenToPlay = async () => {
     try {
-      const tokenId = await auth.currentUser.getIdToken();
-
-      const redirectUrl = `${game.adminGame.domain}/games/${game.id}?tokenId=${tokenId}`;
+      const gameName = game.adminGame.name.toLowerCase();
+      const redirectUrl = `${config.bomboGamesUrl}/${gameName}/lobbies/new?gameId=${game.id}&userId=${authUser?.id}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {
@@ -99,22 +135,14 @@ export const GameView = (props) => {
     let newGames = games;
     const gameIndex = newGames.findIndex((game) => game.id === game.id);
 
-    newGames[gameIndex].isFavorite = !get(
-      newGames[gameIndex],
-      "isFavorite",
-      false
-    );
+    newGames[gameIndex].isFavorite = !get(newGames[gameIndex], "isFavorite", false);
 
     setGames(newGames);
 
     try {
-      await Fetch(
-        `${resource.domain}/api/games/${game.id}/users/${authUser.id}`,
-        "PUT",
-        {
-          isFavorite: newGames[gameIndex].isFavorite,
-        }
-      );
+      await Fetch(`${resource.domain}/api/games/${game.id}/users/${authUser.id}`, "PUT", {
+        isFavorite: newGames[gameIndex].isFavorite,
+      });
     } catch (error) {
       await sendError(error, "createGame");
     }
@@ -127,11 +155,7 @@ export const GameView = (props) => {
       <Tablet>
         <div className="cover-container">
           <Image
-            src={
-              game.coverImgUrl
-                ? game.coverImgUrl
-                : `${config.storageUrl}/resources/empty-cover.svg`
-            }
+            src={game.coverImgUrl ? game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
             width="100%"
             height="100px"
             size="cover"
@@ -176,12 +200,8 @@ export const GameView = (props) => {
               className="edit"
               onClick={() => {
                 folderId
-                  ? router.push(
-                      `/library/games/${game.id}?resourceId=${resourceId}&folderId=${folderId}`
-                    )
-                  : router.push(
-                      `/library/games/${game.id}?resourceId=${resourceId}`
-                    );
+                  ? router.push(`/library/games/${game.id}?adminGameId=${adminGameId}&folderId=${folderId}`)
+                  : router.push(`/library/games/${game.id}?adminGameId=${adminGameId}`);
               }}
             >
               <Image
@@ -197,7 +217,7 @@ export const GameView = (props) => {
               trigger="click"
               title={
                 <ToolTipContent>
-                  <div className="option">
+                  <div className="option" onClick={() => setIsVisibleModalMove(true)}>
                     <Image
                       src={`${config.storageUrl}/resources/move.svg`}
                       width={"16px"}
@@ -243,11 +263,7 @@ export const GameView = (props) => {
       <Desktop>
         <div className="left-container-desktop">
           <Image
-            src={
-              game.coverImgUrl
-                ? game.coverImgUrl
-                : `${config.storageUrl}/resources/empty-cover.svg`
-            }
+            src={game.coverImgUrl ? game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
             width="100%"
             height="194px"
             size="cover"
@@ -261,21 +277,13 @@ export const GameView = (props) => {
                 margin="0 1rem"
                 onClick={() => {
                   get(props, "game.parentId", null)
-                    ? router.push(
-                        `/library/games/${game.id}?resourceId=${resourceId}&folderId=${folderId}`
-                      )
-                    : router.push(
-                        `/library/games/${game.id}?resourceId=${resourceId}`
-                      );
+                    ? router.push(`/library/games/${game.id}?adminGameId=${adminGameId}&folderId=${folderId}`)
+                    : router.push(`/library/games/${game.id}?adminGameId=${adminGameId}`);
                 }}
               >
                 Editar
               </ButtonAnt>
-              <ButtonAnt
-                variant="contained"
-                color="primary"
-                onClick={createTokenToPlay}
-              >
+              <ButtonAnt variant="contained" color="primary" onClick={createTokenToPlay}>
                 Jugar
               </ButtonAnt>
             </div>
@@ -304,7 +312,7 @@ export const GameView = (props) => {
                 trigger="click"
                 title={
                   <ToolTipContent>
-                    <div className="option">
+                    <div className="option" onClick={() => setIsVisibleModalMove(true)}>
                       <Image
                         src={`${config.storageUrl}/resources/move.svg`}
                         width={"16px"}
@@ -354,17 +362,19 @@ export const GameView = (props) => {
           <div>
             <Desktop>
               <div className="description">Descripcción:</div>
-              <div className="amount-numbers">
-                1- {get(game, "amountNumbers", 75)} números
-              </div>
+              <div className="amount-numbers">1- {get(game, "amountNumbers", 75)} números</div>
             </Desktop>
             <div className="left-container">
               <div className="color">
                 <div className="label">Fondo</div>
-                <div className="name">
-                  <ColorBlock color={get(game, "backgroundColor", "")} />
-                  {get(game, "backgroundColor", "").toUpperCase()}
-                </div>
+                {get(game, "backgroundImg", null) ? (
+                  <div className="name">(Imagen)</div>
+                ) : (
+                  <div className="name">
+                    <ColorBlock color={get(game, "backgroundColor", "")} />
+                    {get(game, "backgroundColor", "").toUpperCase()}
+                  </div>
+                )}
               </div>
               <div className="color">
                 <div className="label">Bloques</div>
@@ -404,8 +414,7 @@ export const GameView = (props) => {
 const ColorBlock = styled.div`
   width: 29px;
   height: 36px;
-  background: ${(props) =>
-    props.color ? props.color : props.theme.basic.whiteLight};
+  background: ${(props) => (props.color ? props.color : props.theme.basic.whiteLight)};
   border: 1px solid ${(props) => props.theme.basic.grayLight};
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

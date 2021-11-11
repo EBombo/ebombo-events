@@ -22,7 +22,7 @@ const MyApp = ({ Component, pageProps }) => {
   const { Fetch } = useFetch();
   const [authUser] = useGlobal("user");
   const [, setLoadingGames] = useGlobal("loadingGames");
-  const [games, setGames] = useGlobal("games");
+  const [games, setGames] = useGlobal("userGames");
   const [parent, setParent] = useState(null);
   const [folders, setFolders] = useState([]);
   const [isBack, setIsBack] = useState(true);
@@ -149,11 +149,7 @@ const MyApp = ({ Component, pageProps }) => {
           content={`${config.storageUrl}/resources/icons/icon-512x512.png`}
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
           rel="stylesheet"
         />
         <link rel="manifest" href={`${config.serverUrl}/api/manifest`} />
@@ -167,6 +163,7 @@ const MyApp = ({ Component, pageProps }) => {
               parent={parent}
               folders={folders}
               fetchGames={fetchGames}
+              fetchFolders={fetchFolders}
               showNotification={showNotificationAnt}
             />
           </WithAuthentication>
@@ -177,11 +174,3 @@ const MyApp = ({ Component, pageProps }) => {
 };
 
 export default MyApp;
-
-//Optimizacion
-
-//GA
-//fb PIXEL
-//roles[acls]
-//PWA[SW] notifications
-//Image

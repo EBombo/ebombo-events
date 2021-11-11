@@ -9,13 +9,9 @@ import isEmpty from "lodash/isEmpty";
 
 const version = "0.2";
 
-let hostName =
-  process.env.NODE_ENV === "development"
-    ? "localhost"
-    : get(process, "env.GCLOUD_PROJECT", "");
+let hostName = process.env.NODE_ENV === "development" ? "localhost" : get(process, "env.GCLOUD_PROJECT", "");
 
-if (typeof window !== "undefined")
-  hostName = get(window, "location.hostname", "").replace("subdomain.", "");
+if (typeof window !== "undefined") hostName = get(window, "location.hostname", "").replace("subdomain.", "");
 
 console.log("projectId", hostName);
 
@@ -24,7 +20,8 @@ let config;
 if (
   hostName.includes("red.") ||
   hostName.includes("-dev") ||
-  hostName.includes("localhost")
+  hostName.includes("localhost") ||
+  hostName.includes("cloudshell")
 ) {
   config = configJson.development;
   console.log("dev", version);
@@ -32,6 +29,11 @@ if (
   config = configJson.production;
   console.log("prod", version);
 }
+
+let analyticsBingo;
+let firestoreBingo;
+let storageBingo;
+let authBingo;
 
 let analytics;
 let firestore;
@@ -54,17 +56,31 @@ if (isEmpty(firebase.apps)) {
   } catch (error) {
     console.error("error initializeApp", error);
   }
+
+  // Allow connection with events firebase
+  try {
+    firebase.initializeApp(config.firebaseBingo, "bingo");
+    firestoreBingo = firebase.app("bingo").firestore();
+    storageBingo = firebase.app("bingo").storage();
+    authBingo = firebase.app("bingo").auth();
+
+    if (typeof window !== "undefined") {
+      analyticsBingo = firebase.app("bingo").analytics();
+    }
+
+    firestoreBingo.settings({ ignoreUndefinedProperties: true });
+  } catch (error) {
+    console.error("error initializeApp", error);
+  }
 }
 
 if (hostName === "localhost") {
-  config.serverUrl = config.serverUrlLocal;
+  //config.serverUrl = config.serverUrlLocal;
   //firestore.useEmulator("localhost", 8080);
   //auth.useEmulator("http://localhost:9099/");
 }
 
-const landingsStorageBucket = firebase
-  .app()
-  .storage(`gs://${config.landingsStorageBucket}`);
+const landingsStorageBucket = firebase.app().storage(`gs://${config.landingsStorageBucket}`);
 
 export {
   auth,
@@ -75,5 +91,9 @@ export {
   hostName,
   analytics,
   firestore,
+  authBingo,
+  storageBingo,
+  firestoreBingo,
+  analyticsBingo,
   landingsStorageBucket,
 };

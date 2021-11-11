@@ -9,8 +9,10 @@ import isEmpty from "lodash/isEmpty";
 import { useRouter } from "next/router";
 import { ListGameView } from "./ListGameView";
 import { darkTheme } from "../../theme";
-import { Tooltip } from "antd";
+import { Tooltip, Modal } from "antd";
 import { useSendError } from "../../hooks";
+import { ModalMove } from "../../components/common/ModalMove";
+import { updateGame } from "./games/_gameId"
 
 export const DesktopLibraryFolders = (props) => {
   const [loadingGames] = useGlobal("loadingGames");
@@ -20,20 +22,51 @@ export const DesktopLibraryFolders = (props) => {
   const [folder, setFolder] = useState(null);
   const router = useRouter();
   const { sendError } = useSendError();
+  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
+  const [authUser] = useGlobal("user");
+  const [selectedGameToMove, setSelectedGameToMove] = useState(null);
+
+  const moveGameToFolder = async (folder) => {
+    if (!selectedGameToMove) return;
+    
+    try {
+      await updateGame(selectedGameToMove.adminGame, { id: selectedGameToMove.id, parentId: folder?.id }, authUser);
+      
+      props.fetchGames();
+    } catch (error) {
+      await sendError(error);
+    }
+  };
 
   const deleteFolder = async (folder) => {
-    try {
-      await firestore.doc(`folders/${folder.id}`).update({
-        deleted: true,
-      });
-    } catch (error) {
-      console.error(error);
-      sendError(error, "deleteFolder");
-    }
+    Modal.confirm({
+      title: "¿Seguro que quieres eliminar este folder y su contenido?",
+      content: "No se podrá revertir el cambio una vez eliminado el folder y su contenido.",
+      okText: "Eliminar",
+      async onOk() {
+        try {
+          await firestore.doc(`folders/${folder.id}`).update({
+            deleted: true,
+          });
+        } catch (error) {
+          console.error(error);
+          sendError(error, "deleteFolder");
+        }
+      },
+      onCancel() {},
+    });
+
   };
 
   return (
     <FoldersContainer>
+      <ModalMove
+        moveToFolder={moveGameToFolder}
+        setIsVisibleModalMove={setIsVisibleModalMove}
+        isVisibleModalMove={isVisibleModalMove}
+        {...props}
+      />
+      
       {isVisibleModalFolder && (
         <ModalNewFolder
           {...props}
@@ -56,23 +89,11 @@ export const DesktopLibraryFolders = (props) => {
           <div className="search-bar">
             <Input type="search" placeholder="Buscar" />
           </div>
-          <Image
-            src={`${config.storageUrl}/resources/folder.svg`}
-            height={"30px"}
-            width={"30px"}
-            size={"contain"}
-            margin={"0 25px"}
-            cursor={"pointer"}
+
+          <div
+            className="folder-icon"
             onClick={() => setIsVisibleModalFolder(true)}
           />
-          {/*<Image*/}
-          {/*  src={`${config.storageUrl}/resources/social.svg`}*/}
-          {/*  height={"30px"}*/}
-          {/*  width={"30px"}*/}
-          {/*  size={"contain"}*/}
-          {/*  margin={"0 5px"}*/}
-          {/*  onClick={() => setIsVisibleModalFolder(true)}*/}
-          {/*/>*/}
 
           <div className="icons" onClick={() => setListType("icons")}>
             <div className={`${listType === "icons" ? "active" : ""}`} />
@@ -125,6 +146,7 @@ export const DesktopLibraryFolders = (props) => {
                       />
                       Cambiar Nombre
                     </div>
+                    {/*
                     <div className="folder-option">
                       <Image
                         src={`${config.storageUrl}/resources/move.svg`}
@@ -135,6 +157,7 @@ export const DesktopLibraryFolders = (props) => {
                       />
                       Mover
                     </div>
+                    */}
                     <div className="folder-option">
                       <Image
                         src={`${config.storageUrl}/resources/duplicate.svg`}
@@ -172,6 +195,7 @@ export const DesktopLibraryFolders = (props) => {
           ))
         )}
       </div>
+
       {isEmpty(props.games) ? (
         <div className="btn-container">
           <ButtonAnt
@@ -190,6 +214,7 @@ export const DesktopLibraryFolders = (props) => {
               game={game}
               key={game.id}
               listType={listType}
+              initModalMove={(toggle) => { setIsVisibleModalMove(toggle); setSelectedGameToMove(game) }}
               {...props}
             />
           ))}
@@ -273,6 +298,21 @@ const FoldersContainer = styled.div`
       display: flex;
       align-items: center;
 
+      .folder-icon {
+        width: 30px;
+        height: 30px;
+        margin: 0 25px;
+        cursor: pointer;
+        background-image: url(${`${config.storageUrl}/resources/folder.svg`});
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        :hover {
+          background-image: url(${`${config.storageUrl}/resources/folder-hover.svg`});
+        }
+      }
+
       .icons {
         margin-right: 5px;
         cursor: pointer;
@@ -287,6 +327,11 @@ const FoldersContainer = styled.div`
 
         .active {
           border: 2px solid ${(props) => props.theme.basic.secondary};
+        }
+        :hover:not(.active) {
+          div {
+            border-color: ${(props) => props.theme.basic.secondaryHover};
+          }
         }
       }
 
@@ -303,6 +348,11 @@ const FoldersContainer = styled.div`
 
         .active {
           border: 2px solid ${(props) => props.theme.basic.secondary};
+        }
+        :hover:not(.active) {
+          div {
+            border-color: ${(props) => props.theme.basic.secondaryHover};
+          }
         }
       }
     }

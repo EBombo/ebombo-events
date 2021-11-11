@@ -2,7 +2,7 @@ import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
-import { auth, config, firestore } from "../../firebase";
+import { config, firestore, firestoreBingo } from "../../firebase";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import get from "lodash/get";
@@ -13,20 +13,20 @@ import { useSendError } from "../../hooks";
 import { useFetch } from "../../hooks/useFetch";
 
 export const ListGameView = (props) => {
-  const [authUser] = useGlobal("user");
-  const [games, setGames] = useGlobal("games");
-  const [resource, setResource] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
 
+  const [authUser] = useGlobal("user");
+  const [games, setGames] = useGlobal("userGames");
+
+  const [resource, setResource] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const fetchResource = async () => {
-      const resourceRef = await firestore
-        .collection("games")
-        .doc(props.game.resourceId)
-        .get();
+      const resourceRef = await firestore.collection("games").doc(props.game.adminGameId).get();
       setResource(resourceRef.data());
     };
 
@@ -46,30 +46,18 @@ export const ListGameView = (props) => {
       : `Creado hace ${newTime.minutes()} minutos`;
   };
 
-  const getTimesPlayed = () => {
-    return "7 reproducciones";
-  };
-
   const toggleFavorite = async () => {
     let newGames = games;
     const gameIndex = newGames.findIndex((game) => game.id === props.game.id);
 
-    newGames[gameIndex].isFavorite = !get(
-      newGames[gameIndex],
-      "isFavorite",
-      false
-    );
+    newGames[gameIndex].isFavorite = !get(newGames[gameIndex], "isFavorite", false);
 
     setGames(newGames);
 
     try {
-      await Fetch(
-        `${resource.domain}/api/games/${props.game.id}/users/${authUser.id}`,
-        "PUT",
-        {
-          isFavorite: newGames[gameIndex].isFavorite,
-        }
-      );
+      await Fetch(`${resource.api}/games/${props.game.id}/users/${authUser.id}`, "PUT", {
+        isFavorite: newGames[gameIndex].isFavorite,
+      });
     } catch (error) {
       await sendError(error, "createGame");
     }
@@ -82,24 +70,20 @@ export const ListGameView = (props) => {
     setGames(newGames);
 
     try {
-      await Fetch(
-        `${resource.domain}/api/games/${props.game.id}/users/${authUser.id}`,
-        "PUT",
-        {
-          deleted: true,
-        }
-      );
+      await firestoreBingo.doc(`games/${props.game.id}`).update({
+        deleted: true,
+      });
     } catch (error) {
-      await sendError(error, "createGame");
+      console.error(error);
+      sendError(error, "deleteGame");
     }
   };
 
   const createTokenToPlay = async () => {
     setIsLoading(true);
     try {
-      const tokenId = await auth.currentUser.getIdToken();
-
-      const redirectUrl = `${props.game.adminGame.domain}/games/${props.game.id}?tokenId=${tokenId}`;
+      const gameName = props.game.adminGame.name.toLowerCase();
+      const redirectUrl = `${config.bomboGamesUrl}/${gameName}/lobbies/new?gameId=${props.game.id}&userId=${authUser?.id}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {
@@ -111,11 +95,9 @@ export const ListGameView = (props) => {
   const redirectToGameView = () => {
     get(props, "game.parentId", null)
       ? router.push(
-          `/library/games/${props.game.id}/view?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+          `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
         )
-      : router.push(
-          `/library/games/${props.game.id}/view?resourceId=${props.game.resourceId}`
-        );
+      : router.push(`/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}`);
   };
 
   return (
@@ -168,7 +150,7 @@ export const ListGameView = (props) => {
                   trigger="click"
                   title={
                     <ToolTipContent>
-                      <div className="option">
+                      <div className="option" onClick={() => props?.initModalMove(true)}>
                         <Image
                           src={`${config.storageUrl}/resources/move.svg`}
                           width={"16px"}
@@ -211,16 +193,14 @@ export const ListGameView = (props) => {
                     margin={"0 5px 0 0"}
                     size="cover"
                   />
-                  <div className="name">
-                    {get(props, "game.company.name", "")}
-                  </div>
+                  <div className="name">{get(props, "game.company.name", "")}</div>
                 </div>
               </Desktop>
               <div className="dates">
                 {getTimeCreation()}{" "}
                 <ul>
                   <li>
-                    <span>{getTimesPlayed()}</span>
+                    <span>{props?.game?.countPlays ?? 0} reproducciones</span>
                   </li>
                 </ul>
               </div>
@@ -235,22 +215,15 @@ export const ListGameView = (props) => {
                       setIsLoading(true);
                       get(props, "game.parentId", null)
                         ? router.push(
-                            `/library/games/${props.game.id}?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+                            `/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
                           )
-                        : router.push(
-                            `/library/games/${props.game.id}?resourceId=${props.game.resourceId}`
-                          );
+                        : router.push(`/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`);
                       setIsLoading(false);
                     }}
                   >
                     Editar
                   </ButtonAnt>
-                  <ButtonAnt
-                    variant="contained"
-                    color="primary"
-                    loading={isLoading}
-                    onClick={createTokenToPlay}
-                  >
+                  <ButtonAnt variant="contained" color="primary" loading={isLoading} onClick={createTokenToPlay}>
                     Jugar
                   </ButtonAnt>
                 </div>
@@ -275,21 +248,14 @@ export const ListGameView = (props) => {
               onClick={() => {
                 get(props, "game.parentId", null)
                   ? router.push(
-                      `/library/games/new?resourceId=${props.game.resourceId}&folderId=${props.game.parentId}`
+                      `/library/games/new?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
                     )
-                  : router.push(
-                      `/library/games/${props.game.id}?resourceId=${props.game.resourceId}`
-                    );
+                  : router.push(`/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`);
               }}
             >
               Editar
             </ButtonAnt>
-            <ButtonAnt
-              variant="contained"
-              color="primary"
-              margin="0 1rem"
-              onClick={createTokenToPlay}
-            >
+            <ButtonAnt variant="contained" color="primary" margin="0 1rem" onClick={createTokenToPlay}>
               Jugar
             </ButtonAnt>
             {props.game.isFavorite ? (
@@ -316,7 +282,7 @@ export const ListGameView = (props) => {
               trigger="click"
               title={
                 <ToolTipContent>
-                  <div className="option">
+                  <div className="option" onClick={() => props.setIsVisibleModalMove(true)}>
                     <Image
                       src={`${config.storageUrl}/resources/move.svg`}
                       width={"16px"}
@@ -551,7 +517,7 @@ const IconsContainer = styled.div`
       }
 
       .bottom-container {
-        height: 45px;
+        height: 56px;
 
         .dates {
           font-size: 13px;

@@ -117,6 +117,7 @@ export const FileUpload = (props) => {
       {previewFile && props.preview && (
         <div className="cover">
           <Image
+            className="cover-image"
             src={previewFile}
             width="212px"
             height="121px"
@@ -187,6 +188,10 @@ const UploadContainer = styled.div`
     align-items: center;
     grid-gap: 1rem;
     margin-top: 0.5rem;
+    
+    .cover-image {
+      border-radius: 4px;
+    }
   }
 
   .upload-file {

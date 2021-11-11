@@ -21,7 +21,7 @@ const ImageCss = styled.div`
   filter: ${(props) => (props.filter ? props.filter : "none")};
   border-radius: ${(props) => (props.borderRadius ? props.borderRadius : "0")};
 
-  ${mediaQuery.afterMobile} {
+  ${mediaQuery.afterTablet} {
     height: ${(props) =>
       props.desktopHeight ? props.desktopHeight : props.height};
     width: ${(props) =>

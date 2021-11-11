@@ -9,39 +9,24 @@ import { Radio, Switch } from "antd";
 import { object, string } from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { firestore } from "../../../../firebase";
-import { useRouter } from "next/router";
 import { snapshotToArray } from "../../../../utils";
-import { useResizeImage, useUploadToStorage } from "../../../../hooks";
 import { FileUpload } from "../../../../components/common/FileUpload";
+import { ModalMove } from "../../../../components/common/ModalMove";
+import { useRouter } from "next/router";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
-  const inputRef = useRef(null);
-  const { folderId } = router.query;
-  const [parent, setParent] = useState(null);
+  const { adminGameId } = router.query;
   const [audios, setAudios] = useState([]);
-  const { resize } = useResizeImage();
-  const { uploadToStorageAndGetURL } = useUploadToStorage();
+  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
 
   useEffect(() => {
-    const fetchParent = async () => {
-      if (!folderId) return null;
-      const parentRef = await firestore
-        .collection("folders")
-        .doc(folderId)
-        .get();
-      setParent(parentRef.data());
-    };
-
     const fetchAudios = () =>
       firestore
         .collection("audios")
         .where("deleted", "==", false)
-        .onSnapshot((audiosSnapshot) =>
-          setAudios(snapshotToArray(audiosSnapshot))
-        );
+        .onSnapshot((audiosSnapshot) => setAudios(snapshotToArray(audiosSnapshot)));
 
-    fetchParent();
     fetchAudios();
   }, []);
 
@@ -55,17 +40,19 @@ export const ModalSettings = (props) => {
     reValidateMode: "onSubmit",
   });
 
-  const manageFile = async (e) => {
-    const file = e.target.files[0];
-    props.setCoverImgUrl(file);
-  };
-
   const saveChanges = (data) => {
     const _audio = audios.find((audio) => audio.id === data.audioId);
 
     props.setVideo(data.video);
     props.setAudio(_audio);
     props.setIsVisibleModalSettings(false);
+  };
+
+  const moveToFolder = (folder) => {
+    router.push({
+      query: { adminGameId, folderId: folder.id },
+    });
+    props.setParent(folder);
   };
 
   return (
@@ -75,10 +62,14 @@ export const ModalSettings = (props) => {
       visible={props.isVisibleModalSettings}
       padding={"1rem"}
       background={darkTheme.basic.whiteLight}
-      onCancel={() =>
-        props.setIsVisibleModalSettings(!props.isVisibleModalSettings)
-      }
+      onCancel={() => props.setIsVisibleModalSettings(!props.isVisibleModalSettings)}
     >
+      <ModalMove
+        moveToFolder={moveToFolder}
+        setIsVisibleModalMove={setIsVisibleModalMove}
+        isVisibleModalMove={isVisibleModalMove}
+        {...props}
+      />
       <SettingsContainer>
         <div className="title">Ajustes</div>
 
@@ -86,57 +77,31 @@ export const ModalSettings = (props) => {
           <div className="main-container">
             <div className="left-side">
               <div className="label">Guardar en</div>
-              <div className="path">{get(parent, "name", "Mis Juegos")}</div>
-              <div className="label">Branding</div>
-              <div className="branding">
-                Usar branding propio
-                <Switch
-                  defaultChecked={props.ownBranding}
-                  onChange={() => props.setOwnBranding(!props.ownBranding)}
-                />
+              <div className="path">
+                {get(props, "parent.name", "Mis Juegos")}
+                <ButtonAnt className="btn-move" onClick={() => setIsVisibleModalMove(true)}>
+                  Cambiar
+                </ButtonAnt>
               </div>
-              <div className="label">Video del Lobby</div>
-              <div className="input-container">
-                <Input
-                  type="url"
-                  name="video"
-                  defaultValue={get(props, "video", "")}
-                  placeholder="Pegar link de youtube"
-                  ref={register}
-                  error={errors.video}
-                />
-              </div>
-              <div className="label">Visibilidad</div>
-              <Radio.Group
-                onChange={() => props.setVisibility(!props.visibility)}
-                value={props.visibility}
-              >
-                <Radio value={true}>Organización</Radio>
-                <Radio value={false}>Nadie</Radio>
-              </Radio.Group>
-            </div>
-
-            <div className="right-side">
-              <div className="label">Imagen de portada</div>
-              <FileUpload
-                file={props.coverImgUrl}
-                preview={true}
-                fileName="coverImgUrl"
-                filePath={`/games/Bingo/${props.newId}`}
-                sizes="300x350"
-                disabled={props.isLoading}
-                afterUpload={(coverImgs) =>
-                  props.setCoverImgUrl(coverImgs[0].url)
-                }
-              />
+              {/*<div className="label">Branding</div>*/}
+              {/*<div className="branding">*/}
+              {/*  Usar branding propio*/}
+              {/*  <Switch defaultChecked={props.ownBranding} onChange={() => props.setOwnBranding(!props.ownBranding)} />*/}
+              {/*</div>*/}
+              {/*<div className="label">Video del Lobby</div>*/}
+              {/*<div className="input-container">*/}
+              {/*  <Input*/}
+              {/*    type="url"*/}
+              {/*    name="video"*/}
+              {/*    defaultValue={get(props, "video", "")}*/}
+              {/*    placeholder="Pegar link de youtube"*/}
+              {/*    ref={register}*/}
+              {/*    error={errors.video}*/}
+              {/*  />*/}
+              {/*</div>*/}
               <div className="label">
                 Permitir duplicar{" "}
-                <Switch
-                  defaultChecked
-                  onChange={() =>
-                    props.setAllowDuplicate(!props.allowDuplicate)
-                  }
-                />
+                <Switch defaultChecked onChange={() => props.setAllowDuplicate(!props.allowDuplicate)} />
               </div>
 
               <div className="label">Musica del lobby</div>
@@ -165,6 +130,24 @@ export const ModalSettings = (props) => {
                   }
                 />
               </div>
+              <div className="label">Visibilidad</div>
+              <Radio.Group onChange={() => props.setVisibility(!props.visibility)} value={props.visibility}>
+                <Radio value={true}>Organización</Radio>
+                <Radio value={false}>Nadie</Radio>
+              </Radio.Group>
+            </div>
+
+            <div className="right-side">
+              <div className="label">Imagen de portada</div>
+              <FileUpload
+                file={props.coverImgUrl}
+                preview={true}
+                fileName="coverImgUrl"
+                filePath={`/games/Bingo/${props.newId}`}
+                sizes="300x350"
+                disabled={props.isLoading}
+                afterUpload={(coverImgs) => props.setCoverImgUrl(coverImgs[0].url)}
+              />
             </div>
           </div>
           <div className="btns-container">
@@ -176,12 +159,7 @@ export const ModalSettings = (props) => {
             >
               Cerrar
             </ButtonAnt>
-            <ButtonAnt
-              variant={"contained"}
-              color={"secondary"}
-              htmlType="submit"
-              className="btn"
-            >
+            <ButtonAnt variant={"contained"} color={"secondary"} htmlType="submit" className="btn">
               Listo
             </ButtonAnt>
           </div>
@@ -239,6 +217,22 @@ const SettingsContainer = styled.div`
     border-radius: 4px;
     color: ${(props) => props.theme.basic.blackDarken};
     margin-top: 5px;
+    position: relative;
+
+    .btn-move {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      font-family: Lato;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 10px;
+      line-height: 12px;
+      width: 60px;
+      height: 18px;
+      padding: 5px;
+    }
   }
 
   .audio-select {
@@ -261,6 +255,10 @@ const SettingsContainer = styled.div`
 
   .input-container {
     margin-top: 5px;
+
+    .ant-select {
+      margin-bottom: 0 !important;
+    }
   }
 
   ${mediaQuery.afterTablet} {
