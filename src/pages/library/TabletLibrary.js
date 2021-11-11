@@ -61,7 +61,7 @@ export const TabletLibrary = (props) => {
       
       props.fetchGames();
     } catch (error) {
-      await sendError(error);
+      await sendError(error, "moveGameToFolder");
     }
   };
 
