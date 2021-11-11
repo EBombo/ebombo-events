@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import isEmpty from "lodash/isEmpty";
 import get from "lodash/get";
@@ -17,17 +17,36 @@ import { ModalMove } from "../../../../../components/common/ModalMove";
 import { updateGame } from "../index";
 import { useSendError } from "../../../../../hooks";
 
+// TODO: This component is long consider a refactoring.
 export const GameView = (props) => {
+  const router = useRouter();
+  const { gameId, adminGameId, folderId } = router.query;
+
+  const { sendError } = useSendError();
+
   const [authUser] = useGlobal("user");
   const [adminGames] = useGlobal("adminGames");
   const [games, setGames] = useGlobal("userGames");
-  const [resource, setResource] = useState(null);
-  const [game, setGame] = useState(null);
-  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
-  const { sendError } = useSendError();
 
-  const router = useRouter();
-  const { gameId, adminGameId, folderId } = router.query;
+  const [resource, setResource] = useState(null);
+  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
+
+  const game = useMemo(() => {
+    if (!gameId) return {};
+    if (!games?.length) return {};
+
+    const currentGame = games.find((game) => game.id === gameId);
+
+    return currentGame ?? {};
+  }, [games, gameId]);
+
+  useEffect(() => {
+    if (isEmpty(adminGames)) return;
+
+    const currentResource = adminGames.find((resource_) => resource_.id === adminGameId);
+
+    setResource(currentResource);
+  }, [adminGames]);
 
   const redirectToGameViewWithFolder = (folderId) => {
     folderId
@@ -46,20 +65,6 @@ export const GameView = (props) => {
       await sendError(error);
     }
   };
-
-  useEffect(() => {
-    const _game = games.find((game) => game.id === gameId);
-
-    setGame(_game);
-  }, [games]);
-
-  useEffect(() => {
-    if (isEmpty(adminGames)) return;
-
-    const currentResource = adminGames.find((resource_) => resource_.id === adminGameId);
-
-    setResource(currentResource);
-  }, [adminGames]);
 
   const deleteGame = async () => {
     let newGames = games;
@@ -117,7 +122,8 @@ export const GameView = (props) => {
 
   const createTokenToPlay = async () => {
     try {
-      const redirectUrl = `${game.adminGame.domain}/lobbies/new?gameId=${game.id}&userId=${authUser?.id}`;
+      const gameName = game.adminGame.name.toLowerCase();
+      const redirectUrl = `${config.bomboGamesUrl}/${gameName}/lobbies/new?gameId=${game.id}&userId=${authUser?.id}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {

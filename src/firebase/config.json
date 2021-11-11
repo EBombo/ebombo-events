@@ -18,6 +18,7 @@
       "appId": "1:1028641251477:web:d37e7c7640a645e3b13b9c",
       "measurementId": "G-X09GR2PC73"
     },
+    "bomboGamesUrl": "https://ebombo.io",
     "storageUrl": "https://storage.googleapis.com/ebombo-events.appspot.com",
     "serverUrlLocal": "http://localhost:8080",
     "landingsStorageBucket": "ebombo-events-landings",
@@ -45,6 +46,7 @@
       "appId": "1:513515398141:web:3777fcb7c543a72bea2f94",
       "measurementId": "G-E79L7Y61V4"
     },
+    "bomboGamesUrl": "https://red.ebombo.io",
     "storageUrl": "https://storage.googleapis.com/ebombo-events-dev.appspot.com",
     "landingsStorageBucket": "ebombo-events-landings-dev",
     "serverUrlLocal": "http://localhost:8080",
