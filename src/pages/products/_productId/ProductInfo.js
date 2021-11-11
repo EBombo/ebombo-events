@@ -8,13 +8,12 @@ export const ProductInfo = (props) => (
     <div>
       <div className="body-container">
         <div className="image-container">
-          <Image src={props.product.imageUrl} width="100%" height="100%"/>
+          <Image src={props.product.imageUrl} width="100%" height="100%" />
         </div>
+
         <div className="description">
           <h1>{props.product.title}</h1>
-          <div className="content">
-            {props.product.content}
-          </div>
+          <div className="content">{props.product.content}</div>
         </div>
       </div>
     </div>
@@ -32,16 +31,19 @@ const ProductInfoStyled = styled.section`
       margin: 0 auto;
     }
   }
+
   .image-container {
     margin: 0 1rem;
-    box-shadow: 0px 1.375px 8.9375px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1.375px 8.9375px rgba(0, 0, 0, 0.25);
     padding: 14px;
   }
+
   .description {
     margin: 0 28px;
+
     h1 {
       margin: 36px auto;
-      color: ${props => props.theme.basic.secondary};
+      color: ${(props) => props.theme.basic.secondary};
       font-family: Lato;
       font-style: normal;
       font-weight: bold;
@@ -49,6 +51,7 @@ const ProductInfoStyled = styled.section`
       line-height: 29px;
       text-align: center;
       letter-spacing: 0.03em;
+
       ${mediaQuery.afterTablet} {
         text-align: left;
       }
@@ -67,8 +70,6 @@ const ProductInfoStyled = styled.section`
         margin: 1rem 0;
         list-style-position: inside;
       }
-
     }
   }
 `;
-
