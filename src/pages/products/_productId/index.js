@@ -5,7 +5,7 @@ import { mediaQuery } from "../../../constants";
 import { products } from "../../../components/common/DataList";
 import { ContactForm } from "../../home/ContactForm";
 import { Icon } from "../../../components/common/Icons";
-import { ProductInfo } from "./productInfo";
+import { ProductInfo } from "./ProductInfo";
 
 export const ProductDetail = (props) => {
   const router = useRouter();
