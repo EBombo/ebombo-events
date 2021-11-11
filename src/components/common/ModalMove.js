@@ -112,7 +112,7 @@ export const ModalMove = (props) => {
       <Content>
         <div className="title">Mover juego</div>
         <div className="second-container">
-          <div className={`go-back ${!folderId && 'disabled'}`} onClick={() => setFolderId(folders[0]?.parent?.parentId || null)}>
+          <div className="go-back" disabled={!folderId} onClick={() => setFolderId(folders[0]?.parent?.parentId || null)}>
             <Image
               src={`${config.storageUrl}/resources/arrows/arrowLeft.svg`}
               width="12px"
@@ -217,13 +217,14 @@ const Content = styled.div`
       color: ${(props) => props.theme.basic.blackDarken};
       cursor: pointer;
 
-      &.disabled {
+      &[disabled] {
+        cursor: not-allowed;
+        pointer-events: none;
         color: ${(props) => props.theme.basic.grayLighten};
         filter: none;
         .back-icon {
           filter: brightness(0.8);
         }
-
       }
     }
   }
