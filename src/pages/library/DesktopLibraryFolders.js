@@ -30,7 +30,7 @@ export const DesktopLibraryFolders = (props) => {
     if (!selectedGameToMove) return;
     
     try {
-      await updateGame(selectedGameToMove.adminGame, { id: game.id, parentId: folder?.id }, authUser);
+      await updateGame(selectedGameToMove.adminGame, { id: selectedGameToMove.id, parentId: folder?.id }, authUser);
       
       props.fetchGames();
     } catch (error) {
