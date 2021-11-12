@@ -15,7 +15,7 @@ export const HeaderLanding = (props) => {
         </div>
         <div className="companies">
           <Image
-            src={`${config.storageUrl}/resources/companies.svg`}
+            src={`${config.storageUrl}/resources/companies.png`}
             height={"30px"}
             desktopHeight={"40px"}
             margin={"1rem 0"}
@@ -108,6 +108,7 @@ const HeaderLandingContainer = styled.section`
           background-position: 485px 0%
       }
   }
+
   @keyframes loop_carousel_mobile {
       from {
           background-position: 0% 0%
@@ -116,16 +117,19 @@ const HeaderLandingContainer = styled.section`
           background-position: 210% 0%
       }
   }
+
   .companies{
     width: 100%;
     overflow: hidden;
   }
+
   .companies > div {
     background-repeat: repeat-x !important;
     width: 200%;
-    animation: loop_carousel_mobile 12s linear infinite;
-    @mediaQuery.afterTablet {
-      animation: loop_carousel_tablet 2s linear infinite;
+    animation: loop_carousel_mobile 42s linear infinite;
+
+    ${mediaQuery.afterTablet} {
+      animation: loop_carousel_tablet 42s linear infinite;
     }
   }
 `;
