@@ -11,22 +11,19 @@ const { Panel } = Collapse;
 
 const footerContent = [
   {
-    title: "Comienza con",
+    title: "Sobre nosotros",
     classKey: "start-with",
     children: [
-      { title: "Games" },
-      { title: "Paquetes" },
-      { title: "Iniciar sesión", link: "/login", target: "_self" },
-      { title: "Registrate", link: "/register", target: "_self" },
+      { title: "¿Quiénes somos?" },
+      { title: "Fundadores" },
     ],
   },
   {
     title: "Contáctanos",
     classKey: "contact-us",
     children: [
-      { title: "informes@ebombo.com.pe", link: "mailto:informes@ebombo.com.pe", icon: `${config.storageUrl}/resources/b2bLanding/email.svg` },
-      { title: "Lunes - Viernes 6:00 am - 5:00 pm" },
-      { title: "+51 983 645 002", link: "https://wa.me/51983645002", target: "_blank", icon: `${config.storageUrl}/resources/b2bLanding/wsp-icon.svg` },
+      { title: (<><strong>Mail:</strong> mateo@ebombo.com.pe</>), link: "mailto:informes@ebombo.com.pe", icon: `${config.storageUrl}/resources/b2bLanding/email.svg` },
+      { title: (<><strong>Whatsapp:</strong> +51 945 693 597</>), link: "https://wa.me/51983645002", target: "_blank", icon: `${config.storageUrl}/resources/b2bLanding/wsp-icon.svg` },
     ],
   },
   {

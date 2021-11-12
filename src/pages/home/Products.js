@@ -1,7 +1,7 @@
 import React from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
-import { mediaQuery, Tablet } from "../../constants";
+import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { config } from "../../firebase";
 import { Anchor } from "../../components/form";
 import { ArrowRightOutlined } from "@ant-design/icons";
@@ -17,6 +17,9 @@ export const Products = (props) => {
         <Tablet>
           <br />
         </Tablet>
+        <Desktop>
+          &nbsp;
+        </Desktop>
         en un solo lugar
       </div>
       <div className="product">

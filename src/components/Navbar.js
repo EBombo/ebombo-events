@@ -53,11 +53,17 @@ export const Navbar = (props) => {
               onClick={() => router.push(authUser ? "/library" : "/")}
             />
             <Desktop>
-              <Dropdown overlay={menu}>
-                <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-                  Games <DownOutlined />
-                </a>
-              </Dropdown>
+              {/* TODO enable when menu games are listed again <Dropdown overlay={menu}> */}
+              <a className="ant-dropdown-link"
+                onClick={() => {
+                // TODO remove router.push and enable when /games/[gamesId] is in use
+                router.push("/games");
+                // setIsVisibleNavGames(!isVisibleNavGames)
+                }}
+              >
+                Games {/* <DownOutlined /> */}
+              </a>
+              {/* </Dropdown> */}
               <Anchor onClick={() => router.push("/subscriptions")} className="link">
                 Planes
               </Anchor>
@@ -97,8 +103,13 @@ export const Navbar = (props) => {
           </Desktop>
           <Tablet>
             <ul className={`nav-menu ${active ? "active" : ""}`}>
-              <li className="nav-item" onClick={() => setIsVisibleNavGames(!isVisibleNavGames)}>
-                Games <DownOutlined />
+              <li className="nav-item" 
+                onClick={() => {
+                  // TODO remove router.push and enable when /games/[gamesId] is in use
+                  router.push("/games");
+                  // setIsVisibleNavGames(!isVisibleNavGames)
+                }}>
+                Games {/* <DownOutlined /> */}
               </li>
               {isVisibleNavGames && (
                 <>
