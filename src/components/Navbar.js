@@ -2,7 +2,7 @@ import React, { useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./common/Image";
 import { config } from "../firebase";
-import { Desktop, Tablet } from "../constants";
+import { Desktop, mediaQuery, Tablet } from "../constants";
 import { Anchor, ButtonAnt } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
@@ -158,7 +158,10 @@ const Body = styled.section`
   width: 100vw;
   overflow: auto;
   flex: 1 1 auto;
-  height: calc(100vh - 100px);
+
+  ${mediaQuery.afterTablet} {
+    height: calc(100vh - 100px);
+  }
 `;
 
 const NavContainer = styled.div`
