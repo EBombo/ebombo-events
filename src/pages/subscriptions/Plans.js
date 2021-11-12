@@ -100,7 +100,9 @@ export const Plans = (props) => {
                       Ver más
                     </Anchor>
                   )}
-                  <button className="btn-register">Registrarme</button>
+                  <button className="btn-register" onClick={() => router.push("/register")}>
+                    Registrarme
+                  </button>
                 </div>
               </PlanPriceContent>
             ))}
