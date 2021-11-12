@@ -9,11 +9,9 @@ export const HeaderLanding = (props) => {
   return (
     <HeaderLandingContainer>
       <div className="left-container">
-        <div className="title">Haz que tus eventos sean todo un éxito.</div>
-        <div className="subtitle">Hazlos al estilo Ebombo.</div>
+        <div className="title">Potencia tu clima y cultura laboral con la tecnología y los eventos de ebombo.</div>
         <div className="description">
-          Facilita tus sesiones de integración o crea un momento de relajo entre tus colaboradores con actividades
-          divertidas como Bingo, trivia, entre otros.
+          Organiza eventos virtuales con ebombo para integrar, motivar y empoderar a los trabajadores de tu empresa. Ya hemos organizado más de 300 eventos virtuales y presenciales.
         </div>
         <div className="companies">
           <Image

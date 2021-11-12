@@ -65,7 +65,7 @@ export const Products = (props) => {
         <div className="bottom-container">
           <div className="subtitle">Eventos Presenciales</div>
           <div className="description">
-            Realizamos eventos presenciales de todo tipo. Eventos de integración, Hinkanas, integraciones, celebraciones, eventos de todo tipo.
+            Realizamos eventos presenciales de todo tipo. Eventos de integración, integraciones, celebraciones, eventos de todo tipo.
           </div>
           <div className="link">
             <Anchor
@@ -95,7 +95,8 @@ export const Products = (props) => {
         <div className="bottom-container">
           <div className="subtitle">Juegos de integración</div>
           <div className="description">
-            Juegos de integración para tus trabajadores para mantenerlos motivados y con buen clima laboral.
+            Utiliza los juegos de integración creados por ebombo para que tus trabajadores estén super felices. 
+Ya tenemos más de 10 juegos en nuestra cartera de juegos para potenciar el clima laboral.
           </div>
           <div className="link">
             <Anchor
