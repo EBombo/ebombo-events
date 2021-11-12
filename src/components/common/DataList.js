@@ -182,15 +182,25 @@ export const products = [
   }
 ];
 
+
 export const infoGamesData = [
   {
-    id: "bingo",
-    menuLabel: "Bingo",
-    title: "Bingo",
+    id: "_",
+    menuLabel: "_",
+    title: "Juegos de integración",
     imageUrl: "https://via.placeholder.com/274x130",
     description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more re`,
   },
+  // TODO: uncomment when /games/[gameId] is in use
+ //  {
+ //    id: "bingo",
+ //    menuLabel: "Bingo",
+ //    title: "Bingo",
+ //    imageUrl: "https://via.placeholder.com/274x130",
+ //    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+ // It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more re`,
+ //  },
 ];
 
 export const heldEventsData = [
