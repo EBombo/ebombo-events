@@ -10,7 +10,8 @@ import { plans } from "../../components/common/DataList";
 
 export const Plans = (props) => {
   const router = useRouter();
-  const [tab, setTab] = useState("online");
+
+  const [tab, setTab] = useState(props.tab ?? "online");
 
   const contactInfo = () => (
     <ContactContent>
@@ -24,6 +25,7 @@ export const Plans = (props) => {
         />
         <div className="info-content">Mateo Suarez Stewart: +51 945 693 597</div>
       </div>
+
       <div className="info">
         <Image
           src={`${config.storageUrl}/resources/b2bLanding/email.svg`}
@@ -110,7 +112,7 @@ export const Plans = (props) => {
   };
 
   return (
-    <>
+    <PlansContainerCss>
       <PlansContainer>
         <div className="title">Conoce nuestros planes</div>
         <div className="tabs">
@@ -124,21 +126,29 @@ export const Plans = (props) => {
             Juegos de integración
           </div>
         </div>
+
         {tabContent()}
       </PlansContainer>
+
       {router.asPath.includes("/subscriptions") && (
         <TableContainer>
           <PlansTable {...props} />
         </TableContainer>
       )}
-    </>
+    </PlansContainerCss>
   );
 };
 
+const PlansContainerCss = styled.div`
+  background: ${(props) => props.theme.basic.whiteLighten};
+
+  ${mediaQuery.afterTablet} {
+    padding: 1rem 2rem;
+  }
+`;
+
 const PlansContainer = styled.div`
   width: 100%;
-  padding: 1rem;
-  background: ${(props) => props.theme.basic.whiteLighten};
 
   .more-info {
     display: flex;
@@ -203,31 +213,32 @@ const PlansContainer = styled.div`
       background: ${(props) => props.theme.basic.primary};
     }
   }
-  
+
+}
+
+${mediaQuery.afterTablet} {
+  padding: 2rem;
+
+  .title {
+    font-size: 34px;
+    line-height: 41px;
   }
 
-  ${mediaQuery.afterTablet} {
-    padding: 2rem;
+  .tabs {
+    margin: 2rem auto;
+    border: 4px solid ${(props) => props.theme.basic.primary};
 
-    .title {
-      font-size: 34px;
-      line-height: 41px;
+    .tab {
+      font-size: 24px;
+      line-height: 28px;
     }
 
-    .tabs {
-      margin: 2rem auto;
-      border: 4px solid ${(props) => props.theme.basic.primary};
-      .tab {
-        font-size: 24px;
-        line-height: 28px;
-      }
-
-      .middle-tab {
-        border-left: 4px solid ${(props) => props.theme.basic.primary};
-        border-right: 4px solid ${(props) => props.theme.basic.primary};
-      }
+    .middle-tab {
+      border-left: 4px solid ${(props) => props.theme.basic.primary};
+      border-right: 4px solid ${(props) => props.theme.basic.primary};
     }
   }
+}
 `;
 
 const TableContainer = styled.div`
@@ -237,12 +248,16 @@ const TableContainer = styled.div`
 `;
 
 const PlanContent = styled.div`
-  width: 100%;
+  width: 90%;
   max-width: 1350px;
   background: ${(props) => props.theme.basic.whiteLight};
   box-shadow: 6px 7px 30px 15px rgba(0, 0, 0, 0.14);
   border-radius: 8px;
   margin: 1rem auto;
+
+  ${mediaQuery.afterTablet} {
+    width: 100%;
+  }
 
   .main-container {
     display: flex;
