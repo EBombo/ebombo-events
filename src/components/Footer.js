@@ -16,8 +16,6 @@ const footerContent = [
     children: [
       { title: "¿Quiénes somos?" },
       { title: "Fundadores" },
-      { title: "Inversionistas", target: "_self" },
-      { title: "Startup", target: "_self" },
     ],
   },
   {
