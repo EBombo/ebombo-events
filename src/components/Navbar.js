@@ -6,8 +6,7 @@ import { Desktop, mediaQuery, Tablet } from "../constants";
 import { Anchor, ButtonAnt } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
-import { Dropdown, Menu } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import { Menu } from "antd";
 import { Layout } from "./common/Layout";
 import { Footer } from "./Footer";
 import { infoGamesData } from "./common/DataList";
@@ -54,11 +53,12 @@ export const Navbar = (props) => {
             />
             <Desktop>
               {/* TODO enable when menu games are listed again <Dropdown overlay={menu}> */}
-              <a className="ant-dropdown-link"
+              <a
+                className="ant-dropdown-link"
                 onClick={() => {
-                // TODO remove router.push and enable when /games/[gamesId] is in use
-                router.push("/games");
-                // setIsVisibleNavGames(!isVisibleNavGames)
+                  // TODO remove router.push and enable when /games/[gamesId] is in use
+                  router.push("/games");
+                  // setIsVisibleNavGames(!isVisibleNavGames)
                 }}
               >
                 Games {/* <DownOutlined /> */}
@@ -103,12 +103,14 @@ export const Navbar = (props) => {
           </Desktop>
           <Tablet>
             <ul className={`nav-menu ${active ? "active" : ""}`}>
-              <li className="nav-item" 
+              <li
+                className="nav-item"
                 onClick={() => {
                   // TODO remove router.push and enable when /games/[gamesId] is in use
                   router.push("/games");
                   // setIsVisibleNavGames(!isVisibleNavGames)
-                }}>
+                }}
+              >
                 Games {/* <DownOutlined /> */}
               </li>
               {isVisibleNavGames && (
@@ -161,7 +163,7 @@ export const Navbar = (props) => {
 };
 
 const LayoutMenu = styled.section`
-  height: 100vh;
+  min-height: 100vh;
   padding: 0;
 `;
 
@@ -171,7 +173,7 @@ const Body = styled.section`
   flex: 1 1 auto;
 
   ${mediaQuery.afterTablet} {
-    height: calc(100vh - 100px);
+    min-height: calc(100vh - 100px);
   }
 `;
 
