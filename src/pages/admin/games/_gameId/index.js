@@ -6,6 +6,8 @@ import { object, string } from "yup";
 import { ButtonAnt, Input } from "../../../../components/form";
 import { firestore } from "../../../../firebase";
 import { useSendError } from "../../../../hooks";
+import isEmpty from "lodash/isEmpty";
+import Title from "antd/lib/typography/Title";
 
 export const GameContainer = (props) => {
   const router = useRouter();
@@ -34,6 +36,7 @@ export const GameContainer = (props) => {
   }, []);
 
   const schema = object().shape({
+    title: string().required(),
     name: string().required(),
     domain: string().required(),
   });
@@ -74,12 +77,24 @@ export const GameContainer = (props) => {
 
   return (
     <GameContainerCss>
+      <Title>{!isEmpty(game) ? "Editar Juego" : "Nuevo Juego"}</Title>
       <form onSubmit={handleSubmit(saveGame)} autoComplete="off" noValidate>
+        <Input
+          type="text"
+          name="title"
+          ref={register}
+          variant="primary"
+          className="input"
+          defaultValue={game.title}
+          placeholder="Titulo"
+          error={errors.title}
+        />
         <Input
           type="text"
           name="name"
           ref={register}
           variant="primary"
+          className="input"
           defaultValue={game.name}
           placeholder="Name"
           error={errors.name}
@@ -89,6 +104,7 @@ export const GameContainer = (props) => {
           name="domain"
           ref={register}
           variant="primary"
+          className="input"
           defaultValue={game.domain}
           placeholder="Domain"
           error={errors.domain}
@@ -98,15 +114,12 @@ export const GameContainer = (props) => {
           name="api"
           ref={register}
           variant="primary"
+          className="input"
           defaultValue={game.api}
           placeholder="Domain"
           error={errors.api}
         />
-        <ButtonAnt
-          htmlType="submit"
-          loading={isSaving || loading}
-          disabled={isSaving || loading}
-        >
+        <ButtonAnt htmlType="submit" loading={isSaving || loading} disabled={isSaving || loading}>
           GUARDAR
         </ButtonAnt>
       </form>
@@ -116,7 +129,13 @@ export const GameContainer = (props) => {
 
 const GameContainerCss = styled.div`
   width: 100%;
-  max-width: 300px;
+  max-width: 450px;
   margin: auto;
   color: ${(props) => props.theme.basic.black};
+
+  form {
+    .input {
+      margin: 0.5rem auto;
+    }
+  }
 `;

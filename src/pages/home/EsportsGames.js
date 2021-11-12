@@ -7,7 +7,7 @@ import { mediaQuery } from "../../constants";
 import { Desktop } from "../../utils";
 
 export const EsportsGames = (props) => {
-  const [games] = useGlobal("games");
+  const [games] = useGlobal("userGames");
 
   return (
     <EsportsSection>

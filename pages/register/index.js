@@ -1,20 +1,14 @@
 import React from "reactn";
 import { Register } from "../../src/pages/register";
-import dynamic from "next/dynamic";
-import { spinLoader } from "../../src/components/common/loader";
 import { SEOMeta } from "../../src/components/common/seo";
-
-const UserLayout = dynamic(() => import("../../src/components/UserLayout"), {
-  ssr: false,
-  loading: () => spinLoader(),
-});
+import { Navbar } from "../../src/components/Navbar";
 
 const Registration = (props) => (
   <>
     <SEOMeta {...props} />
-    <UserLayout {...props}>
+    <Navbar>
       <Register {...props} />
-    </UserLayout>
+    </Navbar>
   </>
 );
 

@@ -9,13 +9,9 @@ import isEmpty from "lodash/isEmpty";
 
 const version = "0.2";
 
-let hostName =
-  process.env.NODE_ENV === "development"
-    ? "localhost"
-    : get(process, "env.GCLOUD_PROJECT", "");
+let hostName = process.env.NODE_ENV === "development" ? "localhost" : get(process, "env.GCLOUD_PROJECT", "");
 
-if (typeof window !== "undefined")
-  hostName = get(window, "location.hostname", "").replace("subdomain.", "");
+if (typeof window !== "undefined") hostName = get(window, "location.hostname", "").replace("subdomain.", "");
 
 console.log("projectId", hostName);
 
@@ -24,7 +20,8 @@ let config;
 if (
   hostName.includes("red.") ||
   hostName.includes("-dev") ||
-  hostName.includes("localhost")
+  hostName.includes("localhost") ||
+  hostName.includes("cloudshell")
 ) {
   config = configJson.development;
   console.log("dev", version);
@@ -78,14 +75,12 @@ if (isEmpty(firebase.apps)) {
 }
 
 if (hostName === "localhost") {
-  config.serverUrl = config.serverUrlLocal;
+  //config.serverUrl = config.serverUrlLocal;
   //firestore.useEmulator("localhost", 8080);
   //auth.useEmulator("http://localhost:9099/");
 }
 
-const landingsStorageBucket = firebase
-  .app()
-  .storage(`gs://${config.landingsStorageBucket}`);
+const landingsStorageBucket = firebase.app().storage(`gs://${config.landingsStorageBucket}`);
 
 export {
   auth,

@@ -17,7 +17,7 @@ export const Bingo = (props) => {
   const [backgroundImg, setBackgroundImg] = useState(null);
   const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
 
-  const [ownBranding, setOwnBranding] = useState(true);
+  const [ownBranding, setOwnBranding] = useState(false);
   const [video, setVideo] = useState(null);
   const [allowDuplicate, setAllowDuplicate] = useState(true);
   const [visibility, setVisibility] = useState(true);
@@ -113,12 +113,7 @@ export const Bingo = (props) => {
         <div className="main-container">
           <div>
             <div className="btns-container">
-              <ButtonAnt
-                variant={"outlined"}
-                color={"dark"}
-                disabled={props.isLoading}
-                onClick={() => router.back()}
-              >
+              <ButtonAnt color="default" disabled={props.isLoading} onClick={() => router.back()}>
                 Cancelar
               </ButtonAnt>
               <Tablet>
@@ -142,7 +137,7 @@ export const Bingo = (props) => {
                 name="name"
                 ref={register}
                 error={errors.name}
-                placeholder="Título sin nombre"
+                placeholder="Nombre del Evento"
               />
 
               <ButtonAnt
@@ -159,15 +154,16 @@ export const Bingo = (props) => {
             <div className="subtitle">Personalización de cartilla</div>
             <div className="bingo-card">
               <div className="item">
-                <div className="text">Titulo y columnas</div>
+                <div className="text">Título</div>
                 <Input
-                  defaultValue={get(props, "game.title", "")}
+                  defaultValue={get(props, "game.title", "Titulo de Cartilla")}
                   type="text"
                   name="title"
                   ref={register}
                   error={errors.title}
                   placeholder="Titulo"
                 />
+                <div className="text">Columnas</div>
                 <div className="bingo-inputs">
                   <Input
                     type="text"
@@ -257,19 +253,14 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="backgroundColor"
-                    defaultValue={get(
-                      props,
-                      "game.backgroundColor",
-                      darkTheme.basic.secondary
-                    )}
+                    defaultValue={get(props, "game.backgroundColor", darkTheme.basic.primaryLight)}
                     ref={register}
                     id="input-color-background"
+                    onChange={() => setBackgroundImg(null)}
                   />
                   <label
                     htmlFor="backgroundColor"
-                    onClick={() =>
-                      document.getElementById("input-color-background").click()
-                    }
+                    onClick={() => document.getElementById("input-color-background").click()}
                   >
                     {watch("backgroundColor")}
                   </label>
@@ -281,20 +272,11 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="titleColor"
-                    defaultValue={get(
-                      props,
-                      "game.titleColor",
-                      darkTheme.basic.whiteLight
-                    )}
+                    defaultValue={get(props, "game.titleColor", darkTheme.basic.secondary)}
                     id="input-color-title"
                     ref={register}
                   />
-                  <label
-                    htmlFor="titleColor"
-                    onClick={() =>
-                      document.getElementById("input-color-title").click()
-                    }
-                  >
+                  <label htmlFor="titleColor" onClick={() => document.getElementById("input-color-title").click()}>
                     {watch("titleColor")}
                   </label>
                 </div>
@@ -305,20 +287,11 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="blocksColor"
-                    defaultValue={get(
-                      props,
-                      "game.blocksColor",
-                      darkTheme.basic.primary
-                    )}
+                    defaultValue={get(props, "game.blocksColor", darkTheme.basic.secondary)}
                     id="input-color-blocks"
                     ref={register}
                   />
-                  <label
-                    htmlFor="blocksColor"
-                    onClick={() =>
-                      document.getElementById("input-color-blocks").click()
-                    }
-                  >
+                  <label htmlFor="blocksColor" onClick={() => document.getElementById("input-color-blocks").click()}>
                     {watch("blocksColor")}
                   </label>
                 </div>
@@ -329,20 +302,11 @@ export const Bingo = (props) => {
                   <input
                     type="color"
                     name="numberColor"
-                    defaultValue={get(
-                      props,
-                      "game.numberColor",
-                      darkTheme.basic.whiteLight
-                    )}
+                    defaultValue={get(props, "game.numberColor", darkTheme.basic.whiteLight)}
                     ref={register}
                     id="input-color-number"
                   />
-                  <label
-                    htmlFor="numberColor"
-                    onClick={() =>
-                      document.getElementById("input-color-number").click()
-                    }
-                  >
+                  <label htmlFor="numberColor" onClick={() => document.getElementById("input-color-number").click()}>
                     {watch("numberColor")}
                   </label>
                 </div>
@@ -350,15 +314,15 @@ export const Bingo = (props) => {
             </div>
             <div className="upload-container">
               <FileUpload
+                key={watch("backgroundColor")}
+                buttonLabel={backgroundImg ? "Cambiar imagen de fondo para cartilla" : "Subir imagen de fondo para cartilla"}
                 file={backgroundImg}
                 preview={false}
                 fileName="backgroundImg"
                 filePath={`/games/Bingo/${newId}`}
                 sizes="470x570"
                 disabled={props.isLoading}
-                afterUpload={(resizeImages) =>
-                  setBackgroundImg(resizeImages[0].url)
-                }
+                afterUpload={(resizeImages) => setBackgroundImg(resizeImages[0].url)}
               />
             </div>
           </div>
@@ -378,6 +342,7 @@ export const Bingo = (props) => {
               </div>
               <div className="card-container">
                 <CardContainer
+                  backgroundImage={backgroundImg}
                   backgroundColor={watch("backgroundColor")}
                   titleColor={watch("titleColor")}
                   blocksColor={watch("blocksColor")}
@@ -469,7 +434,7 @@ const BingoContainer = styled.div`
       font-size: 13px;
       line-height: 16px;
       color: ${(props) => props.theme.basic.grayLight};
-      margin-bottom: 0.5rem;
+      margin: 0.5rem 0;
     }
 
     .bingo-card {
@@ -487,7 +452,7 @@ const BingoContainer = styled.div`
         grid-template-columns: repeat(5, 1fr);
         grid-gap: 5px;
         max-width: 200px;
-        margin: 1rem auto;
+        margin: 0.5rem 0;
 
         .input-bingo {
           padding: 0 !important;
@@ -607,10 +572,13 @@ export const CardContainer = styled.div`
   width: 100%;
   height: 210px;
   max-width: 200px;
-  background: ${(props) =>
-    props.backgroundColor
-      ? props.backgroundColor
-      : props.theme.basic.secondary};
+  background: ${(props) => {
+    if (props.backgroundImage) return `url(${props.backgroundImage})`;
+    if (props.backgroundColor) return props.backgroundColor;
+
+    return props.theme.basic.secondary;
+  }};
+  background-position: center;
   border-radius: 3px;
 
   .card-title {
@@ -619,8 +587,7 @@ export const CardContainer = styled.div`
     font-weight: 700;
     font-size: 15px;
     line-height: 18px;
-    color: ${(props) =>
-      props.titleColor ? props.titleColor : props.theme.basic.white};
+    color: ${(props) => (props.titleColor ? props.titleColor : props.theme.basic.white)};
     text-align: center;
     padding: 0.5rem;
   }
@@ -639,7 +606,7 @@ export const CardContainer = styled.div`
         font-weight: bold;
         font-size: 15px;
         line-height: 18px;
-        color: ${(props) => props.theme.basic.whiteLight};
+        color: ${(props) => (props.titleColor ? props.titleColor : props.theme.basic.white)};
       }
     }
 
@@ -656,10 +623,8 @@ export const CardContainer = styled.div`
           font-weight: bold;
           font-size: 13px;
           line-height: 15px;
-          color: ${(props) =>
-            props.numberColor ? props.numberColor : props.theme.basic.white};
-          background: ${(props) =>
-            props.blocksColor ? props.blocksColor : props.theme.basic.primary};
+          color: ${(props) => (props.numberColor ? props.numberColor : props.theme.basic.white)};
+          background: ${(props) => (props.blocksColor ? props.blocksColor : props.theme.basic.primary)};
         }
       }
     }
@@ -686,7 +651,7 @@ export const CardContainer = styled.div`
           font-weight: 700;
           font-size: 38px;
           line-height: 41px;
-          color: ${(props) => props.theme.basic.whiteLight};
+          color: ${(props) => (props.titleColor ? props.titleColor : props.theme.basic.white)};
         }
       }
 

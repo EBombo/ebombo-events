@@ -4,12 +4,32 @@ import { Input } from "../../components/form";
 import { ListGameView } from "./ListGameView";
 import isEmpty from "lodash/isEmpty";
 import { spinLoaderMin } from "../../components/common/loader";
+import { ModalMove } from "../../components/common/ModalMove";
+import { useSendError } from "../../hooks";
+import { updateGame } from "./games/_gameId"
 
 export const DesktopLibraryGames = (props) => {
-  const [games, setGames] = useGlobal("games");
+  const [games, setGames] = useGlobal("userGames");
   const [listType, setListType] = useState("icons");
   const [tab, setTab] = useState("all");
   const [loadingGames] = useGlobal("loadingGames");
+  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
+  const { sendError } = useSendError();
+  const [authUser] = useGlobal("user");
+
+  const [selectedGameToMove, setSelectedGameToMove] = useState(null);
+
+  const moveGameToFolder = async (folder) => {
+    if (!selectedGameToMove) return;
+    
+    try {
+      await updateGame(selectedGameToMove.adminGame, { id: selectedGameToMove.id, parentId: folder?.id }, authUser);
+      
+      props.fetchGames();
+    } catch (error) {
+      await sendError(error);
+    }
+  };
 
   useEffect(() => {
     if (tab === "favorites") {
@@ -22,6 +42,12 @@ export const DesktopLibraryGames = (props) => {
 
   return (
     <GamesContainer>
+      <ModalMove
+        moveToFolder={moveGameToFolder}
+        setIsVisibleModalMove={setIsVisibleModalMove}
+        isVisibleModalMove={isVisibleModalMove}
+        {...props}
+      />
       <div className="nav-container">
         <div className="tabs-search-container">
           <div className="tabs-container">
@@ -69,6 +95,7 @@ export const DesktopLibraryGames = (props) => {
             game={game}
             key={game.id}
             listType={listType}
+            initModalMove={(toggle) => { setIsVisibleModalMove(toggle); setSelectedGameToMove(game) }}
             {...props}
           />
         ))}
@@ -122,6 +149,11 @@ const GamesContainer = styled.div`
       .active {
         border: 2px solid ${(props) => props.theme.basic.secondary};
       }
+      :hover:not(.active) {
+        div {
+          border-color: ${(props) => props.theme.basic.secondaryHover};
+        }
+      }
     }
 
     .list {
@@ -134,9 +166,13 @@ const GamesContainer = styled.div`
         height: 9px;
         margin-bottom: 2px;
       }
-
       .active {
         border: 2px solid ${(props) => props.theme.basic.secondary};
+      }
+      :hover:not(.active) {
+        div {
+          border-color: ${(props) => props.theme.basic.secondaryHover};
+        }
       }
     }
   }
