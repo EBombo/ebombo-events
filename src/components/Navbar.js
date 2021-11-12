@@ -2,7 +2,7 @@ import React, { useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./common/Image";
 import { config } from "../firebase";
-import { Desktop, Tablet } from "../constants";
+import { Desktop, mediaQuery, Tablet } from "../constants";
 import { Anchor, ButtonAnt } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
@@ -16,14 +16,15 @@ const menus = infoGamesData.map((infoGame) => ({ menuLabel: infoGame.menuLabel, 
 
 export const Navbar = (props) => {
   const router = useRouter();
+
   const { signOut } = useAuth();
+
   const [authUser] = useGlobal("user");
+
   const [active, setActive] = useState(false);
   const [isVisibleNavGames, setIsVisibleNavGames] = useState(false);
 
-  const onClick = ({ key }) => {
-    router.push(`/games/${menus[key].id}`);
-  };
+  const onClick = ({ key }) => router.push(`/games/${menus[key].id}`);
 
   const menu = useMemo(
     () => (
@@ -88,7 +89,7 @@ export const Navbar = (props) => {
                 >
                   Regístrate
                 </Anchor>
-                <ButtonAnt onClick={() => router.push("login")} color="secondary" variant="outlined" fontSize="18px">
+                <ButtonAnt onClick={() => router.push("/login")} color="secondary" variant="outlined" fontSize="18px">
                   Iniciar sesión
                 </ButtonAnt>
               </div>
@@ -115,7 +116,7 @@ export const Navbar = (props) => {
                 <>
                   <ButtonAnt
                     margin="1.5rem auto"
-                    onClick={() => router.push("login")}
+                    onClick={() => router.push("/login")}
                     color="secondary"
                     variant="outlined"
                     fontSize="18px"
@@ -133,9 +134,9 @@ export const Navbar = (props) => {
               )}
             </ul>
             <div className={`hamburger ${active ? "active" : ""}`} onClick={() => setActive(!active)}>
-              <span className="bar"></span>
-              <span className="bar"></span>
-              <span className="bar"></span>
+              <span className="bar" />
+              <span className="bar" />
+              <span className="bar" />
             </div>
           </Tablet>
         </NavContainer>
@@ -157,16 +158,20 @@ const Body = styled.section`
   width: 100vw;
   overflow: auto;
   flex: 1 1 auto;
+
+  ${mediaQuery.afterTablet} {
+    height: calc(100vh - 100px);
+  }
 `;
 
 const NavContainer = styled.div`
   width: 100%;
   display: flex;
+  height: 100px;
+  padding: 0 1rem;
   align-items: center;
   justify-content: space-between;
-  height: 100px;
   background: ${(props) => props.theme.basic.whiteLight};
-  padding: 0 1rem;
 
   .left-container {
     display: flex;

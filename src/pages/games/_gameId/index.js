@@ -10,33 +10,36 @@ export const GameDetail = (props) => {
   const router = useRouter();
 
   const { gameId } = router.query;
-  const infoGame = infoGamesData.find(infoGame => infoGame.id === gameId);
+
+  const infoGame = infoGamesData.find((infoGame) => infoGame.id === gameId);
 
   return (
-  <LandingContainer>
-    <div className="landing-container">
-      <div className="back-container">
-        <Icon className="back-icon" type="left" onClick={() => router.back()} />
+    <LandingContainer>
+      <div className="landing-container">
+        <div className="back-container">
+          <Icon className="back-icon" type="left" onClick={() => router.back()} />
+        </div>
+        <GameInfoSectionsContainer>{infoGame && <GameInfoSection infoGame={infoGame} />}</GameInfoSectionsContainer>
       </div>
-      <GameInfoSectionsContainer>
-        { infoGame && <GameInfoSection infoGame={infoGame} /> }
-      </GameInfoSectionsContainer>
-    </div>
-  </LandingContainer>);
+    </LandingContainer>
+  );
 };
 
 const LandingContainer = styled.div`
   width: 100%;
+  height: 100%;
   background: ${(props) => props.theme.basic.whiteLighten};
 
   .landing-container {
     position: relative;
     z-index: 1;
   }
+
   .back-container {
     max-width: 1200px;
     margin: 0 auto 0 auto;
     padding-top: 32px;
+
     span {
       border-radius: 50%;
       padding: 6px;
@@ -48,6 +51,7 @@ const LandingContainer = styled.div`
       // left: 32px;
       vertical-align: bottom;
       color: ${(props) => props.theme.basic.white};
+
       svg {
         font-size: 12px;
       }
@@ -57,21 +61,24 @@ const LandingContainer = styled.div`
 
 const GameInfoSectionsContainer = styled.div`
   section:nth-child(even) {
-    background: ${props => props.theme.basic.blackDarken};
-    color: ${props => props.theme.basic.white};
-    h1 {
-      color: ${props => props.theme.basic.white};
-    }
+    background: ${(props) => props.theme.basic.blackDarken};
+    color: ${(props) => props.theme.basic.white};
 
+    h1 {
+      color: ${(props) => props.theme.basic.white};
+    }
   }
+
   section:nth-child(odd) {
-    background: ${props => props.theme.basic.whiteLighten};
-    color: ${props => props.theme.basic.black};
+    background: ${(props) => props.theme.basic.whiteLighten};
+    color: ${(props) => props.theme.basic.black};
+
     ${mediaQuery.afterTablet} {
       .body-container > .description {
         grid-column: 1 / 2;
         grid-row: 1 / 2;
       }
+
       .body-container > .image-container {
         grid-column: 2 / 3;
         grid-row: 1 / 2;

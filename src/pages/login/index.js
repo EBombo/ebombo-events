@@ -21,8 +21,6 @@ const Login = (props) => {
   const [authUser] = useGlobal("user");
   const [isLoadingUser] = useGlobal("isLoadingUser");
   const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
-  const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
-  const [, setIsVisibleForgotPassword] = useGlobal("isVisibleForgotPassword");
 
   const { register, errors, handleSubmit } = useForm({
     validationSchema,
@@ -93,8 +91,8 @@ const Login = (props) => {
 
 const LoginContainer = styled.div`
   display: flex;
-  height: calc(100vh - 100px);
   width: 100%;
+  height: 100%;
 
   .container {
     margin: 0;
@@ -106,7 +104,7 @@ const LoginContainer = styled.div`
     ${mediaQuery.afterTablet} {
       padding: 0;
       margin: 0;
-      grid-template-columns: 1fr 1.25fr;
+      grid-template-columns: 1fr 1.5fr;
     }
 
     .form-container {
@@ -117,6 +115,11 @@ const LoginContainer = styled.div`
 
       .form-content {
         width: 100%;
+
+        ${mediaQuery.afterTablet} {
+          margin: auto;
+          width: 80%;
+        }
       }
     }
 
