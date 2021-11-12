@@ -33,29 +33,21 @@ export const ModalNewGame = (props) => {
                   src={get(game, "coverUrl", null)}
                   onClick={() => {
                     folderId
-                      ? router.push(
-                          `/library/games/new?adminGameId=${game.id}&folderId=${folderId}`
-                        )
-                      : router.push(
-                          `/library/games/new?adminGameId=${game.id}`
-                        );
+                      ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
+                      : router.push(`/library/games/new?adminGameId=${game.id}`);
                   }}
                 />
               </Desktop>
               <Tablet>
-                <div className="title-game">{game.name}</div>
+                <div className="title-game">{game.title}</div>
               </Tablet>
               <Tablet>
                 <ButtonAnt
                   margin="5px auto"
                   onClick={() => {
                     folderId
-                      ? router.push(
-                          `/library/games/new?adminGameId=${game.id}&folderId=${folderId}`
-                        )
-                      : router.push(
-                          `/library/games/new?adminGameId=${game.id}`
-                        );
+                      ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
+                      : router.push(`/library/games/new?adminGameId=${game.id}`);
                   }}
                 >
                   Crear
@@ -68,15 +60,11 @@ export const ModalNewGame = (props) => {
                   color="black"
                   onClick={() => {
                     folderId
-                      ? router.push(
-                          `/library/games/new?adminGameId=${game.id}&folderId=${folderId}`
-                        )
-                      : router.push(
-                          `/library/games/new?adminGameId=${game.id}`
-                        );
+                      ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
+                      : router.push(`/library/games/new?adminGameId=${game.id}`);
                   }}
                 >
-                  {game.name}
+                  {game.title}
                 </ButtonAnt>
               </Desktop>
             </div>
