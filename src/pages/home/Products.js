@@ -1,7 +1,7 @@
 import React from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
-import { mediaQuery, Tablet } from "../../constants";
+import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { config } from "../../firebase";
 import { Anchor } from "../../components/form";
 import { ArrowRightOutlined } from "@ant-design/icons";
@@ -17,6 +17,9 @@ export const Products = (props) => {
         <Tablet>
           <br />
         </Tablet>
+        <Desktop>
+          &nbsp;
+        </Desktop>
         en un solo lugar
       </div>
       <div className="product">
@@ -65,7 +68,7 @@ export const Products = (props) => {
         <div className="bottom-container">
           <div className="subtitle">Eventos Presenciales</div>
           <div className="description">
-            Realizamos eventos presenciales de todo tipo. Eventos de integración, Hinkanas, integraciones, celebraciones, eventos de todo tipo.
+            Realizamos eventos presenciales de todo tipo. Eventos de integración, integraciones, celebraciones, eventos de todo tipo.
           </div>
           <div className="link">
             <Anchor
@@ -95,7 +98,8 @@ export const Products = (props) => {
         <div className="bottom-container">
           <div className="subtitle">Juegos de integración</div>
           <div className="description">
-            Juegos de integración para tus trabajadores para mantenerlos motivados y con buen clima laboral.
+            Utiliza los juegos de integración creados por ebombo para que tus trabajadores estén super felices. 
+Ya tenemos más de 10 juegos en nuestra cartera de juegos para potenciar el clima laboral.
           </div>
           <div className="link">
             <Anchor

@@ -1,15 +1,16 @@
 import React from "reactn";
+import { GamesDetail } from "../../src/pages/games";
 import { SEOMeta } from "../../src/components/common/seo";
-import Login from "../../src/pages/login";
 import { Navbar } from "../../src/components/Navbar";
 
-const Registration = (props) => (
+const Games = (props) => (
   <>
     <SEOMeta {...props} />
     <Navbar>
-      <Login {...props} />
+      <GamesDetail {...props} />
     </Navbar>
   </>
 );
 
-export default Registration;
+export default Games;
+

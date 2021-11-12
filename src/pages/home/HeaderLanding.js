@@ -9,11 +9,9 @@ export const HeaderLanding = (props) => {
   return (
     <HeaderLandingContainer>
       <div className="left-container">
-        <div className="title">Haz que tus eventos sean todo un éxito.</div>
-        <div className="subtitle">Hazlos al estilo Ebombo.</div>
+        <div className="title">Potencia tu clima y cultura laboral con la tecnología y los eventos de ebombo.</div>
         <div className="description">
-          Facilita tus sesiones de integración o crea un momento de relajo entre tus colaboradores con actividades
-          divertidas como Bingo, trivia, entre otros.
+          Organiza eventos virtuales con ebombo para integrar, motivar y empoderar a los trabajadores de tu empresa. Ya hemos organizado más de 300 eventos virtuales y presenciales.
         </div>
         <div className="companies">
           <Image
@@ -99,6 +97,35 @@ const HeaderLandingContainer = styled.section`
     .description {
       font-size: 18px;
       line-height: 22px;
+    }
+  }
+
+  @keyframes loop_carousel_tablet {
+      from {
+          background-position: 0% 0%
+      }
+      to { 
+          background-position: 485px 0%
+      }
+  }
+  @keyframes loop_carousel_mobile {
+      from {
+          background-position: 0% 0%
+      }
+      to { 
+          background-position: 210% 0%
+      }
+  }
+  .companies{
+    width: 100%;
+    overflow: hidden;
+  }
+  .companies > div {
+    background-repeat: repeat-x !important;
+    width: 200%;
+    animation: loop_carousel_mobile 12s linear infinite;
+    @mediaQuery.afterTablet {
+      animation: loop_carousel_tablet 2s linear infinite;
     }
   }
 `;
