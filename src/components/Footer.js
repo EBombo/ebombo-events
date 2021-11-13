@@ -85,8 +85,8 @@ export const Footer = (props) => (
           {footerContent.map((content) => (
             <Panel header={content.title} key={content.title}>
               <div className="items-container">
-                {content.children.map((item) => (
-                  <Anchor href={item.link} key={item.title} target={item.target}>
+                {content.children.map((item, index) => (
+                  <Anchor href={item.link} key={`mobile-${index}`} target={item.target}>
                     <div className={`item-body ${content.classKey}`}>
                       {item.icon ? (
                         <Image
@@ -114,8 +114,8 @@ export const Footer = (props) => (
           <div className="content-wrapper" key={content.title}>
             <div className="title">{content.title}</div>
             <div className="items-container">
-              {content.children.map((item) => (
-                <Anchor href={item.link} key={item.title} target={item.target}>
+              {content.children.map((item, index) => (
+                <Anchor href={item.link} key={`desktop-${index}`} target={item.target}>
                   <div className={`item-body ${content.classKey}`}>
                     {item.icon ? (
                       <Image

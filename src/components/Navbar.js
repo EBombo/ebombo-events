@@ -29,7 +29,7 @@ export const Navbar = (props) => {
     () => (
       <Menu onClick={onClick}>
         {menus.map((menu, index) => (
-          <Menu.Item key={index}>{menu.menuLabel}</Menu.Item>
+          <Menu.Item key={menu.menuLabel}>{menu.menuLabel}</Menu.Item>
         ))}
       </Menu>
     ),
@@ -70,10 +70,18 @@ export const Navbar = (props) => {
               {/*<Anchor variant="secondary" onClick={() => router.push("/held-events")} className="link">*/}
               {/*  Eventos pasados*/}
               {/*</Anchor>*/}
-              <Anchor variant="secondary" onClick={() => router.push({ hash: "about" })} className="link">
+              <Anchor
+                variant="secondary"
+                onClick={() => router.push({ pathname: "/", hash: "about" })}
+                className="link"
+              >
                 Sobre nosotros
               </Anchor>
-              <Anchor variant="secondary" onClick={() => router.push({ hash: "contact" })} className="link">
+              <Anchor
+                variant="secondary"
+                onClick={() => router.push({ pathname: "/", hash: "contact" })}
+                className="link"
+              >
                 Contacto
               </Anchor>
             </Desktop>
@@ -126,7 +134,7 @@ export const Navbar = (props) => {
               <li
                 className="nav-item"
                 onClick={() => {
-                  router.push({ hash: "about" });
+                  router.push({ pathname: "/", hash: "about" });
                   setActive(false);
                 }}
               >
@@ -135,7 +143,7 @@ export const Navbar = (props) => {
               <li
                 className="nav-item"
                 onClick={() => {
-                  router.push({ hash: "contact" });
+                  router.push({ pathname: "/", hash: "contact" });
                   setActive(false);
                 }}
               >
