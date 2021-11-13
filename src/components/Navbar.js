@@ -70,10 +70,10 @@ export const Navbar = (props) => {
               {/*<Anchor variant="secondary" onClick={() => router.push("/held-events")} className="link">*/}
               {/*  Eventos pasados*/}
               {/*</Anchor>*/}
-              <Anchor variant="secondary" onClick={() => router.push("/")} className="link">
+              <Anchor variant="secondary" onClick={() => router.push({ hash: "about" })} className="link">
                 Sobre nosotros
               </Anchor>
-              <Anchor variant="secondary" onClick={() => router.push("/")} className="link">
+              <Anchor variant="secondary" onClick={() => router.push({ hash: "contact" })} className="link">
                 Contacto
               </Anchor>
             </Desktop>
@@ -123,8 +123,24 @@ export const Navbar = (props) => {
               )}
               <li className="nav-item">Planes</li>
               {/*<li className="nav-item">Eventos pasados</li>*/}
-              <li className="nav-item">Sobre nosotros</li>
-              <li className="nav-item">Contacto</li>
+              <li
+                className="nav-item"
+                onClick={() => {
+                  router.push({ hash: "about" });
+                  setActive(false);
+                }}
+              >
+                Sobre nosotros
+              </li>
+              <li
+                className="nav-item"
+                onClick={() => {
+                  router.push({ hash: "contact" });
+                  setActive(false);
+                }}
+              >
+                Contacto
+              </li>
               {!authUser ? (
                 <>
                   <ButtonAnt

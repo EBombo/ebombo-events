@@ -1,8 +1,8 @@
-import React, { useEffect, useGlobal, useRef, useState } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { HeaderLanding } from "./HeaderLanding";
 import { firestore } from "../../firebase";
-import { HeldEvents } from "./HeldEvents";
+//import { HeldEvents } from "./HeldEvents";
 import { OurGames } from "./OurGames";
 import { Comments } from "./comments/Comments";
 import { ContactForm } from "./ContactForm";
@@ -13,15 +13,11 @@ import { Products } from "./Products";
 
 export const Home = (props) => {
   const router = useRouter();
+
   const [authUser] = useGlobal("user");
+
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const servicesRef = useRef(null);
-  const gamesRef = useRef(null);
-  const eventsRef = useRef(null);
-  const contactRef = useRef(null);
-  const contactFormRef = useRef(null);
 
   useEffect(() => {
     if (!authUser || authUser.isAdmin) return;
@@ -43,15 +39,6 @@ export const Home = (props) => {
     await firestore.collection(`settings/landing/${collection}`).doc(document.id).delete();
   };
 
-  const executeScroll = (section) =>
-    section === "services"
-      ? servicesRef.current.scrollIntoView()
-      : section === "games"
-      ? gamesRef.current.scrollIntoView()
-      : section === "events"
-      ? eventsRef.current.scrollIntoView()
-      : contactRef.current.scrollIntoView();
-
   // TODO: If the data is static consider remove spin [it can be better to SEO].
   // TODO: If the spin is necessary then consider optimize load with localStorage.
   if (loading) return spinLoader();
@@ -59,15 +46,21 @@ export const Home = (props) => {
   return (
     <LandingContainer>
       <div className="landing-container">
-        <HeaderLanding executeScroll={executeScroll} />
+        <HeaderLanding />
         <Products />
         <Plans {...props} />
         {/*
         <HeldEvents />
         */}
         <OurGames />
-        <Comments comments={comments} deleteDocument={deleteDocument} />
-        <ContactForm refProp={contactFormRef} />
+
+        <section id="about">
+          <Comments comments={comments} deleteDocument={deleteDocument} />
+        </section>
+
+        <section id="contact">
+          <ContactForm />
+        </section>
       </div>
     </LandingContainer>
   );

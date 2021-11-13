@@ -1,40 +1,39 @@
 import React from "reactn";
 import styled from "styled-components";
-import { Desktop, mediaQuery, Tablet } from "../../constants";
+import { mediaQuery } from "../../constants";
 import { config } from "../../firebase";
-import { ButtonAnt } from "../../components/form";
 import { Image } from "../../components/common/Image";
 
-export const HeaderLanding = (props) => {
-  return (
-    <HeaderLandingContainer>
-      <div className="left-container">
-        <div className="title">Potencia tu clima y cultura laboral con la tecnología y los eventos de ebombo.</div>
-        <div className="description">
-          Organiza eventos virtuales con ebombo para integrar, motivar y empoderar a los trabajadores de tu empresa. Ya hemos organizado más de 300 eventos virtuales y presenciales.
-        </div>
-        <div className="companies">
-          <Image
-            src={`${config.storageUrl}/resources/companies.svg`}
-            height={"30px"}
-            desktopHeight={"40px"}
-            margin={"1rem 0"}
-            size={"contain"}
-          />
-        </div>
+export const HeaderLanding = (props) => (
+  <HeaderLandingContainer>
+    <div className="left-container">
+      <div className="title">Potencia tu clima y cultura laboral con la tecnología y los eventos de ebombo.</div>
+      <div className="description">
+        Organiza eventos virtuales con ebombo para integrar, motivar y empoderar a los trabajadores de tu empresa. Ya
+        hemos organizado más de 300 eventos virtuales y presenciales.
       </div>
-      <div className="right-container">
+      <div className="companies">
         <Image
-          src={`${config.storageUrl}/resources/header.png`}
-          width={"100%"}
-          height={"400px"}
-          margin={"0"}
+          src={`${config.storageUrl}/resources/companies.svg`}
+          repeat="repeat-x"
+          height={"30px"}
+          desktopHeight={"40px"}
+          margin={"1rem 0"}
           size={"contain"}
         />
       </div>
-    </HeaderLandingContainer>
-  );
-};
+    </div>
+    <div className="right-container">
+      <Image
+        src={`${config.storageUrl}/resources/header.png`}
+        width={"100%"}
+        height={"400px"}
+        margin={"0"}
+        size={"contain"}
+      />
+    </div>
+  </HeaderLandingContainer>
+);
 
 const HeaderLandingContainer = styled.section`
   width: 100%;
@@ -83,7 +82,7 @@ const HeaderLandingContainer = styled.section`
     .left-container {
       max-width: 485px;
     }
-    
+
     .title {
       font-size: 40px;
       line-height: 44px;
@@ -101,31 +100,34 @@ const HeaderLandingContainer = styled.section`
   }
 
   @keyframes loop_carousel_tablet {
-      from {
-          background-position: 0% 0%
-      }
-      to { 
-          background-position: 485px 0%
-      }
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 485px 0;
+    }
   }
   @keyframes loop_carousel_mobile {
-      from {
-          background-position: 0% 0%
-      }
-      to { 
-          background-position: 210% 0%
-      }
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 210% 0;
+    }
   }
-  .companies{
+
+  .companies {
     width: 100%;
     overflow: hidden;
   }
-  .companies > div {
-    background-repeat: repeat-x !important;
-    width: 200%;
-    animation: loop_carousel_mobile 12s linear infinite;
-    @mediaQuery.afterTablet {
-      animation: loop_carousel_tablet 2s linear infinite;
+
+  .companies {
+    div {
+      width: 200%;
+      animation: loop_carousel_mobile 12s linear infinite;
+      @mediaquery . aftertablet {
+        animation: loop_carousel_tablet 2s linear infinite;
+      }
     }
   }
 `;

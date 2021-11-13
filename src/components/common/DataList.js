@@ -149,17 +149,15 @@ export const products = [
     imageUrl: "https://via.placeholder.com/274x130",
     content: [
       "Hemos hecho más de 200 eventos virtuales de todo tipo cómo:",
-      (
-        <ul>
-          <li>Integraciones con juegos</li>
-          <li>Speakers Motivacionales</li>
-          <li>Olimpiadas</li>
-          <li>Eventos temáticos</li>
-          <li>Deportes virtuales</li>
-          <li>Cuenta cuentos</li>
-          <li>Muchos más</li>
-        </ul>
-      ),
+      <ul>
+        <li>Integraciones con juegos</li>
+        <li>Speakers Motivacionales</li>
+        <li>Olimpiadas</li>
+        <li>Eventos temáticos</li>
+        <li>Deportes virtuales</li>
+        <li>Cuenta cuentos</li>
+        <li>Muchos más</li>
+      </ul>,
       `Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.`,
       `Tenemos un estudio de grabación con cámaras, luces, pantalla verde, animadores, moderadores, streamers, speakers y todo lo que necesitas para tener el mejor evento que te puedas imaginar.`,
     ],
@@ -169,7 +167,18 @@ export const products = [
     title: "Eventos Presenciales",
     imageUrl: "https://via.placeholder.com/274x130",
     content: [
-      "A",
+      "Hemos hecho eventos presenciales de todo tipo cómo:  ",
+      <ul>
+        <li>Torneos deportivos</li>
+        <li>Eventos de aniversarios</li>
+        <li>Olimpiadas</li>
+        <li>Eventos temáticos</li>
+        <li>Torneos de esports</li>
+        <li>Activaciones</li>
+        <li>Muchos más</li>
+      </ul>,
+      "Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.",
+      "Contamos con locales en diferentes lugares de la ciudad y animadores que se encarguen de mantener viva la emoción del evento.",
     ],
   },
   {
@@ -177,11 +186,11 @@ export const products = [
     title: "Juegos de integración",
     image: "https://via.placeholder.com/274x130",
     content: [
-      "A",
+      "Tenemos una amplia gama de juegos virtuales e inclusivos para todo tipo de público. Además, nos encontramos en constante desarrollo de nuevos juegos para poder darte la actividad perfecta para tus colaboradores.",
+      //"Mira nuestros juegos aquí",
     ],
-  }
+  },
 ];
-
 
 export const infoGamesData = [
   {
@@ -193,14 +202,14 @@ export const infoGamesData = [
  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more re`,
   },
   // TODO: uncomment when /games/[gameId] is in use
- //  {
- //    id: "bingo",
- //    menuLabel: "Bingo",
- //    title: "Bingo",
- //    imageUrl: "https://via.placeholder.com/274x130",
- //    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
- // It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more re`,
- //  },
+  //  {
+  //    id: "bingo",
+  //    menuLabel: "Bingo",
+  //    title: "Bingo",
+  //    imageUrl: "https://via.placeholder.com/274x130",
+  //    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+  // It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more re`,
+  //  },
 ];
 
 export const heldEventsData = [
