@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { HeaderLanding } from "./HeaderLanding";
 import { firestore } from "../../firebase";
 //import { HeldEvents } from "./HeldEvents";
-import { OurGames } from "./OurGames";
 import { Comments } from "./comments/Comments";
 import { ContactForm } from "./ContactForm";
 import { spinLoader } from "../../components/common/loader";
@@ -44,7 +43,7 @@ export const Home = (props) => {
     if (typeof window === "undefined") return;
 
     const initialize = async () => {
-      await timeoutPromise(1000);
+      await timeoutPromise(500);
       const hash = window.location.hash;
 
       if (hash?.includes("about")) return aboutRef.current?.scrollIntoView();
@@ -70,7 +69,7 @@ export const Home = (props) => {
         {/*
         <HeldEvents />
         */}
-        <OurGames />
+        {/*<OurGames />*/}
 
         <section id="about" ref={aboutRef}>
           <Comments comments={comments} deleteDocument={deleteDocument} />
