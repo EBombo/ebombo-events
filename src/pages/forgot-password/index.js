@@ -103,8 +103,8 @@ const ForgotPassword = (props) => {
 
 const ContainerForgotPassword = styled.div`
   display: flex;
-  height: calc(100vh - 100px);
   width: 100%;
+  height: 100%;
 
   .container {
     margin: 0;

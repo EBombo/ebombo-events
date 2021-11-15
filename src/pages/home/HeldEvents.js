@@ -79,7 +79,7 @@ const EventsContainer = styled.section`
   }
 
   ${mediaQuery.afterTablet} {
-    padding: 2rem;
+    padding: 3rem 2rem;
 
     .title {
       font-size: 34px;

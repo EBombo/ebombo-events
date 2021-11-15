@@ -1,4 +1,4 @@
-import { ButtonAnt, Input, InputGroup, Select } from "../../components/form";
+import { ButtonAnt, Input, Select } from "../../components/form";
 import { Divider } from "../../components/common/Divider";
 import { Controller, useForm } from "react-hook-form";
 import React, { useEffect, useGlobal } from "reactn";
@@ -55,12 +55,11 @@ export const Register = (props) => {
     return get(country, "dialCode", null);
   };
 
-  const signUpUser = async (user) => {
+  const signUpUser = async (user) =>
     await signUp({
       ...user,
       birthDate: moment(`${user.day}/${user.month}/${user.year}`, "DD/MM/YYYY").toDate(),
     });
-  };
 
   return (
     <RegisterContainer>
@@ -252,8 +251,8 @@ export const Register = (props) => {
 
 const RegisterContainer = styled.div`
   display: flex;
-  height: calc(100vh - 100px);
   width: 100%;
+  height: 100%;
 
   .container {
     margin: 0;

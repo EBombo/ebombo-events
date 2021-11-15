@@ -30,12 +30,14 @@ export const updateGame = async (adminGame, game, authUser) => {
 export const GameContainer = (props) => {
   const router = useRouter();
   const { gameId, adminGameId, folderId } = router.query;
+
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
 
   const [authUser] = useGlobal("user");
   const [games] = useGlobal("userGames");
   const [adminGames] = useGlobal("adminGames");
+
   const [isLoading, setIsLoading] = useState(false);
   const [parent, setParent] = useState(null);
   const [currentAdminGame, setCurrentCurrentAdminGame] = useState(null);

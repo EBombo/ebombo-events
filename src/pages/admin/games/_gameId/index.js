@@ -6,8 +6,8 @@ import { object, string } from "yup";
 import { ButtonAnt, Input } from "../../../../components/form";
 import { firestore } from "../../../../firebase";
 import { useSendError } from "../../../../hooks";
-import Title from "antd/es/typography/Title";
 import isEmpty from "lodash/isEmpty";
+import Title from "antd/lib/typography/Title";
 
 export const GameContainer = (props) => {
   const router = useRouter();

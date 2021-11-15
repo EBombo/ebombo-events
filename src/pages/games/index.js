@@ -1,17 +1,15 @@
 import React from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { mediaQuery } from "../../../constants";
-import { infoGamesData } from "../../../components/common/DataList";
-import { GameInfoSection } from "./GameInfoSection";
-import { Icon } from "../../../components/common/Icons";
+import { mediaQuery } from "../../constants";
+import { infoGamesData } from "../../components/common/DataList";
+import { GameInfoSection } from "./_gameId/GameInfoSection";
+import { Icon } from "../../components/common/Icons";
 
-export const GameDetail = (props) => {
+export const GamesDetail = (props) => {
   const router = useRouter();
 
-  const { gameId } = router.query;
-
-  const infoGame = infoGamesData.find((infoGame) => infoGame.id === gameId);
+  const infoGame = infoGamesData[0];
 
   return (
     <LandingContainer>
@@ -19,21 +17,17 @@ export const GameDetail = (props) => {
         <div className="back-container">
           <Icon className="back-icon" type="left" onClick={() => router.back()} />
         </div>
-        {/*TODO: Consider refactoring, move tyle from <GameInfoSectionsContainer> into <GameInfoSection>*/}
-        <GameInfoSectionsContainer>{infoGame && <GameInfoSection infoGame={infoGame} />}</GameInfoSectionsContainer>
+        <GameInfoSectionContainer>{infoGame && <GameInfoSection infoGame={infoGame} />}</GameInfoSectionContainer>
       </div>
     </LandingContainer>
   );
 };
 
-// TODO: Consider refactoring.
-// TODO: Don't use nth-child.
-// TODO: Don't use ".a-class > .b-class".
-// TODO: Use the className.
+// TODO: Consider refactoring CSS [Use className].
 const LandingContainer = styled.div`
   width: 100%;
   height: 100%;
-  background: ${(props) => props.theme.basic.whiteLighten};
+  background: ${(props) => props.theme.basic.white};
 
   .landing-container {
     position: relative;
@@ -50,10 +44,7 @@ const LandingContainer = styled.div`
       padding: 6px;
       background: ${(props) => props.theme.basic.primary};
 
-      // position: absolute;
       cursor: pointer;
-      // bottom: 0;
-      // left: 32px;
       vertical-align: bottom;
       color: ${(props) => props.theme.basic.white};
 
@@ -64,7 +55,10 @@ const LandingContainer = styled.div`
   }
 `;
 
-const GameInfoSectionsContainer = styled.div`
+// TODO: Consider move this styled to GameInfoSection.
+// TODO: Consider refactoring CSS [not use nth-child].
+// TODO: Consider refactoring CSS [use styled-components structure correctly not use ".class > anything"].
+const GameInfoSectionContainer = styled.div`
   section:nth-child(even) {
     background: ${(props) => props.theme.basic.blackDarken};
     color: ${(props) => props.theme.basic.white};
