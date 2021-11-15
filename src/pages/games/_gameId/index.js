@@ -25,6 +25,10 @@ export const GameDetail = (props) => {
   );
 };
 
+// TODO: Consider refactoring.
+// TODO: Don't use nth-child.
+// TODO: Don't use ".a-class > .b-class".
+// TODO: Use the className.
 const LandingContainer = styled.div`
   width: 100%;
   height: 100%;
