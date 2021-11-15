@@ -6,6 +6,7 @@ import { useFetch } from "../../../../hooks/useFetch";
 import isEmpty from "lodash/isEmpty";
 import { Bingo } from "./Bingo";
 import { firestore } from "../../../../firebase";
+import { Hanged } from "./Hanged";
 
 export const updateGameUrl = (adminGame, game, authUser) => `${adminGame.api}/games/${game.id}/users/${authUser.id}`;
 
@@ -109,8 +110,18 @@ export const GameContainer = (props) => {
 
   return (
     <GameContainerCss>
-      {currentAdminGame && currentAdminGame.name === "Bingo" && (
+      {currentAdminGame && currentAdminGame.name === "bingo" && (
         <Bingo
+          submitGame={submitGame}
+          isLoading={isLoading}
+          game={currentGame}
+          parent={parent}
+          setParent={setParent}
+          {...props}
+        />
+      )}
+      {currentAdminGame && currentAdminGame.name === "hanged" && (
+        <Hanged
           submitGame={submitGame}
           isLoading={isLoading}
           game={currentGame}
