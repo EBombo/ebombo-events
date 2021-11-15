@@ -28,7 +28,7 @@ export const ModalNewGame = (props) => {
         <div className="games">
           {adminGames.map((game) => (
             <div className="game" key={game.id}>
-              {/*TODO: ConsiConsider refactoring, add order between desktop and tablet, now hard to understand order.*/}
+              {/*TODO: ConsiConsider refactoring, add order between <Desktop> and <Tablet>, now hard to understand order.*/}
               <Desktop>
                 <GameImage
                   src={get(game, "coverUrl", null)}
