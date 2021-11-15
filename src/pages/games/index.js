@@ -18,7 +18,7 @@ export const GamesDetail = (props) => {
         <div className="back-container">
           <Icon className="back-icon" type="left" onClick={() => router.back()} />
         </div>
-        <div>{infoGame && <GameInfoSection infoGame={infoGame} />}</div>
+        {infoGame && <GameInfoSection infoGame={infoGame} />}
         <ContactForm />
       </div>
     </LandingContainer>
