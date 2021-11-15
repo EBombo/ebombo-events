@@ -139,7 +139,7 @@ export const Plans = (props) => {
         {tabContent()}
       </PlansContainer>
 
-      {router.asPath.includes("/subscriptions") && (
+      {tab === "games" && (
         <TableContainer>
           <PlansTable {...props} />
         </TableContainer>
