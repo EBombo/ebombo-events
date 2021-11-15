@@ -4,7 +4,7 @@ import { mediaQuery } from "../../constants";
 import { plans } from "../../components/common/DataList";
 
 export const PlansTable = (props) => {
-  const [currentPlan, ] = useState("Avanzado");
+  const [currentPlan] = useState("Avanzado");
 
   return (
     <TableContainer>
@@ -46,7 +46,11 @@ export const PlansTable = (props) => {
                   )}
 
                   <div className="divider" />
-                  <div className="description">{plan.description}</div>
+                  <div
+                    className={`description ${currentPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""}`}
+                  >
+                    {plan.description}
+                  </div>
                 </div>
               </td>
               {plan.specs.map((spec, index) => (
@@ -166,6 +170,11 @@ const TableContainer = styled.div`
       color: ${(props) => props.theme.basic.grayLight};
       text-align: center;
       max-width: 80%;
+    }
+
+    .select {
+      font-weight: bold;
+      color: ${(props) => props.theme.basic.black};
     }
   }
 
