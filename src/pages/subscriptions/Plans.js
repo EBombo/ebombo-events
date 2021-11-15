@@ -13,6 +13,7 @@ export const Plans = (props) => {
 
   const [tab, setTab] = useState(props.tab ?? "online");
 
+  // TODO: Refactoring: use a useMemo or create a new component.
   const contactInfo = () => (
     <ContactContent>
       <div className="info">
@@ -39,6 +40,7 @@ export const Plans = (props) => {
     </ContactContent>
   );
 
+  // TODO: Refactoring no use switch.
   const tabContent = () => {
     switch (tab) {
       case "online":
@@ -80,14 +82,18 @@ export const Plans = (props) => {
               <PlanPriceContent plan={plan.name} color={plan.color} background={plan.background} key={index}>
                 <div className="plan free">
                   {plan.name === "Avanzado" && <div className="header">Recomendado</div>}
+
                   <div className="name">{plan.name}</div>
+
                   <div className="price">
                     {plan.name !== "Exclusivo" && "$"} {plan.price}
                   </div>
+
                   <div className="time">por mes</div>
                   <div className="divider" />
                   <div className="users">{plan.users} usuarios</div>
                   <div className="games">{plan.games} juegos</div>
+
                   {!router.asPath.includes("/subscriptions") && (
                     <Anchor
                       targe="_self"
@@ -102,6 +108,7 @@ export const Plans = (props) => {
                       Ver más
                     </Anchor>
                   )}
+
                   <button className="btn-register" onClick={() => router.push("/register")}>
                     Registrarme
                   </button>
@@ -252,13 +259,18 @@ const TableContainer = styled.div`
 const PlanContent = styled.div`
   width: 90%;
   max-width: 1350px;
-  background: ${(props) => props.theme.basic.whiteLight};
-  box-shadow: 6px 7px 30px 15px rgba(0, 0, 0, 0.14);
-  border-radius: 8px;
   margin: 1rem auto;
+  border-radius: 8px;
+  box-shadow: 6px 7px 30px 15px rgba(0, 0, 0, 0.14);
+  background: ${(props) => props.theme.basic.whiteLight};
 
   ${mediaQuery.afterTablet} {
     width: 100%;
+    margin: 2rem auto;
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
   }
 
   .main-container {
@@ -301,13 +313,6 @@ const PlanContent = styled.div`
       text-align: center;
       color: ${(props) => props.theme.basic.blackDarken};
     }
-  }
-
-  ${mediaQuery.afterTablet} {
-    margin: 2rem auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 2rem;
   }
 `;
 
@@ -356,6 +361,7 @@ const PlansPrices = styled.div`
   ${mediaQuery.afterTablet} {
     grid-template-columns: repeat(5, 1fr);
     margin: 2rem auto;
+    padding: 10px 0;
   }
 `;
 
