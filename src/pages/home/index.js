@@ -44,7 +44,7 @@ export const Home = (props) => {
     if (typeof window === "undefined") return;
 
     const initialize = async () => {
-      await timeoutPromise(1000);
+      await timeoutPromise(500);
       const hash = window.location.hash;
 
       if (hash?.includes("about")) return aboutRef.current?.scrollIntoView();

@@ -15,8 +15,8 @@ export const HeaderLanding = (props) => (
       <div className="companies">
         <Image
           src={`${config.storageUrl}/resources/companies.svg`}
-          height={"30px"}
-          desktopHeight={"40px"}
+          height={"55px"}
+          desktopHeight={"55px"}
           margin={"1rem 0"}
           size={"contain"}
         />
