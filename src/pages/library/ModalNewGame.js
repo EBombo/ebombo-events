@@ -24,9 +24,11 @@ export const ModalNewGame = (props) => {
     >
       <NewGameContainer>
         <div className="title">Crear un nuevo juego</div>
+
         <div className="games">
           {adminGames.map((game) => (
             <div className="game" key={game.id}>
+              {/*TODO: ConsiConsider refactoring, add order between desktop and tablet, now hard to understand order.*/}
               <Desktop>
                 <GameImage
                   src={get(game, "coverUrl", null)}
@@ -37,9 +39,11 @@ export const ModalNewGame = (props) => {
                   }}
                 />
               </Desktop>
+
               <Tablet>
                 <div className="title-game">{game.title}</div>
               </Tablet>
+
               <Tablet>
                 <ButtonAnt
                   margin="5px auto"
@@ -52,6 +56,7 @@ export const ModalNewGame = (props) => {
                   Crear
                 </ButtonAnt>
               </Tablet>
+
               <Desktop>
                 <ButtonAnt
                   variant="text"
@@ -63,12 +68,13 @@ export const ModalNewGame = (props) => {
                       : router.push(`/library/games/new?adminGameId=${game.id}`);
                   }}
                 >
-                  {game.name}
+                  {game.title}
                 </ButtonAnt>
               </Desktop>
             </div>
           ))}
         </div>
+
         <ButtonAnt
           margin="20px auto auto auto"
           variant="contained"
