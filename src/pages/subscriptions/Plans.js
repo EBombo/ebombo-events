@@ -361,7 +361,7 @@ const PlansPrices = styled.div`
   ${mediaQuery.afterTablet} {
     grid-template-columns: repeat(5, 1fr);
     margin: 2rem auto;
-    padding: 10px 0;
+    padding: 20px 0;
   }
 `;
 
