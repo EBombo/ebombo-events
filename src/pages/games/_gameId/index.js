@@ -19,6 +19,7 @@ export const GameDetail = (props) => {
         <div className="back-container">
           <Icon className="back-icon" type="left" onClick={() => router.back()} />
         </div>
+        {/*TODO: Consider refactoring, move tyle from <GameInfoSectionsContainer> into <GameInfoSection>*/}
         <GameInfoSectionsContainer>{infoGame && <GameInfoSection infoGame={infoGame} />}</GameInfoSectionsContainer>
       </div>
     </LandingContainer>
