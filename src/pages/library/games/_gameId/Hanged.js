@@ -5,8 +5,11 @@ import { ButtonAnt, Input, TextArea } from "../../../../components/form";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import get from "lodash/get";
+import { useRouter } from "next/router";
 
 export const Hanged = (props) => {
+  const router = useRouter();
+
   const schema = object().shape({
     name: string().required(),
     phrases: string().required(),
@@ -21,13 +24,19 @@ export const Hanged = (props) => {
     const phrases = data.phrases.split(/\r?\n/);
     const title = data.title;
 
-    //send information to hanged project
+    const _game = {
+      phrases,
+      title,
+    };
 
+    await props.submitGame(_game);
   };
 
   return (
     <HangedContainer>
-      <ButtonAnt color="default">Cancelar</ButtonAnt>
+      <ButtonAnt color="default" onClick={() => router.back()}>
+        Cancelar
+      </ButtonAnt>
       <form onSubmit={handleSubmit(saveGame)}>
         <Input
           defaultValue={get(props, "game.name", "")}
