@@ -7,8 +7,7 @@ import isEmpty from "lodash/isEmpty";
 import { Bingo } from "./Bingo";
 import { firestore } from "../../../../firebase";
 
-export const updateGameUrl = (adminGame, game, authUser) =>
-  `${adminGame.api}/games/${game.id}/users/${authUser.id}`;
+export const updateGameUrl = (adminGame, game, authUser) => `${adminGame.api}/games/${game.id}/users/${authUser.id}`;
 
 export const updateGame = async (adminGame, game, authUser) => {
   const { Fetch } = useFetch();
@@ -22,24 +21,22 @@ export const updateGame = async (adminGame, game, authUser) => {
     body: { ...game, adminGame },
   };
 
-  const { error } = await Fetch(
-    fetchProps.url,
-    fetchProps.method,
-    fetchProps.body
-  );
+  const { error } = await Fetch(fetchProps.url, fetchProps.method, fetchProps.body);
 
   if (error) throw new Error(error);
-}
+};
 
 export const GameContainer = (props) => {
   const router = useRouter();
   const { gameId, adminGameId, folderId } = router.query;
+
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
 
   const [authUser] = useGlobal("user");
   const [games] = useGlobal("userGames");
   const [adminGames] = useGlobal("adminGames");
+
   const [isLoading, setIsLoading] = useState(false);
   const [parent, setParent] = useState(null);
   const [currentAdminGame, setCurrentCurrentAdminGame] = useState(null);
@@ -49,10 +46,7 @@ export const GameContainer = (props) => {
     if (!folderId) return null;
 
     const fetchParent = async () => {
-      const parentRef = await firestore
-        .collection("folders")
-        .doc(folderId)
-        .get();
+      const parentRef = await firestore.collection("folders").doc(folderId).get();
       setParent(parentRef.data());
     };
 
@@ -70,9 +64,7 @@ export const GameContainer = (props) => {
   useEffect(() => {
     if (isEmpty(adminGames)) return;
 
-    const currentAdminGame_ = adminGames.find(
-      (adminGame_) => adminGame_.id === adminGameId
-    );
+    const currentAdminGame_ = adminGames.find((adminGame_) => adminGame_.id === adminGameId);
 
     setCurrentCurrentAdminGame(currentAdminGame_);
   }, [adminGames]);
@@ -98,11 +90,7 @@ export const GameContainer = (props) => {
             },
       };
 
-      const { error } = await Fetch(
-        fetchProps.url,
-        fetchProps.method,
-        fetchProps.body
-      );
+      const { error } = await Fetch(fetchProps.url, fetchProps.method, fetchProps.body);
 
       if (error) throw new Error(error);
 
@@ -115,11 +103,9 @@ export const GameContainer = (props) => {
     setIsLoading(false);
   };
 
-  const updateUrl = (adminGame) =>
-    `${adminGame.api}/games/${currentGame.id}/users/${authUser.id}`;
+  const updateUrl = (adminGame) => `${adminGame.api}/games/${currentGame.id}/users/${authUser.id}`;
 
-  const createUrl = (adminGame) =>
-    `${adminGame.api}/games/new/users/${authUser.id}`;
+  const createUrl = (adminGame) => `${adminGame.api}/games/new/users/${authUser.id}`;
 
   return (
     <GameContainerCss>

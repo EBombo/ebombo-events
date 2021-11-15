@@ -165,7 +165,7 @@ export const GameView = (props) => {
           </div>
         </div>
         <div className="game-details">
-          <div className="name">{get(game, "name", "")}</div>
+          <div className="name">{get(game, "title", "")}</div>
           <div className="reproductions">
             <div className="times-played">
               <Image
