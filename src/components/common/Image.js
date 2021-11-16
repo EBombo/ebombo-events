@@ -10,7 +10,7 @@ export const Image = (props) => (
 
 const ImageCss = styled.div`
   background-image: url("${(props) => props.src}");
-  background-repeat: no-repeat;
+  background-repeat: ${(props) => props.repeat ?? "no-repeat"};
   background-position: ${(props) => props.bgposition || "center"};
   background-size: ${(props) => (props.size ? props.size : "100%")};
   height: ${(props) => (props.height ? props.height : "100%")};
@@ -22,10 +22,8 @@ const ImageCss = styled.div`
   border-radius: ${(props) => (props.borderRadius ? props.borderRadius : "0")};
 
   ${mediaQuery.afterTablet} {
-    height: ${(props) =>
-      props.desktopHeight ? props.desktopHeight : props.height};
-    width: ${(props) =>
-      props.desktopWidth ? props.desktopWidth : props.width};
+    height: ${(props) => (props.desktopHeight ? props.desktopHeight : props.height)};
+    width: ${(props) => (props.desktopWidth ? props.desktopWidth : props.width)};
   }
 
   img {

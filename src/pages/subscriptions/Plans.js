@@ -2,7 +2,7 @@ import React, { useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery } from "../../constants";
 import { config } from "../../firebase";
-import { Anchor, ButtonAnt } from "../../components/form";
+import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { PlansTable } from "./PlansTable";
 import { Image } from "../../components/common/Image";
@@ -13,6 +13,7 @@ export const Plans = (props) => {
 
   const [tab, setTab] = useState(props.tab ?? "online");
 
+  // TODO: Refactoring: use a useMemo or create a new component.
   const contactInfo = () => (
     <ContactContent>
       <div className="info">
@@ -39,20 +40,30 @@ export const Plans = (props) => {
     </ContactContent>
   );
 
+  // TODO: Refactoring no use switch.
+  // TODO: Refactoring no use function.
   const tabContent = () => {
     switch (tab) {
       case "online":
         return (
           <PlanContent>
             <Desktop>
-              <Image src={`${config.storageUrl}/resources/plan.png`} height="385px" width="519px" size="contain" />
+              <Image
+                src={`${config.storageUrl}/resources/plans-online.png`}
+                borderRadius="15px"
+                height="300px"
+                width="500px"
+                size="contain"
+              />
             </Desktop>
             <div className="main-container">
               <div className="title">Evento Virtual</div>
               <div className="subtitle">Eventos desde 10 - 10000 colaboradores</div>
               <div className="divider" />
               <div className="description">Realizamos eventos virutales de todo tipo.</div>
-              <ButtonAnt color="secondary">Contáctanos</ButtonAnt>
+              <ButtonAnt color="secondary" onClick={() => router.push({ hash: "contact" })}>
+                Contáctanos
+              </ButtonAnt>
               {contactInfo()}
             </div>
           </PlanContent>
@@ -61,14 +72,22 @@ export const Plans = (props) => {
         return (
           <PlanContent>
             <Desktop>
-              <Image src={`${config.storageUrl}/resources/plan.png`} height="385px" width="519px" size="contain" />
+              <Image
+                src={`${config.storageUrl}/resources/plans-face-to-face.png`}
+                borderRadius="15px"
+                height="300px"
+                width="500px"
+                size="cover"
+              />
             </Desktop>
             <div className="main-container">
               <div className="title">Evento Presencial</div>
               <div className="subtitle">Eventos desde 10 - 10000 colaboradores</div>
               <div className="divider" />
               <div className="description">Realizamos eventos presenciales de todo tipo.</div>
-              <ButtonAnt color="secondary">Contáctanos</ButtonAnt>
+              <ButtonAnt color="secondary" onClick={() => router.push({ hash: "contact" })}>
+                Contáctanos
+              </ButtonAnt>
               {contactInfo()}
             </div>
           </PlanContent>
@@ -80,28 +99,18 @@ export const Plans = (props) => {
               <PlanPriceContent plan={plan.name} color={plan.color} background={plan.background} key={index}>
                 <div className="plan free">
                   {plan.name === "Avanzado" && <div className="header">Recomendado</div>}
+
                   <div className="name">{plan.name}</div>
+
                   <div className="price">
                     {plan.name !== "Exclusivo" && "$"} {plan.price}
                   </div>
+
                   <div className="time">por mes</div>
                   <div className="divider" />
                   <div className="users">{plan.users} usuarios</div>
                   <div className="games">{plan.games} juegos</div>
-                  {!router.asPath.includes("/subscriptions") && (
-                    <Anchor
-                      targe="_self"
-                      underlined
-                      variant="secondary"
-                      fontSize="16px"
-                      lineHeight="19px"
-                      textAlign="left"
-                      margin="0p"
-                      onClick={() => router.push("/subscriptions")}
-                    >
-                      Ver más
-                    </Anchor>
-                  )}
+
                   <button className="btn-register" onClick={() => router.push("/register")}>
                     Registrarme
                   </button>
@@ -132,7 +141,7 @@ export const Plans = (props) => {
         {tabContent()}
       </PlansContainer>
 
-      {router.asPath.includes("/subscriptions") && (
+      {tab === "games" && (
         <TableContainer>
           <PlansTable {...props} />
         </TableContainer>
@@ -252,13 +261,18 @@ const TableContainer = styled.div`
 const PlanContent = styled.div`
   width: 90%;
   max-width: 1350px;
-  background: ${(props) => props.theme.basic.whiteLight};
-  box-shadow: 6px 7px 30px 15px rgba(0, 0, 0, 0.14);
-  border-radius: 8px;
   margin: 1rem auto;
+  border-radius: 8px;
+  box-shadow: 6px 7px 30px 15px rgba(0, 0, 0, 0.14);
+  background: ${(props) => props.theme.basic.whiteLight};
 
   ${mediaQuery.afterTablet} {
     width: 100%;
+    margin: 2rem auto;
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
   }
 
   .main-container {
@@ -301,13 +315,6 @@ const PlanContent = styled.div`
       text-align: center;
       color: ${(props) => props.theme.basic.blackDarken};
     }
-  }
-
-  ${mediaQuery.afterTablet} {
-    margin: 2rem auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 2rem;
   }
 `;
 
@@ -356,6 +363,7 @@ const PlansPrices = styled.div`
   ${mediaQuery.afterTablet} {
     grid-template-columns: repeat(5, 1fr);
     margin: 2rem auto;
+    padding: 20px 0;
   }
 `;
 
