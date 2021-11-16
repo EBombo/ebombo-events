@@ -2,7 +2,7 @@ import React, { useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery } from "../../constants";
 import { config } from "../../firebase";
-import { Anchor, ButtonAnt } from "../../components/form";
+import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { PlansTable } from "./PlansTable";
 import { Image } from "../../components/common/Image";
@@ -104,21 +104,6 @@ export const Plans = (props) => {
                   <div className="divider" />
                   <div className="users">{plan.users} usuarios</div>
                   <div className="games">{plan.games} juegos</div>
-
-                  {!router.asPath.includes("/subscriptions") && (
-                    <Anchor
-                      targe="_self"
-                      underlined
-                      variant="secondary"
-                      fontSize="16px"
-                      lineHeight="19px"
-                      textAlign="left"
-                      margin="0p"
-                      onClick={() => router.push("/subscriptions")}
-                    >
-                      Ver más
-                    </Anchor>
-                  )}
 
                   <button className="btn-register" onClick={() => router.push("/register")}>
                     Registrarme
