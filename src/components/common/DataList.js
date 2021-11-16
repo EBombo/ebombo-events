@@ -211,7 +211,7 @@ export const products = [
   {
     id: "juegos-de-integracion",
     title: "Juegos de integración",
-    image: "https://via.placeholder.com/274x130",
+    imageUrl: `${config.storageUrl}/resources/product-games.png`,
     content: [
       "Tenemos una amplia gama de juegos virtuales e inclusivos para todo tipo de público. Además, nos encontramos en constante desarrollo de nuevos juegos para poder darte la actividad perfecta para tus colaboradores.",
       //"Mira nuestros juegos aquí",

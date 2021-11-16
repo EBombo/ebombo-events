@@ -5,7 +5,6 @@ import { Icon } from "../../components/common/Icons";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
-import { LinkedinOutlined } from "@ant-design/icons";
 
 const founders = [
   {
@@ -54,7 +53,15 @@ export const Founders = (props) => {
             <div className="name">{founder.name}</div>
             <div className="position">{founder.position}</div>
             <a href={founder.linkedin} target="_blank">
-              <LinkedinOutlined />
+              <Image
+                src={`${config.storageUrl}/resources/linkedin-icon.png`}
+                height="30px"
+                width="30px"
+                margin="0"
+                size="cover"
+                cursor="pointer"
+                borderRadius="4px"
+              />
             </a>
           </div>
         ))}

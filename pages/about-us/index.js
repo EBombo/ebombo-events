@@ -3,7 +3,7 @@ import { SEOMeta } from "../../src/components/common/seo";
 import { Navbar } from "../../src/components/Navbar";
 import { AboutUs } from "../../src/pages/about-us";
 
-const AbousUsContainer = (props) => (
+const AboutUsContainer = (props) => (
   <>
     <SEOMeta {...props} />
     <Navbar>
@@ -12,4 +12,4 @@ const AbousUsContainer = (props) => (
   </>
 );
 
-export default AbousUsContainer;
+export default AboutUsContainer;

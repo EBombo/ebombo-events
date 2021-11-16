@@ -50,6 +50,7 @@ export const Plans = (props) => {
             <Desktop>
               <Image
                 src={`${config.storageUrl}/resources/plans-online.png`}
+                borderRadius="15px"
                 height="385px"
                 width="519px"
                 size="contain"
@@ -60,7 +61,9 @@ export const Plans = (props) => {
               <div className="subtitle">Eventos desde 10 - 10000 colaboradores</div>
               <div className="divider" />
               <div className="description">Realizamos eventos virutales de todo tipo.</div>
-              <ButtonAnt color="secondary">Contáctanos</ButtonAnt>
+              <ButtonAnt color="secondary" onClick={() => router.push({ hash: "contact" })}>
+                Contáctanos
+              </ButtonAnt>
               {contactInfo()}
             </div>
           </PlanContent>
@@ -71,9 +74,10 @@ export const Plans = (props) => {
             <Desktop>
               <Image
                 src={`${config.storageUrl}/resources/plans-face-to-face.png`}
+                borderRadius="15px"
                 height="385px"
                 width="519px"
-                size="contain"
+                size="cover"
               />
             </Desktop>
             <div className="main-container">
@@ -81,7 +85,9 @@ export const Plans = (props) => {
               <div className="subtitle">Eventos desde 10 - 10000 colaboradores</div>
               <div className="divider" />
               <div className="description">Realizamos eventos presenciales de todo tipo.</div>
-              <ButtonAnt color="secondary">Contáctanos</ButtonAnt>
+              <ButtonAnt color="secondary" onClick={() => router.push({ hash: "contact" })}>
+                Contáctanos
+              </ButtonAnt>
               {contactInfo()}
             </div>
           </PlanContent>

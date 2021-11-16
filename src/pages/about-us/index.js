@@ -39,7 +39,7 @@ export const AboutUs = (props) => {
             con dinámicas para integrar, empoderar y potenciar el clima laboral dentro de las empresas.
           </div>
           <div className="img-container">
-            <Image src={`${config.storageUrl}/resources/about-us.png`} height="80%" width="80%" margin="1rem auto" />
+            <Image src={`${config.storageUrl}/resources/about-us.png`} height="100%" width="80%" margin="1rem auto" />
           </div>
         </div>
         <div className="contests-container">

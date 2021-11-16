@@ -26,7 +26,7 @@ export const Products = (props) => {
           <div className="top-container">
             <div className="background" style={{ background: product.background }} />
             <div className="img-container">
-              <Image src={product.image} height="100%" width="100%" size="contain" margin="0" />
+              <Image src={product.image} height="100%" width="100%" size="contain" margin="0" borderRadius="15px" />
             </div>
           </div>
 
@@ -36,7 +36,13 @@ export const Products = (props) => {
             <div className="description">{product.description}</div>
 
             <div className="link">
-              <Anchor underlined variant="secondary" margin="1rem 0" onClick={() => router.push(product.url)}>
+              <Anchor
+                underlined
+                variant="secondary"
+                margin="1rem 0"
+                onClick={() => router.push(product.url)}
+                fontSize="14px"
+              >
                 Explorar <ArrowRightOutlined />
               </Anchor>
             </div>

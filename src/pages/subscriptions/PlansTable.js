@@ -14,7 +14,7 @@ export const PlansTable = (props) => {
             <td>
               <div className="plan table-title">Comparar planes</div>
             </td>
-            <td>Personas por juego</td>
+            <td style={{ borderRadius: "15px 0 0 0" }}>Personas por juego</td>
             <td>Juegos</td>
             <td>Licencias</td>
             <td>Chat vivo</td>
@@ -27,10 +27,10 @@ export const PlansTable = (props) => {
             <td>Modo equipo</td>
             <td>Capacitación de plataforma</td>
             <td>Modificación de colores del juego</td>
-            <td>Logo de la empresa dentro del juego</td>
+            <td style={{ borderRadius: "0 0 0 15px" }}>Logo de la empresa dentro del juego</td>
           </tr>
 
-          {plans.map((plan, index) => (
+          {plans.map((plan, index_) => (
             <tr key={`${plan.name}-index`}>
               <td>
                 <div className={`plan ${plan.name.toLowerCase()}`}>
@@ -56,7 +56,19 @@ export const PlansTable = (props) => {
               </td>
 
               {plan.specs.map((spec, index) => (
-                <td key={index}>{spec}</td>
+                <td
+                  key={index}
+                  style={
+                    index_ === plans.length - 1
+                      ? {
+                          borderRadius:
+                            index === 0 ? "0 15px 0 0" : index === plan.specs.length - 1 ? "0 0 15px 0" : "",
+                        }
+                      : {}
+                  }
+                >
+                  {spec}
+                </td>
               ))}
 
               {currentPlan === plan.name && <div className="selected" />}
