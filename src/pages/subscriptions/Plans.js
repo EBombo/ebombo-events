@@ -41,13 +41,19 @@ export const Plans = (props) => {
   );
 
   // TODO: Refactoring no use switch.
+  // TODO: Refactoring no use function.
   const tabContent = () => {
     switch (tab) {
       case "online":
         return (
           <PlanContent>
             <Desktop>
-              <Image src={`${config.storageUrl}/resources/plan.png`} height="385px" width="519px" size="contain" />
+              <Image
+                src={`${config.storageUrl}/resources/plans-online.png`}
+                height="385px"
+                width="519px"
+                size="contain"
+              />
             </Desktop>
             <div className="main-container">
               <div className="title">Evento Virtual</div>
@@ -63,7 +69,12 @@ export const Plans = (props) => {
         return (
           <PlanContent>
             <Desktop>
-              <Image src={`${config.storageUrl}/resources/plan.png`} height="385px" width="519px" size="contain" />
+              <Image
+                src={`${config.storageUrl}/resources/plans-face-to-face.png`}
+                height="385px"
+                width="519px"
+                size="contain"
+              />
             </Desktop>
             <div className="main-container">
               <div className="title">Evento Presencial</div>

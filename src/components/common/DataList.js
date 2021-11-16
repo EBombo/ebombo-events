@@ -9,7 +9,7 @@ export const ladingProducts = [
     description:
       "Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.",
     background: darkTheme.basic.blackDarken,
-    image: `${config.storageUrl}/resources/events.png`,
+    image: `${config.storageUrl}/resources/product-virtual-events.png`,
     url: "/products/eventos-virtuales",
   },
   {
@@ -17,7 +17,7 @@ export const ladingProducts = [
     description:
       "Realizamos eventos presenciales de todo tipo. Eventos de integración, integraciones, celebraciones, eventos de todo tipo.",
     background: darkTheme.basic.primaryLight,
-    image: `${config.storageUrl}/resources/face-to-face.png`,
+    image: `${config.storageUrl}/resources/product-face-to-face.png`,
     url: "/products/eventos-presenciales",
   },
   {
@@ -25,7 +25,7 @@ export const ladingProducts = [
     description:
       "Utiliza los juegos de integración creados por ebombo para que tus trabajadores estén super felices. Ya tenemos más de 10 juegos en nuestra cartera de juegos para potenciar el clima laboral.",
     background: darkTheme.basic.secondary,
-    image: `${config.storageUrl}/resources/games.png`,
+    image: `${config.storageUrl}/resources/product-games.png`,
     url: "/products/juegos-de-integracion",
   },
 ];
@@ -173,7 +173,7 @@ export const products = [
   {
     id: "eventos-virtuales",
     title: "Eventos Virtuales",
-    imageUrl: "https://via.placeholder.com/274x130",
+    imageUrl: `${config.storageUrl}/resources/product-virtual-events.png`,
     content: [
       "Hemos hecho más de 200 eventos virtuales de todo tipo cómo:",
       <ul>
@@ -192,7 +192,7 @@ export const products = [
   {
     id: "eventos-presenciales",
     title: "Eventos Presenciales",
-    imageUrl: "https://via.placeholder.com/274x130",
+    imageUrl: `${config.storageUrl}/resources/product-face-to-face.png`,
     content: [
       "Hemos hecho eventos presenciales de todo tipo cómo:  ",
       <ul>
@@ -224,7 +224,7 @@ export const infoGamesData = [
     id: "_",
     menuLabel: "_",
     title: "Juegos de integración",
-    imageUrl: "https://via.placeholder.com/274x130",
+    imageUrl: `${config.storageUrl}/resources/product-games.png`,
     description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more re`,
   },
