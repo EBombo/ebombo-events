@@ -65,7 +65,6 @@ export const Founders = (props) => {
 const FoundersContainer = styled.div`
   width: 100%;
   background: linear-gradient(180deg, #382079 0%, #241254 100%);
-  height: calc(100vh - 100px);
 
   .title-container {
     height: 180px;
