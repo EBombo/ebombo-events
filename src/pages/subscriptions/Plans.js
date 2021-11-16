@@ -51,8 +51,8 @@ export const Plans = (props) => {
               <Image
                 src={`${config.storageUrl}/resources/plans-online.png`}
                 borderRadius="15px"
-                height="385px"
-                width="519px"
+                height="300px"
+                width="500px"
                 size="contain"
               />
             </Desktop>
@@ -75,8 +75,8 @@ export const Plans = (props) => {
               <Image
                 src={`${config.storageUrl}/resources/plans-face-to-face.png`}
                 borderRadius="15px"
-                height="385px"
-                width="519px"
+                height="300px"
+                width="500px"
                 size="cover"
               />
             </Desktop>
