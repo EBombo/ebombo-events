@@ -4,7 +4,7 @@ import { mediaQuery } from "../../constants";
 import { plans } from "../../components/common/DataList";
 
 export const PlansTable = (props) => {
-  const [currentPlan, ] = useState("Avanzado");
+  const [currentPlan] = useState("Avanzado");
 
   return (
     <TableContainer>
@@ -14,23 +14,23 @@ export const PlansTable = (props) => {
             <td>
               <div className="plan table-title">Comparar planes</div>
             </td>
-            <td>Personas por juego</td>
-            <td>Juegos </td>
-            <td>Licencias </td>
+            <td style={{ borderRadius: "15px 0 0 0" }}>Personas por juego</td>
+            <td>Juegos</td>
+            <td>Licencias</td>
             <td>Chat vivo</td>
-            <td>Premio personalizados </td>
+            <td>Premio personalizados</td>
             <td>Modificar la múscia</td>
             <td>Reporte</td>
             <td>Trackear progreso</td>
-            <td>Identificar participantes </td>
-            <td>Encuesta de satisfacción al final del juego </td>
-            <td>Modo equipo </td>
+            <td>Identificar participantes</td>
+            <td>Encuesta de satisfacción al final del juego</td>
+            <td>Modo equipo</td>
             <td>Capacitación de plataforma</td>
-            <td>Modificación de colores del juego </td>
-            <td>Logo de la empresa dentro del juego</td>
+            <td>Modificación de colores del juego</td>
+            <td style={{ borderRadius: "0 0 0 15px" }}>Logo de la empresa dentro del juego</td>
           </tr>
 
-          {plans.map((plan, index) => (
+          {plans.map((plan, index_) => (
             <tr key={`${plan.name}-index`}>
               <td>
                 <div className={`plan ${plan.name.toLowerCase()}`}>
@@ -46,12 +46,31 @@ export const PlansTable = (props) => {
                   )}
 
                   <div className="divider" />
-                  <div className="description">{plan.description}</div>
+
+                  <div
+                    className={`description ${currentPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""}`}
+                  >
+                    {plan.description}
+                  </div>
                 </div>
               </td>
+
               {plan.specs.map((spec, index) => (
-                <td key={index}>{spec}</td>
+                <td
+                  key={index}
+                  style={
+                    index_ === plans.length - 1
+                      ? {
+                          borderRadius:
+                            index === 0 ? "0 15px 0 0" : index === plan.specs.length - 1 ? "0 0 15px 0" : "",
+                        }
+                      : {}
+                  }
+                >
+                  {spec}
+                </td>
               ))}
+
               {currentPlan === plan.name && <div className="selected" />}
             </tr>
           ))}
@@ -85,6 +104,7 @@ const TableContainer = styled.div`
       display: table-cell;
       position: relative;
       width: 190px;
+
       td {
         border: 1px solid ${(props) => props.theme.basic.grayLighten};
         display: flex;
@@ -106,6 +126,11 @@ const TableContainer = styled.div`
         height: 250px;
         border: none;
         background: transparent;
+      }
+
+      .anticon-check {
+        font-weight: bold;
+        color: ${(props) => props.theme.basic.secondary};
       }
     }
 
@@ -166,6 +191,11 @@ const TableContainer = styled.div`
       color: ${(props) => props.theme.basic.grayLight};
       text-align: center;
       max-width: 80%;
+    }
+
+    .select {
+      font-weight: bold;
+      color: ${(props) => props.theme.basic.black};
     }
   }
 

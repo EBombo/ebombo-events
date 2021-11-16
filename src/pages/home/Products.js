@@ -2,10 +2,10 @@ import React from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { Desktop, mediaQuery, Tablet } from "../../constants";
-import { config } from "../../firebase";
 import { Anchor } from "../../components/form";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
+import { ladingProducts } from "../../components/common/DataList";
 
 export const Products = (props) => {
   const router = useRouter();
@@ -17,102 +17,47 @@ export const Products = (props) => {
         <Tablet>
           <br />
         </Tablet>
-        <Desktop>
-          &nbsp;
-        </Desktop>
+        <Desktop>&nbsp;</Desktop>
         en un solo lugar
       </div>
-      <div className="product">
-        <div className="top-container">
-          <div className="background bg-events" />
-          <div className="img-container img-events">
-            <Image
-              src={`${config.storageUrl}/resources/events.png`}
-              height="100%"
-              width="100%"
-              size="contain"
-              margin="0"
-            />
+
+      {ladingProducts.map((product) => (
+        <div className="product" key={product.title}>
+          <div className="top-container">
+            <div className="background" style={{ background: product.background }} />
+            <div className="img-container">
+              <Image
+                src={product.image}
+                height="80%"
+                width="80%"
+                desktopheight="100%"
+                desktopwidth="100%"
+                size="contain"
+                margin="0"
+                borderRadius="15px"
+              />
+            </div>
+          </div>
+
+          <div className="bottom-container">
+            <div className="subtitle">{product.title}</div>
+
+            <div className="description">{product.description}</div>
+
+            <div className="link">
+              <Anchor
+                underlined
+                variant="secondary"
+                margin="1rem 0"
+                onClick={() => router.push(product.url)}
+                fontSize="14px"
+              >
+                Explorar <ArrowRightOutlined />
+              </Anchor>
+            </div>
           </div>
         </div>
-        <div className="bottom-container">
-          <div className="subtitle">Eventos Virtuales</div>
-          <div className="description">
-            Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.
-          </div>
-          <div className="link">
-            <Anchor
-              underlined
-              variant="secondary"
-              margin="1rem 0"
-              onClick={() => router.push("/products/eventos-virtuales")}
-            >
-              Explorar <ArrowRightOutlined />
-            </Anchor>
-          </div>
-        </div>
-      </div>
-      <div className="product">
-        <div className="top-container">
-          <div className="background bg-games" />
-          <div className="img-container img-games">
-            <Image
-              src={`${config.storageUrl}/resources/reports.png`}
-              height="100%"
-              width="100%"
-              size="contain"
-              margin="0"
-            />
-          </div>
-        </div>
-        <div className="bottom-container">
-          <div className="subtitle">Eventos Presenciales</div>
-          <div className="description">
-            Realizamos eventos presenciales de todo tipo. Eventos de integración, integraciones, celebraciones, eventos de todo tipo.
-          </div>
-          <div className="link">
-            <Anchor
-              underlined
-              variant="secondary"
-              margin="1rem 0"
-              onClick={() => router.push("/products/eventos-presenciales")}
-            >
-              Explorar <ArrowRightOutlined />
-            </Anchor>
-          </div>
-        </div>
-      </div>
-      <div className="product">
-        <div className="top-container">
-          <div className="background bg-reports" />
-          <div className="img-container img-reports">
-            <Image
-              src={`${config.storageUrl}/resources/games.png`}
-              height="100%"
-              width="100%"
-              size="contain"
-              margin="0"
-            />
-          </div>
-        </div>
-        <div className="bottom-container">
-          <div className="subtitle">Juegos de integración</div>
-          <div className="description">
-            Utiliza los juegos de integración creados por ebombo para que tus trabajadores estén super felices. 
-Ya tenemos más de 10 juegos en nuestra cartera de juegos para potenciar el clima laboral.
-          </div>
-          <div className="link">
-            <Anchor
-              underlined
-              variant="secondary"
-              margin="1rem 0"
-              onClick={() => router.push("/products/juegos-de-integracion")}
-            >
-              Explorar <ArrowRightOutlined />
-            </Anchor>
-          </div>
-        </div>
-      </div>
+      ))}
     </ProductsContainer>
   );
 };
@@ -156,19 +101,6 @@ const ProductsContainer = styled.div`
         top: 50%;
         right: 0;
         transform: translate(10%, -50%);
-      }
-
-      .bg-games {
-        background: ${(props) => props.theme.basic.primaryLight};
-      }
-
-      .bg-reports {
-        background: ${(props) => props.theme.basic.secondary};
-      }
-
-      .img-reports,
-      .img-games {
-        top: 55%;
       }
     }
 

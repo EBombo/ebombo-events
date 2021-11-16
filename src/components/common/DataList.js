@@ -3,6 +3,33 @@ import { config } from "../../firebase";
 import React from "reactn";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
+export const ladingProducts = [
+  {
+    title: "Eventos Virtuales",
+    description:
+      "Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.",
+    background: darkTheme.basic.blackDarken,
+    image: `${config.storageUrl}/resources/product-virtual-events.png`,
+    url: "/products/eventos-virtuales",
+  },
+  {
+    title: "Eventos Presenciales",
+    description:
+      "Realizamos eventos presenciales de todo tipo. Eventos de integración, integraciones, celebraciones, eventos de todo tipo.",
+    background: darkTheme.basic.primaryLight,
+    image: `${config.storageUrl}/resources/product-face-to-face.png`,
+    url: "/products/eventos-presenciales",
+  },
+  {
+    title: "Juegos de integración",
+    description:
+      "Utiliza los juegos de integración creados por ebombo para que tus trabajadores estén super felices. Ya tenemos más de 10 juegos en nuestra cartera de juegos para potenciar el clima laboral.",
+    background: darkTheme.basic.secondary,
+    image: `${config.storageUrl}/resources/product-games.png`,
+    url: "/products/juegos-de-integracion",
+  },
+];
+
 export const navMenus = [
   {
     title: "Bingo",
@@ -146,20 +173,18 @@ export const products = [
   {
     id: "eventos-virtuales",
     title: "Eventos Virtuales",
-    imageUrl: "https://via.placeholder.com/274x130",
+    imageUrl: `${config.storageUrl}/resources/product-virtual-events.png`,
     content: [
       "Hemos hecho más de 200 eventos virtuales de todo tipo cómo:",
-      (
-        <ul>
-          <li>Integraciones con juegos</li>
-          <li>Speakers Motivacionales</li>
-          <li>Olimpiadas</li>
-          <li>Eventos temáticos</li>
-          <li>Deportes virtuales</li>
-          <li>Cuenta cuentos</li>
-          <li>Muchos más</li>
-        </ul>
-      ),
+      <ul>
+        <li>Integraciones con juegos</li>
+        <li>Speakers Motivacionales</li>
+        <li>Olimpiadas</li>
+        <li>Eventos temáticos</li>
+        <li>Deportes virtuales</li>
+        <li>Cuenta cuentos</li>
+        <li>Muchos más</li>
+      </ul>,
       `Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.`,
       `Tenemos un estudio de grabación con cámaras, luces, pantalla verde, animadores, moderadores, streamers, speakers y todo lo que necesitas para tener el mejor evento que te puedas imaginar.`,
     ],
@@ -167,40 +192,51 @@ export const products = [
   {
     id: "eventos-presenciales",
     title: "Eventos Presenciales",
-    imageUrl: "https://via.placeholder.com/274x130",
+    imageUrl: `${config.storageUrl}/resources/product-face-to-face.png`,
     content: [
-      "A",
+      "Hemos hecho eventos presenciales de todo tipo cómo:  ",
+      <ul>
+        <li>Torneos deportivos</li>
+        <li>Eventos de aniversarios</li>
+        <li>Olimpiadas</li>
+        <li>Eventos temáticos</li>
+        <li>Torneos de esports</li>
+        <li>Activaciones</li>
+        <li>Muchos más</li>
+      </ul>,
+      "Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.",
+      "Contamos con locales en diferentes lugares de la ciudad y animadores que se encarguen de mantener viva la emoción del evento.",
     ],
   },
   {
     id: "juegos-de-integracion",
     title: "Juegos de integración",
-    image: "https://via.placeholder.com/274x130",
+    imageUrl: `${config.storageUrl}/resources/product-games.png`,
     content: [
-      "A",
+      "Tenemos una amplia gama de juegos virtuales e inclusivos para todo tipo de público. Además, nos encontramos en constante desarrollo de nuevos juegos para poder darte la actividad perfecta para tus colaboradores.",
+      //"Mira nuestros juegos aquí",
     ],
-  }
+  },
 ];
-
 
 export const infoGamesData = [
   {
     id: "_",
     menuLabel: "_",
     title: "Juegos de integración",
-    imageUrl: "https://via.placeholder.com/274x130",
+    imageUrl: `${config.storageUrl}/resources/product-games.png`,
     description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more re`,
   },
   // TODO: uncomment when /games/[gameId] is in use
- //  {
- //    id: "bingo",
- //    menuLabel: "Bingo",
- //    title: "Bingo",
- //    imageUrl: "https://via.placeholder.com/274x130",
- //    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
- // It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more re`,
- //  },
+  //  {
+  //    id: "bingo",
+  //    menuLabel: "Bingo",
+  //    title: "Bingo",
+  //    imageUrl: "https://via.placeholder.com/274x130",
+  //    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+  // It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more re`,
+  //  },
 ];
 
 export const heldEventsData = [

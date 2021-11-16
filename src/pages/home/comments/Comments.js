@@ -13,6 +13,7 @@ import EditComment from "./EditComment";
 
 export const Comments = (props) => {
   const [authUser] = useGlobal("user");
+
   const [currentComment, setCurrentComment] = useState(null);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 

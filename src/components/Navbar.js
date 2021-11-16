@@ -21,7 +21,6 @@ export const Navbar = (props) => {
   const [authUser] = useGlobal("user");
 
   const [active, setActive] = useState(false);
-  const [isVisibleNavGames, setIsVisibleNavGames] = useState(false);
 
   const onClick = ({ key }) => router.push(`/games/${menus[key].id}`);
 
@@ -29,7 +28,7 @@ export const Navbar = (props) => {
     () => (
       <Menu onClick={onClick}>
         {menus.map((menu, index) => (
-          <Menu.Item key={index}>{menu.menuLabel}</Menu.Item>
+          <Menu.Item key={menu.menuLabel}>{menu.menuLabel}</Menu.Item>
         ))}
       </Menu>
     ),
@@ -39,7 +38,7 @@ export const Navbar = (props) => {
   return (
     <>
       <Layout>
-        <NavContainer>
+        <NavContainer active={active}>
           <div className="left-container">
             <Image
               src={`${config.storageUrl}/resources/ebombo.svg`}
@@ -52,33 +51,29 @@ export const Navbar = (props) => {
               onClick={() => router.push(authUser ? "/library" : "/")}
             />
             <Desktop>
-              {/* TODO enable when menu games are listed again <Dropdown overlay={menu}> */}
-              <a
-                className="ant-dropdown-link"
-                onClick={() => {
-                  // TODO remove router.push and enable when /games/[gamesId] is in use
-                  router.push("/games");
-                  // setIsVisibleNavGames(!isVisibleNavGames)
-                }}
-              >
-                Games {/* <DownOutlined /> */}
-              </a>
-              {/* </Dropdown> */}
+              {/*
+                <a
+                  className="ant-dropdown-link"
+                  onClick={() => {
+                    router.push("/games");
+                  }}
+                >
+                  Games
+                </a>
+              */}
               <Anchor onClick={() => router.push("/subscriptions")} className="link">
                 Planes
               </Anchor>
-              {/*<Anchor variant="secondary" onClick={() => router.push("/held-events")} className="link">*/}
-              {/*  Eventos pasados*/}
-              {/*</Anchor>*/}
-              <Anchor variant="secondary" onClick={() => router.push("/")} className="link">
+              <Anchor onClick={() => router.push("/about-us")} className="link">
                 Sobre nosotros
               </Anchor>
-              <Anchor variant="secondary" onClick={() => router.push("/")} className="link">
+              <Anchor onClick={() => router.push({ pathname: "/", hash: "contact" })} className="link">
                 Contacto
               </Anchor>
             </Desktop>
           </div>
-          {/* TODO remove for dev purposes
+
+          {/* TODO remove for dev purposes.
           <Desktop>
             {authUser ? (
               <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
@@ -103,32 +98,44 @@ export const Navbar = (props) => {
             )}
           </Desktop>
           */}
+
           <Tablet>
             <ul className={`nav-menu ${active ? "active" : ""}`}>
+              {/*
+                <li
+                  className="nav-item"
+                  onClick={() => {
+                    router.push("/games");
+                  }}
+                >
+                  Games
+                </li>
+              */}
+              <li className="nav-item" onClick={() => router.push("/subscriptions")}>
+                Planes
+              </li>
               <li
                 className="nav-item"
                 onClick={() => {
-                  // TODO remove router.push and enable when /games/[gamesId] is in use
-                  router.push("/games");
-                  // setIsVisibleNavGames(!isVisibleNavGames)
+                  router.push({ pathname: "/", hash: "about" });
+                  setActive(false);
                 }}
               >
-                Games {/* <DownOutlined /> */}
+                Sobre nosotros
               </li>
-              {isVisibleNavGames && (
-                <>
-                  <li className="games-item">Bingo</li>
-                  <li className="games-item">Charadas</li>
-                  <li className="games-item">Canta y Gana</li>
-                  <li className="games-item last">Trivia</li>
-                </>
-              )}
-              <li className="nav-item">Planes</li>
-              {/*<li className="nav-item">Eventos pasados</li>*/}
-              <li className="nav-item">Sobre nosotros</li>
-              <li className="nav-item">Contacto</li>
-              {/* TODO remove for dev purposes
-              {!authUser ? (
+              <li
+                className="nav-item"
+                onClick={() => {
+                  router.push({ pathname: "/", hash: "contact" });
+                  setActive(false);
+                }}
+              >
+                Contacto
+              </li>
+
+              {/*TODO remove for dev purposes.*/}
+              {/*
+              !authUser ? (
                 <>
                   <ButtonAnt
                     margin="1.5rem auto"
@@ -147,9 +154,10 @@ export const Navbar = (props) => {
                 <li className="nav-item" onClick={() => signOut()}>
                   Cerrar Sesión
                 </li>
-              )}
+              )
               */}
             </ul>
+
             <div className={`hamburger ${active ? "active" : ""}`} onClick={() => setActive(!active)}>
               <span className="bar" />
               <span className="bar" />
@@ -157,6 +165,7 @@ export const Navbar = (props) => {
             </div>
           </Tablet>
         </NavContainer>
+
         <LayoutMenu>
           <Body>{props.children}</Body>
           <Footer />
@@ -173,15 +182,16 @@ const LayoutMenu = styled.section`
 
 const Body = styled.section`
   width: 100vw;
-  overflow: auto;
   flex: 1 1 auto;
 
   ${mediaQuery.afterTablet} {
+    overflow: auto;
     min-height: calc(100vh - 100px);
   }
 `;
 
 const NavContainer = styled.div`
+  z-index: 9;
   width: 100%;
   display: flex;
   height: 100px;
@@ -189,6 +199,7 @@ const NavContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   background: ${(props) => props.theme.basic.whiteLight};
+  position: ${(props) => (props.active ? "fixed" : "inherit")};
 
   .left-container {
     display: flex;
