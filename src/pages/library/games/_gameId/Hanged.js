@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState, useRef } from "reactn";
+import React from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../../constants";
 import { ButtonAnt, Input, TextArea } from "../../../../components/form";
@@ -34,7 +34,7 @@ export const Hanged = (props) => {
 
   return (
     <HangedContainer>
-      <ButtonAnt color="default" onClick={() => router.back()}>
+      <ButtonAnt color="default" onClick={() => router.back()} disabled={props.isLoading}>
         Cancelar
       </ButtonAnt>
       <form onSubmit={handleSubmit(saveGame)}>
@@ -61,7 +61,9 @@ export const Hanged = (props) => {
           rows="10"
           placeholder="Frases a advinar"
         />
-        <ButtonAnt htmlType="submit">Guardar</ButtonAnt>
+        <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading}>
+          Guardar
+        </ButtonAnt>
       </form>
     </HangedContainer>
   );
