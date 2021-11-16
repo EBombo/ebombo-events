@@ -13,7 +13,10 @@ const footerContent = [
   {
     title: "Sobre nosotros",
     classKey: "start-with",
-    children: [{ title: "¿Quiénes somos?" }, { title: "Fundadores" }],
+    children: [
+      { title: "¿Quiénes somos?", link: "/about-us" },
+      { title: "Fundadores", link: "/founders" },
+    ],
   },
   {
     title: "Contáctanos",
