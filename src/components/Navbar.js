@@ -177,10 +177,10 @@ const LayoutMenu = styled.section`
 
 const Body = styled.section`
   width: 100vw;
-  overflow: auto;
   flex: 1 1 auto;
 
   ${mediaQuery.afterTablet} {
+    overflow: auto;
     min-height: calc(100vh - 100px);
   }
 `;

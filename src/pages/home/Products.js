@@ -26,7 +26,16 @@ export const Products = (props) => {
           <div className="top-container">
             <div className="background" style={{ background: product.background }} />
             <div className="img-container">
-              <Image src={product.image} height="100%" width="100%" size="contain" margin="0" borderRadius="15px" />
+              <Image
+                src={product.image}
+                height="80%"
+                width="80%"
+                desktopheight="100%"
+                desktopwidth="100%"
+                size="contain"
+                margin="0"
+                borderRadius="15px"
+              />
             </div>
           </div>
 
