@@ -64,8 +64,11 @@ export const Home = (props) => {
     <LandingContainer>
       <div className="landing-container">
         <HeaderLanding />
+
         <Products />
+
         <Plans {...props} />
+
         {/*
         <HeldEvents />
         */}

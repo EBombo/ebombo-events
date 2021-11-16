@@ -3,6 +3,33 @@ import { config } from "../../firebase";
 import React from "reactn";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
+export const ladingProducts = [
+  {
+    title: "Eventos Virtuales",
+    description:
+      "Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.",
+    background: darkTheme.basic.blackDarken,
+    image: `${config.storageUrl}/resources/events.png`,
+    url: "/products/eventos-virtuales",
+  },
+  {
+    title: "Eventos Presenciales",
+    description:
+      "Realizamos eventos presenciales de todo tipo. Eventos de integración, integraciones, celebraciones, eventos de todo tipo.",
+    background: darkTheme.basic.primaryLight,
+    image: `${config.storageUrl}/resources/face-to-face.png`,
+    url: "/products/eventos-presenciales",
+  },
+  {
+    title: "Juegos de integración",
+    description:
+      "Utiliza los juegos de integración creados por ebombo para que tus trabajadores estén super felices. Ya tenemos más de 10 juegos en nuestra cartera de juegos para potenciar el clima laboral.",
+    background: darkTheme.basic.secondary,
+    image: `${config.storageUrl}/resources/games.png`,
+    url: "/products/juegos-de-integracion",
+  },
+];
+
 export const navMenus = [
   {
     title: "Bingo",
