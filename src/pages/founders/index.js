@@ -39,6 +39,7 @@ export const Founders = (props) => {
         </div>
         <div className="title">Fundadores</div>
       </div>
+
       <div className="founders">
         {founders.map((founder, index) => (
           <div className="founder" key={`${index}-${founder.name}`}>
@@ -64,7 +65,9 @@ export const Founders = (props) => {
 
 const FoundersContainer = styled.div`
   width: 100%;
+  min-height: 100vh;
   background: linear-gradient(180deg, #382079 0%, #241254 100%);
+  display: grid;
 
   .title-container {
     height: 180px;
@@ -102,13 +105,14 @@ const FoundersContainer = styled.div`
 
   .founders {
     padding: 1rem;
-
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 2rem;
 
     ${mediaQuery.afterTablet} {
       grid-template-columns: repeat(3, 1fr);
+      height: 90vh;
+      margin: auto;
     }
 
     .founder {
@@ -141,10 +145,6 @@ const FoundersContainer = styled.div`
         color: ${(props) => props.theme.basic.whiteLighten};
         font-size: 32px;
       }
-    }
-
-    ${mediaQuery.afterTablet} {
-      padding: 3rem;
     }
   }
 `;
