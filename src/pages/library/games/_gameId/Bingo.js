@@ -13,33 +13,19 @@ import { bingoCard } from "../../../../components/common/DataList";
 import { firestore } from "../../../../firebase";
 
 export const Bingo = (props) => {
-  const [coverImgUrl, setCoverImgUrl] = useState(null);
-  const [backgroundImg, setBackgroundImg] = useState(null);
-  const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
 
-  const [ownBranding, setOwnBranding] = useState(false);
-  const [video, setVideo] = useState(null);
-  const [allowDuplicate, setAllowDuplicate] = useState(true);
-  const [visibility, setVisibility] = useState(true);
-  const [audio, setAudio] = useState(null);
-  const [newId, setNewId] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const _newId = firestore.collection("bingo").doc().id;
-    setNewId(_newId);
+  const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
+  const [backgroundImg, setBackgroundImg] = useState(props.game ? props.game.backgroundImg : null);
+  const [coverImgUrl, setCoverImgUrl] = useState(props.game ? props.game.coverImgUrl : null);
+  const [ownBranding, setOwnBranding] = useState(props.game ? props.game.ownBranding : false);
+  const [video, setVideo] = useState(props.game ? props.game.video : null);
+  const [allowDuplicate, setAllowDuplicate] = useState(props.game ? props.game.allowDuplicate : true);
+  const [visibility, setVisibility] = useState(props.game ? props.game.visibility : true);
+  const [audio, setAudio] = useState(props.game ? props.game.audio : null);
+  const [newId,] = useState(props.game ? props.game.id : firestore.collection("bingo").doc().id);
 
-    if (!props.game) return;
-
-    setOwnBranding(props.game.ownBranding);
-    setVideo(props.game.video);
-    setAllowDuplicate(props.game.allowDuplicate);
-    setVisibility(props.game.visibility);
-    setAudio(props.game.audio);
-    setCoverImgUrl(props.game.coverImgUrl);
-    setBackgroundImg(props.game.backgroundImg);
-    setNewId(props.game.id);
-  }, []);
 
   const schema = object().shape({
     title: string().max(25),
@@ -315,7 +301,9 @@ export const Bingo = (props) => {
             <div className="upload-container">
               <FileUpload
                 key={watch("backgroundColor")}
-                buttonLabel={backgroundImg ? "Cambiar imagen de fondo para cartilla" : "Subir imagen de fondo para cartilla"}
+                buttonLabel={
+                  backgroundImg ? "Cambiar imagen de fondo para cartilla" : "Subir imagen de fondo para cartilla"
+                }
                 file={backgroundImg}
                 preview={false}
                 fileName="backgroundImg"

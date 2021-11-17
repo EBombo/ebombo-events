@@ -1,4 +1,4 @@
-import React from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../../constants";
 import { ButtonAnt, Input, TextArea } from "../../../../components/form";
@@ -6,9 +6,14 @@ import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import get from "lodash/get";
 import { useRouter } from "next/router";
+import { FileUpload } from "../../../../components/common/FileUpload";
+import { firestore } from "../../../../firebase";
 
 export const Hanged = (props) => {
   const router = useRouter();
+
+  const [coverImgUrl, setCoverImgUrl] = useState(null);
+  const [newId] = useState(props.game ? props.game.id : firestore.collection("hanged").doc().id);
 
   const schema = object().shape({
     name: string().required(),
@@ -27,6 +32,8 @@ export const Hanged = (props) => {
     const _game = {
       phrases,
       title,
+      coverImgUrl,
+      id: newId,
     };
 
     await props.submitGame(_game);
@@ -61,6 +68,18 @@ export const Hanged = (props) => {
           rows="10"
           placeholder="Frases a advinar"
         />
+        <div className="upload-container">
+          <FileUpload
+            buttonLabel={coverImgUrl ? "Imagen de Portada" : "Cambiar Portada"}
+            file={coverImgUrl}
+            preview={true}
+            fileName="backgroundImg"
+            filePath={`/games/Hanged/${newId}`}
+            sizes="300x350"
+            disabled={props.isLoading}
+            afterUpload={(resizeImages) => setCoverImgUrl(resizeImages[0].url)}
+          />
+        </div>
         <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading}>
           Guardar
         </ButtonAnt>
@@ -104,6 +123,10 @@ const HangedContainer = styled.div`
     background: ${(props) => props.theme.basic.whiteLight};
     color: ${(props) => props.theme.basic.blackDarken};
     border: 1px solid ${(props) => props.theme.basic.grayLighten};
+  }
+
+  .upload-container {
+    margin: 1rem 0;
   }
 
   ${mediaQuery.afterTablet} {
