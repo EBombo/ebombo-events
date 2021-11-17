@@ -152,6 +152,7 @@ export const Plans = (props) => {
 
 const PlansContainerCss = styled.div`
   background: ${(props) => props.theme.basic.whiteLighten};
+  padding: 2rem 1rem;
 `;
 
 const PlansContainer = styled.div`
