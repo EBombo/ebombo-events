@@ -2,16 +2,32 @@ import React from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 import { Image } from "../../components/common/Image";
+import { config } from "../../firebase";
 
-const ourGamesData = ["https://via.placeholder.com/274x130", "https://via.placeholder.com/274x130","https://via.placeholder.com/274x130"];
+const ourGamesData = [
+  `${config.storageUrl}/resources/games/bingo.png`,
+  `${config.storageUrl}/resources/games/hanged.png`,
+  `${config.storageUrl}/resources/games/letras.png`,
+  `${config.storageUrl}/resources/games/trivia.png`,
+  `${config.storageUrl}/resources/games/charada.png`,
+  `${config.storageUrl}/resources/games/tuttifrutti.png`,
+];
 
 export const OurGames = (props) => {
   return (
     <OurGamesContainer ref={props.refProp}>
-      <div className="title">Nuestros juegos</div>
+      <div className="title">Algunos de los 20+ juegos que ofrecemos</div>
 
       <div className="our-games">
-        {ourGamesData.map((image, index) => <Image key={`our-game-${index}`} src={image} />)}
+        {ourGamesData.map((image, index) => (
+          <Image
+            key={`our-game-${index}`}
+            src={image}
+            width="321px"
+            height="128px"
+            borderRadius="40px"
+          />
+        ))}
       </div>
     </OurGamesContainer>
   );
@@ -19,24 +35,24 @@ export const OurGames = (props) => {
 
 const OurGamesContainer = styled.section`
   width: 100%;
-  padding: 1rem 0 2rem 0;
-  background: ${(props) => props.theme.basic.whiteLight};
+  padding: 2rem 1rem;
+  background: ${(props) => props.theme.basic.primary};
 
   .title {
     font-family: Lato;
     font-style: normal;
     font-weight: bold;
-    font-size: 22px;
-    line-height: 26px;
+    font-size: 34px;
+    line-height: 41px;
     text-align: center;
     letter-spacing: 0.03em;
     margin: 1rem 0;
-    color: ${(props) => props.theme.basic.secondary};
+    -webkit-text-fill-color: ${(props) => props.theme.basic.whiteLight};
+    -webkit-text-stroke: 2px ${(props) => props.theme.basic.blackDarken};
   }
 
   .our-games {
     display: grid;
-    grid-template-columns: 200px;
     gap: 3rem;
     justify-content: center;
 
@@ -48,13 +64,12 @@ const OurGamesContainer = styled.section`
   }
 
   ${mediaQuery.afterTablet} {
-    padding: 2rem 0 4rem 0;
+    padding: 4rem;
 
     .title {
       font-size: 34px;
       line-height: 41px;
-      margin: 2rem 0 4rem 0;
+      margin: 2rem auto;
     }
   }
 `;
-

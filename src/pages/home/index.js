@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { Plans } from "../subscriptions/Plans";
 import { Products } from "./Products";
 import { timeoutPromise } from "../../utils/promised";
+import { OurGames } from "./OurGames";
 
 export const Home = (props) => {
   const router = useRouter();
@@ -72,7 +73,7 @@ export const Home = (props) => {
         {/*
         <HeldEvents />
         */}
-        {/*<OurGames />*/}
+        <OurGames />
 
         <section id="about" ref={aboutRef}>
           <Comments comments={comments} deleteDocument={deleteDocument} />
