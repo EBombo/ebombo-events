@@ -58,4 +58,4 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
 # run project
-CMD ["node_modules/.bin/next", "start"]
+CMD ["node_modules/.bin/next", "start", "-p 5000"]
