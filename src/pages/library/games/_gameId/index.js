@@ -93,7 +93,10 @@ export const GameContainer = (props) => {
 
       const { error } = await Fetch(fetchProps.url, fetchProps.method, fetchProps.body);
 
-      if (error) props.showNotification("Error", "Algo salio mal. Por favor intenta nuevamente.");
+      if (error) {
+        props.showNotification("Error", "Algo salio mal. Por favor intenta nuevamente.");
+        throw new Error(error);
+      }
 
       props.fetchGames();
       router.back();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../../constants";
 import { ButtonAnt, Input, TextArea } from "../../../../components/form";
@@ -13,14 +13,7 @@ export const Hanged = (props) => {
   const router = useRouter();
 
   const [coverImgUrl, setCoverImgUrl] = useState(null);
-  const [newId, setNewId] = useState(null);
-
-  useEffect(() => {
-    if (props.game) return;
-
-    const _newId = firestore.collection("hanged").doc().id;
-    setNewId(_newId);
-  }, []);
+  const [newId] = useState(props.game ? props.game.id : firestore.collection("hanged").doc().id);
 
   const schema = object().shape({
     name: string().required(),
@@ -40,6 +33,7 @@ export const Hanged = (props) => {
       phrases,
       title,
       coverImgUrl,
+      id: newId,
     };
 
     await props.submitGame(_game);
