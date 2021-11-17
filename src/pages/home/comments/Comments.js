@@ -1,6 +1,5 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import defaultTo from "lodash/defaultTo";
 import get from "lodash/get";
 import { Icon } from "../../../components/common/Icons";
 import { Image } from "../../../components/common/Image";
@@ -10,12 +9,28 @@ import { firestore } from "../../../firebase";
 import { Desktop, mediaQuery, Tablet } from "../../../constants";
 import { ButtonAnt } from "../../../components/form";
 import EditComment from "./EditComment";
+import { spinLoaderMin } from "../../../components/common/loader";
 
 export const Comments = (props) => {
   const [authUser] = useGlobal("user");
 
+  const [loading, setLoading] = useState(true);
+  const [comments, setComments] = useState([]);
+
   const [currentComment, setCurrentComment] = useState(null);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
+
+  useEffect(() => {
+    const fetchComments = () =>
+      firestore.collection("settings/landing/comments").onSnapshot((snapshot) => {
+        setComments(snapshot.docs.map((doc) => doc.data()));
+        setLoading(false);
+      });
+
+    fetchComments();
+  }, []);
+
+  if (loading) return spinLoaderMin();
 
   return (
     <CommentsContainer>
@@ -33,7 +48,7 @@ export const Comments = (props) => {
         <div className="title">¡Únete a quienes ya han confiado en nosotros!</div>
         <div className="comments">
           <div className="comments-container">
-            {defaultTo(get(props, "comments"), []).map((comment) => (
+            {(comments ?? []).map((comment) => (
               <Comment backgroundImage={comment.backgroundImageUrl} key={comment.id}>
                 <div className="card-header">
                   <Desktop>
@@ -87,8 +102,8 @@ export const Comments = (props) => {
                         Modal.confirm({
                           title: "¿Seguro que quieres eliminar este item?",
                           content: "Una vez eliminado no se podrá revertir el cambio",
-                          onOk() {
-                            return props.deleteDocument(comment, "comments");
+                          onOk: async () => {
+                            await firestore.collection(`settings/landing/comments`).doc(comment.id).delete();
                           },
                           onCancel() {},
                         });
