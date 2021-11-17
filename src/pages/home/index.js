@@ -1,7 +1,6 @@
-import React, { useEffect, useGlobal, useRef, useState } from "reactn";
+import React, { useEffect, useGlobal } from "reactn";
 import styled from "styled-components";
 import { HeaderLanding } from "./HeaderLanding";
-import { firestore } from "../../firebase";
 //import { HeldEvents } from "./HeldEvents";
 import { Comments } from "./comments/Comments";
 import { ContactForm } from "./ContactForm";
@@ -15,26 +14,11 @@ export const Home = (props) => {
 
   const [authUser] = useGlobal("user");
 
-  const [comments, setComments] = useState([]);
-
   useEffect(() => {
     if (!authUser || authUser.isAdmin) return;
 
     router.push("/library");
   }, [authUser]);
-
-  useEffect(() => {
-    const fetchComments = () =>
-      firestore.collection("settings/landing/comments").onSnapshot((snapshot) => {
-        setComments(snapshot.docs.map((doc) => doc.data()));
-      });
-
-    fetchComments();
-  }, []);
-
-  const deleteDocument = async (document, collection) => {
-    await firestore.collection(`settings/landing/${collection}`).doc(document.id).delete();
-  };
 
   return (
     <LandingContainer>
@@ -48,7 +32,7 @@ export const Home = (props) => {
 
       <OurGames />
 
-      <Comments comments={comments} deleteDocument={deleteDocument} />
+      <Comments />
 
       <section id="contact">
         <ContactForm />

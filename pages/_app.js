@@ -17,12 +17,16 @@ import { useFetch } from "../src/hooks/useFetch";
 
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
-  const [authUserLS] = useUser();
   const { folderId } = router.query;
+
   const { Fetch } = useFetch();
+
+  const [authUserLS] = useUser();
+
   const [authUser] = useGlobal("user");
-  const [, setLoadingGames] = useGlobal("loadingGames");
   const [games, setGames] = useGlobal("userGames");
+  const [, setLoadingGames] = useGlobal("loadingGames");
+
   const [parent, setParent] = useState(null);
   const [folders, setFolders] = useState([]);
   const [isBack, setIsBack] = useState(true);
@@ -33,9 +37,7 @@ const MyApp = ({ Component, pageProps }) => {
       .where("usersIds", "array-contains", authUser?.id ?? null)
       .where("deleted", "==", false);
 
-    folderRef = folderId
-      ? folderRef.where("parentId", "==", folderId)
-      : folderRef.where("parentId", "==", null);
+    folderRef = folderId ? folderRef.where("parentId", "==", folderId) : folderRef.where("parentId", "==", null);
 
     folderRef.onSnapshot((foldersQuery) => {
       setFolders(snapshotToArray(foldersQuery));
@@ -57,8 +59,7 @@ const MyApp = ({ Component, pageProps }) => {
 
       let games_ = response?.games ?? [];
 
-      if (folderId)
-        games_ = games_.filter((game) => game.parentId === folderId);
+      if (folderId) games_ = games_.filter((game) => game.parentId === folderId);
 
       setGames(games_);
       await setLoadingGames(false);
@@ -78,10 +79,7 @@ const MyApp = ({ Component, pageProps }) => {
     if (!folderId || isBack) return setParent({});
 
     const fetchParent = async () => {
-      const parentRef = await firestore
-        .collection("folders")
-        .doc(folderId)
-        .get();
+      const parentRef = await firestore.collection("folders").doc(folderId).get();
 
       setParent(parentRef.data());
     };
@@ -93,13 +91,10 @@ const MyApp = ({ Component, pageProps }) => {
     setIsBack(false);
   }, []);
 
-  const showNotificationAnt = (message, description, type = "error") =>
-    notification[type]({ message, description });
+  const showNotificationAnt = (message, description, type = "error") => notification[type]({ message, description });
 
   return (
-    <ThemeProvider
-      theme={get(authUserLS, "theme") === "lightTheme" ? lightTheme : darkTheme}
-    >
+    <ThemeProvider theme={get(authUserLS, "theme") === "lightTheme" ? lightTheme : darkTheme}>
       <GlobalStyle />
       <Head>
         <title>Aprendimos a romper barreras</title>
@@ -117,14 +112,8 @@ const MyApp = ({ Component, pageProps }) => {
           name="description"
           content="Le damos la posibilidad a empresas de crear eventos virtuales con el objetivo de potenciar el clima laboral."
         />
-        <link
-          rel="shortcut icon"
-          href={`${config.storageUrl}/resources/icons/icon-72x72.png`}
-        />
-        <link
-          rel="shortcut icon"
-          href={`${config.storageUrl}/resources/icons/icon-512x512.png`}
-        />
+        <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-72x72.png`} />
+        <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
         <link
           rel="apple-touch-icon-precomposed"
           sizes="144x144"
@@ -140,18 +129,9 @@ const MyApp = ({ Component, pageProps }) => {
           sizes="72x72"
           href={`${config.storageUrl}/resources/icons/icon-512x512.png`}
         />
-        <link
-          rel="apple-touch-icon-precomposed"
-          href={`${config.storageUrl}/resources/icons/icon-512x512.png`}
-        />
-        <meta
-          property="og:image"
-          content={`${config.storageUrl}/resources/icons/icon-512x512.png`}
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="apple-touch-icon-precomposed" href={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
+        <meta property="og:image" content={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
         <link rel="manifest" href={`${config.serverUrl}/api/manifest`} />
       </Head>
       <ErrorBoundary FallbackComponent={ErrorFallback}>

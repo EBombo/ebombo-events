@@ -22,7 +22,10 @@ ENV SERVER_PORT=$SERVER_PORT
 EXPOSE $SERVER_PORT
 
 # define env
-ENV NODE_ENV=production
+ENV NODE_ENV=development
+
+# define domain
+ENV DOMAIN=https://red.ebombo.com
 
 # create build
 RUN npm run build
