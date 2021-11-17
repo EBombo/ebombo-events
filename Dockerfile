@@ -40,7 +40,7 @@ FROM node:14-alpine AS runner
 WORKDIR /app
 
 # define port
-ARG SERVER_PORT=5000
+ARG SERVER_PORT=3000
 ENV SERVER_PORT=$SERVER_PORT
 EXPOSE $SERVER_PORT
 
@@ -58,4 +58,4 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
 # run project
-CMD ["node_modules/.bin/next", "start", "-p 5000"]
+CMD ["node_modules/.bin/next", "start"]
