@@ -10,7 +10,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # install dependencies
-RUN npm install --frozen-lockfile
+RUN npm install
 
 # Rebuild the source code only when needed
 FROM node:14-alpine AS builder
