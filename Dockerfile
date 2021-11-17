@@ -10,7 +10,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # install dependencies
-RUN yarn install --frozen-lockfile
+RUN npm install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM node:14-alpine AS builder
@@ -25,7 +25,7 @@ COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 
 # build
-RUN yarn build
+RUN npm build
 
 # Production image, copy all the files and run next
 FROM node:14-alpine AS runner
