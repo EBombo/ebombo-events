@@ -54,4 +54,5 @@ COPY --from=builder /app/package.json ./package.json
 # define user
 USER nextjs
 
+# run project
 CMD ["node_modules/.bin/next", "start"]
