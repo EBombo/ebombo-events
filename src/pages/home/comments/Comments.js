@@ -127,6 +127,10 @@ const CommentsContainer = styled.section`
   padding: 1rem;
   margin: 0 auto;
 
+  ${mediaQuery.afterTablet} {
+    padding: 4rem 2rem;
+  }
+
   .main-container {
     width: 100%;
     margin: 0 auto;

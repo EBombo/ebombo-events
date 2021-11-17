@@ -1,17 +1,13 @@
-import React, { useGlobal, useMemo, useState } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./common/Image";
 import { config } from "../firebase";
-import { Desktop, mediaQuery, Tablet } from "../constants";
+import { Desktop, Tablet } from "../constants";
 import { Anchor, ButtonAnt } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
-import { Menu } from "antd";
 import { Layout } from "./common/Layout";
 import { Footer } from "./Footer";
-import { infoGamesData } from "./common/DataList";
-
-const menus = infoGamesData.map((infoGame) => ({ menuLabel: infoGame.menuLabel, id: infoGame.id }));
 
 export const Navbar = (props) => {
   const router = useRouter();
@@ -21,19 +17,6 @@ export const Navbar = (props) => {
   const [authUser] = useGlobal("user");
 
   const [active, setActive] = useState(false);
-
-  const onClick = ({ key }) => router.push(`/games/${menus[key].id}`);
-
-  const menu = useMemo(
-    () => (
-      <Menu onClick={onClick}>
-        {menus.map((menu, index) => (
-          <Menu.Item key={menu.menuLabel}>{menu.menuLabel}</Menu.Item>
-        ))}
-      </Menu>
-    ),
-    [menus]
-  );
 
   return (
     <>
@@ -178,11 +161,8 @@ const LayoutMenu = styled.section`
 const Body = styled.section`
   width: 100vw;
   flex: 1 1 auto;
-
-  ${mediaQuery.afterTablet} {
-    overflow: auto;
-    min-height: calc(100vh - 100px);
-  }
+  display: grid;
+  min-height: calc(100vh - 100px);
 `;
 
 const NavContainer = styled.div`
