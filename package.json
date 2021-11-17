@@ -53,9 +53,6 @@
         "prettier": "^2.2.1",
         "react-email-editor": "^1.3.0"
     },
-    "engines": {
-        "node": "10"
-    },
     "prettier": {
         "printWidth": 120
     }

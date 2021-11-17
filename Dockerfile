@@ -7,10 +7,10 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # copy files
-COPY package.json package-lock.json ./
+COPY package.json yarn.lock ./
 
 # install dependencies
-RUN npm install
+RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM node:14-alpine AS builder
@@ -25,7 +25,7 @@ COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 
 # build
-RUN npm build
+RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run next
 FROM node:14-alpine AS runner
