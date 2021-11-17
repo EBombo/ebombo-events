@@ -24,6 +24,12 @@ COPY . .
 # copy modules
 COPY --from=deps /app/node_modules ./node_modules
 
+# define env
+ENV NODE_ENV development
+
+# define domain
+ENV DOMAIN=https://red.ebombo.com
+
 # build
 RUN yarn build
 
