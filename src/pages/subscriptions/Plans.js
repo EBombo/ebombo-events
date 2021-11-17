@@ -152,10 +152,6 @@ export const Plans = (props) => {
 
 const PlansContainerCss = styled.div`
   background: ${(props) => props.theme.basic.whiteLighten};
-
-  ${mediaQuery.afterTablet} {
-    padding: 1rem 2rem;
-  }
 `;
 
 const PlansContainer = styled.div`
