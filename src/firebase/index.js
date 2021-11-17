@@ -16,8 +16,6 @@ const version = "0.2";
 
 const hostName = typeof window === "undefined" ? DOMAIN : window.location.hostname.replace("subdomain.", "");
 
-console.log("projectId", hostName);
-
 let config;
 
 if (ENVIRONMENT?.includes("production")) {
