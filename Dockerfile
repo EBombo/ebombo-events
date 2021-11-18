@@ -31,4 +31,4 @@ ENV DOMAIN=https://red.ebombo.com
 RUN npm run build
 
 # start app
-CMD [ "node_modules/.bin/next" , "start" , "-p 5000"]
+CMD [ "npm", "start" ]
