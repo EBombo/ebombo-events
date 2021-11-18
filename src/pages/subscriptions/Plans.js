@@ -1,6 +1,6 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { mediaQuery } from "../../constants";
+import { mediaQuery, Tablet } from "../../constants";
 import { PlansTable } from "./PlansTable";
 import { PlanTabContent } from "./PlanTabContent";
 
@@ -19,7 +19,11 @@ export const Plans = (props) => {
             Evento Presencial
           </div>
           <div className={`tab ${tab === "games" && "active"}`} onClick={() => setTab("games")}>
-            Juegos de integración
+            Juegos de
+            <Tablet>
+              <br />
+            </Tablet>
+            integración
           </div>
         </div>
 
