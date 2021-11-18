@@ -25,7 +25,7 @@ EXPOSE $SERVER_PORT
 ENV ENV=production
 
 # define domain
-ENV DOMAIN=https://gold.ebombo.com
+ENV DOMAIN=https://ebombo.com
 
 # create build
 RUN npm run build
