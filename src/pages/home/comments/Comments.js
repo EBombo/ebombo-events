@@ -184,7 +184,28 @@ const CommentsContainer = styled.section`
       }
 
       ::-webkit-scrollbar {
+        height: 8px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+        -webkit-border-radius: 8px;
+        border-radius: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+        -webkit-border-radius: 8px;
+        background: ${(props) => props.theme.basic.grayLighten};
+        border-radius: 8px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        height: 3px;
+      }
+
+      ::-webkit-scrollbar-corner {
         display: none;
+        height: 0px;
+        width: 0px;
       }
     }
 
