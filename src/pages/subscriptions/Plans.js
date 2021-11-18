@@ -23,7 +23,7 @@ export const Plans = (props) => {
             <Tablet>
               <br />
             </Tablet>
-            integración
+            {" integración"}
           </div>
         </div>
 
