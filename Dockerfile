@@ -16,13 +16,16 @@ COPY . /app
 # install dependencies
 RUN npm install --force
 
-# set port
+# define port
 ARG SERVER_PORT=5000
 ENV SERVER_PORT=$SERVER_PORT
 EXPOSE $SERVER_PORT
 
 # define env
-ENV NODE_ENV=production
+ENV NODE_ENV=development
+
+# define domain
+ENV DOMAIN=https://red.ebombo.com
 
 # create build
 RUN npm run build

@@ -4,30 +4,26 @@ import "firebase/firestore";
 import "firebase/storage";
 import "firebase/analytics";
 import configJson from "./config.json";
-import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
+
+const DOMAIN = process.env.DOMAIN ?? "localhost:3001";
+console.log("process.env.DOMAIN", DOMAIN);
+
+const ENVIRONMENT = process.env.ENV ?? "development";
+console.log("process.env.ENV", ENVIRONMENT);
 
 const version = "0.2";
 
-let hostName = process.env.NODE_ENV === "development" ? "localhost" : get(process, "env.GCLOUD_PROJECT", "");
-
-if (typeof window !== "undefined") hostName = get(window, "location.hostname", "").replace("subdomain.", "");
-
-console.log("projectId", hostName);
+const hostName = typeof window === "undefined" ? DOMAIN : window.location.hostname.replace("subdomain.", "");
 
 let config;
 
-if (
-  hostName.includes("red.") ||
-  hostName.includes("-dev") ||
-  hostName.includes("localhost") ||
-  hostName.includes("cloudshell")
-) {
-  config = configJson.development;
-  console.log("dev", version);
-} else {
+if (ENVIRONMENT?.includes("production")) {
   config = configJson.production;
   console.log("prod", version);
+} else {
+  config = configJson.development;
+  console.log("dev", version);
 }
 
 let analyticsBingo;
@@ -41,6 +37,7 @@ let storage;
 let auth;
 
 if (isEmpty(firebase.apps)) {
+  // Default connection.
   try {
     console.log("initializeApp", firebase.apps);
     firebase.initializeApp(config.firebase);
@@ -57,7 +54,7 @@ if (isEmpty(firebase.apps)) {
     console.error("error initializeApp", error);
   }
 
-  // Allow connection with events firebase
+  // Bingo connection.
   try {
     firebase.initializeApp(config.firebaseBingo, "bingo");
     firestoreBingo = firebase.app("bingo").firestore();
@@ -74,7 +71,7 @@ if (isEmpty(firebase.apps)) {
   }
 }
 
-if (hostName === "localhost") {
+if (DOMAIN?.includes("localhost")) {
   //config.serverUrl = config.serverUrlLocal;
   //firestore.useEmulator("localhost", 8080);
   //auth.useEmulator("http://localhost:9099/");
