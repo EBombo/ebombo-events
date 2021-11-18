@@ -162,16 +162,13 @@ const CommentsContainer = styled.section`
       margin-bottom: 1rem;
     }
 
-    ${mediaQuery.afterTablet} {
-      .title {
-        font-size: 33px;
-        line-height: 41px;
-      }
-    }
-
     .comments {
       max-width: 100%;
       overflow: auto;
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
 
       .comments-container {
         display: inline-flex;
@@ -181,31 +178,6 @@ const CommentsContainer = styled.section`
 
       .btn-container {
         margin: 1rem;
-      }
-
-      ::-webkit-scrollbar {
-        height: 8px;
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
-        -webkit-border-radius: 8px;
-        border-radius: 8px;
-      }
-
-      ::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
-        -webkit-border-radius: 8px;
-        background: ${(props) => props.theme.basic.grayLighten};
-        border-radius: 8px;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        border-radius: 8px;
-        height: 3px;
-      }
-
-      ::-webkit-scrollbar-corner {
-        display: none;
-        height: 0px;
-        width: 0px;
       }
     }
 
@@ -227,6 +199,41 @@ const CommentsContainer = styled.section`
 
         svg {
           color: ${(props) => props.theme.basic.danger};
+        }
+      }
+    }
+
+    ${mediaQuery.afterTablet} {
+      .title {
+        font-size: 33px;
+        line-height: 41px;
+      }
+
+      .comments {
+        ::-webkit-scrollbar {
+          display: block;
+          height: 8px;
+          -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+          -webkit-border-radius: 8px;
+          border-radius: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+          -webkit-border-radius: 8px;
+          background: ${(props) => props.theme.basic.grayLighten};
+          border-radius: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          border-radius: 8px;
+          height: 3px;
+        }
+
+        ::-webkit-scrollbar-corner {
+          display: none;
+          height: 0px;
+          width: 0px;
         }
       }
     }
