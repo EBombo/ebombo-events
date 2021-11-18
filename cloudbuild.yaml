@@ -20,8 +20,8 @@ steps:
         "managed",
         "--allow-unauthenticated",
       ]
-  - name: "gcr.io/cloud-builders/gsutil"
-    args: ["-m","cp", "-r" ,"gs://bingo-dev-322514.appspot.com/resources", "gs://ebombo-events.appspot.com/resources"]
+  #- name: "gcr.io/cloud-builders/gsutil"
+  #  args: ["-m" , "cp" , "-r" ,"gs://bingo-dev-322514.appspot.com/resources", "gs://ebombo-events.appspot.com/resources"]
 images:
   - "gcr.io/ebombo-events/events-red"
 options:
