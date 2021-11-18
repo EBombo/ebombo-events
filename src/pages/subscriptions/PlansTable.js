@@ -2,6 +2,7 @@ import React, { useState } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 import { plans } from "../../components/common/DataList";
+import { config } from "../../firebase";
 
 export const PlansTable = (props) => {
   const [currentPlan] = useState("Avanzado");
@@ -72,6 +73,9 @@ export const PlansTable = (props) => {
               ))}
 
               {currentPlan === plan.name && <div className="selected" />}
+              {currentPlan === plan.name && (
+                <Star backgroundImg={`${config.storageUrl}/resources/plan-star.png`}>Más pouplar</Star>
+              )}
             </tr>
           ))}
         </tbody>
@@ -82,7 +86,7 @@ export const PlansTable = (props) => {
 
 const TableContainer = styled.div`
   width: 1000px;
-  padding: 1rem;
+  padding: 100px 1rem;
   background: #f5f2fb;
 
   .table-title {
@@ -225,6 +229,28 @@ const TableContainer = styled.div`
 
   ${mediaQuery.afterTablet} {
     width: 100%;
-    padding: 2rem;
+    padding: 100px 2rem;
   }
+`;
+
+const Star = styled.div`
+  position: absolute;
+  z-index: 99;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
+  width: 110px;
+  height: 110px;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 13px;
+  line-height: 16px;
+  color: ${(props) => props.theme.basic.whiteLighten};
+  background-image: url(${(props) => props.backgroundImg});
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

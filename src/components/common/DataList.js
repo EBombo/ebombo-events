@@ -30,17 +30,6 @@ export const ladingProducts = [
   },
 ];
 
-export const navMenus = [
-  {
-    title: "Bingo",
-    id: "bingo",
-    description: "Juega Bingo con tus colaboradores de manera simple y divertida.",
-  },
-  { title: "Charadas", id: "charada" },
-  { title: "Canta y Gana", id: "canata&gana" },
-  { title: "Trivia", id: "trivia" },
-];
-
 export const plans = [
   {
     name: "Gratis",
@@ -338,32 +327,6 @@ export const heldEventsData = [
     text: `What is Lorem Ipsum?
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-  },
-];
-
-export const userLinks = [];
-
-export const services = [
-  {
-    title: "Eventos virtuales",
-    text: "Hacemos más de 20 tipos de eventos virtuales. Como integraciones, speakers motivacionales, olimpiadas, eventos temáticos, deportes virtuales y más.",
-    color: darkTheme.basic.danger,
-    logoUrl: `${config.storageUrl}/resources/b2bLanding/laptop.svg`,
-    imageUrl: `${config.storageUrl}/resources/b2bLanding/events.svg`,
-  },
-  {
-    title: "Nos adaptamos a tu empresa",
-    text: "Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.",
-    color: "#FFD00D",
-    logoUrl: `${config.storageUrl}/resources/b2bLanding/house.svg`,
-    imageUrl: `${config.storageUrl}/resources/b2bLanding/adapt.svg`,
-  },
-  {
-    title: "Nos encargamos de todo el evento",
-    text: "Tenemos un estudio de grabación con cámaras, luces, pantalla verde, animadores, moderadores, streamers, speakers y todo lo que necesitas para tener el mejor evento que te puedas imaginar.",
-    color: "#6C63FF",
-    logoUrl: `${config.storageUrl}/resources/b2bLanding/referi.svg`,
-    imageUrl: `${config.storageUrl}/resources/b2bLanding/organization.svg`,
   },
 ];
 
