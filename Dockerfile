@@ -16,7 +16,7 @@ COPY . /app
 # install dependencies
 RUN npm install --force
 
-# set port
+# define port
 ARG SERVER_PORT=5000
 ENV SERVER_PORT=$SERVER_PORT
 EXPOSE $SERVER_PORT
@@ -31,4 +31,4 @@ ENV DOMAIN=https://red.ebombo.com
 RUN npm run build
 
 # start app
-CMD [ "npm", "start" ]
+CMD [ "node_modules/.bin/next" , "start" , "-p 5000"]
