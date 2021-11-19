@@ -1,34 +1,40 @@
-# base image
+# Base
 FROM node:14-alpine
 
-# create folder
-RUN mkdir /app
+# Update npm
+RUN npm install -g npm@7
 
-# working directory
+# Working directory
 WORKDIR /app
 
-# add binaries to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+# Working directory
+WORKDIR /app
 
-# copy app files and build
-COPY . /app
+# Copy app files
+COPY package.json package-lock.json ./
 
-# install dependencies
+# Install dependencies
 RUN npm install --force
 
-# define port
+# Node env
+ENV NODE_ENV production
+
+# Define env
+ENV ENV development
+
+# Define port
 ARG SERVER_PORT=5000
 ENV SERVER_PORT=$SERVER_PORT
 EXPOSE $SERVER_PORT
 
-# define env
-ENV ENV=development
+# Define domain
+ENV DOMAIN https://red.ebombo.com
 
-# define domain
-ENV DOMAIN=https://red.ebombo.com
+# Copy app files
+COPY . .
 
-# create build
+# Create build
 RUN npm run build
 
-# start app
-CMD [ "npm", "start" ]
+# Run
+CMD [ "npm" , "start" ]
