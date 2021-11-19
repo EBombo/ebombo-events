@@ -1,29 +1,29 @@
 steps:
   # Build the container image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/ebombo-events/events-red", "."]
+    args: [ "build", "-t", "gcr.io/${PROJECT_ID}/${PROJECT_ID}-red", "." ]
   # Push the container image to Container Registry
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/ebombo-events/events-red"]
+    args: [ "push", "gcr.io/${PROJECT_ID}/${PROJECT_ID}-red" ]
   # Deploy container image to Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
     args:
       [
-        "run",
-        "deploy",
-        "events-red",
-        "--image",
-        "gcr.io/ebombo-events/events-red",
-        "--region",
-        "us-central1",
-        "--platform",
-        "managed",
-        "--allow-unauthenticated",
+          "run",
+          "deploy",
+          "${PROJECT_ID}-red",
+          "--image",
+          "gcr.io/${PROJECT_ID}/${PROJECT_ID}-red",
+          "--region",
+          "us-central1",
+          "--platform",
+          "managed",
+          "--allow-unauthenticated",
       ]
   #- name: "gcr.io/cloud-builders/gsutil"
-  #  args: ["-m" , "cp" , "-r" ,"gs://bingo-dev-322514.appspot.com/resources", "gs://ebombo-events.appspot.com/resources"]
+  #  args: ["-m" , "cp" , "-r" ,"gs://bingo-dev-322514.appspot.com/", "gs://${PROJECT_ID}.appspot.com/"]
 images:
-  - "gcr.io/ebombo-events/events-red"
+  - "gcr.io/${PROJECT_ID}/${PROJECT_ID}-red"
 options:
   logging: CLOUD_LOGGING_ONLY
   # TODO: Solicitar confirmacion de build y deploy de una nueva version.
