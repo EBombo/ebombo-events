@@ -2,7 +2,6 @@ import React, { useMemo } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { Image } from "../../../components/common/Image";
-import { Footer } from "../../../components/Footer";
 import { heldEventsData } from "../../../components/common/DataList";
 import { Navbar } from "../../../components/Navbar";
 import { Icon } from "../../../components/common/Icons";
