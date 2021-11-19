@@ -12,13 +12,32 @@ export const Plans = (props) => {
       <PlansContainer>
         <div className="title">Conoce nuestros planes</div>
         <div className="tabs">
-          <div className={`tab ${tab === "online" && "active"}`} onClick={() => setTab("online")}>
-            Evento Virtual
+          <div className={`tab ${tab === "online" && "active"}`} onClick={() => {
+            console.log("online")
+            setTab("online");
+          }}>
+            Evento
+            <Tablet>
+              <br />
+            </Tablet>
+            {" Virtual"}
           </div>
-          <div className={`tab middle-tab ${tab === "onsite" && "active"}`} onClick={() => setTab("onsite")}>
-            Evento Presencial
+
+          <div className={`tab middle-tab ${tab === "onsite" && "active"}`} onClick={() => {
+            console.log("onsite")
+            setTab("onsite");
+          }}>
+            Evento
+            <Tablet>
+              <br />
+            </Tablet>
+            {" Presencial"}
           </div>
-          <div className={`tab ${tab === "games" && "active"}`} onClick={() => setTab("games")}>
+
+          <div className={`tab ${tab === "games" && "active"}`} onClick={() => {
+            console.log("games")
+            setTab("games");
+          }}>
             Juegos de
             <Tablet>
               <br />
@@ -27,7 +46,7 @@ export const Plans = (props) => {
           </div>
         </div>
 
-        <PlanTabContent tab={tab} {...props} />
+        <PlanTabContent {...props} tab={tab} />
       </PlansContainer>
 
       {tab === "games" && (
@@ -41,11 +60,12 @@ export const Plans = (props) => {
 
 const PlansContainerCss = styled.div`
   background: ${(props) => props.theme.basic.whiteLighten};
-  padding: 2rem 1rem;
+  max-width: 100vw;
 `;
 
 const PlansContainer = styled.div`
   width: 100%;
+  padding: 2rem 1rem;
 
   .more-info {
     display: flex;

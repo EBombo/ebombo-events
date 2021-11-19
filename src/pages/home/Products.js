@@ -28,10 +28,8 @@ export const Products = (props) => {
             <div className="img-container">
               <Image
                 src={product.image}
-                height="80%"
-                width="80%"
-                desktopheight="100%"
-                desktopwidth="100%"
+                height="100%"
+                width="100%"
                 size="contain"
                 margin="0"
                 borderRadius="15px"
@@ -99,8 +97,9 @@ const ProductsContainer = styled.div`
       .img-container {
         position: absolute;
         top: 50%;
-        right: 0;
-        transform: translate(10%, -50%);
+        left: 0;
+        transform: scale(85%) translateY(-60%);
+        margin: 0
       }
     }
 
