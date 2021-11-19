@@ -1,11 +1,13 @@
 # Install dependencies
 FROM node:14-alpine AS dependencies
+RUN npm install -g npm@7
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install --force
 
 # Build project
 FROM node:14-alpine AS builder
+RUN npm install -g npm@7
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
@@ -24,6 +26,7 @@ RUN npm run build
 
 # Run project
 FROM node:14-alpine AS runner
+RUN npm install -g npm@7
 WORKDIR /app
 
 # node env
