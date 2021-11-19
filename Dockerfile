@@ -1,34 +1,31 @@
-# base image
-FROM node:14-alpine
-
-# create folder
-RUN mkdir /app
-
-# working directory
+# Install dependencies
+FROM node:14-alpine AS dependencies
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --only=production
 
-# add binaries to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-
-# copy app files and build
-COPY . /app
-
-# install dependencies
-RUN npm install --force
-
-# define port
-ARG SERVER_PORT=5000
-ENV SERVER_PORT=$SERVER_PORT
-EXPOSE $SERVER_PORT
-
-# define env
-ENV ENV=development
-
-# define domain
-ENV DOMAIN=https://red.ebombo.com
-
-# create build
+# Rebuild the source code only when needed
+FROM node:14-alpine AS builder
+WORKDIR /app
+COPY . .
+COPY --from=dependencies /app/node_modules ./node_modules
 RUN npm run build
 
-# start app
-CMD [ "npm", "start" ]
+# Production image, copy all the files and run next
+FROM node:14-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV production
+
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+USER nextjs
+EXPOSE 5000
+
+CMD ["npm", "start"]

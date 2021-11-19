@@ -31,7 +31,7 @@ export const WithConfiguration = (props) => {
   const [location, setLocationLocalStorage] = useLocation();
   const [settingsLS, setSettingsLocalStorage] = useSettings();
 
-  const [isLoadingConfig, setIsLoadingConfig] = useState(true);
+  const [isLoadingConfig, setIsLoadingConfig] = useState(false);
 
   let pageLoaded = false;
 
