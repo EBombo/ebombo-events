@@ -1,55 +1,40 @@
-# Install dependencies
-FROM node:14-alpine AS dependencies
+# Base
+FROM node:14-alpine
+
+# Update npm
 RUN npm install -g npm@7
+
+# Working directory
 WORKDIR /app
+
+# Working directory
+WORKDIR /app
+
+# Copy app files
 COPY package.json package-lock.json ./
+
+# Install dependencies
 RUN npm install --force
 
-# Build project
-FROM node:14-alpine AS builder
-RUN npm install -g npm@7
-WORKDIR /app
-COPY . .
-COPY --from=dependencies /app/node_modules ./node_modules
-
-# node env
+# Node env
 ENV NODE_ENV production
-# define env
+
+# Define env
 ENV ENV development
-# define port
-ARG SERVER_PORT=5000
-ENV SERVER_PORT=$SERVER_PORT
-# define domain
-ENV DOMAIN https://red.ebombo.com
 
-RUN npm run build
-
-# Run project
-FROM node:14-alpine AS runner
-RUN npm install -g npm@7
-WORKDIR /app
-
-# node env
-ENV NODE_ENV production
-# define env
-ENV ENV development
-# define port
+# Define port
 ARG SERVER_PORT=5000
 ENV SERVER_PORT=$SERVER_PORT
 EXPOSE $SERVER_PORT
-# define domain
+
+# Define domain
 ENV DOMAIN https://red.ebombo.com
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+# Copy app files
+COPY . .
 
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+# Create build
+RUN npm run build
 
-USER nextjs
-EXPOSE 5000
-
+# Run
 CMD [ "npm" , "start" ]
