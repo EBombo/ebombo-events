@@ -28,7 +28,7 @@ ENV SERVER_PORT=$SERVER_PORT
 EXPOSE $SERVER_PORT
 
 # Define domain
-ENV DOMAIN https://gold.ebombo.com
+ENV DOMAIN https://ebombo.com
 
 # Copy app files
 COPY . .
