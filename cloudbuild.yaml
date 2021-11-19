@@ -20,6 +20,7 @@ steps:
   #        "managed",
   #        "--allow-unauthenticated",
   #    ]
+  # TODO: Create access to the Google Cloud Storage object to xxxx-compute@developer.gserviceaccount.com.
   - name: "gcr.io/cloud-builders/gsutil"
     args: ["-m" , "cp" , "-r" , "-n" ,"gs://${PROJECT_ID}.appspot.com/example.png", "gs://${PROJECT_ID}-dev.appspot.com/"]
 #images:
