@@ -1,6 +1,5 @@
 # Install dependencies
 FROM node:14-alpine AS dependencies
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install --force
