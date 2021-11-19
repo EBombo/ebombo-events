@@ -20,7 +20,7 @@ RUN npm install --force
 ENV NODE_ENV production
 
 # Define env
-ENV ENV development
+ENV ENV production
 
 # Define port
 ARG SERVER_PORT=5000
@@ -28,7 +28,7 @@ ENV SERVER_PORT=$SERVER_PORT
 EXPOSE $SERVER_PORT
 
 # Define domain
-ENV DOMAIN https://red.ebombo.com
+ENV DOMAIN https://gold.ebombo.com
 
 # Copy app files
 COPY . .
