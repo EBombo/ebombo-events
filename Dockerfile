@@ -3,7 +3,7 @@ FROM node:14-alpine AS dependencies
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci --only=production --force
+RUN npm install --force
 
 # Build project
 FROM node:14-alpine AS builder
@@ -50,4 +50,4 @@ COPY --from=builder /app/package.json ./package.json
 USER nextjs
 EXPOSE 5000
 
-CMD ["npm", "start"]
+CMD [ "node_modules/.bin/next" , "start" , "-p 5000"]
