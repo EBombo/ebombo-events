@@ -1,5 +1,5 @@
 # Base
-FROM node:14-alpine
+FROM node:14-alpine as builder
 
 # Update npm
 RUN npm install -g npm@7
@@ -35,6 +35,25 @@ COPY . .
 
 # Create build
 RUN npm run build
+
+# Base
+FROM node:14-alpine
+
+# Update npm
+RUN npm install -g npm@7
+
+# Working directory
+WORKDIR /app
+
+# Working directory
+WORKDIR /app
+
+# Copy build
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
 
 # Run
 CMD [ "npm" , "start" ]
