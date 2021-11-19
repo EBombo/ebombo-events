@@ -52,4 +52,4 @@ COPY --from=builder /app/package.json ./package.json
 USER nextjs
 EXPOSE 5000
 
-CMD [ "node_modules/.bin/next" , "start" , "-p 5000"]
+CMD [ "npm" , "start" ]
