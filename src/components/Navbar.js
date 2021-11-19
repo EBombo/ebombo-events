@@ -98,7 +98,7 @@ export const Navbar = (props) => {
               <li
                 className="nav-item"
                 onClick={() => {
-                  router.push({ pathname: "/", hash: "about" });
+                  router.push("/about-us");
                   setActive(false);
                 }}
               >
