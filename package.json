@@ -3,10 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "copy:local": "cp .env.example.local ./.env",
-        "dev": "npm run copy:local && next dev -p 3001",
-        "copy:env": "cp .env.example ./.env",
-        "build": "npm run copy:env && next build",
+        "copy:example": "cp .env.example ./.env",
+        "dev": "npm run copy:example && next dev -p 3001",
+        "build": "next build",
         "start": "next start -p 5000",
         "analyze": "cross-env ANALYZE=true next build",
         "deployBackDev": "firebase deploy --only functions -P dev",
