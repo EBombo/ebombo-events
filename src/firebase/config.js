@@ -12,7 +12,7 @@ const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN ?? "localhost:3001";
 console.log("process.env.NEXT_PUBLIC_DOMAIN", DOMAIN);
 
 const CONFIG = process.env.NEXT_PUBLIC_CONFIG ?? "";
-console.log("process.env.NEXT_PUBLIC_CONFIG", CONFIG);
+//console.log("process.env.NEXT_PUBLIC_CONFIG", CONFIG);
 
 const version = "0.2";
 
