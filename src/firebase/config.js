@@ -3,27 +3,27 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import "firebase/analytics";
-import configJson from "./config.json";
 import isEmpty from "lodash/isEmpty";
 
-const DOMAIN = process.env.DOMAIN ?? "localhost:3001";
-console.log("process.env.DOMAIN", DOMAIN);
+const PORT = process.env.NEXT_PUBLIC_PORT ?? 5000;
+console.log("process.env.NEXT_PUBLIC_PORT", PORT);
 
-const ENVIRONMENT = process.env.ENV ?? "development";
-console.log("process.env.ENV", ENVIRONMENT);
+const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN ?? "localhost:3001";
+console.log("process.env.NEXT_PUBLIC_DOMAIN", DOMAIN);
+
+const CONFIG = process.env.NEXT_PUBLIC_CONFIG ?? "";
+//console.log("process.env.NEXT_PUBLIC_CONFIG", CONFIG);
 
 const version = "0.2";
 
+const config = JSON.parse(CONFIG);
+
 const hostName = typeof window === "undefined" ? DOMAIN : window.location.hostname.replace("subdomain.", "");
 
-let config;
-
-if (ENVIRONMENT?.includes("production")) {
-  config = configJson.production;
-  console.log("prod", version);
-} else {
-  config = configJson.development;
+if (DOMAIN?.includes("local") || DOMAIN?.includes("red") || DOMAIN?.includes("dev")) {
   console.log("dev", version);
+} else {
+  console.log("prod", version);
 }
 
 let analyticsBingo;
