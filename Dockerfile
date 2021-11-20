@@ -17,18 +17,12 @@ COPY package.json package-lock.json ./
 RUN npm install --force
 
 # Node env
-ENV NEXT_PUBLIC_NODE_ENV production
-
-# Define env
-ENV NEXT_PUBLIC_ENV development
+ENV NODE_ENV production
 
 # Define port
 ARG SERVER_PORT=5000
-ENV NEXT_PUBLIC_SERVER_PORT=$SERVER_PORT
+ENV SERVER_PORT=$SERVER_PORT
 EXPOSE $SERVER_PORT
-
-# Define domain
-ENV NEXT_PUBLIC_DOMAIN https://red.ebombo.com
 
 # Copy app files
 COPY . .

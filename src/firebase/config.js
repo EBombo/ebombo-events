@@ -6,11 +6,11 @@ import "firebase/analytics";
 import configJson from "./config.json";
 import isEmpty from "lodash/isEmpty";
 
-const DOMAIN = process.env.DOMAIN ?? "localhost:3001";
-console.log("process.env.DOMAIN", DOMAIN);
+const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN ?? "localhost:3001";
+console.log("process.env.NEXT_PUBLIC_DOMAIN", DOMAIN);
 
-const ENVIRONMENT = process.env.ENV ?? "development";
-console.log("process.env.ENV", ENVIRONMENT);
+const ENVIRONMENT = process.env.NEXT_PUBLIC_ENV ?? "development";
+console.log("process.env.NEXT_PUBLIC_ENV", ENVIRONMENT);
 
 const version = "0.2";
 
