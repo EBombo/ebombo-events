@@ -5,10 +5,6 @@ import "firebase/storage";
 import "firebase/analytics";
 import isEmpty from "lodash/isEmpty";
 
-const version = "0.2";
-
-const hostName = typeof window === "undefined" ? DOMAIN : window.location.hostname.replace("subdomain.", "");
-
 const PORT = process.env.NEXT_PUBLIC_PORT ?? 5000;
 console.log("process.env.NEXT_PUBLIC_PORT", PORT);
 
@@ -18,7 +14,11 @@ console.log("process.env.NEXT_PUBLIC_DOMAIN", DOMAIN);
 const CONFIG = process.env.NEXT_PUBLIC_CONFIG ?? "";
 console.log("process.env.NEXT_PUBLIC_CONFIG", CONFIG);
 
+const version = "0.2";
+
 const config = JSON.parse(CONFIG);
+
+const hostName = typeof window === "undefined" ? DOMAIN : window.location.hostname.replace("subdomain.", "");
 
 if (DOMAIN?.includes("local") || DOMAIN?.includes("red") || DOMAIN?.includes("dev")) {
   console.log("dev", version);
