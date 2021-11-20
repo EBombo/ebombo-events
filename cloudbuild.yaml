@@ -1,7 +1,16 @@
 steps:
   # Build the container image
   - name: "gcr.io/cloud-builders/docker"
-    args: [ "build", "-t", "gcr.io/${PROJECT_ID}/${PROJECT_ID}-gold", "." ]
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/${PROJECT_ID}/${PROJECT_ID}-gold",
+        "--build-arg=NEXT_PUBLIC_CONFIG=$_CONFIG",
+        "--build-arg=NEXT_PUBLIC_DOMAIN=$_DOMAIN",
+        "--build-arg=NEXT_PUBLIC_PORT=$_PORT",
+        ".",
+      ]
   # Push the container image to Container Registry
   - name: "gcr.io/cloud-builders/docker"
     args: [ "push", "gcr.io/${PROJECT_ID}/${PROJECT_ID}-gold" ]
