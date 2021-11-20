@@ -24,6 +24,9 @@ ARG SERVER_PORT=5000
 ENV SERVER_PORT=$SERVER_PORT
 EXPOSE $SERVER_PORT
 
+# Define domain
+ENV NEXT_PUBLIC_DOMAIN https://red.ebombo.com
+
 # Copy app files
 COPY . .
 
