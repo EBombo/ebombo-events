@@ -2,6 +2,8 @@ steps:
   # Build the container image
   - name: "gcr.io/cloud-builders/docker"
     args: [ "build", "-t", "gcr.io/${PROJECT_ID}/${PROJECT_ID}-red", "--build-arg=NEXT_PUBLIC_CONFIG=$_CONFIG" , "." ]
+    #env:
+      #- "NEXT_PUBLIC_CONFIG=$_CONFIG"
   # Push the container image to Container Registry
   - name: "gcr.io/cloud-builders/docker"
     args: [ "push", "gcr.io/${PROJECT_ID}/${PROJECT_ID}-red" ]
