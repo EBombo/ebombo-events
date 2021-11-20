@@ -12,6 +12,8 @@ console.log("process.env.NEXT_PUBLIC_DOMAIN", DOMAIN);
 const ENVIRONMENT = process.env.NEXT_PUBLIC_ENV ?? "development";
 console.log("process.env.NEXT_PUBLIC_ENV", ENVIRONMENT);
 
+console.log("process.env.NEXT_PUBLIC_CONFIG", process.env.NEXT_PUBLIC_CONFIG);
+
 const version = "0.2";
 
 const hostName = typeof window === "undefined" ? DOMAIN : window.location.hostname.replace("subdomain.", "");
