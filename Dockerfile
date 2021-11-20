@@ -27,6 +27,10 @@ EXPOSE $SERVER_PORT
 # Define domain
 ENV NEXT_PUBLIC_DOMAIN https://red.ebombo.com
 
+# Define config
+ARG NEXT_PUBLIC_CONFIG
+ENV NEXT_PUBLIC_CONFIG=$NEXT_PUBLIC_CONFIG
+
 # Copy app files
 COPY . .
 
