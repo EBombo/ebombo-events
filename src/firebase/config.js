@@ -5,6 +5,8 @@ import "firebase/storage";
 import "firebase/analytics";
 import isEmpty from "lodash/isEmpty";
 
+console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+
 const PORT = process.env.NEXT_PUBLIC_PORT ?? 5000;
 console.log("process.env.NEXT_PUBLIC_PORT", PORT);
 
