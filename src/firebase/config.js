@@ -18,7 +18,7 @@ const version = "0.2";
 
 const config = JSON.parse(CONFIG);
 
-const hostName = typeof window === "undefined" ? DOMAIN : window.location.hostname.replace("subdomain.", "");
+const hostName = typeof window === "undefined" ? DOMAIN : window.location.hostname;
 
 if (DOMAIN?.includes("local") || DOMAIN?.includes("red") || DOMAIN?.includes("dev")) {
   console.log("dev", version);
