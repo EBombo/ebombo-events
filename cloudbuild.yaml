@@ -36,8 +36,7 @@ images:
   - "gcr.io/${PROJECT_ID}/${PROJECT_ID}-red"
 options:
   logging: CLOUD_LOGGING_ONLY
-  # TODO: Solicitar confirmacion de build y deploy de una nueva version.
-  # TODO: Enviar correo donde se informa la actualizacion.
-  # TODO: Notificar que el envio fallo.
-  # TODO: Format all files "npx prettier --write ."
+  # TODO: Solicitar confirmacion de build y deploy de una nueva version. [PROD]
+  # TODO: Enviar correo donde se informa la actualizacion. [PROD]
+  # TODO: Notificar que el envio fallo.[mejorar con github]
   # TODO: Add tests
