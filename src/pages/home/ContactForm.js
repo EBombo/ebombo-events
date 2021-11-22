@@ -19,12 +19,12 @@ export const ContactForm = (props) => {
     email: string().required(),
     name: string().required(),
     lastName: string().required(),
-    company: string().required(),
+    company: string().required()
   });
 
   const { register, handleSubmit, errors, reset } = useForm({
     validationSchema: schema,
-    reValidateMode: "onSubmit",
+    reValidateMode: "onSubmit"
   });
 
   const sendEmail = async (data) => {
@@ -40,7 +40,7 @@ export const ContactForm = (props) => {
         phoneNumber: null,
         name: null,
         lastName: null,
-        company: null,
+        company: null
       });
     } catch (error) {
       sendError({ error, action: "sendEmail" });
@@ -54,31 +54,14 @@ export const ContactForm = (props) => {
         <div className="title">¿Deseas mayor información?</div>
         <div className="description">Deja tu consulta y nos pondremos en contacto con usted</div>
         <form onSubmit={handleSubmit(sendEmail)}>
-          <Desktop>
-            <div className="info-contact">
-              <Input error={errors.name} type="text" ref={register} name="name" placeholder="Nombre" />
-              <Input error={errors.lastName} type="text" ref={register} name="lastName" placeholder="Apellido" />
-            </div>
-          </Desktop>
-          <Tablet>
+          <div className="info-contact">
             <Input error={errors.name} type="text" ref={register} name="name" placeholder="Nombre" />
             <Input error={errors.lastName} type="text" ref={register} name="lastName" placeholder="Apellido" />
-          </Tablet>
+          </div>
+
           <Input error={errors.email} type="email" ref={register} name="email" placeholder="Correo electrónico" />
 
-          <Desktop>
-            <div className="info-contact">
-              <Input error={errors.company} type="text" ref={register} name="company" placeholder="Empresa" />
-              <Input
-                error={errors.phoneNumber}
-                type="text"
-                ref={register}
-                name="phoneNumber"
-                placeholder="Número de teléfono"
-              />
-            </div>
-          </Desktop>
-          <Tablet>
+          <div className="info-contact">
             <Input error={errors.company} type="text" ref={register} name="company" placeholder="Empresa" />
             <Input
               error={errors.phoneNumber}
@@ -87,7 +70,7 @@ export const ContactForm = (props) => {
               name="phoneNumber"
               placeholder="Número de teléfono"
             />
-          </Tablet>
+          </div>
           <TextArea
             error={errors.message}
             name="message"
@@ -127,6 +110,7 @@ const ContactFormSection = styled.section`
     margin-bottom: 16px;
     font-style: normal;
   }
+
   .description {
     font-family: Lato;
     font-style: normal;
@@ -137,8 +121,10 @@ const ContactFormSection = styled.section`
     margin-bottom: 24px;
     font-style: normal;
   }
+
   .submit-container {
     text-align: center;
+
     button {
       display: inline-block;
     }
@@ -150,6 +136,7 @@ const ContactFormSection = styled.section`
 
   form {
     max-width: 660px;
+
     input,
     textarea {
       padding-left: 24px;
@@ -157,10 +144,12 @@ const ContactFormSection = styled.section`
       margin: 7px 0;
       padding: 8px;
     }
+
     input {
       background: ${(props) => props.theme.basic.whiteDark};
       color: ${(props) => props.theme.basic.grayLight};
     }
+
     textarea {
       margin-top: 0.5rem;
       width: 100%;
@@ -171,12 +160,6 @@ const ContactFormSection = styled.section`
       padding: 1rem;
       height: 100px;
     }
-
-    .info-contact {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-gap: 1rem;
-    }
   }
 
   ${mediaQuery.afterTablet} {
@@ -185,6 +168,12 @@ const ContactFormSection = styled.section`
     .title {
       font-size: 34px;
       line-height: 41px;
+    }
+
+    .info-contact {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 1rem;
     }
   }
 `;
