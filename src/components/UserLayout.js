@@ -110,13 +110,12 @@ const Body = styled.section`
   width: 100vw;
   min-height: 100%;
   overflow: auto;
-  padding: 50px 0 60px 0;
+  padding: 50px 0 0 0;
+  flex: 1 1 auto;
 
   ${mediaQuery.afterTablet} {
     padding: 50px 0 0 ${(props) => (props.isLanding ? "0" : "4rem")};
   }
-
-  flex: 1 1 auto;
 `;
 
 export default UserLayout;
