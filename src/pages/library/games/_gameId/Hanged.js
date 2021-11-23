@@ -27,11 +27,11 @@ export const Hanged = (props) => {
 
   const saveGame = async (data) => {
     const phrases = data.phrases.split(/\r?\n/);
-    const title = data.title;
+    const name = data.name;
 
     const _game = {
       phrases,
-      title,
+      name,
       coverImgUrl,
       id: newId,
     };
