@@ -1,6 +1,5 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 import { ButtonAnt, Input } from "../../../components/form";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
@@ -12,10 +11,9 @@ import { FileUpload } from "../../../components/common/FileUpload";
 import { Popover } from "antd";
 import { Image } from "../../../components/common/Image";
 import { Anchor } from "../../../components/form";
-import { mediaQuery, Tablet, Desktop } from "../../../constants";
+import { mediaQuery } from "../../../constants";
 
 export const EditProfile = (props) => {
-  const router = useRouter();
 
   const [authUser] = useGlobal("user");
 
@@ -28,7 +26,6 @@ export const EditProfile = (props) => {
   const schema = object().shape({
     name: string().required(),
     lastName: string().required(),
-    phoneNumber: string().required().min(5)
   });
 
   const { register, errors, handleSubmit } = useForm({
@@ -88,7 +85,7 @@ export const EditProfile = (props) => {
               <ButtonAnt
                 color="secondary"
                 htmlType="submit"
-                disabled={loading}
+                disabled={loading || authUser.id !== props.user.id}
                 loading={loading}
                 className="btn-submit"
               >

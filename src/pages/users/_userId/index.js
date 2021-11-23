@@ -1,9 +1,8 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { firestore } from "../../../firebase";
 import { spinLoader } from "../../../components/common/loader";
-import get from "lodash/get";
 import { Desktop, mediaQuery } from "../../../constants";
 import { DesktopLeftMenu } from "../../../components/common/DesktopLeftMenu";
 import { EditProfile } from "./EditProfile";
