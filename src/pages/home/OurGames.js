@@ -20,13 +20,7 @@ export const OurGames = (props) => {
 
       <div className="our-games">
         {ourGamesData.map((image, index) => (
-          <Image
-            key={`our-game-${index}`}
-            src={image}
-            width="321px"
-            height="128px"
-            borderRadius="40px"
-          />
+          <Image key={`our-game-${index}`} src={image} width="321px" height="128px" borderRadius="40px" />
         ))}
       </div>
     </OurGamesContainer>
@@ -47,8 +41,7 @@ const OurGamesContainer = styled.section`
     text-align: center;
     letter-spacing: 0.03em;
     margin: 1rem 0;
-    -webkit-text-fill-color: ${(props) => props.theme.basic.whiteLight};
-    -webkit-text-stroke: 2px ${(props) => props.theme.basic.blackDarken};
+    color: ${(props) => props.theme.basic.white};
   }
 
   .our-games {
