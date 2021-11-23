@@ -56,7 +56,6 @@ export const EditProfile = (props) => {
   const mapUser = (data) => ({
     name: data.name,
     lastName: data.lastName,
-    phoneNumber: data.phoneNumber,
     userName: data.userName,
     profileImgUrl
   });
