@@ -161,6 +161,13 @@ export const GlobalStyle = createGlobalStyle`
 
   /*------------ANIMATION---------------*/
 
+  /*------------Switch--------------*/
+
+    .ant-switch-checked{
+      background-color: ${(props) => props.theme.basic.success} !important;
+    }
+  /*------------Switch--------------*/
+
 
   /*-------------- FIELDSET ---------------*/
   fieldset {

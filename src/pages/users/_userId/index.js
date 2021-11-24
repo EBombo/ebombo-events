@@ -6,6 +6,7 @@ import { spinLoader } from "../../../components/common/loader";
 import { Desktop, mediaQuery } from "../../../constants";
 import { DesktopLeftMenu } from "../../../components/common/DesktopLeftMenu";
 import { EditProfile } from "./EditProfile";
+import { Privacy } from "./Privacy";
 
 export const UserProfile = (props) => {
   const router = useRouter();
@@ -39,7 +40,6 @@ export const UserProfile = (props) => {
         <DesktopLeftMenu {...props} />
       </Desktop>
       <div className="main-container">
-
         <div className="tabs-container">
           <div className={`tab left ${tab === "edit" && "active"}`} onClick={() => setTab("edit")}>
             Editar Perfil
@@ -48,16 +48,13 @@ export const UserProfile = (props) => {
             Privacidad
           </div>
           <div className={`tab  right ${tab === "password" && "active"}`} onClick={() => setTab("password")}>
-            Cambiar
-            contraseña
+            Cambiar contraseña
           </div>
         </div>
 
+        {tab === "edit" && <EditProfile user={user} {...props} />}
 
-        {tab === "edit" && (
-          <EditProfile user={user} {...props} />
-        )}
-
+        {tab === "privacy" && <Privacy user={user} {...props} />}
       </div>
     </UserContainer>
   );
