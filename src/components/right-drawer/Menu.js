@@ -26,7 +26,7 @@ export const Menu = (props) => {
               router.push(`/`);
             }}
           >
-            <span className="item">Ajustes del Perfil</span>
+            <span className="item" onClick={() => router.push(`/users/${authUser.id}`)}>Ajustes del Perfil</span>
           </MenuItem>
           <MenuItem
             onClick={() => {

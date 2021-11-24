@@ -186,6 +186,10 @@ export const GlobalStyle = createGlobalStyle`
   /*-------------- CONTAINER ---------------*/
 
   /*-------------- POPOVER ---------------*/
+  .ant-popover-arrow-content{
+    background: ${(props) => props.theme.basic.blackDarken};
+  }
+  
   .ant-popover-placement-right {
     .ant-popover-content {
       .ant-popover-arrow {
