@@ -112,6 +112,7 @@ const MyApp = ({ Component, pageProps }) => {
           name="description"
           content="Le damos la posibilidad a empresas de crear eventos virtuales con el objetivo de potenciar el clima laboral."
         />
+        <meta name="format-detection" content="telephone=no"/>
         <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-72x72.png`} />
         <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
         <link
