@@ -32,7 +32,7 @@ export const ResetPassword = (props) => {
   return (
     <ResetContainer>
       <div className="content">
-        <div className="title">Cambiar constraseña</div>
+        <div className="title">Cambiar contraseña</div>
 
         <form onSubmit={handleSubmit(savePassword)}>
           <label htmlFor="password">Antigua contraseña</label>
