@@ -158,6 +158,7 @@ const PlansPrices = styled.div`
   grid-gap: 1rem;
   align-items: center;
   overflow: auto;
+  padding: 0 0 2rem 0;
 
   ${mediaQuery.afterTablet} {
     grid-template-columns: repeat(5, 1fr);
