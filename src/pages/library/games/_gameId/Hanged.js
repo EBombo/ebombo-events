@@ -61,6 +61,16 @@ export const Hanged = (props) => {
           Escribe las frases y separalas con “ENTER” (Máx. 20 caracteres por palabra o frase)
         </div>
         <TextArea
+          onKeyPress={(event) => {
+            if (event.key === "Enter") return;
+
+            const regex = new RegExp("^[a-zA-Z ]+$");
+            const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+              event.preventDefault();
+              return false;
+            }
+          }}
           id="phrases"
           error={errors.phrases}
           name="phrases"
