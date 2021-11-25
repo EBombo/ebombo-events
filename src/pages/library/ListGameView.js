@@ -70,12 +70,9 @@ export const ListGameView = (props) => {
     setGames(newGames);
 
     try {
-      await firestoreBingo.doc(`games/${props.game.id}`).update({
-        deleted: true,
-      });
+      await Fetch(`${resource.api}/games/${props.game.id}/users/${authUser.id}`, "DELETE");
     } catch (error) {
-      console.error(error);
-      sendError(error, "deleteGame");
+      await sendError(error, "deleteGame");
     }
   };
 
