@@ -25,7 +25,7 @@ export const ResetPassword = (props) => {
   const schema = object().shape({
     currentPassword: string().required(),
     password: string().required(),
-    passwordConfirm: string().oneOf([ref("password"), null], "Passwords must match"),
+    passwordConfirm: string().oneOf([ref("password"), null], "Las contraseñas deben coincidir."),
   });
 
   const { register, errors, handleSubmit } = useForm({
