@@ -1,7 +1,6 @@
 import React, { useEffect, useGlobal } from "reactn";
 import styled from "styled-components";
 import { HeaderLanding } from "./HeaderLanding";
-//import { HeldEvents } from "./HeldEvents";
 import { Comments } from "./comments/Comments";
 import { ContactForm } from "./ContactForm";
 import { useRouter } from "next/router";
@@ -27,8 +26,6 @@ export const Home = (props) => {
       <Products />
 
       <Plans {...props} />
-
-      {/*<HeldEvents />*/}
 
       <OurGames />
 
