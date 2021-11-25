@@ -1,10 +1,13 @@
-import React, { useEffect, useGlobal, useState, useRef } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import get from "lodash/get";
 import { ButtonAnt, Input } from "../../../components/form";
-import { object, string } from "yup";
+import { object, ref, string } from "yup";
 import { useForm } from "react-hook-form";
 import { mediaQuery } from "../../../constants";
+import { auth } from "../../../firebase";
+import { firebase } from "../../../firebase/config";
+import { sendError } from "next/dist/next-server/server/api-utils";
 
 export const ResetPassword = (props) => {
   const [authUser] = useGlobal("user");
@@ -12,9 +15,9 @@ export const ResetPassword = (props) => {
   const [loading, setLoading] = useState(false);
 
   const schema = object().shape({
-    lastPassword: string().required(),
+    currentPassword: string().required(),
     password: string().required(),
-    passwordConfirm: string().required(),
+    passwordConfirm: string().oneOf([ref("password"), null], "Passwords must match"),
   });
 
   const { register, errors, handleSubmit } = useForm({
@@ -23,11 +26,26 @@ export const ResetPassword = (props) => {
   });
 
   const savePassword = async (data) => {
-    if(data.password !== data.passwordConfirm)
-      return props.showNotification("ERROR", "Las contraseñas no coinciden")
+    try {
+      await reauthenticate(data.currentPassword);
 
-    //TODO: create function that updates the firebase password (this will only word if u are register with email and password)
+      const user = auth.currentUser;
+
+      const response = await user.updatePassword(data.password);
+
+      console.log(response)
+
+    } catch (error) {
+      sendError(error, "savePassword")
+    }
+
   };
+
+  const reauthenticate = async (currentPassword) => {
+    const user = auth.currentUser;
+    const cred = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
+    return await user.reauthenticateWithCredential(cred);
+  }
 
   return (
     <ResetContainer>
@@ -38,13 +56,13 @@ export const ResetPassword = (props) => {
           <label htmlFor="password">Antigua contraseña</label>
           <Input
             type="password"
-            id="lastPassword"
-            name="lastPassword"
+            id="currentPassword"
+            name="currentPassword"
             variant="primary"
-            error={errors.lastPassword}
+            error={errors.currentPassword}
             ref={register}
             autoComplete="off"
-            defaultValue={get(props, "user.lastPassword", "")}
+            defaultValue={get(props, "user.currentPassword", "")}
             disabled={authUser.id !== props.user.id}
           />
 
