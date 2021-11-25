@@ -104,7 +104,7 @@ export const ResetPassword = (props) => {
           <ButtonAnt
             color="secondary"
             htmlType="submit"
-            disabled={loading || authUser.id !== props.user.id}
+            disabled={loading || authUser.id !== props.user.id || !authUser.providers.includes("password")}
             loading={loading}
             className="btn-submit"
           >
