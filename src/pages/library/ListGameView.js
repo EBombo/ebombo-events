@@ -2,7 +2,7 @@ import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
-import { config, firestore, firestoreBingo } from "../../firebase";
+import { config, firestore } from "../../firebase";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import get from "lodash/get";
