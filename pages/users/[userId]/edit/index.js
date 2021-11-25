@@ -1,5 +1,5 @@
 import React from "reactn";
-import { EditProfile } from "../../../../src/pages/users/_userId/edit";
+import { EditProfile } from "../../../../src/pages/users/_userId";
 import dynamic from "next/dynamic";
 import { spinLoader } from "../../../../src/components/common/loader";
 import { UserPrivateRoute } from "../../../../src/routes/UserPrivateRoute";
