@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { Desktop, mediaQuery, Tablet } from "../../../../../constants";
 import { Image } from "../../../../../components/common/Image";
 import { CloseCircleOutlined } from "@ant-design/icons";
-import { config, firestoreBingo } from "../../../../../firebase";
+import { config } from "../../../../../firebase";
 import { ButtonAnt } from "../../../../../components/form";
 import { darkTheme } from "../../../../../theme";
 import { Tooltip } from "antd";
