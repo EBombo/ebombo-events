@@ -16,12 +16,14 @@ import { spinLoader } from "../../../../../components/common/loader";
 import { ModalMove } from "../../../../../components/common/ModalMove";
 import { updateGame } from "../index";
 import { useSendError } from "../../../../../hooks";
+import { useFetch } from "../../../../../hooks/useFetch";
 
 // TODO: This component is long consider a refactoring.
 export const GameView = (props) => {
   const router = useRouter();
   const { gameId, adminGameId, folderId } = router.query;
 
+  const { Fetch } = useFetch();
   const { sendError } = useSendError();
 
   const [authUser] = useGlobal("user");
@@ -68,17 +70,15 @@ export const GameView = (props) => {
 
   const deleteGame = async () => {
     let newGames = games;
-    const gameIndex = newGames.findIndex((game) => game.id === props.game.id);
+    const gameIndex = newGames.findIndex((_game) => _game.id === game.id);
     newGames.splice(gameIndex, 1);
     setGames(newGames);
 
     try {
-      await firestoreBingo.doc(`games/${game.id}`).update({
-        deleted: true,
-      });
+      await Fetch(`${resource.api}/games/${game.id}/users/${authUser.id}`, "DELETE");
+      router.back();
     } catch (error) {
-      console.error(error);
-      sendError(error, "deleteGame");
+      await sendError(error, "deleteGame");
     }
   };
 
