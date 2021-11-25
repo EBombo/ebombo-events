@@ -1,18 +1,26 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import get from "lodash/get";
 import { ButtonAnt, Input } from "../../../components/form";
 import { object, ref, string } from "yup";
 import { useForm } from "react-hook-form";
 import { mediaQuery } from "../../../constants";
-import { auth } from "../../../firebase";
-import { firebase } from "../../../firebase/config";
-import { sendError } from "next/dist/next-server/server/api-utils";
+import { auth, firebase } from "../../../firebase";
+import { useSendError } from "../../../hooks";
+import { useRouter } from "next/router";
 
 export const ResetPassword = (props) => {
   const [authUser] = useGlobal("user");
 
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  const { sendError } = useSendError();
+
+  useEffect(() => {
+    if (!authUser) router.push("/");
+  }, [authUser]);
 
   const schema = object().shape({
     currentPassword: string().required(),
@@ -26,26 +34,27 @@ export const ResetPassword = (props) => {
   });
 
   const savePassword = async (data) => {
+    setLoading(true);
     try {
       await reauthenticate(data.currentPassword);
 
       const user = auth.currentUser;
 
-      const response = await user.updatePassword(data.password);
+      await user.updatePassword(data.password);
 
-      console.log(response)
-
+      props.showNotification("Success", "Se ha actualizado la contraseña", "success");
     } catch (error) {
-      sendError(error, "savePassword")
+      sendError(error, "savePassword");
+    } finally {
+      setLoading(false);
     }
-
   };
 
   const reauthenticate = async (currentPassword) => {
     const user = auth.currentUser;
     const cred = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
     return await user.reauthenticateWithCredential(cred);
-  }
+  };
 
   return (
     <ResetContainer>
@@ -131,13 +140,13 @@ const ResetContainer = styled.div`
       margin-bottom: 0.5rem;
     }
   }
-  
-  ${mediaQuery.afterTablet}{
+
+  ${mediaQuery.afterTablet} {
     border-radius: 8px;
     background: ${(props) => props.theme.basic.whiteLight};
     padding: 1rem 1rem 5rem 1rem;
-    
-    .content{
+
+    .content {
       background: ${(props) => props.theme.basic.whiteLigth};
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 2px;
