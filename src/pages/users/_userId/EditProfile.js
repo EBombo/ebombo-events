@@ -1,6 +1,6 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import { ButtonAnt, Input } from "../../../components/form";
+import { Anchor, ButtonAnt, Input } from "../../../components/form";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import get from "lodash/get";
@@ -10,7 +10,6 @@ import { config } from "../../../firebase";
 import { FileUpload } from "../../../components/common/FileUpload";
 import { Popover } from "antd";
 import { Image } from "../../../components/common/Image";
-import { Anchor } from "../../../components/form";
 import { mediaQuery } from "../../../constants";
 
 export const EditProfile = (props) => {
@@ -160,7 +159,7 @@ export const EditProfile = (props) => {
               <Input
                 id="organization"
                 variant="primary"
-                defaultValue={"ebombo"} //TODO: complete when the company logic is complete
+                defaultValue={"ebombo"} //TODO: complete when the companies logic is complete
                 disabled={true}
               />
 
@@ -183,7 +182,7 @@ export const EditProfile = (props) => {
               <Input
                 id="account"
                 variant="primary"
-                defaultValue={"Avanzado"} //TODO: complete when the company logic is complete
+                defaultValue={"Avanzado"} //TODO: complete when the companies logic is complete
                 disabled={true}
               />
 
@@ -209,7 +208,7 @@ export const EditProfile = (props) => {
               <Input
                 id="workPlace"
                 variant="primary"
-                defaultValue={"Profesor"} //TODO: complete when the company logic is complete
+                defaultValue={"Profesor"} //TODO: complete when the companies logic is complete
                 disabled={true}
               />
             </div>

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Tabs } from "antd";
 import { mediaQuery } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
+import { firestore } from "../../firebase";
 
 export const Menu = (props) => {
   const { signOut } = useAuth();
@@ -26,7 +27,9 @@ export const Menu = (props) => {
               router.push(`/`);
             }}
           >
-            <span className="item" onClick={() => router.push(`/users/${authUser.id}`)}>Ajustes del Perfil</span>
+            <span className="item" onClick={() => router.push(`/users/${authUser.id}`)}>
+              Ajustes del Perfil
+            </span>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -34,7 +37,17 @@ export const Menu = (props) => {
               router.push(`/`);
             }}
           >
-            <span className="item">Ajustes de la Empresa</span>
+            <span
+              className="item"
+              onClick={() => {
+                if (authUser.companyId) {
+                  return router.push(`/companies/${authUser.id}`);
+                }
+                return router.push(`/companies/${firestore.collection("companies").doc().id}`);
+              }}
+            >
+              Ajustes de la Empresa
+            </span>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -149,8 +162,7 @@ const MenuItem = styled.div`
   span {
     display: flex;
     font-size: 14px;
-    color: ${(props) =>
-      props.logout ? props.theme.basic.danger : props.theme.basic.blackLighten};
+    color: ${(props) => (props.logout ? props.theme.basic.danger : props.theme.basic.blackLighten)};
     align-items: center;
     height: 100%;
 
