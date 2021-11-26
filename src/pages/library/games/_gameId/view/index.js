@@ -3,20 +3,15 @@ import styled from "styled-components";
 import isEmpty from "lodash/isEmpty";
 import get from "lodash/get";
 import { useRouter } from "next/router";
-import { Desktop, mediaQuery, Tablet } from "../../../../../constants";
-import { Image } from "../../../../../components/common/Image";
-import { CloseCircleOutlined } from "@ant-design/icons";
+import { mediaQuery } from "../../../../../constants";
 import { config } from "../../../../../firebase";
-import { ButtonAnt } from "../../../../../components/form";
-import { darkTheme } from "../../../../../theme";
-import { Tooltip } from "antd";
-import { bingoCard } from "../../../../../components/common/DataList";
-import { CardContainer } from "../Bingo";
 import { spinLoader } from "../../../../../components/common/loader";
-import { ModalMove } from "../../../../../components/common/ModalMove";
 import { updateGame } from "../index";
 import { useSendError } from "../../../../../hooks";
 import { useFetch } from "../../../../../hooks/useFetch";
+import { BingoView } from "./BingoView";
+import { HangedView } from "./HangedView";
+import { SideBar } from "./SideBar";
 
 // TODO: This component is long consider a refactoring.
 export const GameView = (props) => {
@@ -82,44 +77,6 @@ export const GameView = (props) => {
     }
   };
 
-  const showBingoCard = () => (
-    <CardContainer
-      backgroundColor={get(game, "backgroundColor", "")}
-      backgroundImage={get(game, "backgroundImg", "")}
-      titleColor={get(game, "titleColor", "")}
-      blocksColor={get(game, "blocksColor", "")}
-      numberColor={get(game, "numberColor", "")}
-    >
-      <ModalMove
-        moveToFolder={moveGameToFolder}
-        setIsVisibleModalMove={setIsVisibleModalMove}
-        isVisibleModalMove={isVisibleModalMove}
-        {...props}
-      />
-      <div className="card-title">{get(game, "title", "")}</div>
-      <table>
-        <thead className="thead">
-          <tr>
-            <th>{get(game, "letters.b", "")}</th>
-            <th>{get(game, "letters.i", "")}</th>
-            <th>{get(game, "letters.n", "")}</th>
-            <th>{get(game, "letters.g", "")}</th>
-            <th>{get(game, "letters.o", "")}</th>
-          </tr>
-        </thead>
-        <tbody className="tbody">
-          {bingoCard.map((arrNums, index) => (
-            <tr key={`key-${index}`}>
-              {arrNums.map((num, idx) => (
-                <td key={`key-${num}-${idx}`}>{num}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </CardContainer>
-  );
-
   const createTokenToPlay = async () => {
     try {
       const gameName = game.adminGame.name.toLowerCase();
@@ -152,274 +109,37 @@ export const GameView = (props) => {
 
   return (
     <GameViewContainer>
-      <Tablet>
-        <div className="cover-container">
-          <Image
-            src={game.coverImgUrl ? game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
-            width="100%"
-            height="100px"
-            size="cover"
-          />
-          <div className="close">
-            <CloseCircleOutlined onClick={() => router.back()} />
-          </div>
-        </div>
-        <div className="game-details">
-          <div className="name">{get(game, "title", "")}</div>
-          <div className="reproductions">
-            <div className="times-played">
-              <Image
-                src={`${config.storageUrl}/resources/purple-play.svg`}
-                height="19px"
-                width="19px"
-                size="contain"
-                margin="0 5px 0 0"
-              />
-              {get(game, "timesPlayed", 0)}
-            </div>
-            <div className="amount-numbers">
-              <Image
-                src={`${config.storageUrl}/resources/amount.svg`}
-                height="19px"
-                width="19px"
-                size="contain"
-                margin="0 5px 0 0"
-              />
-              {get(game, "amountNumbers", 75)}
-            </div>
-          </div>
-        </div>
-        <div className="actions-container">
-          <div className="left-container">
-            <ButtonAnt variant="contained" color="default">
-              Ver juegos pasados
-            </ButtonAnt>
-          </div>
-          <div className="right-container">
-            <div
-              className="edit"
-              onClick={() => {
-                folderId
-                  ? router.push(`/library/games/${game.id}?adminGameId=${adminGameId}&folderId=${folderId}`)
-                  : router.push(`/library/games/${game.id}?adminGameId=${adminGameId}`);
-              }}
-            >
-              <Image
-                src={`${config.storageUrl}/resources/pencil.svg`}
-                height="18px"
-                width="18px"
-                size="contain"
-                margin="0 5px 0 0"
-              />
-            </div>
-            <Tooltip
-              placement="bottomRight"
-              trigger="click"
-              title={
-                <ToolTipContent>
-                  <div className="option" onClick={() => setIsVisibleModalMove(true)}>
-                    <Image
-                      src={`${config.storageUrl}/resources/move.svg`}
-                      width={"16px"}
-                      height={"16px"}
-                      size={"contain"}
-                      margin={"0 15px 0 0"}
-                    />
-                    Mover
-                  </div>
-                  <div className="option">
-                    <Image
-                      src={`${config.storageUrl}/resources/duplicate.svg`}
-                      width={"16px"}
-                      height={"16px"}
-                      size={"contain"}
-                      margin={"0 15px 0 0"}
-                    />
-                    Duplicar
-                  </div>
-                  <div className="option" onClick={() => deleteGame()}>
-                    <Image
-                      src={`${config.storageUrl}/resources/delete.svg`}
-                      width={"16px"}
-                      height={"16px"}
-                      size={"contain"}
-                      margin={"0 15px 0 0"}
-                    />
-                    Borrar
-                  </div>
-                </ToolTipContent>
-              }
-              color={darkTheme.basic.whiteLight}
-            >
-              <div className="more-actions">
-                <div />
-                <div />
-                <div />
-              </div>
-            </Tooltip>
-          </div>
-        </div>
-      </Tablet>
-      <Desktop>
-        <div className="left-container-desktop">
-          <Image
-            src={game.coverImgUrl ? game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
-            width="100%"
-            height="194px"
-            size="cover"
-          />
-          <div className="name">{get(game, "name", "")}</div>
-
-          <div className="actions-container">
-            <div className="btns-container">
-              <ButtonAnt
-                color="secondary"
-                margin="0 1rem"
-                onClick={() => {
-                  get(props, "game.parentId", null)
-                    ? router.push(`/library/games/${game.id}?adminGameId=${adminGameId}&folderId=${folderId}`)
-                    : router.push(`/library/games/${game.id}?adminGameId=${adminGameId}`);
-                }}
-              >
-                Editar
-              </ButtonAnt>
-              <ButtonAnt variant="contained" color="primary" onClick={createTokenToPlay}>
-                Jugar
-              </ButtonAnt>
-            </div>
-            <div className="more-actions">
-              {game.isFavorite ? (
-                <Image
-                  src={`${config.storageUrl}/resources/yellow-star.svg`}
-                  width="20px"
-                  height="20px"
-                  className="icon"
-                  margin="0 10px 0 0"
-                  onClick={() => toggleFavorite()}
-                />
-              ) : (
-                <Image
-                  src={`${config.storageUrl}/resources/star.svg`}
-                  width="20px"
-                  height="20px"
-                  className="icon"
-                  margin="0 10px 0 0"
-                  onClick={() => toggleFavorite()}
-                />
-              )}
-              <Tooltip
-                placement="bottomRight"
-                trigger="click"
-                title={
-                  <ToolTipContent>
-                    <div className="option" onClick={() => setIsVisibleModalMove(true)}>
-                      <Image
-                        src={`${config.storageUrl}/resources/move.svg`}
-                        width={"16px"}
-                        height={"16px"}
-                        size={"contain"}
-                        margin={"0 15px 0 0"}
-                      />
-                      Mover
-                    </div>
-                    <div className="option">
-                      <Image
-                        src={`${config.storageUrl}/resources/duplicate.svg`}
-                        width={"16px"}
-                        height={"16px"}
-                        size={"contain"}
-                        margin={"0 15px 0 0"}
-                      />
-                      Duplicar
-                    </div>
-                    <div className="option" onClick={() => deleteGame()}>
-                      <Image
-                        src={`${config.storageUrl}/resources/delete.svg`}
-                        width={"16px"}
-                        height={"16px"}
-                        size={"contain"}
-                        margin={"0 15px 0 0"}
-                      />
-                      Borrar
-                    </div>
-                  </ToolTipContent>
-                }
-                color={darkTheme.basic.whiteLight}
-              >
-                <div className="more">
-                  <div />
-                  <div />
-                  <div />
-                </div>
-              </Tooltip>
-            </div>
-          </div>
-        </div>
-      </Desktop>
-      <div>
-        <div className="subtitle">Cartilla</div>
-        <div className="specifications">
-          <div>
-            <Desktop>
-              <div className="description">Descripcción:</div>
-              <div className="amount-numbers">1- {get(game, "amountNumbers", 75)} números</div>
-            </Desktop>
-            <div className="left-container">
-              <div className="color">
-                <div className="label">Fondo</div>
-                {get(game, "backgroundImg", null) ? (
-                  <div className="name">(Imagen)</div>
-                ) : (
-                  <div className="name">
-                    <ColorBlock color={get(game, "backgroundColor", "")} />
-                    {get(game, "backgroundColor", "").toUpperCase()}
-                  </div>
-                )}
-              </div>
-              <div className="color">
-                <div className="label">Bloques</div>
-                <div className="name">
-                  <ColorBlock color={get(game, "blocksColor", "")} />
-                  {get(game, "blocksColor", "").toUpperCase()}
-                </div>
-              </div>
-              <div className="color">
-                <div className="label">Título</div>
-                <div className="name">
-                  <ColorBlock color={get(game, "titleColor", "")} />
-                  {get(game, "titleColor", "").toUpperCase()}
-                </div>
-              </div>
-              <div className="color">
-                <div className="label">Números</div>
-                <div className="name">
-                  <ColorBlock color={get(game, "numberColor", "")} />
-                  {get(game, "numberColor", "").toUpperCase()}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="right-container">{showBingoCard()}</div>
-        </div>
-        <Tablet>
-          <div className="btn-container">
-            <ButtonAnt onClick={createTokenToPlay}>Jugar</ButtonAnt>
-          </div>
-        </Tablet>
-      </div>
+      <SideBar 
+        game={game}
+        {...props}
+      />
+      {game?.adminGame?.name === "bingo" &&
+        <BingoView 
+          game={game}
+          moveGameToFolder={moveGameToFolder}
+          setIsVisibleModalMove={setIsVisibleModalMove}
+          isVisibleModalMove={isVisibleModalMove}
+          createTokenToPlay={createTokenToPlay}
+          toggleFavorite={toggleFavorite}
+          deleteGame={deleteGame}
+          {...props}
+        />
+      }
+      {game?.adminGame?.name === "hanged" &&
+        <HangedView 
+          game={game}
+          moveGameToFolder={moveGameToFolder}
+          setIsVisibleModalMove={setIsVisibleModalMove}
+          isVisibleModalMove={isVisibleModalMove}
+          createTokenToPlay={createTokenToPlay}
+          toggleFavorite={toggleFavorite}
+          deleteGame={deleteGame}
+          {...props}
+        />
+      }
     </GameViewContainer>
   );
 };
-
-const ColorBlock = styled.div`
-  width: 29px;
-  height: 36px;
-  background: ${(props) => (props.color ? props.color : props.theme.basic.whiteLight)};
-  border: 1px solid ${(props) => props.theme.basic.grayLight};
-  box-sizing: border-box;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 3px;
-`;
 
 const GameViewContainer = styled.div`
   width: 100%;
@@ -574,54 +294,6 @@ const GameViewContainer = styled.div`
     display: grid;
     grid-template-columns: 350px auto;
 
-    .left-container-desktop {
-      height: calc(100vh - 50px);
-      background: ${(props) => props.theme.basic.whiteLight};
-
-      .name {
-        padding: 1rem;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 24px;
-        line-height: 29px;
-        color: ${(props) => props.theme.basic.blackDarken};
-      }
-
-      .actions-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .btns-container {
-          display: flex;
-          align-items: center;
-        }
-
-        .more-actions {
-          display: flex;
-          align-items: center;
-
-          .more {
-            height: 18px;
-            display: flex;
-            justify-content: space-evenly;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            padding: 0 5px;
-
-            div {
-              width: 4px;
-              height: 4px;
-              border-radius: 50%;
-              background: ${(props) => props.theme.basic.black};
-            }
-          }
-        }
-      }
-    }
-
     .subtitle {
       padding: 2rem;
     }
@@ -668,20 +340,3 @@ const GameViewContainer = styled.div`
   }
 `;
 
-const ToolTipContent = styled.div`
-  background: ${(props) => props.theme.basic.whiteLight};
-  box-sizing: border-box;
-  color: ${(props) => props.theme.basic.grayLight};
-
-  .option {
-    display: flex;
-    align-items: center;
-    font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    padding: 0.5rem;
-    cursor: pointer;
-  }
-`;
