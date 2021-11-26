@@ -2,19 +2,21 @@ import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useAcl } from "../../hooks";
-import { MenuOutlined } from "@ant-design/icons";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
 import { Anchor, ButtonAnt } from "../form";
 import { sizes } from "../../constants";
 import { ModalNewGame } from "../../pages/library/ModalNewGame";
+import { Popover } from "antd";
 
 export const DesktopNav = (props) => {
   const router = useRouter();
+
   const { userAcls } = useAcl();
+
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
-  const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
+
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
 
   return (
@@ -36,6 +38,7 @@ export const DesktopNav = (props) => {
               ? router.push("/library/games")
               : router.push("/")
           }
+          cursor="pointer"
           height="23px"
           width="88px"
         />
@@ -79,15 +82,17 @@ export const DesktopNav = (props) => {
       )}
       {authUser && (
         <div className="menu-profile">
-          <button className="premium-btn" onClick={() => console.log("premium")}>
-            <Image
-              src={`${config.storageUrl}/resources/premium.svg`}
-              height={"27px"}
-              weight={"27px"}
-              margin={"0 5px 0 0"}
-            />
-            Premium
-          </button>
+          <Popover trigger="hover" content="Bienvenido a nuestra versión BETA">
+            <button className="premium-btn" onClick={() => console.log("premium")}>
+              <Image
+                src={`${config.storageUrl}/resources/premium.svg`}
+                height={"27px"}
+                weight={"27px"}
+                margin={"0 5px 0 0"}
+              />
+              Beta
+            </button>
+          </Popover>
           <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
             Crear
           </ButtonAnt>

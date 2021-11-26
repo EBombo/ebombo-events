@@ -20,7 +20,15 @@ export const OurGames = (props) => {
 
       <div className="our-games">
         {ourGamesData.map((image, index) => (
-          <Image key={`our-game-${index}`} src={image} width="321px" height="128px" borderRadius="40px" />
+          <Image
+            key={`our-game-${index}`}
+            src={image}
+            width="321px"
+            height="128px"
+            borderRadius="40px"
+            data-aos="fade-up"
+            data-aos-delay={`${index}00`}
+          />
         ))}
       </div>
     </OurGamesContainer>

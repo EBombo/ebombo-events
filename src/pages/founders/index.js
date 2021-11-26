@@ -41,7 +41,7 @@ export const Founders = (props) => {
 
       <div className="founders">
         {founders.map((founder, index) => (
-          <div className="founder" key={`${index}-${founder.name}`}>
+          <div className="founder" key={`${index}-${founder.name}`} data-aos="fade-up" data-aos-delay={`${index}00`}>
             <Image
               src={founder.img}
               height="325px"

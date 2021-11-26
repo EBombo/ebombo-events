@@ -10,6 +10,7 @@ import get from "lodash/get";
 export const ModalNewGame = (props) => {
   const router = useRouter();
   const { folderId } = router.query;
+
   const [adminGames] = useGlobal("adminGames");
 
   return (
@@ -36,6 +37,8 @@ export const ModalNewGame = (props) => {
                     folderId
                       ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
                       : router.push(`/library/games/new?adminGameId=${game.id}`);
+
+                    props.setIsVisibleModalGame(!props.isVisibleModalGame);
                   }}
                 />
               </Desktop>
@@ -51,6 +54,8 @@ export const ModalNewGame = (props) => {
                     folderId
                       ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
                       : router.push(`/library/games/new?adminGameId=${game.id}`);
+
+                    props.setIsVisibleModalGame(!props.isVisibleModalGame);
                   }}
                 >
                   Crear
@@ -66,6 +71,8 @@ export const ModalNewGame = (props) => {
                     folderId
                       ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
                       : router.push(`/library/games/new?adminGameId=${game.id}`);
+
+                    props.setIsVisibleModalGame(!props.isVisibleModalGame);
                   }}
                 >
                   {game.title}

@@ -7,12 +7,14 @@ import { Image } from "../../components/common/Image";
 export const HeaderLanding = (props) => (
   <HeaderLandingContainer>
     <div className="left-container">
-      <div className="title">Potencia tu clima y cultura laboral con la tecnología y los eventos de ebombo.</div>
-      <div className="description">
+      <div className="title" data-aos="fade-up" data-aos-delay="0" data-aos-anchor-placement="top-center">
+        Potencia tu clima y cultura laboral con la tecnología y los eventos de ebombo.
+      </div>
+      <div className="description" data-aos="fade-up" data-aos-delay="500" data-aos-anchor-placement="top-center">
         Organiza eventos virtuales con ebombo para integrar, motivar y empoderar a los trabajadores de tu empresa. Ya
         hemos organizado más de 300 eventos virtuales y presenciales.
       </div>
-      <div className="companies">
+      <div className="companies" data-aos="fade-right" data-aos-delay="1000">
         <Image
           src={`${config.storageUrl}/resources/companies.svg`}
           height={"55px"}
@@ -22,7 +24,7 @@ export const HeaderLanding = (props) => (
         />
       </div>
     </div>
-    <div className="right-container">
+    <div className="right-container" data-aos="fade-left">
       <Image
         src={`${config.storageUrl}/resources/header.png`}
         width={"100%"}

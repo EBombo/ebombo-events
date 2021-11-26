@@ -12,10 +12,12 @@ export const Plans = (props) => {
       <PlansContainer>
         <div className="title">Conoce nuestros planes</div>
         <div className="tabs">
-          <div className={`tab ${tab === "online" && "active"}`} onClick={() => {
-            console.log("online")
-            setTab("online");
-          }}>
+          <div
+            className={`tab ${tab === "online" && "active"}`}
+            onClick={() => {
+              setTab("online");
+            }}
+          >
             Evento
             <Tablet>
               <br />
@@ -23,10 +25,12 @@ export const Plans = (props) => {
             {" Virtual"}
           </div>
 
-          <div className={`tab middle-tab ${tab === "onsite" && "active"}`} onClick={() => {
-            console.log("onsite")
-            setTab("onsite");
-          }}>
+          <div
+            className={`tab middle-tab ${tab === "onsite" && "active"}`}
+            onClick={() => {
+              setTab("onsite");
+            }}
+          >
             Evento
             <Tablet>
               <br />
@@ -34,10 +38,12 @@ export const Plans = (props) => {
             {" Presencial"}
           </div>
 
-          <div className={`tab ${tab === "games" && "active"}`} onClick={() => {
-            console.log("games")
-            setTab("games");
-          }}>
+          <div
+            className={`tab ${tab === "games" && "active"}`}
+            onClick={() => {
+              setTab("games");
+            }}
+          >
             Juegos de
             <Tablet>
               <br />

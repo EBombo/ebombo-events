@@ -63,7 +63,7 @@ export const PlanTabContent = (props) => {
 
   if (props.tab === "games")
     return (
-      <PlansPrices>
+      <PlansPrices data-aos="zoom-in" data-aos-duration="1000">
         {plans.map((plan, index) => (
           <PlanPriceContent plan={plan.name} color={plan.color} background={plan.background} key={index}>
             <div className="plan free">
