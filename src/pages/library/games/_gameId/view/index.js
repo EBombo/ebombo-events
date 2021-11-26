@@ -10,13 +10,12 @@ import { config } from "../../../../../firebase";
 import { ButtonAnt } from "../../../../../components/form";
 import { darkTheme } from "../../../../../theme";
 import { Tooltip } from "antd";
-import { bingoCard } from "../../../../../components/common/DataList";
-import { CardContainer } from "../Bingo";
 import { spinLoader } from "../../../../../components/common/loader";
-import { ModalMove } from "../../../../../components/common/ModalMove";
 import { updateGame } from "../index";
 import { useSendError } from "../../../../../hooks";
 import { useFetch } from "../../../../../hooks/useFetch";
+import { BingoView } from "./BingoView";
+import { HangedView } from "./HangedView";
 
 // TODO: This component is long consider a refactoring.
 export const GameView = (props) => {
@@ -81,44 +80,6 @@ export const GameView = (props) => {
       await sendError(error, "deleteGame");
     }
   };
-
-  const showBingoCard = () => (
-    <CardContainer
-      backgroundColor={get(game, "backgroundColor", "")}
-      backgroundImage={get(game, "backgroundImg", "")}
-      titleColor={get(game, "titleColor", "")}
-      blocksColor={get(game, "blocksColor", "")}
-      numberColor={get(game, "numberColor", "")}
-    >
-      <ModalMove
-        moveToFolder={moveGameToFolder}
-        setIsVisibleModalMove={setIsVisibleModalMove}
-        isVisibleModalMove={isVisibleModalMove}
-        {...props}
-      />
-      <div className="card-title">{get(game, "title", "")}</div>
-      <table>
-        <thead className="thead">
-          <tr>
-            <th>{get(game, "letters.b", "")}</th>
-            <th>{get(game, "letters.i", "")}</th>
-            <th>{get(game, "letters.n", "")}</th>
-            <th>{get(game, "letters.g", "")}</th>
-            <th>{get(game, "letters.o", "")}</th>
-          </tr>
-        </thead>
-        <tbody className="tbody">
-          {bingoCard.map((arrNums, index) => (
-            <tr key={`key-${index}`}>
-              {arrNums.map((num, idx) => (
-                <td key={`key-${num}-${idx}`}>{num}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </CardContainer>
-  );
 
   const createTokenToPlay = async () => {
     try {
@@ -356,70 +317,29 @@ export const GameView = (props) => {
           </div>
         </div>
       </Desktop>
-      <div>
-        <div className="subtitle">Cartilla</div>
-        <div className="specifications">
-          <div>
-            <Desktop>
-              <div className="description">Descripcción:</div>
-              <div className="amount-numbers">1- {get(game, "amountNumbers", 75)} números</div>
-            </Desktop>
-            <div className="left-container">
-              <div className="color">
-                <div className="label">Fondo</div>
-                {get(game, "backgroundImg", null) ? (
-                  <div className="name">(Imagen)</div>
-                ) : (
-                  <div className="name">
-                    <ColorBlock color={get(game, "backgroundColor", "")} />
-                    {get(game, "backgroundColor", "").toUpperCase()}
-                  </div>
-                )}
-              </div>
-              <div className="color">
-                <div className="label">Bloques</div>
-                <div className="name">
-                  <ColorBlock color={get(game, "blocksColor", "")} />
-                  {get(game, "blocksColor", "").toUpperCase()}
-                </div>
-              </div>
-              <div className="color">
-                <div className="label">Título</div>
-                <div className="name">
-                  <ColorBlock color={get(game, "titleColor", "")} />
-                  {get(game, "titleColor", "").toUpperCase()}
-                </div>
-              </div>
-              <div className="color">
-                <div className="label">Números</div>
-                <div className="name">
-                  <ColorBlock color={get(game, "numberColor", "")} />
-                  {get(game, "numberColor", "").toUpperCase()}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="right-container">{showBingoCard()}</div>
-        </div>
-        <Tablet>
-          <div className="btn-container">
-            <ButtonAnt onClick={createTokenToPlay}>Jugar</ButtonAnt>
-          </div>
-        </Tablet>
-      </div>
+      {game?.adminGame?.name === "bingo" &&
+        <BingoView 
+          game={game}
+          moveGameToFolder={moveGameToFolder}
+          setIsVisibleModalMove={setIsVisibleModalMove}
+          isVisibleModalMove={isVisibleModalMove}
+          createTokenToPlay={createTokenToPlay}
+          {...props}
+        />
+      }
+      {game?.adminGame?.name === "hanged" &&
+        <HangedView 
+          game={game}
+          moveGameToFolder={moveGameToFolder}
+          setIsVisibleModalMove={setIsVisibleModalMove}
+          isVisibleModalMove={isVisibleModalMove}
+          createTokenToPlay={createTokenToPlay}
+          {...props}
+        />
+      }
     </GameViewContainer>
   );
 };
-
-const ColorBlock = styled.div`
-  width: 29px;
-  height: 36px;
-  background: ${(props) => (props.color ? props.color : props.theme.basic.whiteLight)};
-  border: 1px solid ${(props) => props.theme.basic.grayLight};
-  box-sizing: border-box;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 3px;
-`;
 
 const GameViewContainer = styled.div`
   width: 100%;
