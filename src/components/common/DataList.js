@@ -3,6 +3,25 @@ import { config } from "../../firebase";
 import React from "reactn";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
+export const reasons = [
+  {
+    id: 1,
+    description: "Ya no necesito el servicio que ofrecen."
+  },
+  {
+    id: 2,
+    description: "No me gusta los juegos que ofrecen."
+  },
+  {
+    id: 3,
+    description: "Simplemente deseo eliminar la cuenta."
+  },
+  {
+    id: 4,
+    description: "Mi empresa ha cerrado."
+  },
+]
+
 export const ladingProducts = [
   {
     title: "Eventos Virtuales",
