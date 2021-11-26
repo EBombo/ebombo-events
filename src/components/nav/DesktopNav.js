@@ -37,6 +37,7 @@ export const DesktopNav = (props) => {
               ? router.push("/library/games")
               : router.push("/")
           }
+          cursor="pointer"
           height="23px"
           width="88px"
         />
