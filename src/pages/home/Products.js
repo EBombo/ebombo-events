@@ -22,22 +22,15 @@ export const Products = (props) => {
       </div>
 
       {ladingProducts.map((product) => (
-        <div className="product" key={product.title}>
+        <div className="product" data-aos="fade-right" key={product.title}>
           <div className="top-container">
             <div className="background" style={{ background: product.background }} />
-            <div className="img-container">
-              <Image
-                src={product.image}
-                height="160px"
-                width="270px"
-                size="contain"
-                margin="0"
-                borderRadius="15px"
-              />
+            <div className="img-container" data-aos="fade-right">
+              <Image src={product.image} height="160px" width="270px" size="contain" margin="0" borderRadius="15px" />
             </div>
           </div>
 
-          <div className="bottom-container">
+          <div className="bottom-container" data-aos="fade-right" data-aos-delay="500">
             <div className="subtitle">{product.title}</div>
 
             <div className="description">{product.description}</div>
