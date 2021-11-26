@@ -47,7 +47,6 @@ export const BingoView = (props) => {
     </CardContainer>
   );
 
-
   return (
     <div>
       <div className="subtitle">Cartilla</div>
