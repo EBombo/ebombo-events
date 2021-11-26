@@ -2,7 +2,6 @@ import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useAcl } from "../../hooks";
-import { MenuOutlined } from "@ant-design/icons";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
 import { Anchor, ButtonAnt } from "../form";
@@ -11,10 +10,12 @@ import { ModalNewGame } from "../../pages/library/ModalNewGame";
 
 export const DesktopNav = (props) => {
   const router = useRouter();
+
   const { userAcls } = useAcl();
+
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
-  const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
+
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
 
   return (
