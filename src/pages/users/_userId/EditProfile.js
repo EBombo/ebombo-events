@@ -34,13 +34,18 @@ export const EditProfile = (props) => {
   const updateProfile = async (data) => {
     setLoading(true);
     try {
-      const { error } = await Fetch(`${config.serverUrl}/api/users/${get(authUser, "id")}/edit`, "PUT", mapUser(data));
+      // TODO: Validate userName.
+      const userMapped = mapUser(data);
+
+      const { error } = await Fetch(`${config.serverUrl}/api/users/${get(authUser, "id")}/edit`, "PUT", userMapped);
 
       props.showNotification(
         error ? "ERROR" : "OK",
-        error ? "Algo salió mal" : "Realizado",
+        error ? "Algo salió mal" : "Guardado!",
         error ? "error" : "success"
       );
+
+      if (error) throw Error(error);
     } catch (error) {
       await sendError(error, "updateProfile");
     }
