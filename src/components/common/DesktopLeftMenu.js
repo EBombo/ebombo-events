@@ -1,9 +1,9 @@
 import React from "reactn";
-import styled from "styled-components";
 import get from "lodash/get";
 import { Image } from "./Image";
-import { config } from "../../firebase";
+import styled from "styled-components";
 import { useRouter } from "next/router";
+import { config } from "../../firebase";
 
 export const DesktopLeftMenu = (props) => {
   const router = useRouter();
@@ -24,6 +24,7 @@ export const DesktopLeftMenu = (props) => {
         />
         <div className="name">Mis juegos</div>
       </div>
+
       <div
         className={`item favorites ${get(router, "asPath", "").includes("/library/folders") ? "active" : ""}`}
         onClick={() => router.push("/library/folders")}

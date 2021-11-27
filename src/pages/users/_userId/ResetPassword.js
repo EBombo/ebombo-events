@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import get from "lodash/get";
 import { ButtonAnt, Input } from "../../../components/form";
@@ -7,20 +7,13 @@ import { useForm } from "react-hook-form";
 import { mediaQuery } from "../../../constants";
 import { auth, firebase } from "../../../firebase";
 import { useSendError } from "../../../hooks";
-import { useRouter } from "next/router";
 
 export const ResetPassword = (props) => {
+  const { sendError } = useSendError();
+
   const [authUser] = useGlobal("user");
 
   const [loading, setLoading] = useState(false);
-
-  const router = useRouter();
-
-  const { sendError } = useSendError();
-
-  useEffect(() => {
-    if (!authUser) router.push("/");
-  }, [authUser]);
 
   const schema = object().shape({
     currentPassword: string().required(),

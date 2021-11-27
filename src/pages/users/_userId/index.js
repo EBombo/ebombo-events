@@ -13,7 +13,9 @@ export const UserProfile = (props) => {
   const router = useRouter();
   const { userId } = router.query;
 
+  const [authUser] = useState("user");
   const [tab, setTab] = useState("edit");
+
   const [user, setUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
 
@@ -33,7 +35,7 @@ export const UserProfile = (props) => {
     return () => unSub && unSub();
   }, [userId]);
 
-  if (loadingUser) return spinLoader();
+  if (loadingUser || !authUser) return spinLoader();
 
   return (
     <UserContainer>
