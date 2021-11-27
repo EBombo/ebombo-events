@@ -12,14 +12,16 @@ const defaultLimit = 10;
 
 export const AdminUsers = () => {
   const router = useRouter();
+
+  const [users, setUsers] = useState([]);
   const [search, setSearch] = useState(null);
+  const [limit, setLimit] = useState(defaultLimit);
   const [loadingSearch, setLoadingSearch] = useState(true);
   const [loadingLimit, setLoadingLimit] = useState(false);
-  const [users, setUsers] = useState([]);
-  const [limit, setLimit] = useState(defaultLimit);
 
   useEffect(() => {
     setLoadingSearch(true);
+
     findUser();
   }, [limit]);
 
@@ -28,17 +30,9 @@ export const AdminUsers = () => {
 
     let userRef = firestore.collection("users");
 
-    if (search)
-      userRef = userRef.where(
-        "searchName",
-        "array-contains",
-        search.toUpperCase()
-      );
+    if (search) userRef = userRef.where("searchName", "array-contains", search.toUpperCase());
 
-    const userQuery = await userRef
-      .orderBy("createAt", "desc")
-      .limit(limit)
-      .get();
+    const userQuery = await userRef.orderBy("createAt", "desc").limit(limit).get();
 
     setUsers(snapshotToArray(userQuery));
     setLoadingSearch(false);
@@ -75,17 +69,10 @@ export const AdminUsers = () => {
                     <br />
                     Verificado: {user.isVerified ? "SI" : "NO"}
                     <br />
-                    <div className="create-at">
-                      {moment(user.createAt.toDate()).format("LLLL")}
-                    </div>
+                    <div className="create-at">{moment(user.createAt.toDate()).format("LLLL")}</div>
                   </div>
                   <div className="options">
-                    <Anchor
-                      variant="primary"
-                      onClick={() =>
-                        router.push(`/admin/users/${user.id}/acls`)
-                      }
-                    >
+                    <Anchor variant="primary" onClick={() => router.push(`/admin/users/${user.id}/acls`)}>
                       PERMISOS
                     </Anchor>
                   </div>
@@ -95,7 +82,7 @@ export const AdminUsers = () => {
             type="primary"
             margin="10px 0 10px 0"
             display="block"
-            disabled={loadingSearch || limit > users.length}
+            disabled={loadingSearch || users.length < limit}
             onClick={() => {
               setLimit(limit + defaultLimit);
               setLoadingLimit(true);
