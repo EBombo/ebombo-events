@@ -24,7 +24,12 @@ export const Menu = (props) => {
 
       <MenuTabs defaultActiveKey="1">
         <TabPane tab={<b>Mi Cuenta</b>} key="1">
-          <MenuItem onClick={() => router.push(`/users/${authUser.id}`)}>
+          <MenuItem
+            onClick={() => {
+              setOpenRightDrawer(false);
+              router.push(`/users/${authUser.id}`);
+            }}
+          >
             <span className="item">Ajustes del Perfil</span>
           </MenuItem>
           {/*
