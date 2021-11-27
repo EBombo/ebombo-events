@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { spinLoader } from "../components/common/loader";
 
 export const UserPrivateRoute = (props) => {
-  const [authUser] = useGlobal("user");
-
   const router = useRouter();
+
+  const [authUser] = useGlobal("user");
 
   useEffect(() => {
     if (!authUser) router.push("/");

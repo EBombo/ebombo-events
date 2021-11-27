@@ -1,6 +1,6 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import { ButtonAnt, Input } from "../../../components/form";
+import { Anchor, ButtonAnt, Input } from "../../../components/form";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import get from "lodash/get";
@@ -10,18 +10,16 @@ import { config } from "../../../firebase";
 import { FileUpload } from "../../../components/common/FileUpload";
 import { Popover } from "antd";
 import { Image } from "../../../components/common/Image";
-import { Anchor } from "../../../components/form";
 import { mediaQuery } from "../../../constants";
 
 export const EditProfile = (props) => {
+  const { Fetch } = useFetch();
+  const { sendError } = useSendError();
 
   const [authUser] = useGlobal("user");
 
   const [loading, setLoading] = useState(false);
   const [profileImgUrl, setProfileImgUrl] = useState(props.user.profileImgUrl ?? "");
-
-  const { sendError } = useSendError();
-  const { Fetch } = useFetch();
 
   const schema = object().shape({
     name: string().required(),
@@ -30,17 +28,13 @@ export const EditProfile = (props) => {
 
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
-    reValidateMode: "onSubmit"
+    reValidateMode: "onSubmit",
   });
 
   const updateProfile = async (data) => {
     setLoading(true);
     try {
-      const { error } = await Fetch(
-        `${config.serverUrl}/api/users/${get(authUser, "id")}/edit`,
-        "PUT",
-        mapUser(data)
-      );
+      const { error } = await Fetch(`${config.serverUrl}/api/users/${get(authUser, "id")}/edit`, "PUT", mapUser(data));
 
       props.showNotification(
         error ? "ERROR" : "OK",
@@ -57,16 +51,14 @@ export const EditProfile = (props) => {
     name: data.name,
     lastName: data.lastName,
     userName: data.userName,
-    profileImgUrl
+    profileImgUrl,
   });
 
   return (
     <EditContainer>
       <div className="forms-container">
         <div className="first-container">
-          <div className="title">
-            Información del usuario
-          </div>
+          <div className="title">Información del usuario</div>
           <form onSubmit={handleSubmit(updateProfile)}>
             <div className="top-container">
               <div className="img-container">
@@ -93,7 +85,6 @@ export const EditProfile = (props) => {
             </div>
 
             <div className="inputs-container">
-
               <label htmlFor="userName">Usuario</label>
               <Input
                 id="userName"
@@ -128,19 +119,14 @@ export const EditProfile = (props) => {
                 defaultValue={get(props, "user.lastName", "")}
                 placeholder="Apellido"
               />
-
             </div>
           </form>
-
         </div>
         <div className="second-container">
-          <div className="title">
-            Detalles de la cuenta
-          </div>
+          <div className="title">Detalles de la cuenta</div>
 
           <form>
             <div className="inputs-container">
-
               <label htmlFor="organization">
                 Organización
                 <Popover
@@ -190,10 +176,12 @@ export const EditProfile = (props) => {
               <label htmlFor="workPlace">
                 Organización
                 <Popover
-                  content={<PopoverContent>
-                    Usted selecciono este tipo de cuenta durante su registro. Pongase en contacto con
-                    ebombo para poder cambiarlo
-                  </PopoverContent>}
+                  content={
+                    <PopoverContent>
+                      Usted selecciono este tipo de cuenta durante su registro. Pongase en contacto con ebombo para
+                      poder cambiarlo
+                    </PopoverContent>
+                  }
                   placement="bottomLeft"
                   trigger="click"
                 >
@@ -260,12 +248,12 @@ const EditContainer = styled.div`
     font-weight: 500;
     font-size: 15px;
     line-height: 19px;
-    color: ${props => props.theme.basic.blackLighten};
+    color: ${(props) => props.theme.basic.blackLighten};
     height: 30px;
     padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid ${props => props.theme.basic.grayLighten};
+    border-bottom: 1px solid ${(props) => props.theme.basic.grayLighten};
   }
 
   form {
@@ -310,19 +298,17 @@ const EditContainer = styled.div`
   }
 
   ${mediaQuery.afterTablet} {
-    background: ${props => props.theme.basic.whiteLight};
+    background: ${(props) => props.theme.basic.whiteLight};
     padding: 1rem;
     border-radius: 8px;
 
-    .forms-container{
+    .forms-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-gap: 50px;
       align-items: flex-end;
     }
-    
   }
-
 `;
 
 const PopoverContent = styled.div`
@@ -331,5 +317,5 @@ const PopoverContent = styled.div`
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
-  color: ${props => props.theme.basic.whiteLight};
+  color: ${(props) => props.theme.basic.whiteLight};
 `;

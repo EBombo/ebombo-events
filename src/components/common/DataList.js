@@ -342,11 +342,13 @@ export const menus = [
     onClick: (setIsVisibleModalGame) => setIsVisibleModalGame(true),
     src: `${config.storageUrl}/resources/footer/create-icon.svg`,
   },
+  /*
   {
     name: "Reportes",
     url: "/reports",
     src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
+   */
   {
     name: "Lista de usuarios",
     url: "/admin/users",

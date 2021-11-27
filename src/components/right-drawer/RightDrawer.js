@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useRef, useState } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import { Menu } from "./Menu";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
@@ -8,22 +8,13 @@ export const RightDrawer = (props) => {
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
   const [tab, setTab] = useState("menu");
 
-  const tabContent = () => {
-    switch (tab) {
-      case "menu":
-        return <Menu tab={tab} setTab={setTab} {...props} />;
-      default:
-        <Menu tab={tab} setTab={setTab} {...props} />;
-    }
-  };
-
   let domNodeRef = useClickOutside(() => {
     setOpenRightDrawer(false);
   });
 
   return (
     <RightDrawerContainer active={openRightDrawer} ref={domNodeRef}>
-      {tabContent()}
+      <Menu tab={tab} setTab={setTab} {...props} />
     </RightDrawerContainer>
   );
 };

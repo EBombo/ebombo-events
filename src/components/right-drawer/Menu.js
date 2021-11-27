@@ -6,18 +6,22 @@ import { Tabs } from "antd";
 import { mediaQuery } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
 
+const { TabPane } = Tabs;
+
 export const Menu = (props) => {
-  const { signOut } = useAuth();
-  const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
-  const [authUser] = useGlobal("user");
   const router = useRouter();
-  const { TabPane } = Tabs;
+
+  const { signOut } = useAuth();
+
+  const [authUser] = useGlobal("user");
+  const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
 
   return (
     <MenuContainer>
       <div className="user-name">
         {get(authUser, "name", "")} {get(authUser, "lastName", "")}
       </div>
+
       <MenuTabs defaultActiveKey="1">
         <TabPane tab={<b>Mi Cuenta</b>} key="1">
           <MenuItem
@@ -26,9 +30,12 @@ export const Menu = (props) => {
               router.push(`/`);
             }}
           >
-            <span className="item" onClick={() => router.push(`/users/${authUser.id}`)}>Ajustes del Perfil</span>
+            <span className="item" onClick={() => router.push(`/users/${authUser.id}`)}>
+              Ajustes del Perfil
+            </span>
           </MenuItem>
-          <MenuItem
+          {/*
+            <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
               router.push(`/`);
@@ -60,6 +67,7 @@ export const Menu = (props) => {
           >
             <span className="item">Plan</span>
           </MenuItem>
+             */}
           <MenuItem
             logout
             onClick={() => {
@@ -149,8 +157,7 @@ const MenuItem = styled.div`
   span {
     display: flex;
     font-size: 14px;
-    color: ${(props) =>
-      props.logout ? props.theme.basic.danger : props.theme.basic.blackLighten};
+    color: ${(props) => (props.logout ? props.theme.basic.danger : props.theme.basic.blackLighten)};
     align-items: center;
     height: 100%;
 
@@ -172,6 +179,7 @@ const MenuItem = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     span {
       font-weight: bold;
     }
