@@ -49,7 +49,7 @@ const MyApp = ({ Component, pageProps }) => {
   const fetchGames = async () => {
     try {
       await setLoadingGames(true);
-      setGames([]);
+      await setGames([]);
 
       let url = `${config.serverUrl}/api/games/users/${authUser?.id}`;
 
@@ -63,7 +63,7 @@ const MyApp = ({ Component, pageProps }) => {
 
       if (folderId) games_ = games_.filter((game) => game.parentId === folderId);
 
-      setGames(games_);
+      await setGames(games_);
       await setLoadingGames(false);
     } catch (error) {
       console.error(error);
@@ -94,9 +94,7 @@ const MyApp = ({ Component, pageProps }) => {
   }, []);
 
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-    });
+    AOS.init({ duration: 1000 });
   }, []);
 
   const showNotificationAnt = (message, description, type = "error") => notification[type]({ message, description });

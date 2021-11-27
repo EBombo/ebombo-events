@@ -1,6 +1,6 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import { Anchor, ButtonAnt, Input } from "../../../components/form";
+import { ButtonAnt, Input } from "../../../components/form";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import get from "lodash/get";
@@ -205,14 +205,18 @@ export const EditProfile = (props) => {
         </div>
       </div>
       <div className="delete">
-        <Anchor underlined variant="danger" fontSize="11px">
-          Eliminar cuenta
-        </Anchor>
+        {/*
+          <Anchor underlined variant="danger" fontSize="11px">
+            Eliminar cuenta
+          </Anchor>
+           */}
       </div>
-      <div className="description">
+      {/*
+        <div className="description">
         Si hace esto, perderá el acceso a todos los kahoots que creó. Si solo desea darse de baja de su plan actual,
         vaya a la página de facturación.
       </div>
+         */}
     </EditContainer>
   );
 };

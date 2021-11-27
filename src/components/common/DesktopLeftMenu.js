@@ -1,20 +1,18 @@
-import React, {useEffect, useGlobal, useState, useRef} from "reactn";
+import React from "reactn";
 import styled from "styled-components";
 import get from "lodash/get";
 import { Image } from "./Image";
 import { config } from "../../firebase";
 import { useRouter } from "next/router";
 
-export const DesktopLeftMenu = props => {
-  const router = useRouter()
+export const DesktopLeftMenu = (props) => {
+  const router = useRouter();
 
   return (
     <LeftMenuContent>
       <div className="subtitle">Libreria</div>
       <div
-        className={`item games ${
-          get(router, "asPath", "") === "/library/games" ? "active" : ""
-        }`}
+        className={`item games ${get(router, "asPath", "") === "/library/games" ? "active" : ""}`}
         onClick={() => router.push("/library/games")}
       >
         <Image
@@ -27,11 +25,7 @@ export const DesktopLeftMenu = props => {
         <div className="name">Mis juegos</div>
       </div>
       <div
-        className={`item favorites ${
-          get(router, "asPath", "").includes("/library/folders")
-            ? "active"
-            : ""
-        }`}
+        className={`item favorites ${get(router, "asPath", "").includes("/library/folders") ? "active" : ""}`}
         onClick={() => router.push("/library/folders")}
       >
         <Image
@@ -44,13 +38,13 @@ export const DesktopLeftMenu = props => {
         <div className="name">Folders</div>
       </div>
     </LeftMenuContent>
-  )
-}
+  );
+};
 
 const LeftMenuContent = styled.div`
   background: ${(props) => props.theme.basic.whiteLight};
   color: ${(props) => props.theme.basic.grayLight};
-  box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.25);
 
   .subtitle {
     font-family: Lato;
@@ -86,4 +80,4 @@ const LeftMenuContent = styled.div`
   .selected {
     background: #f2f2f2;
   }
-`
+`;

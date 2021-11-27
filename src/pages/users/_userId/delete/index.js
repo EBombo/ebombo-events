@@ -12,10 +12,10 @@ import { mediaQuery } from "../../../../constants";
 import { config } from "../../../../firebase";
 
 export const DeleteUser = (props) => {
-  const [loading, setLoading] = useState(false);
+  const { Fetch } = useFetch();
+  const { sendError } = useSendError();
 
-  const Fetch = useFetch();
-  const sendError = useSendError();
+  const [loading, setLoading] = useState(false);
 
   const schema = object().shape({
     reason: string().required(),
@@ -27,22 +27,17 @@ export const DeleteUser = (props) => {
     reValidateMode: "onSubmit",
   });
 
-  const deleteAccount = async (data) => {
+  const deleteAccount = async () => {
     try {
       setLoading(true);
 
-      const { error } = await Fetch(
-        `${config.serverUrl}/api/users/${get(props, "user.id", "")}`,
-        "DELETE",
-        data
-      );
+      const { error } = await Fetch(`${config.serverUrl}/api/users/${get(props, "user.id", "")}`, "DELETE");
 
       props.showNotification(
         error ? "ERROR" : "OK",
         error ? "Algo salió mal" : "Realizado",
         error ? "error" : "success"
       );
-
     } catch (error) {
       await sendError(error, "deleteAccount");
     } finally {
@@ -102,7 +97,9 @@ export const DeleteUser = (props) => {
             </label>
           </div>
           <div className="btn-container">
-            <ButtonAnt color="danger">Eliminar Cuenta</ButtonAnt>
+            <ButtonAnt color="danger" disabled={loading} loading={loading}>
+              Eliminar Cuenta
+            </ButtonAnt>
           </div>
         </form>
       </div>
@@ -156,11 +153,10 @@ const DeleteContainer = styled.div`
     }
 
     form {
-      
-      .inputs-container{
+      .inputs-container {
         padding: 1rem;
       }
-      
+
       label {
         font-family: Lato;
         font-style: normal;
