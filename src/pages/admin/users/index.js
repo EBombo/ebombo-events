@@ -36,6 +36,7 @@ export const AdminUsers = () => {
 
     setUsers(snapshotToArray(userQuery));
     setLoadingSearch(false);
+    setLoadingLimit(false);
   };
 
   return (
