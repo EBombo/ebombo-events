@@ -50,9 +50,11 @@ export const Navbar = (props) => {
               <Anchor onClick={() => router.push("/about-us")} className="link">
                 Sobre nosotros
               </Anchor>
-              <Anchor onClick={() => router.push({ pathname: "/", hash: "contact" })} className="link">
-                Contacto
-              </Anchor>
+              {!authUser && (
+                <Anchor onClick={() => router.push({ pathname: "/", hash: "contact" })} className="link">
+                  Contacto
+                </Anchor>
+              )}
             </Desktop>
           </div>
 
@@ -104,15 +106,17 @@ export const Navbar = (props) => {
               >
                 Sobre nosotros
               </li>
-              <li
-                className="nav-item"
-                onClick={() => {
-                  router.push({ pathname: "/", hash: "contact" });
-                  setActive(false);
-                }}
-              >
-                Contacto
-              </li>
+              {!authUser && (
+                <li
+                  className="nav-item"
+                  onClick={() => {
+                    router.push({ pathname: "/", hash: "contact" });
+                    setActive(false);
+                  }}
+                >
+                  Contacto
+                </li>
+              )}
 
               {!authUser ? (
                 <>

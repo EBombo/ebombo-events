@@ -14,6 +14,8 @@ import get from "lodash/get";
 import Head from "next/head";
 import "antd/dist/antd.css";
 import { useFetch } from "../src/hooks/useFetch";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -47,7 +49,7 @@ const MyApp = ({ Component, pageProps }) => {
   const fetchGames = async () => {
     try {
       await setLoadingGames(true);
-      setGames([]);
+      await setGames([]);
 
       let url = `${config.serverUrl}/api/games/users/${authUser?.id}`;
 
@@ -61,7 +63,7 @@ const MyApp = ({ Component, pageProps }) => {
 
       if (folderId) games_ = games_.filter((game) => game.parentId === folderId);
 
-      setGames(games_);
+      await setGames(games_);
       await setLoadingGames(false);
     } catch (error) {
       console.error(error);
@@ -91,6 +93,10 @@ const MyApp = ({ Component, pageProps }) => {
     setIsBack(false);
   }, []);
 
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
   const showNotificationAnt = (message, description, type = "error") => notification[type]({ message, description });
 
   return (
@@ -112,6 +118,7 @@ const MyApp = ({ Component, pageProps }) => {
           name="description"
           content="Le damos la posibilidad a empresas de crear eventos virtuales con el objetivo de potenciar el clima laboral."
         />
+        <meta name="format-detection" content="telephone=no" />
         <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-72x72.png`} />
         <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
         <link

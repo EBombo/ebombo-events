@@ -27,10 +27,6 @@ export const GlobalStyle = createGlobalStyle`
       }
     }
 
-    * {
-      transition: all 0.5s ease;
-    }
-
     .un-seg {
       transition: all 1s ease !important;
     }
@@ -161,6 +157,13 @@ export const GlobalStyle = createGlobalStyle`
 
   /*------------ANIMATION---------------*/
 
+  /*------------Switch--------------*/
+
+    .ant-switch-checked{
+      background-color: ${(props) => props.theme.basic.success} !important;
+    }
+  /*------------Switch--------------*/
+
 
   /*-------------- FIELDSET ---------------*/
   fieldset {
@@ -186,6 +189,10 @@ export const GlobalStyle = createGlobalStyle`
   /*-------------- CONTAINER ---------------*/
 
   /*-------------- POPOVER ---------------*/
+  .ant-popover-arrow-content{
+    background: ${(props) => props.theme.basic.blackDarken};
+  }
+  
   .ant-popover-placement-right {
     .ant-popover-content {
       .ant-popover-arrow {

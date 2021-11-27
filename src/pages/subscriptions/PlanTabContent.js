@@ -63,7 +63,7 @@ export const PlanTabContent = (props) => {
 
   if (props.tab === "games")
     return (
-      <PlansPrices>
+      <PlansPrices data-aos="zoom-in" data-aos-duration="1000">
         {plans.map((plan, index) => (
           <PlanPriceContent plan={plan.name} color={plan.color} background={plan.background} key={index}>
             <div className="plan free">
@@ -158,6 +158,7 @@ const PlansPrices = styled.div`
   grid-gap: 1rem;
   align-items: center;
   overflow: auto;
+  padding: 0 0 2rem 0;
 
   ${mediaQuery.afterTablet} {
     grid-template-columns: repeat(5, 1fr);
