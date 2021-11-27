@@ -7,6 +7,7 @@ import { Desktop, mediaQuery } from "../../../constants";
 import { DesktopLeftMenu } from "../../../components/common/DesktopLeftMenu";
 import { EditProfile } from "./EditProfile";
 import { Privacy } from "./Privacy";
+import { ResetPassword } from "./ResetPassword";
 
 export const UserProfile = (props) => {
   const router = useRouter();
@@ -56,6 +57,8 @@ export const UserProfile = (props) => {
         {tab === "edit" && <EditProfile user={user} {...props} />}
 
         {tab === "privacy" && <Privacy user={user} {...props} />}
+
+        {tab === "password" && <ResetPassword user={user} {...props} />}
       </div>
     </UserContainer>
   );

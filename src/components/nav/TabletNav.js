@@ -30,13 +30,11 @@ export const TabletNav = (props) => {
         width="88px"
         size="contain"
       />
-
       {!authUser && (
         <Anchor onClick={() => router.push("/login")} variant="primary" fontSize={"1rem"}>
           Iniciar sesión
         </Anchor>
       )}
-
       {authUser && (
         <div className="hamburger" onClick={() => setOpenRightDrawer(!openRightDrawer)}>
           <Image

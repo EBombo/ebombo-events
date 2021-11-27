@@ -52,7 +52,7 @@ export const Hanged = (props) => {
           name="name"
           ref={register}
           error={errors.name}
-          placeholder="Nombre del Juego"
+          placeholder="Nombre del Evento"
         />
         <label htmlFor="phrases" className="label">
           Frases para el juego
@@ -72,6 +72,7 @@ export const Hanged = (props) => {
             }
           }}
           id="phrases"
+          defaultValue={"Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"}
           error={errors.phrases}
           name="phrases"
           ref={register}
