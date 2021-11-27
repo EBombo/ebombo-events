@@ -6,21 +6,21 @@ import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 export const reasons = [
   {
     id: 1,
-    description: "Ya no necesito el servicio que ofrecen."
+    description: "Ya no necesito el servicio que ofrecen.",
   },
   {
     id: 2,
-    description: "No me gusta los juegos que ofrecen."
+    description: "No me gusta los juegos que ofrecen.",
   },
   {
     id: 3,
-    description: "Simplemente deseo eliminar la cuenta."
+    description: "Simplemente deseo eliminar la cuenta.",
   },
   {
     id: 4,
-    description: "Mi empresa ha cerrado."
+    description: "Mi empresa ha cerrado.",
   },
-]
+];
 
 export const ladingProducts = [
   {
@@ -354,12 +354,6 @@ export const menus = [
     name: "Librería",
     url: "/library",
     src: `${config.storageUrl}/resources/footer/library-icon.svg`,
-  },
-  {
-    name: "Crear",
-    url: "/library/games/new",
-    onClick: (setIsVisibleModalGame) => setIsVisibleModalGame(true),
-    src: `${config.storageUrl}/resources/footer/create-icon.svg`,
   },
   /*
   {
