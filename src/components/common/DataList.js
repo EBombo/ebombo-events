@@ -355,6 +355,12 @@ export const menus = [
     url: "/library",
     src: `${config.storageUrl}/resources/footer/library-icon.svg`,
   },
+  {
+    name: "Crear",
+    url: "/library/games/new",
+    onClick: (setIsVisibleModalGame) => setIsVisibleModalGame(true),
+    src: `${config.storageUrl}/resources/footer/create-icon.svg`,
+  },
   /*
   {
     name: "Reportes",
