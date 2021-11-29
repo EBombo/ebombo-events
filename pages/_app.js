@@ -143,7 +143,7 @@ const MyApp = ({ Component, pageProps }) => {
         <link rel="manifest" href={`${config.serverUrl}/api/manifest`} />
 
         <Script
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
             (function(h,o,t,j,a,r){
