@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { config } from "../../../firebase";
 import { useSendError } from "../../../hooks";
@@ -12,12 +12,14 @@ import { Switch } from "antd";
 import { mediaQuery } from "../../../constants";
 
 export const EditCompany = (props) => {
+  const { sendError } = useSendError();
+  const { Fetch } = useFetch();
+
+  const [authUser] = useGlobal("user");
+
   const [logoImgUrl, setlogoImgUrl] = useState(props.company?.logoImgUrl || null);
   const [loading, setLoading] = useState(false);
   const [userIdentification, setUserIdentification] = useState(props.company.userIdentification ?? false);
-
-  const { sendError } = useSendError();
-  const { Fetch } = useFetch();
 
   const schema = object().shape({
     name: string().required(),
@@ -55,6 +57,7 @@ export const EditCompany = (props) => {
 
   const mapCompany = (data) => ({
     name: data.name,
+    usersIds: [authUser.id]
     userIdentification,
     logoImgUrl,
   });
