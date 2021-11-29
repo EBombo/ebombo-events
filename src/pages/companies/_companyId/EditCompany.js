@@ -57,7 +57,7 @@ export const EditCompany = (props) => {
 
   const mapCompany = (data) => ({
     name: data.name,
-    usersIds: [authUser.id]
+    usersIds: [authUser.id],
     userIdentification,
     logoImgUrl,
   });

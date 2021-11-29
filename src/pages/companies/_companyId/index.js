@@ -8,11 +8,11 @@ import { EditCompany } from "./EditCompany";
 import { spinLoader } from "../../../components/common/loader";
 
 export const Company = (props) => {
+  const router = useRouter();
+
   const [tab, setTab] = useState("information");
   const [loadingCompany, setLoadingCompany] = useState(true);
   const [company, setCompany] = useState(null);
-
-  const router = useRouter();
 
   const { companyId } = router.query;
 
