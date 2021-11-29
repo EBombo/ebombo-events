@@ -80,6 +80,8 @@ if (DOMAIN?.includes("localhost")) {
 }
 
 const landingsStorageBucket = firebase.app().storage(`gs://${config.landingsStorageBucket}`);
+const companiesStorageBucket = firebase.app().storage(`gs://${config.companiesStorageBucket}`);
+const usersStorageBucket = firebase.app().storage(`gs://${config.usersStorageBucket}`);
 
 export {
   auth,
@@ -95,4 +97,6 @@ export {
   firestoreBingo,
   analyticsBingo,
   landingsStorageBucket,
+  usersStorageBucket,
+  companiesStorageBucket
 };
