@@ -4,6 +4,8 @@ import { Desktop, mediaQuery } from "../../../constants";
 import { DesktopLeftMenu } from "../../../components/common/DesktopLeftMenu";
 import { useRouter } from "next/router";
 import { firestore } from "../../../firebase";
+import { EditCompany } from "./EditCompany";
+import { spinLoader } from "../../../components/common/loader";
 
 export const Company = (props) => {
   const [tab, setTab] = useState("information");
@@ -21,10 +23,10 @@ export const Company = (props) => {
         .doc(companyId)
         .onSnapshot((companyOnSnapShot) => {
           if (!companyOnSnapShot.exists) {
-            setLoadingCompany(false);
             setCompany({
               id: companyId,
             });
+            setLoadingCompany(false);
             return;
           }
 
@@ -35,6 +37,8 @@ export const Company = (props) => {
     const unSub = fetchCompany();
     return () => unSub && unSub();
   }, [companyId]);
+
+  if (loadingCompany) return spinLoader();
 
   return (
     <CompanyContainer>
@@ -56,9 +60,9 @@ export const Company = (props) => {
             Informe de uso
           </div>
         </div>
-      </div>
 
-      {tab === "information" }
+        {tab === "information" && <EditCompany company={company} {...props} />}
+      </div>
     </CompanyContainer>
   );
 };
