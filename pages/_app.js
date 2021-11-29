@@ -141,14 +141,13 @@ const MyApp = ({ Component, pageProps }) => {
         <meta property="og:image" content={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
         <link rel="manifest" href={`${config.serverUrl}/api/manifest`} />
-
-        <Script
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: ``,
-          }}
-        />
       </Head>
+      <Script
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: ``,
+        }}
+      />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <WithConfiguration>
           <WithAuthentication>
