@@ -7,14 +7,17 @@ import { Desktop, mediaQuery } from "../../../constants";
 import { DesktopLeftMenu } from "../../../components/common/DesktopLeftMenu";
 import { EditProfile } from "./EditProfile";
 import { Privacy } from "./Privacy";
+import { ResetPassword } from "./ResetPassword";
 
 export const UserProfile = (props) => {
   const router = useRouter();
-  const [user, setUser] = useState(null);
-  const [loadingUser, setLoadingUser] = useState(true);
+  const { userId } = router.query;
+
+  const [authUser] = useState("user");
   const [tab, setTab] = useState("edit");
 
-  const { userId } = router.query;
+  const [user, setUser] = useState(null);
+  const [loadingUser, setLoadingUser] = useState(true);
 
   useEffect(() => {
     const fetchUser = () =>
@@ -32,13 +35,14 @@ export const UserProfile = (props) => {
     return () => unSub && unSub();
   }, [userId]);
 
-  if (loadingUser) return spinLoader();
+  if (loadingUser || !authUser) return spinLoader();
 
   return (
     <UserContainer>
       <Desktop>
         <DesktopLeftMenu {...props} />
       </Desktop>
+
       <div className="main-container">
         <div className="tabs-container">
           <div className={`tab left ${tab === "edit" && "active"}`} onClick={() => setTab("edit")}>
@@ -55,6 +59,8 @@ export const UserProfile = (props) => {
         {tab === "edit" && <EditProfile user={user} {...props} />}
 
         {tab === "privacy" && <Privacy user={user} {...props} />}
+
+        {tab === "password" && <ResetPassword user={user} {...props} />}
       </div>
     </UserContainer>
   );
@@ -67,8 +73,8 @@ const UserContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: ${props => props.theme.basic.whiteLight};
-    border-bottom: 3px solid ${props => props.theme.basic.grayLighten};
+    background: ${(props) => props.theme.basic.whiteLight};
+    border-bottom: 3px solid ${(props) => props.theme.basic.grayLighten};
     height: 45px;
     width: 100%;
     padding: 0 1rem;
@@ -82,13 +88,13 @@ const UserContainer = styled.div`
       font-weight: 500;
       font-size: 13px;
       line-height: 16px;
-      color: ${props => props.theme.basic.blackLighten};
+      color: ${(props) => props.theme.basic.blackLighten};
       height: 100%;
       position: relative;
     }
 
     .active {
-      color: ${props => props.theme.basic.primary};
+      color: ${(props) => props.theme.basic.primary};
     }
 
     .active::after {
@@ -97,16 +103,16 @@ const UserContainer = styled.div`
       height: 3px;
       width: 100%;
       bottom: -3px;
-      background: ${props => props.theme.basic.primary};
+      background: ${(props) => props.theme.basic.primary};
     }
   }
 
   .main-container {
-    background: ${props => props.theme.basic.whiteLight};
+    background: ${(props) => props.theme.basic.whiteLight};
     min-height: calc(100vh - 50px);
     overflow: auto;
   }
-  
+
   ${mediaQuery.afterTablet} {
     display: grid;
     grid-template-columns: 250px auto;
@@ -137,12 +143,14 @@ const UserContainer = styled.div`
         line-height: 18px;
         cursor: pointer;
       }
-      
-      .left, .middle, .right {
+
+      .left,
+      .middle,
+      .right {
         border-top: 2px solid ${(props) => props.theme.basic.grayLighten};
         border-bottom: 2px solid ${(props) => props.theme.basic.grayLighten};
       }
-      
+
       .left {
         border-left: 2px solid ${(props) => props.theme.basic.grayLighten};
         border-radius: 4px 0 0 4px;
@@ -152,10 +160,10 @@ const UserContainer = styled.div`
         border-left: 2px solid ${(props) => props.theme.basic.grayLighten};
         border-right: 2px solid ${(props) => props.theme.basic.grayLighten};
       }
-      
+
       .right {
         border-right: 2px solid ${(props) => props.theme.basic.grayLighten};
-        border-radius:  0 4px 4px 0;
+        border-radius: 0 4px 4px 0;
       }
 
       .active {

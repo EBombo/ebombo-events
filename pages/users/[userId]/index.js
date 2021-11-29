@@ -1,6 +1,6 @@
 import React from "reactn";
-import { UserProfile } from "../../../src/pages/users/_userId";
 import dynamic from "next/dynamic";
+import { UserProfile } from "../../../src/pages/users/_userId";
 import { spinLoader } from "../../../src/components/common/loader";
 import { UserPrivateRoute } from "../../../src/routes/UserPrivateRoute";
 

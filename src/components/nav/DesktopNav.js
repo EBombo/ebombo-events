@@ -42,6 +42,7 @@ export const DesktopNav = (props) => {
           height="23px"
           width="88px"
         />
+
         {authUser && (
           <div className="nav-items">
             <ul>
@@ -58,7 +59,8 @@ export const DesktopNav = (props) => {
                 />
                 Librería
               </li>
-              <li
+              {/*
+                <li
                 className={`${router.asPath.includes("reports") ? "active" : ""}`}
                 onClick={() => router.push("/reports")}
               >
@@ -71,6 +73,7 @@ export const DesktopNav = (props) => {
                 />
                 Reportes
               </li>
+                 */}
             </ul>
           </div>
         )}

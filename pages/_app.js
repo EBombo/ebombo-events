@@ -12,6 +12,7 @@ import { useUser } from "../src/hooks";
 import { notification } from "antd";
 import get from "lodash/get";
 import Head from "next/head";
+import Script from "next/script";
 import "antd/dist/antd.css";
 import { useFetch } from "../src/hooks/useFetch";
 import AOS from "aos";
@@ -49,7 +50,7 @@ const MyApp = ({ Component, pageProps }) => {
   const fetchGames = async () => {
     try {
       await setLoadingGames(true);
-      setGames([]);
+      await setGames([]);
 
       let url = `${config.serverUrl}/api/games/users/${authUser?.id}`;
 
@@ -63,7 +64,7 @@ const MyApp = ({ Component, pageProps }) => {
 
       if (folderId) games_ = games_.filter((game) => game.parentId === folderId);
 
-      setGames(games_);
+      await setGames(games_);
       await setLoadingGames(false);
     } catch (error) {
       console.error(error);
@@ -94,9 +95,7 @@ const MyApp = ({ Component, pageProps }) => {
   }, []);
 
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-    });
+    AOS.init({ duration: 1000 });
   }, []);
 
   const showNotificationAnt = (message, description, type = "error") => notification[type]({ message, description });
@@ -142,6 +141,13 @@ const MyApp = ({ Component, pageProps }) => {
         <meta property="og:image" content={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
         <link rel="manifest" href={`${config.serverUrl}/api/manifest`} />
+
+        <Script
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: ``,
+          }}
+        />
       </Head>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <WithConfiguration>

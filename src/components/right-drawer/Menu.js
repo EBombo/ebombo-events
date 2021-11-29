@@ -7,47 +7,42 @@ import { mediaQuery } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
 import { firestore } from "../../firebase";
 
+const { TabPane } = Tabs;
+
 export const Menu = (props) => {
-  const { signOut } = useAuth();
-  const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
-  const [authUser] = useGlobal("user");
   const router = useRouter();
-  const { TabPane } = Tabs;
+
+  const { signOut } = useAuth();
+
+  const [authUser] = useGlobal("user");
+  const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
 
   return (
     <MenuContainer>
       <div className="user-name">
         {get(authUser, "name", "")} {get(authUser, "lastName", "")}
       </div>
+
       <MenuTabs defaultActiveKey="1">
         <TabPane tab={<b>Mi Cuenta</b>} key="1">
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-              router.push(`/`);
+              router.push(`/users/${authUser.id}`);
             }}
           >
-            <span className="item" onClick={() => router.push(`/users/${authUser.id}`)}>
-              Ajustes del Perfil
-            </span>
+            <span className="item">Ajustes del Perfil</span>
           </MenuItem>
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-              router.push(`/`);
+              if (authUser.companyId) {
+                return router.push(`/companies/${authUser.id}`);
+              }
+              return router.push(`/companies/${firestore.collection("companies").doc().id}`);
             }}
           >
-            <span
-              className="item"
-              onClick={() => {
-                if (authUser.companyId) {
-                  return router.push(`/companies/${authUser.id}`);
-                }
-                return router.push(`/companies/${firestore.collection("companies").doc().id}`);
-              }}
-            >
-              Ajustes de la Empresa
-            </span>
+            <span className="item">Ajustes de la Empresa</span>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -184,6 +179,7 @@ const MenuItem = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     span {
       font-weight: bold;
     }
