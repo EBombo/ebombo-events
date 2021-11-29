@@ -33,13 +33,19 @@ export const EditCompany = (props) => {
     try {
       setLoading(true);
 
-      const { error } = await Fetch(`${config.serverUrl}/api/companies/${props.company.id}`, "PUT", mapCompany(data));
+      const { error } = await Fetch(
+        `${config.serverUrl}/api/companies/${props.company.id}`,
+        getMethod(),
+        mapCompany(data)
+      );
 
       props.showNotification(
         error ? "ERROR" : "OK",
         error ? "Algo salió mal" : "Guardado!",
         error ? "error" : "success"
       );
+
+      if (error) throw Error(error);
     } catch (error) {
       await sendError(error, "saveCompany");
     } finally {
@@ -52,6 +58,8 @@ export const EditCompany = (props) => {
     userIdentification,
     logoImgUrl,
   });
+
+  const getMethod = () => (props.company.name ? "PUT" : "POST");
 
   return (
     <EditContainer>
@@ -72,8 +80,8 @@ export const EditCompany = (props) => {
               buttonLabel={logoImgUrl ? "Cambiar logo" : "Agregar logo"}
               file={logoImgUrl}
               preview={true}
-              fileName="profileImgUrl"
-              bucket="company"
+              fileName="companyLogoImgUrl"
+              bucket="companies"
               filePath={`/${props.company.id}`}
               sizes="200x200"
               disabled={props.isLoading}

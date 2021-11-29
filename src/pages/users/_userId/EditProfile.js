@@ -1,6 +1,6 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import { Anchor, ButtonAnt, Input } from "../../../components/form";
+import { ButtonAnt, Input } from "../../../components/form";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import get from "lodash/get";
@@ -71,8 +71,9 @@ export const EditProfile = (props) => {
                   buttonLabel={profileImgUrl ? "Cambiar Imagen" : "Subir "}
                   file={profileImgUrl}
                   preview={true}
+                  bucket="users"
                   fileName="profileImgUrl"
-                  filePath={`/users/${authUser.id}`}
+                  filePath={`/${authUser.id}`}
                   sizes="200x200"
                   disabled={props.isLoading}
                   afterUpload={(resizeImages) => setProfileImgUrl(resizeImages[0].url)}
