@@ -141,12 +141,12 @@ const MyApp = ({ Component, pageProps }) => {
         <meta property="og:image" content={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
         <link rel="manifest" href={`${config.serverUrl}/api/manifest`} />
-
-        <Script
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-            (function(h,o,t,j,a,r){
+      </Head>
+      <Script
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+          (function(h,o,t,j,a,r){
                 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
                 h._hjSettings={hjid:2724726,hjsv:6};
                 a=o.getElementsByTagName('head')[0];
@@ -154,10 +154,9 @@ const MyApp = ({ Component, pageProps }) => {
                 r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
                 a.appendChild(r);
             })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-            `,
-          }}
-        />
-      </Head>
+          `,
+        }}
+      />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <WithConfiguration>
           <WithAuthentication>
