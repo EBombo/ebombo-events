@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { firestore } from "../../../firebase";
 import { EditCompany } from "./EditCompany";
 import { spinLoader } from "../../../components/common/loader";
+import { AdminCompanyUsers } from "./AdminCompanyUsers";
 
 export const Company = (props) => {
   const router = useRouter();
@@ -13,6 +14,7 @@ export const Company = (props) => {
   const [tab, setTab] = useState("information");
   const [loadingCompany, setLoadingCompany] = useState(true);
   const [company, setCompany] = useState(null);
+  const [users, setUsers] = useState(null);
 
   const { companyId } = router.query;
 
@@ -35,6 +37,29 @@ export const Company = (props) => {
         });
 
     const unSub = fetchCompany();
+    return () => unSub && unSub();
+  }, [companyId]);
+
+  useEffect(() => {
+    const fetchUsers = () =>
+      firestore
+        .collection("users")
+        .where("deleted", "==", false)
+        .where("companyId", "==", companyId)
+        .onSnapshot((companyOnSnapShot) => {
+          if (!companyOnSnapShot.exists) {
+            setCompany({
+              id: companyId,
+            });
+            setLoadingCompany(false);
+            return;
+          }
+
+          setCompany(companyOnSnapShot.data());
+          setLoadingCompany(false);
+        });
+
+    const unSub = fetchUsers();
     return () => unSub && unSub();
   }, [companyId]);
 
@@ -62,6 +87,7 @@ export const Company = (props) => {
         </div>
 
         {tab === "information" && <EditCompany company={company} {...props} />}
+        {tab === "users" && <AdminCompanyUsers company={company} users={users} {...props} />}
       </div>
     </CompanyContainer>
   );
