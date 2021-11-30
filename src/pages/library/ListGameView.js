@@ -183,14 +183,14 @@ export const ListGameView = (props) => {
               <Desktop>
                 <div className="company">
                   <Image
-                    src={get(authUser, "company.imageUrl", "")}
+                    src={get(authUser, "companies.imageUrl", "")}
                     height={"30px"}
                     width={"30px"}
                     borderRadius={"50%"}
                     margin={"0 5px 0 0"}
                     size="cover"
                   />
-                  <div className="name">{get(props, "game.company.name", "")}</div>
+                  <div className="name">{get(props, "game.companies.name", "")}</div>
                 </div>
               </Desktop>
               <div className="dates">

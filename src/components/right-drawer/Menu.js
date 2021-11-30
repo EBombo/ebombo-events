@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Tabs } from "antd";
 import { mediaQuery } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
+import { firestore } from "../../firebase";
 
 const { TabPane } = Tabs;
 
@@ -32,11 +33,13 @@ export const Menu = (props) => {
           >
             <span className="item">Ajustes del Perfil</span>
           </MenuItem>
-          {/*
-            <MenuItem
+          <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-              router.push(`/`);
+              if (authUser.companyId) {
+                return router.push(`/companies/${authUser.id}`);
+              }
+              return router.push(`/companies/${firestore.collection("companies").doc().id}`);
             }}
           >
             <span className="item">Ajustes de la Empresa</span>
@@ -65,7 +68,6 @@ export const Menu = (props) => {
           >
             <span className="item">Plan</span>
           </MenuItem>
-             */}
           <MenuItem
             logout
             onClick={() => {
