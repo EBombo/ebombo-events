@@ -12,7 +12,7 @@ export const HeaderLanding = (props) => (
       </div>
       <div className="description" data-aos="fade-up" data-aos-delay="500" data-aos-anchor-placement="top-center">
         Organiza eventos virtuales con ebombo para integrar, motivar y empoderar a los trabajadores de tu empresa. Ya
-        hemos organizado más de 300 eventos virtuales y presenciales.
+        hemos organizado más de 200 eventos virtuales y presenciales.
       </div>
       <div className="companies" data-aos="fade-right" data-aos-delay="1000">
         <Image
