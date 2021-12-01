@@ -35,7 +35,7 @@ export const AboutUs = (props) => {
             desarrollamos con nuestra tecnologia.
             <br />
             <br />
-            En lo que va del año hemos trabajado con más de 70 empresas y hemos realizado más de 180 eventos virtuales
+            En lo que va del año hemos trabajado con más de 60 empresas y hemos realizado más de 200 eventos virtuales
             con dinámicas para integrar, empoderar y potenciar el clima laboral dentro de las empresas.
           </div>
           <div className="img-container">
