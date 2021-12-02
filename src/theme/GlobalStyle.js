@@ -265,4 +265,12 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   /*-------------- MODAL CONFIRM ---------------*/
+
+  /*-------------- BREADCRUMB ---------------*/
+  .ant-breadcrumb {
+    a:hover {
+      color: ${(props) => props.theme.basic.primary};
+    }
+  }
+  /*-------------- BREADCRUMB ---------------*/
 `;
