@@ -40,6 +40,8 @@ steps:
           "managed",
           "--region",
           "us-central1",
+          "--port",
+          "5000",
           "--image",
           "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:${_PR_NUMBER}-${SHORT_SHA}",
           "--tag",

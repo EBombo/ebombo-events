@@ -34,6 +34,8 @@ steps:
         "gcr.io/${PROJECT_ID}/${PROJECT_ID}-red",
         "--region",
         "us-central1",
+        "--port",
+        "5000",
         "--platform",
         "managed",
         "--allow-unauthenticated",
