@@ -36,10 +36,10 @@ export const Menu = (props) => {
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-              if (authUser.companyId) {
-                return router.push(`/companies/${authUser.id}`);
-              }
-              return router.push(`/companies/${firestore.collection("companies").doc().id}`);
+
+              const companyId = authUser?.companyId ?? firestore.collection("companies").doc().id;
+
+              return router.push(`/companies/${companyId}`);
             }}
           >
             <span className="item">Ajustes de la Empresa</span>

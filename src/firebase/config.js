@@ -98,5 +98,5 @@ export {
   analyticsBingo,
   landingsStorageBucket,
   usersStorageBucket,
-  companiesStorageBucket
+  companiesStorageBucket,
 };
