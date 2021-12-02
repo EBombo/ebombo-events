@@ -2,7 +2,7 @@
 FROM node:14-alpine
 
 # Update npm
-RUN npm install -g npm@8
+RUN npm install -g npm@7
 
 # Working directory
 WORKDIR /app

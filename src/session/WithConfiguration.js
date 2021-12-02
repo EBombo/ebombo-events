@@ -31,7 +31,7 @@ export const WithConfiguration = (props) => {
   const [location, setLocationLocalStorage] = useLocation();
   const [settingsLS, setSettingsLocalStorage] = useSettings();
 
-  const isDevelopment = process.env.NODE_ENV === "development";
+  const isDevelopment = process.env.NODE_ENV === "development-";
   const [isLoadingConfig, setIsLoadingConfig] = useState(isDevelopment);
 
   let pageLoaded = false;
