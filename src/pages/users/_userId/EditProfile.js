@@ -153,7 +153,7 @@ export const EditProfile = (props) => {
               <Input
                 id="organization"
                 variant="primary"
-                defaultValue={"ebombo"} //TODO: complete when the companies logic is complete
+                defaultValue={authUser?.company?.name ?? "ebombo"} //TODO: complete when the companies logic is complete
                 disabled={true}
               />
 
