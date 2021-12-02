@@ -1,8 +1,8 @@
 steps:
-  - id: "pull image"
-    name: "gcr.io/cloud-builders/docker"
-    entrypoint: "bash"
-    args: [ "-c" , "docker pull gcr.io/${PROJECT_ID}/${PROJECT_ID}-red:latest || exit 0" ]
+  #- id: "pull image"
+    #name: "gcr.io/cloud-builders/docker"
+    #entrypoint: "bash"
+    #args: [ "-c" , "docker pull gcr.io/${PROJECT_ID}/${PROJECT_ID}-red:latest || exit 0" ]
 
   - id: "build image"
     name: "gcr.io/cloud-builders/docker"
