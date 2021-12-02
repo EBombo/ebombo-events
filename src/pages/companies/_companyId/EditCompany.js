@@ -12,18 +12,17 @@ import { Switch } from "antd";
 import { mediaQuery } from "../../../constants";
 
 export const EditCompany = (props) => {
-  const { sendError } = useSendError();
   const { Fetch } = useFetch();
+  const { sendError } = useSendError();
 
   const [authUser] = useGlobal("user");
 
-  const [logoImgUrl, setlogoImgUrl] = useState(props.company?.logoImgUrl || null);
   const [loading, setLoading] = useState(false);
+  const [logoImgUrl, setlogoImgUrl] = useState(props.company?.logoImgUrl || null);
   const [userIdentification, setUserIdentification] = useState(props.company.userIdentification ?? false);
 
   const schema = object().shape({
     name: string().required(),
-    lastName: string().required(),
   });
 
   const { register, errors, handleSubmit } = useForm({
@@ -31,14 +30,23 @@ export const EditCompany = (props) => {
     reValidateMode: "onSubmit",
   });
 
+  const mapCompany = (data) => ({
+    name: data.name,
+    usersIds: [authUser.id],
+    userIdentification,
+    logoImgUrl,
+  });
+
   const saveCompany = async (data) => {
     try {
       setLoading(true);
 
+      const companyMapped = mapCompany(data);
+
       const { error } = await Fetch(
         `${config.serverUrl}/api/companies/${props.company.id}`,
-        getMethod(),
-        mapCompany(data)
+        props.company?.name ? "PUT" : "POST",
+        companyMapped
       );
 
       props.showNotification(
@@ -50,19 +58,10 @@ export const EditCompany = (props) => {
       if (error) throw Error(error);
     } catch (error) {
       await sendError(error, "saveCompany");
-    } finally {
-      setLoading(false);
     }
+
+    setLoading(false);
   };
-
-  const mapCompany = (data) => ({
-    name: data.name,
-    usersIds: [authUser.id],
-    userIdentification,
-    logoImgUrl,
-  });
-
-  const getMethod = () => (props.company.name ? "PUT" : "POST");
 
   return (
     <EditContainer>
