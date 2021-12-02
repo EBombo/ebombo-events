@@ -9,12 +9,11 @@ import { spinLoader } from "../../../components/common/loader";
 
 export const Company = (props) => {
   const router = useRouter();
+  const { companyId } = router.query;
 
+  const [company, setCompany] = useState(null);
   const [tab, setTab] = useState("information");
   const [loadingCompany, setLoadingCompany] = useState(true);
-  const [company, setCompany] = useState(null);
-
-  const { companyId } = router.query;
 
   useEffect(() => {
     const fetchCompany = () =>
@@ -26,8 +25,7 @@ export const Company = (props) => {
             setCompany({
               id: companyId,
             });
-            setLoadingCompany(false);
-            return;
+            return setLoadingCompany(false);
           }
 
           setCompany(companyOnSnapShot.data());

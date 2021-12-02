@@ -65,13 +65,11 @@ const UserLayout = (props) => {
       </ModalContainer>
     ) : null;
 
-  const RightDrawerForm = () => <RightDrawer>hola comoe stas</RightDrawer>;
-
   return (
     <>
       {loginModal()}
       {verifiedModalResendEmail()}
-      {RightDrawerForm()}
+      <RightDrawer />
       <Layout>
         <Desktop>
           <DesktopNav {...props} />
