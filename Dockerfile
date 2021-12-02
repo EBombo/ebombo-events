@@ -2,7 +2,7 @@
 FROM node:14-alpine as builder
 
 # Update npm
-RUN npm install -g npm@7
+# RUN npm install -g npm@7
 
 # Working directory
 WORKDIR /app
@@ -42,7 +42,7 @@ RUN npm run build
 FROM node:14-alpine
 
 # Update npm
-RUN npm install -g npm@7
+# RUN npm install -g npm@7
 
 # Working directory
 WORKDIR /app
