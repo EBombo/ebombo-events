@@ -35,6 +35,18 @@ export const Bingo = (props) => {
   const { handleSubmit, register, errors, watch } = useForm({
     validationSchema: schema,
     reValidateMode: "onSubmit",
+    defaultValues: {
+      backgroundColor: darkTheme.basic.primaryLight,
+      titleColor: darkTheme.basic.secondary,
+      blocksColor: darkTheme.basic.secondary,
+      numberColor: darkTheme.basic.whiteLight,
+      title: "Título de Cartilla",
+      b: "B",
+      i: "I",
+      n: "N",
+      g: "G",
+      o: "O",
+    }
   });
 
   const saveGame = async (data) => {

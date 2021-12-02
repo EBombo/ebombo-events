@@ -66,7 +66,7 @@ export const ModalNewGame = (props) => {
                 <ButtonAnt
                   variant="text"
                   margin="5px auto"
-                  color="black"
+                  color="light"
                   onClick={() => {
                     folderId
                       ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
