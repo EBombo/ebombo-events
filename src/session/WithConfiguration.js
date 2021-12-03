@@ -31,8 +31,8 @@ export const WithConfiguration = (props) => {
   const [location, setLocationLocalStorage] = useLocation();
   const [settingsLS, setSettingsLocalStorage] = useSettings();
 
-  // TODO: The spin helps to build static files faster.
   // TODO: Dot using a spin helps SEO.
+  // TODO: The spin helps to build static files faster.
   const isDevelopment = process.env.NODE_ENV === "development";
   const [isLoadingConfig, setIsLoadingConfig] = useState(isDevelopment);
 
