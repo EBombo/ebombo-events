@@ -6,14 +6,15 @@ import { useRouter } from "next/router";
 import { firestore } from "../../../firebase";
 import { EditCompany } from "./EditCompany";
 import { spinLoader } from "../../../components/common/loader";
+import { CompanyReport } from "./CompanyReport";
 
 export const Company = (props) => {
   const router = useRouter();
-  const { companyId } = router.query;
+  const { companyId, currentTab } = router.query;
 
   const [company, setCompany] = useState(null);
-  const [tab, setTab] = useState("information");
   const [loadingCompany, setLoadingCompany] = useState(true);
+  const [tab, setTab] = useState(currentTab ?? "information");
 
   useEffect(() => {
     const fetchCompany = () =>
@@ -60,6 +61,8 @@ export const Company = (props) => {
         </div>
 
         {tab === "information" && <EditCompany company={company} {...props} />}
+
+        {tab === "report" && <CompanyReport company={company} {...props} />}
       </div>
     </CompanyContainer>
   );
