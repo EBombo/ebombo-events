@@ -19,6 +19,7 @@
         "build-storybook": "build-storybook"
     },
     "dependencies": {
+        "@stripe/firestore-stripe-payments": "0.0.4",
         "antd": "^4.14.1",
         "aos": "^2.3.4",
         "country-list": "^2.2.0",
