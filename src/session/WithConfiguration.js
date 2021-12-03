@@ -31,7 +31,8 @@ export const WithConfiguration = (props) => {
   const [location, setLocationLocalStorage] = useLocation();
   const [settingsLS, setSettingsLocalStorage] = useSettings();
 
-  const isDevelopment = process.env.NODE_ENV === "development-";
+  // TODO: The spin helps to build static files faster.
+  const isDevelopment = process.env.NODE_ENV === "development";
   const [isLoadingConfig, setIsLoadingConfig] = useState(isDevelopment);
 
   let pageLoaded = false;
