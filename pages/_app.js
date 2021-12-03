@@ -95,7 +95,11 @@ const MyApp = ({ Component, pageProps }) => {
   }, []);
 
   useEffect(() => {
-    AOS.init({ duration: 1000 });
+    AOS.init({
+      once: true,
+      mirror: true,
+      duration: 500,
+    });
   }, []);
 
   const showNotificationAnt = (message, description, type = "error") => notification[type]({ message, description });
