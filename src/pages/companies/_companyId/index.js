@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery } from "../../../constants";
 import { DesktopLeftMenu } from "../../../components/common/DesktopLeftMenu";
@@ -12,9 +12,13 @@ export const Company = (props) => {
   const router = useRouter();
   const { companyId } = router.query;
 
+  const [authUser] = useGlobal("user");
+
   const [company, setCompany] = useState(null);
+  const [users, setUsers] = useState(null);
   const [tab, setTab] = useState("information");
   const [loadingCompany, setLoadingCompany] = useState(true);
+  const [loadingUsers, setLoadingUsers] = useState(true);
 
   useEffect(() => {
     const fetchCompany = () =>
@@ -40,27 +44,25 @@ export const Company = (props) => {
   useEffect(() => {
     const fetchUsers = () =>
       firestore
-        .collection("users")
-        .where("deleted", "==", false)
-        .where("companyId", "==", companyId)
-        .onSnapshot((companyOnSnapShot) => {
-          if (!companyOnSnapShot.exists) {
-            setCompany({
-              id: companyId,
-            });
-            setLoadingCompany(false);
+        .collection("companies")
+        .doc(companyId)
+        .collection("members")
+        .onSnapshot((membersOnSnapShot) => {
+          if (!membersOnSnapShot.exists) {
+            setUsers([{ ...authUser, role: "Owner", status: "Active" }]);
+            setLoadingUsers(false);
             return;
           }
 
-          setCompany(companyOnSnapShot.data());
-          setLoadingCompany(false);
+          setUsers(membersOnSnapShot.data());
+          setLoadingUsers(false);
         });
 
     const unSub = fetchUsers();
     return () => unSub && unSub();
   }, [companyId]);
 
-  if (loadingCompany) return spinLoader();
+  if (loadingCompany || loadingUsers) return spinLoader();
 
   return (
     <CompanyContainer>
