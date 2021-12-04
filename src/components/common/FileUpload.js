@@ -144,7 +144,7 @@ export const FileUpload = (props) => {
             margin="0"
             cursor="pointer"
           />
-          <span>Añade una imagen de cover</span>
+          <span>Añade una imagen</span>
         </div>
       )}
 
@@ -184,10 +184,8 @@ const UploadContainer = styled.div`
   margin: 0;
 
   .cover {
-    display: flex;
-    align-items: center;
+    display: grid;
     grid-gap: 1rem;
-    margin-top: 0.5rem;
     
     .cover-image {
       border-radius: 4px;

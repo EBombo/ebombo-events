@@ -20,6 +20,7 @@ export const AboutUs = (props) => {
       </div>
       <div className="main-content">
         <Image
+          data-aos="fade-right"
           src={`${config.storageUrl}/resources/ebombo-white.png`}
           height="auto"
           width="200px"
@@ -28,7 +29,7 @@ export const AboutUs = (props) => {
           margin="2rem 0 4rem 0"
         />
         <div className="flex-container">
-          <div className="text">
+          <div className="text" data-aos="fade-right">
             Somos un Startup enfocada en la industria del entretenimiento para empresas. Las empresas han cambiado y se
             han tenido que adaptar a la nueva normalidad. Ayudamos a otras empresas a potenciar el clima y cultura
             laboral a través de eventos e integraciones virtuales con nuestros propios juegos y dinámica que
@@ -38,7 +39,7 @@ export const AboutUs = (props) => {
             En lo que va del año hemos trabajado con más de 60 empresas y hemos realizado más de 200 eventos virtuales
             con dinámicas para integrar, empoderar y potenciar el clima laboral dentro de las empresas.
           </div>
-          <div className="img-container">
+          <div className="img-container" data-aos="fade-left">
             <Image src={`${config.storageUrl}/resources/about-us.png`} height="100%" width="80%" margin="1rem auto" />
           </div>
         </div>

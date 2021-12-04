@@ -3,6 +3,25 @@ import { config } from "../../firebase";
 import React from "reactn";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
+export const reasons = [
+  {
+    id: 1,
+    description: "Ya no necesito el servicio que ofrecen.",
+  },
+  {
+    id: 2,
+    description: "No me gusta los juegos que ofrecen.",
+  },
+  {
+    id: 3,
+    description: "Simplemente deseo eliminar la cuenta.",
+  },
+  {
+    id: 4,
+    description: "Mi empresa ha cerrado.",
+  },
+];
+
 export const ladingProducts = [
   {
     title: "Eventos Virtuales",
@@ -342,11 +361,13 @@ export const menus = [
     onClick: (setIsVisibleModalGame) => setIsVisibleModalGame(true),
     src: `${config.storageUrl}/resources/footer/create-icon.svg`,
   },
+  /*
   {
     name: "Reportes",
     url: "/reports",
     src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
+   */
   {
     name: "Lista de usuarios",
     url: "/admin/users",

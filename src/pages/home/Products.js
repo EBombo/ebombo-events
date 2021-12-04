@@ -22,22 +22,21 @@ export const Products = (props) => {
       </div>
 
       {ladingProducts.map((product) => (
-        <div className="product" key={product.title}>
+        <div className="product" data-aos="fade-right" key={product.title}>
           <div className="top-container">
-            <div className="background" style={{ background: product.background }} />
-            <div className="img-container">
+            <div className="background" style={{ background: product.background }}>
               <Image
                 src={product.image}
-                height="100%"
-                width="100%"
+                height="160px"
+                width="270px"
                 size="contain"
-                margin="0"
+                margin="0 -30px 0 0"
                 borderRadius="15px"
               />
             </div>
           </div>
 
-          <div className="bottom-container">
+          <div className="bottom-container" data-aos="fade-right" data-aos-delay="500">
             <div className="subtitle">{product.title}</div>
 
             <div className="description">{product.description}</div>
@@ -81,25 +80,13 @@ const ProductsContainer = styled.div`
     flex-direction: column;
 
     .top-container {
-      width: 100%;
-      max-width: 335px;
-      height: 215px;
       margin: 0 auto;
       position: relative;
 
       .background {
-        width: 80%;
-        height: 100%;
-        background: ${(props) => props.theme.basic.blackDarken};
+        padding: 20px 0 20px 30px;
         border-radius: 9px;
-      }
-
-      .img-container {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: scale(85%) translateY(-60%);
-        margin: 0
+        background: ${(props) => props.theme.basic.blackDarken};
       }
     }
 

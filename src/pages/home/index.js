@@ -1,11 +1,10 @@
 import React, { useEffect, useGlobal } from "reactn";
-import styled from "styled-components";
 import { HeaderLanding } from "./HeaderLanding";
-//import { HeldEvents } from "./HeldEvents";
 import { Comments } from "./comments/Comments";
+import { Plans } from "../subscriptions/Plans";
 import { ContactForm } from "./ContactForm";
 import { useRouter } from "next/router";
-import { Plans } from "../subscriptions/Plans";
+import styled from "styled-components";
 import { Products } from "./Products";
 import { OurGames } from "./OurGames";
 
@@ -15,7 +14,7 @@ export const Home = (props) => {
   const [authUser] = useGlobal("user");
 
   useEffect(() => {
-    if (!authUser || authUser.isAdmin) return;
+    if (!authUser) return;
 
     router.push("/");
   }, [authUser]);
@@ -27,8 +26,6 @@ export const Home = (props) => {
       <Products />
 
       <Plans {...props} />
-
-      {/*<HeldEvents />*/}
 
       <OurGames />
 

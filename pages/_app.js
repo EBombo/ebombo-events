@@ -12,8 +12,11 @@ import { useUser } from "../src/hooks";
 import { notification } from "antd";
 import get from "lodash/get";
 import Head from "next/head";
+import Script from "next/script";
 import "antd/dist/antd.css";
 import { useFetch } from "../src/hooks/useFetch";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -47,7 +50,7 @@ const MyApp = ({ Component, pageProps }) => {
   const fetchGames = async () => {
     try {
       await setLoadingGames(true);
-      setGames([]);
+      await setGames([]);
 
       let url = `${config.serverUrl}/api/games/users/${authUser?.id}`;
 
@@ -61,7 +64,7 @@ const MyApp = ({ Component, pageProps }) => {
 
       if (folderId) games_ = games_.filter((game) => game.parentId === folderId);
 
-      setGames(games_);
+      await setGames(games_);
       await setLoadingGames(false);
     } catch (error) {
       console.error(error);
@@ -91,6 +94,14 @@ const MyApp = ({ Component, pageProps }) => {
     setIsBack(false);
   }, []);
 
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      mirror: true,
+      duration: 500,
+    });
+  }, []);
+
   const showNotificationAnt = (message, description, type = "error") => notification[type]({ message, description });
 
   return (
@@ -112,6 +123,7 @@ const MyApp = ({ Component, pageProps }) => {
           name="description"
           content="Le damos la posibilidad a empresas de crear eventos virtuales con el objetivo de potenciar el clima laboral."
         />
+        <meta name="format-detection" content="telephone=no" />
         <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-72x72.png`} />
         <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
         <link
@@ -134,6 +146,21 @@ const MyApp = ({ Component, pageProps }) => {
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
         <link rel="manifest" href={`${config.serverUrl}/api/manifest`} />
       </Head>
+      <Script
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+          (function(h,o,t,j,a,r){
+                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                h._hjSettings={hjid:2724726,hjsv:6};
+                a=o.getElementsByTagName('head')[0];
+                r=o.createElement('script');r.async=1;
+                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                a.appendChild(r);
+            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+          `,
+        }}
+      />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <WithConfiguration>
           <WithAuthentication>

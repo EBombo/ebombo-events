@@ -1,9 +1,8 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useSendError } from "../../../../hooks";
 import { useFetch } from "../../../../hooks/useFetch";
-import isEmpty from "lodash/isEmpty";
 import { Bingo } from "./Bingo";
 import { firestore } from "../../../../firebase";
 import { Hanged } from "./Hanged";
@@ -40,7 +39,6 @@ export const GameContainer = (props) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [parent, setParent] = useState(null);
-  const [currentAdminGame, setCurrentCurrentAdminGame] = useState(null);
   const [currentGame, setCurrentGame] = useState(null);
 
   useEffect(() => {
@@ -62,13 +60,15 @@ export const GameContainer = (props) => {
     setCurrentGame(_game);
   }, [gameId, games]);
 
-  useEffect(() => {
-    if (isEmpty(adminGames)) return;
+  const currentAdminGame = useMemo(() => {
+    if (!adminGames?.length) return;
 
     const currentAdminGame_ = adminGames.find((adminGame_) => adminGame_.id === adminGameId);
 
-    setCurrentCurrentAdminGame(currentAdminGame_);
-  }, [adminGames]);
+    if (!currentAdminGame_) return;
+
+    return currentAdminGame_;
+  }, [adminGameId, adminGames]);
 
   const submitGame = async (game) => {
     setIsLoading(true);
@@ -101,7 +101,6 @@ export const GameContainer = (props) => {
       props.fetchGames();
       router.back();
     } catch (error) {
-      console.error(error);
       sendError(error, "createGame");
     }
     setIsLoading(false);
@@ -112,8 +111,8 @@ export const GameContainer = (props) => {
   const createUrl = (adminGame) => `${adminGame.api}/games/new/users/${authUser.id}`;
 
   return (
-    <GameContainerCss>
-      {currentAdminGame && currentAdminGame.name === "bingo" && (
+    <GameContainerCss key={adminGameId}>
+      {currentAdminGame?.name === "bingo" && (
         <Bingo
           submitGame={submitGame}
           isLoading={isLoading}
@@ -123,7 +122,7 @@ export const GameContainer = (props) => {
           {...props}
         />
       )}
-      {currentAdminGame && currentAdminGame.name === "hanged" && (
+      {currentAdminGame?.name === "hanged" && (
         <Hanged
           submitGame={submitGame}
           isLoading={isLoading}

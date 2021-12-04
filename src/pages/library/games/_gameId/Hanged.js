@@ -27,11 +27,11 @@ export const Hanged = (props) => {
 
   const saveGame = async (data) => {
     const phrases = data.phrases.split(/\r?\n/);
-    const title = data.title;
+    const name = data.name;
 
     const _game = {
       phrases,
-      title,
+      name,
       coverImgUrl,
       id: newId,
     };
@@ -52,7 +52,7 @@ export const Hanged = (props) => {
           name="name"
           ref={register}
           error={errors.name}
-          placeholder="Nombre del Juego"
+          placeholder="Nombre del Evento"
         />
         <label htmlFor="phrases" className="label">
           Frases para el juego
@@ -61,7 +61,18 @@ export const Hanged = (props) => {
           Escribe las frases y separalas con “ENTER” (Máx. 20 caracteres por palabra o frase)
         </div>
         <TextArea
+          onKeyPress={(event) => {
+            if (event.key === "Enter") return;
+
+            const regex = new RegExp("^[a-zA-Z ]+$");
+            const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+              event.preventDefault();
+              return false;
+            }
+          }}
           id="phrases"
+          defaultValue={"Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"}
           error={errors.phrases}
           name="phrases"
           ref={register}
