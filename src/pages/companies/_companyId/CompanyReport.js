@@ -1,22 +1,30 @@
 import React from "reactn";
 import styled from "styled-components";
 import moment from "moment";
+import { Distribution2CenterStyled, DistributionCol } from "../../../components/common/Distribution";
+import { DatePicker } from "../../../components/form";
 
 export const CompanyReport = (props) => {
   return (
     <ReportStyled>
-      <div className="last-update">Última actualización: {moment().format("LLL")}</div>
+      <Distribution2CenterStyled>
+        <DistributionCol>
+          <Distribution2CenterStyled>
+            <DistributionCol>
+              <div className="title">Desde</div>
+              <DatePicker defaultValue={moment().subtract(1, "weeks")} />
+            </DistributionCol>
+            <DistributionCol>
+              <div className="title">Hasta</div>
+              <DatePicker defaultValue={moment()} />
+            </DistributionCol>
+          </Distribution2CenterStyled>
+        </DistributionCol>
 
-      <div className="control-dates">
-        <div className="date">
-          <div className="title">Desde</div>
-          <div className=""></div>
-        </div>
-        <div className="date">
-          <div className="title">Hasta</div>
-          <div className=""></div>
-        </div>
-      </div>
+        <DistributionCol>
+          <div className="last-update">Última actualización: {moment().format("LLL")}</div>
+        </DistributionCol>
+      </Distribution2CenterStyled>
 
       <div className="metrics">
         <div className="head">
@@ -58,6 +66,10 @@ export const CompanyReport = (props) => {
 };
 
 const ReportStyled = styled.div`
+  padding: 5px;
+  border-radius: 5px;
+  background: ${(props) => props.theme.basic.white};
+
   .last-update {
   }
 
@@ -71,6 +83,7 @@ const ReportStyled = styled.div`
   .metrics {
     .head {
     }
+
     .body {
     }
   }
@@ -78,8 +91,10 @@ const ReportStyled = styled.div`
   .list-users {
     .title {
     }
+
     .head {
     }
+
     .body {
     }
   }

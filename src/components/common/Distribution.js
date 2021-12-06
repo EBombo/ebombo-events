@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 
 export const Distribution3Styled = styled.div`
-  color: ${(props) => props.theme.basic.white};
+  ${(props) => (props.color ? `color:${props.color};` : "")};
   height: 100%;
   width: 100%;
   padding-bottom: ${(props) => (props.footerBar ? props.footerBar : "0px")};
@@ -16,7 +16,7 @@ export const Distribution3Styled = styled.div`
 `;
 
 export const Distribution3CenterStyled = styled.div`
-  color: ${(props) => props.theme.basic.white};
+  ${(props) => (props.color ? `color:${props.color};` : "")};
   height: 100%;
   width: 100%;
   padding-bottom: ${(props) => (props.footerBar ? props.footerBar : "0px")};
@@ -31,7 +31,7 @@ export const Distribution3CenterStyled = styled.div`
 `;
 
 export const Distribution4Center = styled.div`
-  color: ${(props) => props.theme.basic.white};
+  ${(props) => (props.color ? `color:${props.color};` : "")};
   height: 100%;
   width: 100%;
   padding-bottom: ${(props) => (props.footerBar ? props.footerBar : "0px")};
@@ -46,7 +46,7 @@ export const Distribution4Center = styled.div`
 `;
 
 export const Distribution2LeftStyled = styled.div`
-  color: ${(props) => props.theme.basic.white};
+  ${(props) => (props.color ? `color:${props.color};` : "")};
   height: 100%;
   width: 100%;
   padding-bottom: ${(props) => (props.footerBar ? props.footerBar : "0px")};
@@ -61,7 +61,7 @@ export const Distribution2LeftStyled = styled.div`
 `;
 
 export const Distribution2RightStyled = styled.div`
-  color: ${(props) => props.theme.basic.white};
+  ${(props) => (props.color ? `color:${props.color};` : "")};
   height: 100%;
   width: 100%;
   padding-bottom: ${(props) => (props.footerBar ? props.footerBar : "0px")};
@@ -76,7 +76,7 @@ export const Distribution2RightStyled = styled.div`
 `;
 
 export const Distribution2CenterStyled = styled.div`
-  color: ${(props) => props.theme.basic.white};
+  ${(props) => (props.color ? `color:${props.color};` : "")};
   height: 100%;
   width: 100%;
   padding-bottom: ${(props) => (props.footerBar ? props.footerBar : "0px")};
@@ -91,8 +91,7 @@ export const Distribution2CenterStyled = styled.div`
 `;
 
 export const DistributionCol = styled.div`
-  background: ${(props) =>
-    props.background ? props.background : "transparent"};
+  background: ${(props) => (props.background ? props.background : "transparent")};
   ${(props) => (props.color ? `color:${props.color};` : "")};
   padding: 10px 8px;
   overflow-y: hidden;
