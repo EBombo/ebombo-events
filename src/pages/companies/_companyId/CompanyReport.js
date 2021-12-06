@@ -9,6 +9,7 @@ import {
 import { DatePicker } from "../../../components/form";
 import { Desktop, mediaQuery, sizes, Tablet } from "../../../constants";
 import { QuestionCircleOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
 
 export const CompanyReport = (props) => {
   const lastUpdated = useMemo(() => {
@@ -46,10 +47,10 @@ export const CompanyReport = (props) => {
         <DistributionCol>
           <div className="metrics">
             <div className="head">
-              <div className="title">Juegos</div>
-              <div>
+              <div className="title">Juegos en vivo</div>
+              <Tooltip title="Un juego en vivo es jugado simultáneamente por un grupo de estudiantes, ya sea en persona o por video.">
                 <QuestionCircleOutlined />
-              </div>
+              </Tooltip>
             </div>
             <div className="body">
               <div>Jugadores</div>
@@ -66,9 +67,9 @@ export const CompanyReport = (props) => {
           <div className="metrics">
             <div className="head">
               <div>Usuarios</div>
-              <div>
+              <Tooltip title="Los usuarios son miembros de su equipo que pueden crear y organizar un juego.">
                 <QuestionCircleOutlined />
-              </div>
+              </Tooltip>
             </div>
             <div className="body">
               <div>Jugadores</div>
@@ -128,8 +129,13 @@ const ReportStyled = styled.div`
     }
 
     .head {
+      padding: 5px;
       font-weight: bold;
       border-bottom: 1px solid ${(props) => props.theme.basic.grayLight};
+    }
+
+    .body {
+      padding: 7px;
     }
   }
 
