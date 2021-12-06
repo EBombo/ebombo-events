@@ -3,6 +3,14 @@ import { config } from "../../firebase";
 import React from "reactn";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
+export const adsOptions = [
+  { label: "Reuniones grandes", value: "meets" },
+  { label: "Webinar", value: "webinar" },
+  { label: "Amor", value: "love" },
+  { label: "Fuerza", value: "strength" },
+  { label: "Destreza", value: "skill" },
+]
+
 export const usersOrder = [
   {
     id: 1,

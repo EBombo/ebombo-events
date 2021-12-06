@@ -9,12 +9,16 @@ import { useForm } from "react-hook-form";
 import { useFetch } from "../../../hooks/useFetch";
 import { useSendError } from "../../../hooks";
 import { ButtonAnt, Input, TextArea } from "../../../components/form";
+import { Checkbox } from "antd";
+import { adsOptions } from "../../../components/common/DataList";
 
 export const ModalInvite = (props) => {
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
 
   const [loading, setLoading] = useState(false);
+  const [ads, setAds] = useState([]);
+  const [copied, setCopied] = useState(false);
 
   const schema = object().shape({
     role: string().required(),
@@ -33,6 +37,7 @@ export const ModalInvite = (props) => {
       const { error } = await Fetch(`${config.serverUrl}/api/companies/${props.company.id}/members`, "POST", {
         members: data.members.split("\n"),
         role: data.role,
+        ads,
       });
 
       props.showNotification(
@@ -75,7 +80,15 @@ export const ModalInvite = (props) => {
                   defaultValue={`www.ebombo.com/register/companies/${props.company.id}`}
                   disabled
                 />
-                <ButtonAnt onClick={() => console.log("copiar")}>Copiar</ButtonAnt>
+                <ButtonAnt
+                  color={copied ? "success" : "primary"}
+                  onClick={() => {
+                    setCopied(true);
+                    navigator.clipboard.writeText(`www.ebombo.com/register/companies/${props.company.id}`);
+                  }}
+                >
+                  {copied ? "Copiado!" : "Copiar"}
+                </ButtonAnt>
               </div>
             </div>
 
@@ -108,12 +121,17 @@ export const ModalInvite = (props) => {
               <div className="amount">3</div>
               licencias (Admin.)
             </div>
+
+            <div className="ads">
+              <label>Ads on</label>
+              <Checkbox.Group options={adsOptions} onChange={(checkedValue) => setAds(checkedValue)} />
+            </div>
           </div>
           <div className="footer">
             <ButtonAnt color="default" onClick={() => props.setIsVisibleModalInvite(false)}>
               Cerrar
             </ButtonAnt>
-            <ButtonAnt color="secondary" htmlType="submit">
+            <ButtonAnt color="secondary" htmlType="submit" loading={loading}>
               Enviar invitación
             </ButtonAnt>
           </div>

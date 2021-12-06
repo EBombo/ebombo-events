@@ -50,6 +50,7 @@ export const DesktopUsers = (props) => {
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
+      props.setSelectedUsers(selectedRows)
     },
   };
 

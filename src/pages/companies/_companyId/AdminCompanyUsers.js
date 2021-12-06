@@ -7,12 +7,15 @@ import { TabletUsers } from "./TabletUsers";
 import { DesktopUsers } from "./DesktopUsers";
 import { ModalLicenses } from "./ModalLicenses";
 import { ModalInvite } from "./ModalInvite";
+import { ModalEditUser } from "./ModalEditUser";
 
 export const AdminCompanyUsers = (props) => {
   const { TabPane } = Tabs;
 
   const [isVisibleModalLicenses, setIsVisibleModalLicenses] = useState(false);
   const [isVisibleModalInvite, setIsVisibleModalInvite] = useState(false);
+  const [isVisibleModalEditUser, setIsVisibleModalEditUser] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState([]);
 
   const inviteUsers = async () => {
     console.log("invitation");
@@ -28,6 +31,14 @@ export const AdminCompanyUsers = (props) => {
 
   return (
     <AdminContainer>
+      {isVisibleModalEditUser && (
+        <ModalEditUser
+          isVisibleModalEditUser={isVisibleModalEditUser}
+          setIsVisibleModalEditUser={setIsVisibleModalEditUser}
+          selectedUsers={selectedUsers}
+          {...props}
+        />
+      )}
       {isVisibleModalLicenses && (
         <ModalLicenses
           isVisibleModalLicenses={isVisibleModalLicenses}
@@ -69,6 +80,14 @@ export const AdminCompanyUsers = (props) => {
               <div className="action-container">
                 <div className="search-user">
                   <Input type="search" placeholder="Buscar" />
+                  <Desktop>
+                    <ButtonAnt color="default" onClick={() => setIsVisibleModalEditUser(true)} margin="0 10px 0 10px">
+                      Editar
+                    </ButtonAnt>
+                    <ButtonAnt color="danger" onClick={() => setIsVisibleModalEditUser(true)} margin="0 10px 0 0">
+                      Eliminar
+                    </ButtonAnt>
+                  </Desktop>
                 </div>
                 <div className="actions">
                   <Desktop>
@@ -96,11 +115,11 @@ export const AdminCompanyUsers = (props) => {
               </div>
 
               <Tablet>
-                <TabletUsers {...props} />
+                <TabletUsers setSelectedUsers={setSelectedUsers} {...props} />
               </Tablet>
 
               <Desktop>
-                <DesktopUsers {...props} />
+                <DesktopUsers setSelectedUsers={setSelectedUsers} {...props} />
               </Desktop>
             </FirstTabContent>
           </TabPane>
@@ -249,6 +268,12 @@ const FirstTabContent = styled.div`
 
       .search-user {
         min-width: 300px;
+        display: flex;
+        align-items: center;
+
+        input {
+          width: 250px;
+        }
       }
 
       .actions {
