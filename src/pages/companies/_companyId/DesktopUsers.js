@@ -45,25 +45,20 @@ const columns = [
 
 export const DesktopUsers = (props) => {
   const [data] = useState(props.users);
-  const [loading, setLoading] = useState(false);
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
       props.setSelectedUsers(selectedRows)
     },
   };
 
   return (
     <UsersContainer>
-      <div className="search-container">
-
-      </div>
 
       <div className="table-container">
         <Table
           rowSelection={{
-            type: <checkbox />,
+            type: "checkbox",
             ...rowSelection,
           }}
           columns={columns}

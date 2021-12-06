@@ -1,15 +1,27 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery, Tablet } from "../../../constants";
-import { Tabs } from "antd";
+import { Modal, Tabs } from "antd";
 import { Anchor, ButtonAnt, Input } from "../../../components/form";
 import { TabletUsers } from "./TabletUsers";
 import { DesktopUsers } from "./DesktopUsers";
 import { ModalLicenses } from "./ModalLicenses";
 import { ModalInvite } from "./ModalInvite";
 import { ModalEditUser } from "./ModalEditUser";
+import { useRouter } from "next/router";
+import { useFetch } from "../../../hooks/useFetch";
+import { useSendError } from "../../../hooks";
+import { config } from "../../../firebase";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+
+const { confirm } = Modal;
 
 export const AdminCompanyUsers = (props) => {
+  const router = useRouter();
+
+  const { Fetch } = useFetch();
+  const { sendError } = useSendError();
+
   const { TabPane } = Tabs;
 
   const [isVisibleModalLicenses, setIsVisibleModalLicenses] = useState(false);
@@ -17,12 +29,41 @@ export const AdminCompanyUsers = (props) => {
   const [isVisibleModalEditUser, setIsVisibleModalEditUser] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState([]);
 
-  const inviteUsers = async () => {
-    console.log("invitation");
+  const showConfirm = () => {
+    confirm({
+      title: "Esta seguro que quiere eliminar estos miembros?",
+      icon: <ExclamationCircleOutlined />,
+      content: "No se recuperara la informacion de estos miembros",
+      okText: "Eliminar",
+      okType: "danger",
+      cancelText: "Cancelar",
+      onOk() {
+        deleteUsers();
+      },
+      onCancel() {
+        setSelectedUsers([]);
+      },
+    });
   };
 
   const deleteUsers = async () => {
-    console.log("delete user");
+    try {
+      const { error } = await Fetch(`${config.serverUrl}/api/companies/${companyId}/members`, "DELETE", {
+        members: props.selectedUsers,
+      });
+
+      props.showNotification(
+        error ? "ERROR" : "OK",
+        error ? "Algo salió mal" : "Guardado!",
+        error ? "error" : "success"
+      );
+
+      if (error) throw Error(error);
+
+      if (!error) setSelectedUsers([]);
+    } catch (error) {
+      await sendError(error, "editUsers");
+    }
   };
 
   const exportExcel = async () => {
@@ -81,12 +122,20 @@ export const AdminCompanyUsers = (props) => {
                 <div className="search-user">
                   <Input type="search" placeholder="Buscar" />
                   <Desktop>
-                    <ButtonAnt color="default" onClick={() => setIsVisibleModalEditUser(true)} margin="0 10px 0 10px">
-                      Editar
-                    </ButtonAnt>
-                    <ButtonAnt color="danger" onClick={() => setIsVisibleModalEditUser(true)} margin="0 10px 0 0">
-                      Eliminar
-                    </ButtonAnt>
+                    {selectedUsers.length > 0 && (
+                      <>
+                        <ButtonAnt
+                          color="default"
+                          onClick={() => setIsVisibleModalEditUser(true)}
+                          margin="0 10px 0 10px"
+                        >
+                          Editar
+                        </ButtonAnt>
+                        <ButtonAnt color="danger" onClick={showConfirm} margin="0 10px 0 0">
+                          Eliminar
+                        </ButtonAnt>
+                      </>
+                    )}
                   </Desktop>
                 </div>
                 <div className="actions">
@@ -115,7 +164,13 @@ export const AdminCompanyUsers = (props) => {
               </div>
 
               <Tablet>
-                <TabletUsers setSelectedUsers={setSelectedUsers} {...props} />
+                <TabletUsers
+                  setSelectedUsers={setSelectedUsers}
+                  selectedUsers={selectedUsers}
+                  showConfirm={showConfirm}
+                  setIsVisibleModalEditUser={setIsVisibleModalEditUser}
+                  {...props}
+                />
               </Tablet>
 
               <Desktop>
@@ -226,6 +281,50 @@ const FirstTabContent = styled.div`
     .ant-select {
       width: 250px;
       margin-bottom: 0 !important;
+    }
+  }
+
+  .top-table-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .hidden {
+      display: none;
+    }
+
+    .btns-container {
+      display: flex;
+      align-items: center;
+
+      button {
+        padding: 5px !important;
+      }
+    }
+  }
+
+  .table-header {
+    display: grid;
+    grid-template-columns: 40px 200px;
+    align-items: center;
+    height: 47px;
+    margin: 5px 0;
+    background: ${(props) => props.theme.basic.whiteDark};
+    border: 1px solid ${(props) => props.theme.basic.grayLighten};
+    box-sizing: border-box;
+    border-radius: 5px;
+
+    .checkbox-container {
+      margin: auto;
+    }
+
+    .filter {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 18px;
+      color: ${(props) => props.theme.basic.blackDarken};
     }
   }
 

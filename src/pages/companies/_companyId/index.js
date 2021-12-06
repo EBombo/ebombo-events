@@ -7,6 +7,7 @@ import { firestore } from "../../../firebase";
 import { EditCompany } from "./EditCompany";
 import { spinLoader } from "../../../components/common/loader";
 import { AdminCompanyUsers } from "./AdminCompanyUsers";
+import { snapshotToArray } from "../../../utils";
 
 export const Company = (props) => {
   const router = useRouter();
@@ -48,13 +49,7 @@ export const Company = (props) => {
         .doc(companyId)
         .collection("members")
         .onSnapshot((membersOnSnapShot) => {
-          if (!membersOnSnapShot.exists) {
-            setUsers([{ ...authUser, role: "Owner", status: "Active" }]);
-            setLoadingUsers(false);
-            return;
-          }
-
-          setUsers(membersOnSnapShot.data());
+          setUsers([{ ...authUser, role: "Owner", status: "Active", key: authUser.id }, ...snapshotToArray(membersOnSnapShot)]);
           setLoadingUsers(false);
         });
 
@@ -85,8 +80,8 @@ export const Company = (props) => {
           </div>
         </div>
 
-        {tab === "information" && <EditCompany company={company} {...props} />}
-        {tab === "users" && <AdminCompanyUsers company={company} users={users} {...props} />}
+        {tab === "information" && <EditCompany company={company} key={users} {...props} />}
+        {tab === "users" && <AdminCompanyUsers company={company} users={users} key={users} {...props} />}
       </div>
     </CompanyContainer>
   );

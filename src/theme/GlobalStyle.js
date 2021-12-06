@@ -218,50 +218,10 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-  /*-------------- POPOVER ---------------*/
-
   /*-------------- DISABLED ---------------*/
   .disabled {
     pointer-events: none;
     filter: brightness(0.4);
-  }
-
-  /*-------------- DISABLED ---------------*/
-
-  /*-------------- MODAL CONFIRM ---------------*/
-  .ant-modal-content {
-    background: ${(props) => props.theme.basic.blackDarken};
-
-    .ant-modal-body {
-      .ant-modal-confirm-body-wrapper {
-        .ant-modal-confirm-body {
-          .anticon {
-            color: ${(props) => props.theme.basic.primary};
-          }
-
-          .ant-modal-confirm-title {
-            color: ${(props) => props.theme.basic.white};
-          }
-
-          .ant-modal-confirm-content {
-            color: ${(props) => props.theme.basic.white};
-          }
-        }
-
-        .ant-modal-confirm-btns {
-          .ant-btn {
-            color: ${(props) => props.theme.basic.white};
-            background: ${(props) => props.theme.basic.blackDarken};
-            border: 1px solid ${(props) => props.theme.basic.primary};
-          }
-
-          .ant-btn-info {
-            color: ${(props) => props.theme.basic.white};
-            background: ${(props) => props.theme.basic.primary};
-          }
-        }
-      }
-    }
   }
 
   /*-------------- MODAL CONFIRM ---------------*/

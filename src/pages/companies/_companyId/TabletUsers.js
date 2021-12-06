@@ -9,8 +9,38 @@ import orderBy from "lodash/orderBy";
 
 export const TabletUsers = (props) => {
   const [key, setKey] = useState("email");
+  const [users, setUsers] = useState(props.users.map((user) => ({ ...user, isChecked: false })));
 
-  const orderUsers = () => orderBy(props.users, [`${key}`], ["asc"]);
+  const orderUsers = () => orderBy(users, [`${key}`], ["asc"]);
+
+  const handleCheckChieldElement = (event, userId) => {
+    const newUsers = users.map((user) => {
+      if (user.id === userId) {
+        user.isChecked = event.target.checked;
+        props.setSelectedUsers([...props.selectedUsers, user]);
+      }
+      return user;
+    });
+
+    if (!event.target.checked) {
+      const selectedUsers = props.selectedUsers.filter((user) => user.id !== userId);
+      console.log(selectedUsers);
+      props.setSelectedUsers(selectedUsers);
+    }
+
+    setUsers(newUsers);
+  };
+
+  const handleAllChecked = (event) => {
+    const newUsers = users.map((user) => ({ ...user, isChecked: event.target.checked }));
+    if (event.target.checked) {
+      props.setSelectedUsers(props.users);
+    } else {
+      props.setSelectedUsers([]);
+    }
+
+    setUsers(newUsers);
+  };
 
   return (
     <>
@@ -25,20 +55,36 @@ export const TabletUsers = (props) => {
           borderLeft={`0.1px solid ${darkTheme.basic.grayLighten}`}
           borderBottom={`0.1px solid ${darkTheme.basic.grayLighten}`}
           optionFilterProp="children"
-          optionsdom={usersOrder.map((reason) => ({
-            key: reason.id,
-            code: reason.code,
-            name: reason.name,
+          optionsdom={usersOrder.map((order) => ({
+            key: order.id,
+            code: order.code,
+            name: order.name,
           }))}
           onChange={(value) => setKey(value)}
         />
       </div>
 
       <div className="users">
-        {orderUsers().map((user, index) => (
-          <div className="user-content" key={`${user.nickname}-${index}`}>
+        <div className="top-table-container">
+          <div className="table-header">
             <div className="checkbox-container">
-              <Checkbox />
+              <input type="checkbox" onClick={(e) => handleAllChecked(e)} value="checkedall" />
+            </div>
+            <div className="filter">{usersOrder.find((order) => order.code === key).name}</div>
+          </div>
+          <div className={`${props.selectedUsers.length > 0 ? "btns-container" : "hidden"}`}>
+            <ButtonAnt color="default" onClick={() => props.setIsVisibleModalEditUser(true)} margin="0 10px 0 10px">
+              Editar
+            </ButtonAnt>
+            <ButtonAnt color="danger" onClick={props.showConfirm} margin="0 10px 0 0">
+              Eliminar
+            </ButtonAnt>
+          </div>
+        </div>
+        {orderUsers().map((user, index) => (
+          <div className="user-content" key={`${user.email}-${index}`}>
+            <div className="checkbox-container">
+              <Checkbox checked={user.isChecked} onChange={(e) => handleCheckChieldElement(e, user.id)} />
             </div>
             <Image
               src={user.profileImgUrl ?? `${config.storageUrl}/resources/user-profile.svg`}

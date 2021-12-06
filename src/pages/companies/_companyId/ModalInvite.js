@@ -52,6 +52,8 @@ export const ModalInvite = (props) => {
       );
 
       if (error) throw Error(error);
+
+      if (!error) props.setIsVisibleModalInvite(false);
     } catch (error) {
       await sendError(error, "inviteUsers");
     }

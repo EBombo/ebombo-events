@@ -50,6 +50,8 @@ export const ModalEditUser = (props) => {
       );
 
       if (error) throw Error(error);
+
+      if (!error) props.setIsVisibleModalEditUser(false);
     } catch (error) {
       await sendError(error, "editUsers");
     }
