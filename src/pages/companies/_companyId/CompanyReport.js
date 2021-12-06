@@ -53,10 +53,12 @@ export const CompanyReport = (props) => {
                 <QuestionCircleOutlined />
               </Tooltip>
             </div>
+
             <div className="body">
               <div>Jugadores</div>
               <div>137</div>
             </div>
+
             <div className="body">
               <div>Sesiones</div>
               <div>9</div>
@@ -72,10 +74,12 @@ export const CompanyReport = (props) => {
                 <QuestionCircleOutlined />
               </Tooltip>
             </div>
+
             <div className="body">
               <div>Jugadores</div>
               <div>137</div>
             </div>
+
             <div className="body">
               <div>Sesiones</div>
               <div>9</div>
@@ -88,12 +92,14 @@ export const CompanyReport = (props) => {
 
       <div className="list-users">
         <div className="title">Anfitriones principales</div>
+
         <div className="head">
           <div>Rango</div>
           <div>Correo electrónico</div>
           <div>Usuario</div>
           <div>Ebombo hosted</div>
         </div>
+
         <div className="body">
           <div>1</div>
           <div>hello@ebombo.pe</div>
