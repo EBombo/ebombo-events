@@ -76,25 +76,28 @@ export const Distribution2RightStyled = styled.div`
 `;
 
 export const Distribution2CenterStyled = styled.div`
-  ${(props) => (props.color ? `color:${props.color};` : "")};
-  height: 100%;
   width: 100%;
+  height: 100%;
+  ${(props) => (props.color ? `color:${props.color};` : "")};
   padding-bottom: ${(props) => (props.footerBar ? props.footerBar : "0px")};
 
+  ${(props) => (props.noResponsive ? "display: grid;grid-template-columns: 1fr 1fr;" : "")}
+
   ${mediaQuery.afterTablet} {
+    padding: 0;
+    width: 100%;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100%;
-    width: 100%;
-    padding: 0;
   }
 `;
 
 export const DistributionCol = styled.div`
-  background: ${(props) => (props.background ? props.background : "transparent")};
-  ${(props) => (props.color ? `color:${props.color};` : "")};
   padding: 10px 8px;
   overflow-y: hidden;
+  text-align: ${(props) => props.align ?? "center"};
+  background: ${(props) => (props.background ? props.background : "transparent")};
+  ${(props) => (props.color ? `color:${props.color};` : "")};
   ${(props) => !isNaN(props.visible) && !props.visible && "display:none;"};
 
   ${mediaQuery.afterTablet} {
