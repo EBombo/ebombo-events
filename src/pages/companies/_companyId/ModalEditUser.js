@@ -11,17 +11,21 @@ import { Checkbox } from "antd";
 import { useFetch } from "../../../hooks/useFetch";
 import { useSendError } from "../../../hooks";
 import { adsOptions } from "../../../components/common/DataList";
+import { useRouter } from "next/router";
 
 export const ModalEditUser = (props) => {
+  const router = useRouter();
+
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
+
+  const { companyId } = router.query;
 
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const schema = object().shape({
     role: string().required(),
-    emails: string().required(),
   });
 
   const { handleSubmit, register, errors } = useForm({
@@ -33,8 +37,8 @@ export const ModalEditUser = (props) => {
     try {
       setLoading(true);
 
-      const { error } = await Fetch(`${config.serverUrl}/api/companies/${props.company.id}/members`, "PUT", {
-        members: data.members.split("\n"),
+      const { error } = await Fetch(`${config.serverUrl}/api/companies/${companyId}/members`, "PUT", {
+        members: props.selectedUsers,
         role: data.role,
         ads,
       });
@@ -47,7 +51,7 @@ export const ModalEditUser = (props) => {
 
       if (error) throw Error(error);
     } catch (error) {
-      await sendError(error, "saveCompany");
+      await sendError(error, "editUsers");
     }
 
     setLoading(false);

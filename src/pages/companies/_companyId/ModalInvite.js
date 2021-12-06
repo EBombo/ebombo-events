@@ -11,10 +11,15 @@ import { useSendError } from "../../../hooks";
 import { ButtonAnt, Input, TextArea } from "../../../components/form";
 import { Checkbox } from "antd";
 import { adsOptions } from "../../../components/common/DataList";
+import { useRouter } from "next/router";
 
 export const ModalInvite = (props) => {
+  const router = useRouter();
+
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
+
+  const { companyId } = router.query;
 
   const [loading, setLoading] = useState(false);
   const [ads, setAds] = useState([]);
@@ -34,8 +39,8 @@ export const ModalInvite = (props) => {
     try {
       setLoading(true);
 
-      const { error } = await Fetch(`${config.serverUrl}/api/companies/${props.company.id}/members`, "POST", {
-        members: data.members.split("\n"),
+      const { error } = await Fetch(`${config.serverUrl}/api/companies/${companyId}/members`, "POST", {
+        members: data.emails.split("\n"),
         role: data.role,
         ads,
       });
@@ -48,7 +53,7 @@ export const ModalInvite = (props) => {
 
       if (error) throw Error(error);
     } catch (error) {
-      await sendError(error, "saveCompany");
+      await sendError(error, "inviteUsers");
     }
 
     setLoading(false);
