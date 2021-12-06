@@ -15,6 +15,7 @@ import { config } from "../../../firebase";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const { confirm } = Modal;
+const { TabPane } = Tabs;
 
 export const AdminCompanyUsers = (props) => {
   const router = useRouter();
@@ -22,7 +23,7 @@ export const AdminCompanyUsers = (props) => {
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
 
-  const { TabPane } = Tabs;
+  const { companyId } = router.query;
 
   const [isVisibleModalLicenses, setIsVisibleModalLicenses] = useState(false);
   const [isVisibleModalInvite, setIsVisibleModalInvite] = useState(false);
@@ -49,7 +50,7 @@ export const AdminCompanyUsers = (props) => {
   const deleteUsers = async () => {
     try {
       const { error } = await Fetch(`${config.serverUrl}/api/companies/${companyId}/members`, "DELETE", {
-        members: props.selectedUsers,
+        members: selectedUsers,
       });
 
       props.showNotification(
