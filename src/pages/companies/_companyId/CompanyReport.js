@@ -28,6 +28,7 @@ export const CompanyReport = (props) => {
         <DistributionCol>
           <Distribution2CenterStyled noResponsive>
             <DistributionCol>
+              {/*TODO: Format date.*/}
               {/*TODO: Validate dates [is required].*/}
               {/*TODO: FROM should be before UNTIL [disable dates not allow].*/}
               <div className="title">Desde</div>
