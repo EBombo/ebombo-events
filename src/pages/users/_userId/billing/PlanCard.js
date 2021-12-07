@@ -1,31 +1,19 @@
 import React, { useGlobal, useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { Table } from "antd";
 import { firestore } from "../../../../firebase";
 import { snapshotToArray } from "../../../../utils";
 import { ButtonAnt } from "../../../../components/form";
-
-const { Column } = Table;
-
-const data = [
-  {
-    key: '1',
-    billingId: "abcde1",
-    date: '16 Dic 2020 - 16 Dic 2020 ',
-    description: 'Kahoot! 360 Pro (annual billing)	',
-    quantity: 1,
-    price: 720,
-    currency: 'USD',
-    partialPrice: 720,
-  },
-];
+import { ModalContainer } from "../../../../components/common/ModalContainer";
+import { darkTheme } from "../../../../theme";
 
 export const PlanCard = (props) => {
   const router = useRouter();
-  const { userId } = router.query;
+  const {userId} = router.query;
+
   const [activePlan, setActivePlan] = useState();
   const [subscription, setSubscription] = useState();
+  const [isVisibleSeePlans, setIsVisibleSeePlans] = useState(false);
 
   const getUserSubscriptions = () => firestore.collection(`customers/${userId}/subscriptions`).where('status', '==', 'active').get();
 
@@ -44,6 +32,16 @@ export const PlanCard = (props) => {
 
   return (
     <PlanCardStyled>
+      <ModalContainer
+        background={darkTheme.basic.gray}
+        footer={null}
+        visible={isVisibleSeePlans}
+        closable={true}
+        onCancel={() => setIsVisibleSeePlans(false)}
+      >
+        Planes
+      </ModalContainer>
+
       <div className="status-label"><span className="dot">&bull;</span>{ subscription?.status }</div>
       <div className="subheading">Plan Actual</div>
       <div className="heading">{activePlan ? activePlan.name : 'Free'}</div>
@@ -51,7 +49,7 @@ export const PlanCard = (props) => {
       {activePlan && (
         <>
           <div className="no-plan-label">¿Aún no tienes un plan?</div>
-          <ButtonAnt block color="secondary" className="button-see-plans" onClick={() => {}}>Ver planes</ButtonAnt>
+          <ButtonAnt block color="secondary" className="button-see-plans" onClick={() => {setIsVisibleSeePlans(true)}}>Ver planes</ButtonAnt>
         </>
       )}
     </PlanCardStyled>
