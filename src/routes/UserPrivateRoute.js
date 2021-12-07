@@ -8,6 +8,7 @@ export const UserPrivateRoute = (props) => {
   const [authUser] = useGlobal("user");
 
   useEffect(() => {
+    console.log({ authUser });
     if (!authUser) router.push("/");
   }, [authUser]);
 
