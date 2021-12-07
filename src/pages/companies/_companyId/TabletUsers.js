@@ -24,7 +24,6 @@ export const TabletUsers = (props) => {
 
     if (!event.target.checked) {
       const selectedUsers = props.selectedUsers.filter((user) => user.id !== userId);
-      console.log(selectedUsers);
       props.setSelectedUsers(selectedUsers);
     }
 
