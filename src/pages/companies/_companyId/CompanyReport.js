@@ -61,6 +61,7 @@ export const CompanyReport = (props) => {
         <Desktop>{lastUpdated}</Desktop>
       </Distribution2CenterStyled>
 
+      {/* TODO: Metrics.*/}
       <Distribution3Styled>
         <DistributionCol>
           <div className="metrics">
@@ -83,6 +84,7 @@ export const CompanyReport = (props) => {
           </div>
         </DistributionCol>
 
+        {/* TODO: Metrics.*/}
         <DistributionCol>
           <div className="metrics">
             <div className="head">
@@ -107,6 +109,7 @@ export const CompanyReport = (props) => {
         <DistributionCol />
       </Distribution3Styled>
 
+      {/* TODO: Metrics.*/}
       <div className="list-users">
         <div className="title">Anfitriones principales</div>
 
