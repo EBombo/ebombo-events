@@ -20,10 +20,10 @@ const { TabPane } = Tabs;
 export const AdminCompanyUsers = (props) => {
   const router = useRouter();
 
+  const { companyId } = router.query;
+
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
-
-  const { companyId } = router.query;
 
   const [isVisibleModalLicenses, setIsVisibleModalLicenses] = useState(false);
   const [isVisibleModalInvite, setIsVisibleModalInvite] = useState(false);

@@ -16,10 +16,10 @@ import { useRouter } from "next/router";
 export const ModalEditUser = (props) => {
   const router = useRouter();
 
+  const { companyId } = router.query;
+
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
-
-  const { companyId } = router.query;
 
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
