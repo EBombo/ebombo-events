@@ -16,10 +16,10 @@ import { useRouter } from "next/router";
 export const ModalInvite = (props) => {
   const router = useRouter();
 
+  const { companyId } = router.query;
+
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
-
-  const { companyId } = router.query;
 
   const [loading, setLoading] = useState(false);
   const [ads, setAds] = useState([]);
