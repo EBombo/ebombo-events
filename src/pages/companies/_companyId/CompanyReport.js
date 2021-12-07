@@ -1,4 +1,4 @@
-import React, { useMemo } from "reactn";
+import React, { useMemo, useState } from "reactn";
 import styled from "styled-components";
 import moment from "moment";
 import {
@@ -12,6 +12,20 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 
 export const CompanyReport = (props) => {
+  const [startDate, setStartDate] = useState(moment().subtract(1, "weeks"));
+  const [endDate, setEndDate] = useState(moment());
+  const [error, setError] = useState(null);
+
+  const reportInformation = useMemo(() => {
+    if (startDate.isAfter(endDate))
+      return setError({ message: "La fecha de inicio debe ser anterior a la fecha de finalización" });
+
+    setError(null);
+
+    // TODO: fetch data between startDate & endDate.
+    return [];
+  }, [startDate, endDate]);
+
   const lastUpdated = useMemo(() => {
     return (
       <DistributionCol align="right">
@@ -28,15 +42,18 @@ export const CompanyReport = (props) => {
         <DistributionCol>
           <Distribution2CenterStyled noResponsive>
             <DistributionCol>
-              {/*TODO: Format date.*/}
-              {/*TODO: Validate dates [is required].*/}
-              {/*TODO: FROM should be before UNTIL [disable dates not allow].*/}
               <div className="title">Desde</div>
-              <DatePicker defaultValue={moment().subtract(1, "weeks")} />
+              <DatePicker
+                defaultValue={startDate}
+                format="ll"
+                onChange={(value) => setStartDate(value)}
+                error={error}
+              />
             </DistributionCol>
+
             <DistributionCol>
               <div className="title">Hasta</div>
-              <DatePicker defaultValue={moment()} />
+              <DatePicker defaultValue={endDate} format="ll" onChange={(value) => setEndDate(value)} />
             </DistributionCol>
           </Distribution2CenterStyled>
         </DistributionCol>
