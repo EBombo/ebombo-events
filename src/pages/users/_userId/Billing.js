@@ -1,29 +1,50 @@
-import React, { useGlobal, useEffect } from "reactn";
+import React, { useGlobal, useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../constants";
 import { PanelBox } from "../../../components/common/PanelBox";
 import { Anchor } from "../../../components/form";
 import { useRouter } from "next/router";
-
-import { config } from "../../../firebase";
-import { PlanCard } from "./billing/PlanCard";
-
+import { snapshotToArray } from "../../../utils";
+import { firestore } from "../../../firebase";
+import { CurrentPlanCard } from "./billing/CurrentPlanCard";
 
 export const Billing = (props) => {
   const router = useRouter();
   const { userId } = router.query;
 
+  const [activePlan, setActivePlan] = useState();
+  const [subscription, setSubscription] = useState();
+
+  const getUserSubscriptions = () => firestore.collection(`customers/${userId}/subscriptions`).where('status', '==', 'active').get();
+
+  useEffect(() => {
+    const getPlan = async () => {
+      const activeSubscriptions = snapshotToArray(await getUserSubscriptions());
+      if (activeSubscriptions.length === 0) {
+        return setActivePlan(null);
+      }
+      setSubscription(activeSubscriptions[0]);
+      return setActivePlan((await activeSubscriptions[0].product.get()).data());
+    };
+
+    return getPlan();
+  }, []);
+
   return (
     <BillingContainer>
       <div className="inner-layout">
         <PanelBox elevated heading="Vision General">
-          <div>Plan:</div>
-          <div><Anchor className="link" onClick={() => router.push(`/users/${userId}/billing/detail`)}>Gestionar Facturas</Anchor></div>
-          <div><Anchor className="link" onClick={() => router.push(`/users/${userId}/billing/detail`)}>Administrar suscripción</Anchor></div>
+          <div>Plan: {activePlan?.name}</div>
+          { subscription && 
+            <>
+              <div><Anchor className="link" onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}>Gestionar Facturas</Anchor></div>
+              <div><Anchor className="link" onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}>Administrar suscripción</Anchor></div>
+            </>
+          }
           <div>Ciclo de pago: </div>
         </PanelBox>
         <PanelBox className="panel" elevated heading="Licencias y Admins"/>
-        <PlanCard className="plan-card"/>
+        <CurrentPlanCard className="plan-card" activePlan={activePlan} subscription={subscription} {...props} />
       </div>
     </BillingContainer>
   );

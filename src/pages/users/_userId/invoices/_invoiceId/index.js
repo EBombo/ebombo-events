@@ -23,12 +23,12 @@ const data = [
   },
 ];
 
-export const BillId = (props) => {
+export const InvoiceDetail = (props) => {
   const router = useRouter();
   const { userId, billId } = router.query;
 
   return (
-    <BillIdContainer>
+    <InvoiceDetailContainer>
       <div>
         <Breadcrumb separator=">">
           <Breadcrumb.Item>
@@ -162,7 +162,6 @@ export const BillId = (props) => {
           <div>Todas las cantidades en Dólares estadounidenses (USD)</div>
         </div>
 
-
         <div className="format-container payment-amount">
           <div className="inner-format-total-amount">
             <div className="bold">Monto a pagar</div>
@@ -185,12 +184,11 @@ export const BillId = (props) => {
           </div>
         </div>
       </div>
-
-    </BillIdContainer>
+    </InvoiceDetailContainer>
   )
 };
 
-const BillIdContainer = styled.div`
+const InvoiceDetailContainer = styled.div`
   background: ${(props) => props.theme.basic.white};
   padding-bottom: 1rem;
   font-size: 18px;
@@ -362,6 +360,5 @@ const BillIdContainer = styled.div`
       justify-content: flex-end;
     }
   }
-
-
 `;
+

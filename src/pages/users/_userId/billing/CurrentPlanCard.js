@@ -1,34 +1,18 @@
 import React, { useGlobal, useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { firestore } from "../../../../firebase";
-import { snapshotToArray } from "../../../../utils";
 import { ButtonAnt } from "../../../../components/form";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { darkTheme } from "../../../../theme";
+import { sendToCheckout } from "../../../../stripe";
+import { SubscriptionPlans } from "./SubscriptionPlans";
 
-export const PlanCard = (props) => {
+export const CurrentPlanCard = (props) => {
   const router = useRouter();
   const {userId} = router.query;
 
-  const [activePlan, setActivePlan] = useState();
-  const [subscription, setSubscription] = useState();
   const [isVisibleSeePlans, setIsVisibleSeePlans] = useState(false);
-
-  const getUserSubscriptions = () => firestore.collection(`customers/${userId}/subscriptions`).where('status', '==', 'active').get();
-
-  useEffect(() => {
-    const getPlan = async () => {
-      const activeSubscriptions = snapshotToArray(await getUserSubscriptions());
-      if (activeSubscriptions.length === 0) {
-        return setActivePlan(null);
-      }
-      setSubscription(activeSubscriptions[0]);
-      return setActivePlan((await activeSubscriptions[0].product.get()).data());
-    };
-
-    return getPlan();
-  }, []);
+  const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
 
   return (
     <PlanCardStyled>
@@ -38,15 +22,27 @@ export const PlanCard = (props) => {
         visible={isVisibleSeePlans}
         closable={true}
         onCancel={() => setIsVisibleSeePlans(false)}
+        width="100%"
       >
-        Planes
+        <SubscriptionPlans
+          isLoadingCheckoutPlan={isLoadingCheckoutPlan}
+          setIsLoadingCheckoutPlan={setIsLoadingCheckoutPlan}
+          onSelectedPlan={async (plan) => {
+            if (plan.name.includes("Exclusivo")) return;
+
+            setIsLoadingCheckoutPlan(true);
+            await sendToCheckout(userId, plan.currentPrice.id);
+            setIsLoadingCheckoutPlan(false);
+          }}
+          {...props} 
+        />
       </ModalContainer>
 
-      <div className="status-label"><span className="dot">&bull;</span>{ subscription?.status }</div>
+      <div className="status-label"><span className="dot">&bull;</span>{ props.subscription?.status }</div>
       <div className="subheading">Plan Actual</div>
-      <div className="heading">{activePlan ? activePlan.name : 'Free'}</div>
+      <div className="heading">{props.activePlan ? props.activePlan.name : 'Free'}</div>
 
-      {activePlan && (
+      {props.activePlan && (
         <>
           <div className="no-plan-label">¿Aún no tienes un plan?</div>
           <ButtonAnt block color="secondary" className="button-see-plans" onClick={() => {setIsVisibleSeePlans(true)}}>Ver planes</ButtonAnt>

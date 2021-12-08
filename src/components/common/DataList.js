@@ -177,6 +177,20 @@ export const plans = [
   },
 ];
 
+export const freePlan = {
+  ...plans[0],
+  metadata: {
+    color: plans[0].color,
+    background: plans[0].background,
+    users: plans[0].users,
+    games: plans[0].games,
+  },
+  currentPrice: {
+    amount: plans[0].price,
+    currency: 'usd',
+  },
+};
+
 export const products = [
   {
     id: "eventos-virtuales",
@@ -746,3 +760,8 @@ export const bingoCard = [
   [46, 48, 56, 59, 60],
   [61, 63, 68, 72, 75],
 ];
+
+export const getCurrencySymbol = {
+  'usd': '$',
+};
+

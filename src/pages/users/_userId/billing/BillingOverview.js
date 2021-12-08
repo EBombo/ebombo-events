@@ -1,45 +1,14 @@
 import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import { mediaQuery, Desktop, Tablet } from "../../../constants";
-import { PanelBox } from "../../../components/common/PanelBox";
-import { Anchor } from "../../../components/form";
 import { useRouter } from "next/router";
 import { DownloadOutlined } from "@ant-design/icons";
 import { Table, Space } from "antd";
+import { mediaQuery, Desktop, Tablet } from "../../../../constants";
+import { PanelBox } from "../../../../components/common/PanelBox";
+import { Anchor } from "../../../../components/form";
+import { InvoiceTable } from "../invoices/InvoiceTable";
 
-const { Column } = Table;
-
-const data = [
-  {
-    key: '1',
-    billingId: "abcde1",
-    firstName: 'John',
-    lastName: 'Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    billingId: "abcde2",
-    firstName: 'Jim',
-    lastName: 'Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    billingId: "abcde3",
-    firstName: 'Joe',
-    lastName: 'Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
-
-export const BillingDetail = (props) => {
+export const BillingOverview = (props) => {
   return (
     <BillingDetailContainer>
       <div className="section">
@@ -111,58 +80,12 @@ export const BillingDetail = (props) => {
           </PanelBox>
         </div>
 
-        <div class="table">
+        <div className="table">
           <h2 className="title">Facturas</h2>
           <Anchor className="action-link" onClick={() => {}}>Ver todas las facturas</Anchor>
         </div>
 
-        <Tablet>
-          <Table dataSource={data}>
-            <Column 
-              title="Factura" 
-              dataIndex="billingId"
-              key="billingId" 
-              sorter={(a, b) => a.billing - b.billing}
-            />
-            <Column
-              key="action"
-              align="right"
-              render={() => (
-                  <DownloadOutlined />
-              )}
-            />
-          </Table>
-        </Tablet>
-        <Desktop>
-          <Table dataSource={data} className="table-billing">
-            <Column 
-              title="Factura" 
-              dataIndex="billingId" 
-              key="billingId"
-              sorter={(a, b) => a.billingId - b.billingId}
-            />
-            <Column title="Emitido el" dataIndex="age" key="age" />
-            <Column title="Vence el" dataIndex="address" key="address" />
-            <Column
-              title="Estado"
-              dataIndex="tags"
-              key="tags"
-            />
-            <Column
-              title="Total"
-              dataIndex="tags"
-              key="tags"
-            />
-            <Column
-              key="action"
-              render={() => (
-                <DownloadOutlined />
-              )}
-            />
-          </Table>
-        </Desktop>
-        
-        
+        <InvoiceTable {...props} />
       </div>
 
     </BillingDetailContainer>
