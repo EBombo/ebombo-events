@@ -368,10 +368,6 @@ const FirstTabContent = styled.div`
         min-width: 300px;
         display: flex;
         align-items: center;
-
-        input {
-          width: 250px;
-        }
       }
 
       .actions {
