@@ -69,10 +69,6 @@ export const AdminCompanyUsers = (props) => {
     }
   };
 
-  const exportExcel = async () => {
-    console.log("excel");
-  };
-
   return (
     <AdminContainer>
       {isVisibleModalEditUser && (
