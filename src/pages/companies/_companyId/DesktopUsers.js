@@ -10,7 +10,7 @@ const columns = [
     width: "30%",
   },
   {
-    title: "Name",
+    title: "Nombre",
     dataIndex: "name",
     sorter: true,
     width: "20%",

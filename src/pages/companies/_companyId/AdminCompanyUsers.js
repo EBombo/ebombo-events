@@ -13,6 +13,8 @@ import { useFetch } from "../../../hooks/useFetch";
 import { useSendError } from "../../../hooks";
 import { config } from "../../../firebase";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { CSVLink } from "react-csv";
+import { headers } from "../../../components/common/DataList";
 
 const { confirm } = Modal;
 const { TabPane } = Tabs;
@@ -141,9 +143,9 @@ export const AdminCompanyUsers = (props) => {
                 </div>
                 <div className="actions">
                   <Desktop>
-                    <ButtonAnt color="secondary" onClick={() => exportExcel()} margin="0 10px 0 0">
-                      Exportar CSV
-                    </ButtonAnt>
+                    <StyledCSVLink data={props.users} headers={headers}>
+                      Download me
+                    </StyledCSVLink>
                   </Desktop>
                   <ButtonAnt onClick={() => setIsVisibleModalInvite(true)}>Invitar usuarios</ButtonAnt>
                 </div>
@@ -381,5 +383,29 @@ const FirstTabContent = styled.div`
         align-items: center;
       }
     }
+  }
+`;
+
+const StyledCSVLink = styled(CSVLink)`
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 6px 20px;
+  height: 34px;
+  background: ${(props) => props.theme.basic.secondary};
+  font-family: Lato;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 18px;
+  color: ${props => props.theme.basic.whiteLight};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px ${props => props.theme.basic.secondaryDark};
+  margin-right: 1rem;
+  
+  :hover {
+    background: ${props => props.theme.basic.secondaryLight};
+    color: ${props => props.theme.basic.whiteLight};
   }
 `;
