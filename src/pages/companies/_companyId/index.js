@@ -10,7 +10,6 @@ import { AdminCompanyUsers } from "./AdminCompanyUsers";
 import { snapshotToArray } from "../../../utils";
 import { CompanyReport } from "./CompanyReport";
 
-
 export const Company = (props) => {
   const router = useRouter();
   const { companyId, currentTab } = router.query;
@@ -51,7 +50,10 @@ export const Company = (props) => {
         .doc(companyId)
         .collection("members")
         .onSnapshot((membersOnSnapShot) => {
-          setUsers([{ ...authUser, role: "Owner", status: "Active", key: authUser.id }, ...snapshotToArray(membersOnSnapShot)]);
+          setUsers([
+            { ...authUser, role: "Owner", status: "Active", key: authUser.id },
+            ...snapshotToArray(membersOnSnapShot),
+          ]);
           setLoadingUsers(false);
         });
 
@@ -83,7 +85,9 @@ export const Company = (props) => {
         </div>
 
         {tab === "information" && <EditCompany company={company} key={users} {...props} />}
+
         {tab === "users" && <AdminCompanyUsers company={company} users={users} key={users} {...props} />}
+
         {tab === "report" && <CompanyReport company={company} {...props} />}
       </div>
     </CompanyContainer>
