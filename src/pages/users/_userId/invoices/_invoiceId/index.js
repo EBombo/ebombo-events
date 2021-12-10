@@ -1,47 +1,60 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useState, useEffect } from "reactn";
 import styled from "styled-components";
+import moment from "moment";
 import { mediaQuery, Desktop, Tablet } from "../../../../../constants";
 import { PanelBox } from "../../../../../components/common/PanelBox";
+import { getCurrencySymbol, stripeDateFormat } from "../../../../../components/common/DataList";
 import { Anchor } from "../../../../../components/form";
+import { firestore } from "../../../../../firebase";
+import { formatAmount } from "../../../../../stripe";
 import { useRouter } from "next/router";
-import { Table, Space } from "antd";
+import { Table } from "antd";
 import { Breadcrumb } from 'antd';
 import { DownloadOutlined, PrinterOutlined } from "@ant-design/icons";
 
 const { Column } = Table;
 
-const data = [
-  {
-    key: '1',
-    billingId: "abcde1",
-    date: '16 Dic 2020 - 16 Dic 2020 ',
-    description: 'Kahoot! 360 Pro (annual billing)	',
-    quantity: 1,
-    price: 720,
-    currency: 'USD',
-    partialPrice: 720,
-  },
-];
-
 export const InvoiceDetail = (props) => {
   const router = useRouter();
-  const { userId, billId } = router.query;
+  const { userId, invoiceId, subscriptionId } = router.query;
+  const [invoice, setInvoice] = useState();
+  const [paymentInformation, setPaymentInformation] = useState();
+
+  const fetchInvoice = () => firestore.collection(`customers/${userId}/subscriptions/${subscriptionId}/invoices`).doc(invoiceId).get();
+  const fetchPaymentInformation = (paymentIntent) => firestore.collection(`customers/${userId}/payments`).doc(paymentIntent).get();
+
+  useEffect(() => {
+    if (invoice) return;
+
+    console.log(`===> getinvoice`);
+    const getInvoice = async () => {
+      const _invoice = (await fetchInvoice()).data();
+
+      const _paymentInformation = (await fetchPaymentInformation(_invoice['payment_intent'])).data();
+      console.log(`===> getinvoice`, _paymentInformation);
+      setPaymentInformation(_paymentInformation);
+
+      setInvoice(_invoice);
+    };
+
+    return getInvoice();
+  }, [invoice]);
 
   return (
     <InvoiceDetailContainer>
-      <div>
+      <div className="breadcrumb-container">
         <Breadcrumb separator=">">
           <Breadcrumb.Item>
             <Anchor 
               className="item-link"
-              onClick={() => router.push(`/users/${userId}/billing/detail`)}
+              onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscriptionId}`)}
             >Cuenta</Anchor>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <Anchor 
               className="item-link"
-              onClick={() => router.push(`/users/${userId}/billing/${billId}`)}
-            >Factura #{billId}</Anchor>
+              onClick={() => router.push(`/users/${userId}/invoices/${invoiceId}?subscriptionId=${subscriptionId}`)}
+            >Factura #{invoice?.number}</Anchor>
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>
@@ -49,7 +62,7 @@ export const InvoiceDetail = (props) => {
         <Anchor 
           variant="primary"
           underlined
-          onClick={null}
+          onClick={() => window.print()}
         ><PrinterOutlined/> Imprimir</Anchor>
 
         <Anchor 
@@ -64,8 +77,8 @@ export const InvoiceDetail = (props) => {
 
           <div className="bill-inner-layout">
             <div className="company-section">
-              <div className="field bold">Company A</div>
-              <div className="field">-</div>
+              <div className="field bold">{invoice?.account_name}</div>
+              <div className="field">{invoice?.account_name}</div>
               <div className="field">-</div>
               <div className="field">-</div>
               <div className="field">Email: -</div>
@@ -77,61 +90,76 @@ export const InvoiceDetail = (props) => {
               <div className="field bold">Factura</div>
               <div className="table">
                 <div className="">Número de factura</div>
-                <div className="">-</div>
+                <div className="">{invoice?.number}</div>
 
                 <div className="">Facturación De </div>
-                <div className="">-</div>
-
-                <div className="">Condiciones</div>
-                <div className="">-</div>
+                <div className="">{moment.unix(invoice?.created).format(stripeDateFormat)}</div>
 
                 <div className="">Vence El</div>
-                <div className="">-</div>
+                <div className="">{moment.unix(invoice?.created).format(stripeDateFormat)}</div>
               </div>
             </div>
 
             <div className="payer-section">
               <div className="field bold">Cobrar a</div>
-              <div>-</div>
-              <div>-</div>
+              <div>{invoice?.customer_name}</div>
+              <div>{invoice?.customer_email}</div>
 
-              <div>-</div>
-              <div>-</div>
+              <div>{paymentInformation?.charges.data?.[0].billing_details?.address?.postal_code}</div>
+              <div>{paymentInformation?.charges.data?.[0].billing_details?.address?.country}</div>
             </div>
 
             <div className="summary-section">
               <div className="status-value">Pagado</div>
-              <div className="status-date">-</div>
-              <div className="status-amount">- -</div>
+              <div className="status-date">{invoice?.status_transitions.paid_at}</div>
+              <div className="status-amount">{formatAmount(invoice?.total)} {getCurrencySymbol[invoice?.currency]} {invoice?.currency.toUpperCase()}</div>
             </div>
           </div>
 
           <Tablet>
-            <Table dataSource={data}>
+            <Table dataSource={[invoice]}>
               <Column 
                 title="Fecha" 
-                dataIndex="date"
-                key="date" 
-                sorter={(a, b) => a.billing - b.billing}
+                dataIndex="created"
+                key="created" 
+                sorter={(a, b) => a.created - b.created}
               />
             </Table>
           </Tablet>
           <Desktop>
-            <Table dataSource={data} className="table-billing">
+            <Table dataSource={[invoice]} className="table-billing" pagination={false}>
               <Column 
                 title="Fecha" 
-                dataIndex="date"
-                key="date" 
-                sorter={(a, b) => a.billing - b.billing}
+                dataIndex="created"
+                key="created" 
+                sorter={(a, b) => a.created - b.created}
               />
               <Column 
-                title="Desripción" 
-                dataIndex="description" 
-                key="description"
+                title="Descripción" 
+                dataIndex={["lines", "data", "0", "description"]}
+                key={["lines", "data", "0", "description"]}
               />
-              <Column title="Cantidad" dataIndex="quantity" key="quantity" />
-              <Column title="Precio" dataIndex="price" key="price" />
-              <Column title="Precio parcial" dataIndex="partialPrice" key="partialPrice" />
+              <Column
+                title="Cantidad" 
+                dataIndex={["lines", "data", "0", "quantity"]}
+                key={["lines", "data", "0", "quantity"]}
+              />
+              <Column
+                title="Precio" 
+                dataIndex={["lines", "data", "0", "price", "unit_amount"]}
+                key={["lines", "data", "0", "price", "unit_amount"]}
+                render={(unitAmount, item) => (
+                  `${formatAmount(unitAmount)} ${getCurrencySymbol[item?.lines.data[0].price.currency]}`
+                )}
+              />
+              <Column
+                title="Precio parcial"
+                dataIndex={["lines", "data", "0", "amount"]}
+                key={["lines", "data", "0", "amount"]}
+                render={(amount, item) => (
+                  `${formatAmount(amount)} ${getCurrencySymbol[item?.lines.data[0].currency]}`
+                )}
+              />
             </Table>
           </Desktop>
 
@@ -139,24 +167,24 @@ export const InvoiceDetail = (props) => {
             <div className="total-summary-inner-layout">
               <div className="table">
                 <div>Total parcial</div>
-                <div className="right">-</div>
+                <div className="right">{ formatAmount(invoice?.subtotal) } { getCurrencySymbol[invoice?.currency] }</div>
 
                 <div>Total</div>
-                <div className="right">-</div>
+                <div className="right">{ formatAmount(invoice?.total) } { getCurrencySymbol[invoice?.currency] }</div>
 
                 <div>Pagado</div>
-                <div className="right">-</div>
+                <div className="right">-{ formatAmount(invoice?.amount_paid) } { getCurrencySymbol[invoice?.currency] }</div>
               </div>
               <hr className="divider"/>
               <div className="table">
                 <div>Monto a pagar</div>
-                <div className="right"> - </div>
+                <div className="right"> { formatAmount(invoice?.amount_remaining) } { getCurrencySymbol[invoice?.currency] } </div>
               </div>
             </div>
           </div>
 
           <div className="bold">Pagos</div>
-          <div>-</div>
+          <div>{ moment.unix(invoice?.created).format(stripeDateFormat) } { formatAmount(invoice?.total) } { getCurrencySymbol[invoice?.currency] } Pago de { paymentInformation?.charges.data?.[0].payment_method_details.card?.brand } *{ paymentInformation?.charges.data?.[0].payment_method_details.card?.last4 } </div>
 
           <div className="bold">Notas</div>
           <div>Todas las cantidades en Dólares estadounidenses (USD)</div>
@@ -221,7 +249,13 @@ const InvoiceDetailContainer = styled.div`
     line-height: 22px;
   }
 
+  .breadcrumb-container {
+    margin: 0 1rem;
+    padding: 2rem 0 0 0;
+  }
+
   .actions-container {
+    margin: 0 1rem;
     text-align: right;
   }
 

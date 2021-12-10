@@ -1,46 +1,17 @@
 import React, { useState, useEffect } from "reactn";
 import styled from "styled-components";
+import moment from "moment";
 import { useRouter } from "next/router";
 import { Table, Space } from "antd";
-import { Breadcrumb } from 'antd';
 import { DownloadOutlined, PrinterOutlined } from "@ant-design/icons";
 import { mediaQuery, Desktop, Tablet } from "../../../../constants";
-import { PanelBox } from "../../../../components/common/PanelBox";
+import { getCurrencySymbol, stripeDateFormat } from "../../../../components/common/DataList";
 import { Anchor } from "../../../../components/form";
 import { firestore } from "../../../../firebase";
 import { snapshotToArray } from "../../../../utils";
+import { formatAmount } from "../../../../stripe";
 
 const { Column } = Table;
-
-const data = [
-  {
-    key: '1',
-    billingId: "abcde1",
-    firstName: 'John',
-    lastName: 'Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    billingId: "abcde2",
-    firstName: 'Jim',
-    lastName: 'Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    billingId: "abcde3",
-    firstName: 'Joe',
-    lastName: 'Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
 
 const downloadPdf = (pdfUrl) => window.open(pdfUrl, "blank");
 
@@ -53,13 +24,13 @@ export const InvoiceTable = (props) => {
   const fetchInvoices = () => firestore.collection(`customers/${userId}/subscriptions/${subscriptionId}/invoices`).get();
 
   useEffect(() => {
-    if (!subscriptionId) return;
+    if (invoices.length) return;
 
     const getInvoices = async () =>
       setInvoices(snapshotToArray(await fetchInvoices()));
 
     return getInvoices();
-  }, [subscriptionId]);
+  }, [invoices]);
 
   return (
     <InvoiceTableContainer {...props}>
@@ -94,8 +65,17 @@ export const InvoiceTable = (props) => {
                 >{ invoiceNumber }</Anchor>
               )}
             />
-            <Column title="Emitido el" dataIndex="created" key="created" />
-            <Column title="Vence el" dataIndex="period_end" key="period_end" />
+            <Column 
+              title="Emitido el" 
+              dataIndex="created" 
+              key="created"
+              render={(created) => moment.unix(created).format(stripeDateFormat)}
+            />
+            <Column title="Vence el" 
+              dataIndex="period_end" 
+              key="period_end"
+              render={(created) => moment.unix(created).format(stripeDateFormat)}
+            />
             <Column
               title="Estado"
               dataIndex="status"
@@ -105,6 +85,7 @@ export const InvoiceTable = (props) => {
               title="Total"
               dataIndex="total"
               key="total"
+              render={(total, item) => `${formatAmount(total)} ${getCurrencySymbol[item.currency]}`}
             />
             <Column
               key="action"
