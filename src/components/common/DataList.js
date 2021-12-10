@@ -765,3 +765,5 @@ export const getCurrencySymbol = {
   'usd': '$',
 };
 
+export const stripeDateFormat = 'DD MMM YYYY';
+

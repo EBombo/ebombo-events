@@ -1,5 +1,6 @@
 import React, { useGlobal, useState, useEffect } from "reactn";
 import styled from "styled-components";
+import sortBy from "lodash/sortBy";
 import { mediaQuery } from "../../../constants";
 import { PanelBox } from "../../../components/common/PanelBox";
 import { Anchor } from "../../../components/form";
@@ -19,7 +20,9 @@ export const Billing = (props) => {
 
   useEffect(() => {
     const getPlan = async () => {
-      const activeSubscriptions = snapshotToArray(await getUserSubscriptions());
+      const rawActiveSubscriptions = snapshotToArray(await getUserSubscriptions());
+      const activeSubscriptions = [ ...rawActiveSubscriptions.filter((sub) => !sub.canceled_at), ...rawActiveSubscriptions.filter((sub) => sub.canceled_at)] ;
+      // sortBy(rawActiveSubscriptions, []);
       if (activeSubscriptions.length === 0) {
         return setActivePlan(null);
       }
@@ -37,8 +40,8 @@ export const Billing = (props) => {
           <div>Plan: {activePlan?.name}</div>
           { subscription && 
             <>
-              <div><Anchor className="link" onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}>Gestionar Facturas</Anchor></div>
-              <div><Anchor className="link" onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}>Administrar suscripción</Anchor></div>
+              <div><Anchor underlined className="link" onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}>Gestionar Facturas</Anchor></div>
+              <div><Anchor underlined className="link" onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}>Administrar suscripción</Anchor></div>
             </>
           }
           <div>Ciclo de pago: </div>

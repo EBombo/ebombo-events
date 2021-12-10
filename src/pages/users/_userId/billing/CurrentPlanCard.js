@@ -42,7 +42,7 @@ export const CurrentPlanCard = (props) => {
       <div className="subheading">Plan Actual</div>
       <div className="heading">{props.activePlan ? props.activePlan.name : 'Free'}</div>
 
-      {props.activePlan && (
+      {(!props.activePlan || props.subscription?.canceled_at) && (
         <>
           <div className="no-plan-label">¿Aún no tienes un plan?</div>
           <ButtonAnt block color="secondary" className="button-see-plans" onClick={() => {setIsVisibleSeePlans(true)}}>Ver planes</ButtonAnt>

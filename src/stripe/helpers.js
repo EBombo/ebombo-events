@@ -1,4 +1,4 @@
-import { firestore } from "../firebase";
+import { firestore, functions } from "../firebase";
 
 export const sendToCheckout = async (userId, priceId) => {
   const docRef = await firestore
@@ -25,4 +25,18 @@ export const sendToCheckout = async (userId, priceId) => {
     }
   });
 };
+
+const createPortalLink = functions.httpsCallable('ext-firestore-stripe-payments-createPortalLink');
+
+export const goToPortalLink = () => {
+  createPortalLink({returnUrl: window.location.origin}) 
+    .then((response) => {
+      window.location.assign(response.data.url);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const formatAmount = (price) => (price / 100)?.toFixed(2);
 

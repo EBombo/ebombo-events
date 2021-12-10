@@ -1,16 +1,39 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { DownloadOutlined } from "@ant-design/icons";
 import { Table, Space } from "antd";
 import { mediaQuery, Desktop, Tablet } from "../../../../constants";
 import { PanelBox } from "../../../../components/common/PanelBox";
-import { Anchor } from "../../../../components/form";
+import { ModalContainer } from "../../../../components/common/ModalContainer";
+import { Anchor, ButtonAnt } from "../../../../components/form";
 import { InvoiceTable } from "../invoices/InvoiceTable";
+import { darkTheme } from "../../../../theme";
+import { goToPortalLink } from "../../../../stripe";
 
 export const BillingOverview = (props) => {
+  const [isVisibleCancelSubscription, setIsVisibleCancelSubscription] = useState(false);
+
   return (
     <BillingDetailContainer>
+      <ModalContainer
+        background={darkTheme.basic.gray}
+        visible={isVisibleCancelSubscription}
+        footer={null}
+        closable
+        padding={"1rem"}
+        onCancel={() => setIsVisibleCancelSubscription(false)}
+      >
+        <div>¿Cancelar Suscripción?</div>
+        <div>Si se cancela, la suscripción continuará hasta la próxima fecha de facturación y luego caducará.</div>
+        <div className="table">
+          <ButtonAnt onClick={() => setIsVisibleCancelSubscription}>Cerrar</ButtonAnt>
+          <ButtonAnt onClick={() => goToPortalLink()}>Cancelar suscripción</ButtonAnt>
+        </div>
+
+        
+      </ModalContainer>
+
       <div className="section">
         <h2 className="title">Suscripciones</h2>
         <div className="subscriptions-layout">
@@ -55,7 +78,11 @@ export const BillingOverview = (props) => {
               </div>
 
             </div>
-            <div><Anchor>Cancelar suscripción</Anchor> </div>
+            <div className="right">
+              <Anchor variant="primary" onClick={() => {
+                setIsVisibleCancelSubscription(true);
+              }}>Cancelar suscripción</Anchor>
+            </div>
           </PanelBox>
 
           <PanelBox
@@ -99,6 +126,10 @@ const BillingDetailContainer = styled.div`
       max-width: 1200px;
       margin: 0 auto;
     }
+  }
+
+  .right {
+    text-align: right;
   }
 
   .table {
