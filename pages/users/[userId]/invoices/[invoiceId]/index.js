@@ -10,13 +10,12 @@ const UserLayout = dynamic(() => import("../../../../../src/components/UserLayou
 });
 
 const InvoiceIdView = (props) => (
+  <UserPrivateRoute>
     <UserLayout {...props}>
       <InvoiceDetail {...props} />
     </UserLayout>
-
+  </UserPrivateRoute>
 );
-  // <UserPrivateRoute>
-  // </UserPrivateRoute>
 
 export default InvoiceIdView;
 
