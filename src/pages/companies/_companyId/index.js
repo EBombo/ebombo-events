@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery } from "../../../constants";
 import { DesktopLeftMenu } from "../../../components/common/DesktopLeftMenu";
@@ -6,14 +6,20 @@ import { useRouter } from "next/router";
 import { firestore } from "../../../firebase";
 import { EditCompany } from "./EditCompany";
 import { spinLoader } from "../../../components/common/loader";
+import { AdminCompanyUsers } from "./AdminCompanyUsers";
+import { snapshotToArray } from "../../../utils";
 
 export const Company = (props) => {
   const router = useRouter();
   const { companyId } = router.query;
 
+  const [authUser] = useGlobal("user");
+
   const [company, setCompany] = useState(null);
+  const [users, setUsers] = useState(null);
   const [tab, setTab] = useState("information");
   const [loadingCompany, setLoadingCompany] = useState(true);
+  const [loadingUsers, setLoadingUsers] = useState(true);
 
   useEffect(() => {
     const fetchCompany = () =>
@@ -36,7 +42,22 @@ export const Company = (props) => {
     return () => unSub && unSub();
   }, [companyId]);
 
-  if (loadingCompany) return spinLoader();
+  useEffect(() => {
+    const fetchUsers = () =>
+      firestore
+        .collection("companies")
+        .doc(companyId)
+        .collection("members")
+        .onSnapshot((membersOnSnapShot) => {
+          setUsers([{ ...authUser, role: "Owner", status: "Active", key: authUser.id }, ...snapshotToArray(membersOnSnapShot)]);
+          setLoadingUsers(false);
+        });
+
+    const unSub = fetchUsers();
+    return () => unSub && unSub();
+  }, [companyId]);
+
+  if (loadingCompany || loadingUsers) return spinLoader();
 
   return (
     <CompanyContainer>
@@ -59,7 +80,8 @@ export const Company = (props) => {
           </div>
         </div>
 
-        {tab === "information" && <EditCompany company={company} {...props} />}
+        {tab === "information" && <EditCompany company={company} key={users} {...props} />}
+        {tab === "users" && <AdminCompanyUsers company={company} users={users} key={users} {...props} />}
       </div>
     </CompanyContainer>
   );
