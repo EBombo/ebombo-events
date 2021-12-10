@@ -3,6 +3,65 @@ import { config } from "../../firebase";
 import React from "reactn";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
+export const headers = [
+  {
+    label: "Correo electrónico",
+    key: "email",
+  },
+  {
+    label: "Nombre",
+    key: "name",
+  },
+  {
+    label: "Usuario",
+    key: "nickname",
+  },
+  {
+    label: "Rol",
+    key: "role",
+  },
+  {
+    label: "Estado",
+    key: "status",
+  },
+];
+
+export const adsOptions = [
+  { label: "Reuniones grandes", value: "meets" },
+  { label: "Webinar", value: "webinar" },
+  { label: "Amor", value: "love" },
+  { label: "Fuerza", value: "strength" },
+  { label: "Destreza", value: "skill" },
+];
+
+export const usersOrder = [
+  {
+    id: 1,
+    name: "Correo electrónico",
+    code: "email",
+  },
+  {
+    id: 2,
+    name: "Nombre",
+    code: "name",
+  },
+  {
+    id: 3,
+    name: "Usuario",
+    code: "nickname",
+  },
+  {
+    id: 4,
+    name: "Rol",
+    code: "role",
+  },
+  {
+    id: 5,
+    name: "Estado",
+    code: "status",
+  },
+];
+
 export const reasons = [
   {
     id: 1,
