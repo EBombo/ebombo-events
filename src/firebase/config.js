@@ -83,6 +83,8 @@ const landingsStorageBucket = firebase.app().storage(`gs://${config.landingsStor
 const companiesStorageBucket = firebase.app().storage(`gs://${config.companiesStorageBucket}`);
 const usersStorageBucket = firebase.app().storage(`gs://${config.usersStorageBucket}`);
 
+const functions = firebase.functions();
+
 export {
   auth,
   config,
@@ -92,6 +94,7 @@ export {
   hostName,
   analytics,
   firestore,
+  functions,
   authBingo,
   storageBingo,
   firestoreBingo,
