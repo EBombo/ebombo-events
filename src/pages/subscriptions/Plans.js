@@ -25,7 +25,8 @@ export const Plans = (props) => {
             {" Virtual"}
           </div>
 
-          <div
+          {/*
+            <div
             className={`tab middle-tab ${tab === "onsite" && "active"}`}
             onClick={() => {
               setTab("onsite");
@@ -37,6 +38,7 @@ export const Plans = (props) => {
             </Tablet>
             {" Presencial"}
           </div>
+             */}
 
           <div
             className={`tab ${tab === "games" && "active"}`}
@@ -102,7 +104,7 @@ const PlansContainer = styled.div`
 
   .tabs {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
     background: transparent;
     border: 2px solid ${(props) => props.theme.basic.primary};
