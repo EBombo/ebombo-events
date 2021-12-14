@@ -17,19 +17,37 @@ const downloadPdf = (pdfUrl) => window.open(pdfUrl, "blank");
 
 export const InvoiceTable = (props) => {
   const router = useRouter();
-  const {userId, subscriptionId} = router.query;
+  const { userId, subscriptionId } = props;
 
   const [invoices, setInvoices] = useState([]);
 
-  const fetchInvoices = () => firestore.collection(`customers/${userId}/subscriptions/${subscriptionId}/invoices`).get();
+  const fetchSubscriptions = () => firestore.collection(`customers/${userId}/subscriptions`).get();
+  const fetchInvoices = (_subscriptionId) => firestore.collection(`customers/${userId}/subscriptions/${_subscriptionId}/invoices`).get();
 
   useEffect(() => {
     if (invoices.length) return;
 
     const getInvoices = async () =>
-      setInvoices(snapshotToArray(await fetchInvoices()));
+      setInvoices(snapshotToArray(await fetchInvoices(subscriptionId)));
 
-    return getInvoices();
+    const getInvoicesFromAllSubscriptions = async () => {
+      const subcriptions = await fetchSubscriptions();
+
+      const subcriptionsIds = subcriptions.docs.map((doc) => doc.id);
+      const fetchAllInvoicesPromise = subcriptionsIds.map((subId) => fetchInvoices(subId));
+      let _invoices =  await Promise.all(fetchAllInvoicesPromise);
+      _invoices =  _invoices.reduce((acc, invoiceList) => {
+        acc = [...acc, ...snapshotToArray(invoiceList)];
+        return acc;
+      }, [])
+      setInvoices(_invoices);
+    }
+
+    if (subscriptionId) {
+      return getInvoices();
+    } else {
+      return getInvoicesFromAllSubscriptions();
+    }
   }, [invoices]);
 
   return (
@@ -40,7 +58,6 @@ export const InvoiceTable = (props) => {
               title="Factura" 
               dataIndex="number"
               key="number" 
-              sorter={(a, b) => a.created - b.created}
             />
             <Column
               key="action"
@@ -100,4 +117,28 @@ export const InvoiceTable = (props) => {
 };
 
 const InvoiceTableContainer = styled.div`
+  .table-billing {
+    border-collapse: collapse;
+
+    thead {
+      border: 2px solid ${(props) => props.theme.basic.grayLighten};
+    }
+
+    th {
+      background: ${(props) => props.theme.basic.whiteDark};
+      border-bottom: 1px solid ${(props) => props.theme.basic.grayLighten};
+      border-top: 1px solid ${(props) => props.theme.basic.grayLighten};
+
+      &:first-child {
+        border-left: 1px solid ${(props) => props.theme.basic.grayLighten};
+        border-top-left-radius: 5px !important;
+        border-bottom-left-radius: 5px !important;
+      }
+      &:last-child {
+        border-right: 1px solid ${(props) => props.theme.basic.grayLighten};
+        border-top-right-radius: 5px !important;
+        border-bottom-right-radius: 5px !important;
+      }
+    }
+  }
 `;
