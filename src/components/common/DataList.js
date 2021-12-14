@@ -90,6 +90,7 @@ export const ladingProducts = [
     image: `${config.storageUrl}/resources/product-virtual-events.png`,
     url: "/products/eventos-virtuales",
   },
+  /*
   {
     title: "Eventos Presenciales",
     description:
@@ -98,6 +99,7 @@ export const ladingProducts = [
     image: `${config.storageUrl}/resources/product-face-to-face.png`,
     url: "/products/eventos-presenciales",
   },
+   */
   {
     title: "Juegos de integración",
     description:

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "reactn";
+import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { Anchor, ButtonAnt, Input } from "../../../../components/form";
@@ -13,8 +13,9 @@ import { bingoCard } from "../../../../components/common/DataList";
 import { firestore } from "../../../../firebase";
 
 export const Bingo = (props) => {
-
   const router = useRouter();
+
+  const { gameId } = router.query;
 
   const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
   const [backgroundImg, setBackgroundImg] = useState(props.game ? props.game.backgroundImg : null);
@@ -24,8 +25,12 @@ export const Bingo = (props) => {
   const [allowDuplicate, setAllowDuplicate] = useState(props.game ? props.game.allowDuplicate : true);
   const [visibility, setVisibility] = useState(props.game ? props.game.visibility : true);
   const [audio, setAudio] = useState(props.game ? props.game.audio : null);
-  const [newId,] = useState(props.game ? props.game.id : firestore.collection("bingo").doc().id);
+  const [newId, setNewId] = useState(null);
 
+  useEffect(() => {
+    if (gameId !== "new") return setNewId(gameId);
+    setNewId(firestore.collection("bingo").doc().id);
+  }, []);
 
   const schema = object().shape({
     title: string().max(25),
@@ -46,7 +51,7 @@ export const Bingo = (props) => {
       n: "N",
       g: "G",
       o: "O",
-    }
+    },
   });
 
   const saveGame = async (data) => {
@@ -73,6 +78,9 @@ export const Bingo = (props) => {
       audio,
       id: newId,
     };
+
+    console.log("game", props.game);
+    console.log("changing game", _game);
 
     await props.submitGame(_game);
   };
