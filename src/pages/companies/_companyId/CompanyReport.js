@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import moment from "moment";
 import {
@@ -12,19 +12,28 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 
 export const CompanyReport = (props) => {
+  const [games] = useGlobal("userGames");
+
   const [startDate, setStartDate] = useState(moment().subtract(1, "weeks"));
   const [endDate, setEndDate] = useState(moment());
   const [error, setError] = useState(null);
 
-  const reportInformation = useMemo(() => {
+  useEffect(() => {
     if (startDate.isAfter(endDate))
       return setError({ message: "La fecha de inicio debe ser anterior a la fecha de finalización" });
 
     setError(null);
-
-    // TODO: fetch data between startDate & endDate.
-    return [];
   }, [startDate, endDate]);
+
+  const countPLays = useMemo(() => {
+    // TODO: add filter.[startDate, endDate]
+    return games.reduce((sum, game) => sum + (game?.countPlays ?? 0), 0);
+  }, [games, startDate, endDate]);
+
+  const countPLayers = useMemo(() => {
+    // TODO: add filter.[startDate, endDate]
+    return (props.users ?? []).reduce((sum, user) => sum + (user?.countPlays ?? 0), 0);
+  }, [games, startDate, endDate]);
 
   const lastUpdated = useMemo(() => {
     return (
@@ -61,7 +70,6 @@ export const CompanyReport = (props) => {
         <Desktop>{lastUpdated}</Desktop>
       </Distribution2CenterStyled>
 
-      {/* TODO: Metrics.*/}
       <Distribution3Styled>
         <DistributionCol>
           <div className="metrics">
@@ -74,12 +82,12 @@ export const CompanyReport = (props) => {
 
             <div className="body">
               <div>Jugadores</div>
-              <div>137</div>
+              <div>{props.users?.length ?? 0}</div>
             </div>
 
             <div className="body">
               <div>Sesiones</div>
-              <div>9</div>
+              <div>{countPLays}</div>
             </div>
           </div>
         </DistributionCol>
@@ -96,12 +104,12 @@ export const CompanyReport = (props) => {
 
             <div className="body">
               <div>Jugadores</div>
-              <div>137</div>
+              <div>{props.users?.length ?? 0}</div>
             </div>
 
             <div className="body">
               <div>Sesiones</div>
-              <div>9</div>
+              <div>{countPLayers}</div>
             </div>
           </div>
         </DistributionCol>

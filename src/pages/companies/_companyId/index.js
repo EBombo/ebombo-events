@@ -88,7 +88,7 @@ export const Company = (props) => {
 
         {tab === "users" && <AdminCompanyUsers company={company} users={users} key={users} {...props} />}
 
-        {tab === "report" && <CompanyReport company={company} {...props} />}
+        {tab === "report" && <CompanyReport company={company} users={users} {...props} />}
       </div>
     </CompanyContainer>
   );
