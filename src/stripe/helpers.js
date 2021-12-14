@@ -7,35 +7,35 @@ export const sendToCheckout = async (userId, priceId) => {
     .collection('checkout_sessions')
     .add({
       price: priceId,
-      success_url: window.location.origin,
-      cancel_url: window.location.origin,
+      success_url: window.location.href,
+      cancel_url: window.location.href,
     });
 
-  // Wait for the CheckoutSession to get attached by the extension
-  docRef.onSnapshot((snap) => {
-    const { error, url } = snap.data();
-    if (error) {
-      // Show an error to your customer and
-      // inspect your Cloud Function logs in the Firebase console.
-      alert(`An error occured: ${error.message}`);
-    }
-    if (url) {
-      // We have a Stripe Checkout URL, let's redirect.
-      window.location.assign(url);
-    }
-  });
+  return new Promise((resolve, reject) => {
+    docRef.onSnapshot((snap) => {
+      const { error, url } = snap.data();
+      if (error) reject(error);
+      if (url) {
+        // We have a Stripe Checkout URL, let's redirect.
+        window.location.assign(url);
+        resolve();
+      }
+    });
+  })
 };
 
 const createPortalLink = functions.httpsCallable('ext-firestore-stripe-payments-createPortalLink');
 
 export const goToPortalLink = () => {
-  createPortalLink({returnUrl: window.location.origin}) 
-    .then((response) => {
-      window.location.assign(response.data.url);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  return new Promise((resolve, reject) => {
+    createPortalLink({returnUrl: window.location.href}) 
+      .then((response) => {
+        // window.location.assign(response.data.url);
+        // resolve();
+reject(new Error('oops'))
+      })
+      .catch((err) => reject(err));
+  });
 };
 
 export const formatAmount = (price) => (price / 100)?.toFixed(2);

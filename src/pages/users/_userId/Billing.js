@@ -21,8 +21,14 @@ export const Billing = (props) => {
   useEffect(() => {
     const getPlan = async () => {
       const rawActiveSubscriptions = snapshotToArray(await getUserSubscriptions());
-      const activeSubscriptions = [ ...rawActiveSubscriptions.filter((sub) => !sub.canceled_at), ...rawActiveSubscriptions.filter((sub) => sub.canceled_at)] ;
-      // sortBy(rawActiveSubscriptions, []);
+      const activeSubscriptions = sortBy(
+        rawActiveSubscriptions,
+        [
+          (sub) => sub.status === 'active',
+          (sub) => sub.canceled_at !== null,
+          (sub) => !sub.created,
+        ]
+      );
       if (activeSubscriptions.length === 0) {
         return setActivePlan(null);
       }
@@ -46,7 +52,6 @@ export const Billing = (props) => {
           }
           <div>Ciclo de pago: </div>
         </PanelBox>
-        <PanelBox className="panel" elevated heading="Licencias y Admins"/>
         <CurrentPlanCard className="plan-card" activePlan={activePlan} subscription={subscription} {...props} />
       </div>
     </BillingContainer>
@@ -69,7 +74,6 @@ const BillingContainer = styled.div`
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
-      grid-auto-flow: column;
       gap: 1rem;
     }
   }
