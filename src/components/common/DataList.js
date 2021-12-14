@@ -824,5 +824,13 @@ export const getCurrencySymbol = {
   'usd': '$',
 };
 
+export const getTypePaymentPrice = {
+  'recurring': 'Renovación Automática',
+};
+
 export const stripeDateFormat = 'DD MMM YYYY';
+
+export const BrandCardIcon = {
+  'visa': 'https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/visa.svg',
+};
 
