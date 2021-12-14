@@ -1,8 +1,8 @@
-import React, { useGlobal, useState, useEffect } from "reactn";
+import React, { useState, useEffect } from "reactn";
 import styled from "styled-components";
 import moment from "moment";
 import { mediaQuery, Desktop, Tablet } from "../../../../../constants";
-import { PanelBox } from "../../../../../components/common/PanelBox";
+import { spinLoader } from "../../../../../components/common/loader";
 import { getCurrencySymbol, stripeDateFormat } from "../../../../../components/common/DataList";
 import { Anchor } from "../../../../../components/form";
 import { firestore } from "../../../../../firebase";
@@ -10,9 +10,11 @@ import { formatAmount } from "../../../../../stripe";
 import { useRouter } from "next/router";
 import { Table } from "antd";
 import { Breadcrumb } from 'antd';
-import { DownloadOutlined, PrinterOutlined } from "@ant-design/icons";
+import { DownloadOutlined } from "@ant-design/icons";
 
 const { Column } = Table;
+
+const downloadPdf = (pdfUrl) => window.open(pdfUrl, "blank");
 
 export const InvoiceDetail = (props) => {
   const router = useRouter();
@@ -26,12 +28,10 @@ export const InvoiceDetail = (props) => {
   useEffect(() => {
     if (invoice) return;
 
-    console.log(`===> getinvoice`);
     const getInvoice = async () => {
       const _invoice = (await fetchInvoice()).data();
 
       const _paymentInformation = (await fetchPaymentInformation(_invoice['payment_intent'])).data();
-      console.log(`===> getinvoice`, _paymentInformation);
       setPaymentInformation(_paymentInformation);
 
       setInvoice(_invoice);
@@ -39,6 +39,8 @@ export const InvoiceDetail = (props) => {
 
     return getInvoice();
   }, [invoice]);
+
+  if (!invoice) return spinLoader();
 
   return (
     <InvoiceDetailContainer>
@@ -59,16 +61,18 @@ export const InvoiceDetail = (props) => {
         </Breadcrumb>
       </div>
       <div className="actions-container">
-        <Anchor 
-          variant="primary"
-          underlined
-          onClick={() => window.print()}
-        ><PrinterOutlined/> Imprimir</Anchor>
+        {/* TODO: print invoice format from design
+          <Anchor 
+            variant="primary"
+            underlined
+            onClick={() => window.print()}
+          ><PrinterOutlined/> Imprimir</Anchor>
+        */}
 
         <Anchor 
           variant="primary"
           underlined
-          onClick={null}
+          onClick={() => downloadPdf(invoice?.invoice_pdf)}
         ><DownloadOutlined/> Descargar</Anchor>
       </div>
 
@@ -78,12 +82,14 @@ export const InvoiceDetail = (props) => {
           <div className="bill-inner-layout">
             <div className="company-section">
               <div className="field bold">{invoice?.account_name}</div>
-              <div className="field">{invoice?.account_name}</div>
-              <div className="field">-</div>
-              <div className="field">-</div>
-              <div className="field">Email: -</div>
-              <div className="field">Número de identificación: -</div>
-              <div className="field">Número de Registro: -</div>
+              {/* TODO: Refactor when more data is available
+                <div className="field">{invoice?.account_name}</div>
+                <div className="field">-</div>
+                <div className="field">-</div>
+                <div className="field">Email: -</div>
+                <div className="field">Número de identificación: -</div>
+                <div className="field">Número de Registro: -</div>
+              */}
             </div>
 
             <div className="bill-section">
@@ -95,8 +101,10 @@ export const InvoiceDetail = (props) => {
                 <div className="">Facturación De </div>
                 <div className="">{moment.unix(invoice?.created).format(stripeDateFormat)}</div>
 
-                <div className="">Vence El</div>
-                <div className="">{moment.unix(invoice?.created).format(stripeDateFormat)}</div>
+                {/* TODO: Refactor
+                  <div className="">Vence El</div>
+                  <div className="">{moment.unix(invoice?.created).format(stripeDateFormat)}</div>
+                */}
               </div>
             </div>
 
@@ -111,18 +119,19 @@ export const InvoiceDetail = (props) => {
 
             <div className="summary-section">
               <div className="status-value">Pagado</div>
-              <div className="status-date">{invoice?.status_transitions.paid_at}</div>
+              <div className="status-date">{moment.unix(invoice?.status_transitions.paid_at).format(stripeDateFormat)}</div>
               <div className="status-amount">{formatAmount(invoice?.total)} {getCurrencySymbol[invoice?.currency]} {invoice?.currency.toUpperCase()}</div>
             </div>
           </div>
 
           <Tablet>
-            <Table dataSource={[invoice]}>
+            <Table dataSource={[invoice]} className="table-billing"  pagination={false}>
               <Column 
                 title="Fecha" 
                 dataIndex="created"
                 key="created" 
                 sorter={(a, b) => a.created - b.created}
+                render={(created) => moment.unix(created).format(stripeDateFormat)}
               />
             </Table>
           </Tablet>
@@ -133,6 +142,7 @@ export const InvoiceDetail = (props) => {
                 dataIndex="created"
                 key="created" 
                 sorter={(a, b) => a.created - b.created}
+                render={(created) => moment.unix(created).format(stripeDateFormat)}
               />
               <Column 
                 title="Descripción" 
@@ -193,22 +203,14 @@ export const InvoiceDetail = (props) => {
         <div className="format-container payment-amount">
           <div className="inner-format-total-amount">
             <div className="bold">Monto a pagar</div>
-            <div>-</div>
+            <div> { formatAmount(invoice?.amount_remaining) } { getCurrencySymbol[invoice?.currency] } </div>
             <div className="table">
               <div className="bold">Estado</div>
               <div className="bold">Fecha de vencimiento</div>
 
-              <div>-</div>
-              <div>-</div>
+              <div>{ invoice?.status }</div>
+              <div>{ moment.unix(invoice?.created).format(stripeDateFormat) }</div>
             </div>
-          </div>
-        </div>
-        <div className="format-container historical-payments">
-          <div className="bold">Historial de pagos</div>
-          <hr className="divider"/>
-          <div className="table">
-            <div>-</div>
-            <div>-</div>
           </div>
         </div>
       </div>
