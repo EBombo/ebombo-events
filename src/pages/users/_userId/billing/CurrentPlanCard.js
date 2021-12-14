@@ -28,7 +28,7 @@ export const CurrentPlanCard = (props) => {
           isLoadingCheckoutPlan={isLoadingCheckoutPlan}
           setIsLoadingCheckoutPlan={setIsLoadingCheckoutPlan}
           onSelectedPlan={async (plan) => {
-            if (plan.name.includes("Exclusivo")) return;
+            if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
 
             setIsLoadingCheckoutPlan(true);
             await sendToCheckout(userId, plan.currentPrice.id);
@@ -38,7 +38,7 @@ export const CurrentPlanCard = (props) => {
         />
       </ModalContainer>
 
-      <div className="status-label"><span className="dot">&bull;</span>{ props.subscription?.status }</div>
+      <div className="status-label"><span className="dot">&bull; </span>{ props.subscription?.status ?? 'Free' }</div>
       <div className="subheading">Plan Actual</div>
       <div className="heading">{props.activePlan ? props.activePlan.name : 'Free'}</div>
 
