@@ -836,3 +836,8 @@ export const BrandCardIcon = {
   'visa': 'https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/visa.svg',
 };
 
+export const PlanIntervals = {
+  'month': 'mensual',
+  'year': 'anual',
+};
+
