@@ -1,3 +1,5 @@
+# Reference github preview
+# https://cloud.google.com/run/docs/tutorials/configure-deployment-previews
 steps:
   - id: "pull image"
     name: "gcr.io/cloud-builders/docker"
@@ -77,6 +79,7 @@ options:
   # Reference:
   # Highcpu machine with 8 CPUs.
   # https://cloud.google.com/build/docs/api/reference/rest/v1/projects.builds#machinetype
+  # https://cloud.google.com/build/pricing
   machineType: "E2_HIGHCPU_8"
 
 availableSecrets:
