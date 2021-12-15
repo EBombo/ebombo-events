@@ -25,14 +25,29 @@ export const CompanyReport = (props) => {
     setError(null);
   }, [startDate, endDate]);
 
+  const currentUsers = useMemo(() => {
+    if (startDate.isAfter(endDate)) return [];
+
+    return (props.users ?? []).filter((user) => moment(user.createAt.toDate()).isBetween(startDate, endDate));
+  }, [props.users, games, startDate, endDate]);
+
   const countPLays = useMemo(() => {
-    // TODO: add filter.[startDate, endDate]
-    return games.reduce((sum, game) => sum + (game?.countPlays ?? 0), 0);
+    if (startDate.isAfter(endDate)) return 0;
+
+    return (
+      games
+        // TODO: this metric is expensive.
+        //.filter((game) => moment(new Date(game.createAt)).isBetween(startDate, endDate))
+        .reduce((sum, game) => sum + (game?.countPlays ?? 0), 0)
+    );
   }, [games, startDate, endDate]);
 
   const countPLayers = useMemo(() => {
-    // TODO: add filter.[startDate, endDate]
-    return (props.users ?? []).reduce((sum, user) => sum + (user?.countPlays ?? 0), 0);
+    if (startDate.isAfter(endDate)) return 0;
+
+    return (props.users ?? [])
+      .filter((user) => moment(user.createAt.toDate()).isBetween(startDate, endDate))
+      .reduce((sum, user) => sum + (user?.countPlays ?? 0), 0);
   }, [games, startDate, endDate]);
 
   const lastUpdated = useMemo(() => {
@@ -82,7 +97,7 @@ export const CompanyReport = (props) => {
 
             <div className="body">
               <div>Jugadores</div>
-              <div>{props.users?.length ?? 0}</div>
+              <div>{currentUsers?.length}</div>
             </div>
 
             <div className="body">
@@ -92,7 +107,6 @@ export const CompanyReport = (props) => {
           </div>
         </DistributionCol>
 
-        {/* TODO: Metrics.*/}
         <DistributionCol>
           <div className="metrics">
             <div className="head">
@@ -104,7 +118,7 @@ export const CompanyReport = (props) => {
 
             <div className="body">
               <div>Jugadores</div>
-              <div>{props.users?.length ?? 0}</div>
+              <div>{currentUsers?.length}</div>
             </div>
 
             <div className="body">
@@ -117,7 +131,6 @@ export const CompanyReport = (props) => {
         <DistributionCol />
       </Distribution3Styled>
 
-      {/* TODO: Metrics.*/}
       <div className="list-users">
         <div className="title">Anfitriones principales</div>
 
@@ -125,15 +138,17 @@ export const CompanyReport = (props) => {
           <div>Rango</div>
           <div>Correo electrónico</div>
           <div>Usuario</div>
-          <div>Ebombo hosted</div>
         </div>
 
-        <div className="body">
-          <div>1</div>
-          <div>hello@ebombo.pe</div>
-          <div>ebomboPeru</div>
-          <div>9</div>
-        </div>
+        {(props.usersAdmin ?? []).map((admin, index) => {
+          return (
+            <div className="body" key={admin.id}>
+              <div>{index + 1}</div>
+              <div>{admin.email}</div>
+              <div>{admin.userName}</div>
+            </div>
+          );
+        })}
       </div>
     </ReportStyled>
   );

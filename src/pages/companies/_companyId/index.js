@@ -18,9 +18,11 @@ export const Company = (props) => {
 
   const [company, setCompany] = useState(null);
   const [users, setUsers] = useState(null);
+  const [usersAdmin, setUsersAdmin] = useState(null);
   const [tab, setTab] = useState(currentTab ?? "information");
   const [loadingCompany, setLoadingCompany] = useState(true);
   const [loadingUsers, setLoadingUsers] = useState(true);
+  const [loadingUsersAdmin, setLoadingUsersAdmin] = useState(true);
 
   useEffect(() => {
     const fetchCompany = () =>
@@ -50,10 +52,7 @@ export const Company = (props) => {
         .doc(companyId)
         .collection("members")
         .onSnapshot((membersOnSnapShot) => {
-          setUsers([
-            { ...authUser, role: "Owner", status: "Active", key: authUser.id },
-            ...snapshotToArray(membersOnSnapShot),
-          ]);
+          setUsers(snapshotToArray(membersOnSnapShot));
           setLoadingUsers(false);
         });
 
@@ -61,7 +60,30 @@ export const Company = (props) => {
     return () => unSub && unSub();
   }, [companyId]);
 
-  if (loadingCompany || loadingUsers) return spinLoader();
+  useEffect(() => {
+    if (!company) return;
+
+    const fetchUsersAdmin = () =>
+      firestore
+        .collection("users")
+        .where("companyId", "==", companyId)
+        .onSnapshot((adminsOnSnapShot) => {
+          const currentAdmins = snapshotToArray(adminsOnSnapShot).map((admin) => ({
+            ...admin,
+            role: company.usersIds.includes(admin.id) ? "Owner" : "admin",
+            status: "Active",
+            key: admin.id,
+          }));
+
+          setUsersAdmin(currentAdmins);
+          setLoadingUsersAdmin(false);
+        });
+
+    const unSub = fetchUsersAdmin();
+    return () => unSub && unSub();
+  }, [companyId, company]);
+
+  if (loadingCompany || loadingUsers || loadingUsersAdmin) return spinLoader();
 
   return (
     <CompanyContainer>
@@ -84,11 +106,11 @@ export const Company = (props) => {
           </div>
         </div>
 
-        {tab === "information" && <EditCompany company={company} key={users} {...props} />}
+        {tab === "information" && <EditCompany company={company} {...props} />}
 
-        {tab === "users" && <AdminCompanyUsers company={company} users={users} key={users} {...props} />}
+        {tab === "users" && <AdminCompanyUsers company={company} users={[...users, ...usersAdmin]} {...props} />}
 
-        {tab === "report" && <CompanyReport company={company} users={users} {...props} />}
+        {tab === "report" && <CompanyReport company={company} users={users} usersAdmin={usersAdmin} {...props} />}
       </div>
     </CompanyContainer>
   );
