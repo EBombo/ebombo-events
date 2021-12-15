@@ -58,7 +58,6 @@ export const Navbar = (props) => {
             </Desktop>
           </div>
 
-          {/* TODO remove for dev purposes.
           <Desktop>
             {authUser ? (
               <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
@@ -82,7 +81,6 @@ export const Navbar = (props) => {
               </div>
             )}
           </Desktop>
-          */}
 
           <Tablet>
             <ul className={`nav-menu ${active ? "active" : ""}`}>
