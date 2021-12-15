@@ -16,7 +16,6 @@ export const sendToCheckout = async (userId, priceId) => {
       const { error, url } = snap.data();
       if (error) reject(error);
       if (url) {
-        // We have a Stripe Checkout URL, let's redirect.
         window.location.assign(url);
         resolve();
       }
@@ -30,9 +29,8 @@ export const goToPortalLink = () => {
   return new Promise((resolve, reject) => {
     createPortalLink({returnUrl: window.location.href}) 
       .then((response) => {
-        // window.location.assign(response.data.url);
-        // resolve();
-reject(new Error('oops'))
+        window.location.assign(response.data.url);
+        resolve();
       })
       .catch((err) => reject(err));
   });
