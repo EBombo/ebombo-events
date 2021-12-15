@@ -8,16 +8,9 @@ export const DatePicker = forwardRef((props, ref) => {
     <Fragment>
       {props.label && <Label required={props.required}>{props.label}</Label>}
       <DatePickerContainer>
-        <StyledDatePicker
-          {...props}
-          placeholder="seleccionar fecha"
-          hasError={props.error}
-          ref={ref}
-        />
+        <StyledDatePicker {...props} placeholder="seleccionar fecha" hasError={props.error} ref={ref} />
       </DatePickerContainer>
-      {props.error && (
-        <Error>{props.errorMessage || props.error.message}</Error>
-      )}
+      {props.error && <Error>{props.errorMessage || props.error.message}</Error>}
     </Fragment>
   );
 });
@@ -30,13 +23,12 @@ const DatePickerContainer = styled.div`
 `;
 
 const StyledDatePicker = styled(AntDatePicker)`
+  width: 100%;
   margin-bottom: 1rem !important;
   ${(props) =>
     props.hasError &&
-    `
-    background-color: #fff;
-    border-color: ${(props) => props.theme.basic.danger};
-  `}
+    `background-color: #fff;
+    border-color: ${(props) => props.theme.basic.danger};`}
 `;
 
 const Label = styled.label`

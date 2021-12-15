@@ -1,4 +1,4 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useMemo } from "reactn";
 import styled from "styled-components";
 import get from "lodash/get";
 import { useRouter } from "next/router";
@@ -16,6 +16,10 @@ export const Menu = (props) => {
 
   const [authUser] = useGlobal("user");
   const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
+
+  const companyId = useMemo(() => {
+    return authUser?.companyId ? authUser.companyId : firestore.collection("companies").doc().id;
+  }, [authUser]);
 
   return (
     <MenuContainer>
@@ -36,9 +40,6 @@ export const Menu = (props) => {
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-
-              const companyId = authUser?.companyId ?? firestore.collection("companies").doc().id;
-
               return router.push(`/companies/${companyId}`);
             }}
           >
@@ -47,7 +48,9 @@ export const Menu = (props) => {
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-              router.push(`/`);
+              if (!authUser?.companyId) return router.push(`/companies/${companyId}`);
+
+              return router.push(`/companies/${companyId}?currentTab=billing`);
             }}
           >
             <span className="item">Facturación</span>
@@ -55,7 +58,9 @@ export const Menu = (props) => {
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
-              router.push(`/`);
+              if (!authUser?.companyId) return router.push(`/companies/${companyId}`);
+
+              return router.push(`/companies/${companyId}?currentTab=report`);
             }}
           >
             <span className="item">Informe de Uso</span>
