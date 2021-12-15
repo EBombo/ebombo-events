@@ -118,9 +118,7 @@ export const Navbar = (props) => {
                 </li>
               )}
 
-              {/*TODO remove for dev purposes.*/}
-              {/*
-              !authUser ? (
+              {!authUser ? (
                 <>
                   <ButtonAnt
                     margin="1.5rem auto"
@@ -139,8 +137,7 @@ export const Navbar = (props) => {
                 <li className="nav-item" onClick={() => signOut()}>
                   Cerrar Sesión
                 </li>
-              )
-              */}
+              )}
             </ul>
 
             <div className={`hamburger ${active ? "active" : ""}`} onClick={() => setActive(!active)}>
