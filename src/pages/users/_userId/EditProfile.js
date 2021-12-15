@@ -34,7 +34,8 @@ export const EditProfile = (props) => {
   const updateProfile = async (data) => {
     setLoading(true);
     try {
-      // TODO: Validate userName.
+      // TODO: Validate userName [unique].
+      // TODO: update searchName in firebase.
       const userMapped = mapUser(data);
 
       const { error } = await Fetch(`${config.serverUrl}/api/users/${get(authUser, "id")}/edit`, "PUT", userMapped);
@@ -71,8 +72,9 @@ export const EditProfile = (props) => {
                   buttonLabel={profileImgUrl ? "Cambiar Imagen" : "Subir "}
                   file={profileImgUrl}
                   preview={true}
+                  bucket="users"
                   fileName="profileImgUrl"
-                  filePath={`/users/${authUser.id}`}
+                  filePath={`/${authUser?.id}`}
                   sizes="200x200"
                   disabled={props.isLoading}
                   afterUpload={(resizeImages) => setProfileImgUrl(resizeImages[0].url)}
@@ -81,7 +83,7 @@ export const EditProfile = (props) => {
               <ButtonAnt
                 color="secondary"
                 htmlType="submit"
-                disabled={loading || authUser.id !== props.user.id}
+                disabled={loading || authUser?.id !== props.user.id}
                 loading={loading}
                 className="btn-submit"
               >
@@ -100,7 +102,7 @@ export const EditProfile = (props) => {
                 autoComplete="off"
                 defaultValue={get(props, "user.userName", "")}
                 placeholder="Usuario"
-                disabled={authUser.id !== props.user.id}
+                disabled={authUser?.id !== props.user.id}
               />
 
               <label htmlFor="name">Nombre</label>
@@ -151,7 +153,7 @@ export const EditProfile = (props) => {
               <Input
                 id="organization"
                 variant="primary"
-                defaultValue={"ebombo"} //TODO: complete when the company logic is complete
+                defaultValue={authUser?.company?.name ?? "ebombo"} //TODO: complete when the companies logic is complete
                 disabled={true}
               />
 
@@ -174,7 +176,7 @@ export const EditProfile = (props) => {
               <Input
                 id="account"
                 variant="primary"
-                defaultValue={"Avanzado"} //TODO: complete when the company logic is complete
+                defaultValue={"Avanzado"} //TODO: complete when the companies logic is complete
                 disabled={true}
               />
 
@@ -202,7 +204,7 @@ export const EditProfile = (props) => {
               <Input
                 id="workPlace"
                 variant="primary"
-                defaultValue={"Profesor"} //TODO: complete when the company logic is complete
+                defaultValue={"Profesor"} //TODO: complete when the companies logic is complete
                 disabled={true}
               />
             </div>
