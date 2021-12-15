@@ -19,6 +19,7 @@ const downloadPdf = (pdfUrl) => window.open(pdfUrl, "blank");
 export const InvoiceDetail = (props) => {
   const router = useRouter();
   const { userId, invoiceId, subscriptionId } = router.query;
+
   const [invoice, setInvoice] = useState();
   const [paymentInformation, setPaymentInformation] = useState();
 
@@ -101,7 +102,7 @@ export const InvoiceDetail = (props) => {
                 <div className="">Facturación De </div>
                 <div className="">{moment.unix(invoice?.created).format(stripeDateFormat)}</div>
 
-                {/* TODO: Refactor
+                {/* TODO: Refactor if field is needed
                   <div className="">Vence El</div>
                   <div className="">{moment.unix(invoice?.created).format(stripeDateFormat)}</div>
                 */}
@@ -120,7 +121,9 @@ export const InvoiceDetail = (props) => {
             <div className="summary-section">
               <div className="status-value">Pagado</div>
               <div className="status-date">{moment.unix(invoice?.status_transitions.paid_at).format(stripeDateFormat)}</div>
-              <div className="status-amount">{formatAmount(invoice?.total)} {getCurrencySymbol[invoice?.currency]} {invoice?.currency.toUpperCase()}</div>
+              <div className="status-amount">
+                {formatAmount(invoice?.total)} {getCurrencySymbol[invoice?.currency]} {invoice?.currency.toUpperCase()}
+              </div>
             </div>
           </div>
 
@@ -194,7 +197,12 @@ export const InvoiceDetail = (props) => {
           </div>
 
           <div className="bold">Pagos</div>
-          <div>{ moment.unix(invoice?.created).format(stripeDateFormat) } { formatAmount(invoice?.total) } { getCurrencySymbol[invoice?.currency] } Pago de { paymentInformation?.charges.data?.[0].payment_method_details.card?.brand } *{ paymentInformation?.charges.data?.[0].payment_method_details.card?.last4 } </div>
+          <div>
+            { moment.unix(invoice?.created).format(stripeDateFormat) }
+            { formatAmount(invoice?.total) } { getCurrencySymbol[invoice?.currency] }
+            Pago de { paymentInformation?.charges.data?.[0].payment_method_details.card?.brand }
+            *{ paymentInformation?.charges.data?.[0].payment_method_details.card?.last4 }
+          </div>
 
           <div className="bold">Notas</div>
           <div>Todas las cantidades en Dólares estadounidenses (USD)</div>

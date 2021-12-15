@@ -101,7 +101,10 @@ export const BillingOverview = (props) => {
           <PanelBox className="plan" heading="Plan Anual Billing" elevated margin="0 0 1rem 0">
             <div className="table">
               <div className="label">Periodo actual</div>
-              <div className="value">{ moment(subscription?.current_period_start.toDate()).format(stripeDateFormat) } - { moment(subscription?.current_period_end.toDate()).format(stripeDateFormat) }</div>
+              <div className="value">
+                { moment(subscription?.current_period_start.toDate()).format(stripeDateFormat) } - 
+                { moment(subscription?.current_period_end.toDate()).format(stripeDateFormat) }
+              </div>
 
               <div className="label">Comportamiento de término</div>
               <div className="value">{ getTypePaymentPrice[subscription?.items?.[0].price.type] }</div>
@@ -118,19 +121,27 @@ export const BillingOverview = (props) => {
                   variant="primary"
                   underlined
                   onClick={() => router.push(`/users/${userId}/invoices/${invoice?.id}?subscriptionId=${subscriptionId}`)}
-                >#{ invoice?.number }</Anchor></div>
+                >#{ invoice?.number }</Anchor>
               </div>
-
+            </div>
             <div className="alert accent">
-              <p className="description">Siguiente factura en {moment(subscription?.current_period_end.toDate()).format(stripeDateFormat)   }</p>
+              <p className="description">
+                Siguiente factura en { moment(subscription?.current_period_end.toDate()).format(stripeDateFormat) }
+              </p>
               <div className="table">
                 <div className="label">{ subscription?.items?.[0].price?.product.name }</div>
-                <div className="value">{ formatAmount(subscription?.items?.[0].plan?.amount) } { getCurrencySymbol[subscription?.items?.[0].plan?.currency] }</div>
+                <div className="value">
+                  { formatAmount(subscription?.items?.[0].plan?.amount) } 
+                  { getCurrencySymbol[subscription?.items?.[0].plan?.currency] }
+                </div>
               </div>
               <hr className="divider"/>
               <div className="table">
                 <div className="label">Total Actual</div>
-                <div className="value">{ formatAmount(subscription?.items?.[0].plan?.amount) } { getCurrencySymbol[subscription?.items?.[0].plan?.currency] }</div>
+                <div className="value">
+                  { formatAmount(subscription?.items?.[0].plan?.amount) } 
+                  { getCurrencySymbol[subscription?.items?.[0].plan?.currency] }
+                </div>
               </div>
 
             </div>
@@ -155,7 +166,9 @@ export const BillingOverview = (props) => {
               : (
                 <div className="table">
                   <div className="label">Nombre</div>
-                  <div className="value">{ paymentInformation?.charges.data?.[0]?.billing_details?.name }</div>
+                  <div className="value">
+                    { paymentInformation?.charges.data?.[0]?.billing_details?.name }
+                  </div>
 
                   <div className="label">Tarjeta de Crédito</div>
                   <div className="value">
@@ -167,10 +180,16 @@ export const BillingOverview = (props) => {
                   </div>
 
                   <div className="label">Caducidad</div>
-                  <div className="value">{ paymentInformation?.charges.data?.[0]?.payment_method_details?.card?.exp_month } / { paymentInformation?.charges.data?.[0]?.payment_method_details?.card?.exp_year }</div>
+                  <div className="value">
+                    { paymentInformation?.charges.data?.[0]?.payment_method_details?.card?.exp_month } /
+                    { paymentInformation?.charges.data?.[0]?.payment_method_details?.card?.exp_year }
+                  </div>
 
                   <div className="label">Dirección</div>
-                  <div className="value">{ paymentInformation?.charges.data?.[0]?.billing_details?.address?.postal_code } { paymentInformation?.charges.data?.[0]?.billing_details?.address?.country }</div>
+                  <div className="value">
+                    { paymentInformation?.charges.data?.[0]?.billing_details?.address?.postal_code }
+                    { paymentInformation?.charges.data?.[0]?.billing_details?.address?.country }
+                  </div>
                 </div>
               )
             }

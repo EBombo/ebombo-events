@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "reactn";
 import styled from "styled-components";
-import { mediaQuery } from "../../../../constants";
 import { PlansPrices } from "../../../../components/common/PlansPrices";
 import { firestore } from "../../../../firebase";
 import { snapshotToArray } from "../../../../utils";
@@ -9,13 +8,17 @@ import { freePlan } from "../../../../components/common/DataList";
 export const SubscriptionPlans = (props) => {
   const [plans, setPlans] = useState([]);
 
+  const fetchAllActivePrices = async (plan) => firestore.collection(`products/${plan.id}/prices`).where('active', '==', true).get();
+
   useEffect(() => {
     if (plans.length) return; 
 
     const fetchPlans = async () => {
       const plans = snapshotToArray(await firestore.collection('products').get());
+
       const plansPromises = plans.map(async (plan) => {
-        const activePrices = snapshotToArray(await await firestore.collection(`products/${plan.id}/prices`).where('active', '==', true).get());
+        const activePrices = snapshotToArray(await fetchAllActivePrices());
+
         plan.currentPrice = {
           id: activePrices?.[0]?.id,
           amount: activePrices?.[0]?.unit_amount
@@ -23,10 +26,12 @@ export const SubscriptionPlans = (props) => {
             : "-",
           currency: activePrices?.[0]?.currency,
         };
+
         return plan;
       });
       setPlans([ freePlan,...await Promise.all(plansPromises) ]);
     };
+
     return fetchPlans();
   });
 

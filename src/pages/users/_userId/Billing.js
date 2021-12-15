@@ -1,8 +1,8 @@
-import React, { useGlobal, useState, useEffect } from "reactn";
+import React, { useState, useEffect } from "reactn";
 import styled from "styled-components";
-import sortBy from "lodash/sortBy";
 import { mediaQuery } from "../../../constants";
 import { PanelBox } from "../../../components/common/PanelBox";
+import { PlanIntervals } from "../../../components/common/DataList";
 import { Anchor } from "../../../components/form";
 import { useRouter } from "next/router";
 import { snapshotToArray } from "../../../utils";
@@ -16,23 +16,19 @@ export const Billing = (props) => {
   const [activePlan, setActivePlan] = useState();
   const [subscription, setSubscription] = useState();
 
-  const getUserSubscriptions = () => firestore.collection(`customers/${userId}/subscriptions`).where('status', '==', 'active').get();
+  const getUserSubscriptions = () => 
+    firestore.collection(`customers/${userId}/subscriptions`)
+      .where('status', '==', 'active')
+      .orderBy('created', 'desc').get();
 
   useEffect(() => {
     const getPlan = async () => {
-      const rawActiveSubscriptions = snapshotToArray(await getUserSubscriptions());
-      const activeSubscriptions = sortBy(
-        rawActiveSubscriptions,
-        [
-          (sub) => sub.status === 'active',
-          (sub) => sub.canceled_at !== null,
-          (sub) => !sub.created,
-        ]
-      );
-      if (activeSubscriptions.length === 0) {
-        return setActivePlan(null);
-      }
+      const activeSubscriptions = snapshotToArray(await getUserSubscriptions());
+
+      if (!activeSubscriptions.length) return setActivePlan(null);
+
       setSubscription(activeSubscriptions[0]);
+
       return setActivePlan((await activeSubscriptions[0].product.get()).data());
     };
 
@@ -46,11 +42,27 @@ export const Billing = (props) => {
           <div>Plan: {activePlan?.name}</div>
           { subscription && 
             <>
-              <div><Anchor underlined className="link" onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}>Gestionar Facturas</Anchor></div>
-              <div><Anchor underlined className="link" onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}>Administrar suscripción</Anchor></div>
+              <div>
+                <Anchor
+                  underlined
+                  className="link"
+                  onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}
+                >
+                  Gestionar Facturas
+                </Anchor>
+              </div>
+              <div>
+                <Anchor
+                  underlined
+                  className="link"
+                  onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}
+                >
+                  Administrar suscripción
+                </Anchor>
+              </div>
+              <div>Ciclo de pago: { PlanIntervals[subscription?.items?.[0]?.plan?.interval] } </div>
             </>
           }
-          <div>Ciclo de pago: </div>
         </PanelBox>
         <CurrentPlanCard className="plan-card" activePlan={activePlan} subscription={subscription} {...props} />
       </div>
