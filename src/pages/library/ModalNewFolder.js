@@ -1,7 +1,7 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../components/common/ModalContainer";
-import { Desktop, Tablet, mediaQuery } from "../../constants";
+import { Desktop, mediaQuery } from "../../constants";
 import { ButtonAnt, Input } from "../../components/form";
 import { darkTheme } from "../../theme";
 import * as yup from "yup";
@@ -30,9 +30,7 @@ export const ModalNewFolder = (props) => {
     try {
       setIsLoading(true);
 
-      const path = folderId
-        ? `${props.parent.path}/${data.name}`
-        : `/${data.name}`;
+      const path = folderId ? `${props.parent.path}/${data.name}` : `/${data.name}`;
 
       await firestore.doc(`folders/${props.folder.id}`).update({
         name: data.name,
@@ -54,9 +52,7 @@ export const ModalNewFolder = (props) => {
       const folderRef = firestore.collection("folders");
       const newFolderId = folderRef.doc().id;
 
-      const path = folderId
-        ? `${props.parent.path}/${data.name}`
-        : `/${data.name}`;
+      const path = folderId ? `${props.parent.path}/${data.name}` : `/${data.name}`;
 
       await folderRef.doc(newFolderId).set(
         {
@@ -89,9 +85,7 @@ export const ModalNewFolder = (props) => {
       padding={"1rem"}
       top={"40%"}
       background={darkTheme.basic.whiteLight}
-      onCancel={() =>
-        props.setIsVisibleModalFolder(!props.isVisibleModalFolder)
-      }
+      onCancel={() => props.setIsVisibleModalFolder(!props.isVisibleModalFolder)}
     >
       <NewFolderContainer>
         <div className="title">{props.folder ? "Editar" : "Crear"} folder</div>
@@ -114,19 +108,10 @@ export const ModalNewFolder = (props) => {
             />
           </div>
           <div className="buttons-container">
-            <ButtonAnt
-              color="default"
-              disabled={isLoading}
-              onClick={() => props.setIsVisibleModalFolder(false)}
-            >
+            <ButtonAnt color="default" disabled={isLoading} onClick={() => props.setIsVisibleModalFolder(false)}>
               Cerrar
             </ButtonAnt>
-            <ButtonAnt
-              color="primary"
-              disabled={isLoading}
-              loading={isLoading}
-              htmlType="submit"
-            >
+            <ButtonAnt color="primary" disabled={isLoading} loading={isLoading} htmlType="submit">
               {props.folder ? "Editar" : "Crear"}
             </ButtonAnt>
           </div>

@@ -1,8 +1,7 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
 import { FileUpload } from "../../components/common/FileUpload";
-import { Input, TextArea } from "../../components/form";
-import { ButtonAnt } from "../../components/form";
+import { ButtonAnt, Input, TextArea } from "../../components/form";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import get from "lodash/get";
@@ -31,46 +30,22 @@ const EditGame = (props) => {
 
     if (
       defaultTo(
-        get(
-          props,
-          `${
-            props.active === "integration"
-              ? "events.integrationGames"
-              : "events.esportsGames"
-          }`
-        ),
+        get(props, `${props.active === "integration" ? "events.integrationGames" : "events.esportsGames"}`),
         []
       ).some((game) => game.id === props.currentGame.id)
     ) {
       games = defaultTo(
-        get(
-          props,
-          `${
-            props.active === "integration"
-              ? "events.integrationGames"
-              : "events.esportsGames"
-          }`
-        ),
+        get(props, `${props.active === "integration" ? "events.integrationGames" : "events.esportsGames"}`),
         []
-      ).map((game) =>
-        game.id === props.currentGame.id ? mapGame(data, game) : game
-      );
+      ).map((game) => (game.id === props.currentGame.id ? mapGame(data, game) : game));
     } else {
       games = defaultTo(
-        get(
-          props,
-          `${
-            props.active === "integration"
-              ? "events.integrationGames"
-              : "events.esportsGames"
-          }`
-        ),
+        get(props, `${props.active === "integration" ? "events.integrationGames" : "events.esportsGames"}`),
         []
       );
       games.push(mapGame(data));
     }
-    const field =
-      props.active === "integration" ? "integrationGames" : "esportsGames";
+    const field = props.active === "integration" ? "integrationGames" : "esportsGames";
 
     await firestore.doc(`landings/events`).update({
       [field]: games,
@@ -103,9 +78,7 @@ const EditGame = (props) => {
 
   return (
     <Container>
-      <div className="title">
-        Juego {props.active === "integration" ? "Integración" : "Esport"}
-      </div>
+      <div className="title">Juego {props.active === "integration" ? "Integración" : "Esport"}</div>
       <form onSubmit={handleSubmit(saveIntegrationGame)}>
         <Input
           name="name"

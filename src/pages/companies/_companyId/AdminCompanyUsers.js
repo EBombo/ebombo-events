@@ -389,15 +389,15 @@ const StyledCSVLink = styled(CSVLink)`
   font-weight: bold;
   font-size: 15px;
   line-height: 18px;
-  color: ${props => props.theme.basic.whiteLight};
+  color: ${(props) => props.theme.basic.whiteLight};
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px ${props => props.theme.basic.secondaryDark};
+  box-shadow: 0 4px ${(props) => props.theme.basic.secondaryDark};
   margin-right: 1rem;
-  
+
   :hover {
-    background: ${props => props.theme.basic.secondaryLight};
-    color: ${props => props.theme.basic.whiteLight};
+    background: ${(props) => props.theme.basic.secondaryLight};
+    color: ${(props) => props.theme.basic.whiteLight};
   }
 `;

@@ -48,16 +48,14 @@ export const AclsContainer = (props) => {
   const updateUser = async (data) => {
     setLoadingUpdateUser(true);
     const newAcls = mapValues(data, (moduleUrls) =>
-      map(moduleUrls, (moduleUrl, key) =>
-        moduleUrl ? key.replaceAll("<", "[").replaceAll(">", "]") : null
-      ).filter((moduleUrl) => moduleUrl)
+      map(moduleUrls, (moduleUrl, key) => (moduleUrl ? key.replaceAll("<", "[").replaceAll(">", "]") : null)).filter(
+        (moduleUrl) => moduleUrl
+      )
     );
 
     await firestore.doc(`users/${userId}`).update({
       acls: newAcls,
-      isAdmin: flatMap(Object.values(newAcls)).some((acl) =>
-        acl.includes("admin")
-      ),
+      isAdmin: flatMap(Object.values(newAcls)).some((acl) => acl.includes("admin")),
     });
 
     props.showNotification("OK", "Guardado", "success");
@@ -67,10 +65,7 @@ export const AclsContainer = (props) => {
   const toggle = () =>
     map(acls, (moduleAcl, module) =>
       map(moduleAcl.items, (description, urlAcl) => {
-        setValue(
-          `${module}.${urlAcl}`.replaceAll("[", "<").replaceAll("]", ">"),
-          !allChecked
-        );
+        setValue(`${module}.${urlAcl}`.replaceAll("[", "<").replaceAll("]", ">"), !allChecked);
         setAllChecked(!allChecked);
       })
     );
@@ -87,8 +82,7 @@ export const AclsContainer = (props) => {
       </div>
       <hr />
       <label>
-        <input type="checkbox" onClick={toggle} checked={allChecked} /> MARCAR
-        TODOS
+        <input type="checkbox" onClick={toggle} checked={allChecked} /> MARCAR TODOS
       </label>
       {map(acls, (moduleAcl, module) => (
         <ul key={module}>
@@ -96,9 +90,7 @@ export const AclsContainer = (props) => {
           {map(moduleAcl.items, (description, urlAcl) => (
             <Controller
               key={urlAcl}
-              name={`${module}.${urlAcl
-                .replaceAll("[", "<")
-                .replaceAll("]", ">")}`}
+              name={`${module}.${urlAcl.replaceAll("[", "<").replaceAll("]", ">")}`}
               control={control}
               onChange={([value]) => value.target.checked}
               defaultValue={get(user, `acls[${module}]`, []).includes(urlAcl)}
@@ -108,17 +100,10 @@ export const AclsContainer = (props) => {
         </ul>
       ))}
       <div className="btns">
-        <ButtonAnt
-          onClick={() => router.push(`/admin/users`)}
-          disabled={loadingUpdateUser}
-        >
+        <ButtonAnt onClick={() => router.push(`/admin/users`)} disabled={loadingUpdateUser}>
           CANCELAR
         </ButtonAnt>
-        <ButtonAnt
-          htmlType="submit"
-          loading={loadingUpdateUser}
-          disabled={loadingUpdateUser}
-        >
+        <ButtonAnt htmlType="submit" loading={loadingUpdateUser} disabled={loadingUpdateUser}>
           GUARDAR
         </ButtonAnt>
       </div>

@@ -48,13 +48,12 @@ export const DesktopUsers = (props) => {
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      props.setSelectedUsers(selectedRows)
+      props.setSelectedUsers(selectedRows);
     },
   };
 
   return (
     <UsersContainer>
-
       <div className="table-container">
         <Table
           rowSelection={{

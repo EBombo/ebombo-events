@@ -2,7 +2,7 @@ import {
   companiesStorageBucket,
   landingsStorageBucket,
   storage as storageDefault,
-  usersStorageBucket
+  usersStorageBucket,
 } from "../firebase";
 import get from "lodash/get";
 

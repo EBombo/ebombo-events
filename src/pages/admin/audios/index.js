@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "reactn";
+import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
 import { ButtonAnt } from "../../../components/form";
 import { spinLoader } from "../../../components/common/loader";
 import { firestore } from "../../../firebase";
 import { useRouter } from "next/router";
-import { PlayCircleOutlined, PauseOutlined } from "@ant-design/icons";
+import { PauseOutlined, PlayCircleOutlined } from "@ant-design/icons";
 import { snapshotToArray } from "../../../utils";
 
 export const Audios = (props) => {
@@ -54,11 +54,7 @@ export const Audios = (props) => {
 
   return (
     <AudiosContainer>
-      <ButtonAnt
-        variant="contained"
-        color="primary"
-        onClick={() => router.push("/admin/audios/new")}
-      >
+      <ButtonAnt variant="contained" color="primary" onClick={() => router.push("/admin/audios/new")}>
         Añadir Audio
       </ButtonAnt>
       <div className="songs-container">

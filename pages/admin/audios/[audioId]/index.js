@@ -3,13 +3,10 @@ import { spinLoader } from "../../../../src/components/common/loader";
 import { PrivateRoutes } from "../../../../src/routes/PrivateRoutes";
 import { Audio } from "../../../../src/pages/admin/audios/_audioId";
 
-const UserLayout = dynamic(
-  () => import("../../../../src/components/UserLayout"),
-  {
-    ssr: false,
-    loading: () => spinLoader(),
-  }
-);
+const UserLayout = dynamic(() => import("../../../../src/components/UserLayout"), {
+  ssr: false,
+  loading: () => spinLoader(),
+});
 
 const AudioContainer = (props) => {
   return (
