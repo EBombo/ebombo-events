@@ -7,7 +7,6 @@ import { Desktop, mediaQuery } from "../../../constants";
 import { DesktopLeftMenu } from "../../../components/common/DesktopLeftMenu";
 import { EditProfile } from "./EditProfile";
 import { Privacy } from "./Privacy";
-import { Billing } from "./Billing";
 import { ResetPassword } from "./ResetPassword";
 
 export const UserProfile = (props) => {
@@ -52,9 +51,6 @@ export const UserProfile = (props) => {
           <div className={`tab middle ${tab === "privacy" && "active"}`} onClick={() => setTab("privacy")}>
             Privacidad
           </div>
-          <div className={`tab middle ${tab === "billing" && "active"}`} onClick={() => setTab("billing")}>
-            Facturación
-          </div>
           <div className={`tab  right ${tab === "password" && "active"}`} onClick={() => setTab("password")}>
             Cambiar contraseña
           </div>
@@ -63,8 +59,6 @@ export const UserProfile = (props) => {
         {tab === "edit" && <EditProfile user={user} {...props} />}
 
         {tab === "privacy" && <Privacy user={user} {...props} />}
-
-        {tab === "billing" && <Billing user={user} {...props} />}
 
         {tab === "password" && <ResetPassword user={user} {...props} />}
       </div>

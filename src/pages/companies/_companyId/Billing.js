@@ -11,19 +11,19 @@ import { CurrentPlanCard } from "./billing/CurrentPlanCard";
 
 export const Billing = (props) => {
   const router = useRouter();
-  const { userId } = router.query;
+  const { companyId } = router.query;
 
   const [activePlan, setActivePlan] = useState();
   const [subscription, setSubscription] = useState();
 
-  const getUserSubscriptions = () => 
-    firestore.collection(`customers/${userId}/subscriptions`)
-      .where('status', '==', 'active')
-      .orderBy('created', 'desc').get();
-
   useEffect(() => {
     const getPlan = async () => {
-      const activeSubscriptions = snapshotToArray(await getUserSubscriptions());
+      const activeSubscriptionsQuery = await firestore
+        .collection(`customers/${companyId}/subscriptions`)
+        .where('status', '==', 'active')
+        .orderBy('created', 'desc').get();
+
+      const activeSubscriptions = snapshotToArray(activeSubscriptionsQuery);
 
       if (!activeSubscriptions.length) return setActivePlan(null);
 
@@ -46,7 +46,7 @@ export const Billing = (props) => {
                 <Anchor
                   underlined
                   className="link"
-                  onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}
+                  onClick={() => router.push(`/companies/${companyId}/billing?subscriptionId=${subscription?.id}`)}
                 >
                   Gestionar Facturas
                 </Anchor>
@@ -55,7 +55,7 @@ export const Billing = (props) => {
                 <Anchor
                   underlined
                   className="link"
-                  onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscription?.id}`)}
+                  onClick={() => router.push(`/companies/${companyId}/billing?subscriptionId=${subscription?.id}`)}
                 >
                   Administrar suscripción
                 </Anchor>

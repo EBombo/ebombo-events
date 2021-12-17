@@ -6,10 +6,13 @@ import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { darkTheme } from "../../../../theme";
 import { sendToCheckout } from "../../../../stripe";
 import { SubscriptionPlans } from "./SubscriptionPlans";
+import { useSendError } from "../../../../hooks";
 
 export const CurrentPlanCard = (props) => {
   const router = useRouter();
-  const {userId} = router.query;
+  const {companyId} = router.query;
+
+  const {sendError} = useSendError();
 
   const [isVisibleSeePlans, setIsVisibleSeePlans] = useState(false);
   const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
@@ -31,8 +34,13 @@ export const CurrentPlanCard = (props) => {
             if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
 
             setIsLoadingCheckoutPlan(true);
-            await sendToCheckout(userId, plan.currentPrice.id);
-            setIsLoadingCheckoutPlan(false);
+            try {
+              await sendToCheckout(companyId, plan.currentPrice.id);
+            } catch (err) {
+              props.showNotification('Error', err?.message, 'error');
+              setIsLoadingCheckoutPlan(false);
+              sendError(err);
+            }
           }}
           {...props} 
         />

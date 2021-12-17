@@ -22,23 +22,20 @@ export const BillingOverview = (props) => {
   const { sendError } = useSendError();
 
   const router = useRouter();
-  const { userId, subscriptionId } = router.query;
+  const { companyId, subscriptionId } = router.query;
 
   const [isLodingPortalLink, setIsLoadingPortalLink] = useState(false);
   const [subscription, setSubscription] = useState();
   const [invoice, setInvoice] = useState();
   const [paymentInformation, setPaymentInformation] = useState();
 
-  const fetchUserSubscription = () => firestore.collection(`customers/${userId}/subscriptions`).doc(subscriptionId).get();
-
-  const fetchLastInvoice = () => firestore.collection(`customers/${userId}/subscriptions/${subscriptionId}/invoices`).orderBy('created', 'desc').limit(1).get();
-  const fetchPaymentInformation = (paymentIntent) => firestore.collection(`customers/${userId}/payments`).doc(paymentIntent).get();
-
   useEffect(() => {
     if (subscription) return;
 
+    const fetchUserSubscriptionQuery = await firestore.collection(`customers/${companyId}/subscriptions`).doc(subscriptionId).get();
+
     const getSubscription = async () => {
-      const _subscription = (await fetchUserSubscription()).data();
+      const _subscription = fetchUserSubscriptionQuery.data();
 
       setSubscription(_subscription);
     };
@@ -51,11 +48,21 @@ export const BillingOverview = (props) => {
     if (invoice) return;
 
     const getInvoice = async () => {
-      const invoices = snapshotToArray(await fetchLastInvoice());
+      const lastInvoiceQuery = await firestore
+        .collection(`customers/${companyId}/subscriptions/${subscriptionId}/invoices`)
+        .orderBy('created', 'desc')
+        .limit(1)
+        .get();
+
+      const invoices = snapshotToArray(lastInvoiceQuery);
+
       const _invoice = invoices?.[0];
       setInvoice(_invoice);
 
-      const _paymentInformation = (await fetchPaymentInformation(_invoice['payment_intent'])).data();
+      const paymentIntent = _invoice['payment_intent']; 
+      const paymentInformationQuery = await firestore.collection(`customers/${companyId}/payments`).doc(paymentIntent).get();
+
+      const _paymentInformation = paymentInformationQuery.data();
       setPaymentInformation(_paymentInformation);
     };
 
@@ -65,6 +72,7 @@ export const BillingOverview = (props) => {
   const goToCustomerPortal = async () => {
     setIsLoadingPortalLink(true);
     try {
+      // redirects to Stripe Customer Portal
       await goToPortalLink();
     } catch (err) {
       setIsLoadingPortalLink(false);
@@ -120,7 +128,7 @@ export const BillingOverview = (props) => {
                 <Anchor 
                   variant="primary"
                   underlined
-                  onClick={() => router.push(`/users/${userId}/invoices/${invoice?.id}?subscriptionId=${subscriptionId}`)}
+                  onClick={() => router.push(`/companies/${companyId}/invoices/${invoice?.id}?subscriptionId=${subscriptionId}`)}
                 >#{ invoice?.number }</Anchor>
               </div>
             </div>
@@ -193,7 +201,6 @@ export const BillingOverview = (props) => {
                 </div>
               )
             }
-            
           </PanelBox>
         </div>
 
@@ -202,11 +209,11 @@ export const BillingOverview = (props) => {
           <Anchor
             className="action-link"
             variant="primary"
-            onClick={() => router.push(`/users/${userId}/invoices?subscriptionId=${subscriptionId}`)}
+            onClick={() => router.push(`/companies/${companyId}/invoices?subscriptionId=${subscriptionId}`)}
           >Ver todas las facturas</Anchor>
         </div>
 
-        <InvoiceTable {...props} userId={userId} subscriptionId={subscriptionId}/>
+        <InvoiceTable {...props} userId={companyId} subscriptionId={subscriptionId}/>
       </div>
 
     </BillingDetailContainer>

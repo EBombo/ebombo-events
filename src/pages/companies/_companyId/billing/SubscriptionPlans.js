@@ -8,8 +8,6 @@ import { freePlan } from "../../../../components/common/DataList";
 export const SubscriptionPlans = (props) => {
   const [plans, setPlans] = useState([]);
 
-  const fetchAllActivePrices = async (plan) => firestore.collection(`products/${plan.id}/prices`).where('active', '==', true).get();
-
   useEffect(() => {
     if (plans.length) return; 
 
@@ -17,7 +15,12 @@ export const SubscriptionPlans = (props) => {
       const plans = snapshotToArray(await firestore.collection('products').get());
 
       const plansPromises = plans.map(async (plan) => {
-        const activePrices = snapshotToArray(await fetchAllActivePrices());
+        const AllActivePricesQuery = await firestore
+          .collection(`products/${plan.id}/prices`)
+          .where('active', '==', true)
+          .get();
+
+        const activePrices = snapshotToArray(AllActivePricesQuery);
 
         plan.currentPrice = {
           id: activePrices?.[0]?.id,

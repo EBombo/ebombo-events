@@ -8,7 +8,7 @@ import { InvoiceTable } from "./InvoiceTable";
 
 export const AllInvoices = (props) => {
   const router = useRouter();
-  const { userId, subscriptionId } = router.query;
+  const { companyId, subscriptionId } = router.query;
 
   return (
     <AllInvoicesStyled>
@@ -17,19 +17,19 @@ export const AllInvoices = (props) => {
           <Breadcrumb.Item>
             <Anchor 
               className="item-link"
-              onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscriptionId}`)}
+              onClick={() => router.push(`/companies/${companyId}/billing?subscriptionId=${subscriptionId}`)}
             >Cuenta</Anchor>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <Anchor 
               className="item-link"
-              onClick={() => router.push(`/users/${userId}/invoices`)}
+              onClick={() => router.push(`/companies/${companyId}/invoices`)}
             >Todas las facturas</Anchor>
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>
       <div className="title">Facturas</div>
-      <InvoiceTable {...props} userId={userId} />
+      <InvoiceTable {...props} userId={companyId} />
     </AllInvoicesStyled>
   );
 };

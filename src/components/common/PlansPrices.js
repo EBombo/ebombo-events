@@ -1,6 +1,5 @@
 import React from "reactn";
 import styled from "styled-components";
-import { mediaQuery } from "../../constants";
 import { getCurrencySymbol } from "../../components/common/DataList";
 import { ButtonAnt } from "../../components/form/Button";
 
@@ -8,7 +7,7 @@ import { ButtonAnt } from "../../components/form/Button";
 export const PlansPrices = (props) => (
 <PlansPricesStyled data-aos-duration="1000">
   {[ ...props.plans ].map((plan, index) => (
-    <PlanPriceContent plan={plan} color={plan.metadata.color} background={plan.metadata.background} key={index}>
+    <PlanPriceContent plan={plan} color={plan.metadata.color} background={plan.metadata.background} key={`plan-${index}`}>
       <div className="plan free">
         {plan.metadata.recommended === "true" && <div className="header">Recomendado</div>}
 

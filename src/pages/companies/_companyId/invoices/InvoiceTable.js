@@ -13,16 +13,15 @@ import { formatAmount } from "../../../../stripe";
 
 const { Column } = Table;
 
-const downloadPdf = (pdfUrl) => window.open(pdfUrl, "blank");
+const downloadPdf = (pdfUrl) => window?.open(pdfUrl, "blank");
 
 export const InvoiceTable = (props) => {
   const router = useRouter();
-  const { userId, subscriptionId } = props;
+  const { companyId, subscriptionId } = props;
 
   const [invoices, setInvoices] = useState([]);
 
-  const fetchSubscriptions = () => firestore.collection(`customers/${userId}/subscriptions`).get();
-  const fetchInvoices = (_subscriptionId) => firestore.collection(`customers/${userId}/subscriptions/${_subscriptionId}/invoices`).get();
+  const fetchInvoices = (_subscriptionId) => firestore.collection(`customers/${companyId}/subscriptions/${_subscriptionId}/invoices`).get();
 
   useEffect(() => {
     if (invoices.length) return;
@@ -31,9 +30,9 @@ export const InvoiceTable = (props) => {
       setInvoices(snapshotToArray(await fetchInvoices(subscriptionId)));
 
     const getInvoicesFromAllSubscriptions = async () => {
-      const subcriptions = await fetchSubscriptions();
+      const subcriptionsQuery = await firestore.collection(`customers/${companyId}/subscriptions`).get();
 
-      const subcriptionsIds = subcriptions.docs.map((doc) => doc.id);
+      const subcriptionsIds = subcriptionsQuery.docs.map((doc) => doc.id);
       const fetchAllInvoicesPromise = subcriptionsIds.map((subId) => fetchInvoices(subId));
       let _invoices =  await Promise.all(fetchAllInvoicesPromise);
       _invoices =  _invoices.reduce((acc, invoiceList) => {
@@ -43,11 +42,9 @@ export const InvoiceTable = (props) => {
       setInvoices(_invoices);
     }
 
-    if (subscriptionId) {
-      return getInvoices();
-    } else {
-      return getInvoicesFromAllSubscriptions();
-    }
+    if (subscriptionId) return getInvoices();
+
+    return getInvoicesFromAllSubscriptions();
   }, [invoices]);
 
   return (
@@ -78,7 +75,7 @@ export const InvoiceTable = (props) => {
                 <Anchor
                   variant="primary"
                   underlined
-                  onClick={() => router.push(`/users/${userId}/invoices/${invoice.id}?subscriptionId=${subscriptionId}`)}
+                  onClick={() => router.push(`/companies/${companyId}/invoices/${invoice.id}?subscriptionId=${subscriptionId}`)}
                 >{ invoiceNumber }</Anchor>
               )}
             />

@@ -14,17 +14,17 @@ import { DownloadOutlined } from "@ant-design/icons";
 
 const { Column } = Table;
 
-const downloadPdf = (pdfUrl) => window.open(pdfUrl, "blank");
+const downloadPdf = (pdfUrl) => typeof window === "undefined" ? null : window?.open(pdfUrl, "blank");
 
 export const InvoiceDetail = (props) => {
   const router = useRouter();
-  const { userId, invoiceId, subscriptionId } = router.query;
+  const { companyId, invoiceId, subscriptionId } = router.query;
 
   const [invoice, setInvoice] = useState();
   const [paymentInformation, setPaymentInformation] = useState();
 
-  const fetchInvoice = () => firestore.collection(`customers/${userId}/subscriptions/${subscriptionId}/invoices`).doc(invoiceId).get();
-  const fetchPaymentInformation = (paymentIntent) => firestore.collection(`customers/${userId}/payments`).doc(paymentIntent).get();
+  const fetchInvoice = () => firestore.collection(`customers/${companyId}/subscriptions/${subscriptionId}/invoices`).doc(invoiceId).get();
+  const fetchPaymentInformation = (paymentIntent) => firestore.collection(`customers/${companyId}/payments`).doc(paymentIntent).get();
 
   useEffect(() => {
     if (invoice) return;
@@ -50,13 +50,13 @@ export const InvoiceDetail = (props) => {
           <Breadcrumb.Item>
             <Anchor 
               className="item-link"
-              onClick={() => router.push(`/users/${userId}/billing?subscriptionId=${subscriptionId}`)}
+              onClick={() => router.push(`/companies/${companyId}/billing?subscriptionId=${subscriptionId}`)}
             >Cuenta</Anchor>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <Anchor 
               className="item-link"
-              onClick={() => router.push(`/users/${userId}/invoices/${invoiceId}?subscriptionId=${subscriptionId}`)}
+              onClick={() => router.push(`/companies/${companyId}/invoices/${invoiceId}?subscriptionId=${subscriptionId}`)}
             >Factura #{invoice?.number}</Anchor>
           </Breadcrumb.Item>
         </Breadcrumb>
