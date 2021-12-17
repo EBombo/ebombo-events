@@ -1,4 +1,4 @@
-import React, { useGlobal, useState, useEffect } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Input } from "../../components/form";
 import { ListGameView } from "./ListGameView";
@@ -6,7 +6,7 @@ import isEmpty from "lodash/isEmpty";
 import { spinLoaderMin } from "../../components/common/loader";
 import { ModalMove } from "../../components/common/ModalMove";
 import { useSendError } from "../../hooks";
-import { updateGame } from "./games/_gameId"
+import { updateGame } from "./games/_gameId";
 
 export const DesktopLibraryGames = (props) => {
   const [games, setGames] = useGlobal("userGames");
@@ -21,10 +21,10 @@ export const DesktopLibraryGames = (props) => {
 
   const moveGameToFolder = async (folder) => {
     if (!selectedGameToMove) return;
-    
+
     try {
       await updateGame(selectedGameToMove.adminGame, { id: selectedGameToMove.id, parentId: folder?.id }, authUser);
-      
+
       props.fetchGames();
     } catch (error) {
       await sendError(error);
@@ -51,16 +51,10 @@ export const DesktopLibraryGames = (props) => {
       <div className="nav-container">
         <div className="tabs-search-container">
           <div className="tabs-container">
-            <div
-              className={`tab ${tab === "all" ? "active" : ""}`}
-              onClick={() => setTab("all")}
-            >
+            <div className={`tab ${tab === "all" ? "active" : ""}`} onClick={() => setTab("all")}>
               Mis juegos
             </div>
-            <div
-              className={`tab middle ${tab === "favorites" ? "active" : ""}`}
-              onClick={() => setTab("favorites")}
-            >
+            <div className={`tab middle ${tab === "favorites" ? "active" : ""}`} onClick={() => setTab("favorites")}>
               Favoritos
             </div>
             {/*<div*/}
@@ -95,15 +89,16 @@ export const DesktopLibraryGames = (props) => {
             game={game}
             key={game.id}
             listType={listType}
-            initModalMove={(toggle) => { setIsVisibleModalMove(toggle); setSelectedGameToMove(game) }}
+            initModalMove={(toggle) => {
+              setIsVisibleModalMove(toggle);
+              setSelectedGameToMove(game);
+            }}
             {...props}
           />
         ))}
         {loadingGames
           ? spinLoaderMin()
-          : isEmpty(props.games) && (
-              <div className="empty-container">No cuentas con juegos.</div>
-            )}
+          : isEmpty(props.games) && <div className="empty-container">No cuentas con juegos.</div>}
       </div>
     </GamesContainer>
   );

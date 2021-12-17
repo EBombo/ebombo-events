@@ -1,61 +1,52 @@
 import React, { forwardRef, useEffect, useState } from "reactn";
 import styled from "styled-components";
 import { sizes } from "../../constants";
-import {
-    EyeInvisibleOutlined,
-    EyeOutlined,
-    SearchOutlined,
-} from "@ant-design/icons";
+import { EyeInvisibleOutlined, EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
 
 export const Input = forwardRef((props, ref) => {
-    const [hide, setHide] = useState(false);
+  const [hide, setHide] = useState(false);
 
-    const inputType = () => {
-        if (props.type === "password") return hide ? "password" : "text";
+  const inputType = () => {
+    if (props.type === "password") return hide ? "password" : "text";
 
-        return props.type;
-    };
+    return props.type;
+  };
 
-    useEffect(() => {
-        if (props.type === "password") setHide(true);
-    }, [props.type]);
+  useEffect(() => {
+    if (props.type === "password") setHide(true);
+  }, [props.type]);
 
-    return (
-        <InputContainer>
-            <InputWrapper {...props}>
-                <StyledInput
-                    hasError={props.error}
-                    {...props}
-                    ref={ref}
-                    type={inputType()}
-                    className={`ant-input ${props.className}`}
-                />
-                {props.type === "password" && (
-                    <>
-                        {hide ? (
-                            <EyeOutlinedCss onClick={() => setHide(!hide)} />
-                        ) : (
-                                <EyeInvisibleOutlinedCss onClick={() => setHide(!hide)} />
-                            )}
-                    </>
-                )}
-                {props.type === "search" && <SearchOutlinedCss />}
-            </InputWrapper>
-            {props.error && (
-                <Error>
-                    <Image
-                        src={`${config.storageUrl}/resources/error.svg`}
-                        height="11px"
-                        width="11px"
-                        margin="0 5px 0 0"
-                    />
-                    {props.error.message}
-                </Error>
+  return (
+    <InputContainer>
+      <InputWrapper {...props}>
+        <StyledInput
+          hasError={props.error}
+          {...props}
+          ref={ref}
+          type={inputType()}
+          className={`ant-input ${props.className}`}
+        />
+        {props.type === "password" && (
+          <>
+            {hide ? (
+              <EyeOutlinedCss onClick={() => setHide(!hide)} />
+            ) : (
+              <EyeInvisibleOutlinedCss onClick={() => setHide(!hide)} />
             )}
-        </InputContainer>
-    );
+          </>
+        )}
+        {props.type === "search" && <SearchOutlinedCss />}
+      </InputWrapper>
+      {props.error && (
+        <Error>
+          <Image src={`${config.storageUrl}/resources/error.svg`} height="11px" width="11px" margin="0 5px 0 0" />
+          {props.error.message}
+        </Error>
+      )}
+    </InputContainer>
+  );
 });
 
 const InputContainer = styled.div`
@@ -107,11 +98,10 @@ const EyeInvisibleOutlinedCss = styled(EyeInvisibleOutlined)`
 const StyledInput = styled.input`
   width: 100%;
   height: ${(props) => (props.height ? props.height : "36px")};
-  border: ${(props) => props.border ? props.border : `1px solid ${props.theme.basic.grayLighten}`};
+  border: ${(props) => (props.border ? props.border : `1px solid ${props.theme.basic.grayLighten}`)};
   box-sizing: border-box;
   border-radius: 4px !important;
-  background: ${(props) =>
-    props.background ? props.background : props.theme.basic.whiteLight};
+  background: ${(props) => (props.background ? props.background : props.theme.basic.whiteLight)};
   color: ${(props) => props.theme.basic.blackDarken};
 
   &:focus {

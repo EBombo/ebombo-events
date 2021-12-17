@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "reactn";
 import { Divider, List, Tooltip } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { FileUpload } from "../../../components/common/FileUpload";
 import get from "lodash/get";
 import styled from "styled-components";
@@ -31,11 +31,9 @@ export const GamesContainer = () => {
     fetchGame();
   }, []);
 
-  const saveImage = async (gameId, url) =>
-    await firestore.doc(`games/${gameId}`).update({ coverUrl: url });
+  const saveImage = async (gameId, url) => await firestore.doc(`games/${gameId}`).update({ coverUrl: url });
 
-  const deleteGames = async (gameId) =>
-    await firestore.doc(`games/${gameId}`).update({ deleted: true });
+  const deleteGames = async (gameId) => await firestore.doc(`games/${gameId}`).update({ deleted: true });
 
   if (loading) return spinLoader();
 
@@ -43,9 +41,7 @@ export const GamesContainer = () => {
     <GamesContainerCss>
       <div>
         <div className="title">Juegos</div>
-        <ButtonAnt onClick={() => router.push("/admin/games/new")}>
-          CREAR JUEGO
-        </ButtonAnt>
+        <ButtonAnt onClick={() => router.push("/admin/games/new")}>CREAR JUEGO</ButtonAnt>
 
         <Divider />
         <List
@@ -85,11 +81,7 @@ export const GamesContainer = () => {
             >
               {
                 <div style={{ width: "100%" }}>
-                  <div
-                    className="game"
-                    key={game.id}
-                    onClick={() => router.push(`/admin/games/${game.id}`)}
-                  >
+                  <div className="game" key={game.id} onClick={() => router.push(`/admin/games/${game.id}`)}>
                     {game.name.toUpperCase()}
                   </div>
 
@@ -110,9 +102,7 @@ export const GamesContainer = () => {
                       filePath={`admingGames/${game.id}`}
                       preview={true}
                       sizes="250x250"
-                      afterUpload={(imageUrls) =>
-                        saveImage(game.id, imageUrls[0].url)
-                      }
+                      afterUpload={(imageUrls) => saveImage(game.id, imageUrls[0].url)}
                       style={{ bordarRadius: "4px" }}
                     />
                   </div>

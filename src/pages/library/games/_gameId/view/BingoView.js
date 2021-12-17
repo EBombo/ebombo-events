@@ -8,7 +8,6 @@ import { CardContainer } from "../Bingo";
 import { ModalMove } from "../../../../../components/common/ModalMove";
 
 export const BingoView = (props) => {
-
   const showBingoCard = () => (
     <CardContainer
       backgroundColor={get(props.game, "backgroundColor", "")}
@@ -101,7 +100,6 @@ export const BingoView = (props) => {
     </div>
   );
 };
-
 
 const ColorBlock = styled.div`
   width: 29px;

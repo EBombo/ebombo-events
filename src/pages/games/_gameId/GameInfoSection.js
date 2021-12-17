@@ -25,20 +25,18 @@ const GameInfoSectionStyled = styled.section`
 
   ${mediaQuery.afterTablet} {
     .body-container {
-
       .description {
         grid-column: 1 / 2;
         grid-row: 1 / 2;
       }
     }
     .body-container {
-
       .image-container {
         grid-column: 2 / 3;
         grid-row: 1 / 2;
         align-self: center;
       }
-    } 
+    }
   }
 
   .body-container {
