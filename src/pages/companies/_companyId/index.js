@@ -25,6 +25,7 @@ export const Company = (props) => {
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [loadingUsersAdmin, setLoadingUsersAdmin] = useState(true);
   const [isNewCompany, setIsNewCompany] = useState(null);
+  const [hasBillingPermissions, setHasBillingPermissions] = useState(false);
 
   useEffect(() => {
     const fetchCompany = () =>
@@ -32,15 +33,18 @@ export const Company = (props) => {
         .collection("companies")
         .doc(companyId)
         .onSnapshot((companyOnSnapShot) => {
+          setIsNewCompany(!companyOnSnapShot.exists);
           if (!companyOnSnapShot.exists) {
             setCompany({
               id: companyId,
             });
             return setLoadingCompany(false);
           }
-          setIsNewCompany(!companyOnSnapShot.exists);
 
-          setCompany(companyOnSnapShot.data());
+          const _company = companyOnSnapShot.data();
+          setHasBillingPermissions(_company.usersIds.includes(authUser.id));
+
+          setCompany(_company);
           setLoadingCompany(false);
         });
 
@@ -103,7 +107,7 @@ export const Company = (props) => {
               Adm. de usuarios
             </div>
           )}
-          {!isNewCompany && (
+          {hasBillingPermissions && (
             <div className={`tab  middle ${tab === "billing" && "active"}`} onClick={() => setTab("billing")}>
               Facturación
             </div>
