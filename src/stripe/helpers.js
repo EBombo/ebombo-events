@@ -25,16 +25,10 @@ export const sendToCheckout = async (userId, priceId) => {
 
 const createPortalLink = functions.httpsCallable('ext-firestore-stripe-payments-createPortalLink');
 
-export const goToPortalLink = () => {
-  return new Promise((resolve, reject) => {
-    createPortalLink({returnUrl: window.location.href}) 
-      .then((response) => {
-        window.location.assign(response.data.url);
-        resolve();
-      })
-      .catch((err) => reject(err));
-  });
+export const goToPortalLink = async () => {
+  const response = await createPortalLink({returnUrl: window.location.href});
+  window.location.assign(response.data.url);
 };
 
-export const formatAmount = (price) => (price / 100)?.toFixed(2);
+export const formatAmount = (price) => +(price / 100)?.toFixed(2);
 
