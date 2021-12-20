@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "reactn";
+import React, { useState, useEffect, useGlobal } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../constants";
 import { PanelBox } from "../../../components/common/PanelBox";
@@ -13,13 +13,15 @@ export const Billing = (props) => {
   const router = useRouter();
   const { companyId } = router.query;
 
+  const [authUser] = useGlobal("user");
+
   const [activePlan, setActivePlan] = useState();
   const [subscription, setSubscription] = useState();
 
   useEffect(() => {
     const getPlan = async () => {
       const activeSubscriptionsQuery = await firestore
-        .collection(`customers/${companyId}/subscriptions`)
+        .collection(`customers/${authUser.id}/subscriptions`)
         .where('status', '==', 'active')
         .orderBy('created', 'desc').get();
 
