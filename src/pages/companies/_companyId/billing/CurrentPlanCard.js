@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React, { useState, useGlobal } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { ButtonAnt } from "../../../../components/form";
@@ -10,9 +10,10 @@ import { useSendError } from "../../../../hooks";
 
 export const CurrentPlanCard = (props) => {
   const router = useRouter();
-  const {companyId} = router.query;
 
   const {sendError} = useSendError();
+
+  const [authUser] = useGlobal("user");
 
   const [isVisibleSeePlans, setIsVisibleSeePlans] = useState(false);
   const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
@@ -35,7 +36,7 @@ export const CurrentPlanCard = (props) => {
 
             setIsLoadingCheckoutPlan(true);
             try {
-              await sendToCheckout(companyId, plan.currentPrice.id);
+              await sendToCheckout(authUser?.id, plan.currentPrice.id);
             } catch (err) {
               props.showNotification('Error', err?.message, 'error');
               setIsLoadingCheckoutPlan(false);
