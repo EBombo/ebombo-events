@@ -1,5 +1,5 @@
 import React from "reactn";
-import { BillingOverview } from "../../../../src/pages/users/_userId/billing/BillingOverview";
+import { BillingOverview } from "../../../../src/pages/companies/_companyId/billing/BillingOverview";
 import dynamic from "next/dynamic";
 import { spinLoader } from "../../../../src/components/common/loader";
 import { UserPrivateRoute } from "../../../../src/routes/UserPrivateRoute";
