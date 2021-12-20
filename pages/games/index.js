@@ -13,4 +13,3 @@ const Games = (props) => (
 );
 
 export default Games;
-

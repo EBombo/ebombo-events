@@ -62,8 +62,7 @@ export const SeoContainer = (props) => {
     setIsLoadingSave(false);
   };
 
-  const mapSEO = (data) =>
-    Object.fromEntries(data.seo.map((seo_) => [seo_.route, seo_]));
+  const mapSEO = (data) => Object.fromEntries(data.seo.map((seo_) => [seo_.route, seo_]));
 
   if (isLoading) return spinLoader();
 

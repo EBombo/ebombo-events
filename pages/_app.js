@@ -6,17 +6,18 @@ import React, { useEffect, useGlobal, useState } from "reactn";
 import { ErrorBoundary } from "react-error-boundary";
 import { config, firestore } from "../src/firebase";
 import { ThemeProvider } from "styled-components";
+import { useFetch } from "../src/hooks/useFetch";
 import { snapshotToArray } from "../src/utils";
 import { useRouter } from "next/router";
 import { useUser } from "../src/hooks";
 import { notification } from "antd";
+import "../src/theme/globals.css";
+import Script from "next/script";
 import get from "lodash/get";
 import Head from "next/head";
-import Script from "next/script";
 import "antd/dist/antd.css";
-import { useFetch } from "../src/hooks/useFetch";
-import AOS from "aos";
 import "aos/dist/aos.css";
+import AOS from "aos";
 
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();

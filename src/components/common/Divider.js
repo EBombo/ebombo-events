@@ -39,7 +39,6 @@ const DividerCss = styled.div`
     font-size: 11px;
     font-weight: 900;
     padding: 0 10px 0 10px;
-    background: ${(props) =>
-      props.background ? props.background : props.theme.basic.gray};
+    background: ${(props) => (props.background ? props.background : props.theme.basic.gray)};
   }
 `;

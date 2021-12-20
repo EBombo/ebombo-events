@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState, useRef } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "./ModalContainer";
 import { darkTheme } from "../../theme";
@@ -112,7 +112,11 @@ export const ModalMove = (props) => {
       <Content>
         <div className="title">Mover juego</div>
         <div className="second-container">
-          <div className="go-back" disabled={!folderId} onClick={() => setFolderId(folders[0]?.parent?.parentId || null)}>
+          <div
+            className="go-back"
+            disabled={!folderId}
+            onClick={() => setFolderId(folders[0]?.parent?.parentId || null)}
+          >
             <Image
               src={`${config.storageUrl}/resources/arrows/arrowLeft.svg`}
               width="12px"
