@@ -1,9 +1,6 @@
-import React, { useState } from "reactn";
+import React from "reactn";
 import styled from "styled-components";
-import { Image } from "../../components/common/Image";
-import { config } from "../../firebase";
 import { useRouter } from "next/router";
-import get from "lodash/get";
 import { DesktopLibraryGames } from "./DesktopLibraryGames";
 import { DesktopLibraryFolders } from "./DesktopLibraryFolders";
 import { DesktopLeftMenu } from "../../components/common/DesktopLeftMenu";
@@ -14,11 +11,7 @@ export const DesktopLibrary = (props) => {
   return (
     <DesktopLibraryContainer>
       <DesktopLeftMenu {...props} />
-      {router.asPath.includes("/folders") ? (
-        <DesktopLibraryFolders {...props} />
-      ) : (
-        <DesktopLibraryGames {...props} />
-      )}
+      {router.asPath.includes("/folders") ? <DesktopLibraryFolders {...props} /> : <DesktopLibraryGames {...props} />}
     </DesktopLibraryContainer>
   );
 };

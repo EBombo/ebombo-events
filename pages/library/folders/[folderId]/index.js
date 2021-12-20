@@ -5,13 +5,10 @@ import { spinLoader } from "../../../../src/components/common/loader";
 import { SEOMeta } from "../../../../src/components/common/seo";
 import { PrivateRoutes } from "../../../../src/routes/PrivateRoutes";
 
-const UserLayout = dynamic(
-  () => import("../../../../src/components/UserLayout"),
-  {
-    ssr: false,
-    loading: () => spinLoader(),
-  }
-);
+const UserLayout = dynamic(() => import("../../../../src/components/UserLayout"), {
+  ssr: false,
+  loading: () => spinLoader(),
+});
 
 const Folder = (props) => (
   <PrivateRoutes>
