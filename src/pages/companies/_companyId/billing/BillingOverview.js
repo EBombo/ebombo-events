@@ -1,10 +1,8 @@
 import React, { useGlobal, useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { DownloadOutlined } from "@ant-design/icons";
-import { Table, Space } from "antd";
 import moment from "moment";
-import { mediaQuery, Desktop, Tablet } from "../../../../constants";
+import { mediaQuery } from "../../../../constants";
 import { PanelBox } from "../../../../components/common/PanelBox";
 import { stripeDateFormat, getTypePaymentPrice, getCurrencySymbol, BrandCardIcon } from "../../../../components/common/DataList";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
@@ -24,6 +22,8 @@ export const BillingOverview = (props) => {
   const router = useRouter();
   const { companyId, subscriptionId } = router.query;
 
+  const [authUser] = useGlobal("user");
+
   const [isLodingPortalLink, setIsLoadingPortalLink] = useState(false);
   const [subscription, setSubscription] = useState();
   const [invoice, setInvoice] = useState();
@@ -32,14 +32,13 @@ export const BillingOverview = (props) => {
   useEffect(() => {
     if (subscription) return;
 
-    const fetchUserSubscriptionQuery = await firestore.collection(`customers/${companyId}/subscriptions`).doc(subscriptionId).get();
+    const fetchUserSubscriptionQuery = firestore.collection(`customers/${authUser.id}/subscriptions`).doc(subscriptionId).get();
 
     const getSubscription = async () => {
-      const _subscription = fetchUserSubscriptionQuery.data();
+      const _subscription = (await fetchUserSubscriptionQuery).data();
 
       setSubscription(_subscription);
     };
-
 
     return getSubscription();
   }, []);
@@ -49,7 +48,7 @@ export const BillingOverview = (props) => {
 
     const getInvoice = async () => {
       const lastInvoiceQuery = await firestore
-        .collection(`customers/${companyId}/subscriptions/${subscriptionId}/invoices`)
+        .collection(`customers/${authUser.id}/subscriptions/${subscriptionId}/invoices`)
         .orderBy('created', 'desc')
         .limit(1)
         .get();
@@ -60,7 +59,7 @@ export const BillingOverview = (props) => {
       setInvoice(_invoice);
 
       const paymentIntent = _invoice['payment_intent']; 
-      const paymentInformationQuery = await firestore.collection(`customers/${companyId}/payments`).doc(paymentIntent).get();
+      const paymentInformationQuery = await firestore.collection(`customers/${authUser.id}/payments`).doc(paymentIntent).get();
 
       const _paymentInformation = paymentInformationQuery.data();
       setPaymentInformation(_paymentInformation);
@@ -213,7 +212,7 @@ export const BillingOverview = (props) => {
           >Ver todas las facturas</Anchor>
         </div>
 
-        <InvoiceTable {...props} userId={companyId} subscriptionId={subscriptionId}/>
+        <InvoiceTable {...props} userId={authUser?.id} subscriptionId={subscriptionId}/>
       </div>
 
     </BillingDetailContainer>
