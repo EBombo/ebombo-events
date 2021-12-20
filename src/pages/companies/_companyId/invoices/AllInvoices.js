@@ -1,4 +1,4 @@
-import React from "reactn";
+import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { Breadcrumb } from 'antd';
 import { useRouter } from "next/router";
@@ -9,6 +9,8 @@ import { InvoiceTable } from "./InvoiceTable";
 export const AllInvoices = (props) => {
   const router = useRouter();
   const { companyId, subscriptionId } = router.query;
+
+  const [authUser] = useGlobal("user");
 
   return (
     <AllInvoicesStyled>
@@ -29,7 +31,7 @@ export const AllInvoices = (props) => {
         </Breadcrumb>
       </div>
       <div className="title">Facturas</div>
-      <InvoiceTable {...props} userId={companyId} />
+      <InvoiceTable {...props} userId={authUser?.id} />
     </AllInvoicesStyled>
   );
 };

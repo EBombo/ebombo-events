@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "reactn";
+import React, { useState, useEffect, useGlobal } from "reactn";
 import styled from "styled-components";
 import moment from "moment";
 import { mediaQuery, Desktop, Tablet } from "../../../../../constants";
@@ -20,11 +20,13 @@ export const InvoiceDetail = (props) => {
   const router = useRouter();
   const { companyId, invoiceId, subscriptionId } = router.query;
 
+  const [authUser] = useGlobal("user");
+
   const [invoice, setInvoice] = useState();
   const [paymentInformation, setPaymentInformation] = useState();
 
-  const fetchInvoice = () => firestore.collection(`customers/${companyId}/subscriptions/${subscriptionId}/invoices`).doc(invoiceId).get();
-  const fetchPaymentInformation = (paymentIntent) => firestore.collection(`customers/${companyId}/payments`).doc(paymentIntent).get();
+  const fetchInvoice = () => firestore.collection(`customers/${authUser.id}/subscriptions/${subscriptionId}/invoices`).doc(invoiceId).get();
+  const fetchPaymentInformation = (paymentIntent) => firestore.collection(`customers/${authUser.id}/payments`).doc(paymentIntent).get();
 
   useEffect(() => {
     if (invoice) return;
@@ -69,12 +71,14 @@ export const InvoiceDetail = (props) => {
             onClick={() => window.print()}
           ><PrinterOutlined/> Imprimir</Anchor>
         */}
-
         <Anchor 
           variant="primary"
           underlined
-          onClick={() => downloadPdf(invoice?.invoice_pdf)}
-        ><DownloadOutlined/> Descargar</Anchor>
+          target="_blank"
+          href={invoice?.invoice_pdf}
+        >
+          <DownloadOutlined/> Descargar
+        </Anchor>
       </div>
 
       <div className="inner-layout">

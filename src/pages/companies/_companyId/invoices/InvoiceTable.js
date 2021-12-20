@@ -13,15 +13,13 @@ import { formatAmount } from "../../../../stripe";
 
 const { Column } = Table;
 
-const downloadPdf = (pdfUrl) => window?.open(pdfUrl, "blank");
-
 export const InvoiceTable = (props) => {
   const router = useRouter();
-  const { companyId, subscriptionId } = props;
+  const { userId, subscriptionId } = props;
 
   const [invoices, setInvoices] = useState([]);
 
-  const fetchInvoices = (_subscriptionId) => firestore.collection(`customers/${companyId}/subscriptions/${_subscriptionId}/invoices`).get();
+  const fetchInvoices = (_subscriptionId) => firestore.collection(`customers/${userId}/subscriptions/${_subscriptionId}/invoices`).get();
 
   useEffect(() => {
     if (invoices.length) return;
@@ -30,7 +28,7 @@ export const InvoiceTable = (props) => {
       setInvoices(snapshotToArray(await fetchInvoices(subscriptionId)));
 
     const getInvoicesFromAllSubscriptions = async () => {
-      const subcriptionsQuery = await firestore.collection(`customers/${companyId}/subscriptions`).get();
+      const subcriptionsQuery = await firestore.collection(`customers/${userId}/subscriptions`).get();
 
       const subcriptionsIds = subcriptionsQuery.docs.map((doc) => doc.id);
       const fetchAllInvoicesPromise = subcriptionsIds.map((subId) => fetchInvoices(subId));
@@ -59,7 +57,9 @@ export const InvoiceTable = (props) => {
             <Column
               key="action"
               render={(invoice) => (
-                <DownloadOutlined onClick={() => downloadPdf(invoice.invoice_pdf)}/>
+                <Anchor href={invoice.invoice_pdf} target="_blank" >
+                  <DownloadOutlined/>
+                </Anchor>
               )}
             />
           </Table>
@@ -75,7 +75,7 @@ export const InvoiceTable = (props) => {
                 <Anchor
                   variant="primary"
                   underlined
-                  onClick={() => router.push(`/companies/${companyId}/invoices/${invoice.id}?subscriptionId=${subscriptionId}`)}
+                  onClick={() => router.push(`/companies/${userId}/invoices/${invoice.id}?subscriptionId=${subscriptionId}`)}
                 >{ invoiceNumber }</Anchor>
               )}
             />
@@ -104,7 +104,9 @@ export const InvoiceTable = (props) => {
             <Column
               key="action"
               render={(invoice) => (
-                <DownloadOutlined onClick={() => downloadPdf(invoice.invoice_pdf)}/>
+                <Anchor href={invoice.invoice_pdf} target="_blank" >
+                  <DownloadOutlined/>
+                </Anchor>
               )}
             />
           </Table>
