@@ -5,7 +5,7 @@ import { config, firestore } from "../../firebase";
 import { useRouter } from "next/router";
 import isEmpty from "lodash/isEmpty";
 import { ButtonAnt } from "../../components/form";
-import { Tooltip, Modal } from "antd";
+import { Modal, Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import { ModalNewFolder } from "./ModalNewFolder";
 import { ModalNewGame } from "./ModalNewGame";
@@ -13,7 +13,7 @@ import { ListGameView } from "./ListGameView";
 import { spinLoaderMin } from "../../components/common/loader";
 import { useSendError } from "../../hooks";
 import { ModalMove } from "../../components/common/ModalMove";
-import { updateGame } from "./games/_gameId"
+import { updateGame } from "./games/_gameId";
 
 export const TabletLibrary = (props) => {
   const router = useRouter();
@@ -28,8 +28,7 @@ export const TabletLibrary = (props) => {
   const [authUser] = useGlobal("user");
 
   const getGames = () => {
-    if (router.asPath.includes("/favorites"))
-      return games.filter((game) => !!game.isFavorite);
+    if (router.asPath.includes("/favorites")) return games.filter((game) => !!game.isFavorite);
 
     return games;
   };
@@ -55,10 +54,10 @@ export const TabletLibrary = (props) => {
 
   const moveGameToFolder = async (folder) => {
     if (!selectedGameToMove) return;
-    
+
     try {
       await updateGame(selectedGameToMove.adminGame, { id: selectedGameToMove.id, parentId: folder?.id }, authUser);
-      
+
       props.fetchGames();
     } catch (error) {
       await sendError(error, "moveGameToFolder");
@@ -94,10 +93,7 @@ export const TabletLibrary = (props) => {
           <div className="main-content">
             <div className="recents">Recientes</div>
             <div className="most-recent" />
-            <div
-              className="item games"
-              onClick={() => router.push("/library/games")}
-            >
+            <div className="item games" onClick={() => router.push("/library/games")}>
               <div className="left">
                 <Image
                   src={`${config.storageUrl}/resources/purple-puzzle.svg`}
@@ -109,10 +105,7 @@ export const TabletLibrary = (props) => {
                 <div className="name">Mis juegos</div>
               </div>
             </div>
-            <div
-              className="item favorites"
-              onClick={() => router.push("/library/favorites")}
-            >
+            <div className="item favorites" onClick={() => router.push("/library/favorites")}>
               <div className="left">
                 <Image
                   src={`${config.storageUrl}/resources/purple-star.svg`}
@@ -136,10 +129,7 @@ export const TabletLibrary = (props) => {
               trigger="click"
               title={
                 <ToolTipContent>
-                  <div
-                    className="option"
-                    onClick={() => setIsVisibleModalGame(true)}
-                  >
+                  <div className="option" onClick={() => setIsVisibleModalGame(true)}>
                     <Image
                       src={`${config.storageUrl}/resources/purple-puzzle.svg`}
                       width="20px"
@@ -150,10 +140,7 @@ export const TabletLibrary = (props) => {
                     />
                     Crear juego
                   </div>
-                  <div
-                    className="option"
-                    onClick={() => setIsVisibleModalFolder(true)}
-                  >
+                  <div className="option" onClick={() => setIsVisibleModalFolder(true)}>
                     <Image
                       src={`${config.storageUrl}/resources/purple-folder.svg`}
                       width="20px"
@@ -190,10 +177,7 @@ export const TabletLibrary = (props) => {
             ) : (
               props.folders.map((folder) => (
                 <div key={folder.id} className="item games folder">
-                  <div
-                    className="left"
-                    onClick={() => router.push(`/library/folders/${folder.id}`)}
-                  >
+                  <div className="left" onClick={() => router.push(`/library/folders/${folder.id}`)}>
                     <Image
                       src={`${config.storageUrl}/resources/purple-folder.svg`}
                       width="20px"
@@ -244,10 +228,7 @@ export const TabletLibrary = (props) => {
                           />
                           Duplicar
                         </div>
-                        <div
-                          className="folder-option"
-                          onClick={() => deleteFolder(folder)}
-                        >
+                        <div className="folder-option" onClick={() => deleteFolder(folder)}>
                           <Image
                             src={`${config.storageUrl}/resources/delete.svg`}
                             width={"16px"}
@@ -283,7 +264,10 @@ export const TabletLibrary = (props) => {
                   game={game}
                   key={game.id}
                   listType={"icons"}
-                  initModalMove={(toggle) => { setIsVisibleModalMove(toggle); setSelectedGameToMove(game) }}
+                  initModalMove={(toggle) => {
+                    setIsVisibleModalMove(toggle);
+                    setSelectedGameToMove(game);
+                  }}
                   {...props}
                 />
               ))

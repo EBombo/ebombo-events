@@ -26,16 +26,8 @@ export const ErrorFallback = (props) => {
           justifyContent: "center",
         }}
       >
-        {props.resetErrorBoundary && (
-          <ButtonAnt onClick={props.resetErrorBoundary}>
-            Intentar nuevamente
-          </ButtonAnt>
-        )}
-        <ButtonAnt
-          variant="outlined"
-          color="default"
-          onClick={() => (window.location.href = "/")}
-        >
+        {props.resetErrorBoundary && <ButtonAnt onClick={props.resetErrorBoundary}>Intentar nuevamente</ButtonAnt>}
+        <ButtonAnt variant="outlined" color="default" onClick={() => (window.location.href = "/")}>
           Volver al inicio
         </ButtonAnt>
       </div>

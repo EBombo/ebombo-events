@@ -2,7 +2,7 @@ import React from "reactn";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import get from "lodash/get";
-import { Desktop, Tablet } from "../../../../../constants";
+import { Tablet } from "../../../../../constants";
 import { ButtonAnt } from "../../../../../components/form";
 
 export const HangedView = (props) => {
@@ -19,7 +19,9 @@ export const HangedView = (props) => {
 
           <div className="description">Frases:</div>
           {get(props.game, "phrases", []).map((phrase, i) => (
-            <div key={`phrase-${i}`} className="value">{phrase}</div>
+            <div key={`phrase-${i}`} className="value">
+              {phrase}
+            </div>
           ))}
         </div>
       </div>
@@ -62,4 +64,3 @@ const ToolTipContent = styled.div`
     cursor: pointer;
   }
 `;
-

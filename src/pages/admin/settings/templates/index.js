@@ -39,12 +39,7 @@ export const TemplatesContainer = (props) => {
           {emailTemplates.map((template) => (
             <div key={template.id}>
               {template.name}&nbsp;
-              <Anchor
-                variant="primary"
-                onClick={() =>
-                  setCurrentTemplate(get(templates, `${template.id}`, template))
-                }
-              >
+              <Anchor variant="primary" onClick={() => setCurrentTemplate(get(templates, `${template.id}`, template))}>
                 [EDITAR]
               </Anchor>
             </div>

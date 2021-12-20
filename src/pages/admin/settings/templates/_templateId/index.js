@@ -24,24 +24,16 @@ export const TemplateContainer = (props) => {
   });
 
   useEffect(() => {
-    if (
-      !get(EmailEditorRef, "current.editor") ||
-      !get(props, "currentTemplate.design")
-    )
-      return;
+    if (!get(EmailEditorRef, "current.editor") || !get(props, "currentTemplate.design")) return;
 
-    EmailEditorRef.current.editor.loadDesign(
-      get(props, "currentTemplate.design", {})
-    );
+    EmailEditorRef.current.editor.loadDesign(get(props, "currentTemplate.design", {}));
   }, [EmailEditorRef, props.currentTemplate]);
 
   const saveContent = async (data) => {
     setIsSaving(true);
 
     const exportHtml = await new Promise((resolve) =>
-      EmailEditorRef.current.editor.exportHtml((data) =>
-        resolve({ html: data.html, design: data.design })
-      )
+      EmailEditorRef.current.editor.exportHtml((data) => resolve({ html: data.html, design: data.design }))
     );
 
     await saveTemplate({
@@ -106,21 +98,14 @@ export const TemplateContainer = (props) => {
             },
           }}
         />
-        <ButtonAnt
-          margin="1rem 0"
-          variant="primary"
-          htmlType="submit"
-          loading={isSaving}
-          disabled={isSaving}
-        >
+        <ButtonAnt margin="1rem 0" variant="primary" htmlType="submit" loading={isSaving} disabled={isSaving}>
           Guardar cambios
         </ButtonAnt>
       </form>
       <div className="legend">
         <div className="subtitle">Leyenda:</div>
         <div className="description">
-          Utiliza las siguientes variables y seran reemplazadas por la
-          informacion correspondiente
+          Utiliza las siguientes variables y seran reemplazadas por la informacion correspondiente
         </div>
         <ol>
           {templatesLegend.map((legend) => (
