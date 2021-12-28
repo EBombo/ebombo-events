@@ -104,6 +104,7 @@ export const Bingo = (props) => {
           setAllowDuplicate={setAllowDuplicate}
           allowDuplicate={allowDuplicate}
           newId={newId}
+          path={`/games/Bingo/${props.newId}`}
           {...props}
         />
       )}
