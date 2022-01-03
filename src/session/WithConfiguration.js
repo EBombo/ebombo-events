@@ -10,13 +10,16 @@ import { yup } from "../config";
 import { register } from "next-offline/runtime";
 import { spinLoader } from "../components/common/loader";
 import dynamic from "next/dynamic";
-import { snapshotToArray } from "../utils";
+import { initializeReactGA, snapshotToArray } from "../utils";
+import { useRouter } from "next/router";
 
 const UpdateVersion = dynamic(() => import("../components/versions/UpdateVersion"), {
   loading: () => spinLoader(),
 });
 
 export const WithConfiguration = (props) => {
+  const router = useRouter();
+
   const { Fetch } = useFetch();
 
   const [authUser] = useGlobal("user");
@@ -31,8 +34,6 @@ export const WithConfiguration = (props) => {
   const [location, setLocationLocalStorage] = useLocation();
   const [settingsLS, setSettingsLocalStorage] = useSettings();
 
-  // TODO: Dot using a spin helps SEO.
-  // TODO: The spin helps to build static files faster.
   const isDevelopment = process.env.NODE_ENV === "development";
   const [isLoadingConfig, setIsLoadingConfig] = useState(isDevelopment);
 
@@ -123,6 +124,12 @@ export const WithConfiguration = (props) => {
 
   useEffect(() => {
     register("/sw.js", { scope: "/" });
+  }, []);
+
+  useEffect(() => {
+    if (!router.asPath) return;
+
+    initializeReactGA(router.asPath);
   }, []);
 
   return version === get(settings, "version", version) ? (
