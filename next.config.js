@@ -34,7 +34,7 @@ module.exports = withBundleAnalyzer({
         headers: [
           {
             key: "Cache-Control",
-            value: "max-age=2592000",
+            value: "public, max-age=2592000",
           },
           {
             key: "Access-Control-Allow-Origin",
@@ -48,7 +48,7 @@ module.exports = withBundleAnalyzer({
         headers: [
           {
             key: "Cache-Control",
-            value: "max-age=2592000",
+            value: "public, max-age=2592000",
           },
           {
             key: "Access-Control-Allow-Origin",
@@ -62,7 +62,7 @@ module.exports = withBundleAnalyzer({
         headers: [
           {
             key: "Cache-Control",
-            value: "max-age=2592000",
+            value: "public, max-age=2592000",
           },
           {
             key: "Access-Control-Allow-Origin",
