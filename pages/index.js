@@ -13,11 +13,3 @@ const Init = (props) => (
 );
 
 export default Init;
-
-export async function getServerSideProps({ req, res }) {
-  res.setHeader("Cache-Control", "public, s-maxage=2592000, stale-while-revalidate=30");
-
-  return {
-    props: {},
-  };
-}
