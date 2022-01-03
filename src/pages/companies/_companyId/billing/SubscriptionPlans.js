@@ -36,7 +36,7 @@ export const SubscriptionPlans = (props) => {
     };
 
     return fetchPlans();
-  });
+  }, []);
 
   return (
     <SubscriptionPlansContainer>
