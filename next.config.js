@@ -57,7 +57,7 @@ module.exports = withBundleAnalyzer({
         ],
       },
       {
-        source: "/:all*(js|css)",
+        source: "/:all*(js|css|json)",
         locale: false,
         headers: [
           {
