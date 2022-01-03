@@ -16,10 +16,7 @@ function NotFound() {
           justifyContent: "center",
         }}
       >
-        <ButtonBombo
-          type="primary"
-          onClick={() => this.props.history.push("/")}
-        >
+        <ButtonBombo type="primary" onClick={() => this.props.history.push("/")}>
           Continuar
         </ButtonBombo>
       </div>

@@ -109,12 +109,9 @@ export const GameView = (props) => {
 
   return (
     <GameViewContainer>
-      <SideBar 
-        game={game}
-        {...props}
-      />
-      {game?.adminGame?.name === "bingo" &&
-        <BingoView 
+      <SideBar game={game} {...props} />
+      {game?.adminGame?.name === "bingo" && (
+        <BingoView
           game={game}
           moveGameToFolder={moveGameToFolder}
           setIsVisibleModalMove={setIsVisibleModalMove}
@@ -124,9 +121,9 @@ export const GameView = (props) => {
           deleteGame={deleteGame}
           {...props}
         />
-      }
-      {game?.adminGame?.name === "hanged" &&
-        <HangedView 
+      )}
+      {game?.adminGame?.name === "hanged" && (
+        <HangedView
           game={game}
           moveGameToFolder={moveGameToFolder}
           setIsVisibleModalMove={setIsVisibleModalMove}
@@ -136,7 +133,7 @@ export const GameView = (props) => {
           deleteGame={deleteGame}
           {...props}
         />
-      }
+      )}
     </GameViewContainer>
   );
 };
@@ -339,4 +336,3 @@ const GameViewContainer = styled.div`
     }
   }
 `;
-

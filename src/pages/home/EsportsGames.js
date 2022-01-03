@@ -14,10 +14,9 @@ export const EsportsGames = (props) => {
       <div className="main-container">
         <div className="title">JUEGOS DE ESPORTS</div>
         <div className="description">
-          Los E-sports son muy conocidos y jugados hoy en día en todo el mundo.
-          Nosotros damos la posibilidad de organizar torneos y competencias para
-          sus colaboradores con populares juegos como: Fifa21, Call of Duty,
-          Dota2 y mucho más.
+          Los E-sports son muy conocidos y jugados hoy en día en todo el mundo. Nosotros damos la posibilidad de
+          organizar torneos y competencias para sus colaboradores con populares juegos como: Fifa21, Call of Duty, Dota2
+          y mucho más.
           <br />
           ¡Prepárate para lucir tu lado gamer con ebomboevents!
         </div>
@@ -27,11 +26,7 @@ export const EsportsGames = (props) => {
         <div className="integration-games">
           <div className="games-container">
             {defaultTo(games, []).map((game) => (
-              <GameContent
-                borderColor={game.color}
-                backgroundImage={game.landingImageUrlThumb}
-                key={game.name}
-              >
+              <GameContent borderColor={game.color} backgroundImage={game.landingImageUrlThumb} key={game.name}>
                 <div className="name">{game.name}</div>
               </GameContent>
             ))}
@@ -39,11 +34,7 @@ export const EsportsGames = (props) => {
         </div>
         <Desktop>
           <div className="blue-planet">
-            <Image
-              src={`${config.storageUrl}/landing/blue-planet.svg`}
-              height={"100%"}
-              width={"100%"}
-            />
+            <Image src={`${config.storageUrl}/landing/blue-planet.svg`} height={"100%"} width={"100%"} />
           </div>
         </Desktop>
       </div>

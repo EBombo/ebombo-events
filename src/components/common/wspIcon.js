@@ -3,11 +3,7 @@ import styled from "styled-components";
 import { config } from "../../firebase";
 import { mediaQuery } from "../../constants";
 
-const WspIcon = () => (
-  <WspIconCss
-    onClick={() => window.open("http://wa.me/51948879888", "_blank")}
-  />
-);
+const WspIcon = () => <WspIconCss onClick={() => window.open("http://wa.me/51948879888", "_blank")} />;
 
 const WspIconCss = styled.div`
   background-image: url(${`${config.storageUrl}/resources/whatsapp.svg`});

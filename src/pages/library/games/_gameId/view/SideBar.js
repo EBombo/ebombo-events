@@ -15,164 +15,69 @@ export const SideBar = (props) => {
   const { adminGameId, folderId } = router.query;
 
   return (
-  <SideBarContainer>
-    <Tablet>
-      <div className="cover-container">
-        <Image
-          src={props.game.coverImgUrl ? props.game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
-          width="100%"
-          height="100px"
-          size="cover"
-        />
-        <div className="close">
-          <CloseCircleOutlined onClick={() => router.back()} />
-        </div>
-      </div>
-      <div className="game-details">
-        <div className="name">{get(props.game, "title", "")}</div>
-        <div className="reproductions">
-          <div className="times-played">
-            <Image
-              src={`${config.storageUrl}/resources/purple-play.svg`}
-              height="19px"
-              width="19px"
-              size="contain"
-              margin="0 5px 0 0"
-            />
-            {get(props.game, "timesPlayed", 0)}
+    <SideBarContainer>
+      <Tablet>
+        <div className="cover-container">
+          <Image
+            src={props.game.coverImgUrl ? props.game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
+            width="100%"
+            height="100px"
+            size="cover"
+          />
+          <div className="close">
+            <CloseCircleOutlined onClick={() => router.back()} />
           </div>
-          {props.game?.adminGame?.name === "bingo" &&
-            <div className="amount-numbers">
+        </div>
+        <div className="game-details">
+          <div className="name">{get(props.game, "title", "")}</div>
+          <div className="reproductions">
+            <div className="times-played">
               <Image
-                src={`${config.storageUrl}/resources/amount.svg`}
+                src={`${config.storageUrl}/resources/purple-play.svg`}
                 height="19px"
                 width="19px"
                 size="contain"
                 margin="0 5px 0 0"
               />
-              {get(props.game, "amountNumbers", 75)}
+              {get(props.game, "timesPlayed", 0)}
             </div>
-          }
-        </div>
-      </div>
-      <div className="actions-container">
-        <div className="left-container">
-          <ButtonAnt variant="contained" color="default">
-            Ver juegos pasados
-          </ButtonAnt>
-        </div>
-        <div className="right-container">
-          <div
-            className="edit"
-            onClick={() => {
-              folderId
-                ? router.push(`/library/games/${props.game.id}?adminGameId=${adminGameId}&folderId=${folderId}`)
-                : router.push(`/library/games/${props.game.id}?adminGameId=${adminGameId}`);
-            }}
-          >
-            <Image
-              src={`${config.storageUrl}/resources/pencil.svg`}
-              height="18px"
-              width="18px"
-              size="contain"
-              margin="0 5px 0 0"
-            />
+            {props.game?.adminGame?.name === "bingo" && (
+              <div className="amount-numbers">
+                <Image
+                  src={`${config.storageUrl}/resources/amount.svg`}
+                  height="19px"
+                  width="19px"
+                  size="contain"
+                  margin="0 5px 0 0"
+                />
+                {get(props.game, "amountNumbers", 75)}
+              </div>
+            )}
           </div>
-          <Tooltip
-            placement="bottomRight"
-            trigger="click"
-            title={
-              <ToolTipContent>
-                <div className="option" onClick={() => props.setIsVisibleModalMove(true)}>
-                  <Image
-                    src={`${config.storageUrl}/resources/move.svg`}
-                    width={"16px"}
-                    height={"16px"}
-                    size={"contain"}
-                    margin={"0 15px 0 0"}
-                  />
-                  Mover
-                </div>
-                <div className="option">
-                  <Image
-                    src={`${config.storageUrl}/resources/duplicate.svg`}
-                    width={"16px"}
-                    height={"16px"}
-                    size={"contain"}
-                    margin={"0 15px 0 0"}
-                  />
-                  Duplicar
-                </div>
-                <div className="option" onClick={() => props.deleteGame()}>
-                  <Image
-                    src={`${config.storageUrl}/resources/delete.svg`}
-                    width={"16px"}
-                    height={"16px"}
-                    size={"contain"}
-                    margin={"0 15px 0 0"}
-                  />
-                  Borrar
-                </div>
-              </ToolTipContent>
-            }
-            color={darkTheme.basic.whiteLight}
-          >
-            <div className="more-actions">
-              <div />
-              <div />
-              <div />
-            </div>
-          </Tooltip>
         </div>
-      </div>
-    </Tablet>
-    <Desktop>
-      <div className="left-container-desktop">
-        <Image
-          src={props.game.coverImgUrl ? props.game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
-          width="100%"
-          height="194px"
-          size="cover"
-        />
-        <div className="name">{get(props.game, "name", "")}</div>
-
         <div className="actions-container">
-          <div className="btns-container">
-            <ButtonAnt
-              color="secondary"
-              margin="0 1rem"
+          <div className="left-container">
+            <ButtonAnt variant="contained" color="default">
+              Ver juegos pasados
+            </ButtonAnt>
+          </div>
+          <div className="right-container">
+            <div
+              className="edit"
               onClick={() => {
-                get(props, "game.parentId", null)
+                folderId
                   ? router.push(`/library/games/${props.game.id}?adminGameId=${adminGameId}&folderId=${folderId}`)
                   : router.push(`/library/games/${props.game.id}?adminGameId=${adminGameId}`);
               }}
             >
-              Editar
-            </ButtonAnt>
-            <ButtonAnt variant="contained" color="primary" onClick={props.createTokenToPlay}>
-              Jugar
-            </ButtonAnt>
-          </div>
-          <div className="more-actions">
-            {props.game.isFavorite ? (
               <Image
-                src={`${config.storageUrl}/resources/yellow-star.svg`}
-                width="20px"
-                height="20px"
-                className="icon"
-                margin="0 10px 0 0"
-                onClick={() => props.toggleFavorite()}
+                src={`${config.storageUrl}/resources/pencil.svg`}
+                height="18px"
+                width="18px"
+                size="contain"
+                margin="0 5px 0 0"
               />
-            ) : (
-              <Image
-                src={`${config.storageUrl}/resources/star.svg`}
-                width="20px"
-                height="20px"
-                className="icon"
-                margin="0 10px 0 0"
-                onClick={() => props.toggleFavorite()}
-              />
-            )}
+            </div>
             <Tooltip
               placement="bottomRight"
               trigger="click"
@@ -212,7 +117,7 @@ export const SideBar = (props) => {
               }
               color={darkTheme.basic.whiteLight}
             >
-              <div className="more">
+              <div className="more-actions">
                 <div />
                 <div />
                 <div />
@@ -220,10 +125,105 @@ export const SideBar = (props) => {
             </Tooltip>
           </div>
         </div>
-      </div>
-    </Desktop>
-  </SideBarContainer>
-  )
+      </Tablet>
+      <Desktop>
+        <div className="left-container-desktop">
+          <Image
+            src={props.game.coverImgUrl ? props.game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
+            width="100%"
+            height="194px"
+            size="cover"
+          />
+          <div className="name">{get(props.game, "name", "")}</div>
+
+          <div className="actions-container">
+            <div className="btns-container">
+              <ButtonAnt
+                color="secondary"
+                margin="0 1rem"
+                onClick={() => {
+                  get(props, "game.parentId", null)
+                    ? router.push(`/library/games/${props.game.id}?adminGameId=${adminGameId}&folderId=${folderId}`)
+                    : router.push(`/library/games/${props.game.id}?adminGameId=${adminGameId}`);
+                }}
+              >
+                Editar
+              </ButtonAnt>
+              <ButtonAnt variant="contained" color="primary" onClick={props.createTokenToPlay}>
+                Jugar
+              </ButtonAnt>
+            </div>
+            <div className="more-actions">
+              {props.game.isFavorite ? (
+                <Image
+                  src={`${config.storageUrl}/resources/yellow-star.svg`}
+                  width="20px"
+                  height="20px"
+                  className="icon"
+                  margin="0 10px 0 0"
+                  onClick={() => props.toggleFavorite()}
+                />
+              ) : (
+                <Image
+                  src={`${config.storageUrl}/resources/star.svg`}
+                  width="20px"
+                  height="20px"
+                  className="icon"
+                  margin="0 10px 0 0"
+                  onClick={() => props.toggleFavorite()}
+                />
+              )}
+              <Tooltip
+                placement="bottomRight"
+                trigger="click"
+                title={
+                  <ToolTipContent>
+                    <div className="option" onClick={() => props.setIsVisibleModalMove(true)}>
+                      <Image
+                        src={`${config.storageUrl}/resources/move.svg`}
+                        width={"16px"}
+                        height={"16px"}
+                        size={"contain"}
+                        margin={"0 15px 0 0"}
+                      />
+                      Mover
+                    </div>
+                    <div className="option">
+                      <Image
+                        src={`${config.storageUrl}/resources/duplicate.svg`}
+                        width={"16px"}
+                        height={"16px"}
+                        size={"contain"}
+                        margin={"0 15px 0 0"}
+                      />
+                      Duplicar
+                    </div>
+                    <div className="option" onClick={() => props.deleteGame()}>
+                      <Image
+                        src={`${config.storageUrl}/resources/delete.svg`}
+                        width={"16px"}
+                        height={"16px"}
+                        size={"contain"}
+                        margin={"0 15px 0 0"}
+                      />
+                      Borrar
+                    </div>
+                  </ToolTipContent>
+                }
+                color={darkTheme.basic.whiteLight}
+              >
+                <div className="more">
+                  <div />
+                  <div />
+                  <div />
+                </div>
+              </Tooltip>
+            </div>
+          </div>
+        </div>
+      </Desktop>
+    </SideBarContainer>
+  );
 };
 
 const SideBarContainer = styled.div`
@@ -293,4 +293,3 @@ const ToolTipContent = styled.div`
     cursor: pointer;
   }
 `;
-

@@ -3,13 +3,10 @@ import dynamic from "next/dynamic";
 import { spinLoader } from "../../../../src/components/common/loader";
 import { PrivateRoutes } from "../../../../src/routes/PrivateRoutes";
 
-const UserLayout = dynamic(
-  () => import("../../../../src/components/UserLayout"),
-  {
-    ssr: false,
-    loading: () => spinLoader(),
-  }
-);
+const UserLayout = dynamic(() => import("../../../../src/components/UserLayout"), {
+  ssr: false,
+  loading: () => spinLoader(),
+});
 
 const Game = (props) => {
   return (

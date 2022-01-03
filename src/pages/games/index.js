@@ -1,7 +1,6 @@
 import React from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { mediaQuery } from "../../constants";
 import { infoGamesData } from "../../components/common/DataList";
 import { GameInfoSection } from "./_gameId/GameInfoSection";
 import { Icon } from "../../components/common/Icons";
@@ -50,4 +49,3 @@ const LandingContainer = styled.div`
     }
   }
 `;
-

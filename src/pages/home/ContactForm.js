@@ -2,7 +2,7 @@ import React, { useState } from "reactn";
 import { config } from "../../firebase";
 import { ButtonAnt, Input, TextArea } from "../../components/form";
 import styled from "styled-components";
-import { Desktop, mediaQuery, Tablet } from "../../constants";
+import { mediaQuery } from "../../constants";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { useFetch } from "../../hooks/useFetch";
@@ -19,12 +19,12 @@ export const ContactForm = (props) => {
     email: string().required(),
     name: string().required(),
     lastName: string().required(),
-    company: string().required()
+    company: string().required(),
   });
 
   const { register, handleSubmit, errors, reset } = useForm({
     validationSchema: schema,
-    reValidateMode: "onSubmit"
+    reValidateMode: "onSubmit",
   });
 
   const sendEmail = async (data) => {
@@ -40,7 +40,7 @@ export const ContactForm = (props) => {
         phoneNumber: null,
         name: null,
         lastName: null,
-        company: null
+        company: null,
       });
     } catch (error) {
       sendError({ error, action: "sendEmail" });
