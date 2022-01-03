@@ -26,4 +26,50 @@ module.exports = withBundleAnalyzer({
 
     return config;
   },
+  async headers() {
+    return [
+      {
+        source: "/:all*(jpg|jpeg|gif|png|svg|ico)",
+        locale: false,
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "max-age=2592000",
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
+      {
+        source: "/:all*(eot|otf|ttf|ttc|woff|font.css)",
+        locale: false,
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "max-age=2592000",
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
+      {
+        source: "/:all*(js|css)",
+        locale: false,
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "max-age=2592000",
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
+    ];
+  },
 });
