@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React, { useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../../constants";
 import { ButtonAnt, Input, TextArea } from "../../../../components/form";
@@ -17,9 +17,12 @@ export const Hanged = (props) => {
   const [video, setVideo] = useState(props.game?.video ?? null);
   const [visibility, setVisibility] = useState(props.game?.visibility ?? true);
   const [audio, setAudio] = useState(props.game?.audio ?? null);
-  const [allowDuplicate, setAllowDuplicate] = useState(props.game?.allowDuplicate ?? true);
-  const [newId] = useState(props.game?.id ?? firestore.collection("hanged").doc().id);
+  const [allowDuplicate, setAllowDuplicate] = useState(!!props.game?.ownBranding);
   const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
+
+  const newId = useMemo(() => {
+    return props.game?.id ?? firestore.collection("hanged").doc().id;
+  }, [props.game]);
 
   const schema = object().shape({
     name: string().required(),
@@ -35,6 +38,8 @@ export const Hanged = (props) => {
     const phrases = data.phrases.split(/\r?\n/);
     const name = data.name;
 
+    console.log(phrases);
+
     const _game = {
       phrases,
       name,
@@ -44,7 +49,7 @@ export const Hanged = (props) => {
       video,
       visibility,
       audio,
-      allowDuplicate
+      allowDuplicate,
     };
 
     await props.submitGame(_game);
@@ -69,7 +74,7 @@ export const Hanged = (props) => {
           setAllowDuplicate={setAllowDuplicate}
           allowDuplicate={allowDuplicate}
           newId={newId}
-          path={`/games/Hanged/${newId}`}
+          path={`/games/hanged/${newId}`}
           {...props}
         />
       )}
@@ -116,7 +121,9 @@ export const Hanged = (props) => {
             }
           }}
           id="phrases"
-          defaultValue={"Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"}
+          defaultValue={
+            props.game?.phrases?.join("\n") ?? "Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"
+          }
           error={errors.phrases}
           name="phrases"
           ref={register}

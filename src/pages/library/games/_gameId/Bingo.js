@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "reactn";
+import React, { useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { Anchor, ButtonAnt, Input } from "../../../../components/form";
@@ -22,15 +22,13 @@ export const Bingo = (props) => {
   const [coverImgUrl, setCoverImgUrl] = useState(props.game ? props.game.coverImgUrl : null);
   const [ownBranding, setOwnBranding] = useState(props.game ? props.game.ownBranding : false);
   const [video, setVideo] = useState(props.game ? props.game.video : null);
-  const [allowDuplicate, setAllowDuplicate] = useState(props.game ? props.game.allowDuplicate : true);
+  const [allowDuplicate, setAllowDuplicate] = useState(!!props.game?.ownBranding);
   const [visibility, setVisibility] = useState(props.game ? props.game.visibility : true);
   const [audio, setAudio] = useState(props.game ? props.game.audio : null);
-  const [newId, setNewId] = useState(null);
 
-  useEffect(() => {
-    if (gameId !== "new") return setNewId(gameId);
-    setNewId(firestore.collection("bingo").doc().id);
-  }, []);
+  const newId = useMemo(()=>{
+    return props.game?.id ?? firestore.collection("hanged").doc().id;
+  },[props.game]);
 
   const schema = object().shape({
     title: string().max(25),
@@ -104,7 +102,7 @@ export const Bingo = (props) => {
           setAllowDuplicate={setAllowDuplicate}
           allowDuplicate={allowDuplicate}
           newId={newId}
-          path={`/games/Bingo/${props.newId}`}
+          path={`/games/bingo/${props.newId}`}
           {...props}
         />
       )}
