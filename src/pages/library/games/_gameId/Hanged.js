@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React, { useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../../constants";
 import { ButtonAnt, Input, TextArea } from "../../../../components/form";
@@ -6,14 +6,23 @@ import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import get from "lodash/get";
 import { useRouter } from "next/router";
-import { FileUpload } from "../../../../components/common/FileUpload";
 import { firestore } from "../../../../firebase";
+import { ModalSettings } from "./ModalSettings";
 
 export const Hanged = (props) => {
   const router = useRouter();
 
   const [coverImgUrl, setCoverImgUrl] = useState(null);
-  const [newId] = useState(props.game ? props.game.id : firestore.collection("hanged").doc().id);
+  const [ownBranding, setOwnBranding] = useState(props.game?.ownBranding ?? false);
+  const [video, setVideo] = useState(props.game?.video ?? null);
+  const [visibility, setVisibility] = useState(props.game?.visibility ?? true);
+  const [audio, setAudio] = useState(props.game?.audio ?? null);
+  const [allowDuplicate, setAllowDuplicate] = useState(!!props.game?.ownBranding);
+  const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
+
+  const newId = useMemo(() => {
+    return props.game?.id ?? firestore.collection("hanged").doc().id;
+  }, [props.game]);
 
   const schema = object().shape({
     name: string().required(),
@@ -29,11 +38,18 @@ export const Hanged = (props) => {
     const phrases = data.phrases.split(/\r?\n/);
     const name = data.name;
 
+    console.log(phrases);
+
     const _game = {
       phrases,
       name,
       coverImgUrl,
       id: newId,
+      ownBranding,
+      video,
+      visibility,
+      audio,
+      allowDuplicate,
     };
 
     await props.submitGame(_game);
@@ -41,19 +57,52 @@ export const Hanged = (props) => {
 
   return (
     <HangedContainer>
+      {isVisibleModalSettings && (
+        <ModalSettings
+          isVisibleModalSettings={isVisibleModalSettings}
+          setIsVisibleModalSettings={setIsVisibleModalSettings}
+          setCoverImgUrl={setCoverImgUrl}
+          coverImgUrl={coverImgUrl}
+          setOwnBranding={setOwnBranding}
+          ownBranding={ownBranding}
+          setVideo={setVideo}
+          video={video}
+          setVisibility={setVisibility}
+          visibility={visibility}
+          setAudio={setAudio}
+          audio={audio}
+          setAllowDuplicate={setAllowDuplicate}
+          allowDuplicate={allowDuplicate}
+          newId={newId}
+          path={`/games/hanged/${newId}`}
+          {...props}
+        />
+      )}
       <ButtonAnt color="default" onClick={() => router.back()} disabled={props.isLoading}>
         Cancelar
       </ButtonAnt>
       <form onSubmit={handleSubmit(saveGame)}>
-        <Input
-          defaultValue={get(props, "game.name", "")}
-          variant="primary"
-          type="text"
-          name="name"
-          ref={register}
-          error={errors.name}
-          placeholder="Nombre del Evento"
-        />
+        <div className="flex items-center">
+          <Input
+            defaultValue={get(props, "game.name", "")}
+            variant="primary"
+            type="text"
+            name="name"
+            ref={register}
+            error={errors.name}
+            placeholder="Nombre del Evento"
+          />
+          <ButtonAnt
+            variant="contained"
+            color="secondary"
+            size="small"
+            margin={"0 0 0 10px"}
+            onClick={() => setIsVisibleModalSettings(true)}
+            disabled={props.isLoading}
+          >
+            Ajustes
+          </ButtonAnt>
+        </div>
         <label htmlFor="phrases" className="label">
           Frases para el juego
         </label>
@@ -72,25 +121,15 @@ export const Hanged = (props) => {
             }
           }}
           id="phrases"
-          defaultValue={"Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"}
+          defaultValue={
+            props.game?.phrases?.join("\n") ?? "Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"
+          }
           error={errors.phrases}
           name="phrases"
           ref={register}
           rows="10"
           placeholder="Frases a advinar"
         />
-        <div className="upload-container">
-          <FileUpload
-            buttonLabel={coverImgUrl ? "Imagen de Portada" : "Cambiar Portada"}
-            file={coverImgUrl}
-            preview={true}
-            fileName="backgroundImg"
-            filePath={`/games/Hanged/${newId}`}
-            sizes="300x350"
-            disabled={props.isLoading}
-            afterUpload={(resizeImages) => setCoverImgUrl(resizeImages[0].url)}
-          />
-        </div>
         <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading}>
           Guardar
         </ButtonAnt>

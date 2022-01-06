@@ -6,6 +6,7 @@ import { useFetch } from "../../../../hooks/useFetch";
 import { Bingo } from "./Bingo";
 import { firestore } from "../../../../firebase";
 import { Hanged } from "./Hanged";
+import { spinLoader } from "../../../../components/common/loader";
 import { Roulette } from "./Roulette";
 
 export const updateGameUrl = (adminGame, game, authUser) => `${adminGame.api}/games/${game.id}/users/${authUser.id}`;
@@ -110,6 +111,8 @@ export const GameContainer = (props) => {
   const updateUrl = (adminGame) => `${adminGame.api}/games/${currentGame.id}/users/${authUser.id}`;
 
   const createUrl = (adminGame) => `${adminGame.api}/games/new/users/${authUser.id}`;
+
+  if (gameId !== "new" && !currentGame) return spinLoader();
 
   return (
     <GameContainerCss key={adminGameId}>
