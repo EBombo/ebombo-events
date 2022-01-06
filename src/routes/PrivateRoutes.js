@@ -1,4 +1,4 @@
-import React, { useEffect } from "reactn";
+import React, { useEffect, useGlobal } from "reactn";
 import endsWith from "lodash/endsWith";
 import map from "lodash/map";
 import replace from "lodash/replace";
@@ -8,9 +8,11 @@ import { spinLoader } from "../components/common/loader";
 
 export const PrivateRoutes = (props) => {
   const router = useRouter();
+  const { query, pathname } = router;
+
   const { aclRoutes } = useAcl();
 
-  const { query, pathname } = router;
+  const [isLoadingUser] = useGlobal("isLoadingUser");
 
   const _path = () => {
     const paramNew = _params().find((_param) => _param.value === "new");
@@ -32,6 +34,8 @@ export const PrivateRoutes = (props) => {
   useEffect(() => {
     if (!isValidUser()) router.push("/");
   }, [aclRoutes]);
+
+  if (isLoadingUser) return spinLoader();
 
   return isValidUser() ? props.children : spinLoader();
 };

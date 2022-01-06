@@ -27,5 +27,9 @@ yarn-error.log*
 .idea
 .firebase
 .next
+./out
+./.next
 **/*.cssç
 *.log
+./public/sitemap.xml
+./public/robots.txt

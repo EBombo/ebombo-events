@@ -244,7 +244,7 @@ export const products = [
     title: "Eventos Virtuales",
     imageUrl: `${config.storageUrl}/resources/product-virtual-events.png`,
     content: [
-      "Hemos hecho más de 200 eventos virtuales de todo tipo cómo:",
+      "Hemos hecho más de 240 eventos virtuales de todo tipo cómo:",
       <ul>
         <li>Integraciones con juegos</li>
         <li>Speakers Motivacionales</li>
