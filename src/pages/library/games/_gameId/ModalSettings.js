@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "reactn";
+import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { darkTheme } from "../../../../theme";
-import { ButtonAnt, Input, Select } from "../../../../components/form";
+import { ButtonAnt, Select } from "../../../../components/form";
 import { mediaQuery } from "../../../../constants";
 import get from "lodash/get";
 import { Radio, Switch } from "antd";
@@ -143,7 +143,7 @@ export const ModalSettings = (props) => {
                 file={props.coverImgUrl}
                 preview={true}
                 fileName="coverImgUrl"
-                filePath={`/games/Bingo/${props.newId}`}
+                filePath={props.path}
                 sizes="300x350"
                 disabled={props.isLoading}
                 afterUpload={(coverImgs) => props.setCoverImgUrl(coverImgs[0].url)}
