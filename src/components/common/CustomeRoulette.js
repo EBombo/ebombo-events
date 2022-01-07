@@ -9,7 +9,7 @@ const CustomeRoulette = (props) => {
       <button
         className="spin"
         onClick={(e) => {
-          e.preventDefault()
+          e.preventDefault();
           const newPrizeNumber = Math.floor(Math.random() * props.data.length);
           props.setPrizeNumber(newPrizeNumber);
           props.setMustSpin(true);
