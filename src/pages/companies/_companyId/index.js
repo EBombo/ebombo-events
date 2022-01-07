@@ -9,6 +9,7 @@ import { spinLoader } from "../../../components/common/loader";
 import { AdminCompanyUsers } from "./AdminCompanyUsers";
 import { snapshotToArray } from "../../../utils";
 import { CompanyReport } from "./CompanyReport";
+import { Billing } from "./Billing";
 
 export const Company = (props) => {
   const router = useRouter();
@@ -23,6 +24,8 @@ export const Company = (props) => {
   const [loadingCompany, setLoadingCompany] = useState(true);
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [loadingUsersAdmin, setLoadingUsersAdmin] = useState(true);
+  const [isNewCompany, setIsNewCompany] = useState(null);
+  const [hasBillingPermissions, setHasBillingPermissions] = useState(false);
 
   useEffect(() => {
     const fetchCompany = () =>
@@ -30,6 +33,7 @@ export const Company = (props) => {
         .collection("companies")
         .doc(companyId)
         .onSnapshot((companyOnSnapShot) => {
+          setIsNewCompany(!companyOnSnapShot.exists);
           if (!companyOnSnapShot.exists) {
             setCompany({
               id: companyId,
@@ -37,7 +41,10 @@ export const Company = (props) => {
             return setLoadingCompany(false);
           }
 
-          setCompany(companyOnSnapShot.data());
+          const _company = companyOnSnapShot.data();
+          setHasBillingPermissions(_company.usersIds.includes(authUser.id));
+
+          setCompany(_company);
           setLoadingCompany(false);
         });
 
@@ -95,12 +102,16 @@ export const Company = (props) => {
           <div className={`tab left ${tab === "information" && "active"}`} onClick={() => setTab("information")}>
             Adm. de la empresa
           </div>
-          <div className={`tab middle ${tab === "users" && "active"}`} onClick={() => setTab("users")}>
-            Adm. de usuarios
-          </div>
-          <div className={`tab  middle ${tab === "billing" && "active"}`} onClick={() => setTab("billing")}>
-            Facturación
-          </div>
+          {!isNewCompany && (
+            <div className={`tab middle ${tab === "users" && "active"}`} onClick={() => setTab("users")}>
+              Adm. de usuarios
+            </div>
+          )}
+          {hasBillingPermissions && (
+            <div className={`tab  middle ${tab === "billing" && "active"}`} onClick={() => setTab("billing")}>
+              Facturación
+            </div>
+          )}
           <div className={`tab  right ${tab === "report" && "active"}`} onClick={() => setTab("report")}>
             Informe de uso
           </div>
@@ -111,6 +122,8 @@ export const Company = (props) => {
         {tab === "users" && <AdminCompanyUsers company={company} users={[...users, ...usersAdmin]} {...props} />}
 
         {tab === "report" && <CompanyReport company={company} users={users} usersAdmin={usersAdmin} {...props} />}
+
+        {tab === "billing" && <Billing user={company} {...props} />}
       </div>
     </CompanyContainer>
   );
