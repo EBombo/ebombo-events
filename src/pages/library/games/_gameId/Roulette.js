@@ -1,13 +1,13 @@
 import React, { useMemo, useState } from "reactn";
 import styled from "styled-components";
-import { boolean, object, string } from "yup";
+import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { ButtonAnt, Checkbox, Input, TextArea } from "../../../../components/form";
 import { useRouter } from "next/router";
 import { firestore } from "../../../../firebase";
 import { ModalSettings } from "./ModalSettings";
 import get from "lodash/get";
-import { mediaQuery } from "../../../../constants";
+import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { darkTheme } from "../../../../theme";
 import dynamic from "next/dynamic";
 
@@ -24,6 +24,7 @@ export const Roulette = (props) => {
   const [allowDuplicate, setAllowDuplicate] = useState(!!props.game?.ownBranding);
   const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
   const [mustSpin, setMustSpin] = useState(false);
+  const [isLive, setIsLive] = useState(!!props.game?.live);
   const [prizeNumber, setPrizeNumber] = useState(0);
 
   const newId = useMemo(() => {
@@ -32,42 +33,65 @@ export const Roulette = (props) => {
 
   const schema = object().shape({
     name: string().required(),
-    live: boolean().required(),
     outerBorder: string().required(),
     innerBorder: string().required(),
     selector: string().required(),
     text: string().required(),
-    button: string().required(),
+    buttonColor: string().required(),
     primary: string().required(),
     secondary: string().required(),
     participants: string(),
   });
 
-  const { handleSubmit, register, errors, watch } = useForm({
+  const { handleSubmit, register, errors, watch, control } = useForm({
     validationSchema: schema,
     reValidateMode: "onSubmit",
   });
 
   const data = [
-    { option: "Sebastian", style: { backgroundColor: watch("primary"), textColor: "black" } },
-    { option: "Pablo", style: { backgroundColor: watch("secondary"), textColor: "black" } },
-    { option: "Anthony", style: { backgroundColor: watch("primary"), textColor: "black" } },
-    { option: "Mateo", style: { backgroundColor: watch("secondary"), textColor: "black" } },
-    { option: "Santiago", style: { backgroundColor: watch("primary"), textColor: "black" } },
-    { option: "Gonzalo", style: { backgroundColor: watch("secondary"), textColor: "black" } },
-    { option: "Daniel", style: { backgroundColor: watch("primary"), textColor: "black" } },
-    { option: "Carlos", style: { backgroundColor: watch("secondary"), textColor: "black" } },
+    { option: "Sebastian", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
+    { option: "Pablo", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
+    { option: "Anthony", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
+    { option: "Mateo", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
+    { option: "Santiago", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
+    { option: "Gonzalo", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
+    { option: "Daniel", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
+    { option: "Carlos", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
+    { option: "Mauricio", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
+    { option: "Giovanni", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
+    { option: "Cesar", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
+    { option: "Carlos", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
   ];
 
   const saveGame = async (data) => {
-    const phrases = data.phrases.split(/\r?\n/);
+    const participants = data.participants?.split(/\r?\n/) ?? null;
     const name = data.name;
+    const outerBorder = data.outerBorder;
+    const innerBorder = data.innerBorder;
+    const selector = data.selector;
+    const text = data.text;
+    const button = data.button;
+    const colorPrimary = data.primary;
+    const colorSecondary = data.secondary;
 
     const _game = {
-      phrases,
+      participants,
       name,
+      isLive,
+      outerBorder,
+      innerBorder,
+      selector,
+      text,
+      button,
+      colorPrimary,
+      colorSecondary,
       coverImgUrl,
       id: newId,
+      ownBranding,
+      video,
+      visibility,
+      audio,
+      allowDuplicate,
     };
 
     await props.submitGame(_game);
@@ -122,13 +146,9 @@ export const Roulette = (props) => {
               Ajustes
             </ButtonAnt>
           </div>
-          <Checkbox
-            variant="gray"
-            label={"En vivo"}
-            defaultValue={!!props.game?.live}
-            name="participants"
-            ref={register}
-          />
+          <Checkbox variant="gray" onChange={() => setIsLive(!isLive)}>
+            En vivo
+          </Checkbox>
           <div className="description">
             Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)
           </div>
@@ -147,15 +167,19 @@ export const Roulette = (props) => {
             defaultValue={
               props.game?.participants?.join("\n") ?? "Escribe\n" + "Cada\n" + "Nombre\n" + "en una linea\n" + "unica"
             }
+            disabled={!!isLive}
             error={errors.participants}
             name="participants"
             ref={register}
             rows="10"
             placeholder="Nombres de participantes"
           />
-          <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading}>
-            Guardar
-          </ButtonAnt>
+
+          <Desktop>
+            <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading} margin="1rem 0">
+              Guardar
+            </ButtonAnt>
+          </Desktop>
         </div>
         <div className="second-content">
           <div className="subtitle">Cambia los colores:</div>
@@ -173,7 +197,7 @@ export const Roulette = (props) => {
                   />
                   <label
                     htmlFor="outerBorder"
-                    onClick={() => document.getElementById("input-color-background").click()}
+                    onClick={() => document.getElementById("input-color-outerBorder").click()}
                   >
                     {watch("outerBorder")?.toUpperCase()}
                   </label>
@@ -186,10 +210,13 @@ export const Roulette = (props) => {
                     type="color"
                     name="innerBorder"
                     defaultValue={get(props, "game.innerBorder", darkTheme.basic.secondary)}
-                    id="input-color-title"
+                    id="input-color-innerBorder"
                     ref={register}
                   />
-                  <label htmlFor="innerBorder" onClick={() => document.getElementById("input-color-title").click()}>
+                  <label
+                    htmlFor="innerBorder"
+                    onClick={() => document.getElementById("input-color-innerBorder").click()}
+                  >
                     {watch("innerBorder")?.toUpperCase()}
                   </label>
                 </div>
@@ -204,10 +231,10 @@ export const Roulette = (props) => {
                     type="color"
                     name="selector"
                     defaultValue={get(props, "game.selector", "#D3D3D3")}
-                    id="input-color-blocks"
+                    id="input-color-selector"
                     ref={register}
                   />
-                  <label htmlFor="selector" onClick={() => document.getElementById("input-color-blocks").click()}>
+                  <label htmlFor="selector" onClick={() => document.getElementById("input-color-selector").click()}>
                     {watch("selector")?.toUpperCase()}
                   </label>
                 </div>
@@ -234,13 +261,13 @@ export const Roulette = (props) => {
                 <div className="input-container">
                   <input
                     type="color"
-                    name="button"
-                    defaultValue={get(props, "game.button", "#DFDFDF")}
+                    name="buttonColor"
+                    defaultValue={get(props, "game.buttonColor", "#DFDFDF")}
                     ref={register}
-                    id="input-color-number"
+                    id="input-color-button"
                   />
-                  <label htmlFor="button" onClick={() => document.getElementById("input-color-number").click()}>
-                    {watch("button")?.toUpperCase()}
+                  <label htmlFor="buttonColor" onClick={() => document.getElementById("input-color-button").click()}>
+                    {watch("buttonColor")?.toUpperCase()}
                   </label>
                 </div>
               </div>
@@ -262,6 +289,7 @@ export const Roulette = (props) => {
                 </div>
               </div>
               <div>
+                <div className="color-title">Opciones</div>
                 <div className="input-container">
                   <input
                     type="color"
@@ -281,31 +309,27 @@ export const Roulette = (props) => {
         <div className="third-content">
           <div className="subtitle">Previsualización:</div>
           <CustomeRoulette
+            setMustSpin={setMustSpin}
             mustStartSpinning={mustSpin}
             prizeNumber={prizeNumber}
+            setPrizeNumber={setPrizeNumber}
             data={data}
+            outerBorder={watch("outerBorder")}
+            outerBorderColor={watch("innerBorder")}
+            outerBorderWidth={10}
+            radiusLineWidth={1}
+            fontSize={12}
+            buttonColor={watch("buttonColor")}
+            selector={watch("selector")}
             onStopSpinning={() => {
               setMustSpin(false);
             }}
           />
-          {/*<RouletteExample*/}
-          {/*  outerBorder={watch("outerBorder")}*/}
-          {/*  innerBorder={watch("innerBorder")}*/}
-          {/*  selector={watch("selector")}*/}
-          {/*  text={watch("text")}*/}
-          {/*  button={watch("button")}*/}
-          {/*  primary={watch("primary")}*/}
-          {/*  secondary={watch("secondary")}*/}
-          {/*>*/}
-          {/*  <div className="innerborder">*/}
-          {/*    <div className="participants">*/}
-          {/*      <div className="participant"></div>*/}
-          {/*      <div className="participant"></div>*/}
-          {/*      <div className="participant"></div>*/}
-          {/*      <div className="participant"></div>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*</RouletteExample>*/}
+          <Tablet>
+            <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading} margin="1rem 0">
+              Guardar
+            </ButtonAnt>
+          </Tablet>
         </div>
       </form>
     </RouletteContainer>
@@ -419,6 +443,7 @@ const RouletteContainer = styled.div`
       margin-bottom: 0.5rem;
     }
   }
+
   ${mediaQuery.afterTablet} {
     max-width: 1100px;
     padding: 1rem;
@@ -428,31 +453,6 @@ const RouletteContainer = styled.div`
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       grid-gap: 1rem;
-    }
-  }
-`;
-
-const RouletteExample = styled.div`
-  position: relative;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(51.36% 51.36% at 50% 50%, #956dfc 0%, #6336d6 100%);
-  border-radius: 50%;
-  border: 8px solid ${(props) => props.innerBorder ?? props.theme.basic.secondary};
-  box-shadow: 0 0 0px 4px ${(props) => props.outerBorder ?? "#D3D3D3"};
-
-  .participants {
-    position: relative;
-    display: block;
-
-    .participant {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #d48634;
-      -webkit-clip-path: $upside-down-triangle;
-      clip-path: $upside-down-triangle;
-      z-index: 2;
     }
   }
 `;

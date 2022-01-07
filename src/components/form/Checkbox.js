@@ -5,8 +5,8 @@ import { Checkbox as AntCheckbox } from "antd";
 
 export const Checkbox = forwardRef((props, ref) => (
   <Fragment>
+    {props.label && <Label required={props.required}>{props.label}</Label>}
     <CheckboxContainer>
-      {props.label && <Label required={props.required}>{props.label}</Label>}
       <StyledCheckboxGroup {...props} ref={ref} />
     </CheckboxContainer>
     {props.error && <Error>{props.errorMessage || props.error.message}</Error>}
@@ -16,11 +16,8 @@ export const Checkbox = forwardRef((props, ref) => (
 const CheckboxContainer = styled.div`
   position: relative;
   display: flex;
+  flex-direction: row;
   align-items: center;
-
-  .ant-checkbox-wrapper {
-    margin-left: 5px;
-  }
 `;
 
 const StyledCheckboxGroup = styled(AntCheckbox)`
@@ -39,13 +36,12 @@ const StyledCheckboxGroup = styled(AntCheckbox)`
       ? theme.basic.warning
       : variant === "danger"
       ? theme.basic.danger
-      : variant === "gray"
-      ? theme.basic.grayLight
       : theme.basic.default};
 `;
 
 const Label = styled.label`
   display: block;
+  margin-bottom: 0.5rem;
   font-size: ${sizes.font.normal};
 
   ${(props) =>
