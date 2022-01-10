@@ -24,7 +24,7 @@ export const Roulette = (props) => {
   const [allowDuplicate, setAllowDuplicate] = useState(!!props.game?.ownBranding);
   const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
   const [mustSpin, setMustSpin] = useState(false);
-  const [isLive, setIsLive] = useState(!!props.game?.live);
+  const [isLive, setIsLive] = useState(props.game?.isLive ?? false);
   const [prizeNumber, setPrizeNumber] = useState(0);
 
   const newId = useMemo(() => {
@@ -38,8 +38,8 @@ export const Roulette = (props) => {
     selector: string().required(),
     text: string().required(),
     buttonColor: string().required(),
-    primary: string().required(),
-    secondary: string().required(),
+    colorPrimary: string().required(),
+    colorSecondary: string().required(),
     participants: string(),
   });
 
@@ -49,18 +49,18 @@ export const Roulette = (props) => {
   });
 
   const data = [
-    { option: "Sebastian", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
-    { option: "Pablo", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
-    { option: "Anthony", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
-    { option: "Mateo", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
-    { option: "Santiago", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
-    { option: "Gonzalo", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
-    { option: "Daniel", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
-    { option: "Carlos", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
-    { option: "Mauricio", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
-    { option: "Giovanni", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
-    { option: "Cesar", style: { backgroundColor: watch("primary"), textColor: watch("text") } },
-    { option: "Carlos", style: { backgroundColor: watch("secondary"), textColor: watch("text") } },
+    { option: "Sebastian", style: { backgroundColor: watch("colorPrimary"), textColor: watch("text") } },
+    { option: "Pablo", style: { backgroundColor: watch("colorSecondary"), textColor: watch("text") } },
+    { option: "Anthony", style: { backgroundColor: watch("colorPrimary"), textColor: watch("text") } },
+    { option: "Mateo", style: { backgroundColor: watch("colorSecondary"), textColor: watch("text") } },
+    { option: "Santiago", style: { backgroundColor: watch("colorPrimary"), textColor: watch("text") } },
+    { option: "Gonzalo", style: { backgroundColor: watch("colorSecondary"), textColor: watch("text") } },
+    { option: "Daniel", style: { backgroundColor: watch("colorPrimary"), textColor: watch("text") } },
+    { option: "Carlos", style: { backgroundColor: watch("colorSecondary"), textColor: watch("text") } },
+    { option: "Mauricio", style: { backgroundColor: watch("colorPrimary"), textColor: watch("text") } },
+    { option: "Giovanni", style: { backgroundColor: watch("colorSecondary"), textColor: watch("text") } },
+    { option: "Cesar", style: { backgroundColor: watch("colorPrimary"), textColor: watch("text") } },
+    { option: "Carlos", style: { backgroundColor: watch("colorSecondary"), textColor: watch("text") } },
   ];
 
   const saveGame = async (data) => {
@@ -71,8 +71,8 @@ export const Roulette = (props) => {
     const selector = data.selector;
     const text = data.text;
     const button = data.button;
-    const colorPrimary = data.primary;
-    const colorSecondary = data.secondary;
+    const colorPrimary = data.colorPrimary;
+    const colorSecondary = data.colorSecondary;
 
     const _game = {
       participants,
@@ -146,7 +146,7 @@ export const Roulette = (props) => {
               Ajustes
             </ButtonAnt>
           </div>
-          <Checkbox variant="gray" onChange={() => setIsLive(!isLive)}>
+          <Checkbox defaultChecked={isLive} variant="gray" onChange={() => setIsLive(!isLive)}>
             En vivo
           </Checkbox>
           <div className="description">
@@ -278,13 +278,13 @@ export const Roulette = (props) => {
                 <div className="input-container">
                   <input
                     type="color"
-                    name="primary"
-                    defaultValue={get(props, "game.primary", darkTheme.basic.primary)}
+                    name="colorPrimary"
+                    defaultValue={get(props, "game.colorPrimary", darkTheme.basic.primary)}
                     ref={register}
-                    id="input-color-number"
+                    id="input-color-primary"
                   />
-                  <label htmlFor="primary" onClick={() => document.getElementById("input-color-number").click()}>
-                    {watch("primary")?.toUpperCase()}
+                  <label htmlFor="colorPrimary" onClick={() => document.getElementById("input-color-primary").click()}>
+                    {watch("colorPrimary")?.toUpperCase()}
                   </label>
                 </div>
               </div>
@@ -293,13 +293,13 @@ export const Roulette = (props) => {
                 <div className="input-container">
                   <input
                     type="color"
-                    name="secondary"
-                    defaultValue={get(props, "game.secondary", darkTheme.basic.secondary)}
+                    name="colorSecondary"
+                    defaultValue={get(props, "game.colorSecondary", darkTheme.basic.secondary)}
                     ref={register}
-                    id="input-color-number"
+                    id="input-color-secondary"
                   />
-                  <label htmlFor="secondary" onClick={() => document.getElementById("input-color-number").click()}>
-                    {watch("secondary")?.toUpperCase()}
+                  <label htmlFor="colorSecondary" onClick={() => document.getElementById("input-color-secondary").click()}>
+                    {watch("colorSecondary")?.toUpperCase()}
                   </label>
                 </div>
               </div>
