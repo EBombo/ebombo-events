@@ -33,7 +33,7 @@ export const AboutUs = (props) => {
             Somos un Startup enfocada en la industria del entretenimiento para empresas. Las empresas han cambiado y se
             han tenido que adaptar a la nueva normalidad. Ayudamos a otras empresas a potenciar el clima y cultura
             laboral a través de eventos e integraciones virtuales con nuestros propios juegos y dinámica que
-            desarrollamos con nuestra tecnologia.
+            desarrollamos con nuestra tecnología.
             <br />
             <br />
             En lo que va del año hemos trabajado con más de 70 empresas y hemos realizado más de 240 eventos virtuales
