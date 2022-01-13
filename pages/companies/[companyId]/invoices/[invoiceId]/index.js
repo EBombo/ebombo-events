@@ -18,5 +18,3 @@ const InvoiceIdView = (props) => (
 );
 
 export default InvoiceIdView;
-
-

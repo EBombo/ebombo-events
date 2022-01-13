@@ -1,4 +1,4 @@
-import React, { useState, useGlobal } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { ButtonAnt } from "../../../../components/form";
@@ -11,7 +11,7 @@ import { useSendError } from "../../../../hooks";
 export const CurrentPlanCard = (props) => {
   const router = useRouter();
 
-  const {sendError} = useSendError();
+  const { sendError } = useSendError();
 
   const [authUser] = useGlobal("user");
 
@@ -38,20 +38,21 @@ export const CurrentPlanCard = (props) => {
             try {
               await sendToCheckout(authUser?.id, plan.currentPrice.id);
             } catch (err) {
-              props.showNotification('Error', err?.message, 'error');
+              props.showNotification("Error", err?.message, "error");
               setIsLoadingCheckoutPlan(false);
               sendError(err);
             }
           }}
-          {...props} 
+          {...props}
         />
       </ModalContainer>
 
       <div className="status-label">
-        <span className="dot">&bull; </span>{ props.subscription?.status ?? 'Free' }
+        <span className="dot">&bull; </span>
+        {props.subscription?.status ?? "Free"}
       </div>
       <div className="subheading">Plan Actual</div>
-      <div className="heading">{props.activePlan ? props.activePlan.name : 'Free'}</div>
+      <div className="heading">{props.activePlan ? props.activePlan.name : "Free"}</div>
 
       {(!props.activePlan || props.subscription?.canceled_at) && (
         <>
@@ -60,8 +61,12 @@ export const CurrentPlanCard = (props) => {
             block
             color="secondary"
             className="button-see-plans"
-            onClick={() => {setIsVisibleSeePlans(true)}}
-          >Ver planes</ButtonAnt>
+            onClick={() => {
+              setIsVisibleSeePlans(true);
+            }}
+          >
+            Ver planes
+          </ButtonAnt>
         </>
       )}
     </PlanCardStyled>
@@ -109,4 +114,3 @@ const PlanCardStyled = styled.div`
     margin-bottom: 12px;
   }
 `;
-

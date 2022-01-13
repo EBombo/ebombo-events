@@ -18,6 +18,3 @@ const AllInvoicesContainer = (props) => (
 );
 
 export default AllInvoicesContainer;
-
-
-

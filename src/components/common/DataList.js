@@ -248,7 +248,7 @@ export const freePlan = {
   },
   currentPrice: {
     amount: plans[0].price,
-    currency: 'usd',
+    currency: "usd",
   },
 };
 
@@ -823,21 +823,20 @@ export const bingoCard = [
 ];
 
 export const getCurrencySymbol = {
-  'usd': '$',
+  usd: "$",
 };
 
 export const getTypePaymentPrice = {
-  'recurring': 'Renovación Automática',
+  recurring: "Renovación Automática",
 };
 
-export const stripeDateFormat = 'DD MMM YYYY';
+export const stripeDateFormat = "DD MMM YYYY";
 
 export const BrandCardIcon = {
-  'visa': 'https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/visa.svg',
+  visa: "https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/visa.svg",
 };
 
 export const PlanIntervals = {
-  'month': 'mensual',
-  'year': 'anual',
+  month: "mensual",
+  year: "anual",
 };
-
