@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useGlobal } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../constants";
 import { PanelBox } from "../../../components/common/PanelBox";
@@ -22,8 +22,9 @@ export const Billing = (props) => {
     const getPlan = async () => {
       const activeSubscriptionsQuery = await firestore
         .collection(`customers/${authUser.id}/subscriptions`)
-        .where('status', '==', 'active')
-        .orderBy('created', 'desc').get();
+        .where("status", "==", "active")
+        .orderBy("created", "desc")
+        .get();
 
       const activeSubscriptions = snapshotToArray(activeSubscriptionsQuery);
 
@@ -37,12 +38,15 @@ export const Billing = (props) => {
     return getPlan();
   }, []);
 
+  // TODO: It is disabled, until all requirements for production are complete.
+  if (true) return null;
+
   return (
     <BillingContainer>
       <div className="inner-layout">
         <PanelBox elevated heading="Vision General">
           <div>Plan: {activePlan?.name}</div>
-          { subscription && 
+          {subscription && (
             <>
               <div>
                 <Anchor
@@ -62,9 +66,9 @@ export const Billing = (props) => {
                   Administrar suscripción
                 </Anchor>
               </div>
-              <div>Ciclo de pago: { PlanIntervals[subscription?.items?.[0]?.plan?.interval] } </div>
+              <div>Ciclo de pago: {PlanIntervals[subscription?.items?.[0]?.plan?.interval]} </div>
             </>
-          }
+          )}
         </PanelBox>
         <CurrentPlanCard className="plan-card" activePlan={activePlan} subscription={subscription} {...props} />
       </div>

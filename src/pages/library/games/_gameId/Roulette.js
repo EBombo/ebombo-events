@@ -298,7 +298,10 @@ export const Roulette = (props) => {
                     ref={register}
                     id="input-color-secondary"
                   />
-                  <label htmlFor="colorSecondary" onClick={() => document.getElementById("input-color-secondary").click()}>
+                  <label
+                    htmlFor="colorSecondary"
+                    onClick={() => document.getElementById("input-color-secondary").click()}
+                  >
                     {watch("colorSecondary")?.toUpperCase()}
                   </label>
                 </div>

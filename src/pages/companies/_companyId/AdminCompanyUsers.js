@@ -2,7 +2,7 @@ import React, { useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery, Tablet } from "../../../constants";
 import { Modal, Tabs } from "antd";
-import { Anchor, ButtonAnt, Input } from "../../../components/form";
+import { ButtonAnt, Input } from "../../../components/form";
 import { TabletUsers } from "./TabletUsers";
 import { DesktopUsers } from "./DesktopUsers";
 import { ModalLicenses } from "./ModalLicenses";
@@ -100,7 +100,8 @@ export const AdminCompanyUsers = (props) => {
         <Tabs defaultActiveKey="1">
           <TabPane tab="Usuarios" key="users">
             <FirstTabContent>
-              <div className="licenses">
+              {/*
+                <div className="licenses">
                 <div className="characteristic">Licencias</div>
                 <div className="characteristic">
                   Total: <div className="number">1</div>
@@ -116,6 +117,7 @@ export const AdminCompanyUsers = (props) => {
                   Administrar
                 </Anchor>
               </div>
+                 */}
 
               <div className="action-container">
                 <div className="search-user">

@@ -1,34 +1,31 @@
-import React, { useGlobal } from "reactn";
+import React from "reactn";
 import styled from "styled-components";
 
 export const PanelBox = (props) => {
   return (
     <PanelBoxStyled {...props}>
-      {props.heading && 
-          (<>
-            <div className="heading">
-              <div className="inner-heading">{props.heading}</div>
-              {props.actionLink}
-            </div>
-            <hr className="divider"/>
-          </>)
-      }
+      {props.heading && (
+        <>
+          <div className="heading">
+            <div className="inner-heading">{props.heading}</div>
+            {props.actionLink}
+          </div>
+          <hr className="divider" />
+        </>
+      )}
 
-      { props.children }
+      {props.children}
     </PanelBoxStyled>
   );
 };
 
 const PanelBoxStyled = styled.div`
   width: 100%;
-  border-radius: ${(props) => props.borderRadius ?? "2px"};;
+  border-radius: ${(props) => props.borderRadius ?? "2px"};
   padding: ${(props) => props.padding ?? "1rem"};
   margin: ${(props) => props.margin ?? "1rem 0"};
   background: ${(props) => props.theme.basic.whiteLight};
-  ${(props) => 
-    props.elevated &&
-    `box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)` 
-  };
+  ${(props) => props.elevated && `box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)`};
 
   .heading {
     font-size: 15px;

@@ -1,6 +1,6 @@
 import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import { Breadcrumb } from 'antd';
+import { Breadcrumb } from "antd";
 import { useRouter } from "next/router";
 import { Anchor } from "../../../../components/form";
 import { mediaQuery } from "../../../../constants";
@@ -17,16 +17,17 @@ export const AllInvoices = (props) => {
       <div className="breadcrumb-container">
         <Breadcrumb separator=">">
           <Breadcrumb.Item>
-            <Anchor 
+            <Anchor
               className="item-link"
               onClick={() => router.push(`/companies/${companyId}/billing?subscriptionId=${subscriptionId}`)}
-            >Cuenta</Anchor>
+            >
+              Cuenta
+            </Anchor>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <Anchor 
-              className="item-link"
-              onClick={() => router.push(`/companies/${companyId}/invoices`)}
-            >Todas las facturas</Anchor>
+            <Anchor className="item-link" onClick={() => router.push(`/companies/${companyId}/invoices`)}>
+              Todas las facturas
+            </Anchor>
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>
@@ -52,5 +53,4 @@ const AllInvoicesStyled = styled.div`
   .breadcrumb-container {
     padding: 1rem 0 1rem 0;
   }
-
 `;

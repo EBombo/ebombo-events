@@ -5,33 +5,41 @@ import { ButtonAnt } from "../../components/form/Button";
 
 // data-aos="zoom-in"
 export const PlansPrices = (props) => (
-<PlansPricesStyled data-aos-duration="1000">
-  {[ ...props.plans ].map((plan, index) => (
-    <PlanPriceContent plan={plan} color={plan.metadata.color} background={plan.metadata.background} key={`plan-${index}`}>
-      <div className="plan free">
-        {plan.metadata.recommended === "true" && <div className="header">Recomendado</div>}
+  <PlansPricesStyled data-aos-duration="1000">
+    {[...props.plans].map((plan, index) => (
+      <PlanPriceContent
+        plan={plan}
+        color={plan.metadata.color}
+        background={plan.metadata.background}
+        key={`plan-${index}`}
+      >
+        <div className="plan free">
+          {plan.metadata.recommended === "true" && <div className="header">Recomendado</div>}
 
-        <div className="name">{plan.name}</div>
+          <div className="name">{plan.name}</div>
 
-        <div className="price">
-          {plan.name === "Exclusivo"
-            ? plan.description
-            : `${getCurrencySymbol[plan.currentPrice.currency]} ${plan.currentPrice.amount}`
-          }
+          <div className="price">
+            {plan.name === "Exclusivo"
+              ? plan.description
+              : `${getCurrencySymbol[plan.currentPrice.currency]} ${plan.currentPrice.amount}`}
+          </div>
+
+          <div className="time">por mes</div>
+          <div className="divider" />
+          <div className="users">{plan.metadata.users} usuarios</div>
+          <div className="games">{plan.metadata.games} juegos</div>
+
+          <ButtonAnt
+            className="btn-register"
+            disabled={plan.name === "Gratis" || props.isLoading}
+            onClick={() => props.onSelectedPlan?.(plan)}
+          >
+            {props.selectPlanLabel ?? "Registrarme"}
+          </ButtonAnt>
         </div>
-
-        <div className="time">por mes</div>
-        <div className="divider" />
-        <div className="users">{plan.metadata.users} usuarios</div>
-        <div className="games">{plan.metadata.games} juegos</div>
-
-        <ButtonAnt className="btn-register" disabled={plan.name === "Gratis" || props.isLoading} onClick={() => props.onSelectedPlan?.(plan)}>
-          { props.selectPlanLabel ?? "Registrarme" }
-        </ButtonAnt>
-      </div>
-    </PlanPriceContent>
-  ))}
-</PlansPricesStyled>
+      </PlanPriceContent>
+    ))}
+  </PlansPricesStyled>
 );
 
 const PlansPricesStyled = styled.div`
