@@ -40,7 +40,7 @@ export const Roulette = (props) => {
     buttonColor: string().required(),
     colorPrimary: string().required(),
     colorSecondary: string().required(),
-    participants: string(),
+    options: string(),
   });
 
   const { handleSubmit, register, errors, watch, control } = useForm({
@@ -64,7 +64,7 @@ export const Roulette = (props) => {
   ];
 
   const saveGame = async (data) => {
-    const participants = data.participants?.split(/\r?\n/) ?? null;
+    const options = data.options?.split(/\r?\n/) ?? null;
     const name = data.name;
     const outerBorder = data.outerBorder;
     const innerBorder = data.innerBorder;
@@ -75,7 +75,7 @@ export const Roulette = (props) => {
     const colorSecondary = data.colorSecondary;
 
     const _game = {
-      participants,
+      options,
       name,
       isLive,
       outerBorder,
@@ -163,13 +163,13 @@ export const Roulette = (props) => {
                 return false;
               }
             }}
-            id="participants"
+            id="options"
             defaultValue={
-              props.game?.participants?.join("\n") ?? "Escribe\n" + "Cada\n" + "Nombre\n" + "en una linea\n" + "unica"
+              props.game?.options?.join("\n") ?? "Escribe\n" + "Cada\n" + "Nombre\n" + "en una linea\n" + "unica"
             }
             disabled={!!isLive}
-            error={errors.participants}
-            name="participants"
+            error={errors.options}
+            name="options"
             ref={register}
             rows="10"
             placeholder="Nombres de participantes"
