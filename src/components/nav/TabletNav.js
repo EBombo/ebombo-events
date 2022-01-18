@@ -1,4 +1,4 @@
-import React, { useGlobal } from "reactn";
+import React, { useEffect, useGlobal } from "reactn";
 import styled from "styled-components";
 import { Image } from "../common/Image";
 import { config } from "../../firebase";
@@ -13,6 +13,12 @@ export const TabletNav = (props) => {
 
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
+
+  useEffect(() => {
+    router.prefetch("/");
+    router.prefetch("/admin");
+    router.prefetch("/library/games");
+  }, []);
 
   return (
     <TabletNavContainer>

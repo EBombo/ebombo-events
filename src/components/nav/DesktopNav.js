@@ -1,4 +1,4 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useAcl } from "../../hooks";
@@ -18,6 +18,12 @@ export const DesktopNav = (props) => {
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
 
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
+
+  useEffect(() => {
+    router.prefetch("/");
+    router.prefetch("/admin");
+    router.prefetch("/library/games");
+  }, []);
 
   return (
     <DesktopNavContainer>
