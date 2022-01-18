@@ -76,7 +76,7 @@ export const PlanTabContent = (props) => {
                 {plan.name !== "Exclusivo" ? <span>al año</span> : plan.price}
               </div>
 
-              <div className="time">{plan.name !== "Exclusivo" && "por mes"}</div>
+              <div className="time">{plan.name !== "Exclusivo" && `$ ${plan.price} por mes`}</div>
               <div className="divider" />
               <div className="users">{plan.users} usuarios</div>
               <div className="games">{plan.games} juegos</div>
