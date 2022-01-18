@@ -1,4 +1,4 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./common/Image";
 import { config } from "../firebase";
@@ -17,6 +17,15 @@ export const Navbar = (props) => {
   const [authUser] = useGlobal("user");
 
   const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    router.prefetch("/");
+    router.prefetch("/login");
+    router.prefetch("/register");
+    router.prefetch("/library");
+    router.prefetch("/about-us");
+    router.prefetch("/subscriptions");
+  }, []);
 
   return (
     <>
@@ -44,14 +53,14 @@ export const Navbar = (props) => {
                   Games
                 </a>
               */}
-              <Anchor onClick={() => router.push("/subscriptions")} className="link">
+              <Anchor url="/subscriptions" className="link">
                 Planes
               </Anchor>
-              <Anchor onClick={() => router.push("/about-us")} className="link">
+              <Anchor url="/about-us" className="link">
                 Sobre nosotros
               </Anchor>
               {!authUser && (
-                <Anchor onClick={() => router.push({ pathname: "/", hash: "contact" })} className="link">
+                <Anchor url="/#contact" className="link">
                   Contacto
                 </Anchor>
               )}
@@ -66,7 +75,7 @@ export const Navbar = (props) => {
             ) : (
               <div className="btns-container">
                 <Anchor
-                  onClick={() => router.push("/register")}
+                  url="/register"
                   variant="secondary"
                   fontSize="18px"
                   fontWeight="500"

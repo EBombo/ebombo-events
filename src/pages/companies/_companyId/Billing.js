@@ -52,7 +52,7 @@ export const Billing = (props) => {
                 <Anchor
                   underlined
                   className="link"
-                  onClick={() => router.push(`/companies/${companyId}/billing?subscriptionId=${subscription?.id}`)}
+                  url={`/companies/${companyId}/billing?subscriptionId=${subscription?.id}`}
                 >
                   Gestionar Facturas
                 </Anchor>
@@ -61,7 +61,7 @@ export const Billing = (props) => {
                 <Anchor
                   underlined
                   className="link"
-                  onClick={() => router.push(`/companies/${companyId}/billing?subscriptionId=${subscription?.id}`)}
+                  url={`/companies/${companyId}/billing?subscriptionId=${subscription?.id}`}
                 >
                   Administrar suscripción
                 </Anchor>

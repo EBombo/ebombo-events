@@ -1,11 +1,36 @@
-import React from "react";
+import Link from "next/link";
+import React, { useMemo } from "react";
 import styled from "styled-components";
+import { LoadingOutlined } from "@ant-design/icons";
 
-export const Anchor = (props) => (
-  <AnchorTag href={props.url} target={props.target || "_blank"} rel="noreferrer" {...props}>
-    {props.children}
-  </AnchorTag>
-);
+export const Anchor = (props) => {
+  const AnchorComponent = useMemo(() => {
+    return (
+      <>
+        {props.loading && <LoadingOutlined />}
+        {props.children}
+      </>
+    );
+  }, [props.loading]);
+
+  return props.href ?? props.url ? (
+    <Link href={props.href ?? props.url} passHref>
+      <AnchorTag classname="no-wrap" target={props.target || "_self"} rel="noreferrer" {...props}>
+        {AnchorComponent}
+      </AnchorTag>
+    </Link>
+  ) : (
+    <AnchorTag
+      onClick={() => (props.onClick ? props.onClick() : null)}
+      classname="no-wrap"
+      target={props.target || "_self"}
+      rel="noreferrer"
+      {...props}
+    >
+      {AnchorComponent}
+    </AnchorTag>
+  );
+};
 
 const AnchorTag = styled.a`
   font-family: Lato;
