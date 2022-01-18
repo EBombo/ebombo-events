@@ -11,11 +11,12 @@ import { mediaQuery } from "../../../../constants";
 import { notification } from "antd";
 
 export const Audio = (props) => {
+  const router = useRouter();
+  const { sendError } = useSendError();
+
   const [audioId, setAudioId] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const { sendError } = useSendError();
 
   useEffect(() => {
     const audiosRef = firestore.collection("audios");
