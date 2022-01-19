@@ -1,4 +1,4 @@
-import React from "reactn";
+import React, { useEffect } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery } from "../../constants";
 import { Image } from "../../components/common/Image";
@@ -10,6 +10,10 @@ import { ContactInfo } from "./ContactInfo";
 
 export const PlanTabContent = (props) => {
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/register");
+  }, []);
 
   if (props.tab === "online")
     return (
@@ -72,10 +76,11 @@ export const PlanTabContent = (props) => {
               <div className="name">{plan.name}</div>
 
               <div className="price">
-                {plan.name !== "Exclusivo" && "$"} {plan.price}
+                {plan.name !== "Exclusivo" && "$"} {plan.name !== "Exclusivo" ? plan.price * 12 : ""}{" "}
+                {plan.name !== "Exclusivo" ? <span>al año</span> : plan.price}
               </div>
 
-              <div className="time">por mes</div>
+              <div className="time">{plan.name !== "Exclusivo" && `$ ${plan.price} por mes`}</div>
               <div className="divider" />
               <div className="users">{plan.users} usuarios</div>
               <div className="games">{plan.games} juegos</div>
@@ -216,6 +221,10 @@ const PlanPriceContent = styled.div`
     line-height: ${(props) => (props.plan === "Exclusivo" ? "31px" : "60px")};
     color: ${(props) => props.color};
     margin: 1rem auto;
+
+    span {
+      font-size: 15px;
+    }
   }
 
   .divider {

@@ -73,7 +73,7 @@ const Login = (props) => {
               Iniciar sesión
             </ButtonAnt>
             <Anchor
-              onClick={() => router.push("/recovery")}
+              url="/recovery"
               variant="primary"
               display="block"
               margin="1rem auto"
