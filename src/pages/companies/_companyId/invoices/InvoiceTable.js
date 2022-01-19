@@ -71,9 +71,7 @@ export const InvoiceTable = (props) => {
               <Anchor
                 variant="primary"
                 underlined
-                onClick={() =>
-                  router.push(`/companies/${userId}/invoices/${invoice.id}?subscriptionId=${subscriptionId}`)
-                }
+                url={`/companies/${userId}/invoices/${invoice.id}?subscriptionId=${subscriptionId}`}
               >
                 {invoiceNumber}
               </Anchor>

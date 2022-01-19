@@ -4,12 +4,9 @@ import { Image } from "../../components/common/Image";
 import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { Anchor } from "../../components/form";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { useRouter } from "next/router";
 import { ladingProducts } from "../../components/common/DataList";
 
 export const Products = (props) => {
-  const router = useRouter();
-
   return (
     <ProductsContainer>
       <div className="title">
@@ -42,13 +39,7 @@ export const Products = (props) => {
             <div className="description">{product.description}</div>
 
             <div className="link">
-              <Anchor
-                underlined
-                variant="secondary"
-                margin="1rem 0"
-                onClick={() => router.push(product.url)}
-                fontSize="14px"
-              >
+              <Anchor underlined variant="secondary" margin="1rem 0" url={product.url} fontSize="14px">
                 Explorar <ArrowRightOutlined />
               </Anchor>
             </div>

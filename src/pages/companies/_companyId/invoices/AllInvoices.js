@@ -17,15 +17,12 @@ export const AllInvoices = (props) => {
       <div className="breadcrumb-container">
         <Breadcrumb separator=">">
           <Breadcrumb.Item>
-            <Anchor
-              className="item-link"
-              onClick={() => router.push(`/companies/${companyId}/billing?subscriptionId=${subscriptionId}`)}
-            >
+            <Anchor className="item-link" url={`/companies/${companyId}/billing?subscriptionId=${subscriptionId}`}>
               Cuenta
             </Anchor>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <Anchor className="item-link" onClick={() => router.push(`/companies/${companyId}/invoices`)}>
+            <Anchor className="item-link" url={`/companies/${companyId}/invoices`}>
               Todas las facturas
             </Anchor>
           </Breadcrumb.Item>

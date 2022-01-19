@@ -9,8 +9,9 @@ import { useFetch } from "../../hooks/useFetch";
 import { useSendError } from "../../hooks";
 
 export const ContactForm = (props) => {
-  const { sendError } = useSendError();
   const { Fetch } = useFetch();
+  const { sendError } = useSendError();
+
   const [loadingSendingEmail, setLoadingSendingEmail] = useState(false);
 
   const schema = object().shape({

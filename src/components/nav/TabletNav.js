@@ -37,7 +37,7 @@ export const TabletNav = (props) => {
         size="contain"
       />
       {!authUser && (
-        <Anchor onClick={() => router.push("/login")} variant="primary" fontSize={"1rem"}>
+        <Anchor url="/login" variant="primary" fontSize={"1rem"}>
           Iniciar sesión
         </Anchor>
       )}

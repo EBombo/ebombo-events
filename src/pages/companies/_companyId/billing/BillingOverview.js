@@ -139,9 +139,7 @@ export const BillingOverview = (props) => {
                 <Anchor
                   variant="primary"
                   underlined
-                  onClick={() =>
-                    router.push(`/companies/${companyId}/invoices/${invoice?.id}?subscriptionId=${subscriptionId}`)
-                  }
+                  url={`/companies/${companyId}/invoices/${invoice?.id}?subscriptionId=${subscriptionId}`}
                 >
                   #{invoice?.number}
                 </Anchor>
@@ -213,7 +211,7 @@ export const BillingOverview = (props) => {
           <Anchor
             className="action-link"
             variant="primary"
-            onClick={() => router.push(`/companies/${companyId}/invoices?subscriptionId=${subscriptionId}`)}
+            url={`/companies/${companyId}/invoices?subscriptionId=${subscriptionId}`}
           >
             Ver todas las facturas
           </Anchor>

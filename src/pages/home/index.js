@@ -14,6 +14,10 @@ export const Home = (props) => {
   const [authUser] = useGlobal("user");
 
   useEffect(() => {
+    router.prefetch("/library");
+  }, []);
+
+  useEffect(() => {
     if (!authUser) return;
 
     router.push("/library");
