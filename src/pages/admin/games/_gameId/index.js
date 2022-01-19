@@ -116,7 +116,7 @@ export const GameContainer = (props) => {
           variant="primary"
           className="input"
           defaultValue={game.api}
-          placeholder="Domain"
+          placeholder="API"
           error={errors.api}
         />
         <ButtonAnt htmlType="submit" loading={isSaving || loading} disabled={isSaving || loading}>

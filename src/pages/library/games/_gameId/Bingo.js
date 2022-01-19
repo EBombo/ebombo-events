@@ -26,9 +26,9 @@ export const Bingo = (props) => {
   const [visibility, setVisibility] = useState(props.game ? props.game.visibility : true);
   const [audio, setAudio] = useState(props.game ? props.game.audio : null);
 
-  const newId = useMemo(()=>{
+  const newId = useMemo(() => {
     return props.game?.id ?? firestore.collection("hanged").doc().id;
-  },[props.game]);
+  }, [props.game]);
 
   const schema = object().shape({
     title: string().max(25),

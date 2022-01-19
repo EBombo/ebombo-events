@@ -55,6 +55,12 @@ export const Hanged = (props) => {
     await props.submitGame(_game);
   };
 
+  const preventMaxLengthPerLine = (event, maxLengthPerLine) => {
+    const phrasesChunks = event.target.value.split('\n');
+
+    return ((phrasesChunks[phrasesChunks.length - 1].length + 1) > maxLengthPerLine);
+  }
+
   return (
     <HangedContainer>
       {isVisibleModalSettings && (
@@ -107,11 +113,16 @@ export const Hanged = (props) => {
           Frases para el juego
         </label>
         <div className="description">
-          Escribe las frases y separalas con “ENTER” (Máx. 20 caracteres por palabra o frase)
+          Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase)
         </div>
         <TextArea
           onKeyPress={(event) => {
             if (event.key === "Enter") return;
+
+            if (preventMaxLengthPerLine(event, 50)) {
+              event.preventDefault();
+              return false;
+            };
 
             const regex = new RegExp("^[a-zA-Z ]+$");
             const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
@@ -121,9 +132,7 @@ export const Hanged = (props) => {
             }
           }}
           id="phrases"
-          defaultValue={
-            props.game?.phrases?.join("\n") ?? "Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"
-          }
+          defaultValue={props.game?.phrases?.join("\n") ?? "Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"}
           error={errors.phrases}
           name="phrases"
           ref={register}
