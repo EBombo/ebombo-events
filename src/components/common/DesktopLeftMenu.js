@@ -1,4 +1,4 @@
-import React from "reactn";
+import React, { useEffect } from "reactn";
 import get from "lodash/get";
 import { Image } from "./Image";
 import styled from "styled-components";
@@ -7,6 +7,11 @@ import { config } from "../../firebase";
 
 export const DesktopLeftMenu = (props) => {
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/library/games");
+    router.prefetch("/library/folders");
+  }, []);
 
   return (
     <LeftMenuContent>
