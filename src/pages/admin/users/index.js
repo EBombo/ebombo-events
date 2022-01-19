@@ -73,7 +73,7 @@ export const AdminUsers = () => {
                     <div className="create-at">{moment(user.createAt.toDate()).format("LLLL")}</div>
                   </div>
                   <div className="options">
-                    <Anchor variant="primary" onClick={() => router.push(`/admin/users/${user.id}/acls`)}>
+                    <Anchor variant="primary" url={`/admin/users/${user.id}/acls`}>
                       PERMISOS
                     </Anchor>
                   </div>

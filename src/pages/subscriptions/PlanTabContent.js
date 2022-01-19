@@ -1,4 +1,4 @@
-import React from "reactn";
+import React, { useEffect } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery } from "../../constants";
 import { Image } from "../../components/common/Image";
@@ -10,6 +10,10 @@ import { ContactInfo } from "./ContactInfo";
 
 export const PlanTabContent = (props) => {
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/register");
+  }, []);
 
   if (props.tab === "online")
     return (
