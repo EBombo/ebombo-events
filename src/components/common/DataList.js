@@ -834,6 +834,7 @@ export const stripeDateFormat = "DD MMM YYYY";
 
 export const BrandCardIcon = {
   visa: "https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/visa.svg",
+  mastercard: "https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/visa.svg",
 };
 
 export const PlanIntervals = {
