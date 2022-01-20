@@ -83,11 +83,19 @@ export const reasons = [
 
 export const ladingProducts = [
   {
-    title: "Eventos Virtuales",
+    title: "Eventos Virtuales Premium",
     description:
-      "Nos adecuamos a las necesidades de cada empresa. Sabemos que cada organización tiene su propia cultura y clima laboral. Dinos que necesitas y lo haremos realidad.",
+      "Nos encargamos de básicamente todo el evento virtual, desde la campaña de intriga, diseño de invitaciones, escenarios 3D hasta un animador estándar o de alto impacto para tu reunión o evento que sepa",
     background: darkTheme.basic.blackDarken,
     image: `${config.storageUrl}/resources/product-virtual-events.png`,
+    url: "/products/eventos-virtuales",
+  },
+  {
+    title: "Eventos Virtuales Simples",
+    description:
+      "Conseguimos un animador pro o te alto impacto y nos encargamos de qué este alineado con el evento y lo que la empresa requiera. ",
+    background: darkTheme.basic.blackDarken,
+    image: `${config.storageUrl}/resources/product-face-to-face.png`,
     url: "/products/eventos-virtuales",
   },
   /*
@@ -103,7 +111,7 @@ export const ladingProducts = [
   {
     title: "Juegos de integración",
     description:
-      "Utiliza los juegos de integración creados por ebombo para que tus trabajadores estén super felices. Ya tenemos más de 10 juegos en nuestra cartera de juegos para potenciar el clima laboral.",
+      "Contamos con juegos realizado por nosotros. Ahorita estamos en la creación e integración de muchos más para que las empresas puedan reunirse en cualquier momento y pasar un buen rato. ",
     background: darkTheme.basic.secondary,
     image: `${config.storageUrl}/resources/product-games.png`,
     url: "/products/juegos-de-integracion",
