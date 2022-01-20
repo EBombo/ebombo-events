@@ -19,7 +19,8 @@ const Reports = (props) => {
     const fetchUsers = async () => {
       const userQuery = await firestore.collection("users").get();
 
-      const users_ = snapshotToArray(userQuery);
+      let users_ = snapshotToArray(userQuery);
+      users_ = users_.map((user) => ({ ...user, userName: user.email?.split("@")?.[0] }));
       setUsers(users_);
     };
 

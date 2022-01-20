@@ -85,7 +85,7 @@ export const ladingProducts = [
   {
     title: "Eventos Virtuales Premium",
     description:
-      "Nos encargamos de básicamente todo el evento virtual, desde la campaña de intriga, diseño de invitaciones, escenarios 3D hasta un animador estándar o de alto impacto para tu reunión o evento que sepa",
+      "Nos encargamos de básicamente todo el evento virtual, desde la campaña de intriga, diseño de invitaciones, escenarios 3D hasta un animador estándar o de alto impacto para tu reunión o tipo de evento cómo Happy Hour, Ice Breakers, Eventos corporativos, graduaciones virtuales, entre otros.",
     background: darkTheme.basic.blackDarken,
     image: `${config.storageUrl}/resources/product-virtual-events.png`,
     url: "/products/eventos-virtuales",
