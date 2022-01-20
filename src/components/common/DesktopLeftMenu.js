@@ -1,12 +1,18 @@
-import React from "reactn";
+import React, { useEffect } from "reactn";
 import get from "lodash/get";
 import { Image } from "./Image";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
+import { CameraOutlined } from "@ant-design/icons";
 
 export const DesktopLeftMenu = (props) => {
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/library/games");
+    router.prefetch("/library/folders");
+  }, []);
 
   return (
     <LeftMenuContent>
@@ -38,6 +44,14 @@ export const DesktopLeftMenu = (props) => {
         />
         <div className="name">Folders</div>
       </div>
+
+      <div
+        className={`item favorites ${get(router, "asPath", "").includes("/library/folders") ? "active" : ""}`}
+        onClick={() => router.push("/library/folders")}
+      >
+        <CameraOutlined />
+        <div className="name">Crear evento</div>
+      </div>
     </LeftMenuContent>
   );
 };
@@ -68,6 +82,13 @@ const LeftMenuContent = styled.div`
     border-radius: 4px;
     margin: 0 5px;
     cursor: pointer;
+
+    .anticon {
+      margin-right: 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      color: ${(props) => props.theme.basic.primary};
+    }
   }
 
   .item:hover {
