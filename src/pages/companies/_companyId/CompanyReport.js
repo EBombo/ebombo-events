@@ -51,6 +51,7 @@ export const CompanyReport = (props) => {
   }, [games, startDate, endDate]);
 
   const lastUpdated = useMemo(() => {
+    return null;
     return (
       <DistributionCol align="right">
         <div className="last-update">Última actualización: {moment().format("LLL")}</div>
