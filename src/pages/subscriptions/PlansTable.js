@@ -16,19 +16,10 @@ export const PlansTable = (props) => {
               <div className="plan table-title">Comparar planes</div>
             </td>
             <td style={{ borderRadius: "15px 0 0 0" }}>Personas por juego</td>
-            <td>Juegos</td>
-            <td>Licencias</td>
             <td>Chat vivo</td>
-            <td>Premio personalizados</td>
-            <td>Modificar la múscia</td>
             <td>Reporte</td>
             <td>Trackear progreso</td>
             <td>Identificar participantes</td>
-            <td>Encuesta de satisfacción al final del juego</td>
-            <td>Modo equipo</td>
-            <td>Capacitación de plataforma</td>
-            <td>Modificación de colores del juego</td>
-            <td style={{ borderRadius: "0 0 0 15px" }}>Logo de la empresa dentro del juego</td>
           </tr>
 
           {plans.map((plan, index_) => (
@@ -74,7 +65,7 @@ export const PlansTable = (props) => {
 
               {currentPlan === plan.name && <div className="selected" />}
               {currentPlan === plan.name && (
-                <Star backgroundImg={`${config.storageUrl}/resources/plan-star.png`}>Más pouplar</Star>
+                <Star backgroundImg={`${config.storageUrl}/resources/plan-star.png`}>Más popular</Star>
               )}
             </tr>
           ))}
