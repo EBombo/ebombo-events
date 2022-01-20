@@ -14,6 +14,7 @@ import { notification } from "antd";
 import "../src/theme/globals.css";
 import Script from "next/script";
 import get from "lodash/get";
+import orderBy from "lodash/orderBy";
 import Head from "next/head";
 import "antd/dist/antd.css";
 import "aos/dist/aos.css";
@@ -62,6 +63,7 @@ const MyApp = ({ Component, pageProps }) => {
       if (error) throw Error(error);
 
       let games_ = response?.games ?? [];
+      games_ = orderBy(games_, ["createAt"], "desc");
 
       if (folderId) games_ = games_.filter((game) => game.parentId === folderId);
 
