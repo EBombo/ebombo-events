@@ -8,7 +8,7 @@ export const HeaderLanding = (props) => (
   <HeaderLandingContainer>
     <div className="left-container">
       <div className="title" data-aos="fade-up" data-aos-delay="0" data-aos-anchor-placement="top-center">
-        Potencia tu clima y cultura laboral con la tecnología y los eventos de ebombo.
+        Cambiamos la forma de reunirte con tu equipo
       </div>
       <div className="description" data-aos="fade-up" data-aos-delay="500" data-aos-anchor-placement="top-center">
         Organiza eventos virtuales con ebombo para integrar, motivar y empoderar a los trabajadores de tu empresa. Ya
