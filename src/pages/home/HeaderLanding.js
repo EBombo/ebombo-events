@@ -28,16 +28,6 @@ export const HeaderLanding = (props) => (
       <div className="image-container">
         <img src={`${config.storageUrl}/resources/video-lading.gif`} width={"80%"} height={"400px"} />
       </div>
-      {/*
-        <Image
-        src={`${config.storageUrl}/resources/video-lading.gif`}
-        width={"100%"}
-        height={"400px"}
-        margin={"0"}
-        size={"contain"}
-        borderRadius={"10px"}
-      />
-         */}
     </div>
   </HeaderLandingContainer>
 );
