@@ -25,13 +25,19 @@ export const HeaderLanding = (props) => (
       </div>
     </div>
     <div className="right-container" data-aos="fade-left">
-      <Image
+      <div className="image-container">
+        <img src={`${config.storageUrl}/resources/video-lading.gif`} width={"80%"} height={"400px"} />
+      </div>
+      {/*
+        <Image
         src={`${config.storageUrl}/resources/video-lading.gif`}
         width={"100%"}
         height={"400px"}
         margin={"0"}
         size={"contain"}
+        borderRadius={"10px"}
       />
+         */}
     </div>
   </HeaderLandingContainer>
 );
@@ -73,6 +79,19 @@ const HeaderLandingContainer = styled.section`
     line-height: 17px;
     color: ${(props) => props.theme.basic.whiteLight};
     margin: 1rem 0;
+  }
+
+  .right-container {
+    .image-container {
+      img {
+        border-radius: 10px;
+        margin: 2rem auto;
+
+        ${mediaQuery.afterTablet} {
+          margin: auto;
+        }
+      }
+    }
   }
 
   ${mediaQuery.afterTablet} {
