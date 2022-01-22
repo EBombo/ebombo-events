@@ -56,24 +56,6 @@ export const Menu = (props) => {
             <span className="item">Facturación</span>
           </MenuItem>
           <MenuItem
-            onClick={() => {
-              setOpenRightDrawer(false);
-              if (!authUser?.companyId) return router.push(`/companies/${companyId}`);
-
-              return router.push(`/companies/${companyId}?currentTab=report`);
-            }}
-          >
-            <span className="item">Informe de Uso</span>
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              setOpenRightDrawer(false);
-              router.push(`/`);
-            }}
-          >
-            <span className="item">Plan</span>
-          </MenuItem>
-          <MenuItem
             logout
             onClick={() => {
               setOpenRightDrawer(false);

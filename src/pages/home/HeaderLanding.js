@@ -39,7 +39,7 @@ const HeaderLandingContainer = styled.section`
   padding: 1rem;
   display: flex;
   align-items: center;
-  flex-direction: column-reverse;
+  flex-direction: column;
 
   .title {
     font-family: Lato;
