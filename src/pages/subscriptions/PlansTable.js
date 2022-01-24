@@ -190,7 +190,7 @@ const TableContainer = styled.div`
       font-family: Lato;
       font-style: normal;
       font-weight: normal;
-      font-size: 13px;
+      font-size: 15px;
       line-height: 16px;
       color: ${(props) => props.theme.basic.grayLight};
       text-align: center;

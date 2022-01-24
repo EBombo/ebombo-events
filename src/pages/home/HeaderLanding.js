@@ -8,7 +8,7 @@ export const HeaderLanding = (props) => (
   <HeaderLandingContainer>
     <div className="left-container">
       <div className="title" data-aos="fade-up" data-aos-delay="0" data-aos-anchor-placement="top-center">
-        Potencia tu clima y cultura laboral con la tecnología y los eventos de ebombo.
+        Cambiamos la forma de reunirte con tu equipo.
       </div>
       <div className="description" data-aos="fade-up" data-aos-delay="500" data-aos-anchor-placement="top-center">
         Organiza eventos virtuales con ebombo para integrar, motivar y empoderar a los trabajadores de tu empresa. Ya
@@ -25,24 +25,21 @@ export const HeaderLanding = (props) => (
       </div>
     </div>
     <div className="right-container" data-aos="fade-left">
-      <Image
-        src={`${config.storageUrl}/resources/header.png`}
-        width={"100%"}
-        height={"400px"}
-        margin={"0"}
-        size={"contain"}
-      />
+      <div className="image-container">
+        <img src={`${config.storageUrl}/resources/video-lading.gif`} width={"80%"} height={"400px"} />
+      </div>
     </div>
   </HeaderLandingContainer>
 );
 
 const HeaderLandingContainer = styled.section`
   width: 100%;
+  height: 90vh;
   background: ${(props) => props.theme.basic.secondary};
   padding: 1rem;
   display: flex;
   align-items: center;
-  flex-direction: column-reverse;
+  flex-direction: column;
 
   .title {
     font-family: Lato;
@@ -75,22 +72,35 @@ const HeaderLandingContainer = styled.section`
     margin: 1rem 0;
   }
 
+  .right-container {
+    .image-container {
+      img {
+        border-radius: 10px;
+        margin: 2rem auto;
+
+        ${mediaQuery.afterTablet} {
+          margin: auto;
+        }
+      }
+    }
+  }
+
   ${mediaQuery.afterTablet} {
     flex-direction: row;
     padding: 2rem;
     justify-content: center;
 
     .left-container {
-      max-width: 485px;
+      max-width: 600px;
     }
 
     .title {
-      font-size: 40px;
-      line-height: 44px;
+      font-size: 68px;
+      line-height: 60px;
     }
 
     .subtitle {
-      font-size: 24px;
+      font-size: 22px;
       line-height: 29px;
     }
 
