@@ -8,8 +8,6 @@ import { useSendError } from "../../../hooks";
 import { useFetch } from "../../../hooks/useFetch";
 import { config } from "../../../firebase";
 import { FileUpload } from "../../../components/common/FileUpload";
-import { Popover } from "antd";
-import { Image } from "../../../components/common/Image";
 import { mediaQuery } from "../../../constants";
 
 export const EditProfile = (props) => {
@@ -129,101 +127,18 @@ export const EditProfile = (props) => {
             </div>
           </form>
         </div>
-        <div className="second-container">
-          <div className="title">Detalles de la cuenta</div>
-
-          <form>
-            <div className="inputs-container">
-              <label htmlFor="organization">
-                Organización
-                <Popover
-                  content={<PopoverContent>Añade tu organización para estar mejor conectados</PopoverContent>}
-                  placement="bottomLeft"
-                  trigger="click"
-                >
-                  <Image
-                    src={`${config.storageUrl}/resources/question.svg`}
-                    height="15px"
-                    width="15px"
-                    margin="0 0 0 5px"
-                    size="contain"
-                  />
-                </Popover>
-              </label>
-              <Input
-                id="organization"
-                variant="primary"
-                defaultValue={authUser?.company?.name ?? "ebombo"} //TODO: complete when the companies logic is complete
-                disabled={true}
-              />
-
-              <label htmlFor="account">
-                Tipo de cuenta
-                <Popover
-                  content={<PopoverContent>Es el plan que actualmente tiene su cuenta</PopoverContent>}
-                  placement="bottomLeft"
-                  trigger="click"
-                >
-                  <Image
-                    src={`${config.storageUrl}/resources/question.svg`}
-                    height="15px"
-                    width="15px"
-                    margin="0 0 0 5px"
-                    size="contain"
-                  />
-                </Popover>
-              </label>
-              <Input
-                id="account"
-                variant="primary"
-                defaultValue={"Avanzado"} //TODO: complete when the companies logic is complete
-                disabled={true}
-              />
-
-              <label htmlFor="workPlace">
-                Organización
-                <Popover
-                  content={
-                    <PopoverContent>
-                      Usted selecciono este tipo de cuenta durante su registro. Pongase en contacto con ebombo para
-                      poder cambiarlo
-                    </PopoverContent>
-                  }
-                  placement="bottomLeft"
-                  trigger="click"
-                >
-                  <Image
-                    src={`${config.storageUrl}/resources/question.svg`}
-                    height="15px"
-                    width="15px"
-                    margin="0 0 0 5px"
-                    size="contain"
-                  />
-                </Popover>
-              </label>
-              <Input
-                id="workPlace"
-                variant="primary"
-                defaultValue={"Profesor"} //TODO: complete when the companies logic is complete
-                disabled={true}
-              />
-            </div>
-          </form>
-        </div>
       </div>
+      {/*
       <div className="delete">
-        {/*
           <Anchor underlined variant="danger" fontSize="11px">
             Eliminar cuenta
           </Anchor>
-           */}
       </div>
-      {/*
-        <div className="description">
+      <div className="description">
         Si hace esto, perderá el acceso a todos los juegos que creó. Si solo desea darse de baja de su plan actual,
         vaya a la página de facturación.
       </div>
-         */}
+       */}
     </EditContainer>
   );
 };

@@ -81,7 +81,7 @@ const PrivacyContainer = styled.div`
 
     .option {
       display: grid;
-      grid-template-columns: 290px 50px;
+      grid-template-columns: auto 50px;
       grid-gap: 1rem;
       align-items: center;
       margin: 1rem 0;
