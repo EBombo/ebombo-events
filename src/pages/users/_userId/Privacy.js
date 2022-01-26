@@ -30,7 +30,7 @@ export const Privacy = (props) => {
         <div className="option">
           <div className="text">
             ¡He leído y estoy de acuerdo con el ebombo! términos y condiciones y política de privacidad y estoy de
-            acuerdo con Kahoot! recopilar y procesar mis datos personales como se describe en la política de privacidad.
+            acuerdo con ebombo! recopilar y procesar mis datos personales como se describe en la política de privacidad.
           </div>
           <div className="switch">
             <Switch

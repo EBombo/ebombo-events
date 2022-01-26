@@ -220,7 +220,7 @@ export const EditProfile = (props) => {
       </div>
       {/*
         <div className="description">
-        Si hace esto, perderá el acceso a todos los kahoots que creó. Si solo desea darse de baja de su plan actual,
+        Si hace esto, perderá el acceso a todos los juegos que creó. Si solo desea darse de baja de su plan actual,
         vaya a la página de facturación.
       </div>
          */}
