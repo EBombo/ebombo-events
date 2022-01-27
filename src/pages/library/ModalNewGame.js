@@ -1,7 +1,7 @@
 import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../components/common/ModalContainer";
-import { ButtonAnt } from "../../components/form";
+import { Anchor, ButtonAnt } from "../../components/form";
 import { darkTheme } from "../../theme";
 import { Desktop, mediaQuery, sizes, Tablet } from "../../constants";
 import { useRouter } from "next/router";
@@ -20,6 +20,7 @@ export const ModalNewGame = (props) => {
       visible={props.isVisibleModalGame}
       padding={"0 0 1rem 0"}
       top="30%"
+      width="fit-content"
       background={darkTheme.basic.whiteLight}
       onCancel={() => props.setIsVisibleModalGame(!props.isVisibleModalGame)}
     >
@@ -28,7 +29,7 @@ export const ModalNewGame = (props) => {
 
         <div className="games">
           {adminGames.map((game) => (
-            <div className="game" key={game.id}>
+            <div className={`game ${game.isDisabled ? "is-disabled" : ""}`} key={game.id}>
               {/*TODO: ConsiConsider refactoring, add order between <Desktop> and <Tablet>, now hard to understand order.*/}
               <Desktop>
                 <GameImage
@@ -82,6 +83,10 @@ export const ModalNewGame = (props) => {
           ))}
         </div>
 
+        <Anchor variant="primary" margin="auto" display="block" fontSize="14px" underlined>
+          Cargar más
+        </Anchor>
+
         <ButtonAnt
           margin="20px auto auto auto"
           variant="contained"
@@ -98,11 +103,11 @@ export const ModalNewGame = (props) => {
 
 const NewGameContainer = styled.div`
   .title {
+    padding: 0.5rem;
     font-weight: bold;
     font-size: ${sizes.font.normal};
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     color: ${(props) => props.theme.basic.black};
-    padding: 0.5rem;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
   .games {
@@ -111,7 +116,7 @@ const NewGameContainer = styled.div`
     color: ${(props) => props.theme.basic.black};
     margin: auto 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 
     .game {
       text-align: center;
@@ -132,6 +137,17 @@ const NewGameContainer = styled.div`
     .title {
       padding: 1rem 1rem 3rem 1rem;
     }
+
+    .games {
+      .game {
+        min-width: 300px;
+      }
+    }
+  }
+
+  .is-disabled {
+    filter: grayscale(1);
+    pointer-events: none;
   }
 `;
 
