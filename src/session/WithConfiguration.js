@@ -103,6 +103,7 @@ export const WithConfiguration = (props) => {
         .collection("games")
         .where("deleted", "==", false)
         .where("isGameToPlay", "==", true)
+        .orderBy("createAt", "asc")
         .get();
 
       await setAdminGames(snapshotToArray(gamesRef));
