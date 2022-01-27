@@ -27,7 +27,7 @@ export const useFetch = () => {
   };
 
   const getHeader = async (method, token) => {
-    if (method.toLowerCase().includes("get")) return;
+    if (method.toLowerCase().includes("get") || method.toLowerCase().includes("delete")) return;
 
     let headers = {
       Accept: "application/json",
