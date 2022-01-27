@@ -96,7 +96,7 @@ export const DesktopLibraryGames = (props) => {
           />
         ))}
 
-        {loadingGames && isEmpty(props.games)
+        {loadingGames
           ? spinLoaderMin()
           : isEmpty(props.games) && <div className="empty-container">No cuentas con juegos.</div>}
       </div>
