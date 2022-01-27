@@ -30,7 +30,7 @@ export const Privacy = (props) => {
         <div className="option">
           <div className="text">
             ¡He leído y estoy de acuerdo con el ebombo! términos y condiciones y política de privacidad y estoy de
-            acuerdo con Kahoot! recopilar y procesar mis datos personales como se describe en la política de privacidad.
+            acuerdo con ebombo! recopilar y procesar mis datos personales como se describe en la política de privacidad.
           </div>
           <div className="switch">
             <Switch
@@ -81,7 +81,7 @@ const PrivacyContainer = styled.div`
 
     .option {
       display: grid;
-      grid-template-columns: 290px 50px;
+      grid-template-columns: auto 50px;
       grid-gap: 1rem;
       align-items: center;
       margin: 1rem 0;
