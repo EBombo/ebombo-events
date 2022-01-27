@@ -2,11 +2,12 @@ import React, { useState } from "reactn";
 import { config } from "../../firebase";
 import { ButtonAnt, Input, TextArea } from "../../components/form";
 import styled from "styled-components";
-import { mediaQuery } from "../../constants";
+import { Desktop, mediaQuery } from "../../constants";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { useFetch } from "../../hooks/useFetch";
 import { useSendError } from "../../hooks";
+import { Image } from "../../components/common/Image";
 
 export const ContactForm = (props) => {
   const { Fetch } = useFetch();
@@ -50,8 +51,8 @@ export const ContactForm = (props) => {
   };
 
   return (
-    <ContactFormSection ref={props.refProp}>
-      <div className="contact-form-section">
+    <ContactFormSection ref={props.refProp} config={config}>
+      <div className="px-8 py-4 md:py-8 md:px-12">
         <div className="title">¿Deseas mayor información?</div>
         <div className="description">Deja tu consulta y nos pondremos en contacto con usted</div>
         <form onSubmit={handleSubmit(sendEmail)}>
@@ -92,6 +93,11 @@ export const ContactForm = (props) => {
           </div>
         </form>
       </div>
+      <Desktop>
+        <div className="grid h-full w-full">
+          <div className="img-contact" />
+        </div>
+      </Desktop>
     </ContactFormSection>
   );
 };
@@ -99,8 +105,9 @@ export const ContactForm = (props) => {
 const ContactFormSection = styled.section`
   position: relative;
   width: 100%;
-  padding: 4rem 1rem 2rem 1rem;
   background: ${(props) => props.theme.basic.primary};
+  display: grid;
+  grid-template-columns: 1fr;
 
   .title {
     font-family: Lato, sans-serif;
@@ -163,8 +170,17 @@ const ContactFormSection = styled.section`
     }
   }
 
+  .img-contact {
+    align-self: center;
+    height: 80%;
+    background-image: url(${`${config.storageUrl}/resources/event.svg`});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+  }
+
   ${mediaQuery.afterTablet} {
-    padding: 2rem 4rem;
+    grid-template-columns: 1fr 1fr;
 
     .title {
       font-size: 34px;
