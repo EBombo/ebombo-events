@@ -82,7 +82,9 @@ export const ModalNewGame = (props) => {
           ))}
         </div>
 
-        <Anchor variant="primary">Cargar más</Anchor>
+        <Anchor variant="primary" margin="auto">
+          Cargar más
+        </Anchor>
 
         <ButtonAnt
           margin="20px auto auto auto"
