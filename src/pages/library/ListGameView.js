@@ -432,6 +432,7 @@ const IconsContainer = styled.div`
       }
 
       .right {
+        width: 10px;
         height: 18px;
         display: flex;
         justify-content: space-evenly;
