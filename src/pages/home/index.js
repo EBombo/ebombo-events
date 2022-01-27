@@ -20,7 +20,7 @@ export const Home = (props) => {
   useEffect(() => {
     if (!authUser) return;
 
-    router.push("/");
+    router.push("/library");
   }, [authUser]);
 
   return (
