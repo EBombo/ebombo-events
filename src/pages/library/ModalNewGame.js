@@ -19,7 +19,7 @@ export const ModalNewGame = (props) => {
       closable={false}
       visible={props.isVisibleModalGame}
       padding={"0 0 1rem 0"}
-      top="30%"
+      top="10%"
       width="fit-content"
       background={darkTheme.basic.whiteLight}
       onCancel={() => props.setIsVisibleModalGame(!props.isVisibleModalGame)}
