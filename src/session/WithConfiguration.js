@@ -3,6 +3,7 @@ import React, { setGlobal, useEffect, useGlobal, useState } from "reactn";
 import { collectionToDate, useEnvironment, useLanguageCode, useLocation, useSettings, useUser } from "../hooks";
 import { config, firestore, version } from "../firebase";
 import get from "lodash/get";
+import orderBy from "lodash/orderBy";
 import { darkTheme, lightTheme } from "../theme";
 import moment from "moment";
 import { setLocale } from "yup";
@@ -105,7 +106,8 @@ export const WithConfiguration = (props) => {
         .where("isGameToPlay", "==", true)
         .get();
 
-      await setAdminGames(snapshotToArray(gamesRef));
+      const adminGames_ = snapshotToArray(gamesRef);
+      await setAdminGames(orderBy(adminGames_, ["isDisabled"], ["desc"]));
     };
 
     initializeConfig();
