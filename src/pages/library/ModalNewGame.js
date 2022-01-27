@@ -1,7 +1,7 @@
 import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../components/common/ModalContainer";
-import { ButtonAnt } from "../../components/form";
+import { Anchor, ButtonAnt } from "../../components/form";
 import { darkTheme } from "../../theme";
 import { Desktop, mediaQuery, sizes, Tablet } from "../../constants";
 import { useRouter } from "next/router";
@@ -81,6 +81,8 @@ export const ModalNewGame = (props) => {
             </div>
           ))}
         </div>
+
+        <Anchor variant="primary">Cargar más</Anchor>
 
         <ButtonAnt
           margin="20px auto auto auto"
