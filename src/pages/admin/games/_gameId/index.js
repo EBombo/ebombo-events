@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { object, string } from "yup";
-import { ButtonAnt, Input } from "../../../../components/form";
+import { ButtonAnt, Checkbox, Input } from "../../../../components/form";
 import { firestore } from "../../../../firebase";
 import { useSendError } from "../../../../hooks";
 import isEmpty from "lodash/isEmpty";
@@ -41,7 +41,7 @@ export const GameContainer = (props) => {
     domain: string().required(),
   });
 
-  const { handleSubmit, register, errors } = useForm({
+  const { handleSubmit, register, errors, control } = useForm({
     validationSchema: schema,
     reValidateMode: "onSubmit",
   });
@@ -118,6 +118,13 @@ export const GameContainer = (props) => {
           defaultValue={game.api}
           placeholder="API"
           error={errors.api}
+        />
+        <Controller
+          name="isDisabled"
+          control={control}
+          defaultValue={game.isDisabled}
+          onChange={([value]) => value.target.checked}
+          as={<Checkbox variant="primary">Desabilitar</Checkbox>}
         />
         <ButtonAnt htmlType="submit" loading={isSaving || loading} disabled={isSaving || loading}>
           GUARDAR

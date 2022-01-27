@@ -108,9 +108,9 @@ export const EditCompany = (props) => {
 
             <div className="description padding-bottom">
               La activación de la función de identificador de jugador la convierte en la configuración predeterminada
-              para todos los kahoots. Sin embargo, los hosts pueden desactivar esta función. La función de
+              para todos los juegos. Sin embargo, los hosts pueden desactivar esta función. La función de
               identificación del jugador permite a los anfitriones realizar un seguimiento del progreso de los jugadores
-              en una serie de kahoots haciendo coincidir sus puntuaciones con direcciones de correo electrónico, nombres
+              en una serie de juegos haciendo coincidir sus puntuaciones con direcciones de correo electrónico, nombres
               u otros parámetros.
             </div>
           </div>

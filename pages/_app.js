@@ -62,8 +62,7 @@ const MyApp = ({ Component, pageProps }) => {
 
       if (error) throw Error(error);
 
-      let games_ = response?.games ?? [];
-      games_ = orderBy(games_, ["createAt"], "desc");
+      let games_ = orderBy(response?.games ?? [], ["createAt"], ["asc"]);
 
       if (folderId) games_ = games_.filter((game) => game.parentId === folderId);
 
@@ -129,11 +128,7 @@ const MyApp = ({ Component, pageProps }) => {
         <meta name="format-detection" content="telephone=no" />
         <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-72x72.png`} />
         <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href={`${config.storageUrl}/resources/icons/icon-512x512.png`}
-        />
+        <link rel="apple-touch-icon" sizes="180x180" href={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
         <link
           rel="apple-touch-icon-precomposed"
           sizes="144x144"

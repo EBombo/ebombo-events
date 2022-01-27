@@ -9,35 +9,34 @@ import { useSendError } from "../../hooks";
 import { updateGame } from "./games/_gameId";
 
 export const DesktopLibraryGames = (props) => {
-  const [games, setGames] = useGlobal("userGames");
-  const [listType, setListType] = useState("icons");
-  const [tab, setTab] = useState("all");
-  const [loadingGames] = useGlobal("loadingGames");
-  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
   const { sendError } = useSendError();
-  const [authUser] = useGlobal("user");
 
+  const [authUser] = useGlobal("user");
+  const [loadingGames] = useGlobal("loadingGames");
+  const [games, setGames] = useGlobal("userGames");
+
+  const [tab, setTab] = useState("all");
+  const [listType, setListType] = useState("icons");
+  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
   const [selectedGameToMove, setSelectedGameToMove] = useState(null);
 
   const moveGameToFolder = async (folder) => {
-    if (!selectedGameToMove) return;
-
     try {
+      if (!selectedGameToMove) return;
+
       await updateGame(selectedGameToMove.adminGame, { id: selectedGameToMove.id, parentId: folder?.id }, authUser);
 
       props.fetchGames();
     } catch (error) {
-      await sendError(error);
+      await sendError(error, "moveGameToFolder");
     }
   };
 
   useEffect(() => {
-    if (tab === "favorites") {
-      const _games = games.filter((game) => !!game.isFavorite);
-      setGames(_games);
-    } else {
-      props.fetchGames();
-    }
+    if (tab !== "favorites") return props.fetchGames();
+
+    const _games = games.filter((game) => !!game.isFavorite);
+    setGames(_games);
   }, [tab]);
 
   return (
@@ -96,7 +95,8 @@ export const DesktopLibraryGames = (props) => {
             {...props}
           />
         ))}
-        {loadingGames
+
+        {loadingGames && isEmpty(props.games)
           ? spinLoaderMin()
           : isEmpty(props.games) && <div className="empty-container">No cuentas con juegos.</div>}
       </div>
@@ -132,6 +132,7 @@ const GamesContainer = styled.div`
     .icons {
       margin-right: 5px;
       cursor: pointer;
+
       div {
         border: 2px solid ${(props) => props.theme.basic.grayLighten};
         box-sizing: border-box;
@@ -144,6 +145,7 @@ const GamesContainer = styled.div`
       .active {
         border: 2px solid ${(props) => props.theme.basic.secondary};
       }
+
       :hover:not(.active) {
         div {
           border-color: ${(props) => props.theme.basic.secondaryHover};
@@ -153,6 +155,7 @@ const GamesContainer = styled.div`
 
     .list {
       cursor: pointer;
+
       div {
         border: 2px solid ${(props) => props.theme.basic.grayLighten};
         box-sizing: border-box;
@@ -161,9 +164,11 @@ const GamesContainer = styled.div`
         height: 9px;
         margin-bottom: 2px;
       }
+
       .active {
         border: 2px solid ${(props) => props.theme.basic.secondary};
       }
+
       :hover:not(.active) {
         div {
           border-color: ${(props) => props.theme.basic.secondaryHover};
