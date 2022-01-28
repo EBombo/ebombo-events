@@ -128,21 +128,21 @@ const MyApp = ({ Component, pageProps }) => {
         <meta name="format-detection" content="telephone=no" />
         <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-72x72.png`} />
         <link rel="shortcut icon" href={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
-        <link rel="apple-touch-icon" sizes="180x180" href={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
+        <link rel="apple-touch-icon" sizes="180x180" href={`${config.storageUrl}/resources/icons/ios-icon-512x512.png`} />
         <link
           rel="apple-touch-icon-precomposed"
           sizes="144x144"
-          href={`${config.storageUrl}/resources/icons/icon-512x512.png`}
+          href={`${config.storageUrl}/resources/icons/ios-icon-512x512.png`}
         />
         <link
           rel="apple-touch-icon-precomposed"
           sizes="114x114"
-          href={`${config.storageUrl}/resources/icons/icon-512x512.png`}
+          href={`${config.storageUrl}/resources/icons/ios-icon-512x512.png`}
         />
         <link
           rel="apple-touch-icon-precomposed"
           sizes="72x72"
-          href={`${config.storageUrl}/resources/icons/icon-512x512.png`}
+          href={`${config.storageUrl}/resources/icons/ios-icon-512x512.png`}
         />
         <link rel="apple-touch-icon-precomposed" href={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
         <meta property="og:image" content={`${config.storageUrl}/resources/icons/icon-512x512.png`} />
