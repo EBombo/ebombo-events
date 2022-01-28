@@ -3,9 +3,12 @@ import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 import { plans } from "../../components/common/DataList";
 import { config } from "../../firebase";
+import { Switch } from "../../components/form";
+import { darkTheme } from "../../theme";
 
 export const PlansTable = (props) => {
   const [currentPlan] = useState("Avanzado");
+  const [isYearly, setIsYearly] = useState(true);
 
   return (
     <TableContainer>
@@ -13,7 +16,21 @@ export const PlansTable = (props) => {
         <tbody>
           <tr>
             <td>
-              <div className="plan table-title">Comparar planes</div>
+              <div>
+                <div className="pb-8 table-title">Comparar planes</div>
+                <div className="bg-blue text-center">
+                  <div className="flex justify-center gap-4 text-base font-bold text-black whitespace-nowrap">
+                    <span>Pago anual</span>
+                    <Switch
+                      activeBackgroundColor={darkTheme.basic.successLight}
+                      inactiveBackgroundColor={darkTheme.basic.successLight}
+                      checked={isYearly}
+                      onChange={() => setIsYearly((oldValue) => !oldValue)}
+                    />
+                    <span>Pago mensual</span>
+                  </div>
+              </div>
+              </div>
             </td>
             <td style={{ borderRadius: "15px 0 0 0" }}>Personas por juego</td>
             <td>Chat vivo</td>
