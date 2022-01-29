@@ -1,17 +1,73 @@
-import React, { useState } from "reactn";
+import React, { useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
-import { plans } from "../../components/common/DataList";
-import { config } from "../../firebase";
+import { freePlan } from "../../components/common/DataList";
+import { config, firestore } from "../../firebase";
 import { Switch } from "../../components/form";
 import { darkTheme } from "../../theme";
+import { SubscriptionPlans } from "../../components/SubscriptionPlans";
+import { snapshotToArray } from "../../utils";
+
+const specsOrder = ['users', 'live_chat', 'reporting', 'progress_tracking', 'players_identity'];
 
 export const PlansTable = (props) => {
   const [currentPlan] = useState("Avanzado");
   const [isYearly, setIsYearly] = useState(true);
 
+  const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
+  const [plans, setPlans] = useState([]);
+
+  useEffect(() => {
+    if (plans.length) return;
+
+    const fetchPlans = async () => {
+      const plans = snapshotToArray(await firestore.collection("products").get());
+
+      const plansPromises = plans.map(async (plan) => {
+        const AllActivePricesQuery = await firestore
+          .collection(`products/${plan.id}/prices`)
+          .where("active", "==", true)
+          .get();
+
+        const activePrices = snapshotToArray(AllActivePricesQuery);
+
+        plan.currentPrice = {
+          id: activePrices?.[0]?.id,
+          amount: activePrices?.[0]?.unit_amount ? activePrices[0].unit_amount / 100 : "-",
+          currency: activePrices?.[0]?.currency,
+        };
+
+        return plan;
+      });
+      setPlans([freePlan, ...(await Promise.all(plansPromises))]);
+    };
+
+    return fetchPlans();
+  }, []);
+
+
   return (
     <TableContainer>
+        <div>
+          <SubscriptionPlans
+            isLoadingCheckoutPlan={isLoadingCheckoutPlan}
+            setIsLoadingCheckoutPlan={setIsLoadingCheckoutPlan}
+            onSelectedPlan={async (plan) => {
+              if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
+
+              setIsLoadingCheckoutPlan(true);
+              try {
+                await sendToCheckout(authUser?.id, plan.currentPrice.id);
+              } catch (err) {
+                props.showNotification("Error", err?.message, "error");
+                setIsLoadingCheckoutPlan(false);
+                sendError(err);
+              }
+            }}
+            {...props}
+          />
+      </div>
+
       <table border="0">
         <tbody>
           <tr>
@@ -64,19 +120,19 @@ export const PlansTable = (props) => {
                 </div>
               </td>
 
-              {plan.specs.map((spec, index) => (
+              {specsOrder.map((keySpec, index) => (
                 <td
                   key={index}
                   style={
                     index_ === plans.length - 1
                       ? {
                           borderRadius:
-                            index === 0 ? "0 15px 0 0" : index === plan.specs.length - 1 ? "0 0 15px 0" : "",
+                            index === 0 ? "0 15px 0 0" : index === specsOrder.length - 1 ? "0 0 15px 0" : "",
                         }
                       : {}
                   }
                 >
-                  {spec}
+                  {plan.metadata[keySpec]}
                 </td>
               ))}
 
