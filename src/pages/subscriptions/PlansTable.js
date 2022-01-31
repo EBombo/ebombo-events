@@ -1,72 +1,26 @@
 import React, { useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
-import { freePlan } from "../../components/common/DataList";
-import { config, firestore } from "../../firebase";
-import { Switch } from "../../components/form";
+import { getYearlyPrice, getMonthlyPrice } from "../../stripe";
+import { getCurrencySymbol } from "../../components/common/DataList";
+import { config } from "../../firebase";
+import { Anchor, Switch } from "../../components/form";
 import { darkTheme } from "../../theme";
-import { SubscriptionPlans } from "../../components/SubscriptionPlans";
-import { snapshotToArray } from "../../utils";
+import { useStripePlans } from "../../hooks/useStripePlans"
 
 const specsOrder = ['users', 'live_chat', 'reporting', 'progress_tracking', 'players_identity'];
 
 export const PlansTable = (props) => {
   const [currentPlan] = useState("Avanzado");
-  const [isYearly, setIsYearly] = useState(true);
+  const [isMonthly, setIsMonthly] = useState(false);
 
-  const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
-  const [plans, setPlans] = useState([]);
+  const { plans } = useStripePlans();
 
-  useEffect(() => {
-    if (plans.length) return;
-
-    const fetchPlans = async () => {
-      const plans = snapshotToArray(await firestore.collection("products").get());
-
-      const plansPromises = plans.map(async (plan) => {
-        const AllActivePricesQuery = await firestore
-          .collection(`products/${plan.id}/prices`)
-          .where("active", "==", true)
-          .get();
-
-        const activePrices = snapshotToArray(AllActivePricesQuery);
-
-        plan.currentPrice = {
-          id: activePrices?.[0]?.id,
-          amount: activePrices?.[0]?.unit_amount ? activePrices[0].unit_amount / 100 : "-",
-          currency: activePrices?.[0]?.currency,
-        };
-
-        return plan;
-      });
-      setPlans([freePlan, ...(await Promise.all(plansPromises))]);
-    };
-
-    return fetchPlans();
-  }, []);
-
+  const anualPhrase = (price) => (<p>por admin al año (<span className="whitespace-nowrap">{price}</span> mensualmente)</p>);
+  const monthlyPhrase = (price) => (<p>por admin al mes (<span className="whitespace-nowrap">{price}</span> anualmente)</p>);
 
   return (
     <TableContainer>
-        <div>
-          <SubscriptionPlans
-            isLoadingCheckoutPlan={isLoadingCheckoutPlan}
-            setIsLoadingCheckoutPlan={setIsLoadingCheckoutPlan}
-            onSelectedPlan={async (plan) => {
-              if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
-
-              setIsLoadingCheckoutPlan(true);
-              try {
-                await sendToCheckout(authUser?.id, plan.currentPrice.id);
-              } catch (err) {
-                props.showNotification("Error", err?.message, "error");
-                setIsLoadingCheckoutPlan(false);
-                sendError(err);
-              }
-            }}
-            {...props}
-          />
-      </div>
 
       <table border="0">
         <tbody>
@@ -80,8 +34,8 @@ export const PlansTable = (props) => {
                     <Switch
                       activeBackgroundColor={darkTheme.basic.successLight}
                       inactiveBackgroundColor={darkTheme.basic.successLight}
-                      checked={isYearly}
-                      onChange={() => setIsYearly((oldValue) => !oldValue)}
+                      checked={isMonthly}
+                      onChange={() => setIsMonthly((oldValue) => !oldValue)}
                     />
                     <span>Pago mensual</span>
                   </div>
@@ -98,24 +52,34 @@ export const PlansTable = (props) => {
           {plans.map((plan, index_) => (
             <tr key={`${plan.name}-index`}>
               <td>
-                <div className={`plan ${plan.name.toLowerCase()}`}>
-                  <div className="name">{plan.name}</div>
-                  {plan.name === "Exclusivo" ? (
-                    <button className="btn-contact">
+                <div className={`plan  text-center ${plan.name.toLowerCase()}`}>
+                  <div className="name mb-4">{plan.name}</div>
+                  {plan.name === "Exclusivo"
+                    ? (<button className="btn-contact mb-4">
                       Contactar
                       <br />
                       ventas
-                    </button>
-                  ) : (
-                    <div className="price">$ {plan.price}</div>
-                  )}
+                    </button>)
+                    : isMonthly
+                    ? (
+                      <div className="price text-center mb-4">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}  {getMonthlyPrice(plan)?.amount}</div>
+                    )
+                    : (
+                      <div className="price text-center mb-4">{getCurrencySymbol[getYearlyPrice(plan)?.currency]}  {getYearlyPrice(plan)?.amount}</div>
+                    )}
 
                   <div className="divider" />
 
                   <div
-                    className={`description ${currentPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""}`}
+                    className={`description mb-4 ${currentPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""}`}
                   >
-                    {plan.description}
+                    {plan.name === "Exclusivo"
+                      ? (<Anchor url="/#contact"><span className="font-bold text-md text-black underline underline-offset-2">{plan.description}</span></Anchor>)
+                      : plan.description
+                      ? plan.description
+                      : isMonthly
+                      ? monthlyPhrase(`${getCurrencySymbol[getMonthlyPrice(plan)?.currency]} ${(getMonthlyPrice(plan)?.amount * 12).toFixed(2)}`)
+                      : anualPhrase(`${getCurrencySymbol[getYearlyPrice(plan)?.currency]} ${(getYearlyPrice(plan)?.amount / 12).toFixed(2)}`)}
                   </div>
                 </div>
               </td>
@@ -225,11 +189,7 @@ const TableContainer = styled.div`
 
   .plan {
     width: 100%;
-    display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-    height: 250px;
 
     .name {
       font-family: Lato;
@@ -258,7 +218,6 @@ const TableContainer = styled.div`
       line-height: 16px;
       color: ${(props) => props.theme.basic.grayLight};
       text-align: center;
-      max-width: 80%;
     }
 
     .select {

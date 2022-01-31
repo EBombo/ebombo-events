@@ -39,7 +39,7 @@ export const Billing = (props) => {
   }, []);
 
   // TODO: It is disabled, until all requirements for production are complete.
-  if (true) return null;
+  // if (true) return null;
 
   return (
     <BillingContainer>

@@ -1,45 +1,29 @@
-import React, { useEffect, useState } from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
 import { PlansPrices } from "./common/PlansPrices";
-import { firestore } from "../firebase";
-import { snapshotToArray } from "../utils";
-import { freePlan } from "../components/common/DataList";
+import { Switch } from "./form";
+import { darkTheme } from "../theme";
+import { useStripePlans } from '../hooks/useStripePlans'
 
 export const SubscriptionPlans = (props) => {
-  const [plans, setPlans] = useState([]);
-
-  useEffect(() => {
-    if (plans.length) return;
-
-    const fetchPlans = async () => {
-      const plans = snapshotToArray(await firestore.collection("products").get());
-
-      const plansPromises = plans.map(async (plan) => {
-        const AllActivePricesQuery = await firestore
-          .collection(`products/${plan.id}/prices`)
-          .where("active", "==", true)
-          .get();
-
-        const activePrices = snapshotToArray(AllActivePricesQuery);
-
-        plan.currentPrice = {
-          id: activePrices?.[0]?.id,
-          amount: activePrices?.[0]?.unit_amount ? activePrices[0].unit_amount / 100 : "-",
-          currency: activePrices?.[0]?.currency,
-        };
-
-        return plan;
-      });
-      setPlans([freePlan, ...(await Promise.all(plansPromises))]);
-    };
-
-    return fetchPlans();
-  }, []);
+  const { plans } = useStripePlans();
+  const [isMonthly, setIsMonthly] = useState(false);
 
   return (
     <SubscriptionPlansContainer>
-      <div className="title">Conoce nuestros planes</div>
-      <PlansPrices isLoading={props.isLoadingCheckoutPlan} plans={plans} selectPlanLabel="Escoger" {...props} />
+      <div className="title">{props.title}</div>
+      <div className="flex justify-center gap-4 text-base font-bold text-black text-xl whitespace-nowrap">
+        <span>Pago anual</span>
+        <Switch
+          activeBackgroundColor={darkTheme.basic.successLight}
+          inactiveBackgroundColor={darkTheme.basic.successLight}
+          checked={isMonthly}
+          onChange={() => setIsMonthly((oldValue) => !oldValue)}
+        />
+        <span>Pago mensual</span>
+      </div>
+
+      <PlansPrices isMonthly={isMonthly} isLoading={props.isLoadingCheckoutPlan ?? false} plans={plans} selectPlanLabel={props.selectPlanLabel ?? "Escoger"} {...props} />
     </SubscriptionPlansContainer>
   );
 };

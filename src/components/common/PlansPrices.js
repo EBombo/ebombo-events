@@ -2,6 +2,8 @@ import React from "reactn";
 import styled from "styled-components";
 import { getCurrencySymbol } from "../../components/common/DataList";
 import { ButtonAnt } from "../../components/form/Button";
+import { getYearlyPrice, getMonthlyPrice } from "../../stripe";
+import { Anchor } from "../form";
 
 // data-aos="zoom-in"
 export const PlansPrices = (props) => (
@@ -20,8 +22,11 @@ export const PlansPrices = (props) => (
 
           <div className="price">
             {plan.name === "Exclusivo"
-              ? plan.description
-              : `${getCurrencySymbol[plan.currentPrice.currency]} ${plan.currentPrice.amount}`}
+              ? (<Anchor url="/#contact"><span className="text-2xl font-bold text-black underline underline-offset-2">Contáctanos</span> </Anchor>)  
+              : props.isMonthly
+              ? `${getCurrencySymbol[getMonthlyPrice(plan)?.currency]} ${getMonthlyPrice(plan)?.amount}`
+              : `${getCurrencySymbol[getYearlyPrice(plan)?.currency]} ${getYearlyPrice(plan)?.amount}`
+            }
           </div>
 
           <div className="time">por mes</div>
@@ -32,7 +37,7 @@ export const PlansPrices = (props) => (
           <ButtonAnt
             className="btn-register"
             disabled={plan.name === "Gratis" || props.isLoading}
-            onClick={() => props.onSelectedPlan?.(plan)}
+            onClick={() => props.onSelectedPlan?.(plan, props.isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan))}
           >
             {props.selectPlanLabel ?? "Registrarme"}
           </ButtonAnt>

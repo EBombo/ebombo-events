@@ -5,7 +5,7 @@ import { ButtonAnt } from "../../../../components/form";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { darkTheme } from "../../../../theme";
 import { sendToCheckout } from "../../../../stripe";
-import { SubscriptionPlans } from "./SubscriptionPlans";
+import { SubscriptionPlans } from "./../../../../components/SubscriptionPlans";
 import { useSendError } from "../../../../hooks";
 
 export const CurrentPlanCard = (props) => {
@@ -29,14 +29,15 @@ export const CurrentPlanCard = (props) => {
         width="100%"
       >
         <SubscriptionPlans
+          title="Conoce nuestros planes"
           isLoadingCheckoutPlan={isLoadingCheckoutPlan}
           setIsLoadingCheckoutPlan={setIsLoadingCheckoutPlan}
-          onSelectedPlan={async (plan) => {
+          onSelectedPlan={async (plan, price) => {
             if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
 
             setIsLoadingCheckoutPlan(true);
             try {
-              await sendToCheckout(authUser?.id, plan.currentPrice.id);
+              await sendToCheckout(authUser?.id, price?.id);
             } catch (err) {
               props.showNotification("Error", err?.message, "error");
               setIsLoadingCheckoutPlan(false);
