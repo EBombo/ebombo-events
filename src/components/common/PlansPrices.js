@@ -24,19 +24,27 @@ export const PlansPrices = (props) => (
             {plan.name === "Exclusivo"
               ? (<Anchor url="/#contact"><span className="text-2xl font-bold text-black underline underline-offset-2">Contáctanos</span> </Anchor>)  
               : props.isMonthly
-              ? `${getCurrencySymbol[getMonthlyPrice(plan)?.currency]} ${getMonthlyPrice(plan)?.amount}`
-              : `${getCurrencySymbol[getYearlyPrice(plan)?.currency]} ${getYearlyPrice(plan)?.amount}`
+              ? (<><span className="text-2xl align-super">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}</span> {getMonthlyPrice(plan)?.amount}</>)
+              : (<><span className="text-2xl align-super">{getCurrencySymbol[getYearlyPrice(plan)?.currency]}</span> {getYearlyPrice(plan)?.amount}</>) 
             }
           </div>
 
-          <div className="time">por mes</div>
+          <div className="time">
+            {plan.name === "Exclusivo" || plan.name === "Gratis"
+              ? ''
+              : props.isMonthly
+              ? `${getCurrencySymbol[getMonthlyPrice(plan)?.currency]} ${getMonthlyPrice(plan)?.amount * 12} por año`
+              : `${getCurrencySymbol[getYearlyPrice(plan)?.currency]} ${(getYearlyPrice(plan)?.amount / 12).toFixed(2)} por mes`
+            }
+          </div>
           <div className="divider" />
           <div className="users">{plan.metadata.users} usuarios</div>
           <div className="games">{plan.metadata.games} juegos</div>
+          <div className="games"><Anchor url="/#plans-table"><span className="font-bold underline underline-offset-2 text-base">Ver más</span></Anchor></div>
 
           <ButtonAnt
             className="btn-register"
-            disabled={plan.name === "Gratis" || props.isLoading}
+            disabled={props.isLoading}
             onClick={() => props.onSelectedPlan?.(plan, props.isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan))}
           >
             {props.selectPlanLabel ?? "Registrarme"}

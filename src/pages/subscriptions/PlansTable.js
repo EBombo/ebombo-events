@@ -6,6 +6,7 @@ import { getCurrencySymbol } from "../../components/common/DataList";
 import { config } from "../../firebase";
 import { Anchor, Switch } from "../../components/form";
 import { darkTheme } from "../../theme";
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { useStripePlans } from "../../hooks/useStripePlans"
 
 const specsOrder = ['users', 'live_chat', 'reporting', 'progress_tracking', 'players_identity'];
@@ -18,6 +19,8 @@ export const PlansTable = (props) => {
 
   const anualPhrase = (price) => (<p>por admin al año (<span className="whitespace-nowrap">{price}</span> mensualmente)</p>);
   const monthlyPhrase = (price) => (<p>por admin al mes (<span className="whitespace-nowrap">{price}</span> anualmente)</p>);
+
+  const getYesNoIcon = (value) => value === 'yes' ? <CheckOutlined style={{ color: darkTheme.basic.primary }}/> : <CloseOutlined/>;
 
   return (
     <TableContainer>
@@ -42,7 +45,7 @@ export const PlansTable = (props) => {
               </div>
               </div>
             </td>
-            <td style={{ borderRadius: "15px 0 0 0" }}>Personas por juego</td>
+            <td style={{ borderRadius: '15px 0 0 0' }}>Personas por juego</td>
             <td>Chat vivo</td>
             <td>Reporte</td>
             <td>Trackear progreso</td>
@@ -62,10 +65,14 @@ export const PlansTable = (props) => {
                     </button>)
                     : isMonthly
                     ? (
-                      <div className="price text-center mb-4">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}  {getMonthlyPrice(plan)?.amount}</div>
+                      <div className="price text-center mb-4">
+                        <span className="text-2xl align-super">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}</span> {getMonthlyPrice(plan)?.amount}
+                      </div>
                     )
                     : (
-                      <div className="price text-center mb-4">{getCurrencySymbol[getYearlyPrice(plan)?.currency]}  {getYearlyPrice(plan)?.amount}</div>
+                      <div className="price text-center mb-4">
+                        <span className="text-2xl align-super">{getCurrencySymbol[getYearlyPrice(plan)?.currency]}</span> {getYearlyPrice(plan)?.amount}
+                      </div>
                     )}
 
                   <div className="divider" />
@@ -84,6 +91,7 @@ export const PlansTable = (props) => {
                 </div>
               </td>
 
+
               {specsOrder.map((keySpec, index) => (
                 <td
                   key={index}
@@ -96,12 +104,15 @@ export const PlansTable = (props) => {
                       : {}
                   }
                 >
-                  {plan.metadata[keySpec]}
+                  {plan.metadata[keySpec] === "yes" || plan.metadata[keySpec] === "no"
+                    ? getYesNoIcon(plan.metadata[keySpec])
+                    : plan.metadata[keySpec]
+                  }
                 </td>
               ))}
 
-              {currentPlan === plan.name && <div className="selected" />}
-              {currentPlan === plan.name && (
+              {plan.metadata.recommended === "true" && <div className="selected" />}
+              {plan.metadata.recommended === "true" && (
                 <Star backgroundImg={`${config.storageUrl}/resources/plan-star.png`}>Más popular</Star>
               )}
             </tr>
