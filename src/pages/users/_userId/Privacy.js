@@ -36,7 +36,7 @@ export const Privacy = (props) => {
             <Switch
               checked={props.user.terms ?? false}
               onChange={() => toggleSwitch("terms")}
-              disabled={defaultTo(authUser.id, "") !== props.user.id}
+              disabled
             />
           </div>
         </div>
