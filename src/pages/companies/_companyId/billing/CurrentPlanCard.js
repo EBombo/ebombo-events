@@ -33,11 +33,11 @@ export const CurrentPlanCard = (props) => {
           isLoadingCheckoutPlan={isLoadingCheckoutPlan}
           setIsLoadingCheckoutPlan={setIsLoadingCheckoutPlan}
           onSelectedPlan={async (plan, price) => {
-            if (plan.name.includes("Gratis")) return;
-            if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
-
-            setIsLoadingCheckoutPlan(true);
             try {
+              if (plan.name.includes("Gratis")) return;
+              if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
+
+              setIsLoadingCheckoutPlan(true);
               await sendToCheckout(authUser?.id, price?.id);
             } catch (err) {
               props.showNotification("Error", err?.message, "error");

@@ -35,7 +35,10 @@ export const useStripePlans = (props) => {
 
         return plan;
       });
-      setPlans([freePlan, ...(await Promise.all(plansPromises))]);
+
+      const plans_ = await Promise.all(plansPromises);
+
+      setPlans([freePlan, ...(plans_)]);
     };
 
     return fetchPlans();
