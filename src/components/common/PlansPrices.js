@@ -24,8 +24,8 @@ export const PlansPrices = (props) => (
             {plan.name === "Exclusivo"
               ? (<Anchor url="/#contact"><span className="text-2xl font-bold text-black underline underline-offset-2">Contáctanos</span> </Anchor>)  
               : props.isMonthly
-              ? (<><span className="text-2xl align-super">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}</span> {getMonthlyPrice(plan)?.amount}</>)
-              : (<><span className="text-2xl align-super">{getCurrencySymbol[getYearlyPrice(plan)?.currency]}</span> {getYearlyPrice(plan)?.amount}</>) 
+              ? (<><span className="text-2xl align-super">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}</span> {getMonthlyPrice(plan)?.amount} <span className="text-base">al mes</span></>)
+              : (<><span className="text-2xl align-super">{getCurrencySymbol[getYearlyPrice(plan)?.currency]}</span> {getYearlyPrice(plan)?.amount} <span className="text-base">al año</span></>) 
             }
           </div>
 
