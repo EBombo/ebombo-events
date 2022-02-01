@@ -101,7 +101,7 @@ export const GameContainer = (props) => {
       }
 
       props.fetchGames();
-      router.back();
+      router.push("/library");
     } catch (error) {
       sendError(error, "createGame");
     }
