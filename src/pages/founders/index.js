@@ -16,13 +16,13 @@ const founders = [
   {
     img: `${config.storageUrl}/resources/founders/santiago.png`,
     name: "Santiago Suarez Stewart",
-    position: "COO - Product Manager",
+    position: "Product Manager",
     linkedin: "https://www.linkedin.com/in/santiago-suarez-stewart/",
   },
   {
     img: `${config.storageUrl}/resources/founders/gonzalo.png`,
     name: "Gonzalo Herrera Medina",
-    position: "CPO - UX/UI Designer",
+    position: "Games Designer",
     linkedin: "https://www.linkedin.com/in/ghherreramedina/",
   },
 ];

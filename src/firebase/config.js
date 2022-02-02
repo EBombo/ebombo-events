@@ -33,6 +33,11 @@ let firestoreBingo;
 let storageBingo;
 let authBingo;
 
+let firestoreRoulette;
+let storageRoulette;
+let authRoulette;
+let analyticsRoulette;
+
 let analytics;
 let firestore;
 let storage;
@@ -71,6 +76,22 @@ if (isEmpty(firebase.apps)) {
   } catch (error) {
     console.error("error initializeApp", error);
   }
+
+  // Roulette connection.
+  try {
+    firebase.initializeApp(config.firebaseRoulette, "roulette");
+    firestoreRoulette = firebase.app("roulette").firestore();
+    storageRoulette = firebase.app("roulette").storage();
+    authRoulette = firebase.app("roulette").auth();
+
+    if (typeof window !== "undefined") {
+      analyticsRoulette = firebase.app("roulette").analytics();
+    }
+
+    firestoreRoulette.settings({ ignoreUndefinedProperties: true });
+  } catch (error) {
+    console.error("error initializeApp", error);
+  }
 }
 
 if (DOMAIN?.includes("localhost")) {
@@ -99,6 +120,10 @@ export {
   storageBingo,
   firestoreBingo,
   analyticsBingo,
+  firestoreRoulette,
+  storageRoulette,
+  authRoulette,
+  analyticsRoulette,
   landingsStorageBucket,
   usersStorageBucket,
   companiesStorageBucket,
