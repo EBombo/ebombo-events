@@ -9,6 +9,7 @@ export const darkTheme = {
     secondaryLight: "#251552",
     secondaryHover: "#62518f",
     success: "#85E4BF",
+    successLight: "#25FFA4",
     successSecondary: "#0F993E",
     white: "#ffffff",
     whiteDarken: "#D2D2D2",

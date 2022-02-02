@@ -203,11 +203,28 @@ export const plans = [
 
 export const freePlan = {
   ...plans[0],
+  prices: [
+    {
+      currency: 'usd',
+      amount: 0,
+      interval: 'month',
+    },
+    {
+      currency: 'usd',
+      amount: 0,
+      interval: 'year',
+    },
+  ],
   metadata: {
     color: plans[0].color,
     background: plans[0].background,
     users: plans[0].users,
     games: plans[0].games,
+    recommended: true,
+    live_chat: "yes",
+    progress_tracking: "yes",
+    players_identity: "yes",
+    reporting: "yes",
   },
   currentPrice: {
     amount: plans[0].price,

@@ -58,9 +58,11 @@ export const Plans = (props) => {
       </PlansContainer>
 
       {tab === "games" && (
-        <TableContainer>
-          <PlansTable {...props} />
-        </TableContainer>
+        <section id="plans-table">
+          <TableContainer>
+            <PlansTable {...props} />
+          </TableContainer>
+        </section>
       )}
     </PlansContainerCss>
   );
