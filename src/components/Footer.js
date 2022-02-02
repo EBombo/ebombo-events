@@ -48,29 +48,17 @@ const footerContent = [
     classKey: "follow-us",
     children: [
       {
-        title: "Facebook",
-        icon: `${config.storageUrl}/resources/facebook-gray.svg`,
-        link: "https://www.facebook.com/ebombogames",
-        target: "_blank",
-      },
-      {
         title: "Instagram",
         icon: `${config.storageUrl}/resources/instagram-gray.svg`,
-        link: "https://instagram.com/ebombo_events?utm_medium=copy_link",
+        link: "https://www.instagram.com/ebombo_/",
         target: "_blank",
       },
       {
         title: "LinkedIn",
         icon: `${config.storageUrl}/resources/linkedin-gray.svg`,
-        link: "https://instagram.com/ebombo_events?utm_medium=copy_link",
+        link: "https://www.linkedin.com/company/ebombo/?viewAsMember=true",
         target: "_blank",
-      },
-      {
-        title: "Twitter",
-        icon: `${config.storageUrl}/resources/twitter-gray.svg`,
-        link: "https://twitter.com/ebombogames",
-        target: "_blank",
-      },
+      }
     ],
   },
 ];
