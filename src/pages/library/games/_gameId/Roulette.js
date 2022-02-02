@@ -1,17 +1,18 @@
-import React, { useMemo, useState } from "reactn";
+import React, { useMemo, useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { ButtonAnt, Checkbox, Input, TextArea } from "../../../../components/form";
 import { useRouter } from "next/router";
-import { firestore } from "../../../../firebase";
+import { firestore, firestoreRoulette } from "../../../../firebase";
 import { ModalSettings } from "./ModalSettings";
 import get from "lodash/get";
 import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { darkTheme } from "../../../../theme";
 import dynamic from "next/dynamic";
+import { snapshotToArray } from "../../../../utils";
 
-const CustomeRoulette = dynamic(() => import("../../../../components/common/CustomeRoulette"), { ssr: false });
+const FortuneWheel = dynamic(() => import("../../../../components/common/FortuneWheel"), { ssr: false });
 
 export const Roulette = (props) => {
   const router = useRouter();
@@ -26,15 +27,30 @@ export const Roulette = (props) => {
   const [mustSpin, setMustSpin] = useState(false);
   const [isLive, setIsLive] = useState(props.game?.isLive ?? false);
   const [prizeNumber, setPrizeNumber] = useState(0);
+  const [options, setOptions] = useState([]);
 
   const newId = useMemo(() => {
     return props.game?.id ?? firestore.collection("hanged").doc().id;
   }, [props.game]);
 
+  useEffect(() => {
+    if (!props.game) return;
+
+    const fetchOptions = async () => {
+      const optionsQuery = await firestoreRoulette.collection("games").doc(props.game.id).collection("options").get();
+
+      const _options = snapshotToArray(optionsQuery);
+
+      setOptions(_options.map((option) => option.option));
+    };
+
+    fetchOptions();
+  }, []);
+
   const schema = object().shape({
     name: string().required(),
     outerBorder: string().required(),
-    innerBorder: string().required(),
+    lineColor: string().required(),
     selector: string().required(),
     text: string().required(),
     buttonColor: string().required(),
@@ -67,7 +83,7 @@ export const Roulette = (props) => {
     const options = data.options?.split(/\r?\n/) ?? null;
     const name = data.name;
     const outerBorder = data.outerBorder;
-    const innerBorder = data.innerBorder;
+    const lineColor = data.lineColor;
     const selector = data.selector;
     const text = data.text;
     const button = data.button;
@@ -79,7 +95,7 @@ export const Roulette = (props) => {
       name,
       isLive,
       outerBorder,
-      innerBorder,
+      lineColor,
       selector,
       text,
       button,
@@ -164,9 +180,7 @@ export const Roulette = (props) => {
               }
             }}
             id="options"
-            defaultValue={
-              props.game?.options?.join("\n") ?? "Escribe\n" + "Cada\n" + "Nombre\n" + "en una linea\n" + "unica"
-            }
+            defaultValue={options.join("\n") ?? "Escribe\n" + "Cada\n" + "Nombre\n" + "en una linea\n" + "unica"}
             disabled={!!isLive}
             error={errors.options}
             name="options"
@@ -191,7 +205,7 @@ export const Roulette = (props) => {
                   <input
                     type="color"
                     name="outerBorder"
-                    defaultValue={get(props, "game.outerBorder", "#D3D3D3")}
+                    defaultValue={get(props, "game.outerBorder", darkTheme.basic.secondary)}
                     ref={register}
                     id="input-color-outerBorder"
                   />
@@ -208,16 +222,13 @@ export const Roulette = (props) => {
                 <div className="input-container">
                   <input
                     type="color"
-                    name="innerBorder"
-                    defaultValue={get(props, "game.innerBorder", darkTheme.basic.secondary)}
-                    id="input-color-innerBorder"
+                    name="lineColor"
+                    defaultValue={get(props, "game.lineColor", darkTheme.basic.secondaryDark)}
+                    id="input-color-lineColor"
                     ref={register}
                   />
-                  <label
-                    htmlFor="innerBorder"
-                    onClick={() => document.getElementById("input-color-innerBorder").click()}
-                  >
-                    {watch("innerBorder")?.toUpperCase()}
+                  <label htmlFor="lineColor" onClick={() => document.getElementById("input-color-lineColor").click()}>
+                    {watch("lineColor")?.toUpperCase()}
                   </label>
                 </div>
               </div>
@@ -311,19 +322,19 @@ export const Roulette = (props) => {
         </div>
         <div className="third-content">
           <div className="subtitle">Previsualización:</div>
-          <CustomeRoulette
+          <FortuneWheel
             setMustSpin={setMustSpin}
             mustStartSpinning={mustSpin}
             prizeNumber={prizeNumber}
             setPrizeNumber={setPrizeNumber}
             data={data}
-            outerBorder={watch("outerBorder")}
-            outerBorderColor={watch("innerBorder")}
-            outerBorderWidth={10}
+            outerBorderColor={watch("outerBorder") ?? darkTheme.basic.secondary}
+            outerBorderWidth={20}
+            radiusLineColor={watch("lineColor") ?? darkTheme.basic.secondaryDark}
             radiusLineWidth={1}
             fontSize={12}
-            buttonColor={watch("buttonColor")}
-            selector={watch("selector")}
+            buttonColor={watch("buttonColor") ?? darkTheme.basic.gray}
+            selector={watch("selector") ?? darkTheme.basic.gray}
             onStopSpinning={() => {
               setMustSpin(false);
             }}
