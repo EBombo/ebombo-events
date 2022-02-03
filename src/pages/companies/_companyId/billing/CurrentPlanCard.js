@@ -17,6 +17,7 @@ export const CurrentPlanCard = (props) => {
 
   const [isVisibleSeePlans, setIsVisibleSeePlans] = useState(false);
   const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
+  const [isMonthly, setIsMonthly] = useState(false);
 
   return (
     <PlanCardStyled>
@@ -32,6 +33,8 @@ export const CurrentPlanCard = (props) => {
           title="Conoce nuestros planes"
           isLoadingCheckoutPlan={isLoadingCheckoutPlan}
           setIsLoadingCheckoutPlan={setIsLoadingCheckoutPlan}
+          isMonthly={isMonthly}
+          setIsMonthly={setIsMonthly}
           onSelectedPlan={async (plan, price) => {
             try {
               if (plan.name.includes("Gratis")) return;

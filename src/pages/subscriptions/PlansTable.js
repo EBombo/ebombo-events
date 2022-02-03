@@ -13,7 +13,6 @@ const specsOrder = ['users', 'live_chat', 'reporting', 'progress_tracking', 'pla
 
 export const PlansTable = (props) => {
   const [currentPlan] = useState("Avanzado");
-  const [isMonthly, setIsMonthly] = useState(false);
 
   const { plans } = useStripePlans();
 
@@ -31,18 +30,6 @@ export const PlansTable = (props) => {
             <td>
               <div>
                 <div className="pb-8 table-title">Comparar planes</div>
-                <div className="bg-blue text-center">
-                  <div className="flex justify-center gap-4 text-base font-bold text-black whitespace-nowrap">
-                    <span>Pago anual</span>
-                    <Switch
-                      activeBackgroundColor={darkTheme.basic.successLight}
-                      inactiveBackgroundColor={darkTheme.basic.successLight}
-                      checked={isMonthly}
-                      onChange={() => setIsMonthly((oldValue) => !oldValue)}
-                    />
-                    <span>Pago mensual</span>
-                  </div>
-              </div>
               </div>
             </td>
             <td style={{ borderRadius: '15px 0 0 0' }}>Personas por juego</td>
@@ -63,7 +50,7 @@ export const PlansTable = (props) => {
                       <br />
                       ventas
                     </button>)
-                    : isMonthly
+                    : props?.isMonthly
                     ? (
                       <div className="price text-center mb-4">
                         <span className="text-2xl align-super">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}</span> {getMonthlyPrice(plan)?.amount}
@@ -81,10 +68,10 @@ export const PlansTable = (props) => {
                     className={`description mb-4 ${currentPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""}`}
                   >
                     {plan.name === "Exclusivo"
-                      ? (<Anchor url="/#contact"><span className="font-bold text-md text-black underline underline-offset-2">{plan.description}</span></Anchor>)
+                      ? (<Anchor url="/#contact"><span className="font-bold text-base text-black underline underline-offset-2">{plan.description}</span></Anchor>)
                       : plan.description
                       ? plan.description
-                      : isMonthly
+                      : props?.isMonthly
                       ? monthlyPhrase(`${getCurrencySymbol[getMonthlyPrice(plan)?.currency]} ${(getMonthlyPrice(plan)?.amount * 12).toFixed(2)}`)
                       : anualPhrase(`${getCurrencySymbol[getYearlyPrice(plan)?.currency]} ${(getYearlyPrice(plan)?.amount / 12).toFixed(2)}`)}
                   </div>

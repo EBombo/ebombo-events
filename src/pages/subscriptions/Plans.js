@@ -6,6 +6,7 @@ import { PlanTabContent } from "./PlanTabContent";
 
 export const Plans = (props) => {
   const [tab, setTab] = useState(props.tab ?? "online");
+  const [isMonthly, setIsMonthly] = useState(false);
 
   return (
     <PlansContainerCss>
@@ -54,13 +55,13 @@ export const Plans = (props) => {
           </div>
         </div>
 
-        <PlanTabContent {...props} tab={tab} />
+        <PlanTabContent {...props} tab={tab} isMonthly={isMonthly} setIsMonthly={setIsMonthly}/>
       </PlansContainer>
 
       {tab === "games" && (
         <section id="plans-table">
           <TableContainer>
-            <PlansTable {...props} />
+            <PlansTable {...props} isMonthly={isMonthly} setIsMonthly={setIsMonthly}/>
           </TableContainer>
         </section>
       )}
