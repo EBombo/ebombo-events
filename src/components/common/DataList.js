@@ -85,7 +85,7 @@ export const ladingProducts = [
   {
     title: "Eventos Virtuales Premium",
     description:
-      "Nos encargamos de básicamente todo el evento virtual, desde la campaña de intriga, diseño de invitaciones, escenarios 3D hasta un animador estándar o de alto impacto para tu reunión o tipo de evento cómo Happy Hour, Ice Breakers, Eventos corporativos, graduaciones virtuales, entre otros.",
+      "¡Organizamos tu evento a medida! Creamos un concepto del evento y personalizamos al 100% la campaña de intriga, escenario en 3D, contenido de actividades y más. No te pierdas de la mejor parrilla de animadores, shows, talleres y charlas para tu evento de integración, reconocimiento, fecha festiva o, porque no, ¡tu plan de suscripción anual!.",
     background: darkTheme.basic.blackDarken,
     image: `${config.storageUrl}/resources/product-virtual-events.png`,
     url: "/products/eventos-virtuales",
@@ -93,7 +93,7 @@ export const ladingProducts = [
   {
     title: "Eventos Virtuales Simples",
     description:
-      "Conseguimos un animador pro o te alto impacto y nos encargamos de qué este alineado con el evento y lo que la empresa requiera. ",
+      "¿Te interesa un show con el artista favorito de tus colaboradores? Somos el mejor aliado para organizar y alinear al cantante, comediante, speaker, entre otros expertos, con el concepto y objetivo de tu evento.",
     background: darkTheme.basic.blackDarken,
     image: `${config.storageUrl}/resources/product-face-to-face.png`,
     url: "/products/eventos-virtuales",
@@ -111,7 +111,7 @@ export const ladingProducts = [
   {
     title: "Juegos de integración",
     description:
-      "Contamos con juegos realizado por nosotros. Ahorita estamos en la creación e integración de muchos más para que las empresas puedan reunirse en cualquier momento y pasar un buen rato. ",
+      "¿Un súper bingo personalizado y a tu disposición siempre que quieras? Disfruta de este y muchos juegos más que próximamente estarán a tu alcance para organizar tus propios eventos y pasar un buen rato con tus colaboradores.",
     background: darkTheme.basic.secondary,
     image: `${config.storageUrl}/resources/product-games.png`,
     url: "/products/juegos-de-integracion",
@@ -127,13 +127,7 @@ export const plans = [
     color: "#956DFC",
     background: "#956DFC",
     description: "Free",
-    specs: [
-      10,
-      <CloseOutlined />,
-      <CloseOutlined />,
-      <CloseOutlined />,
-      <CloseOutlined />,
-    ],
+    specs: [10, <CloseOutlined />, <CloseOutlined />, <CloseOutlined />, <CloseOutlined />],
   },
   {
     name: "Básico",
@@ -143,13 +137,7 @@ export const plans = [
     color: "#956DFC",
     background: "#956DFC",
     description: "por admin al mes\n" + "($108 anualmente)",
-    specs: [
-      20,
-      <CheckOutlined />,
-      <CheckOutlined />,
-      <CheckOutlined />,
-      <CheckOutlined />,
-    ],
+    specs: [20, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />],
   },
   {
     name: "Avanzado",
@@ -159,13 +147,7 @@ export const plans = [
     color: "#242424",
     background: "#242424",
     description: "por admin al mes\n" + "($348 anualmente)",
-    specs: [
-      50,
-      <CheckOutlined />,
-      <CheckOutlined />,
-      <CheckOutlined />,
-      <CheckOutlined />,
-    ],
+    specs: [50, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />],
   },
   {
     name: "Pro",
@@ -175,13 +157,7 @@ export const plans = [
     color: "#956DFC",
     background: "#956DFC",
     description: "por admin al mes\n" + "($468 anualmente)",
-    specs: [
-      500,
-      <CheckOutlined />,
-      <CheckOutlined />,
-      <CheckOutlined />,
-      <CheckOutlined />,
-    ],
+    specs: [500, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />],
   },
   {
     name: "Exclusivo",
@@ -191,13 +167,7 @@ export const plans = [
     color: "#D2A137",
     background: "linear-gradient(90.24deg, #D2A137 -3.57%, #EECA5A 23.9%, #D2A137 99.85%)",
     description: "Contacta al área de ventas",
-    specs: [
-      "501+",
-      <CheckOutlined />,
-      <CheckOutlined />,
-      <CheckOutlined />,
-      <CheckOutlined />,
-    ],
+    specs: ["501+", <CheckOutlined />, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />],
   },
 ];
 
@@ -205,14 +175,14 @@ export const freePlan = {
   ...plans[0],
   prices: [
     {
-      currency: 'usd',
+      currency: "usd",
       amount: 0,
-      interval: 'month',
+      interval: "month",
     },
     {
-      currency: 'usd',
+      currency: "usd",
       amount: 0,
-      interval: 'year',
+      interval: "year",
     },
   ],
   metadata: {
