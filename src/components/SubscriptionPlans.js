@@ -7,7 +7,6 @@ import { useStripePlans } from '../hooks/useStripePlans'
 
 export const SubscriptionPlans = (props) => {
   const { plans } = useStripePlans();
-  const [isMonthly, setIsMonthly] = useState(false);
 
   return (
     <SubscriptionPlansContainer>
@@ -17,13 +16,18 @@ export const SubscriptionPlans = (props) => {
         <Switch
           activeBackgroundColor={darkTheme.basic.successLight}
           inactiveBackgroundColor={darkTheme.basic.successLight}
-          checked={isMonthly}
-          onChange={() => setIsMonthly((oldValue) => !oldValue)}
+          checked={props?.isMonthly}
+          onChange={() => props?.setIsMonthly((oldValue) => !oldValue)}
         />
         <span>Pago mensual</span>
       </div>
 
-      <PlansPrices isMonthly={isMonthly} isLoading={props.isLoadingCheckoutPlan ?? false} plans={plans} selectPlanLabel={props.selectPlanLabel ?? "Escoger"} {...props} />
+      <PlansPrices
+        isMonthly={props?.isMonthly}
+        isLoading={props.isLoadingCheckoutPlan ?? false}
+        plans={plans}
+        selectPlanLabel={props.selectPlanLabel ?? "Escoger"}
+        {...props} />
     </SubscriptionPlansContainer>
   );
 };
