@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "reactn";
-import styled from "styled-components";
-import { PlansPrices } from "../../../../components/common/PlansPrices";
-import { firestore } from "../../../../firebase";
-import { snapshotToArray } from "../../../../utils";
-import { freePlan } from "../../../../components/common/DataList";
+import { firestore } from "../firebase";
+import { freePlan } from "../components/common/DataList";
+import { snapshotToArray } from "../utils";
 
-export const SubscriptionPlans = (props) => {
+export const useStripePlans = (props) => {
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
@@ -22,6 +20,13 @@ export const SubscriptionPlans = (props) => {
 
         const activePrices = snapshotToArray(AllActivePricesQuery);
 
+        plan.prices = activePrices.map((p) => ({
+          id: p.id,
+          amount: p.unit_amount / 100,
+          currency: p.currency,
+          ...p
+        }));
+
         plan.currentPrice = {
           id: activePrices?.[0]?.id,
           amount: activePrices?.[0]?.unit_amount ? activePrices[0].unit_amount / 100 : "-",
@@ -30,24 +35,14 @@ export const SubscriptionPlans = (props) => {
 
         return plan;
       });
-      setPlans([freePlan, ...(await Promise.all(plansPromises))]);
+
+      const plans_ = await Promise.all(plansPromises);
+
+      setPlans([freePlan, ...(plans_)]);
     };
 
     return fetchPlans();
   }, []);
 
-  return (
-    <SubscriptionPlansContainer>
-      <div className="title">Conoce nuestros planes</div>
-      <PlansPrices isLoading={props.isLoadingCheckoutPlan} plans={plans} selectPlanLabel="Escoger" {...props} />
-    </SubscriptionPlansContainer>
-  );
+  return { plans };
 };
-
-const SubscriptionPlansContainer = styled.div`
-  .title {
-    text-align: center;
-    font-size: 24px;
-    color: ${(props) => props.theme.basic.black};
-  }
-`;

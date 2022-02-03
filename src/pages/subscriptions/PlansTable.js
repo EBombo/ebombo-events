@@ -1,21 +1,51 @@
-import React, { useState } from "reactn";
+import React, { useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
-import { plans } from "../../components/common/DataList";
+import { getYearlyPrice, getMonthlyPrice } from "../../stripe";
+import { getCurrencySymbol } from "../../components/common/DataList";
 import { config } from "../../firebase";
+import { Anchor, Switch } from "../../components/form";
+import { darkTheme } from "../../theme";
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { useStripePlans } from "../../hooks/useStripePlans"
+
+const specsOrder = ['users', 'live_chat', 'reporting', 'progress_tracking', 'players_identity'];
 
 export const PlansTable = (props) => {
   const [currentPlan] = useState("Avanzado");
+  const [isMonthly, setIsMonthly] = useState(false);
+
+  const { plans } = useStripePlans();
+
+  const anualPhrase = (price) => (<p>por admin al año (<span className="whitespace-nowrap">{price}</span> mensualmente)</p>);
+  const monthlyPhrase = (price) => (<p>por admin al mes (<span className="whitespace-nowrap">{price}</span> anualmente)</p>);
+
+  const getYesNoIcon = (value) => value === 'yes' ? <CheckOutlined style={{ color: darkTheme.basic.primary }}/> : <CloseOutlined/>;
 
   return (
     <TableContainer>
+
       <table border="0">
         <tbody>
           <tr>
             <td>
-              <div className="plan table-title">Comparar planes</div>
+              <div>
+                <div className="pb-8 table-title">Comparar planes</div>
+                <div className="bg-blue text-center">
+                  <div className="flex justify-center gap-4 text-base font-bold text-black whitespace-nowrap">
+                    <span>Pago anual</span>
+                    <Switch
+                      activeBackgroundColor={darkTheme.basic.successLight}
+                      inactiveBackgroundColor={darkTheme.basic.successLight}
+                      checked={isMonthly}
+                      onChange={() => setIsMonthly((oldValue) => !oldValue)}
+                    />
+                    <span>Pago mensual</span>
+                  </div>
+              </div>
+              </div>
             </td>
-            <td style={{ borderRadius: "15px 0 0 0" }}>Personas por juego</td>
+            <td style={{ borderRadius: '15px 0 0 0' }}>Personas por juego</td>
             <td>Chat vivo</td>
             <td>Reporte</td>
             <td>Trackear progreso</td>
@@ -25,46 +55,64 @@ export const PlansTable = (props) => {
           {plans.map((plan, index_) => (
             <tr key={`${plan.name}-index`}>
               <td>
-                <div className={`plan ${plan.name.toLowerCase()}`}>
-                  <div className="name">{plan.name}</div>
-                  {plan.name === "Exclusivo" ? (
-                    <button className="btn-contact">
+                <div className={`plan  text-center ${plan.name.toLowerCase()}`}>
+                  <div className="name mb-4">{plan.name}</div>
+                  {plan.name === "Exclusivo"
+                    ? (<button className="btn-contact mb-4">
                       Contactar
                       <br />
                       ventas
-                    </button>
-                  ) : (
-                    <div className="price">$ {plan.price}</div>
-                  )}
+                    </button>)
+                    : isMonthly
+                    ? (
+                      <div className="price text-center mb-4">
+                        <span className="text-2xl align-super">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}</span> {getMonthlyPrice(plan)?.amount}
+                      </div>
+                    )
+                    : (
+                      <div className="price text-center mb-4">
+                        <span className="text-2xl align-super">{getCurrencySymbol[getYearlyPrice(plan)?.currency]}</span> {getYearlyPrice(plan)?.amount}
+                      </div>
+                    )}
 
                   <div className="divider" />
 
                   <div
-                    className={`description ${currentPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""}`}
+                    className={`description mb-4 ${currentPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""}`}
                   >
-                    {plan.description}
+                    {plan.name === "Exclusivo"
+                      ? (<Anchor url="/#contact"><span className="font-bold text-md text-black underline underline-offset-2">{plan.description}</span></Anchor>)
+                      : plan.description
+                      ? plan.description
+                      : isMonthly
+                      ? monthlyPhrase(`${getCurrencySymbol[getMonthlyPrice(plan)?.currency]} ${(getMonthlyPrice(plan)?.amount * 12).toFixed(2)}`)
+                      : anualPhrase(`${getCurrencySymbol[getYearlyPrice(plan)?.currency]} ${(getYearlyPrice(plan)?.amount / 12).toFixed(2)}`)}
                   </div>
                 </div>
               </td>
 
-              {plan.specs.map((spec, index) => (
+
+              {specsOrder.map((keySpec, index) => (
                 <td
                   key={index}
                   style={
                     index_ === plans.length - 1
                       ? {
                           borderRadius:
-                            index === 0 ? "0 15px 0 0" : index === plan.specs.length - 1 ? "0 0 15px 0" : "",
+                            index === 0 ? "0 15px 0 0" : index === specsOrder.length - 1 ? "0 0 15px 0" : "",
                         }
                       : {}
                   }
                 >
-                  {spec}
+                  {plan.metadata[keySpec] === "yes" || plan.metadata[keySpec] === "no"
+                    ? getYesNoIcon(plan.metadata[keySpec])
+                    : plan.metadata[keySpec]
+                  }
                 </td>
               ))}
 
-              {currentPlan === plan.name && <div className="selected" />}
-              {currentPlan === plan.name && (
+              {plan.metadata.recommended === "true" && <div className="selected" />}
+              {plan.metadata.recommended === "true" && (
                 <Star backgroundImg={`${config.storageUrl}/resources/plan-star.png`}>Más popular</Star>
               )}
             </tr>
@@ -152,11 +200,7 @@ const TableContainer = styled.div`
 
   .plan {
     width: 100%;
-    display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-    height: 250px;
 
     .name {
       font-family: Lato;
@@ -185,7 +229,6 @@ const TableContainer = styled.div`
       line-height: 16px;
       color: ${(props) => props.theme.basic.grayLight};
       text-align: center;
-      max-width: 80%;
     }
 
     .select {

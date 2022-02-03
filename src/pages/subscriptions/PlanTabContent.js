@@ -1,12 +1,12 @@
-import React, { useEffect } from "reactn";
+import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery } from "../../constants";
 import { Image } from "../../components/common/Image";
 import { config } from "../../firebase";
 import { ButtonAnt } from "../../components/form";
-import { plans } from "../../components/common/DataList";
 import { useRouter } from "next/router";
 import { ContactInfo } from "./ContactInfo";
+import { SubscriptionPlans } from "../../components/SubscriptionPlans";
 
 export const PlanTabContent = (props) => {
   const router = useRouter();
@@ -67,31 +67,16 @@ export const PlanTabContent = (props) => {
 
   if (props.tab === "games")
     return (
-      <PlansPrices data-aos="zoom-in" data-aos-duration="1000">
-        {plans.map((plan, index) => (
-          <PlanPriceContent plan={plan.name} color={plan.color} background={plan.background} key={index}>
-            <div className="plan free">
-              {plan.name === "Avanzado" && <div className="header">Recomendado</div>}
-
-              <div className="name">{plan.name}</div>
-
-              <div className="price">
-                {plan.name !== "Exclusivo" && "$"} {plan.name !== "Exclusivo" ? plan.price * 12 : ""}{" "}
-                {plan.name !== "Exclusivo" ? <span>al año</span> : plan.price}
-              </div>
-
-              <div className="time">{plan.name !== "Exclusivo" && `$ ${plan.price} por mes`}</div>
-              <div className="divider" />
-              <div className="users">{plan.users} usuarios</div>
-              <div className="games">{plan.games} juegos</div>
-
-              <button className="btn-register" onClick={() => router.push("/register")}>
-                Registrarme
-              </button>
-            </div>
-          </PlanPriceContent>
-        ))}
-      </PlansPrices>
+      <div data-aos="zoom-in" data-aos-duration="1000">
+        <SubscriptionPlans
+          selectPlanLabel="Registrarme"
+          onSelectedPlan={async (plan) => {
+            if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
+            return router.push("/register")
+          }}
+          {...props}
+        />
+      </div> 
     );
 };
 

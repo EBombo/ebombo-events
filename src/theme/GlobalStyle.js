@@ -159,9 +159,6 @@ export const GlobalStyle = createGlobalStyle`
 
   /*------------Switch--------------*/
 
-    .ant-switch-checked{
-      background-color: ${(props) => props.theme.basic.success} !important;
-    }
   /*------------Switch--------------*/
 
 

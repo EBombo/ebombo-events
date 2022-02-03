@@ -1,3 +1,7 @@
+const CONFIG = process.env.NEXT_PUBLIC_CONFIG ?? "";
+
+const config = JSON.parse(CONFIG);
+
 module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -30,6 +34,9 @@ module.exports = {
         grayLighten: "#C4C4C4",
         gray: "#E4E4E4",
       },
+      backgroundImage: () => ({
+        "selector": `url('${config.storageUrl}/resources/selector.png')`,
+      }),
     },
   },
   plugins: [],
