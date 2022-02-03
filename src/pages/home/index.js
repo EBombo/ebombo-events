@@ -29,7 +29,9 @@ export const Home = (props) => {
 
       <Products />
 
-      <Plans {...props} />
+      <section id="plans">
+        <Plans {...props} />
+      </section>
 
       <OurGames />
 

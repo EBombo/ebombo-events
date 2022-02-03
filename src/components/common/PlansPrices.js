@@ -2,6 +2,8 @@ import React from "reactn";
 import styled from "styled-components";
 import { getCurrencySymbol } from "../../components/common/DataList";
 import { ButtonAnt } from "../../components/form/Button";
+import { getYearlyPrice, getMonthlyPrice } from "../../stripe";
+import { Anchor } from "../form";
 
 // data-aos="zoom-in"
 export const PlansPrices = (props) => (
@@ -20,19 +22,30 @@ export const PlansPrices = (props) => (
 
           <div className="price">
             {plan.name === "Exclusivo"
-              ? plan.description
-              : `${getCurrencySymbol[plan.currentPrice.currency]} ${plan.currentPrice.amount}`}
+              ? (<Anchor url="/#contact"><span className="text-2xl font-bold text-black underline underline-offset-2">Contáctanos</span> </Anchor>)  
+              : props.isMonthly
+              ? (<><span className="text-2xl align-super">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}</span> {getMonthlyPrice(plan)?.amount} <span className="text-base">al mes</span></>)
+              : (<><span className="text-2xl align-super">{getCurrencySymbol[getYearlyPrice(plan)?.currency]}</span> {getYearlyPrice(plan)?.amount} <span className="text-base">al año</span></>) 
+            }
           </div>
 
-          <div className="time">por mes</div>
+          <div className="time">
+            {plan.name === "Exclusivo" || plan.name === "Gratis"
+              ? ''
+              : props.isMonthly
+              ? `${getCurrencySymbol[getMonthlyPrice(plan)?.currency]} ${getMonthlyPrice(plan)?.amount * 12} por año`
+              : `${getCurrencySymbol[getYearlyPrice(plan)?.currency]} ${(getYearlyPrice(plan)?.amount / 12).toFixed(2)} por mes`
+            }
+          </div>
           <div className="divider" />
           <div className="users">{plan.metadata.users} usuarios</div>
           <div className="games">{plan.metadata.games} juegos</div>
+          <div className="games"><Anchor url="/#plans-table"><span className="font-bold underline underline-offset-2 text-base">Ver más</span></Anchor></div>
 
           <ButtonAnt
             className="btn-register"
-            disabled={plan.name === "Gratis" || props.isLoading}
-            onClick={() => props.onSelectedPlan?.(plan)}
+            disabled={props.isLoading}
+            onClick={() => props.onSelectedPlan?.(plan, props.isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan))}
           >
             {props.selectPlanLabel ?? "Registrarme"}
           </ButtonAnt>
