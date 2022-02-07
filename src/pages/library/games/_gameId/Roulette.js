@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from "reactn";
+import React, { useEffect, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
@@ -165,6 +165,7 @@ export const Roulette = (props) => {
           <Checkbox defaultChecked={isLive} variant="gray" onChange={() => setIsLive(!isLive)}>
             En vivo
           </Checkbox>
+          <div className="text-['Lato'] text-[11px] leading-[13px]">(Las personas que participen del sorteo se tendrán que inscribir en vivo al sorteo mediante un pin)</div>
           <div className="description">
             Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)
           </div>
