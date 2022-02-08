@@ -179,52 +179,52 @@ export const ListGameView = (props) => {
                 </Tooltip>
               </div>
             </div>
-            <div className="bottom-container">
+            <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between py-2 px-4 bg-whiteDark rounded-[0_0_5px_0]">
               <Desktop>
-                <div className="company">
+                <div className="bg-gray rounded-[6px] flex items-center p-2 w-[100px]">
                   <Image
-                    src={get(authUser, "companies.imageUrl", "")}
-                    height={"30px"}
-                    width={"30px"}
-                    borderRadius={"50%"}
+                    src={`${config.storageUrl}/resources/games/${get(props, "game.adminGame.name", "")}-icon.svg`}
+                    height={"20px"}
+                    width={"20px"}
+                    borderRadius={get(props, "game.adminGame.name", "") === "hanged" ? "0" : "50%"}
                     margin={"0 5px 0 0"}
-                    size="cover"
+                    size="contain"
                   />
-                  <div className="name">{get(props, "game.companies.name", "")}</div>
+                  <div className="name">{get(props, "game.adminGame.name", "")}</div>
                 </div>
               </Desktop>
-              <div className="dates">
+              <div className="flex items-center text-['Lato'] text-[13px] leading-[16px] text-grayLight">
                 {getTimeCreation()}{" "}
-                <ul>
-                  <li>
-                    <span>{props?.game?.countPlays ?? 0} reproducciones</span>
-                  </li>
-                </ul>
-              </div>
-              <Desktop>
-                <div className="btns-container">
-                  <ButtonAnt
-                    variant="contained"
-                    color="secondary"
-                    margin="0 1rem"
-                    loading={isLoading}
-                    onClick={() => {
-                      setIsLoading(true);
-                      get(props, "game.parentId", null)
-                        ? router.push(
-                            `/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
-                          )
-                        : router.push(`/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`);
-                      setIsLoading(false);
-                    }}
-                  >
-                    Editar
-                  </ButtonAnt>
-                  <ButtonAnt variant="contained" color="primary" loading={isLoading} onClick={createTokenToPlay}>
-                    Jugar
-                  </ButtonAnt>
+                <div className="ml-[10px] flex items-center">
+                  <div className="w-[5px] h-[5px] bg-grayLight rounded-[50%] mr-[10px]"/>
+                    <div className="font-bold">{props?.game?.countPlays ?? 0} reproducciones</div>
+
                 </div>
-              </Desktop>
+                <Desktop>
+                  <div className="flex items-center justify-around">
+                    <ButtonAnt
+                      variant="contained"
+                      color="secondary"
+                      margin="0 1rem"
+                      loading={isLoading}
+                      onClick={() => {
+                        setIsLoading(true);
+                        get(props, "game.parentId", null)
+                          ? router.push(
+                              `/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
+                            )
+                          : router.push(`/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`);
+                        setIsLoading(false);
+                      }}
+                    >
+                      Editar
+                    </ButtonAnt>
+                    <ButtonAnt variant="contained" color="primary" loading={isLoading} onClick={createTokenToPlay}>
+                      Jugar
+                    </ButtonAnt>
+                  </div>
+                </Desktop>
+              </div>
             </div>
           </div>
         </IconsContainer>
@@ -392,6 +392,10 @@ const IconsContainer = styled.div`
   border-radius: 4px;
   margin: 1rem 0;
   cursor: pointer;
+  
+  ul{
+    margin: 0 !important;
+  }
 
   .select {
     display: flex;
@@ -447,60 +451,6 @@ const IconsContainer = styled.div`
         }
       }
     }
-
-    .bottom-container {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 1rem;
-      background: ${(props) => props.theme.basic.whiteDark};
-      border-radius: 0px 0px 5px 0px;
-
-      .company {
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        .name {
-          font-family: Lato;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 13px;
-          line-height: 16px;
-          color: ${(props) => props.theme.basic.grayLight};
-        }
-      }
-
-      .dates {
-        font-family: Lato;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 11px;
-        line-height: 13px;
-        color: ${(props) => props.theme.basic.grayLight};
-        display: flex;
-        align-items: center;
-        ul {
-          margin: 0 0 0 10px;
-          list-style-position: inside;
-
-          span {
-            position: relative;
-            left: -5px;
-          }
-        }
-      }
-
-      .btns-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-      }
-    }
   }
 
   ${mediaQuery.afterTablet} {
@@ -512,15 +462,6 @@ const IconsContainer = styled.div`
         font-size: 15px;
         line-height: 18px;
         color: ${(props) => props.theme.basic.black};
-      }
-
-      .bottom-container {
-        height: 56px;
-
-        .dates {
-          font-size: 13px;
-          line-height: 16px;
-        }
       }
     }
   }
