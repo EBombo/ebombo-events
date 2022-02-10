@@ -9,6 +9,9 @@ import { useRouter } from "next/router";
 import { firestore } from "../../../../firebase";
 import { ModalSettings } from "./ModalSettings";
 
+const allowedLetters = new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;]*$");
+const bannedLetters = new RegExp("[^a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;\n]", "g");
+
 export const Hanged = (props) => {
   const router = useRouter();
 
@@ -26,7 +29,9 @@ export const Hanged = (props) => {
 
   const schema = object().shape({
     name: string().required(),
-    phrases: string().required(),
+    phrases: string()
+      .required()
+      .matches(allowedLetters, "Only letters, signs ?¿!¡, whitespace ( ) and comma (,) are allowed for this field "),
   });
 
   const { handleSubmit, register, errors } = useForm({
@@ -113,9 +118,19 @@ export const Hanged = (props) => {
           Frases para el juego
         </label>
         <div className="description">
-          Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase)
+          Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). 
+          Solo se aceptan letras, signos de interrogación y exclamación (¿?¡!), espacio y comma (,).
         </div>
         <TextArea
+          onPaste={(ev) => {
+            const pasteText = ev.clipboardData.getData("text")
+
+            const newPhrase = `${ev.target.value}${pasteText}`.replaceAll(bannedLetters, '');
+
+            ev.target.value = newPhrase;
+
+            ev.preventDefault();
+          }}
           onKeyPress={(event) => {
             if (event.key === "Enter") return;
 
@@ -124,7 +139,7 @@ export const Hanged = (props) => {
               return false;
             };
 
-            const regex = new RegExp("^[a-zA-Z, ]+$");
+            const regex = allowedLetters;
             const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
             if (!regex.test(key)) {
               event.preventDefault();
