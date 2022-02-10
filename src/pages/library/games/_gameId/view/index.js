@@ -12,6 +12,7 @@ import { useFetch } from "../../../../../hooks/useFetch";
 import { BingoView } from "./BingoView";
 import { HangedView } from "./HangedView";
 import { SideBar } from "./SideBar";
+import { RouletteView } from "./RouletteView";
 
 // TODO: This component is long consider a refactoring.
 export const GameView = (props) => {
@@ -124,6 +125,18 @@ export const GameView = (props) => {
       )}
       {game?.adminGame?.name === "hanged" && (
         <HangedView
+          game={game}
+          moveGameToFolder={moveGameToFolder}
+          setIsVisibleModalMove={setIsVisibleModalMove}
+          isVisibleModalMove={isVisibleModalMove}
+          createTokenToPlay={createTokenToPlay}
+          toggleFavorite={toggleFavorite}
+          deleteGame={deleteGame}
+          {...props}
+        />
+      )}
+      {game?.adminGame?.name === "roulette" && (
+        <RouletteView
           game={game}
           moveGameToFolder={moveGameToFolder}
           setIsVisibleModalMove={setIsVisibleModalMove}
