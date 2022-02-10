@@ -8,6 +8,9 @@ import { firestore } from "../../../../firebase";
 import { Hanged } from "./Hanged";
 import { spinLoader } from "../../../../components/common/loader";
 import { Roulette } from "./Roulette";
+import { Trivia } from "./Trivia";
+
+``
 
 export const updateGameUrl = (adminGame, game, authUser) => `${adminGame.api}/games/${game.id}/users/${authUser.id}`;
 
@@ -138,6 +141,16 @@ export const GameContainer = (props) => {
       )}
       {currentAdminGame?.name === "roulette" && (
         <Roulette
+          submitGame={submitGame}
+          isLoading={isLoading}
+          game={currentGame}
+          parent={parent}
+          setParent={setParent}
+          {...props}
+        />
+      )}
+      {currentAdminGame?.name === "trivia" && (
+        <Trivia
           submitGame={submitGame}
           isLoading={isLoading}
           game={currentGame}
