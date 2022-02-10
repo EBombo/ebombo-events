@@ -48,10 +48,15 @@ const CustomeWheel = styled.div`
     left: 50%;
     z-index: 50;
     transform: translate(-50%, -50%);
-    padding: 0.5rem;
     border-radius: 50%;
     background: ${(props) => props.buttonColor ?? props.theme.basic.gray};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: calc(70px + 0.5rem);
+    height: calc(70px + 0.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 !important;
   }
 
   .spin {
@@ -63,14 +68,21 @@ const CustomeWheel = styled.div`
     font-weight: bold;
     color: ${(props) => props.theme.basic.black};
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   ${mediaQuery.afterTablet} {
+    .btn-container {
+      width: calc(100px + 0.5rem);
+      height: calc(100px + 0.5rem);
+    }
+
     .spin {
       width: 100px;
       height: 100px;
     }
-
   }
 `;
 

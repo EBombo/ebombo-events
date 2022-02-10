@@ -1,11 +1,11 @@
-import React from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
 import get from "lodash/get";
 import { useRouter } from "next/router";
 import { Desktop, Tablet } from "../../../../../constants";
 import { Image } from "../../../../../components/common/Image";
-import { CloseCircleOutlined } from "@ant-design/icons";
-import { config } from "../../../../../firebase";
+import { CloseCircleOutlined, LinkOutlined } from "@ant-design/icons";
+import { config, hostNameBomboGames } from "../../../../../firebase";
 import { ButtonAnt } from "../../../../../components/form";
 import { darkTheme } from "../../../../../theme";
 import { Tooltip } from "antd";
@@ -14,6 +14,8 @@ export const SideBar = (props) => {
   const router = useRouter();
   const { adminGameId, folderId } = router.query;
 
+  const [copied, setCopied] = useState(false);
+
   return (
     <SideBarContainer>
       <Tablet>
@@ -21,7 +23,7 @@ export const SideBar = (props) => {
           <Image
             src={props.game.coverImgUrl ? props.game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
             width="100%"
-            height="100px"
+            height="180px"
             size="cover"
           />
           <div className="close">
@@ -29,7 +31,7 @@ export const SideBar = (props) => {
           </div>
         </div>
         <div className="game-details">
-          <div className="name">{get(props.game, "title", "")}</div>
+          <div className="name">{get(props.game, "name", "")}</div>
           <div className="reproductions">
             <div className="times-played">
               <Image
@@ -62,6 +64,18 @@ export const SideBar = (props) => {
             </ButtonAnt>
           </div>
           <div className="right-container">
+            <ButtonAnt
+              margin="0 10px 0 0"
+              color={copied ? "success" : "primary"}
+              onClick={() => {
+                setCopied(true);
+                navigator.clipboard.writeText(
+                  `${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`
+                );
+              }}
+            >
+              <LinkOutlined style={{ fontSize: "18px" }} />
+            </ButtonAnt>
             <div
               className="edit"
               onClick={() => {
@@ -75,7 +89,7 @@ export const SideBar = (props) => {
                 height="18px"
                 width="18px"
                 size="contain"
-                margin="0 5px 0 0"
+                margin="auto"
               />
             </div>
             <Tooltip
@@ -219,6 +233,21 @@ export const SideBar = (props) => {
                 </div>
               </Tooltip>
             </div>
+          </div>
+          <div className="m-4">
+            <ButtonAnt
+              variant="contained"
+              color={copied ? "success" : "primary"}
+              onClick={() => {
+                setCopied(true);
+                navigator.clipboard.writeText(
+                  `${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`
+                );
+              }}
+            >
+              <LinkOutlined style={{ fontSize: "18px" }} />
+              {copied ? "Copiado!" : "Link de Inscripción"}
+            </ButtonAnt>
           </div>
         </div>
       </Desktop>
