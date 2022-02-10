@@ -22,6 +22,10 @@ const config = JSON.parse(CONFIG);
 
 const hostName = typeof window === "undefined" ? DOMAIN : window.location.hostname;
 
+const hostNameBomboGames = hostName?.includes("red.ebombo")
+  ? 'red.ebombo.io'
+  : 'ebombo.io';
+
 if (DOMAIN?.includes("local") || DOMAIN?.includes("red") || DOMAIN?.includes("dev")) {
   console.log("dev", version);
 } else {
@@ -113,6 +117,7 @@ export {
   storage,
   firebase,
   hostName,
+  hostNameBomboGames,
   analytics,
   firestore,
   functions,

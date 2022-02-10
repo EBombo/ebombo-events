@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { Desktop, Tablet } from "../../../../../constants";
 import { Image } from "../../../../../components/common/Image";
 import { CloseCircleOutlined, LinkOutlined } from "@ant-design/icons";
-import { config } from "../../../../../firebase";
+import { config, hostNameBomboGames } from "../../../../../firebase";
 import { ButtonAnt } from "../../../../../components/form";
 import { darkTheme } from "../../../../../theme";
 import { Tooltip } from "antd";
@@ -70,7 +70,7 @@ export const SideBar = (props) => {
               onClick={() => {
                 setCopied(true);
                 navigator.clipboard.writeText(
-                  `www.ebombo.io/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`
+                  `${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`
                 );
               }}
             >
@@ -241,7 +241,7 @@ export const SideBar = (props) => {
               onClick={() => {
                 setCopied(true);
                 navigator.clipboard.writeText(
-                  `www.ebombo.io/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`
+                  `${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`
                 );
               }}
             >
