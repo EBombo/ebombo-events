@@ -6,6 +6,7 @@ import { config, firestore } from "../../firebase";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import get from "lodash/get";
+import capitalize from "lodash/capitalize";
 import moment from "moment";
 import { Desktop, mediaQuery } from "../../constants";
 import { useRouter } from "next/router";
@@ -95,11 +96,6 @@ export const ListGameView = (props) => {
           `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
         )
       : router.push(`/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}`);
-  };
-
-  const capitalize = (str) => {
-    const lower = str.toLowerCase();
-    return str.charAt(0).toUpperCase() + lower.slice(1);
   };
 
   return (
