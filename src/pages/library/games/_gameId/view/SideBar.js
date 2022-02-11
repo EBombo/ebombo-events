@@ -64,18 +64,20 @@ export const SideBar = (props) => {
             </ButtonAnt>
           </div>
           <div className="right-container">
-            <ButtonAnt
-              margin="0 10px 0 0"
-              color={copied ? "success" : "primary"}
-              onClick={() => {
-                setCopied(true);
-                navigator.clipboard.writeText(
-                  `${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`
-                );
-              }}
-            >
-              <LinkOutlined style={{ fontSize: "18px" }} />
-            </ButtonAnt>
+            {props.game?.adminGame?.name !== "hanged" && (
+              <ButtonAnt
+                margin="0 10px 0 0"
+                color={copied ? "success" : "primary"}
+                onClick={() => {
+                  setCopied(true);
+                  navigator.clipboard.writeText(
+                    `${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`
+                  );
+                }}
+              >
+                <LinkOutlined style={{ fontSize: "18px" }} />
+              </ButtonAnt>
+            )}
             <div
               className="edit"
               onClick={() => {
@@ -235,19 +237,21 @@ export const SideBar = (props) => {
             </div>
           </div>
           <div className="m-4">
-            <ButtonAnt
-              variant="contained"
-              color={copied ? "success" : "primary"}
-              onClick={() => {
-                setCopied(true);
-                navigator.clipboard.writeText(
-                  `${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`
-                );
-              }}
-            >
-              <LinkOutlined style={{ fontSize: "18px" }} />
-              {copied ? "Copiado!" : "Link de Inscripción"}
-            </ButtonAnt>
+            {props.game?.adminGame?.name !== "hanged" && (
+              <ButtonAnt
+                variant="contained"
+                color={copied ? "success" : "primary"}
+                onClick={() => {
+                  setCopied(true);
+                  navigator.clipboard.writeText(
+                    `${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`
+                  );
+                }}
+              >
+                <LinkOutlined style={{ fontSize: "18px" }} />
+                {copied ? "Copiado!" : "Link de Inscripción"}
+              </ButtonAnt>
+            )}
           </div>
         </div>
       </Desktop>
