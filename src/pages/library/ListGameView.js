@@ -6,6 +6,7 @@ import { config, firestore } from "../../firebase";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import get from "lodash/get";
+import capitalize from "lodash/capitalize";
 import moment from "moment";
 import { Desktop, mediaQuery } from "../../constants";
 import { useRouter } from "next/router";
@@ -190,15 +191,16 @@ export const ListGameView = (props) => {
                     margin={"0 5px 0 0"}
                     size="contain"
                   />
-                  <div className="name">{get(props, "game.adminGame.name", "")}</div>
+                  <div className="text-['Lato'] font-[400] text-[12px] leading-[14px] text-grayLight">
+                    {capitalize(get(props, "game.adminGame.name", ""))}
+                  </div>
                 </div>
               </Desktop>
               <div className="flex items-center text-['Lato'] text-[13px] leading-[16px] text-grayLight">
                 {getTimeCreation()}{" "}
                 <div className="ml-[10px] flex items-center">
-                  <div className="w-[5px] h-[5px] bg-grayLight rounded-[50%] mr-[10px]"/>
-                    <div className="font-bold">{props?.game?.countPlays ?? 0} reproducciones</div>
-
+                  <div className="w-[5px] h-[5px] bg-grayLight rounded-[50%] mr-[10px]" />
+                  <div className="font-bold">{props?.game?.countPlays ?? 0} reproducciones</div>
                 </div>
                 <Desktop>
                   <div className="flex items-center justify-around">
@@ -392,8 +394,8 @@ const IconsContainer = styled.div`
   border-radius: 4px;
   margin: 1rem 0;
   cursor: pointer;
-  
-  ul{
+
+  ul {
     margin: 0 !important;
   }
 
