@@ -22,7 +22,7 @@ const config = JSON.parse(CONFIG);
 
 const hostName = typeof window === "undefined" ? DOMAIN : window.location.hostname;
 
-if (DOMAIN?.includes("local") || DOMAIN?.includes("red") || DOMAIN?.includes("dev")) {
+if (DOMAIN?.includes("local") || DOMAIN?.includes("red") || DOMAIN?.includes("dev") || DOMAIN?.includes("shell")) {
   console.log("dev", version);
 } else {
   console.log("prod", version);
