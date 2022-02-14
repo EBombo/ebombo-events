@@ -7,6 +7,7 @@ import { Image } from "../../components/common/Image";
 export const HeaderLanding = (props) => (
   <HeaderLandingContainer>
     <div className="left-container">
+      <div className="text-primary text-2xl">Al estilo ebombo</div>
       <div className="title" data-aos="fade-up" data-aos-delay="0" data-aos-anchor-placement="top-center">
         Cambiamos la forma de reunirte con tu equipo.
       </div>
