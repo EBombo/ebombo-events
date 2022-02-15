@@ -110,7 +110,7 @@ export const GameView = (props) => {
 
   return (
     <GameViewContainer>
-      <SideBar game={game} {...props} />
+      <SideBar game={game} {...props} createTokenToPlay={createTokenToPlay} />
       {game?.adminGame?.name === "bingo" && (
         <BingoView
           game={game}
