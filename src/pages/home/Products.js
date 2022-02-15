@@ -53,6 +53,7 @@ export const Products = (props) => {
 const ProductsContainer = styled.div`
   width: 100%;
   padding: 2rem 1rem;
+  background: ${(props) => props.theme.basic.white};
 
   .title {
     font-family: Lato;
