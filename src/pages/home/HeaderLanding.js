@@ -1,36 +1,42 @@
-import React from "reactn";
+import React, { useEffect } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 import { config } from "../../firebase";
-import { Image } from "../../components/common/Image";
+import { ButtonAnt } from "../../components/form";
+import { useRouter } from "next/router";
 
-export const HeaderLanding = (props) => (
-  <HeaderLandingContainer>
-    <div className="left-container">
-      <div className="text-primary text-2xl">Al estilo ebombo</div>
-      <div className="title" data-aos="fade-up" data-aos-delay="0" data-aos-anchor-placement="top-center">
-        Cambiamos la forma de reunirte con tu equipo.
+export const HeaderLanding = (props) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/register");
+  }, []);
+
+  return (
+    <HeaderLandingContainer>
+      <div className="left-container">
+        <div className="text-primary text-2xl">Al estilo ebombo</div>
+        <div className="title" data-aos="fade-up" data-aos-delay="0" data-aos-anchor-placement="top-center">
+          Haz que tus eventos sean todo un éxito.
+        </div>
+        <div className="description" data-aos="fade-up" data-aos-delay="500" data-aos-anchor-placement="top-center">
+          Facilita tus sesiones de integración o crea un momento de relajo entre tus colaboradores con actividades
+          divertidas como Bingo, trivia, entre otros.
+        </div>
+        <div className="companies" data-aos="fade-right" data-aos-delay="1000">
+          <ButtonAnt color="success" variant="contained" fontSize="24px" onClick={() => router.push("/register")}>
+            Registrate
+          </ButtonAnt>
+        </div>
       </div>
-      <div className="description" data-aos="fade-up" data-aos-delay="500" data-aos-anchor-placement="top-center">
-        Organiza eventos virtuales con ebombo para integrar, motivar y empoderar a los trabajadores de tu empresa.
+      <div className="right-container" data-aos="fade-left">
+        <div className="image-container">
+          <img src={`${config.storageUrl}/resources/video-lading.gif`} width={"80%"} height={"400px"} />
+        </div>
       </div>
-      <div className="companies" data-aos="fade-right" data-aos-delay="1000">
-        <Image
-          src={`${config.storageUrl}/resources/companies.svg`}
-          height={"55px"}
-          desktopHeight={"55px"}
-          margin={"1rem 0"}
-          size={"contain"}
-        />
-      </div>
-    </div>
-    <div className="right-container" data-aos="fade-left">
-      <div className="image-container">
-        <img src={`${config.storageUrl}/resources/video-lading.gif`} width={"80%"} height={"400px"} />
-      </div>
-    </div>
-  </HeaderLandingContainer>
-);
+    </HeaderLandingContainer>
+  );
+};
 
 const HeaderLandingContainer = styled.section`
   width: 100%;
@@ -95,7 +101,7 @@ const HeaderLandingContainer = styled.section`
     }
 
     .title {
-      font-size: 68px;
+      font-size: 3.5rem;
       line-height: 60px;
     }
 
@@ -105,7 +111,7 @@ const HeaderLandingContainer = styled.section`
     }
 
     .description {
-      font-size: 18px;
+      font-size: 20px;
       line-height: 22px;
     }
   }
