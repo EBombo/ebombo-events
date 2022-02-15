@@ -1,6 +1,7 @@
 import React, { forwardRef } from "reactn";
 import styled from "styled-components";
 import Button from "antd/lib/button";
+import { darkTheme } from "../../theme";
 
 // Variant="outlined".
 // Variant="contained".
@@ -52,6 +53,8 @@ const ButtonAntCss = styled(Button)`
             ? theme.basic.secondaryLight
             : color === "default"
             ? theme.basic.blackDarken
+            : color === "success"
+            ? theme.basic.black
             : theme.basic.white
         };
       border: none;
@@ -242,6 +245,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.secondaryLight
           : color === "warning"
           ? theme.basic.warning
+          : color === "success"
+          ? theme.basic.successLight
           : color === "danger"
           ? theme.basic.danger
           : color === "default"
@@ -253,9 +258,10 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.secondaryLight
           : color === "default"
           ? theme.basic.blackDarken
+          : color === "success"
+          ? theme.basic.black
           : theme.basic.white
       };
-      border: none;
       box-shadow: 0 2px ${
         color === "primary"
           ? theme.basic.primaryDark
@@ -274,7 +280,6 @@ const ButtonAntCss = styled(Button)`
           : color
       };
       position: relative;
-      top: 2px;
       `
         : variant === "outlined"
         ? `

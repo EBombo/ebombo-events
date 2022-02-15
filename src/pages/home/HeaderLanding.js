@@ -24,7 +24,13 @@ export const HeaderLanding = (props) => {
           divertidas como Bingo, trivia, entre otros.
         </div>
         <div className="companies" data-aos="fade-right" data-aos-delay="1000">
-          <ButtonAnt color="success" variant="contained" fontSize="24px" onClick={() => router.push("/register")}>
+          <ButtonAnt
+            color="success"
+            variant="contained"
+            fontSize="20px"
+            margin="15px 0 0 0"
+            onClick={() => router.push("/register")}
+          >
             Registrate
           </ButtonAnt>
         </div>
@@ -41,7 +47,7 @@ export const HeaderLanding = (props) => {
 const HeaderLandingContainer = styled.section`
   width: 100%;
   height: 90vh;
-  background: ${(props) => props.theme.basic.secondary};
+  background: linear-gradient(270deg, #331e6d 0%, #6646b7 31.25%, #382079 100%);
   padding: 1rem;
   display: flex;
   align-items: center;
