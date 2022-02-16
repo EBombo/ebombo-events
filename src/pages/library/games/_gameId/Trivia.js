@@ -90,13 +90,19 @@ export const Trivia = (props) => {
           <div className=""></div>
 
           <div className="h-full shadow-[2px_0_4px_2px_rgba(0,0,0,0.25)] bg-whiteLight">
-            <div>
+            <div className="py-8 px-4">
               <label htmlFor="">Tipo de pregunta</label>
               <Select
                 showSearch
                 virtual={false}
                 height="40px"
                 optionFilterProp="children"
+                borderRight="1px solid #C4C4C4"
+                borderLeft="1px solid #C4C4C4"
+                borderTop="1px solid #C4C4C4"
+                borderBottom="1px solid #C4C4C4"
+                borderRadius="4px"
+                defaultValue={triviaQuestionsTypes[0].key}
                 optionsdom={triviaQuestionsTypes.map((type) => ({
                   key: type.key,
                   code: type.key,
