@@ -1,4 +1,4 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../components/common/ModalContainer";
 import { Anchor, ButtonAnt } from "../../components/form";
@@ -7,11 +7,29 @@ import { Desktop, mediaQuery, sizes, Tablet } from "../../constants";
 import { useRouter } from "next/router";
 import get from "lodash/get";
 
+const defaultLimit = 3;
+
 export const ModalNewGame = (props) => {
   const router = useRouter();
   const { folderId } = router.query;
 
   const [adminGames] = useGlobal("adminGames");
+  const [limit, setLimit] = useState(defaultLimit);
+
+  const createGame = (game) => {
+    if (game.isDisabled)
+      return props.showNotification(
+        "INFO",
+        "Por favor para jugar estos juegos ponte en contacto con ventas.",
+        "warning"
+      );
+
+    folderId
+      ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
+      : router.push(`/library/games/new?adminGameId=${game.id}`);
+
+    props.setIsVisibleModalGame(!props.isVisibleModalGame);
+  };
 
   return (
     <ModalContainer
@@ -28,20 +46,15 @@ export const ModalNewGame = (props) => {
         <div className="title">Crear un nuevo juego</div>
 
         <div className="games">
-          {adminGames.map((game) => (
-            <div className={`game ${game.isDisabled ? "is-disabled" : ""}`} key={game.id}>
+          {adminGames.slice(0, limit).map((game) => (
+            <div
+              className={`game ${game.isDisabled ? "is-disabled" : ""}`}
+              key={game.id}
+              onClick={() => createGame(game)}
+            >
               {/*TODO: ConsiConsider refactoring, add order between <Desktop> and <Tablet>, now hard to understand order.*/}
               <Desktop>
-                <GameImage
-                  src={get(game, "coverUrl", null)}
-                  onClick={() => {
-                    folderId
-                      ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
-                      : router.push(`/library/games/new?adminGameId=${game.id}`);
-
-                    props.setIsVisibleModalGame(!props.isVisibleModalGame);
-                  }}
-                />
+                <GameImage src={get(game, "coverUrl", null)} />
               </Desktop>
 
               <Tablet>
@@ -49,33 +62,11 @@ export const ModalNewGame = (props) => {
               </Tablet>
 
               <Tablet>
-                <ButtonAnt
-                  margin="5px auto"
-                  onClick={() => {
-                    folderId
-                      ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
-                      : router.push(`/library/games/new?adminGameId=${game.id}`);
-
-                    props.setIsVisibleModalGame(!props.isVisibleModalGame);
-                  }}
-                >
-                  Crear
-                </ButtonAnt>
+                <ButtonAnt margin="5px auto">Crear</ButtonAnt>
               </Tablet>
 
               <Desktop>
-                <ButtonAnt
-                  variant="text"
-                  margin="5px auto"
-                  color="light"
-                  onClick={() => {
-                    folderId
-                      ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
-                      : router.push(`/library/games/new?adminGameId=${game.id}`);
-
-                    props.setIsVisibleModalGame(!props.isVisibleModalGame);
-                  }}
-                >
+                <ButtonAnt variant="text" margin="5px auto" color="light">
                   {game.title}
                 </ButtonAnt>
               </Desktop>
@@ -83,7 +74,14 @@ export const ModalNewGame = (props) => {
           ))}
         </div>
 
-        <Anchor variant="primary" margin="auto" display="block" fontSize="14px" underlined>
+        <Anchor
+          variant="primary"
+          margin="auto"
+          display="block"
+          fontSize="14px"
+          onClick={() => setLimit(limit + defaultLimit)}
+          underlined
+        >
           Cargar más
         </Anchor>
 
@@ -141,13 +139,13 @@ const NewGameContainer = styled.div`
     .games {
       .game {
         min-width: 300px;
+        cursor: pointer;
       }
     }
   }
 
   .is-disabled {
     filter: grayscale(1);
-    pointer-events: none;
   }
 `;
 
