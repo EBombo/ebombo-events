@@ -11,6 +11,7 @@ import {
   triviaQuestionsTypes
 } from "../../../../components/common/DataList";
 import { Desktop, Tablet } from "../../../../constants";
+import { FileUpload } from "../../../../components/common/FileUpload";
 
 export const Trivia = (props) => {
   const [questions, setQuestions] = useState([
@@ -99,7 +100,27 @@ export const Trivia = (props) => {
             </Desktop>
           </div>
 
-          <div className=""></div>
+          <div className="w-full h-full p-4 md:p-8 md:overflow-auto">
+            <input
+              type="text"
+              className="w-full h-[80px] rounded-[4px] bg-whiteLight text-center text-['Lato'] font-[500] text-[25px] leading-[30px] text-grayLight"
+              placeholder="Escribe tu pregunta..."
+            />
+            <FileUpload
+              file={get(currentQuestion, `fileUrl`, null)}
+              fileName="coverUrl"
+              filePath={`questions/${currentQuestion.id}`}
+              preview={true}
+              sizes="250x250"
+              afterUpload={(filesUrls) =>
+                setCurrentQuestion({
+                  ...currentQuestion,
+                  fileUrl: filesUrls[0].url,
+                })
+              }
+              style={{ bordarRadius: "4px" }}
+            />
+          </div>
 
           <div className="h-full shadow-[2px_0_4px_2px_rgba(0,0,0,0.25)] bg-whiteLight">
             <div className="p-4  border-gray border-b-[1px]">
