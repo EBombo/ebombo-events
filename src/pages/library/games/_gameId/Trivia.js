@@ -1,16 +1,17 @@
 import React, { useState } from "reactn";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
-import { ButtonAnt, Input } from "../../../../components/form";
+import { ButtonAnt, Input, Select } from "../../../../components/form";
 import get from "lodash/get";
 import { Image } from "../../../../components/common/Image";
 import { config, firestore } from "../../../../firebase";
+import { triviaQuestionsTypes } from "../../../../components/common/DataList";
 
 export const Trivia = (props) => {
   const [questions, setQuestions] = useState([
     {
       id: firestore.collection("questions").doc().id,
-      type: "multiple",
+      type: "quiz",
       options: ["", "", "", ""],
     },
   ]);
@@ -44,7 +45,7 @@ export const Trivia = (props) => {
           </div>
         </div>
         <div className="w-full h-[calc(100vh-102px)] overflow-auto grid md:grid-cols-[180px_auto_260px] shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
-          <div className="w-full h-[115px] flex items-center bg-white md:items-start md:flex-col md:h-[90%]">
+          <div className="w-full h-[115px] flex items-center bg-white md:items-start md:flex-col md:h-full">
             {questions.map((question, idx) => (
               <div
                 className={`cursor-pointer bg-${
@@ -72,7 +73,7 @@ export const Trivia = (props) => {
                 onClick={() => {
                   const _question = {
                     id: firestore.collection("questions").doc().id,
-                    type: "multiple",
+                    type: "quiz",
                     options: ["", "", "", ""],
                   };
 
@@ -85,8 +86,25 @@ export const Trivia = (props) => {
               </ButtonAnt>
             </div>
           </div>
+
           <div className=""></div>
-          <div></div>
+
+          <div className="h-full shadow-[2px_0_4px_2px_rgba(0,0,0,0.25)] bg-whiteLight">
+            <div>
+              <label htmlFor="">Tipo de pregunta</label>
+              <Select
+                showSearch
+                virtual={false}
+                height="40px"
+                optionFilterProp="children"
+                optionsdom={triviaQuestionsTypes.map((type) => ({
+                  key: type.key,
+                  code: type.key,
+                  name: type.value,
+                }))}
+              />
+            </div>
+          </div>
         </div>
       </form>
     </div>

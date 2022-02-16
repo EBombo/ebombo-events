@@ -3,6 +3,21 @@ import { config } from "../../firebase";
 import React from "reactn";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
+export const triviaQuestionsTypes = [
+  {
+    key: "quiz",
+    value: "Quiz",
+  },
+  {
+    key: "trueFalse",
+    value: "Verdadero o Falso",
+  },
+  {
+    key: "shortAnwer",
+    value: "Respuesta corta",
+  },
+];
+
 export const headers = [
   {
     label: "Correo electrónico",
@@ -791,3 +806,4 @@ export const PlanIntervals = {
   month: "mensual",
   year: "anual",
 };
+
