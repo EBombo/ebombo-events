@@ -18,6 +18,40 @@ export const triviaQuestionsTypes = [
   },
 ];
 
+export const triviaQuestionsOptions = [
+  {
+    key: "uniq",
+    value: "Única respuesta",
+  },
+  {
+    key: "multiple",
+    value: "Respuesta multiple",
+  },
+];
+
+export const triviaQuestionsTimes = [
+  {
+    key: 10,
+    value: 10,
+  },
+  {
+    key: 20,
+    value: 20,
+  },
+  {
+    key: 30,
+    value: 30,
+  },
+  {
+    key: 60,
+    value: 60,
+  },
+  {
+    key: 120,
+    value: 120,
+  },
+];
+
 export const headers = [
   {
     label: "Correo electrónico",
@@ -806,4 +840,3 @@ export const PlanIntervals = {
   month: "mensual",
   year: "anual",
 };
-
