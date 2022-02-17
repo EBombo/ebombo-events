@@ -7,7 +7,7 @@ import { Desktop, mediaQuery, sizes, Tablet } from "../../constants";
 import { useRouter } from "next/router";
 import get from "lodash/get";
 
-const defaultLimit = 3;
+const defaultLimit = 6;
 
 export const ModalNewGame = (props) => {
   const router = useRouter();
