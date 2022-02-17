@@ -138,7 +138,7 @@ export const ModalSettings = (props) => {
             </div>
 
             <div className="right-side">
-              <div className="label">Imagen de portada</div>
+              <div className="label mb-2">Imagen de portada</div>
               <FileUpload
                 file={props.coverImgUrl}
                 preview={true}

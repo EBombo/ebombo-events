@@ -10,8 +10,9 @@ import {
   triviaQuestionsTimes,
   triviaQuestionsTypes
 } from "../../../../components/common/DataList";
-import { Desktop, Tablet } from "../../../../constants";
+import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";
+import styled from "styled-components";
 
 export const Trivia = (props) => {
   const [questions, setQuestions] = useState([
@@ -22,6 +23,7 @@ export const Trivia = (props) => {
     },
   ]);
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+  const [optionFocus, setOptionFocus] = useState(0);
 
   const schema = object().shape({
     name: string().required(),
@@ -59,6 +61,7 @@ export const Trivia = (props) => {
                     question.id === currentQuestion.id ? "gray" : "white"
                   } h-full w-[115px] min-w-[115px] flex flex-col justify-center items-center md:h-[117px] md:min-h-[117px] md:w-full`}
                   onClick={() => setCurrentQuestion(question)}
+                  key={question.id}
                 >
                   <div>
                     <div className="text-['Lato'] font-bold text-[12px] leading-[14px] text-grayLight">
@@ -106,20 +109,173 @@ export const Trivia = (props) => {
               className="w-full h-[80px] rounded-[4px] bg-whiteLight text-center text-['Lato'] font-[500] text-[25px] leading-[30px] text-grayLight"
               placeholder="Escribe tu pregunta..."
             />
-            <FileUpload
-              file={get(currentQuestion, `fileUrl`, null)}
-              fileName="coverUrl"
-              filePath={`questions/${currentQuestion.id}`}
-              preview={true}
-              sizes="250x250"
-              afterUpload={(filesUrls) =>
-                setCurrentQuestion({
-                  ...currentQuestion,
-                  fileUrl: filesUrls[0].url,
-                })
-              }
-              style={{ bordarRadius: "4px" }}
-            />
+            <div className="mx-auto my-4 max-w-[786px]">
+              <FileUpload
+                file={get(currentQuestion, `fileUrl`, null)}
+                fileName="coverUrl"
+                filePath={`questions/${currentQuestion.id}`}
+                preview={true}
+                sizes="250x250"
+                width="100%"
+                height="131px"
+                desktopHeight="260px"
+                afterUpload={(filesUrls) =>
+                  setCurrentQuestion({
+                    ...currentQuestion,
+                    fileUrl: filesUrls[0].url,
+                  })
+                }
+              />
+            </div>
+            {currentQuestion.type === "quiz" && (
+              <div className="grid max-w-[786px] mx-auto my-4 gap-4 md:grid-cols-[1fr_1fr]">
+                <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
+                  {optionFocus === 1 ? (
+                    <CheckboxContainer
+                      imageUrl={`${config.storageUrl}/resources/checked.svg`}
+                      className="bg-red w-full h-full flex items-center justify-center"
+                    >
+                      <input
+                        id="trigger"
+                        type="checkbox"
+                        defaultChecked={currentQuestion.answer === 1}
+                        onChange={(e) => {
+                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 1 });
+                        }}
+                      />
+                      <label htmlFor="trigger" className="checker" value={1} />
+                    </CheckboxContainer>
+                  ) : (
+                    <div className="bg-red w-full h-full flex items-center justify-center">
+                      <Image
+                        src={`${config.storageUrl}/resources/shapes/star.svg`}
+                        width="16px"
+                        height="16px"
+                        desktopWidth="33px"
+                        desktopHeight="33px"
+                        size="contain"
+                        margin="0"
+                      />
+                    </div>
+                  )}
+                  <input
+                    type="text"
+                    className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
+                    placeholder="Escribir respuesta"
+                    onFocus={() => setOptionFocus(1)}
+                    onfocusout={() => setOptionFocus(0)}
+                  />
+                </div>
+                <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
+                  {optionFocus === 2 ? (
+                    <CheckboxContainer
+                      imageUrl={`${config.storageUrl}/resources/checked.svg`}
+                      className="bg-red w-full h-full flex items-center justify-center"
+                    >
+                      <input
+                        id="trigger"
+                        type="checkbox"
+                        defaultChecked={currentQuestion.answer === 2}
+                        onChange={(e) => {
+                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 2 });
+                        }}
+                      />
+                      <label for="trigger" className="checker" name="check" value="check1" />
+                    </CheckboxContainer>
+                  ) : (
+                    <div className="bg-green w-full h-full flex items-center justify-center">
+                      <Image
+                        src={`${config.storageUrl}/resources/shapes/circle.svg`}
+                        width="16px"
+                        height="16px"
+                        desktopWidth="33px"
+                        desktopHeight="33px"
+                        size="contain"
+                        margin="0"
+                      />
+                    </div>
+                  )}
+                  <input
+                    type="text"
+                    className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
+                    placeholder="Escribir respuesta"
+                    onFocus={() => setOptionFocus(2)}
+                  />
+                </div>
+                <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
+                  {optionFocus === 3 ? (
+                    <CheckboxContainer
+                      imageUrl={`${config.storageUrl}/resources/checked.svg`}
+                      className="bg-red w-full h-full flex items-center justify-center"
+                    >
+                      <input
+                        id="trigger"
+                        type="checkbox"
+                        defaultChecked={currentQuestion.answer === 3}
+                        onChange={(e) => {
+                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 3 });
+                        }}
+                      />
+                      <label for="trigger" className="checker" name="check" value="check1" />
+                    </CheckboxContainer>
+                  ) : (
+                    <div className="bg-orange w-full h-full flex items-center justify-center">
+                      <Image
+                        src={`${config.storageUrl}/resources/shapes/triangle.svg`}
+                        width="16px"
+                        height="16px"
+                        desktopWidth="33px"
+                        desktopHeight="33px"
+                        size="contain"
+                        margin="0"
+                      />
+                    </div>
+                  )}
+                  <input
+                    type="text"
+                    className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
+                    placeholder="Escribir respuesta"
+                    onFocus={() => setOptionFocus(3)}
+                  />
+                </div>
+                <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
+                  {optionFocus === 4 ? (
+                    <CheckboxContainer
+                      imageUrl={`${config.storageUrl}/resources/checked.svg`}
+                      className="bg-red w-full h-full flex items-center justify-center"
+                    >
+                      <input
+                        id="trigger"
+                        type="checkbox"
+                        defaultChecked={currentQuestion.answer === 4}
+                        onChange={(e) => {
+                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 4 });
+                        }}
+                      />
+                      <label htmlFor="trigger" className="checker" name="check" value="check1" />
+                    </CheckboxContainer>
+                  ) : (
+                    <div className="bg-blue w-full h-full flex items-center justify-center">
+                      <Image
+                        src={`${config.storageUrl}/resources/shapes/square.svg`}
+                        width="16px"
+                        height="16px"
+                        desktopWidth="33px"
+                        desktopHeight="33px"
+                        size="contain"
+                        margin="0"
+                      />
+                    </div>
+                  )}
+                  <input
+                    type="text"
+                    className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
+                    placeholder="Escribir respuesta"
+                    onFocus={() => setOptionFocus(4)}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="h-full shadow-[2px_0_4px_2px_rgba(0,0,0,0.25)] bg-whiteLight">
@@ -147,6 +303,9 @@ export const Trivia = (props) => {
                 borderBottom="1px solid #C4C4C4"
                 borderRadius="4px"
                 defaultValue={triviaQuestionsTypes[0].key}
+                onChange={(value) => {
+                  setCurrentQuestion({ ...currentQuestion, type: value });
+                }}
                 optionsdom={triviaQuestionsTypes.map((type) => ({
                   key: type.key,
                   code: type.key,
@@ -232,3 +391,41 @@ export const Trivia = (props) => {
     </div>
   );
 };
+
+const CheckboxContainer = styled.div`
+  label {
+    cursor: pointer;
+    position: relative;
+    width: 32px;
+    height: 32px;
+
+    ${mediaQuery.afterMobile} {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  label:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+
+    ${mediaQuery.afterMobile} {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"]:checked + label:before {
+    background: url(${(props) => props.imageUrl}) center no-repeat;
+  }
+`;

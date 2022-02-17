@@ -7,6 +7,7 @@ import { useResizeImage, useUploadToStorage } from "../../hooks";
 import { Icon } from "./Icons";
 import defaultTo from "lodash/defaultTo";
 import { config } from "../../firebase";
+import { mediaQuery } from "../../constants";
 
 export const FileUpload = (props) => {
   const { resize } = useResizeImage();
@@ -87,18 +88,19 @@ export const FileUpload = (props) => {
     await uploadToStorageAndGetURL(fileBase64, props.filePath, fileName, fileSuffix, props.bucket, null, type);
 
   return (
-    <UploadContainer>
+    <UploadContainer {...props}>
       {previewFile && props.preview && (
         <div className="cover">
-          <Image className="cover-image" src={previewFile} width="212px" height="121px" size="cover" margin="0" />
-          <ButtonAnt
-            color="secondary"
+          <Image
+            className="cover-image"
+            src={previewFile}
+            width="100%"
+            height="100%"
+            size="cover"
+            margin="0"
             onClick={() => inputRef.current.click()}
-            loading={loading}
-            disabled={props.disabled}
-          >
-            {props.buttonLabel || "Subir Imagen"}
-          </ButtonAnt>
+            cursor="pointer"
+          />
         </div>
       )}
       {!previewFile && props.preview && (
@@ -149,20 +151,27 @@ const UploadContainer = styled.div`
   align-items: flex-start;
   flex-direction: column;
   margin: 0;
+  width: ${(props) => props.width ?? "212px"};
 
   .cover {
-    display: grid;
-    grid-gap: 1rem;
+    width: ${(props) => props.width ?? "212px"};
+    height: ${(props) => props.height ?? "121"};
+    border: 1px solid ${(props) => props.theme.basic.grayLighten};
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    border-radius: 4px;
 
-    .cover-image {
-      border-radius: 4px;
+    ${mediaQuery.afterMobile} {
+      width: ${(props) => props.desktopWidth ?? props.width ?? "212px"};
+      height: ${(props) => props.desktopHeight ?? props.height ?? "121px"};
     }
   }
 
   .upload-file {
     margin-top: 0.5rem;
-    width: 212px;
-    height: 121px;
+    width: ${(props) => props.width ?? "212px"};
+    height: ${(props) => props.height ?? "121"};
     background: ${(props) => props.theme.basic.whiteLight};
     border: 1px solid ${(props) => props.theme.basic.grayLighten};
     box-sizing: border-box;
@@ -182,6 +191,11 @@ const UploadContainer = styled.div`
       line-height: 13px;
       text-align: center;
       color: ${(props) => props.theme.basic.grayLight};
+    }
+
+    ${mediaQuery.afterMobile} {
+      width: ${(props) => props.desktopWidth ?? props.width ?? "212px"};
+      height: ${(props) => props.desktopHeight ?? props.height ?? "121px"};
     }
   }
 `;
