@@ -32,7 +32,7 @@ export const HeaderLanding = (props) => {
             margin="15px 0 0 0"
             onClick={() => router.push("/register")}
           >
-            Registrate
+            Regístrate
           </ButtonAnt>
         </div>
       </div>
