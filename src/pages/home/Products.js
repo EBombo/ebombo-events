@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { Anchor } from "../../components/form";
-import { ArrowRightOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, CheckOutlined } from "@ant-design/icons";
 import { ladingProducts } from "../../components/common/DataList";
+import chunk from "lodash/chunk";
 
 export const Products = (props) => {
   return (
@@ -37,6 +38,22 @@ export const Products = (props) => {
             <div className="subtitle">{product.title}</div>
 
             <div className="description">{product.description}</div>
+
+            <div className="options-contain">
+              {chunk(product?.options ?? [], 5)?.map((optionChunk) => {
+                return (
+                  <div className="options">
+                    {optionChunk.map((option) => {
+                      return (
+                        <div className="option">
+                          <CheckOutlined /> {option}
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
 
             <div className="link">
               <Anchor underlined variant="secondary" margin="1rem 0" url={product.url} fontSize="14px">
@@ -103,8 +120,24 @@ const ProductsContainer = styled.div`
       margin: 1rem 0;
     }
 
+    .options-contain {
+      display: flex;
+      grid-gap: 10px;
+
+      .options {
+        .option {
+          color: ${(props) => props.theme.basic.secondary};
+
+          span {
+            color: ${(props) => props.theme.basic.primary};
+          }
+        }
+      }
+    }
+
     .link {
       margin: 1rem 0;
+
       a {
         font-weight: bold;
       }

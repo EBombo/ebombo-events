@@ -53,9 +53,11 @@ export const Navbar = (props) => {
                   Games
                 </a>
               */}
-              <Anchor url="/subscriptions" className="link">
+              {/*
+                <Anchor url="/subscriptions" className="link">
                 Planes
               </Anchor>
+                 */}
               <Anchor url="/about-us" className="link">
                 Sobre nosotros
               </Anchor>
@@ -103,9 +105,11 @@ export const Navbar = (props) => {
                   Games
                 </li>
               */}
-              <li className="nav-item" onClick={() => router.push("/subscriptions")}>
-                Planes
-              </li>
+              {/*
+                <li className="nav-item" onClick={() => router.push("/subscriptions")}>
+                  Planes
+                </li>
+                */}
               <li
                 className="nav-item"
                 onClick={() => {
