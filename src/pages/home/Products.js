@@ -1,7 +1,7 @@
 import React from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
-import { Desktop, mediaQuery, Tablet } from "../../constants";
+import { mediaQuery } from "../../constants";
 import { Anchor } from "../../components/form";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { ladingProducts } from "../../components/common/DataList";
@@ -9,14 +9,8 @@ import { ladingProducts } from "../../components/common/DataList";
 export const Products = (props) => {
   return (
     <ProductsContainer>
-      <div className="title">
-        Todo lo que necesitas
-        <Tablet>
-          <br />
-        </Tablet>
-        <Desktop>&nbsp;</Desktop>
-        en un solo lugar
-      </div>
+      <div className="title">UN CAMBIO RADICAL EN LA FORMA EN CÓMO CONECTAS CON TUS TRABAJADORES</div>
+      <div className="sub-title">Todo lo que necesitas en un solo lugar</div>
 
       {ladingProducts.map((product) => (
         <div className="product" data-aos="fade-right" key={product.title}>
@@ -55,16 +49,23 @@ const ProductsContainer = styled.div`
   padding: 2rem 1rem;
   background: ${(props) => props.theme.basic.white};
 
-  .title {
+  .title,
+  .sub-title {
     font-family: Lato;
     font-style: normal;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 4rem;
     line-height: 26px;
     text-align: center;
     letter-spacing: 0.03em;
     color: ${(props) => props.theme.basic.secondary};
-    margin: 1rem 0;
+    margin: 1rem auto;
+    max-width: 70%;
+  }
+
+  .sub-title {
+    margin-top: 2rem;
+    font-size: 2rem;
   }
 
   .product {
