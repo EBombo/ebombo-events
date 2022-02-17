@@ -1,7 +1,7 @@
 import React from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { Desktop, mediaQuery } from "../../constants";
+import { mediaQuery } from "../../constants";
 import { ContactForm } from "../home/ContactForm";
 import { Icon } from "../../components/common/Icons";
 import { config } from "../../firebase";
@@ -30,19 +30,21 @@ export const AboutUs = (props) => {
         />
         <div className="flex-container">
           <div className="text" data-aos="fade-right">
-            ebombo esta enfocada e la industria del entretenimiento para empresas. Las empresas cambiado y se ha tenido
-            que adaptar a la nuevo normalidad. Ayudamos a las empresas a mantenerse conectados a través de eventos e
-            integraciones virtuales con nuestros propios juegos y dinámicas que desarrollamos con tecnología. Hemos
-            impactado en más de 100 mil trabajadores con nuestros juego
+            ebombo está enfocada en la industria del entretenimiento para empresas. Las empresas han cambiado y se han
+            tenido que adaptar a la nueva normalidad. Ayudamos a las empresas a mantenerse conectados a través de
+            eventos e integraciones virtuales con nuestros propios juegos y dinámicas que desarrollamos con tecnología.
+            Hemos impactado en más de 100 mil trabajadores.
+            <br />
             <br />
             <br />
             Nuestra misión es impactar en la vida de millones de trabajadores con entretenimiento. Entendemos que muchos
-            quieren trabajar de forma remota y entendemos qué mantener a los trabajadores conectados en este esquema es
-            díficil.
+            quieren trabajar de forma remota y que mantener a los trabajadores integrados en este esquema es díficil.
           </div>
-          <div className="img-container" data-aos="fade-left">
+          {/*
+            <div className="img-container" data-aos="fade-left">
             <Image src={`${config.storageUrl}/resources/about-us.png`} height="100%" width="80%" margin="1rem auto" />
           </div>
+             */}
         </div>
       </div>
 
@@ -94,17 +96,12 @@ const AboutUsContainer = styled.div`
 
     ${mediaQuery.afterTablet} {
       padding: 3rem;
+      height: 90vh;
     }
 
     .flex-container {
       display: flex;
       flex-direction: column-reverse;
-
-      ${mediaQuery.afterTablet} {
-        display: grid;
-        grid-template-columns: 1fr 1.25fr;
-        flex-direction: row;
-      }
 
       .text {
         font-family: Lato;

@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import { Layout } from "./common/Layout";
 import { Footer } from "./Footer";
-import { landingHeaderMenu } from "./common/DataList";
 
 export const Navbar = (props) => {
   const router = useRouter();
@@ -44,11 +43,29 @@ export const Navbar = (props) => {
               onClick={() => router.push(authUser ? "/library" : "/")}
             />
             <Desktop>
-              {landingHeaderMenu.map((menu) => (
-                <Anchor url={menu.url} className="link">
-                  {menu.title}
+              {/*
+                <a
+                  className="ant-dropdown-link"
+                  onClick={() => {
+                    router.push("/games");
+                  }}
+                >
+                  Games
+                </a>
+              */}
+              {/*
+                <Anchor url="/subscriptions" className="link">
+                Planes
+              </Anchor>
+                 */}
+              <Anchor url="/about-us" className="link">
+                Sobre nosotros
+              </Anchor>
+              {!authUser && (
+                <Anchor url="/#contact" className="link">
+                  Contacto
                 </Anchor>
-              ))}
+              )}
             </Desktop>
           </div>
 
@@ -78,17 +95,41 @@ export const Navbar = (props) => {
 
           <Tablet>
             <ul className={`nav-menu ${active ? "active" : ""}`}>
-              {landingHeaderMenu.map((menu) => (
+              {/*
                 <li
                   className="nav-item"
                   onClick={() => {
-                    router.push(menu.url);
+                    router.push("/games");
+                  }}
+                >
+                  Games
+                </li>
+              */}
+              {/*
+                <li className="nav-item" onClick={() => router.push("/subscriptions")}>
+                  Planes
+                </li>
+                */}
+              <li
+                className="nav-item"
+                onClick={() => {
+                  router.push("/about-us");
+                  setActive(false);
+                }}
+              >
+                Sobre nosotros
+              </li>
+              {!authUser && (
+                <li
+                  className="nav-item"
+                  onClick={() => {
+                    router.push({ pathname: "/", hash: "contact" });
                     setActive(false);
                   }}
                 >
-                  {menu.title}
+                  Contacto
                 </li>
-              ))}
+              )}
 
               {!authUser ? (
                 <>

@@ -7,7 +7,8 @@ import { mediaQuery } from "../../constants";
 export const ContactInfo = (props) => {
   return (
     <ContactContent>
-      <div className="info">
+      {/*
+        <div className="info">
         <a href="https://wa.me/51983645002" target="_blank">
           <Image
             src={`${config.storageUrl}/resources/b2bLanding/wsp-icon.svg`}
@@ -20,6 +21,7 @@ export const ContactInfo = (props) => {
         </a>
         <div className="info-content">Mateo Suarez Stewart: +51 945 693 597</div>
       </div>
+         */}
 
       <div className="info">
         <a href="mailto:mateo@ebombo.com">
@@ -32,7 +34,7 @@ export const ContactInfo = (props) => {
             cursor="pointer"
           />
         </a>
-        <div className="info-content">Mail: mateo@ebombo.com</div>
+        <div className="info-content">Mail: events@ebombo.com</div>
       </div>
     </ContactContent>
   );
