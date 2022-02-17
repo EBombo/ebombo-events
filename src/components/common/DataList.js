@@ -108,7 +108,7 @@ export const ladingProducts = [
   {
     title: "Actividades virtuales",
     description:
-      "Ebombo cuenta con más de 20 actividades virtuales para que puedas conectar con tus trabajadores. Contamos con dinámicas de integraciones, entretenimiento, onboarding, juegos, aniversarios, premiaciones, ceremonias y mucho más.",
+      "Ebombo cuenta con más de 20 actividades virtuales para que puedas conectar con tus trabajadores. Contamos con dinámicas de integración, entretenimiento, onboarding, juegos, aniversarios, premiaciones, ceremonias y mucho más.",
     background: darkTheme.basic.blackDarken,
     image: `${config.storageUrl}/resources/product-virtual-events.png`,
     url: "/products/eventos-virtuales",
@@ -119,7 +119,7 @@ export const ladingProducts = [
       "Happy Hours",
       "Ice breakers",
       "Onboardings",
-      "Celebración de fiestas festivas",
+      "Celebración de días festivos",
       "Networking",
       "Capacitaciones",
       "Talleres",
