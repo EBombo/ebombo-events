@@ -84,7 +84,7 @@ export const Navbar = (props) => {
                 >
                   Regístrate
                 </Anchor>
-                <ButtonAnt onClick={() => router.push("/login")} color="secondary" variant="outlined" fontSize="18px">
+                <ButtonAnt onClick={() => router.push("/login")} color="success" variant="contained" fontSize="18px">
                   Iniciar sesión
                 </ButtonAnt>
               </div>
@@ -132,8 +132,8 @@ export const Navbar = (props) => {
                   <ButtonAnt
                     margin="1.5rem auto"
                     onClick={() => router.push("/login")}
-                    color="secondary"
-                    variant="outlined"
+                    color="success"
+                    variant="contained"
                     fontSize="18px"
                   >
                     Iniciar sesión
