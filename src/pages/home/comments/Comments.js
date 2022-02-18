@@ -165,6 +165,7 @@ const CommentsContainer = styled.section`
     .comments {
       max-width: 100%;
       overflow: auto;
+      display: flex;
 
       ::-webkit-scrollbar {
         display: none;
@@ -173,7 +174,7 @@ const CommentsContainer = styled.section`
       .comments-container {
         display: inline-flex;
         justify-content: center;
-        margin: 1rem 0;
+        margin: 1rem auto;
       }
 
       .btn-container {
