@@ -17,12 +17,12 @@ export const HeaderLanding = (props) => {
       <div className="left-container">
         <div className="text-primary text-2xl">Al estilo ebombo</div>
         <div className="title" data-aos="fade-up" data-aos-delay="0" data-aos-anchor-placement="top-center">
-          Ayudamos a tu empresa a conectar con tus trabajadores
+          Ayudamos a tu empresa a conectar con tus trabajadores.
         </div>
         <div className="description" data-aos="fade-up" data-aos-delay="500" data-aos-anchor-placement="top-center">
           La forma en que tus trabajadores se reunen influye en el clima y cultura de tu empresa. Nuestra plataforma te
           permite tener experiencias en línea y eventos virtuales creados para promover la productividad, el compromiso
-          y la diversión de tus trabajadores
+          y la diversión de tus trabajadores.
         </div>
         <div className="companies" data-aos="fade-right" data-aos-delay="1000">
           <ButtonAnt
