@@ -21,8 +21,8 @@ export const HeaderLanding = (props) => {
         </div>
         <div className="description" data-aos="fade-up" data-aos-delay="500" data-aos-anchor-placement="top-center">
           La forma en que tus trabajadores se reunen influye en el clima y cultura de tu empresa. Nuestra plataforma te
-          permite tener experiencias en línea y eventos virtuales creados promover la productividad, el compromiso y la
-          diversión de tus trabajadores
+          permite tener experiencias en línea y eventos virtuales creados para promover la productividad, el compromiso
+          y la diversión de tus trabajadores
         </div>
         <div className="companies" data-aos="fade-right" data-aos-delay="1000">
           <ButtonAnt
