@@ -24,7 +24,7 @@ const hostName = typeof window === "undefined" ? DOMAIN : window.location.hostna
 
 let hostNameBomboGames;
 
-if (DOMAIN?.includes("local") || DOMAIN?.includes("red") || DOMAIN?.includes("dev")) {
+if (DOMAIN?.includes("local") || DOMAIN?.includes("red") || DOMAIN?.includes("dev") || DOMAIN?.includes("shell")) {
   console.log("dev", version);
   hostNameBomboGames = 'red.ebombo.io';
 } else {

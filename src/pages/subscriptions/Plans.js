@@ -1,6 +1,6 @@
 import React, { useState } from "reactn";
 import styled from "styled-components";
-import { mediaQuery, Tablet } from "../../constants";
+import { mediaQuery } from "../../constants";
 import { PlansTable } from "./PlansTable";
 import { PlanTabContent } from "./PlanTabContent";
 
@@ -11,7 +11,9 @@ export const Plans = (props) => {
   return (
     <PlansContainerCss>
       <PlansContainer>
-        <div className="title">Conoce nuestros planes</div>
+        <div className="title">¿Quieres conocer tu plan perfecto? Contáctanos</div>
+
+        {/*
         <div className="tabs">
           <div
             className={`tab ${tab === "online" && "active"}`}
@@ -26,21 +28,6 @@ export const Plans = (props) => {
             {" Virtual"}
           </div>
 
-          {/*
-            <div
-            className={`tab middle-tab ${tab === "onsite" && "active"}`}
-            onClick={() => {
-              setTab("onsite");
-            }}
-          >
-            Evento
-            <Tablet>
-              <br />
-            </Tablet>
-            {" Presencial"}
-          </div>
-             */}
-
           <div
             className={`tab ${tab === "games" && "active"}`}
             onClick={() => {
@@ -54,14 +41,15 @@ export const Plans = (props) => {
             {" integración"}
           </div>
         </div>
+         */}
 
-        <PlanTabContent {...props} tab={tab} isMonthly={isMonthly} setIsMonthly={setIsMonthly}/>
+        <PlanTabContent {...props} tab={tab} isMonthly={isMonthly} setIsMonthly={setIsMonthly} />
       </PlansContainer>
 
       {tab === "games" && (
         <section id="plans-table">
           <TableContainer>
-            <PlansTable {...props} isMonthly={isMonthly} setIsMonthly={setIsMonthly}/>
+            <PlansTable {...props} isMonthly={isMonthly} setIsMonthly={setIsMonthly} />
           </TableContainer>
         </section>
       )}

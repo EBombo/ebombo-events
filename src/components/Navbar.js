@@ -53,9 +53,11 @@ export const Navbar = (props) => {
                   Games
                 </a>
               */}
-              <Anchor url="/subscriptions" className="link">
+              {/*
+                <Anchor url="/subscriptions" className="link">
                 Planes
               </Anchor>
+                 */}
               <Anchor url="/about-us" className="link">
                 Sobre nosotros
               </Anchor>
@@ -84,7 +86,7 @@ export const Navbar = (props) => {
                 >
                   Regístrate
                 </Anchor>
-                <ButtonAnt onClick={() => router.push("/login")} color="secondary" variant="outlined" fontSize="18px">
+                <ButtonAnt onClick={() => router.push("/login")} color="success" variant="contained" fontSize="18px">
                   Iniciar sesión
                 </ButtonAnt>
               </div>
@@ -103,9 +105,11 @@ export const Navbar = (props) => {
                   Games
                 </li>
               */}
-              <li className="nav-item" onClick={() => router.push("/subscriptions")}>
-                Planes
-              </li>
+              {/*
+                <li className="nav-item" onClick={() => router.push("/subscriptions")}>
+                  Planes
+                </li>
+                */}
               <li
                 className="nav-item"
                 onClick={() => {
@@ -132,8 +136,8 @@ export const Navbar = (props) => {
                   <ButtonAnt
                     margin="1.5rem auto"
                     onClick={() => router.push("/login")}
-                    color="secondary"
-                    variant="outlined"
+                    color="success"
+                    variant="contained"
                     fontSize="18px"
                   >
                     Iniciar sesión
