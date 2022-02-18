@@ -2,8 +2,7 @@ import React from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { Desktop, mediaQuery, Tablet } from "../../constants";
-import { Anchor } from "../../components/form";
-import { ArrowRightOutlined, CheckOutlined } from "@ant-design/icons";
+import { CheckOutlined } from "@ant-design/icons";
 import { ladingProducts } from "../../components/common/DataList";
 import chunk from "lodash/chunk";
 
@@ -55,11 +54,13 @@ export const Products = (props) => {
               })}
             </div>
 
-            <div className="link">
+            {/*
+              <div className="link">
               <Anchor underlined variant="secondary" margin="1rem 0" url={product.url} fontSize="14px">
                 Explorar <ArrowRightOutlined />
               </Anchor>
             </div>
+               */}
           </div>
         </div>
       ))}
