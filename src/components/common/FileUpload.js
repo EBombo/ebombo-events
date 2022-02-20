@@ -105,15 +105,18 @@ export const FileUpload = (props) => {
       )}
       {!previewFile && props.preview && (
         <div className="upload-file" onClick={() => inputRef.current.click()}>
-          <Image
-            src={`${config.storageUrl}/resources/no-image.svg`}
-            width="40px"
-            height="40px"
-            size="contain"
-            margin="0"
-            cursor="pointer"
-          />
-          <span>Añade una imagen</span>
+          <ButtonAnt onClick={() => inputRef.current.click()} padding="1rem">
+            <Image
+              src={`${config.storageUrl}/resources/plus-icon.svg`}
+              width="22px"
+              height="22px"
+              size="contain"
+              margin="0"
+            />
+          </ButtonAnt>
+          <div className="text-['Lato'] text-[14px] leading-[15px] items-center text-grayLight">
+            Insertar Multimedia
+          </div>
         </div>
       )}
 
@@ -182,16 +185,6 @@ const UploadContainer = styled.div`
     justify-content: space-evenly;
     flex-direction: column;
     cursor: pointer;
-
-    span {
-      font-family: Lato;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 11px;
-      line-height: 13px;
-      text-align: center;
-      color: ${(props) => props.theme.basic.grayLight};
-    }
 
     ${mediaQuery.afterMobile} {
       width: ${(props) => props.desktopWidth ?? props.width ?? "212px"};

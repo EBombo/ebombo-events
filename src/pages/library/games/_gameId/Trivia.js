@@ -13,10 +13,12 @@ import {
 import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import styled from "styled-components";
+import isEmpty from "lodash/isEmpty";
 
 export const Trivia = (props) => {
   const [questions, setQuestions] = useState([
     {
+      question: "",
       id: firestore.collection("questions").doc().id,
       type: "quiz",
       options: ["", "", "", ""],
@@ -24,6 +26,7 @@ export const Trivia = (props) => {
   ]);
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
   const [optionFocus, setOptionFocus] = useState(0);
+  const [correctAns, setCorrectAns] = useState("");
 
   const schema = object().shape({
     name: string().required(),
@@ -85,6 +88,8 @@ export const Trivia = (props) => {
                       id: firestore.collection("questions").doc().id,
                       type: "quiz",
                       options: ["", "", "", ""],
+                      question: "",
+                      fileUrl: "",
                     };
 
                     setQuestions([...questions, _question]);
@@ -108,6 +113,18 @@ export const Trivia = (props) => {
               type="text"
               className="w-full h-[80px] rounded-[4px] bg-whiteLight text-center text-['Lato'] font-[500] text-[25px] leading-[30px] text-grayLight"
               placeholder="Escribe tu pregunta..."
+              value={currentQuestion.question}
+              onChange={(e) => {
+                setCurrentQuestion({ ...currentQuestion, question: e.target.value });
+                const _questions = questions.map((question) => {
+                  if (question.id !== currentQuestion.id) {
+                    return question;
+                  }
+                  return currentQuestion;
+                });
+
+                setQuestions(_questions);
+              }}
             />
             <div className="mx-auto my-4 max-w-[786px]">
               <FileUpload
@@ -143,7 +160,7 @@ export const Trivia = (props) => {
                           if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 1 });
                         }}
                       />
-                      <label htmlFor="trigger" className="checker" value={1} />
+                      <label htmlFor="trigger" className="checker" />
                     </CheckboxContainer>
                   ) : (
                     <div className="bg-red w-full h-full flex items-center justify-center">
@@ -180,7 +197,7 @@ export const Trivia = (props) => {
                           if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 2 });
                         }}
                       />
-                      <label for="trigger" className="checker" name="check" value="check1" />
+                      <label for="trigger" className="checker" />
                     </CheckboxContainer>
                   ) : (
                     <div className="bg-green w-full h-full flex items-center justify-center">
@@ -216,7 +233,7 @@ export const Trivia = (props) => {
                           if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 3 });
                         }}
                       />
-                      <label for="trigger" className="checker" name="check" value="check1" />
+                      <label htmlFor="trigger" className="checker" />
                     </CheckboxContainer>
                   ) : (
                     <div className="bg-orange w-full h-full flex items-center justify-center">
@@ -252,7 +269,7 @@ export const Trivia = (props) => {
                           if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 4 });
                         }}
                       />
-                      <label htmlFor="trigger" className="checker" name="check" value="check1" />
+                      <label htmlFor="trigger" className="checker" />
                     </CheckboxContainer>
                   ) : (
                     <div className="bg-blue w-full h-full flex items-center justify-center">
@@ -273,6 +290,104 @@ export const Trivia = (props) => {
                     placeholder="Escribir respuesta"
                     onFocus={() => setOptionFocus(4)}
                   />
+                </div>
+              </div>
+            )}
+
+            {currentQuestion.type === "trueFalse" && (
+              <div className="grid max-w-[786px] mx-auto my-4 gap-4 md:grid-cols-[1fr_1fr]">
+                <div className="w-full grid grid-cols-[auto_40px] md:grid-cols-[auto_50px] rounded-[4px] overflow-hidden">
+                  <div className="bg-white px-4 h-[52px] flex items-center justify-center md:h-[102px]">
+                    <Image
+                      src={`${config.storageUrl}/resources/true.svg`}
+                      width="26px"
+                      height="22px"
+                      desktopWidth="36px"
+                      desktopHeight="29px"
+                      size="contain"
+                      margin="0 10px 0 0"
+                    />
+                    <div className="text-blackDarken text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]">
+                      Verdadero
+                    </div>
+                  </div>
+                  <CheckboxContainer
+                    imageUrl={`${config.storageUrl}/resources/checked.svg`}
+                    className="bg-blue w-full h-full flex items-center justify-center"
+                  >
+                    <input
+                      id="trueCheckbox"
+                      type="checkbox"
+                      checked={currentQuestion.answer === true}
+                      onChange={(e) => {
+                        if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: true });
+                      }}
+                    />
+                    <label htmlFor="trueCheckbox" className="checker" />
+                  </CheckboxContainer>
+                </div>
+                <div className="w-full grid grid-cols-[auto_40px] md:grid-cols-[auto_50px] rounded-[4px] overflow-hidden">
+                  <div className="bg-white px-4 h-[52px] flex items-center justify-center md:h-[102px]">
+                    <Image
+                      src={`${config.storageUrl}/resources/false.svg`}
+                      width="26px"
+                      height="22px"
+                      desktopWidth="36px"
+                      desktopHeight="29px"
+                      size="contain"
+                      margin="0 10px 0 0"
+                    />
+                    <div className="text-blackDarken text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]">
+                      Falso
+                    </div>
+                  </div>
+                  <CheckboxContainer
+                    imageUrl={`${config.storageUrl}/resources/checked.svg`}
+                    className="bg-red w-full h-full flex items-center justify-center"
+                  >
+                    <input
+                      id="falseCheckbox"
+                      type="checkbox"
+                      checked={currentQuestion.answer === false}
+                      onChange={(e) => {
+                        if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: false });
+                      }}
+                    />
+                    <label htmlFor="falseCheckbox" className="checker" />
+                  </CheckboxContainer>
+                </div>
+              </div>
+            )}
+
+            {currentQuestion.type === "shortAnswer" && (
+              <div className="grid max-w-[786px] mx-auto my-4 gap-4">
+                <div className="w-full h-[55px] md:h-[85px] p-4 bg-whiteLight rounded-[4px] grid grid-cols-[auto_144px]">
+                  <input
+                    type="text"
+                    className="text-['Lato'] bold-[500] text-[16px] leading-[19px] h-full bg-transparent focus:outline-none"
+                    value={correctAns}
+                    onChange={(e) => setCorrectAns(e.target.value)}
+                    placeholder="Escribe una respuesta..."
+                  />
+                  <ButtonAnt
+                    onClick={() => {
+                      if (isEmpty(correctAns)) return;
+                      setCurrentQuestion({ ...currentQuestion, answer: [...currentQuestion.answer, correctAns] });
+                      setCorrectAns("");
+                    }}
+                  >
+                    Añadir respuesta
+                  </ButtonAnt>
+                </div>
+                <div className="w-full grid gap-4 grid-cols-[repeat(auto-fill,minmax(100px,auto))]">
+                  {currentQuestion?.answer.map((answer, idx) => (
+                    <div
+                      className="bg-green px-4 py-2 text-['Lato'] text-white bold-[900] text-[22px] leading-[26px] rounded-[5px] flex items-center text-center"
+                      key={`${answer}-${idx}`}
+                    >
+                      {answer}
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
@@ -304,7 +419,7 @@ export const Trivia = (props) => {
                 borderRadius="4px"
                 defaultValue={triviaQuestionsTypes[0].key}
                 onChange={(value) => {
-                  setCurrentQuestion({ ...currentQuestion, type: value });
+                  setCurrentQuestion({ ...currentQuestion, type: value, answer: [] });
                 }}
                 optionsdom={triviaQuestionsTypes.map((type) => ({
                   key: type.key,

@@ -13,7 +13,7 @@ export const triviaQuestionsTypes = [
     value: "Verdadero o Falso",
   },
   {
-    key: "shortAnwer",
+    key: "shortAnswer",
     value: "Respuesta corta",
   },
 ];
