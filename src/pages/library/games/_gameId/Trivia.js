@@ -25,7 +25,7 @@ export const Trivia = (props) => {
       time: 20,
     },
   ]);
-  const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+  const [questionIndex, setQuestionIndex] = useState(0);
   const [optionFocus, setOptionFocus] = useState(0);
   const [correctAns, setCorrectAns] = useState("");
 
@@ -38,18 +38,46 @@ export const Trivia = (props) => {
     reValidateMode: "onSubmit",
   });
 
-  const updateQuestions = () => {
-    const _questions = questions.map((question) => {
-      if (question.id !== currentQuestion.id) {
-        return question;
-      }
-      return currentQuestion;
-    });
-
+  const deleteQuestion = () => {
+    if (questions.length <= 1) return props.showNotification("Warning", "El minimo de preguntas es 1", "warning");
+    const _questions = [...questions];
+    _questions.splice(questionIndex, 1);
+    setQuestionIndex(0);
     setQuestions(_questions);
   };
 
-  const saveGame = async () => {};
+  const saveGame = async (data) => {
+    const _game = {
+      ...data,
+      questions,
+    };
+
+    let valid = true;
+    questions.forEach((question) => {
+
+      if (question.type === "quiz") valid = validateQuiz(question);
+      if (question.type === "trueFalse") valid = validateQuiz(question);
+      if (question.type === "shortAnswer") valid = validateQuiz(question);
+
+      if(!valid) return props.showNotification("ERROR", "Las preguntas esta incompletas", "error");
+
+    });
+
+    
+    await props.submitGame(_game);
+  };
+
+  const validateQuiz = () => {
+    return false
+  };
+
+  const validateTrueFalse = () => {
+    return false
+  };
+
+  const validateShortAnswer = () => {
+    return false
+  };
 
   return (
     <div className="w-screen">
@@ -73,9 +101,9 @@ export const Trivia = (props) => {
               {questions.map((question, idx) => (
                 <div
                   className={`cursor-pointer bg-${
-                    question.id === currentQuestion.id ? "gray" : "white"
+                    question.id === questions[questionIndex].id ? "gray" : "white"
                   } h-full w-[115px] min-w-[115px] flex flex-col justify-center items-center md:h-[117px] md:min-h-[117px] md:w-full`}
-                  onClick={() => setCurrentQuestion(question)}
+                  onClick={() => setQuestionIndex(idx)}
                   key={question.id}
                 >
                   <div>
@@ -116,7 +144,9 @@ export const Trivia = (props) => {
             </div>
             <Desktop>
               <div className="grid items-center justify-center">
-                <ButtonAnt htmlType="submit">Guardar</ButtonAnt>
+                <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading}>
+                  Guardar
+                </ButtonAnt>
               </div>
             </Desktop>
           </div>
@@ -126,32 +156,32 @@ export const Trivia = (props) => {
               type="text"
               className="w-full h-[80px] rounded-[4px] bg-whiteLight text-center text-['Lato'] font-[500] text-[25px] leading-[30px] text-grayLight"
               placeholder="Escribe tu pregunta..."
-              value={currentQuestion.question || ""}
+              value={questions[questionIndex].question || ""}
               onChange={(e) => {
-                setCurrentQuestion({ ...currentQuestion, question: e.target.value });
-                updateQuestions();
+                const _questions = [...questions];
+                _questions[questionIndex].question = e.target.value;
+                setQuestions(_questions);
               }}
             />
-            <div className="mx-auto my-4 max-w-[786px]">
+            <div className="mx-auto my-4 max-w-[786px]" key={questions[questionIndex].fileUrl ?? ""}>
               <FileUpload
-                file={get(currentQuestion, `fileUrl`, null)}
-                fileName="coverUrl"
-                filePath={`questions/${currentQuestion.id}`}
+                file={questions[questionIndex].fileUrl ?? null}
+                fileName="questionImage"
+                filePath={`questions/${questions[questionIndex].id}`}
                 preview={true}
                 sizes="250x250"
                 width="100%"
                 height="131px"
                 desktopHeight="260px"
                 afterUpload={(filesUrls) => {
-                  setCurrentQuestion({
-                    ...currentQuestion,
-                    fileUrl: filesUrls[0].url,
-                  });
-                  updateQuestions();
+                  const _questions = [...questions];
+                  _questions[questionIndex].fileUrl = filesUrls[0].url;
+                  setQuestions(_questions);
                 }}
               />
             </div>
-            {currentQuestion.type === "quiz" && (
+
+            {questions[questionIndex].type === "quiz" && (
               <div className="grid max-w-[786px] mx-auto my-4 gap-4 md:grid-cols-[1fr_1fr]">
                 <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
                   {optionFocus === 0 ? (
@@ -162,10 +192,13 @@ export const Trivia = (props) => {
                       <input
                         id="trigger"
                         type="checkbox"
-                        defaultChecked={currentQuestion.answer === 0}
+                        defaultChecked={questions[questionIndex].answer === 0}
                         onChange={(e) => {
-                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 0 });
-                          updateQuestions();
+                          if (e.target.checked) {
+                            const _questions = [...questions];
+                            _questions[questionIndex].answer = 0;
+                            setQuestions(_questions);
+                          }
                         }}
                       />
                       <label htmlFor="trigger" className="checker" />
@@ -187,14 +220,16 @@ export const Trivia = (props) => {
                     type="text"
                     className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
                     placeholder="Escribir respuesta"
-                    value={currentQuestion.options[0] ?? ""}
+                    value={questions[questionIndex].options[0] ?? ""}
                     onFocus={() => setOptionFocus(0)}
                     onChange={(e) => {
                       const _option = e.target.value;
-                      const newOptions = [...currentQuestion.options];
+                      const newOptions = [...questions[questionIndex].options];
                       newOptions[0] = _option;
-                      setCurrentQuestion({ ...currentQuestion, options: newOptions });
-                      updateQuestions();
+
+                      const _questions = [...questions];
+                      _questions[questionIndex].options = newOptions;
+                      setQuestions(_questions);
                     }}
                   />
                 </div>
@@ -207,10 +242,11 @@ export const Trivia = (props) => {
                       <input
                         id="trigger"
                         type="checkbox"
-                        defaultChecked={currentQuestion.answer === 1}
+                        defaultChecked={questions[questionIndex].answer === 1}
                         onChange={(e) => {
-                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 1 });
-                          updateQuestions();
+                          const _questions = [...questions];
+                          _questions[questionIndex].answer = 1;
+                          setQuestions(_questions);
                         }}
                       />
                       <label for="trigger" className="checker" />
@@ -232,14 +268,16 @@ export const Trivia = (props) => {
                     type="text"
                     className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
                     placeholder="Escribir respuesta"
-                    value={currentQuestion.options[1] ?? ""}
+                    value={questions[questionIndex].options[1] ?? ""}
                     onFocus={() => setOptionFocus(1)}
                     onChange={(e) => {
                       const _option = e.target.value;
-                      const newOptions = [...currentQuestion.options];
+                      const newOptions = [...questions[questionIndex].options];
                       newOptions[1] = _option;
-                      setCurrentQuestion({ ...currentQuestion, options: newOptions });
-                      updateQuestions();
+
+                      const _questions = [...questions];
+                      _questions[questionIndex].options = newOptions;
+                      setQuestions(_questions);
                     }}
                   />
                 </div>
@@ -252,10 +290,11 @@ export const Trivia = (props) => {
                       <input
                         id="trigger"
                         type="checkbox"
-                        defaultChecked={currentQuestion.answer === 2}
+                        defaultChecked={questions[questionIndex].answer === 2}
                         onChange={(e) => {
-                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 2 });
-                          updateQuestions();
+                          const _questions = [...questions];
+                          _questions[questionIndex].answer = 2;
+                          setQuestions(_questions);
                         }}
                       />
                       <label htmlFor="trigger" className="checker" />
@@ -277,14 +316,16 @@ export const Trivia = (props) => {
                     type="text"
                     className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
                     placeholder="Escribir respuesta"
-                    value={currentQuestion.options[2] ?? ""}
+                    value={questions[questionIndex].options[2] ?? ""}
                     onFocus={() => setOptionFocus(2)}
                     onChange={(e) => {
                       const _option = e.target.value;
-                      const newOptions = [...currentQuestion.options];
+                      const newOptions = [...questions[questionIndex].options];
                       newOptions[2] = _option;
-                      setCurrentQuestion({ ...currentQuestion, options: newOptions });
-                      updateQuestions();
+
+                      const _questions = [...questions];
+                      _questions[questionIndex].options = newOptions;
+                      setQuestions(_questions);
                     }}
                   />
                 </div>
@@ -297,10 +338,11 @@ export const Trivia = (props) => {
                       <input
                         id="trigger"
                         type="checkbox"
-                        defaultChecked={currentQuestion.answer === 3}
+                        defaultChecked={questions[questionIndex].answer === 3}
                         onChange={(e) => {
-                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 3 });
-                          updateQuestions();
+                          const _questions = [...questions];
+                          _questions[questionIndex].answer = 3;
+                          setQuestions(_questions);
                         }}
                       />
                       <label htmlFor="trigger" className="checker" />
@@ -322,21 +364,23 @@ export const Trivia = (props) => {
                     type="text"
                     className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
                     placeholder="Escribir respuesta"
-                    value={currentQuestion.options[3] ?? ""}
+                    value={questions[questionIndex].options[3] ?? ""}
                     onFocus={() => setOptionFocus(3)}
                     onChange={(e) => {
                       const _option = e.target.value;
-                      const newOptions = [...currentQuestion.options];
+                      const newOptions = [...questions[questionIndex].options];
                       newOptions[3] = _option;
-                      setCurrentQuestion({ ...currentQuestion, options: newOptions });
-                      updateQuestions();
+
+                      const _questions = [...questions];
+                      _questions[questionIndex].options = newOptions;
+                      setQuestions(_questions);
                     }}
                   />
                 </div>
               </div>
             )}
 
-            {currentQuestion.type === "trueFalse" && (
+            {questions[questionIndex].type === "trueFalse" && (
               <div className="grid max-w-[786px] mx-auto my-4 gap-4 md:grid-cols-[1fr_1fr]">
                 <div className="w-full grid grid-cols-[auto_40px] md:grid-cols-[auto_50px] rounded-[4px] overflow-hidden">
                   <div className="bg-white px-4 h-[52px] flex items-center justify-center md:h-[102px]">
@@ -360,9 +404,13 @@ export const Trivia = (props) => {
                     <input
                       id="trueCheckbox"
                       type="checkbox"
-                      checked={currentQuestion.answer === true}
+                      checked={questions[questionIndex].answer === true}
                       onChange={(e) => {
-                        if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: true });
+                        if (e.target.checked) {
+                          const _questions = [...questions];
+                          _questions[questionIndex].answer = true;
+                          setQuestions(_questions);
+                        }
                       }}
                     />
                     <label htmlFor="trueCheckbox" className="checker" />
@@ -390,9 +438,13 @@ export const Trivia = (props) => {
                     <input
                       id="falseCheckbox"
                       type="checkbox"
-                      checked={currentQuestion.answer === false}
+                      checked={questions[questionIndex].answer === false}
                       onChange={(e) => {
-                        if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: false });
+                        if (e.target.checked) {
+                          const _questions = [...questions];
+                          _questions[questionIndex].answer = false;
+                          setQuestions(_questions);
+                        }
                       }}
                     />
                     <label htmlFor="falseCheckbox" className="checker" />
@@ -401,7 +453,7 @@ export const Trivia = (props) => {
               </div>
             )}
 
-            {currentQuestion.type === "shortAnswer" && (
+            {questions[questionIndex].type === "shortAnswer" && (
               <div className="grid max-w-[786px] mx-auto my-4 gap-4">
                 <div className="w-full h-[55px] md:h-[85px] p-4 bg-whiteLight rounded-[4px] grid grid-cols-[auto_144px]">
                   <input
@@ -414,7 +466,10 @@ export const Trivia = (props) => {
                   <ButtonAnt
                     onClick={() => {
                       if (isEmpty(correctAns)) return;
-                      setCurrentQuestion({ ...currentQuestion, answer: [...currentQuestion.answer, correctAns] });
+
+                      const _questions = [...questions];
+                      _questions[questionIndex].answer = [...questions[questionIndex].answer, correctAns];
+                      setQuestions(_questions);
                       setCorrectAns("");
                     }}
                   >
@@ -422,7 +477,7 @@ export const Trivia = (props) => {
                   </ButtonAnt>
                 </div>
                 <div className="w-full grid gap-4 grid-cols-[repeat(auto-fill,minmax(100px,auto))]">
-                  {currentQuestion?.answer.map((answer, idx) => (
+                  {questions[questionIndex]?.answer.map((answer, idx) => (
                     <div
                       className="bg-green px-4 py-2 text-['Lato'] text-white bold-[900] text-[22px] leading-[26px] rounded-[5px] flex items-center text-center"
                       key={`${answer}-${idx}`}
@@ -459,9 +514,12 @@ export const Trivia = (props) => {
                 borderTop="1px solid #C4C4C4"
                 borderBottom="1px solid #C4C4C4"
                 borderRadius="4px"
-                defaultValue={triviaQuestionsTypes[0].key}
+                value={questions[questionIndex].type}
                 onChange={(value) => {
-                  setCurrentQuestion({ ...currentQuestion, type: value, answer: [] });
+                  const _questions = [...questions];
+                  _questions[questionIndex].type = value;
+                  _questions[questionIndex].answer = [];
+                  setQuestions(_questions);
                 }}
                 optionsdom={triviaQuestionsTypes.map((type) => ({
                   key: type.key,
@@ -493,7 +551,12 @@ export const Trivia = (props) => {
                 borderTop="1px solid #C4C4C4"
                 borderBottom="1px solid #C4C4C4"
                 borderRadius="4px"
-                defaultValue={20}
+                value={questions[questionIndex].time}
+                onChange={(value) => {
+                  const _questions = [...questions];
+                  _questions[questionIndex].time = value;
+                  setQuestions(_questions);
+                }}
                 optionsdom={triviaQuestionsTimes.map((time) => ({
                   key: time.key,
                   code: time.key,
@@ -523,11 +586,8 @@ export const Trivia = (props) => {
                 borderTop="1px solid #C4C4C4"
                 borderBottom="1px solid #C4C4C4"
                 borderRadius="4px"
-                defaultValue={"uniq"}
-                onChange={(value) => {
-                  setCurrentQuestion({ ...currentQuestion, type: value });
-                  updateQuestions();
-                }}
+                value={"uniq"}
+                onChange={(value) => {}}
                 optionsdom={triviaQuestionsOptions.map((option) => ({
                   key: option.key,
                   code: option.key,
@@ -539,11 +599,13 @@ export const Trivia = (props) => {
             <div className="p-4">
               <div className="flex items-center justify-end">
                 <Tablet>
-                  <ButtonAnt htmlType="submit" margin="0 10px 0 0">
+                  <ButtonAnt htmlType="submit" margin="0 10px 0 0" disabled={props.isLoading} loading={props.isLoading}>
                     Guardar
                   </ButtonAnt>
                 </Tablet>
-                <ButtonAnt color="default">Borrar</ButtonAnt>
+                <ButtonAnt color="default" onClick={() => deleteQuestion()}>
+                  Borrar
+                </ButtonAnt>
               </div>
             </div>
           </div>
