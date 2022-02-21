@@ -8,13 +8,13 @@ import { config, firestore } from "../../../../firebase";
 import {
   triviaQuestionsOptions,
   triviaQuestionsTimes,
-  triviaQuestionsTypes
+  triviaQuestionsTypes,
 } from "../../../../components/common/DataList";
 import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import styled from "styled-components";
 import isEmpty from "lodash/isEmpty";
-
+import defaultTo from "lodash/defaultTo";
 export const Trivia = (props) => {
   const [questions, setQuestions] = useState([
     {
@@ -36,6 +36,17 @@ export const Trivia = (props) => {
     validationSchema: schema,
     reValidateMode: "onSubmit",
   });
+
+  const updateQuestions = () => {
+    const _questions = questions.map((question) => {
+      if (question.id !== currentQuestion.id) {
+        return question;
+      }
+      return currentQuestion;
+    });
+
+    setQuestions(_questions);
+  };
 
   const saveGame = async () => {};
 
@@ -116,14 +127,7 @@ export const Trivia = (props) => {
               value={currentQuestion.question}
               onChange={(e) => {
                 setCurrentQuestion({ ...currentQuestion, question: e.target.value });
-                const _questions = questions.map((question) => {
-                  if (question.id !== currentQuestion.id) {
-                    return question;
-                  }
-                  return currentQuestion;
-                });
-
-                setQuestions(_questions);
+                updateQuestions();
               }}
             />
             <div className="mx-auto my-4 max-w-[786px]">
@@ -136,18 +140,19 @@ export const Trivia = (props) => {
                 width="100%"
                 height="131px"
                 desktopHeight="260px"
-                afterUpload={(filesUrls) =>
+                afterUpload={(filesUrls) => {
                   setCurrentQuestion({
                     ...currentQuestion,
                     fileUrl: filesUrls[0].url,
-                  })
-                }
+                  });
+                  updateQuestions();
+                }}
               />
             </div>
             {currentQuestion.type === "quiz" && (
               <div className="grid max-w-[786px] mx-auto my-4 gap-4 md:grid-cols-[1fr_1fr]">
                 <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
-                  {optionFocus === 1 ? (
+                  {optionFocus === 0 ? (
                     <CheckboxContainer
                       imageUrl={`${config.storageUrl}/resources/checked.svg`}
                       className="bg-red w-full h-full flex items-center justify-center"
@@ -155,9 +160,10 @@ export const Trivia = (props) => {
                       <input
                         id="trigger"
                         type="checkbox"
-                        defaultChecked={currentQuestion.answer === 1}
+                        defaultChecked={currentQuestion.answer === 0}
                         onChange={(e) => {
-                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 1 });
+                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 0 });
+                          updateQuestions();
                         }}
                       />
                       <label htmlFor="trigger" className="checker" />
@@ -179,12 +185,19 @@ export const Trivia = (props) => {
                     type="text"
                     className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
                     placeholder="Escribir respuesta"
-                    onFocus={() => setOptionFocus(1)}
-                    onfocusout={() => setOptionFocus(0)}
+                    value={currentQuestion.options[0] ?? ""}
+                    onFocus={() => setOptionFocus(0)}
+                    onChange={(e) => {
+                      const _option = e.target.value;
+                      const newOptions = [...currentQuestion.options];
+                      newOptions[0] = _option;
+                      setCurrentQuestion({ ...currentQuestion, options: newOptions });
+                      updateQuestions();
+                    }}
                   />
                 </div>
                 <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
-                  {optionFocus === 2 ? (
+                  {optionFocus === 1 ? (
                     <CheckboxContainer
                       imageUrl={`${config.storageUrl}/resources/checked.svg`}
                       className="bg-red w-full h-full flex items-center justify-center"
@@ -192,9 +205,10 @@ export const Trivia = (props) => {
                       <input
                         id="trigger"
                         type="checkbox"
-                        defaultChecked={currentQuestion.answer === 2}
+                        defaultChecked={currentQuestion.answer === 1}
                         onChange={(e) => {
-                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 2 });
+                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 1 });
+                          updateQuestions();
                         }}
                       />
                       <label for="trigger" className="checker" />
@@ -216,11 +230,19 @@ export const Trivia = (props) => {
                     type="text"
                     className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
                     placeholder="Escribir respuesta"
-                    onFocus={() => setOptionFocus(2)}
+                    value={currentQuestion.options[1] ?? ""}
+                    onFocus={() => setOptionFocus(1)}
+                    onChange={(e) => {
+                      const _option = e.target.value;
+                      const newOptions = [...currentQuestion.options];
+                      newOptions[1] = _option;
+                      setCurrentQuestion({ ...currentQuestion, options: newOptions });
+                      updateQuestions();
+                    }}
                   />
                 </div>
                 <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
-                  {optionFocus === 3 ? (
+                  {optionFocus === 2 ? (
                     <CheckboxContainer
                       imageUrl={`${config.storageUrl}/resources/checked.svg`}
                       className="bg-red w-full h-full flex items-center justify-center"
@@ -228,9 +250,10 @@ export const Trivia = (props) => {
                       <input
                         id="trigger"
                         type="checkbox"
-                        defaultChecked={currentQuestion.answer === 3}
+                        defaultChecked={currentQuestion.answer === 2}
                         onChange={(e) => {
-                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 3 });
+                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 2 });
+                          updateQuestions();
                         }}
                       />
                       <label htmlFor="trigger" className="checker" />
@@ -252,11 +275,19 @@ export const Trivia = (props) => {
                     type="text"
                     className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
                     placeholder="Escribir respuesta"
-                    onFocus={() => setOptionFocus(3)}
+                    value={currentQuestion.options[2] ?? ""}
+                    onFocus={() => setOptionFocus(2)}
+                    onChange={(e) => {
+                      const _option = e.target.value;
+                      const newOptions = [...currentQuestion.options];
+                      newOptions[2] = _option;
+                      setCurrentQuestion({ ...currentQuestion, options: newOptions });
+                      updateQuestions();
+                    }}
                   />
                 </div>
                 <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
-                  {optionFocus === 4 ? (
+                  {optionFocus === 3 ? (
                     <CheckboxContainer
                       imageUrl={`${config.storageUrl}/resources/checked.svg`}
                       className="bg-red w-full h-full flex items-center justify-center"
@@ -264,9 +295,10 @@ export const Trivia = (props) => {
                       <input
                         id="trigger"
                         type="checkbox"
-                        defaultChecked={currentQuestion.answer === 4}
+                        defaultChecked={currentQuestion.answer === 3}
                         onChange={(e) => {
-                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 4 });
+                          if (e.target.checked) setCurrentQuestion({ ...currentQuestion, answer: 3 });
+                          updateQuestions();
                         }}
                       />
                       <label htmlFor="trigger" className="checker" />
@@ -288,7 +320,15 @@ export const Trivia = (props) => {
                     type="text"
                     className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
                     placeholder="Escribir respuesta"
-                    onFocus={() => setOptionFocus(4)}
+                    value={currentQuestion.options[3] ?? ""}
+                    onFocus={() => setOptionFocus(3)}
+                    onChange={(e) => {
+                      const _option = e.target.value;
+                      const newOptions = [...currentQuestion.options];
+                      newOptions[3] = _option;
+                      setCurrentQuestion({ ...currentQuestion, options: newOptions });
+                      updateQuestions();
+                    }}
                   />
                 </div>
               </div>
