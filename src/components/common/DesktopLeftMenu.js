@@ -4,7 +4,6 @@ import { Image } from "./Image";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
-import { CameraOutlined } from "@ant-design/icons";
 
 export const DesktopLeftMenu = (props) => {
   const router = useRouter();
@@ -45,13 +44,15 @@ export const DesktopLeftMenu = (props) => {
         <div className="name">Folders</div>
       </div>
 
-      <div
+      {/*
+        <div
         className={`item favorites ${get(router, "asPath", "").includes("/library/folders") ? "active" : ""}`}
         onClick={() => router.push("/library/folders")}
       >
         <CameraOutlined />
         <div className="name">Crear evento</div>
       </div>
+         */}
     </LeftMenuContent>
   );
 };
