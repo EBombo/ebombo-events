@@ -14,7 +14,7 @@ import { Desktop, mediaQuery, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import styled from "styled-components";
 import isEmpty from "lodash/isEmpty";
-import defaultTo from "lodash/defaultTo";
+
 export const Trivia = (props) => {
   const [questions, setQuestions] = useState([
     {
@@ -22,6 +22,7 @@ export const Trivia = (props) => {
       id: firestore.collection("questions").doc().id,
       type: "quiz",
       options: ["", "", "", ""],
+      time: 20,
     },
   ]);
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
@@ -101,6 +102,7 @@ export const Trivia = (props) => {
                       options: ["", "", "", ""],
                       question: "",
                       fileUrl: "",
+                      time: 20,
                     };
 
                     setQuestions([...questions, _question]);
@@ -124,7 +126,7 @@ export const Trivia = (props) => {
               type="text"
               className="w-full h-[80px] rounded-[4px] bg-whiteLight text-center text-['Lato'] font-[500] text-[25px] leading-[30px] text-grayLight"
               placeholder="Escribe tu pregunta..."
-              value={currentQuestion.question}
+              value={currentQuestion.question || ""}
               onChange={(e) => {
                 setCurrentQuestion({ ...currentQuestion, question: e.target.value });
                 updateQuestions();
@@ -522,6 +524,10 @@ export const Trivia = (props) => {
                 borderBottom="1px solid #C4C4C4"
                 borderRadius="4px"
                 defaultValue={"uniq"}
+                onChange={(value) => {
+                  setCurrentQuestion({ ...currentQuestion, type: value });
+                  updateQuestions();
+                }}
                 optionsdom={triviaQuestionsOptions.map((option) => ({
                   key: option.key,
                   code: option.key,
