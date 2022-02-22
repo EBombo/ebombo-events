@@ -53,30 +53,37 @@ export const Trivia = (props) => {
     };
 
     let valid = true;
+
     questions.forEach((question) => {
-
       if (question.type === "quiz") valid = validateQuiz(question);
-      if (question.type === "trueFalse") valid = validateQuiz(question);
-      if (question.type === "shortAnswer") valid = validateQuiz(question);
+      if (question.type === "trueFalse") valid = validateTrueFalse(question);
+      if (question.type === "shortAnswer") valid = validateShortAnswer(question);
 
-      if(!valid) return props.showNotification("ERROR", "Las preguntas esta incompletas", "error");
-
+      if (!valid) return;
     });
 
-    
+    if (!valid) return props.showNotification("ERROR", "Verificar que todas las preguntas esten completas.", "error");
+
     await props.submitGame(_game);
   };
 
-  const validateQuiz = () => {
-    return false
+  const validateQuiz = (question) => {
+    let valid = true;
+    question.options.forEach((option) => {
+      if (isEmpty(option)) valid = false;
+    });
+
+    if (!question.answer) valid = false;
+    
+    return valid;
   };
 
-  const validateTrueFalse = () => {
-    return false
+  const validateTrueFalse = (question) => {
+    return question.answer === true || question.answer === false;
   };
 
-  const validateShortAnswer = () => {
-    return false
+  const validateShortAnswer = (question) => {
+    return question.answer.length;
   };
 
   return (
