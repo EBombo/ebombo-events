@@ -3,6 +3,29 @@ import { config } from "../../firebase";
 import React from "reactn";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
+export const landingHeaderMenu = [
+  {
+    title: "Características",
+    url: "/features",
+  },
+  {
+    title: "Uso",
+    url: "/use",
+  },
+  {
+    title: "Experiencia",
+    url: "/experience",
+  },
+  {
+    title: "Precio",
+    url: "/price",
+  },
+  {
+    title: "Subscripción",
+    url: "/subscriptions",
+  },
+];
+
 export const triviaQuestionsTypes = [
   {
     key: "quiz",

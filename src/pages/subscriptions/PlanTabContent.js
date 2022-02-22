@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "reactn";
+import React, { useEffect } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery } from "../../constants";
 import { Image } from "../../components/common/Image";
@@ -28,11 +28,17 @@ export const PlanTabContent = (props) => {
           />
         </Desktop>
         <div className="main-container">
-          <div className="title">Evento Virtual</div>
-          <div className="subtitle">Eventos desde 10 - 10000 colaboradores</div>
-          <div className="divider" />
-          <div className="description">Realizamos eventos virutales de todo tipo.</div>
-          <ButtonAnt color="secondary" onClick={() => router.push({ hash: "contact" })}>
+          <div className="title">Nuestro equipo está listo para ayudarte</div>
+          {/*
+            <div className="subtitle">Eventos desde 10 - 10000 colaboradores</div>
+             */}
+          {/*
+            <div className="divider" />
+             */}
+          {/*
+            <div className="description">Realizamos eventos virutales de todo tipo.</div>
+             */}
+          <ButtonAnt color="secondary" margin="1.5rem auto" onClick={() => router.push({ hash: "contact" })}>
             Contáctanos
           </ButtonAnt>
           <ContactInfo {...props} />
@@ -72,11 +78,11 @@ export const PlanTabContent = (props) => {
           selectPlanLabel="Registrarme"
           onSelectedPlan={async (plan) => {
             if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
-            return router.push("/register")
+            return router.push("/register");
           }}
           {...props}
         />
-      </div> 
+      </div>
     );
 };
 

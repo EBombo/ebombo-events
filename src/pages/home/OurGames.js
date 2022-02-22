@@ -21,7 +21,7 @@ const ourGamesData = [
 export const OurGames = (props) => {
   return (
     <OurGamesContainer ref={props.refProp}>
-      <div className="title">Algunos de los 20+ juegos que ofrecemos</div>
+      <div className="title">Algunas de las 20+ actividades que ofrecemos.</div>
 
       {ourGamesData.map((images, index) => (
         <OurGamesStyled key={`our-game-${index}`} images={images?.length}>

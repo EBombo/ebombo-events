@@ -25,21 +25,11 @@ const footerContent = [
       {
         title: (
           <>
-            <strong>Mail:</strong> mateo@ebombo.com
+            <strong>Mail:</strong> events@ebombo.com
           </>
         ),
-        link: "mailto:informes@ebombo.com.pe",
+        link: "mailto:events@ebombo.com.pe",
         icon: `${config.storageUrl}/resources/b2bLanding/email.svg`,
-      },
-      {
-        title: (
-          <>
-            <strong>Whatsapp:</strong> +51 945 693 597
-          </>
-        ),
-        link: "https://wa.me/51983645002",
-        target: "_blank",
-        icon: `${config.storageUrl}/resources/b2bLanding/wsp-icon.svg`,
       },
     ],
   },
@@ -58,7 +48,7 @@ const footerContent = [
         icon: `${config.storageUrl}/resources/linkedin-gray.svg`,
         link: "https://www.linkedin.com/company/ebombo/?viewAsMember=true",
         target: "_blank",
-      }
+      },
     ],
   },
 ];
@@ -133,7 +123,7 @@ export const Footer = (props) => (
       <hr />
       <div>
         <Image className="icon" src={`${config.storageUrl}/resources/copyright.svg`} width="15px" height="15px" />{" "}
-        ebombo 2021
+        ebombo 2022
       </div>
     </div>
   </FooterContainer>
