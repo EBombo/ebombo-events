@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { firestore } from "../../../../firebase";
 import { ModalSettings } from "./ModalSettings";
 
-const allowedLetters = new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;]*$");
+const allowedLetters = new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;\n]*$");
 const bannedLetters = new RegExp("[^a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;\n]", "g");
 
 export const Hanged = (props) => {
