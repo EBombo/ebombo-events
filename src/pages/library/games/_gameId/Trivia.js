@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React, { useMemo, useState } from "reactn";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { ButtonAnt, Input, Select } from "../../../../components/form";
@@ -14,6 +14,7 @@ import { Desktop, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import isEmpty from "lodash/isEmpty";
 import { TriviaQuestion } from "./TriviaQuestion";
+import { ModalSettings } from "./ModalSettings";
 
 export const Trivia = (props) => {
   const [questions, setQuestions] = useState([
@@ -26,6 +27,17 @@ export const Trivia = (props) => {
     },
   ]);
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
+  const [coverImgUrl, setCoverImgUrl] = useState(props.game ? props.game.coverImgUrl : null);
+  const [ownBranding, setOwnBranding] = useState(props.game ? props.game.ownBranding : false);
+  const [video, setVideo] = useState(props.game ? props.game.video : null);
+  const [allowDuplicate, setAllowDuplicate] = useState(!!props.game?.ownBranding);
+  const [visibility, setVisibility] = useState(props.game ? props.game.visibility : true);
+  const [audio, setAudio] = useState(props.game ? props.game.audio : null);
+
+  const newId = useMemo(() => {
+    return props.game?.id ?? firestore.collection("hanged").doc().id;
+  }, [props.game]);
 
   const schema = object().shape({
     name: string().required(),
@@ -50,6 +62,7 @@ export const Trivia = (props) => {
   const saveGame = async (data) => {
     const _game = {
       ...data,
+      id: newId,
       questions,
     };
 
@@ -89,8 +102,29 @@ export const Trivia = (props) => {
 
   return (
     <div className="w-screen">
+      {isVisibleModalSettings && (
+        <ModalSettings
+          isVisibleModalSettings={isVisibleModalSettings}
+          setIsVisibleModalSettings={setIsVisibleModalSettings}
+          setCoverImgUrl={setCoverImgUrl}
+          coverImgUrl={coverImgUrl}
+          setOwnBranding={setOwnBranding}
+          ownBranding={ownBranding}
+          setVideo={setVideo}
+          video={video}
+          setVisibility={setVisibility}
+          visibility={visibility}
+          setAudio={setAudio}
+          audio={audio}
+          setAllowDuplicate={setAllowDuplicate}
+          allowDuplicate={allowDuplicate}
+          newId={newId}
+          path={`/games/trivia/${props.newId}`}
+          {...props}
+        />
+      )}
       <form className="grid" onSubmit={handleSubmit(saveGame)}>
-        <div className="w-full bg-primary py-2 px-4">
+        <div className="w-full bg-primary py-2 px-4 flex items-center justufy-between">
           <div className="max-w-[300px]">
             <Input
               defaultValue={get(props, "game.name", "")}
@@ -102,6 +136,16 @@ export const Trivia = (props) => {
               placeholder="Nombre del Evento"
             />
           </div>
+          <ButtonAnt
+            variant="contained"
+            color="secondary"
+            size="small"
+            margin={"0 0 0 10px"}
+            onClick={() => setIsVisibleModalSettings(true)}
+            disabled={props.isLoading}
+          >
+            Ajustes
+          </ButtonAnt>
         </div>
         <div className="w-full h-[calc(100vh-102px)] overflow-auto grid md:grid-cols-[180px_auto_260px] shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
           <div className="w-full h-[115px] md:h-full overflow-auto grid md:grid-rows-[auto_100px] bg-white">
