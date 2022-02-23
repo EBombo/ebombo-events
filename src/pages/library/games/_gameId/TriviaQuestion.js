@@ -25,11 +25,10 @@ export const TriviaQuestion = (props) => {
                   type="checkbox"
                   defaultChecked={props.questions[props.questionIndex].answer === 0}
                   onChange={(e) => {
-                    if (e.target.checked) {
-                      const _questions = [...props.questions];
-                      _questions[props.questionIndex].answer = 0;
-                      props.setQuestions(_questions);
-                    }
+                    if (!e.target.checked) return;
+                    const _questions = [...props.questions];
+                    _questions[props.questionIndex].answer = 0;
+                    props.setQuestions(_questions);
                   }}
                 />
                 <label htmlFor="trigger" className="checker" />
@@ -237,11 +236,10 @@ export const TriviaQuestion = (props) => {
                 type="checkbox"
                 checked={props.questions[props.questionIndex].answer === true}
                 onChange={(e) => {
-                  if (e.target.checked) {
-                    const _questions = [...props.questions];
-                    _questions[props.questionIndex].answer = true;
-                    props.setQuestions(_questions);
-                  }
+                  if (!e.target.checked) return;
+                  const _questions = [...props.questions];
+                  _questions[props.questionIndex].answer = true;
+                  props.setQuestions(_questions);
                 }}
               />
               <label htmlFor="trueCheckbox" className="checker" />
@@ -271,11 +269,10 @@ export const TriviaQuestion = (props) => {
                 type="checkbox"
                 checked={props.questions[props.questionIndex].answer === false}
                 onChange={(e) => {
-                  if (e.target.checked) {
-                    const _questions = [...props.questions];
-                    _questions[props.questionIndex].answer = false;
-                    props.setQuestions(_questions);
-                  }
+                  if (!e.target.checked) return;
+                  const _questions = [...props.questions];
+                  _questions[props.questionIndex].answer = false;
+                  props.setQuestions(_questions);
                 }}
               />
               <label htmlFor="falseCheckbox" className="checker" />

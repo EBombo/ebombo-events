@@ -8,7 +8,7 @@ import { config, firestore } from "../../../../firebase";
 import {
   triviaQuestionsOptions,
   triviaQuestionsTimes,
-  triviaQuestionsTypes,
+  triviaQuestionsTypes
 } from "../../../../components/common/DataList";
 import { Desktop, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";
@@ -38,8 +38,11 @@ export const Trivia = (props) => {
 
   const deleteQuestion = () => {
     if (questions.length <= 1) return props.showNotification("Warning", "El minimo de preguntas es 1", "warning");
+
     const _questions = [...questions];
+
     _questions.splice(questionIndex, 1);
+
     setQuestionIndex(0);
     setQuestions(_questions);
   };
@@ -318,4 +321,3 @@ export const Trivia = (props) => {
     </div>
   );
 };
-
