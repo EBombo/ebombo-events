@@ -1,18 +1,26 @@
-import React from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { mediaQuery } from "../../constants";
 import { Anchor } from "../../components/form";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { ladingProducts } from "../../components/common/DataList";
+import { landingProducts } from "../../components/common/DataList";
 
 export const Products = (props) => {
+  const [currentTabIndex, setCurrentTabIx] = useState(0);
+
   return (
     <ProductsContainer>
       <div className="title">UN CAMBIO RADICAL EN LA FORMA EN CÓMO CONECTAS CON TUS TRABAJADORES</div>
       <div className="sub-title">Todo lo que necesitas en un solo lugar</div>
 
-      {ladingProducts.map((product) => (
+      {landingProducts.map((product, index) => (
+        <div className="tabs" key={product.tab} onClick={() => setCurrentTabIx(index)}>
+          {product.tab}
+        </div>
+      ))}
+
+      {landingProducts[currentTabIndex].content.map((product) => (
         <div className="product" data-aos="fade-right" key={product.title}>
           <div className="top-container">
             <div className="background" style={{ background: product.background }}>
@@ -64,8 +72,11 @@ const ProductsContainer = styled.div`
   }
 
   .sub-title {
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     font-size: 2rem;
+  }
+
+  .tabs {
   }
 
   .product {
