@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Products } from "./Products";
 import { OurGames } from "./OurGames";
+import { EventsInformation } from "./EventsInformation";
 
 export const Home = (props) => {
   const router = useRouter();
@@ -28,6 +29,8 @@ export const Home = (props) => {
       <HeaderLanding />
 
       <Products />
+
+      <EventsInformation {...props} />
 
       <section id="plans">
         <Plans {...props} />
