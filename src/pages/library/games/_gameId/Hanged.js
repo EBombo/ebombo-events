@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { firestore } from "../../../../firebase";
 import { ModalSettings } from "./ModalSettings";
 
-const allowedLetters = new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;]*$");
+const allowedLetters = new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;\n]*$");
 const bannedLetters = new RegExp("[^a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;\n]", "g");
 
 export const Hanged = (props) => {
@@ -61,10 +61,10 @@ export const Hanged = (props) => {
   };
 
   const preventMaxLengthPerLine = (event, maxLengthPerLine) => {
-    const phrasesChunks = event.target.value.split('\n');
+    const phrasesChunks = event.target.value.split("\n");
 
-    return ((phrasesChunks[phrasesChunks.length - 1].length + 1) > maxLengthPerLine);
-  }
+    return phrasesChunks[phrasesChunks.length - 1].length + 1 > maxLengthPerLine;
+  };
 
   return (
     <HangedContainer>
@@ -118,14 +118,14 @@ export const Hanged = (props) => {
           Frases para el juego
         </label>
         <div className="description">
-          Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). 
-          Solo se aceptan letras, signos de interrogación y exclamación (¿?¡!), espacio y comma (,).
+          Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). Solo se aceptan letras,
+          signos de interrogación y exclamación (¿?¡!), espacio y comma (,).
         </div>
         <TextArea
           onPaste={(ev) => {
-            const pasteText = ev.clipboardData.getData("text")
+            const pasteText = ev.clipboardData.getData("text");
 
-            const newPhrase = `${ev.target.value}${pasteText}`.replaceAll(bannedLetters, '');
+            const newPhrase = `${ev.target.value}${pasteText}`.replaceAll(bannedLetters, "");
 
             ev.target.value = newPhrase;
 
@@ -137,7 +137,7 @@ export const Hanged = (props) => {
             if (preventMaxLengthPerLine(event, 50)) {
               event.preventDefault();
               return false;
-            };
+            }
 
             const regex = allowedLetters;
             const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);

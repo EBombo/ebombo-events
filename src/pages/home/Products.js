@@ -2,23 +2,29 @@ import React, { useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { mediaQuery } from "../../constants";
-import { Anchor } from "../../components/form";
-import { ArrowRightOutlined } from "@ant-design/icons";
 import { landingProducts } from "../../components/common/DataList";
+import chunk from "lodash/chunk";
+import { CheckOutlined } from "@ant-design/icons";
 
 export const Products = (props) => {
   const [currentTabIndex, setCurrentTabIx] = useState(0);
 
   return (
     <ProductsContainer>
-      <div className="title">UN CAMBIO RADICAL EN LA FORMA EN CÓMO CONECTAS CON TUS TRABAJADORES</div>
-      <div className="sub-title">Todo lo que necesitas en un solo lugar</div>
+      <div className="title">UN CAMBIO INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO</div>
+      <div className="sub-title">Hemos creado una herramienta simple y sencilla que asegura la diversión.</div>
 
-      {landingProducts.map((product, index) => (
-        <div className="tabs" key={product.tab} onClick={() => setCurrentTabIx(index)}>
-          {product.tab}
-        </div>
-      ))}
+      <div className="tabs">
+        {landingProducts.map((product, index) => (
+          <div
+            className={`tab ${index === currentTabIndex ? "active" : ""}`}
+            key={product.tab}
+            onClick={() => setCurrentTabIx(index)}
+          >
+            {product.tab}
+          </div>
+        ))}
+      </div>
 
       {landingProducts[currentTabIndex].content.map((product) => (
         <div className="product" data-aos="fade-right" key={product.title}>
@@ -40,10 +46,20 @@ export const Products = (props) => {
 
             <div className="description">{product.description}</div>
 
-            <div className="link">
-              <Anchor underlined variant="secondary" margin="1rem 0" url={product.url} fontSize="14px">
-                Explorar <ArrowRightOutlined />
-              </Anchor>
+            <div className="options-contain">
+              {chunk(product?.options ?? [], 5)?.map((optionChunk) => {
+                return (
+                  <div className="options">
+                    {optionChunk.map((option) => {
+                      return (
+                        <div className="option">
+                          <CheckOutlined /> {option}
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -77,6 +93,23 @@ const ProductsContainer = styled.div`
   }
 
   .tabs {
+    margin-top: 3rem;
+    text-align: center;
+
+    .tab {
+      width: auto;
+      margin: 0 5px;
+      display: inline;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: ${(props) => props.theme.basic.primary};
+      background: ${(props) => props.theme.basic.gray};
+    }
+
+    .active {
+      color: ${(props) => props.theme.basic.white};
+      background: ${(props) => props.theme.basic.primary};
+    }
   }
 
   .product {
@@ -115,8 +148,24 @@ const ProductsContainer = styled.div`
       margin: 1rem 0;
     }
 
+    .options-contain {
+      display: flex;
+      grid-gap: 10px;
+
+      .options {
+        .option {
+          color: ${(props) => props.theme.basic.secondary};
+
+          span {
+            color: ${(props) => props.theme.basic.primary};
+          }
+        }
+      }
+    }
+
     .link {
       margin: 1rem 0;
+
       a {
         font-weight: bold;
       }
