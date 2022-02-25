@@ -78,23 +78,39 @@ const ProductsContainer = styled.div`
     font-family: Lato;
     font-style: normal;
     font-weight: bold;
-    font-size: 4rem;
+    font-size: 2rem;
     line-height: 26px;
     text-align: center;
     letter-spacing: 0.03em;
-    color: ${(props) => props.theme.basic.secondary};
     margin: 1rem auto;
     max-width: 70%;
+    color: ${(props) => props.theme.basic.secondary};
+
+    ${mediaQuery.afterTablet} {
+      font-size: 4rem;
+    }
   }
 
   .sub-title {
     margin-top: 2.5rem;
-    font-size: 2rem;
+    font-size: 1rem;
+
+    ${mediaQuery.afterTablet} {
+      font-size: 2rem;
+    }
   }
 
   .tabs {
+    display: grid;
+    grid-gap: 10px;
     margin-top: 3rem;
     text-align: center;
+    margin-bottom: 15px;
+    grid-template-columns: 1fr 1fr;
+
+    ${mediaQuery.afterTablet} {
+      display: block;
+    }
 
     .tab {
       width: auto;

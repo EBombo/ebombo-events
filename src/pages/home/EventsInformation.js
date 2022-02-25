@@ -2,7 +2,7 @@ import React, { useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { config } from "../../firebase";
-import { mediaQuery } from "../../constants";
+import { Desktop, mediaQuery, Tablet } from "../../constants";
 
 const items = [
   {
@@ -27,12 +27,21 @@ export const EventsInformation = (props) => {
       <div className="title">Dirige como quieras las dinámicas virtuales</div>
 
       <div className="events-content">
+        <Tablet>
+          <Image
+            src={`${config.storageUrl}/resources/video-lading.gif`}
+            width="100%"
+            height="250px"
+            desktopHeight="450px"
+            size="contain"
+          />
+        </Tablet>
         <div className="items">
           {items.map((item, index) => (
             <div
-              className={`item ${currentItem === index ? "active" : ""}`}
               key={item.title}
               onClick={() => setCurrentItem(index)}
+              className={`item ${currentItem === index ? "active" : ""}`}
             >
               <div className="title-item">
                 <Image
@@ -49,13 +58,15 @@ export const EventsInformation = (props) => {
           ))}
         </div>
 
-        <Image
-          src={`${config.storageUrl}/resources/video-lading.gif`}
-          width="100%"
-          height="250px"
-          desktopHeight="450px"
-          size="contain"
-        />
+        <Desktop>
+          <Image
+            src={`${config.storageUrl}/resources/video-lading.gif`}
+            width="100%"
+            height="250px"
+            desktopHeight="450px"
+            size="contain"
+          />
+        </Desktop>
       </div>
     </EventsInformationStyled>
   );
@@ -81,7 +92,6 @@ const EventsInformationStyled = styled.div`
   .events-content {
     display: grid;
     grid-gap: 10px;
-    cursor: pointer;
 
     ${mediaQuery.afterTablet} {
       grid-template-columns: 1fr 2fr;
@@ -90,6 +100,7 @@ const EventsInformationStyled = styled.div`
     .items {
       .item {
         margin: 5px 0;
+        cursor: pointer;
         padding: 15px 10px;
         border-radius: 5px;
         color: ${(props) => props.theme.basic.white};
