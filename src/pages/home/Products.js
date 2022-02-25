@@ -100,6 +100,7 @@ const ProductsContainer = styled.div`
       width: auto;
       margin: 0 5px;
       display: inline;
+      cursor: pointer;
       padding: 5px 10px;
       border-radius: 5px;
       color: ${(props) => props.theme.basic.primary};
