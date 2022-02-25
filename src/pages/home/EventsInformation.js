@@ -49,29 +49,33 @@ export const EventsInformation = (props) => {
           ))}
         </div>
 
-        <div>
-          <Image
-            src={`${config.storageUrl}/resources/video-lading.gif`}
-            width="100%"
-            height="250px"
-            desktopHeight="450px"
-            size="contain"
-          />
-        </div>
+        <Image
+          src={`${config.storageUrl}/resources/video-lading.gif`}
+          width="100%"
+          height="250px"
+          desktopHeight="450px"
+          size="contain"
+        />
       </div>
     </EventsInformationStyled>
   );
 };
 
 const EventsInformationStyled = styled.div`
-  padding: 2rem 1.5rem;
+  padding: 3rem 1.5rem;
   background: linear-gradient(270deg, #1d1138 0%, #331e6d 31.25%, #1e1239 100%);
 
   .title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 15px;
+    text-align: center;
     color: ${(props) => props.theme.basic.white};
+
+    ${mediaQuery.afterTablet} {
+      font-size: 2rem;
+      text-align: left;
+    }
   }
 
   .events-content {
