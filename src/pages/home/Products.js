@@ -96,7 +96,7 @@ const ProductsContainer = styled.div`
     font-size: 1rem;
 
     ${mediaQuery.afterTablet} {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
   }
 
