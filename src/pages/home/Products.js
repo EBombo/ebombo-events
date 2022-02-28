@@ -1,24 +1,32 @@
-import React from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
-import { Desktop, mediaQuery, Tablet } from "../../constants";
-import { CheckOutlined } from "@ant-design/icons";
-import { ladingProducts } from "../../components/common/DataList";
+import { mediaQuery } from "../../constants";
+import { landingProducts } from "../../components/common/DataList";
 import chunk from "lodash/chunk";
+import { CheckOutlined } from "@ant-design/icons";
 
 export const Products = (props) => {
+  const [currentTabIndex, setCurrentTabIx] = useState(0);
+
   return (
     <ProductsContainer>
-      <div className="title">
-        Todo lo que necesitas
-        <Tablet>
-          <br />
-        </Tablet>
-        <Desktop>&nbsp;</Desktop>
-        en un solo lugar
+      <div className="title">UN CAMBIO INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO</div>
+      <div className="sub-title">Hemos creado una herramienta simple y sencilla que asegura la diversión.</div>
+
+      <div className="tabs">
+        {landingProducts.map((product, index) => (
+          <div
+            className={`tab ${index === currentTabIndex ? "active" : ""}`}
+            key={product.tab}
+            onClick={() => setCurrentTabIx(index)}
+          >
+            {product.tab}
+          </div>
+        ))}
       </div>
 
-      {ladingProducts.map((product) => (
+      {landingProducts[currentTabIndex].content.map((product) => (
         <div className="product" data-aos="fade-right" key={product.title}>
           <div className="top-container">
             <div className="background" style={{ background: product.background }}>
@@ -53,14 +61,6 @@ export const Products = (props) => {
                 );
               })}
             </div>
-
-            {/*
-              <div className="link">
-              <Anchor underlined variant="secondary" margin="1rem 0" url={product.url} fontSize="14px">
-                Explorar <ArrowRightOutlined />
-              </Anchor>
-            </div>
-               */}
           </div>
         </div>
       ))}
@@ -73,16 +73,60 @@ const ProductsContainer = styled.div`
   padding: 2rem 1rem;
   background: ${(props) => props.theme.basic.white};
 
-  .title {
+  .title,
+  .sub-title {
     font-family: Lato;
     font-style: normal;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 2rem;
     line-height: 26px;
     text-align: center;
     letter-spacing: 0.03em;
+    margin: 1rem auto;
+    max-width: 70%;
     color: ${(props) => props.theme.basic.secondary};
-    margin: 1rem 0;
+
+    ${mediaQuery.afterTablet} {
+      font-size: 4rem;
+    }
+  }
+
+  .sub-title {
+    margin-top: 2.5rem;
+    font-size: 1rem;
+
+    ${mediaQuery.afterTablet} {
+      font-size: 2rem;
+    }
+  }
+
+  .tabs {
+    display: grid;
+    grid-gap: 10px;
+    margin-top: 3rem;
+    text-align: center;
+    margin-bottom: 15px;
+    grid-template-columns: 1fr 1fr;
+
+    ${mediaQuery.afterTablet} {
+      display: block;
+    }
+
+    .tab {
+      width: auto;
+      margin: 0 5px;
+      display: inline;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: ${(props) => props.theme.basic.primary};
+      background: ${(props) => props.theme.basic.gray};
+    }
+
+    .active {
+      color: ${(props) => props.theme.basic.white};
+      background: ${(props) => props.theme.basic.primary};
+    }
   }
 
   .product {

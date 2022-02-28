@@ -153,40 +153,55 @@ export const reasons = [
   },
 ];
 
-export const ladingProducts = [
+export const landingProducts = [
   {
-    title: "Eventos Virtuales Premium",
-    description:
-      "¡Organizamos tu evento a medida! Creamos un concepto del evento y personalizamos al 100% la campaña de intriga, escenario en 3D, contenido de actividades y más. No te pierdas de la mejor parrilla de animadores, shows, talleres y charlas para tu evento de integración, reconocimiento, fecha festiva o, porque no, ¡tu plan de suscripción anual!.",
-    background: darkTheme.basic.blackDarken,
-    image: `${config.storageUrl}/resources/product-virtual-events.png`,
-    url: "/products/eventos-virtuales",
+    tab: "Actividades virtuales",
+    content: [
+      {
+        title: "Actividades virtuales",
+        description:
+          "Ebombo cuenta con más de 20 actividades virtuales para que puedas conectar con tus trabajadores. Contamos con dinámicas de integración, entretenimiento, onboarding, juegos, aniversarios, premiaciones, ceremonias y mucho más.",
+        background: darkTheme.basic.blackDarken,
+        image: `${config.storageUrl}/resources/product-virtual-events.png`,
+        url: "/products/eventos-virtuales",
+      },
+    ],
   },
   {
-    title: "Eventos Virtuales Simples",
-    description:
-      "¿Te interesa un show con el artista favorito de tus colaboradores? Somos el mejor aliado para organizar y alinear al cantante, comediante, speaker, entre otros expertos, con el concepto y objetivo de tu evento.",
-    background: darkTheme.basic.blackDarken,
-    image: `${config.storageUrl}/resources/product-face-to-face.png`,
-    url: "/products/eventos-virtuales",
+    tab: "Formas de interactuar",
+    content: [
+      {
+        title: "Formas de interactuar",
+        options: [
+          "Happy Hours",
+          "Ice breakers",
+          "Onboardings",
+          "Celebración de días festivos",
+          "Networking",
+          "Capacitaciones",
+          "Talleres",
+          "Premiaciones",
+          "Torneos",
+          "Ceremonias",
+        ],
+        background: darkTheme.basic.blackDarken,
+        image: `${config.storageUrl}/resources/product-face-to-face.png`,
+        url: "/products/eventos-virtuales",
+      },
+    ],
   },
-  /*
   {
-    title: "Eventos Presenciales",
-    description:
-      "Realizamos eventos presenciales de todo tipo. Eventos de integración, integraciones, celebraciones, eventos de todo tipo.",
-    background: darkTheme.basic.primaryLight,
-    image: `${config.storageUrl}/resources/product-face-to-face.png`,
-    url: "/products/eventos-presenciales",
-  },
-   */
-  {
-    title: "Juegos de integración",
-    description:
-      "¿Un súper bingo personalizado y a tu disposición siempre que quieras? Disfruta de este y muchos juegos más que próximamente estarán a tu alcance para organizar tus propios eventos y pasar un buen rato con tus colaboradores.",
-    background: darkTheme.basic.secondary,
-    image: `${config.storageUrl}/resources/product-games.png`,
-    url: "/products/juegos-de-integracion",
+    tab: "Planes",
+    content: [
+      {
+        title: "Planes",
+        description: "Tenemos planes para acomodarnos a tus necesidades:",
+        options: ["Eventos únicos", "Planes semanales/mensuales/anuales", "Planes personalizados"],
+        background: darkTheme.basic.secondary,
+        image: `${config.storageUrl}/resources/product-games.png`,
+        url: "/products/juegos-de-integracion",
+      },
+    ],
   },
 ];
 
