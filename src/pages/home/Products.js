@@ -1,13 +1,21 @@
-import React, { useState } from "reactn";
+import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { mediaQuery } from "../../constants";
 import { landingProducts } from "../../components/common/DataList";
 import chunk from "lodash/chunk";
 import { CheckOutlined } from "@ant-design/icons";
+import { ButtonAnt } from "../../components/form";
+import { useRouter } from "next/router";
 
 export const Products = (props) => {
+  const router = useRouter();
+
   const [currentTabIndex, setCurrentTabIx] = useState(0);
+
+  useEffect(() => {
+    router.prefetch("/register");
+  }, []);
 
   return (
     <ProductsContainer>
@@ -43,9 +51,7 @@ export const Products = (props) => {
 
           <div className="bottom-container" data-aos="fade-right" data-aos-delay="500">
             <div className="subtitle">{product.title}</div>
-
             <div className="description">{product.description}</div>
-
             <div className="options-contain">
               {chunk(product?.options ?? [], 5)?.map((optionChunk) => {
                 return (
@@ -61,6 +67,16 @@ export const Products = (props) => {
                 );
               })}
             </div>
+
+            <ButtonAnt
+              color="success"
+              variant="contained"
+              fontSize="20px"
+              margin="15px 0 0 0"
+              onClick={() => router.push("/register")}
+            >
+              Regístrate
+            </ButtonAnt>
           </div>
         </div>
       ))}
