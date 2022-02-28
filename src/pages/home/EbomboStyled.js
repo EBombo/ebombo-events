@@ -108,13 +108,12 @@ const ItemStyled = styled.div`
 `;
 
 const EbomboStyleStyled = styled.div`
-  padding: 1rem 2rem;
+  padding: 3rem 2rem;
   background: linear-gradient(276.15deg, #331e6d 0%, #6646b7 100%);
-  padding-bottom: 1rem;
 
   .title {
-    margin: 2rem 0;
     text-align: center;
+    margin-bottom: 3rem;
     font-size: xx-large;
     color: ${(props) => props.theme.basic.white};
   }
