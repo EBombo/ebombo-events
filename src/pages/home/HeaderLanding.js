@@ -47,12 +47,16 @@ export const HeaderLanding = (props) => {
 
 const HeaderLandingContainer = styled.section`
   width: 100%;
-  height: 90vh;
+  height: auto;
   background: linear-gradient(270deg, #331e6d 0%, #6646b7 31.25%, #382079 100%);
   padding: 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  ${mediaQuery.afterTablet} {
+    height: 90vh;
+  }
 
   .title {
     font-family: Lato;
