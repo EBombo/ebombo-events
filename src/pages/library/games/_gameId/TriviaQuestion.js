@@ -5,6 +5,7 @@ import { config } from "../../../../firebase";
 import { mediaQuery } from "../../../../constants";
 import styled from "styled-components";
 import isEmpty from "lodash/isEmpty";
+import defaultTo from "lodash/defaultTo";
 
 export const TriviaQuestion = (props) => {
   const [optionFocus, setOptionFocus] = useState(0);
@@ -16,23 +17,49 @@ export const TriviaQuestion = (props) => {
         <div className="grid max-w-[786px] mx-auto my-4 gap-4 md:grid-cols-[1fr_1fr]">
           <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
             {optionFocus === 0 ? (
-              <CheckboxContainer
-                imageUrl={`${config.storageUrl}/resources/checked.svg`}
-                className="bg-red w-full h-full flex items-center justify-center"
-              >
-                <input
-                  id="trigger"
-                  type="checkbox"
-                  defaultChecked={props.questions[props.questionIndex].answer === 0}
-                  onChange={(e) => {
-                    if (!e.target.checked) return;
-                    const _questions = [...props.questions];
-                    _questions[props.questionIndex].answer = 0;
-                    props.setQuestions(_questions);
-                  }}
-                />
-                <label htmlFor="trigger" className="checker" />
-              </CheckboxContainer>
+              props.questions[props.questionIndex].answerOption === "uniq" ? (
+                <CheckboxContainer
+                  rounded
+                  imageUrl={`${config.storageUrl}/resources/checked.svg`}
+                  className="bg-red w-full h-full flex items-center justify-center"
+                >
+                  <input
+                    id="trigger"
+                    type="checkbox"
+                    defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(0)}
+                    onChange={(e) => {
+                      if (!e.target.checked) return;
+                      const _questions = [...props.questions];
+                      _questions[props.questionIndex].answer = [0];
+                      props.setQuestions(_questions);
+                    }}
+                  />
+                  <label htmlFor="trigger" className="checker" />
+                </CheckboxContainer>
+              ) : (
+                <CheckboxContainer
+                  imageUrl={`${config.storageUrl}/resources/checked-square.svg`}
+                  className="bg-red w-full h-full flex items-center justify-center"
+                >
+                  <input
+                    id="trigger"
+                    type="checkbox"
+                    defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(0)}
+                    onChange={(e) => {
+                      const _questions = [...props.questions];
+                      if (!e.target.checked) {
+                        const answer = _questions[props.questionIndex].answer.filter((ans) => ans !== 0);
+                        console.log(answer);
+                        _questions[props.questionIndex].answer = answer;
+                        return props.setQuestions(_questions);
+                      }
+                      _questions[props.questionIndex].answer.push(0);
+                      props.setQuestions(_questions);
+                    }}
+                  />
+                  <label htmlFor="trigger" className="checker" />
+                </CheckboxContainer>
+              )
             ) : (
               <div className="bg-red w-full h-full flex items-center justify-center">
                 <Image
@@ -65,22 +92,48 @@ export const TriviaQuestion = (props) => {
           </div>
           <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
             {optionFocus === 1 ? (
-              <CheckboxContainer
-                imageUrl={`${config.storageUrl}/resources/checked.svg`}
-                className="bg-red w-full h-full flex items-center justify-center"
-              >
-                <input
-                  id="trigger"
-                  type="checkbox"
-                  defaultChecked={props.questions[props.questionIndex].answer === 1}
-                  onChange={(e) => {
-                    const _questions = [...props.questions];
-                    _questions[props.questionIndex].answer = 1;
-                    props.setQuestions(_questions);
-                  }}
-                />
-                <label for="trigger" className="checker" />
-              </CheckboxContainer>
+              props.questions[props.questionIndex].answerOption === "uniq" ? (
+                <CheckboxContainer
+                  rounded
+                  imageUrl={`${config.storageUrl}/resources/checked.svg`}
+                  className="bg-red w-full h-full flex items-center justify-center"
+                >
+                  <input
+                    id="trigger"
+                    type="checkbox"
+                    defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(1)}
+                    onChange={(e) => {
+                      const _questions = [...props.questions];
+                      _questions[props.questionIndex].answer = [1];
+                      props.setQuestions(_questions);
+                    }}
+                  />
+                  <label for="trigger" className="checker" />
+                </CheckboxContainer>
+              ) : (
+                <CheckboxContainer
+                  imageUrl={`${config.storageUrl}/resources/checked-square.svg`}
+                  className="bg-red w-full h-full flex items-center justify-center"
+                >
+                  <input
+                    id="trigger"
+                    type="checkbox"
+                    defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(1)}
+                    onChange={(e) => {
+                      const _questions = [...props.questions];
+                      if (!e.target.checked) {
+                        const answer = _questions[props.questionIndex].answer.filter((ans) => ans !== 1);
+                        console.log(answer);
+                        _questions[props.questionIndex].answer = answer;
+                        return props.setQuestions(_questions);
+                      }
+                      _questions[props.questionIndex].answer.push(1);
+                      props.setQuestions(_questions);
+                    }}
+                  />
+                  <label htmlFor="trigger" className="checker" />
+                </CheckboxContainer>
+              )
             ) : (
               <div className="bg-green w-full h-full flex items-center justify-center">
                 <Image
@@ -113,22 +166,48 @@ export const TriviaQuestion = (props) => {
           </div>
           <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
             {optionFocus === 2 ? (
-              <CheckboxContainer
-                imageUrl={`${config.storageUrl}/resources/checked.svg`}
-                className="bg-red w-full h-full flex items-center justify-center"
-              >
-                <input
-                  id="trigger"
-                  type="checkbox"
-                  defaultChecked={props.questions[props.questionIndex].answer === 2}
-                  onChange={(e) => {
-                    const _questions = [...props.questions];
-                    _questions[props.questionIndex].answer = 2;
-                    props.setQuestions(_questions);
-                  }}
-                />
-                <label htmlFor="trigger" className="checker" />
-              </CheckboxContainer>
+              props.questions[props.questionIndex].answerOption === "uniq" ? (
+                <CheckboxContainer
+                  rounded
+                  imageUrl={`${config.storageUrl}/resources/checked.svg`}
+                  className="bg-red w-full h-full flex items-center justify-center"
+                >
+                  <input
+                    id="trigger"
+                    type="checkbox"
+                    defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(2)}
+                    onChange={(e) => {
+                      const _questions = [...props.questions];
+                      _questions[props.questionIndex].answer = [2];
+                      props.setQuestions(_questions);
+                    }}
+                  />
+                  <label htmlFor="trigger" className="checker" />
+                </CheckboxContainer>
+              ) : (
+                <CheckboxContainer
+                  imageUrl={`${config.storageUrl}/resources/checked-square.svg`}
+                  className="bg-red w-full h-full flex items-center justify-center"
+                >
+                  <input
+                    id="trigger"
+                    type="checkbox"
+                    defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(2)}
+                    onChange={(e) => {
+                      const _questions = [...props.questions];
+                      if (!e.target.checked) {
+                        const answer = _questions[props.questionIndex].answer.filter((ans) => ans !== 2);
+                        console.log(answer);
+                        _questions[props.questionIndex].answer = answer;
+                        return props.setQuestions(_questions);
+                      }
+                      _questions[props.questionIndex].answer.push(2);
+                      props.setQuestions(_questions);
+                    }}
+                  />
+                  <label htmlFor="trigger" className="checker" />
+                </CheckboxContainer>
+              )
             ) : (
               <div className="bg-orange w-full h-full flex items-center justify-center">
                 <Image
@@ -161,22 +240,48 @@ export const TriviaQuestion = (props) => {
           </div>
           <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
             {optionFocus === 3 ? (
-              <CheckboxContainer
-                imageUrl={`${config.storageUrl}/resources/checked.svg`}
-                className="bg-red w-full h-full flex items-center justify-center"
-              >
-                <input
-                  id="trigger"
-                  type="checkbox"
-                  defaultChecked={props.questions[props.questionIndex].answer === 3}
-                  onChange={(e) => {
-                    const _questions = [...props.questions];
-                    _questions[props.questionIndex].answer = 3;
-                    props.setQuestions(_questions);
-                  }}
-                />
-                <label htmlFor="trigger" className="checker" />
-              </CheckboxContainer>
+              props.questions[props.questionIndex].answerOption === "uniq" ? (
+                <CheckboxContainer
+                  rounded
+                  imageUrl={`${config.storageUrl}/resources/checked.svg`}
+                  className="bg-red w-full h-full flex items-center justify-center"
+                >
+                  <input
+                    id="trigger"
+                    type="checkbox"
+                    defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(3)}
+                    onChange={(e) => {
+                      const _questions = [...props.questions];
+                      _questions[props.questionIndex].answer = [3];
+                      props.setQuestions(_questions);
+                    }}
+                  />
+                  <label htmlFor="trigger" className="checker" />
+                </CheckboxContainer>
+              ) : (
+                <CheckboxContainer
+                  imageUrl={`${config.storageUrl}/resources/checked-square.svg`}
+                  className="bg-red w-full h-full flex items-center justify-center"
+                >
+                  <input
+                    id="trigger"
+                    type="checkbox"
+                    defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(3)}
+                    onChange={(e) => {
+                      const _questions = [...props.questions];
+                      if (!e.target.checked) {
+                        const answer = _questions[props.questionIndex].answer.filter((ans) => ans !== 3);
+                        console.log(answer);
+                        _questions[props.questionIndex].answer = answer;
+                        return props.setQuestions(_questions);
+                      }
+                      _questions[props.questionIndex].answer.push(3);
+                      props.setQuestions(_questions);
+                    }}
+                  />
+                  <label htmlFor="trigger" className="checker" />
+                </CheckboxContainer>
+              )
             ) : (
               <div className="bg-blue w-full h-full flex items-center justify-center">
                 <Image
@@ -296,7 +401,7 @@ export const TriviaQuestion = (props) => {
                 if (isEmpty(correctAns)) return;
 
                 const _questions = [...props.questions];
-                _questions[questionIndex].answer = [...props.questions[props.questionIndex].answer, correctAns];
+                _questions[props.questionIndex].answer = [...props.questions[props.questionIndex].answer, correctAns];
                 props.setQuestions(_questions);
                 setCorrectAns("");
               }}
@@ -341,7 +446,7 @@ const CheckboxContainer = styled.div`
     width: 32px;
     height: 32px;
     border: 2px solid #ffffff;
-    border-radius: 50%;
+    border-radius: ${(props) => (props.rounded ? "50%" : "0")};
 
     ${mediaQuery.afterMobile} {
       width: 40px;

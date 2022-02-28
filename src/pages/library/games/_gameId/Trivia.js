@@ -1,10 +1,10 @@
-import React, { useMemo, useState } from "reactn";
+import React, { useEffect, useMemo, useState } from "reactn";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
-import { ButtonAnt, Input, Select } from "../../../../components/form";
+import { ButtonAnt, Input } from "../../../../components/form";
 import get from "lodash/get";
 import { Image } from "../../../../components/common/Image";
-import { config, firestore } from "../../../../firebase";
+import { config, firestore, firestoreTrivia } from "../../../../firebase";
 import {
   triviaQuestionsOptions,
   triviaQuestionsTimes,
@@ -15,8 +15,15 @@ import { FileUpload } from "../../../../components/common/FileUpload";
 import isEmpty from "lodash/isEmpty";
 import { TriviaQuestion } from "./TriviaQuestion";
 import { ModalSettings } from "./ModalSettings";
+import { useRouter } from "next/router";
+import { snapshotToArray } from "../../../../utils";
+import { spinLoader } from "../../../../components/common/loader";
 
 export const Trivia = (props) => {
+  const router = useRouter();
+
+  const { gameId } = router.query;
+
   const [questions, setQuestions] = useState([
     {
       question: "",
@@ -24,6 +31,7 @@ export const Trivia = (props) => {
       type: "quiz",
       options: ["", "", "", ""],
       time: 20,
+      answerOption: "uniq",
     },
   ]);
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -34,6 +42,26 @@ export const Trivia = (props) => {
   const [allowDuplicate, setAllowDuplicate] = useState(!!props.game?.ownBranding);
   const [visibility, setVisibility] = useState(props.game ? props.game.visibility : true);
   const [audio, setAudio] = useState(props.game ? props.game.audio : null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!props.game) return;
+
+    setLoading(true);
+
+    const fetchQuestions = () =>
+      firestoreTrivia
+        .collection("games")
+        .doc(gameId)
+        .collection("questions")
+        .onSnapshot((questionsSnapshot) => {
+          const questions = snapshotToArray(questionsSnapshot);
+          setQuestions(questions);
+          setLoading(false);
+        });
+
+    fetchQuestions();
+  }, [props.game]);
 
   const newId = useMemo(() => {
     return props.game?.id ?? firestore.collection("hanged").doc().id;
@@ -64,6 +92,12 @@ export const Trivia = (props) => {
       ...data,
       id: newId,
       questions,
+      coverImgUrl,
+      ownBranding,
+      video,
+      allowDuplicate,
+      visibility,
+      audio,
     };
 
     let valid = true;
@@ -99,6 +133,8 @@ export const Trivia = (props) => {
   const validateShortAnswer = (question) => {
     return question.answer.length;
   };
+
+  if (loading) return spinLoader();
 
   return (
     <div className="w-screen">
@@ -183,6 +219,7 @@ export const Trivia = (props) => {
                       question: "",
                       fileUrl: "",
                       time: 20,
+                      answerOption: "uniq",
                     };
 
                     setQuestions([...questions, _question]);
@@ -196,7 +233,13 @@ export const Trivia = (props) => {
             </div>
             <Desktop>
               <div className="grid items-center justify-center">
-                <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading}>
+                <ButtonAnt
+                  color="success"
+                  size="big"
+                  htmlType="submit"
+                  disabled={props.isLoading}
+                  loading={props.isLoading}
+                >
                   Guardar
                 </ButtonAnt>
               </div>
@@ -255,29 +298,24 @@ export const Trivia = (props) => {
                   Tipo de pregunta
                 </div>
               </div>
-              <Select
-                showSearch
-                virtual={false}
-                height="35px"
-                optionFilterProp="children"
-                borderRight="1px solid #C4C4C4"
-                borderLeft="1px solid #C4C4C4"
-                borderTop="1px solid #C4C4C4"
-                borderBottom="1px solid #C4C4C4"
-                borderRadius="4px"
-                value={questions[questionIndex].type}
-                onChange={(value) => {
+              <select
+                className="w-full border border-grayLighten border-[1px] bg-white rounded px-3 py-2 outline-none"
+                onChange={(event) => {
+                  const value = event.target.value;
                   const _questions = [...questions];
                   _questions[questionIndex].type = value;
                   _questions[questionIndex].answer = [];
+                  _questions[questionIndex].answerOption = value === "shortAnswer" ? "multiple" : "uniq";
                   setQuestions(_questions);
                 }}
-                optionsdom={triviaQuestionsTypes.map((type) => ({
-                  key: type.key,
-                  code: type.key,
-                  name: type.value,
-                }))}
-              />
+                value={questions[questionIndex].type}
+              >
+                {triviaQuestionsTypes.map((type) => (
+                  <option className="py-1" key={type.key} value={type.key}>
+                    {type.value}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="p-4 border-gray border-b-[1px]">
               <div className="flex items-center justify-start mb-[5px]">
@@ -292,29 +330,22 @@ export const Trivia = (props) => {
                   Límite de tiempo
                 </div>
               </div>
-              <Select
-                showSearch
-                virtual={false}
-                height="35px"
-                optionFilterProp="children"
-                borderRight="1px solid #C4C4C4"
-                borderLeft="1px solid #C4C4C4"
-                borderTop="1px solid #C4C4C4"
-                borderBottom="1px solid #C4C4C4"
-                borderRadius="4px"
-                value={questions[questionIndex].time}
-                onChange={(value) => {
+              <select
+                className="w-full border border-grayLighten border-[1px] bg-white rounded px-3 py-2 outline-none mb-2"
+                onChange={(event) => {
+                  const value = event.target.value;
                   const _questions = [...questions];
                   _questions[questionIndex].time = value;
                   setQuestions(_questions);
                 }}
-                optionsdom={triviaQuestionsTimes.map((time) => ({
-                  key: time.key,
-                  code: time.key,
-                  name: time.value,
-                }))}
-              />
-
+                value={questions[questionIndex].time}
+              >
+                {triviaQuestionsTimes.map((time) => (
+                  <option className="py-1" key={time.key} value={time.key}>
+                    {time.value}
+                  </option>
+                ))}
+              </select>
               <div className="flex items-center justify-start mb-[5px]">
                 <Image
                   src={`${config.storageUrl}/resources/options-icon.svg`}
@@ -327,24 +358,26 @@ export const Trivia = (props) => {
                   Opciones de respuesta
                 </div>
               </div>
-              <Select
-                showSearch
-                virtual={false}
-                height="35px"
-                optionFilterProp="children"
-                borderRight="1px solid #C4C4C4"
-                borderLeft="1px solid #C4C4C4"
-                borderTop="1px solid #C4C4C4"
-                borderBottom="1px solid #C4C4C4"
-                borderRadius="4px"
-                value={"uniq"}
-                onChange={(value) => {}}
-                optionsdom={triviaQuestionsOptions.map((option) => ({
-                  key: option.key,
-                  code: option.key,
-                  name: option.value,
-                }))}
-              />
+              <select
+                className="w-full border border-grayLighten border-[1px] bg-white rounded px-3 py-2 outline-none"
+                disabled={
+                  questions[questionIndex].type === "shortAnswer" || questions[questionIndex].type === "trueFalse"
+                }
+                onChange={(event) => {
+                  const value = event.target.value;
+                  const _questions = [...questions];
+                  _questions[questionIndex].answerOption = value;
+                  _questions[questionIndex].answer = [];
+                  setQuestions(_questions);
+                }}
+                value={questions[questionIndex].answerOption}
+              >
+                {triviaQuestionsOptions.map((option) => (
+                  <option className="py-1" key={option.key} value={option.key}>
+                    {option.value}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="p-4">
