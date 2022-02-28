@@ -333,6 +333,7 @@ export const TriviaQuestion = (props) => {
               </div>
             </div>
             <CheckboxContainer
+              rounded
               imageUrl={`${config.storageUrl}/resources/checked.svg`}
               className="bg-blue w-full h-full flex items-center justify-center"
             >
@@ -366,6 +367,7 @@ export const TriviaQuestion = (props) => {
               </div>
             </div>
             <CheckboxContainer
+              rounded
               imageUrl={`${config.storageUrl}/resources/checked.svg`}
               className="bg-red w-full h-full flex items-center justify-center"
             >
