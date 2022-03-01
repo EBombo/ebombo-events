@@ -24,49 +24,51 @@ export const EventsInformation = (props) => {
 
   return (
     <EventsInformationStyled>
-      <div className="title">Dirige como quieras las dinámicas virtuales</div>
+      <div className="content">
+        <div className="title">Dirige como quieras las dinámicas virtuales</div>
 
-      <div className="events-content">
-        <Tablet>
-          <Image
-            src={`${config.storageUrl}/resources/video-lading.gif`}
-            width="100%"
-            height="250px"
-            desktopHeight="450px"
-            size="contain"
-          />
-        </Tablet>
-        <div className="items">
-          {items.map((item, index) => (
-            <div
-              key={item.title}
-              onClick={() => setCurrentItem(index)}
-              className={`item ${currentItem === index ? "active" : ""}`}
-            >
-              <div className="title-item">
-                <Image
-                  src={`${config.storageUrl}/resources/icons/${item.icon}`}
-                  width="20px"
-                  height="20px"
-                  size="contain"
-                  margin="0 8px 0 0"
-                />
-                {item.title}
+        <div className="events-content">
+          <Tablet>
+            <Image
+              src={`${config.storageUrl}/resources/video-lading.gif`}
+              width="100%"
+              height="250px"
+              desktopHeight="450px"
+              size="contain"
+            />
+          </Tablet>
+          <div className="items">
+            {items.map((item, index) => (
+              <div
+                key={item.title}
+                onClick={() => setCurrentItem(index)}
+                className={`item ${currentItem === index ? "active" : ""}`}
+              >
+                <div className="title-item">
+                  <Image
+                    src={`${config.storageUrl}/resources/icons/${item.icon}`}
+                    width="20px"
+                    height="20px"
+                    size="contain"
+                    margin="0 8px 0 0"
+                  />
+                  {item.title}
+                </div>
+                <div className="description">{item.description}</div>
               </div>
-              <div className="description">{item.description}</div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <Desktop>
-          <Image
-            src={`${config.storageUrl}/resources/video-lading.gif`}
-            width="100%"
-            height="250px"
-            desktopHeight="450px"
-            size="contain"
-          />
-        </Desktop>
+          <Desktop>
+            <Image
+              src={`${config.storageUrl}/resources/video-lading.gif`}
+              margin="0"
+              width="580px"
+              height="350px"
+              size="cover"
+            />
+          </Desktop>
+        </div>
       </div>
     </EventsInformationStyled>
   );
@@ -76,48 +78,56 @@ const EventsInformationStyled = styled.div`
   padding: 3rem 1.5rem;
   background: linear-gradient(270deg, #1d1138 0%, #331e6d 31.25%, #1e1239 100%);
 
-  .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-align: center;
-    color: ${(props) => props.theme.basic.white};
+  .content {
+    margin: auto;
 
     ${mediaQuery.afterTablet} {
-      font-size: 2rem;
-      text-align: left;
-    }
-  }
-
-  .events-content {
-    display: grid;
-    grid-gap: 10px;
-
-    ${mediaQuery.afterTablet} {
-      grid-template-columns: 1fr 2fr;
+      max-width: 70vw;
     }
 
-    .items {
-      .item {
-        margin: 5px 0;
-        cursor: pointer;
-        padding: 15px 10px;
-        border-radius: 5px;
-        color: ${(props) => props.theme.basic.white};
+    .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-align: center;
+      color: ${(props) => props.theme.basic.white};
 
-        .title-item {
-          font-size: 1rem;
-          font-weight: bold;
-          display: inline-flex;
-        }
+      ${mediaQuery.afterTablet} {
+        font-size: 2rem;
+        text-align: left;
+      }
+    }
 
-        .description {
-          font-size: 0.7rem;
-        }
+    .events-content {
+      display: grid;
+      grid-gap: 10px;
+
+      ${mediaQuery.afterTablet} {
+        grid-template-columns: 1fr 1.5fr;
       }
 
-      .active {
-        background: ${(props) => props.theme.basic.primaryDark};
+      .items {
+        .item {
+          margin: 5px 0;
+          cursor: pointer;
+          padding: 15px 10px;
+          border-radius: 5px;
+          color: ${(props) => props.theme.basic.white};
+
+          .title-item {
+            font-size: 1rem;
+            font-weight: bold;
+            display: inline-flex;
+          }
+
+          .description {
+            font-size: 0.7rem;
+          }
+        }
+
+        .active {
+          background: ${(props) => props.theme.basic.primaryDark};
+        }
       }
     }
   }

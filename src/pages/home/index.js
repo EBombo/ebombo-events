@@ -1,12 +1,10 @@
 import React, { useEffect, useGlobal } from "reactn";
 import { HeaderLanding } from "./HeaderLanding";
 import { Comments } from "./comments/Comments";
-import { Plans } from "../subscriptions/Plans";
 import { ContactForm } from "./ContactForm";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Products } from "./Products";
-import { OurGames } from "./OurGames";
 import { EventsInformation } from "./EventsInformation";
 import { EbomboStyle } from "./EbomboStyled";
 
@@ -35,12 +33,6 @@ export const Home = (props) => {
 
       <EbomboStyle {...props} />
 
-      <section id="plans">
-        <Plans {...props} />
-      </section>
-
-      <OurGames />
-
       <Comments />
 
       <section id="contact">
@@ -53,4 +45,5 @@ export const Home = (props) => {
 const LandingContainer = styled.div`
   width: 100%;
   max-width: 100vw;
+  font-family: Lato;
 `;
