@@ -1,12 +1,11 @@
 import React, { useEffect, useGlobal } from "reactn";
 import { HeaderLanding } from "./HeaderLanding";
-import { Comments } from "./comments/Comments";
-import { ContactForm } from "./ContactForm";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Products } from "./Products";
 import { EventsInformation } from "./EventsInformation";
 import { EbomboStyle } from "./EbomboStyled";
+import { Options } from "./Options";
 
 export const Home = (props) => {
   const router = useRouter();
@@ -33,11 +32,7 @@ export const Home = (props) => {
 
       <EbomboStyle {...props} />
 
-      <Comments />
-
-      <section id="contact">
-        <ContactForm />
-      </section>
+      <Options {...props} />
     </LandingContainer>
   );
 };
