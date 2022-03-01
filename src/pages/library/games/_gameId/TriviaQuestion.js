@@ -11,6 +11,42 @@ export const TriviaQuestion = (props) => {
   const [optionFocus, setOptionFocus] = useState(0);
   const [correctAns, setCorrectAns] = useState("");
 
+  const updateInputQuiz = (number, e) => {
+    const _option = e.target.value;
+    const newOptions = [...props.questions[props.questionIndex].options];
+    newOptions[number] = _option;
+
+    const _questions = [...props.questions];
+    _questions[props.questionIndex].options = newOptions;
+    props.setQuestions(_questions);
+  };
+
+  const updateCheckboxQuiz = (number, e, uniq = false) => {
+    const _questions = [...props.questions];
+
+    if (!e.target.checked) {
+      const _newAnswer = _questions[props.questionIndex].answer.filter((ans) => ans !== number);
+      _questions[props.questionIndex].answer = _newAnswer;
+      return props.setQuestions(_questions);
+    }
+
+    if (uniq) {
+      _questions[props.questionIndex].answer = [1];
+      return props.setQuestions(_questions);
+    }
+
+    _questions[props.questionIndex].answer.push(number);
+    props.setQuestions(_questions);
+  };
+
+  const updateInputTrueFalse = (e, ans) => {
+    if (!e.target.checked) return;
+
+    const _questions = [...props.questions];
+    _questions[props.questionIndex].answer = ans;
+    props.setQuestions(_questions);
+  };
+
   return (
     <>
       {props.questions[props.questionIndex].type === "quiz" && (
@@ -28,10 +64,7 @@ export const TriviaQuestion = (props) => {
                     type="checkbox"
                     defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(0)}
                     onChange={(e) => {
-                      if (!e.target.checked) return;
-                      const _questions = [...props.questions];
-                      _questions[props.questionIndex].answer = [0];
-                      props.setQuestions(_questions);
+                      updateCheckboxQuiz(0, e, true);
                     }}
                   />
                   <label htmlFor="trigger" className="checker" />
@@ -46,15 +79,7 @@ export const TriviaQuestion = (props) => {
                     type="checkbox"
                     defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(0)}
                     onChange={(e) => {
-                      const _questions = [...props.questions];
-                      if (!e.target.checked) {
-                        const answer = _questions[props.questionIndex].answer.filter((ans) => ans !== 0);
-                        console.log(answer);
-                        _questions[props.questionIndex].answer = answer;
-                        return props.setQuestions(_questions);
-                      }
-                      _questions[props.questionIndex].answer.push(0);
-                      props.setQuestions(_questions);
+                      updateCheckboxQuiz(0, e);
                     }}
                   />
                   <label htmlFor="trigger" className="checker" />
@@ -80,13 +105,7 @@ export const TriviaQuestion = (props) => {
               value={props.questions[props.questionIndex].options[0] ?? ""}
               onFocus={() => setOptionFocus(0)}
               onChange={(e) => {
-                const _option = e.target.value;
-                const newOptions = [...props.questions[props.questionIndex].options];
-                newOptions[0] = _option;
-
-                const _questions = [...props.questions];
-                _questions[props.questionIndex].options = newOptions;
-                props.setQuestions(_questions);
+                updateInputQuiz(0, e);
               }}
             />
           </div>
@@ -103,9 +122,7 @@ export const TriviaQuestion = (props) => {
                     type="checkbox"
                     defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(1)}
                     onChange={(e) => {
-                      const _questions = [...props.questions];
-                      _questions[props.questionIndex].answer = [1];
-                      props.setQuestions(_questions);
+                      updateCheckboxQuiz(1, e, true);
                     }}
                   />
                   <label for="trigger" className="checker" />
@@ -120,15 +137,7 @@ export const TriviaQuestion = (props) => {
                     type="checkbox"
                     defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(1)}
                     onChange={(e) => {
-                      const _questions = [...props.questions];
-                      if (!e.target.checked) {
-                        const answer = _questions[props.questionIndex].answer.filter((ans) => ans !== 1);
-                        console.log(answer);
-                        _questions[props.questionIndex].answer = answer;
-                        return props.setQuestions(_questions);
-                      }
-                      _questions[props.questionIndex].answer.push(1);
-                      props.setQuestions(_questions);
+                      updateCheckboxQuiz(1, e);
                     }}
                   />
                   <label htmlFor="trigger" className="checker" />
@@ -154,13 +163,7 @@ export const TriviaQuestion = (props) => {
               value={props.questions[props.questionIndex].options[1] ?? ""}
               onFocus={() => setOptionFocus(1)}
               onChange={(e) => {
-                const _option = e.target.value;
-                const newOptions = [...props.questions[props.questionIndex].options];
-                newOptions[1] = _option;
-
-                const _questions = [...props.questions];
-                _questions[props.questionIndex].options = newOptions;
-                props.setQuestions(_questions);
+                updateInputQuiz(1, e);
               }}
             />
           </div>
@@ -177,9 +180,7 @@ export const TriviaQuestion = (props) => {
                     type="checkbox"
                     defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(2)}
                     onChange={(e) => {
-                      const _questions = [...props.questions];
-                      _questions[props.questionIndex].answer = [2];
-                      props.setQuestions(_questions);
+                      updateCheckboxQuiz(2, e, true);
                     }}
                   />
                   <label htmlFor="trigger" className="checker" />
@@ -194,15 +195,7 @@ export const TriviaQuestion = (props) => {
                     type="checkbox"
                     defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(2)}
                     onChange={(e) => {
-                      const _questions = [...props.questions];
-                      if (!e.target.checked) {
-                        const answer = _questions[props.questionIndex].answer.filter((ans) => ans !== 2);
-                        console.log(answer);
-                        _questions[props.questionIndex].answer = answer;
-                        return props.setQuestions(_questions);
-                      }
-                      _questions[props.questionIndex].answer.push(2);
-                      props.setQuestions(_questions);
+                      updateCheckboxQuiz(2, e);
                     }}
                   />
                   <label htmlFor="trigger" className="checker" />
@@ -228,13 +221,7 @@ export const TriviaQuestion = (props) => {
               value={props.questions[props.questionIndex].options[2] ?? ""}
               onFocus={() => setOptionFocus(2)}
               onChange={(e) => {
-                const _option = e.target.value;
-                const newOptions = [...props.questions[props.questionIndex].options];
-                newOptions[2] = _option;
-
-                const _questions = [...props.questions];
-                _questions[props.questionIndex].options = newOptions;
-                props.setQuestions(_questions);
+                updateInputQuiz(2, e);
               }}
             />
           </div>
@@ -251,9 +238,7 @@ export const TriviaQuestion = (props) => {
                     type="checkbox"
                     defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(3)}
                     onChange={(e) => {
-                      const _questions = [...props.questions];
-                      _questions[props.questionIndex].answer = [3];
-                      props.setQuestions(_questions);
+                      updateCheckboxQuiz(3, e, true);
                     }}
                   />
                   <label htmlFor="trigger" className="checker" />
@@ -268,15 +253,7 @@ export const TriviaQuestion = (props) => {
                     type="checkbox"
                     defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(3)}
                     onChange={(e) => {
-                      const _questions = [...props.questions];
-                      if (!e.target.checked) {
-                        const answer = _questions[props.questionIndex].answer.filter((ans) => ans !== 3);
-                        console.log(answer);
-                        _questions[props.questionIndex].answer = answer;
-                        return props.setQuestions(_questions);
-                      }
-                      _questions[props.questionIndex].answer.push(3);
-                      props.setQuestions(_questions);
+                      updateCheckboxQuiz(3, e);
                     }}
                   />
                   <label htmlFor="trigger" className="checker" />
@@ -302,13 +279,7 @@ export const TriviaQuestion = (props) => {
               value={props.questions[props.questionIndex].options[3] ?? ""}
               onFocus={() => setOptionFocus(3)}
               onChange={(e) => {
-                const _option = e.target.value;
-                const newOptions = [...props.questions[props.questionIndex].options];
-                newOptions[3] = _option;
-
-                const _questions = [...props.questions];
-                _questions[props.questionIndex].options = newOptions;
-                props.setQuestions(_questions);
+                updateInputQuiz(3, e);
               }}
             />
           </div>
@@ -342,10 +313,7 @@ export const TriviaQuestion = (props) => {
                 type="checkbox"
                 checked={props.questions[props.questionIndex].answer === true}
                 onChange={(e) => {
-                  if (!e.target.checked) return;
-                  const _questions = [...props.questions];
-                  _questions[props.questionIndex].answer = true;
-                  props.setQuestions(_questions);
+                  updateInputTrueFalse(e, true);
                 }}
               />
               <label htmlFor="trueCheckbox" className="checker" />
@@ -376,10 +344,7 @@ export const TriviaQuestion = (props) => {
                 type="checkbox"
                 checked={props.questions[props.questionIndex].answer === false}
                 onChange={(e) => {
-                  if (!e.target.checked) return;
-                  const _questions = [...props.questions];
-                  _questions[props.questionIndex].answer = false;
-                  props.setQuestions(_questions);
+                  updateInputTrueFalse(e, false);
                 }}
               />
               <label htmlFor="falseCheckbox" className="checker" />
