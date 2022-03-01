@@ -26,10 +26,10 @@ let hostNameBomboGames;
 
 if (DOMAIN?.includes("local") || DOMAIN?.includes("red") || DOMAIN?.includes("dev") || DOMAIN?.includes("shell")) {
   console.log("dev", version);
-  hostNameBomboGames = 'red.ebombo.io';
+  hostNameBomboGames = "red.ebombo.io";
 } else {
   console.log("prod", version);
-  hostNameBomboGames = 'ebombo.io';
+  hostNameBomboGames = "ebombo.io";
 }
 
 let analyticsBingo;
@@ -41,6 +41,11 @@ let firestoreRoulette;
 let storageRoulette;
 let authRoulette;
 let analyticsRoulette;
+
+let firestoreTrivia;
+let storageTrivia;
+let authTrivia;
+let analyticsTrivia;
 
 let analytics;
 let firestore;
@@ -96,6 +101,22 @@ if (isEmpty(firebase.apps)) {
   } catch (error) {
     console.error("error initializeApp", error);
   }
+
+  // Trivia connection.
+  try {
+    firebase.initializeApp(config.firebaseTrivia, "trivia");
+    firestoreTrivia = firebase.app("trivia").firestore();
+    storageTrivia = firebase.app("trivia").storage();
+    authTrivia = firebase.app("trivia").auth();
+
+    if (typeof window !== "undefined") {
+      analyticsTrivia = firebase.app("trivia").analytics();
+    }
+
+    firestoreTrivia.settings({ ignoreUndefinedProperties: true });
+  } catch (error) {
+    console.error("error initializeApp", error);
+  }
 }
 
 if (DOMAIN?.includes("localhost")) {
@@ -132,4 +153,8 @@ export {
   landingsStorageBucket,
   usersStorageBucket,
   companiesStorageBucket,
+  firestoreTrivia,
+  storageTrivia,
+  authTrivia,
+  analyticsTrivia,
 };

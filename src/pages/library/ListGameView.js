@@ -192,7 +192,7 @@ export const ListGameView = (props) => {
                     size="contain"
                   />
                   <div className="text-['Lato'] font-[400] text-[12px] leading-[14px] text-grayLight">
-                    {capitalize(get(props, "game.adminGame.name", ""))}
+                    {capitalize(get(props, "game.adminGame.title", ""))}
                   </div>
                 </div>
               </Desktop>
