@@ -40,8 +40,10 @@ export const Products = (props) => {
             <div className="background" style={{ background: product.background }}>
               <Image
                 src={product.image}
-                height="360px"
-                width="470px"
+                desktopHeight="360px"
+                desktopWidth="470px"
+                height="160px"
+                width="270px"
                 size="contain"
                 margin="0 -30px 0 0"
                 borderRadius="15px"
@@ -91,19 +93,20 @@ const ProductsContainer = styled.div`
 
   .title,
   .sub-title {
+    max-width: 70%;
+    margin: 0 auto;
+    font-size: 1.5rem;
     font-family: Lato;
     font-style: normal;
     font-weight: bold;
-    font-size: 2rem;
     line-height: 26px;
     text-align: center;
     letter-spacing: 0.03em;
-    margin: 1rem auto;
-    max-width: 70%;
     color: ${(props) => props.theme.basic.secondary};
 
     ${mediaQuery.afterTablet} {
       font-size: 80px;
+      margin: 1rem auto;
     }
   }
 
@@ -131,13 +134,17 @@ const ProductsContainer = styled.div`
     .tab {
       width: auto;
       margin: 0 5px;
-      font-size: 20px;
+      font-size: 12px;
       cursor: pointer;
       display: inline;
       padding: 5px 10px;
       border-radius: 5px;
       color: ${(props) => props.theme.basic.primary};
       background: ${(props) => props.theme.basic.gray};
+
+      ${mediaQuery.afterTablet} {
+        font-size: 20px;
+      }
     }
 
     .active {

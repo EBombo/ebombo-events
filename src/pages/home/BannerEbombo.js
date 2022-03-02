@@ -28,6 +28,9 @@ const BannerEbomboStyled = styled.div`
   background: linear-gradient(270deg, #1d1138 0%, #331e6d 31.25%, #1e1239 100%);
 
   .content {
+    margin: auto;
+    max-width: 90vw;
+
     ${mediaQuery.afterTablet} {
       margin: auto;
       max-width: 80vw;

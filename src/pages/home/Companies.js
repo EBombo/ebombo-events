@@ -10,16 +10,20 @@ export const Companies = (props) => {
       <Image
         src={`${config.storageUrl}/resources/planet-1.svg`}
         size="contain"
-        width="200px"
-        height="200px"
+        desktopWidth="200px"
+        desktopHeight="200px"
+        width="100px"
+        height="100px"
         margin="24px"
         className="planet-1"
       />
       <Image
         src={`${config.storageUrl}/resources/planet-2.svg`}
         size="contain"
-        width="200px"
-        height="200px"
+        desktopWidth="200px"
+        desktopHeight="200px"
+        width="100px"
+        height="100px"
         margin="24px"
         className="planet-2"
       />
@@ -30,8 +34,9 @@ export const Companies = (props) => {
         <Image
           src={`${config.storageUrl}/resources/companies-group-icon.png`}
           size={"contain"}
-          height="200px"
-          width="100%"
+          desktopHeight="200px"
+          height="90px"
+          width="auto"
           margin="24px"
         />
       </div>

@@ -67,15 +67,23 @@ const OptionsStyled = styled.div`
   background: linear-gradient(270deg, #ececec 0%, #ffffff 31.25%, #ededed 100%);
 
   .content {
+    margin: auto;
+    max-width: 90vw;
+
     ${mediaQuery.afterTablet} {
-      margin: auto;
       max-width: 80vw;
     }
 
     .title {
-      font-size: 70px;
-      line-height: 84px;
+      font-size: 40px;
+      line-height: 40px;
+      font-weight: bold;
       margin-bottom: 2rem;
+
+      ${mediaQuery.afterTablet} {
+        font-size: 70px;
+        line-height: 84px;
+      }
     }
 
     .options {
@@ -83,6 +91,12 @@ const OptionsStyled = styled.div`
       margin-bottom: 2rem;
 
       .option {
+        font-size: 12px;
+
+        ${mediaQuery.afterTablet} {
+          font-size: 20px;
+        }
+
         span {
           color: ${(props) => props.theme.basic.primary};
         }
