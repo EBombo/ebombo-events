@@ -93,6 +93,7 @@ export const EbomboStyle = (props) => {
                   height="150px"
                   size="content"
                   margin="0"
+                  className="image"
                 />
               </ItemStyled>
             ) : (
@@ -110,6 +111,7 @@ const ItemStyled = styled.div`
   border-radius: 5px;
   border-top: 5px solid ${(props) => props.color};
   background: ${(props) => props.theme.basic.white};
+  position: relative;
 
   .title-item {
     margin: 10px 0;
@@ -120,6 +122,12 @@ const ItemStyled = styled.div`
 
   .description-item {
     font-size: 24px;
+  }
+
+  .image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 `;
 
