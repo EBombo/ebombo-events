@@ -107,21 +107,22 @@ export const EbomboStyle = (props) => {
 };
 
 const ItemStyled = styled.div`
+  height: 350px;
   padding: 20px 30px;
   border-radius: 5px;
+  position: relative;
   border-top: 5px solid ${(props) => props.color};
   background: ${(props) => props.theme.basic.white};
-  position: relative;
 
   .title-item {
     margin: 10px 0;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: bold;
     color: ${(props) => props.theme.basic.primary};
   }
 
   .description-item {
-    font-size: 24px;
+    font-size: 17px;
   }
 
   .image {

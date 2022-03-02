@@ -6,6 +6,8 @@ import { Products } from "./Products";
 import { EventsInformation } from "./EventsInformation";
 import { EbomboStyle } from "./EbomboStyled";
 import { Options } from "./Options";
+import { Companies } from "./Companies";
+import { BannerEbombo } from "./BannerEbombo";
 
 export const Home = (props) => {
   const router = useRouter();
@@ -33,6 +35,10 @@ export const Home = (props) => {
       <EbomboStyle {...props} />
 
       <Options {...props} />
+
+      <Companies {...props} />
+
+      <BannerEbombo {...props} />
     </LandingContainer>
   );
 };

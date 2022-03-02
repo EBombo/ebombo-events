@@ -4,6 +4,8 @@ import { ButtonAnt } from "../../components/form";
 import { mediaQuery } from "../../constants";
 import { useRouter } from "next/router";
 import { CheckOutlined } from "@ant-design/icons";
+import { Image } from "../../components/common/Image";
+import { config } from "../../firebase";
 
 const options = [
   "Acceda a nuestra biblioteca de juegos completa que incluye Trivia, Bingo, Ruleta de preguntas, Ahorcado, entre varias actividades",
@@ -43,10 +45,18 @@ export const Options = (props) => {
           Regístrate
         </ButtonAnt>
 
-        <div className="hr" />
-
-        <div className="sub-title">Con la confianza de empresas líderes</div>
-        <div className="images"></div>
+        <div className="hr">
+          <div className="sub-title">Con la confianza de empresas líderes</div>
+        </div>
+        <div className="images">
+          <Image
+            src={`${config.storageUrl}/resources/companies-icon.png`}
+            size={"contain"}
+            width="fit-content"
+            height={"55px"}
+            margin="0"
+          />
+        </div>
       </div>
     </OptionsStyled>
   );
@@ -80,13 +90,13 @@ const OptionsStyled = styled.div`
     }
 
     .hr {
-      height: 3px;
-      margin: 25px 0;
-      background: ${(props) => props.theme.basic.grayLighten};
-    }
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 3px solid ${(props) => props.theme.basic.grayLighten};
 
-    .sub-title {
-      color: ${(props) => props.theme.basic.grayLighten};
+      .sub-title {
+        color: ${(props) => props.theme.basic.grayLighten};
+      }
     }
   }
 `;
