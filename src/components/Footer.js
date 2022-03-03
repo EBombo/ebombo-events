@@ -1,210 +1,176 @@
-import React from "reactn";
+import React, { useMemo } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery, Tablet } from "../constants";
 import { Image } from "./common/Image";
 import { Anchor } from "./form";
 import { config } from "../firebase";
-import { Collapse } from "antd";
-import { DownOutlined } from "@ant-design/icons";
-
-const { Panel } = Collapse;
 
 const footerContent = [
   {
-    title: "Sobre nosotros",
-    classKey: "start-with",
+    title: "Nosotros",
     children: [
-      { title: "¿Quiénes somos?", link: "/about-us" },
-      { title: "Fundadores", link: "/founders" },
+      { title: "Conócenos", link: "/" },
+      { title: "Términos y condiciones", link: "/" },
     ],
   },
   {
-    title: "Contáctanos",
-    classKey: "contact-us",
+    title: "Plataforma",
     children: [
-      {
-        title: (
-          <>
-            <strong>Mail:</strong> events@ebombo.com
-          </>
-        ),
-        link: "mailto:events@ebombo.com.pe",
-        icon: `${config.storageUrl}/resources/b2bLanding/email.svg`,
-      },
+      { title: "¿Qué hacemos?", link: "/" },
+      { title: "Pide una demo", link: "/" },
     ],
   },
   {
-    title: "¡Síguenos!",
-    classKey: "follow-us",
+    title: "Contacto",
     children: [
-      {
-        title: "Instagram",
-        icon: `${config.storageUrl}/resources/instagram-gray.svg`,
-        link: "https://www.instagram.com/ebombo_/",
-        target: "_blank",
-      },
-      {
-        title: "LinkedIn",
-        icon: `${config.storageUrl}/resources/linkedin-gray.svg`,
-        link: "https://www.linkedin.com/company/ebombo/?viewAsMember=true",
-        target: "_blank",
-      },
+      { title: "Contactar ventas", link: "/" },
+      { title: "Contactar soporte", link: "/" },
     ],
   },
 ];
 
-export const Footer = (props) => (
-  <FooterContainer>
-    <FooterContent>
-      <Tablet>
-        <Collapse
-          defaultActiveKey={[]}
-          ghost
-          expandIconPosition="right"
-          expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 180 : 0} />}
-        >
-          {footerContent.map((content) => (
-            <Panel header={content.title} key={content.title}>
-              <div className="items-container">
-                {content.children.map((item, index) => (
-                  <Anchor href={item.link} key={`mobile-${index}`} target={item.target}>
-                    <div className={`item-body ${content.classKey}`}>
-                      {item.icon ? (
-                        <Image
-                          src={item.icon}
-                          width={"25px"}
-                          height={"25px"}
-                          size={"contain"}
-                          margin={"0 auto 0 0"}
-                          className="icon"
-                        />
-                      ) : (
-                        <span />
-                      )}
-                      <span>{item.title}</span>
-                    </div>
-                  </Anchor>
-                ))}
-              </div>
-            </Panel>
-          ))}
-        </Collapse>
-      </Tablet>
-      <Desktop>
+export const Footer = (props) => {
+  const email = useMemo(() => {
+    return (
+      <div className="email">
+        <Image
+          src={`${config.storageUrl}/resources/email-white.svg`}
+          size="contain"
+          width="15px"
+          height="15px"
+          margin="5px 10px 0 0"
+        />
+        events@ebombo.com
+      </div>
+    );
+  }, []);
+
+  return (
+    <FooterContainer>
+      <div className="content-footer">
+        <div className="images">
+          <Image
+            src={`${config.storageUrl}/resources/ebombo-footer.svg`}
+            size="contain"
+            desktopWidth="150px"
+            desktopHeight="fit-content"
+            width="100px"
+            height="auto"
+            margin="0"
+          />
+
+          <div className="icons">
+            <div className="email">
+              <Image
+                src={`${config.storageUrl}/resources/instagram-white.svg`}
+                size="contain"
+                width="15px"
+                height="15px"
+                margin="0"
+              />
+              <Image
+                src={`${config.storageUrl}/resources/linkedin-white.svg`}
+                size="contain"
+                width="15px"
+                height="15px"
+                margin="0 10px"
+              />
+            </div>
+
+            <Desktop>{email}</Desktop>
+          </div>
+        </div>
+
+        <Tablet>{email}</Tablet>
+
         {footerContent.map((content) => (
           <div className="content-wrapper" key={content.title}>
             <div className="title">{content.title}</div>
+
             <div className="items-container">
               {content.children.map((item, index) => (
-                <Anchor href={item.link} key={`desktop-${index}`} target={item.target}>
-                  <div className={`item-body ${content.classKey}`}>
-                    {item.icon ? (
-                      <Image
-                        src={item.icon}
-                        width={"25px"}
-                        height={"25px"}
-                        size={"contain"}
-                        margin={"0 auto 0 0"}
-                        className="icon"
-                      />
-                    ) : (
-                      <span />
-                    )}
-                    <span>{item.title}</span>
-                  </div>
-                </Anchor>
+                <div key={`desktop-${index}`}>
+                  <Anchor href={item.link} variant="primary" margin="0">
+                    {item.title}
+                  </Anchor>
+                </div>
               ))}
             </div>
           </div>
         ))}
-      </Desktop>
-    </FooterContent>
-    <div className="copyright-container">
-      <hr />
-      <div>
-        <Image className="icon" src={`${config.storageUrl}/resources/copyright.svg`} width="15px" height="15px" />{" "}
-        ebombo 2022
       </div>
-    </div>
-  </FooterContainer>
-);
+
+      <div className="copyright-container">
+        <div className="label">
+          <Image className="icon" src={`${config.storageUrl}/resources/copyright.svg`} width="15px" height="15px" />{" "}
+          ebombo 2022
+        </div>
+      </div>
+    </FooterContainer>
+  );
+};
 
 const FooterContainer = styled.div`
-  background: ${(props) => props.theme.basic.white};
-  .copyright-container {
-    hr {
-      border-top: 0;
-    }
-    .icon {
-      display: inline-block;
-    }
-    & > div {
-      padding: 30px;
-      font-family: Lato;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 17px;
-      text-align: center;
-    }
-  }
-`;
+  background: ${(props) => props.theme.basic.secondaryDark};
 
-const FooterContent = styled.div`
-  padding: 1rem;
-  width: 100%;
-
-  display: inline-flex;
-  justify-content: space-evenly;
-  .ant-collapse {
-    width: 100%;
-  }
-  .ant-collapse-arrow {
-    font-size: 16px !important;
-  }
-
-  .ant-collapse-header,
-  .title {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 29px;
-    margin-bottom: 19px;
-    color: ${(props) => props.theme.basic.secondary};
-  }
-  .item-body {
-    margin: 12px 0;
-    text-align: left;
+  .content-footer {
     display: grid;
-    grid-template-columns: 48px auto;
-    grid-template-rows: auto;
+    grid-gap: 30px 0;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    grid-template-columns: 1fr 1fr;
+    color: ${(props) => props.theme.basic.white};
 
-    &.start-with {
-      grid-template-columns: 0px auto;
-      span:first-child {
-        width: 0px;
+    ${mediaQuery.afterTablet} {
+      display: grid;
+      grid-template-columns: 3fr 1fr 1fr 1fr;
+    }
+
+    .images {
+      padding-left: 2rem;
+
+      ${mediaQuery.afterTablet} {
+        padding-left: 3rem;
       }
     }
 
-    .icon {
-      display: inline-block;
-      align-self: start;
+    .icons {
+      display: inline-grid;
     }
-    span {
-      font-size: 18px;
-      font-family: Lato;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 22px;
-      color: ${(props) => props.theme.basic.grayDarken};
+
+    .email {
+      display: flex;
+      margin-top: 20px;
+    }
+
+    .content-wrapper {
+      padding-left: 2rem;
+
+      .title {
+        font-size: 20px;
+        font-weight: bold;
+      }
     }
   }
 
-  ${mediaQuery.afterTablet} {
-    padding: 2rem;
-    .description {
-      font-size: 12px;
+  .copyright-container {
+    .label {
+      text-align: left;
+      padding: 30px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 17px;
+      font-family: Lato;
+      font-style: normal;
+      color: ${(props) => props.theme.basic.white};
+      border-top: 3px solid ${(props) => props.theme.basic.primary};
+
+      .icon {
+        filter: invert(1);
+        margin-right: 15px;
+        margin-bottom: -3px;
+        display: inline-block;
+      }
     }
   }
 `;
