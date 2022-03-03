@@ -11,6 +11,7 @@ export const darkTheme = {
     success: "#56EEA5",
     successLight: "#6ce7ac",
     successSecondary: "#97ecc3",
+    successDark: "#42b980",
     white: "#ffffff",
     whiteDarken: "#D2D2D2",
     whiteDark: "#F2F2F2",
