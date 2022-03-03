@@ -59,7 +59,7 @@ export const Comments = (props) => {
 
   const currentComment = useMemo(() => {
     return (
-      <ContentSelected>
+      <div className="content-selected">
         <Image src={comment.img} size="contain" width="150px" height="150px" margin="15px auto" borderRadius="50%" />
 
         <div className="comment">"{comment.comment}"</div>
@@ -69,7 +69,7 @@ export const Comments = (props) => {
         <div className="name">{comment.name}</div>
 
         <div className="job">{comment.job}</div>
-      </ContentSelected>
+      </div>
     );
   }, [comment]);
 
@@ -118,30 +118,6 @@ export const Comments = (props) => {
   );
 };
 
-const ContentSelected = styled.div`
-  margin: auto;
-  text-align: center;
-
-  .comment {
-    font-size: 15px;
-    padding: 0 2rem;
-    font-weight: bold;
-
-    ${mediaQuery.afterTablet} {
-      font-size: 25px;
-    }
-  }
-
-  .name {
-    font-size: 20px;
-    font-weight: bold;
-  }
-
-  .job {
-    font-size: 18px;
-  }
-`;
-
 const CommentsStyled = styled.div`
   padding: 4rem 2rem;
   background-color: ${(props) => props.theme.basic.success};
@@ -162,6 +138,30 @@ const CommentsStyled = styled.div`
 
     .selected {
       opacity: 1;
+    }
+  }
+
+  .content-selected {
+    margin: auto;
+    text-align: center;
+
+    .comment {
+      font-size: 15px;
+      padding: 0 2rem;
+      font-weight: bold;
+
+      ${mediaQuery.afterTablet} {
+        font-size: 25px;
+      }
+    }
+
+    .name {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .job {
+      font-size: 18px;
     }
   }
 `;
