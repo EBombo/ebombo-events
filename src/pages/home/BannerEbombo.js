@@ -2,8 +2,11 @@ import React from "reactn";
 import styled from "styled-components";
 import { ButtonAnt } from "../../components/form";
 import { mediaQuery } from "../../constants";
+import { useRouter } from "next/router";
 
 export const BannerEbombo = (props) => {
+  const router = useRouter();
+
   return (
     <BannerEbomboStyled>
       <div className="content">
