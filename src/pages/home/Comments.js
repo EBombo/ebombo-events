@@ -1,8 +1,10 @@
-import React, { useMemo, useState } from "reactn";
+import React, { useEffect, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
 import { Desktop, mediaQuery, Tablet } from "../../constants";
+import { timeoutPromise } from "../../utils/promised";
+import { spinLoaderMin } from "../../components/common/loader";
 
 const comments = [
   {
@@ -55,7 +57,18 @@ const comments = [
 ];
 
 export const Comments = (props) => {
+  const [loading, setLoading] = useState(true);
   const [comment, setComment] = useState(comments[0]);
+
+  useEffect(() => {
+    const initialize = async () => {
+      await timeoutPromise(1000);
+
+      setLoading(false);
+    };
+
+    initialize();
+  }, []);
 
   const currentComment = useMemo(() => {
     if (!comment) return <div />;
@@ -74,6 +87,8 @@ export const Comments = (props) => {
       </div>
     );
   }, [comment]);
+
+  if (loading) return spinLoaderMin();
 
   return (
     <CommentsStyled tapiz={`${config.storageUrl}/resources/tapiz.svg`}>
