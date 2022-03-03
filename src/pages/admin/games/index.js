@@ -94,7 +94,7 @@ export const GamesContainer = () => {
               {
                 <div style={{ width: "100%" }}>
                   <div className="game" key={game.id} onClick={() => router.push(`/admin/games/${game.id}`)}>
-                    {game.name.toUpperCase()}
+                    {game.title.toUpperCase()}
                   </div>
 
                   <div

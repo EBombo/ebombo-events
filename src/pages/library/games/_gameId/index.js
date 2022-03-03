@@ -139,13 +139,14 @@ export const GameContainer = (props) => {
           {...props}
         />
       )}
-      {currentAdminGame?.name === "roulette" && (
+      {currentAdminGame?.name === "roulette" || currentAdminGame?.name === "rouletteQuestions"  && (
         <Roulette
           submitGame={submitGame}
           isLoading={isLoading}
           game={currentGame}
           parent={parent}
           setParent={setParent}
+          currentAdminGame={currentAdminGame}
           {...props}
         />
       )}
