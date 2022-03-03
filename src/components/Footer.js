@@ -94,7 +94,7 @@ export const Footer = (props) => {
             <div className="items-container">
               {content.children.map((item, index) => (
                 <div key={`desktop-${index}`}>
-                  <Anchor href={item.link} variant="primary" margin="0">
+                  <Anchor href={item.link} variant="primary" margin="0" fontSize="13px">
                     {item.title}
                   </Anchor>
                 </div>

@@ -20,7 +20,10 @@ export const Products = (props) => {
   return (
     <ProductsContainer>
       <div className="title">UNA MANERA INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO</div>
-      <div className="sub-title">Hemos creado una herramienta simple y sencilla que asegura la diversión.</div>
+      <div className="sub-title">
+        Hemos creado una herramienta simple y sencilla que asegura la conexión de tus trabajadores en un esquema híbrido
+        o remoto y el buen ambiente laboral
+      </div>
 
       <div className="tabs">
         {landingProducts.map((product, index) => (
@@ -111,11 +114,12 @@ const ProductsContainer = styled.div`
   }
 
   .sub-title {
-    margin-top: 2.5rem;
     font-size: 1rem;
+    margin-top: 2.5rem;
+    line-height: normal;
 
     ${mediaQuery.afterTablet} {
-      font-size: 30px;
+      font-size: 20px;
     }
   }
 
@@ -137,7 +141,7 @@ const ProductsContainer = styled.div`
       font-size: 12px;
       cursor: pointer;
       display: inline;
-      padding: 5px 10px;
+      padding: 8px 10px;
       border-radius: 5px;
       color: ${(props) => props.theme.basic.primary};
       background: ${(props) => props.theme.basic.gray};
