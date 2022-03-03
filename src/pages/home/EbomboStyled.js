@@ -16,13 +16,13 @@ const EbomboItems = [
     title: "Onboardings",
     description:
       "Ofrecemos actividades virtuales de capacitación para nuevos trabajadores, pero de una manera super divertida",
-    img: "happy-hour.png",
+    img: "onboarding.svg",
     color: "#FFD15B",
   },
   {
     title: "Juegos",
     description: 'Tenemos varios juegos creados por nosotros como "Bingo, Hangman, Ruletas, Trivias y más"',
-    img: "happy-hour.png",
+    img: "games.svg",
     color: "#FFD15B",
   },
   {
@@ -43,26 +43,26 @@ const EbomboItems = [
     title: "Plan de beneficios",
     description:
       "Por cada actividad que se use, tus trabajadores irán acumulando puntos y luego lo podrán canjear por premios increíbles",
-    img: "hielo.png",
+    img: "beneficios.png",
     color: "#93D8E4",
   },
   {
     title: "Actividades de clima",
     description: "Realiza actividades para tu equipo de una forma divertida, auténtica e innovadora.",
-    img: "clima.png",
+    img: "clima.svg",
     color: "#74829C",
   },
   {
     title: "Premiaciones",
     description: "Hacemos premiaciones para festejar los logros de tus trabajadores",
-    img: "corporativos.png",
+    img: "premiacion.svg",
     color: "#E12AFF",
   },
   {
     title: "Actividades rompe hielo",
     description:
       "Tenemos muchas actividades para fortalecer el clima laboral en la empresa. Realiza divertidas dinámicas para motivar tu equipo   y ayudar a tus compañeros a entenderse más entre ellos. ",
-    img: "reuniones.png",
+    img: "hielo.png",
     color: "#7AFFE4",
   },
   {},
