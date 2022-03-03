@@ -28,7 +28,7 @@ export const Options = (props) => {
 
         <div className="options">
           {options.map((option) => (
-            <div className="option">
+            <div className="option" key={option}>
               {" "}
               <CheckOutlined /> {option}
             </div>

@@ -8,6 +8,7 @@ import { EbomboStyle } from "./EbomboStyled";
 import { Options } from "./Options";
 import { Companies } from "./Companies";
 import { BannerEbombo } from "./BannerEbombo";
+import { Comments } from "./Comments";
 
 export const Home = (props) => {
   const router = useRouter();
@@ -37,6 +38,8 @@ export const Home = (props) => {
       <Options {...props} />
 
       <Companies {...props} />
+
+      <Comments {...props} />
 
       <BannerEbombo {...props} />
     </LandingContainer>
