@@ -2,7 +2,7 @@ import React from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { mediaQuery } from "../../constants";
-import { Index } from "../contact";
+import { ContactForm } from "../contact";
 import { Icon } from "../../components/common/Icons";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
@@ -46,7 +46,7 @@ export const AboutUs = (props) => {
         </div>
       </div>
 
-      <Index />
+      <ContactForm />
     </AboutUsContainer>
   );
 };
