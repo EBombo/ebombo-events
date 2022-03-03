@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { infoGamesData } from "../../../components/common/DataList";
 import { GameInfoSection } from "./GameInfoSection";
 import { Icon } from "../../../components/common/Icons";
-import { Index } from "../../contact";
+import { ContactForm } from "../../contact";
 
 export const GameDetail = (props) => {
   const router = useRouter();
@@ -20,7 +20,7 @@ export const GameDetail = (props) => {
           <Icon className="back-icon" type="left" onClick={() => router.back()} />
         </div>
         {infoGame && <GameInfoSection infoGame={infoGame} />}
-        <Index />
+        <ContactForm />
       </div>
     </LandingContainer>
   );
