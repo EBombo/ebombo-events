@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
 import { Desktop, mediaQuery, Tablet } from "../../constants";
-import { timeoutPromise } from "../../utils/promised";
 import { spinLoaderMin } from "../../components/common/loader";
 
 const comments = [
@@ -61,13 +60,7 @@ export const Comments = (props) => {
   const [comment, setComment] = useState(comments[0]);
 
   useEffect(() => {
-    const initialize = async () => {
-      await timeoutPromise(1000);
-
-      setLoading(false);
-    };
-
-    initialize();
+    setLoading(false);
   }, []);
 
   const currentComment = useMemo(() => {
