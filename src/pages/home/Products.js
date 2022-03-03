@@ -80,7 +80,7 @@ export const Products = (props) => {
               margin="25px 0 0 0"
               onClick={() => router.push("/register")}
             >
-              Organiza un evento
+              Regístrate
             </ButtonAnt>
           </div>
         </div>
