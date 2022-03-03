@@ -17,12 +17,12 @@ export const HeaderLanding = (props) => {
       <div className="left-container">
         <div className="text-primary text-2xl">Al estilo ebombo</div>
         <div className="title" data-aos="fade-up" data-aos-delay="0" data-aos-anchor-placement="top-center">
-          Ayudamos a tu empresa a conectar con tus trabajadores.
+          Ayudamos a tu empresa a conectar con tus trabajadores para mejorar el ambiente de trabajo
         </div>
         <div className="description" data-aos="fade-up" data-aos-delay="500" data-aos-anchor-placement="top-center">
           La forma en que tus trabajadores se reunen influye en el clima y cultura de tu empresa. Nuestra plataforma te
-          permite tener experiencias en línea y eventos virtuales creados para promover la productividad, el compromiso
-          y la diversión de tus trabajadores.
+          permite tener experiencias en línea y eventos virtuales para promover la productividad, el compromiso y la
+          diversión de tus trabajadores.
         </div>
         <div className="companies" data-aos="fade-right" data-aos-delay="1000">
           <ButtonAnt
@@ -56,37 +56,54 @@ const HeaderLandingContainer = styled.section`
 
   ${mediaQuery.afterTablet} {
     height: 90vh;
+    padding: 2rem;
+    flex-direction: row;
+    justify-content: center;
   }
 
   .title {
     font-family: Lato;
     font-style: normal;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 25px;
     letter-spacing: 0.03em;
     color: ${(props) => props.theme.basic.whiteLight};
     margin: 1rem 0;
+
+    ${mediaQuery.afterTablet} {
+      font-size: 3rem;
+      line-height: 60px;
+    }
   }
 
   .subtitle {
+    margin: 1rem 0;
+    font-size: 14px;
+    font-weight: 600;
     font-family: Lato;
     font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
     color: ${(props) => props.theme.basic.whiteLight};
-    margin: 1rem 0;
+
+    ${mediaQuery.afterTablet} {
+      font-size: 22px;
+      line-height: 29px;
+    }
   }
 
   .description {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: ${(props) => props.theme.basic.whiteLight};
     margin: 1rem 0;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: Lato;
+    line-height: 17px;
+    font-style: normal;
+    color: ${(props) => props.theme.basic.whiteLight};
+
+    ${mediaQuery.afterTablet} {
+      font-size: 20px;
+      line-height: 22px;
+    }
   }
 
   .right-container {
@@ -102,46 +119,27 @@ const HeaderLandingContainer = styled.section`
     }
   }
 
-  ${mediaQuery.afterTablet} {
-    flex-direction: row;
-    padding: 2rem;
-    justify-content: center;
-
-    .left-container {
+  .left-container {
+    ${mediaQuery.afterTablet} {
       max-width: 600px;
-    }
-
-    .title {
-      font-size: 3.5rem;
-      line-height: 60px;
-    }
-
-    .subtitle {
-      font-size: 22px;
-      line-height: 29px;
-    }
-
-    .description {
-      font-size: 20px;
-      line-height: 22px;
     }
   }
 
   @keyframes loop_carousel_tablet {
     from {
-      background-position: 0% 0%;
+      background-position: 0 0;
     }
     to {
-      background-position: 485px 0%;
+      background-position: 485px 0;
     }
   }
 
   @keyframes loop_carousel_mobile {
     from {
-      background-position: 0% 0%;
+      background-position: 0 0;
     }
     to {
-      background-position: 210% 0%;
+      background-position: 210% 0;
     }
   }
 
