@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { infoGamesData } from "../../../components/common/DataList";
 import { GameInfoSection } from "./GameInfoSection";
 import { Icon } from "../../../components/common/Icons";
-import { ContactForm } from "../../home/ContactForm";
+import { ContactForm } from "../../contact";
 
 export const GameDetail = (props) => {
   const router = useRouter();
