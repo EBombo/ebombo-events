@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { mediaQuery } from "../../../constants";
 import { products } from "../../../components/common/DataList";
-import { ContactForm } from "../../home/ContactForm";
+import { Index } from "../../contact";
 import { Icon } from "../../../components/common/Icons";
 import { ProductInfo } from "./ProductInfo";
 
@@ -20,7 +20,7 @@ export const ProductDetail = (props) => {
           <Icon className="back-icon" type="left" onClick={() => router.back()} />
         </div>
         <ProductInfoSectionsContainer>{product && <ProductInfo product={product} />}</ProductInfoSectionsContainer>
-        <ContactForm />
+        <Index />
       </div>
     </LandingContainer>
   );
