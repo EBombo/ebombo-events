@@ -68,7 +68,7 @@ export const Comments = (props) => {
     if (!comment) return <div />;
 
     return (
-      <div className="content-selected">
+      <div className="content-selected" key={comment.logo} data-aos="fade-in" data-aos-duration="2000">
         <Image src={comment.img} size="contain" width="150px" height="150px" margin="15px auto" borderRadius="50%" />
 
         <div className="comment">"{comment.comment}"</div>
@@ -90,13 +90,13 @@ export const Comments = (props) => {
         <div>
           {comments.slice(0, 3).map((user) => (
             <Image
-              onClick={() => setComment(user)}
+              onMouseOver={() => setComment(user)}
               key={user.img}
               src={user.img}
               size="contain"
               width="100px"
               height="100px"
-              margin="24px"
+              margin="24px auto"
               borderRadius="50%"
               cursor="pointer"
               className={comment.img === user.img ? "selected" : "opacity"}
@@ -109,13 +109,13 @@ export const Comments = (props) => {
         <div>
           {comments.slice(3, 6).map((user) => (
             <Image
-              onClick={() => setComment(user)}
+              onMouseOver={() => setComment(user)}
               key={user.img}
               src={user.img}
               size="contain"
               width="100px"
               height="100px"
-              margin="24px"
+              margin="24px auto"
               borderRadius="50%"
               cursor="pointer"
               className={comment.img === user.img ? "selected" : "opacity"}
@@ -145,10 +145,27 @@ const CommentsStyled = styled.div`
 
     .opacity {
       opacity: 0.5;
+      transition: all 1s ease;
     }
 
     .selected {
       opacity: 1;
+      width: 150px;
+      height: 150px;
+      transition: all 1s ease;
+    }
+  }
+
+  .animated {
+    animation: fadeIn linear 1s;
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
     }
   }
 
