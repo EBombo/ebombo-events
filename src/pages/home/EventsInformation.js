@@ -100,7 +100,7 @@ const EventsInformationStyled = styled.div`
 
     .events-content {
       display: grid;
-      grid-gap: 10px;
+      grid-gap: 10px 25px;
 
       ${mediaQuery.afterTablet} {
         grid-template-columns: 1fr 1.5fr;

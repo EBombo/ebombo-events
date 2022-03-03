@@ -79,7 +79,7 @@ export const EbomboStyle = (props) => {
   return (
     <EbomboStyleStyled>
       <div className="content">
-        <div className="title">El estilo ebombo</div>
+        <div className="title">Al estilo ebombo</div>
 
         <div className="items">
           {EbomboItems.map((item) => {
@@ -89,10 +89,9 @@ export const EbomboStyle = (props) => {
                 <div className="description-item">{item.description}</div>
                 <Image
                   src={`${config.storageUrl}/resources/ebombo-style/${item.img}`}
-                  width="150px"
-                  height="150px"
+                  width="100%"
+                  height="200px"
                   size="content"
-                  margin="0"
                   className="image"
                 />
               </ItemStyled>
@@ -107,7 +106,6 @@ export const EbomboStyle = (props) => {
 };
 
 const ItemStyled = styled.div`
-  height: 350px;
   padding: 20px 30px;
   border-radius: 5px;
   position: relative;
@@ -122,13 +120,13 @@ const ItemStyled = styled.div`
   }
 
   .description-item {
+    height: 150px;
     font-size: 17px;
   }
 
   .image {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    background-position-x: left;
+    background-position-y: bottom;
   }
 `;
 

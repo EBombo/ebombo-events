@@ -60,6 +60,7 @@ export const Comments = (props) => {
   const [comment, setComment] = useState(comments[0]);
 
   useEffect(() => {
+    // This is necessary in order not to break the design.
     setLoading(false);
   }, []);
 
