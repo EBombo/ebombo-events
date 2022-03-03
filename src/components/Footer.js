@@ -32,7 +32,7 @@ const footerContent = [
 export const Footer = (props) => {
   const email = useMemo(() => {
     return (
-      <div className="email">
+      <div className="email" onClick={() => window.open("mailto:events@ebombo.com.pe")}>
         <Image
           src={`${config.storageUrl}/resources/email-white.svg`}
           size="contain"
@@ -62,6 +62,8 @@ export const Footer = (props) => {
           <div className="icons">
             <div className="email">
               <Image
+                cursor="pointer"
+                onClick={() => window.open("https://www.instagram.com/ebombo_/")}
                 src={`${config.storageUrl}/resources/instagram-white.svg`}
                 size="contain"
                 width="15px"
@@ -69,6 +71,8 @@ export const Footer = (props) => {
                 margin="0"
               />
               <Image
+                cursor="pointer"
+                onClick={() => window.open("https://www.linkedin.com/company/ebombo/?viewAsMember=true")}
                 src={`${config.storageUrl}/resources/linkedin-white.svg`}
                 size="contain"
                 width="15px"
@@ -140,6 +144,7 @@ const FooterContainer = styled.div`
 
     .email {
       display: flex;
+      cursor: pointer;
       margin-top: 20px;
     }
 
