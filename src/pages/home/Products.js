@@ -19,7 +19,7 @@ export const Products = (props) => {
 
   return (
     <ProductsContainer>
-      <div className="title">UN CAMBIO INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO</div>
+      <div className="title">UNA MANERA INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO</div>
       <div className="sub-title">Hemos creado una herramienta simple y sencilla que asegura la diversión.</div>
 
       <div className="tabs">
@@ -40,6 +40,8 @@ export const Products = (props) => {
             <div className="background" style={{ background: product.background }}>
               <Image
                 src={product.image}
+                desktopHeight="360px"
+                desktopWidth="470px"
                 height="160px"
                 width="270px"
                 size="contain"
@@ -71,11 +73,11 @@ export const Products = (props) => {
             <ButtonAnt
               color="success"
               variant="contained"
-              fontSize="20px"
-              margin="15px 0 0 0"
+              fontSize="15px"
+              margin="25px 0 0 0"
               onClick={() => router.push("/register")}
             >
-              Regístrate
+              Organiza un evento
             </ButtonAnt>
           </div>
         </div>
@@ -91,19 +93,20 @@ const ProductsContainer = styled.div`
 
   .title,
   .sub-title {
+    max-width: 70%;
+    margin: 0 auto;
+    font-size: 1.5rem;
     font-family: Lato;
     font-style: normal;
     font-weight: bold;
-    font-size: 2rem;
     line-height: 26px;
     text-align: center;
     letter-spacing: 0.03em;
-    margin: 1rem auto;
-    max-width: 70%;
     color: ${(props) => props.theme.basic.secondary};
 
     ${mediaQuery.afterTablet} {
-      font-size: 4rem;
+      font-size: 80px;
+      margin: 1rem auto;
     }
   }
 
@@ -112,7 +115,7 @@ const ProductsContainer = styled.div`
     font-size: 1rem;
 
     ${mediaQuery.afterTablet} {
-      font-size: 1.5rem;
+      font-size: 30px;
     }
   }
 
@@ -131,12 +134,17 @@ const ProductsContainer = styled.div`
     .tab {
       width: auto;
       margin: 0 5px;
-      display: inline;
+      font-size: 12px;
       cursor: pointer;
+      display: inline;
       padding: 5px 10px;
       border-radius: 5px;
       color: ${(props) => props.theme.basic.primary};
       background: ${(props) => props.theme.basic.gray};
+
+      ${mediaQuery.afterTablet} {
+        font-size: 20px;
+      }
     }
 
     .active {

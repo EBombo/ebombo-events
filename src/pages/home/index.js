@@ -1,14 +1,14 @@
 import React, { useEffect, useGlobal } from "reactn";
 import { HeaderLanding } from "./HeaderLanding";
-import { Comments } from "./comments/Comments";
-import { Plans } from "../subscriptions/Plans";
-import { ContactForm } from "./ContactForm";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Products } from "./Products";
-import { OurGames } from "./OurGames";
 import { EventsInformation } from "./EventsInformation";
 import { EbomboStyle } from "./EbomboStyled";
+import { Options } from "./Options";
+import { Companies } from "./Companies";
+import { BannerEbombo } from "./BannerEbombo";
+import { Comments } from "./Comments";
 
 export const Home = (props) => {
   const router = useRouter();
@@ -35,17 +35,13 @@ export const Home = (props) => {
 
       <EbomboStyle {...props} />
 
-      <section id="plans">
-        <Plans {...props} />
-      </section>
+      <Options {...props} />
 
-      <OurGames />
+      <Companies {...props} />
 
-      <Comments />
+      <Comments {...props} />
 
-      <section id="contact">
-        <ContactForm />
-      </section>
+      <BannerEbombo {...props} />
     </LandingContainer>
   );
 };
@@ -53,4 +49,5 @@ export const Home = (props) => {
 const LandingContainer = styled.div`
   width: 100%;
   max-width: 100vw;
+  font-family: Lato;
 `;
