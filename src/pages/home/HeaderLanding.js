@@ -24,17 +24,9 @@ export const HeaderLanding = (props) => {
           permite tener experiencias en línea y eventos virtuales para promover la productividad, el compromiso y la
           diversión de tus trabajadores.
         </div>
-        <div className="companies" data-aos="fade-right" data-aos-delay="1000">
-          <ButtonAnt
-            color="success"
-            variant="contained"
-            fontSize="20px"
-            margin="15px 0 0 0"
-            onClick={() => router.push("/register")}
-          >
-            Regístrate
-          </ButtonAnt>
-        </div>
+        <ButtonAnt color="success" fontSize="20px" margin="15px 0 0 0" onClick={() => router.push("/register")}>
+          Regístrate
+        </ButtonAnt>
       </div>
       <div className="right-container" data-aos="fade-left">
         <div className="image-container">
@@ -140,21 +132,6 @@ const HeaderLandingContainer = styled.section`
     }
     to {
       background-position: 210% 0;
-    }
-  }
-
-  .companies {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .companies > div {
-    background-repeat: repeat-x !important;
-    width: 200%;
-    animation: loop_carousel_mobile 42s linear infinite;
-
-    ${mediaQuery.afterTablet} {
-      animation: loop_carousel_tablet 42s linear infinite;
     }
   }
 `;
