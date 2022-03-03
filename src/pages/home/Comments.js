@@ -58,6 +58,8 @@ export const Comments = (props) => {
   const [comment, setComment] = useState(comments[0]);
 
   const currentComment = useMemo(() => {
+    if (!comment) return <div />;
+
     return (
       <div className="content-selected">
         <Image src={comment.img} size="contain" width="150px" height="150px" margin="15px auto" borderRadius="50%" />
