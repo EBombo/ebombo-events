@@ -78,9 +78,9 @@ export const Products = (props) => {
               variant="contained"
               fontSize="15px"
               margin="25px 0 0 0"
-              onClick={() => router.push("/register")}
+              onClick={() => router.push("/contact")}
             >
-              Regístrate
+              Contáctanos
             </ButtonAnt>
           </div>
         </div>

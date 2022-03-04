@@ -24,8 +24,8 @@ export const HeaderLanding = (props) => {
           permite tener experiencias en línea y eventos virtuales para promover la productividad, el compromiso y la
           diversión de tus trabajadores.
         </div>
-        <ButtonAnt color="success" fontSize="20px" margin="15px 0 0 0" onClick={() => router.push("/register")}>
-          Regístrate
+        <ButtonAnt color="success" fontSize="20px" margin="15px 0 0 0" onClick={() => router.push("/contact")}>
+          Contáctanos
         </ButtonAnt>
       </div>
       <div className="right-container" data-aos="fade-left">
