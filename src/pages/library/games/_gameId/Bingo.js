@@ -587,6 +587,7 @@ export const CardContainer = styled.div`
   }};
   background-position: center;
   border-radius: 3px;
+  margin: 0 auto;
 
   .card-title {
     font-family: Lato;
