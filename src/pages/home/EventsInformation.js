@@ -7,15 +7,15 @@ import { Desktop, mediaQuery, Tablet } from "../../constants";
 const items = [
   {
     icon: "star.png",
-    title: "Animado",
+    title: "Pro Hosted",
     description:
-      "Déjalo en manos un profesional. Un animador elite o VIP dirigirá tu evento en vivo que unirá a tu equipo en una experiencia colaborativa y divertida.",
+      "Déjalo en manos de un miembro del equipo de Customer Success de ebombo. Además, un animador elite o VIP dirigirá tu evento en vivo que unirá a tu equipo en una experiencia colaborativa y divertida.",
   },
   {
     icon: "user.png",
-    title: "Piloto",
+    title: "Self hosted",
     description:
-      "Es tu momento. Lo hemos hecho fácil e intuitivo para que tú u otra persona del equipo sea quien dirija las dinámicas, juegos y actividades en grupo.",
+      "Es tu momento. Lo hemos hecho fácil e intuitivo para que tú u otra persona de tu equipo sea quien cree y dirija las actividades virtuales que ebombo ofrece. ",
   },
 ];
 
@@ -24,7 +24,7 @@ export const EventsInformation = (props) => {
 
   return (
     <EventsInformationStyled>
-      <div className="content">
+      <div className="content-information">
         <div className="title">Dirige como quieras las dinámicas virtuales</div>
 
         <div className="events-content">
@@ -78,7 +78,7 @@ const EventsInformationStyled = styled.div`
   padding: 3rem 1.5rem;
   background: linear-gradient(270deg, #1d1138 0%, #331e6d 31.25%, #1e1239 100%);
 
-  .content {
+  .content-information {
     margin: auto;
 
     ${mediaQuery.afterTablet} {
@@ -93,7 +93,7 @@ const EventsInformationStyled = styled.div`
       color: ${(props) => props.theme.basic.white};
 
       ${mediaQuery.afterTablet} {
-        font-size: 2rem;
+        font-size: 25px;
         text-align: left;
       }
     }
@@ -121,7 +121,7 @@ const EventsInformationStyled = styled.div`
           }
 
           .description {
-            font-size: 0.7rem;
+            font-size: 15px;
           }
         }
 

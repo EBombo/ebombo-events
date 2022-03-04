@@ -77,17 +77,17 @@ export const Navbar = (props) => {
             ) : (
               <div className="btns-container">
                 <Anchor
-                  url="/register"
+                  url="/login"
                   variant="secondary"
                   fontSize="18px"
                   fontWeight="500"
                   margin="auto 8px"
                   className="anchor"
                 >
-                  Regístrate
-                </Anchor>
-                <ButtonAnt onClick={() => router.push("/login")} color="success" variant="contained" fontSize="18px">
                   Iniciar sesión
+                </Anchor>
+                <ButtonAnt onClick={() => router.push("/contact")} color="success" variant="contained" fontSize="18px">
+                  Contáctanos
                 </ButtonAnt>
               </div>
             )}
@@ -135,15 +135,15 @@ export const Navbar = (props) => {
                 <>
                   <ButtonAnt
                     margin="1.5rem auto"
-                    onClick={() => router.push("/login")}
+                    onClick={() => router.push("/contact")}
                     color="success"
                     variant="contained"
                     fontSize="18px"
                   >
-                    Iniciar sesión
+                    Contáctanos
                   </ButtonAnt>
-                  <li className="nav-item" onClick={() => router.push("/register")}>
-                    Regístrate
+                  <li className="nav-item" onClick={() => router.push("/login")}>
+                    Iniciar sesión
                   </li>
                 </>
               ) : (
