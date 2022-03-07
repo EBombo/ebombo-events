@@ -104,9 +104,8 @@ export const ListGameView = (props) => {
         <IconsContainer>
           <Image
             src={
-              get(props, "game.coverImgUrl", null)
-                ? get(props, "game.coverImgUrl", null)
-                : `${config.storageUrl}/resources/empty-cover.svg`
+              get(props, "game.coverImgUrl", null) ??
+              `${config.storageUrl}/resources/games/${get(props, "game.adminGame.name", "")}.png`
             }
             width="91px"
             height="65px"
@@ -182,7 +181,7 @@ export const ListGameView = (props) => {
             </div>
             <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between py-2 px-4 bg-whiteDark rounded-[0_0_5px_0]">
               <Desktop>
-                <div className="bg-gray rounded-[6px] flex items-center p-2 w-[100px]">
+                <div className="bg-gray rounded-[6px] flex items-center p-2">
                   <Image
                     src={`${config.storageUrl}/resources/games/${get(props, "game.adminGame.name", "")}-icon.svg`}
                     height={"20px"}
