@@ -41,7 +41,7 @@ export const Home = (props) => {
 
       <Comments {...props} />
 
-      <BannerEbombo {...props} />
+      <BannerEbombo {...props} btnContact />
     </LandingContainer>
   );
 };

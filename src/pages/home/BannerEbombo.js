@@ -9,18 +9,20 @@ export const BannerEbombo = (props) => {
 
   return (
     <BannerEbomboStyled>
-      <div className="content">
+      <div className="content-banner">
         <div className="title">El evento virtual que amarás</div>
 
-        <ButtonAnt
-          color="success"
-          variant="contained"
-          fontSize="15px"
-          margin="25px 0 0 0"
-          onClick={() => router.push("/register")}
-        >
-          Regístrate
-        </ButtonAnt>
+        {props.btnContact && (
+          <ButtonAnt
+            color="success"
+            variant="contained"
+            fontSize="15px"
+            margin="25px 0 0 0"
+            onClick={() => router.push("/contact")}
+          >
+            Contáctanos
+          </ButtonAnt>
+        )}
       </div>
     </BannerEbomboStyled>
   );
@@ -30,7 +32,7 @@ const BannerEbomboStyled = styled.div`
   padding: 5rem 0;
   background: linear-gradient(270deg, #1d1138 0%, #331e6d 31.25%, #1e1239 100%);
 
-  .content {
+  .content-banner {
     margin: auto;
     max-width: 90vw;
 
