@@ -7,6 +7,7 @@ import chunk from "lodash/chunk";
 import { CheckOutlined } from "@ant-design/icons";
 import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
+import { config } from "../../firebase";
 
 export const Products = (props) => {
   const router = useRouter();
@@ -18,7 +19,7 @@ export const Products = (props) => {
   }, []);
 
   return (
-    <ProductsContainer>
+    <ProductsContainer tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`}>
       <div className="title">UNA MANERA INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO</div>
       <div className="sub-title">
         Hemos creado una herramienta simple y sencilla que asegura la conexión de tus trabajadores en un esquema híbrido
@@ -92,7 +93,8 @@ export const Products = (props) => {
 const ProductsContainer = styled.div`
   width: 100%;
   padding: 2rem 1rem;
-  background: ${(props) => props.theme.basic.white};
+  background-color: ${(props) => props.theme.basic.white};
+  background-image: ${(props) => `url('${props.tapiz}')`};
 
   .title,
   .sub-title {
