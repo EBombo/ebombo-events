@@ -9,7 +9,7 @@ const EbomboItems = [
     title: "Training y Orientación",
     description:
       "Ayudamos a que tus trabajadores tengan entrenamientos para conocer más temas técnicos de una manera super divertida y que permite tener una alta tasa de engagement.",
-    img: "orientacion.png",
+    img: "orientacion.svg",
     color: "#4FBA6F",
   },
   {
@@ -29,21 +29,21 @@ const EbomboItems = [
     title: "Happy Hour",
     description:
       "Reúne a tu equipo en una happy hour virtual y olvídate de la distancia. Diversión asegurada con o sin bebidas, tú decides.",
-    img: "happy-hour.png",
+    img: "happy-hour.svg",
     color: "#FFD15B",
   },
   {
     title: "Días festivos",
     description:
       "Ya sea estés celebrando Navidad, Día de la Mujer, Día del Trabajador, Día de la comunidad LGTBI, Aniversarios, Día de la Madre, Día del Padre, Día del Niño y más, contamos con las mejores opciones.",
-    img: "dias-festivos.png",
+    img: "dias-festivos.svg",
     color: "#E3954E",
   },
   {
     title: "Plan de beneficios",
     description:
       "Por cada actividad que se use, tus trabajadores irán acumulando puntos y luego lo podrán canjear por premios increíbles",
-    img: "beneficios.png",
+    img: "beneficios.svg",
     color: "#93D8E4",
   },
   {
@@ -62,15 +62,15 @@ const EbomboItems = [
     title: "Actividades rompe hielo",
     description:
       "Tenemos muchas actividades para fortalecer el clima laboral en la empresa. Realiza divertidas dinámicas para motivar tu equipo   y ayudar a tus compañeros a entenderse más entre ellos. ",
-    img: "hielo.png",
+    img: "hielo.svg",
     color: "#7AFFE4",
   },
-  {},
+  {}, // This is necessary for center item.
   {
     title: "Conecta",
     description:
       "Conectar a tu equipo de manera virtual no tiene porque ser un desafío. Hemos construído actividades innovadoras con tecnología que une personas en cualquier lugar, en cualquier momento y en cualquier ocasión.",
-    img: "conecta.png",
+    img: "conecta.svg",
     color: "#98B3F9",
   },
 ];
