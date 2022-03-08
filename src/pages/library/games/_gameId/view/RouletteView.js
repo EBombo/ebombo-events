@@ -47,8 +47,8 @@ export const RouletteView = (props) => {
   return (
     <div className="w-full bg-secondary bg-pattern">
       <div className="grid gap-4 m-2 p-2 bg-[#221545] rounded-[4px] bg-opacity-50 md:m-8 md:p-8 md:grid-cols-[1.5fr_1fr]">
-        <div className="flex flex-col">
-          <div className="text-['Lato'] font-bold text-[15px] leading-[18px] my-4 text-whiteDark w-full align-left">
+        <div className="flex flex-col items-center justify-center md:justify-start md:items-start">
+          <div className="text-['Lato'] font-bold text-[15px] leading-[18px] my-4 text-whiteDark">
             Ruleta (vista previa)
           </div>
           <FortuneWheel
@@ -70,15 +70,19 @@ export const RouletteView = (props) => {
           />
 
           {!props.game?.isLive && (
-            <div className="p-4 bg-gray rounded-[6px] box-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] my-4">
-              <div className="text-['Lato'] font-[500] text-[14px] leading-[17px] text-blackDarken">Participantes</div>
-              <TextArea
-                id="options"
-                defaultValue={options.join("\n") ?? "Escribe\n" + "Cada\n" + "Nombre\n" + "en una linea\n" + "unica"}
-                disabled={true}
-                name="options"
-                rows="6"
-              />
+            <div className="w-full">
+              <div className="p-4 bg-gray rounded-[6px] box-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] my-4">
+                <div className="text-['Lato'] font-[500] text-[14px] leading-[17px] text-blackDarken">
+                  Participantes
+                </div>
+                <TextArea
+                  id="options"
+                  defaultValue={options.join("\n") ?? "Escribe\n" + "Cada\n" + "Nombre\n" + "en una linea\n" + "unica"}
+                  disabled={true}
+                  name="options"
+                  rows="6"
+                />
+              </div>
             </div>
           )}
         </div>
