@@ -108,26 +108,11 @@ export const Roulette = (props) => {
 
   const saveGame = async (data) => {
     const options = data.options?.split(/\r?\n/) ?? null;
-    const name = data.name;
-    const outerBorder = data.outerBorder;
-    const lineColor = data.lineColor;
-    const selector = data.selector;
-    const text = data.text;
-    const button = data.button;
-    const colorPrimary = data.colorPrimary;
-    const colorSecondary = data.colorSecondary;
 
     const _game = {
+      ...data,
       options,
-      name,
       isLive,
-      outerBorder,
-      lineColor,
-      selector,
-      text,
-      button,
-      colorPrimary,
-      colorSecondary,
       coverImgUrl,
       id: newId,
       ownBranding,

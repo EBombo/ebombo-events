@@ -139,7 +139,7 @@ export const GameContainer = (props) => {
           {...props}
         />
       )}
-      {currentAdminGame?.name === "roulette" || currentAdminGame?.name === "rouletteQuestions"  && (
+      {(currentAdminGame?.name === "roulette" || currentAdminGame?.name === "rouletteQuestions") && (
         <Roulette
           submitGame={submitGame}
           isLoading={isLoading}
