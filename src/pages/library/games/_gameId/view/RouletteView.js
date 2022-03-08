@@ -45,7 +45,7 @@ export const RouletteView = (props) => {
   ];
 
   return (
-    <div className="w-full bg-secondary bg-pattern">
+    <div className="w-full bg-cover bg-no-repeat bg-secondary bg-pattern">
       <div className="grid gap-4 m-2 p-2 bg-[#221545] rounded-[4px] bg-opacity-50 md:m-8 md:p-8 md:grid-cols-[1.5fr_1fr]">
         <div className="flex flex-col items-center justify-center md:justify-start md:items-start">
           <div className="text-['Lato'] font-bold text-[15px] leading-[18px] my-4 text-whiteDark">

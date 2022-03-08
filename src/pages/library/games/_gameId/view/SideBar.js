@@ -21,7 +21,10 @@ export const SideBar = (props) => {
       <Tablet>
         <div className="cover-container">
           <Image
-            src={props.game.coverImgUrl ? props.game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
+            src={
+              props.game.coverImgUrl ??
+              `${config.storageUrl}/resources/games/${get(props, "game.adminGame.name", "")}.png`
+            }
             width="100%"
             height="180px"
             size="cover"
@@ -145,7 +148,10 @@ export const SideBar = (props) => {
       <Desktop>
         <div className="left-container-desktop">
           <Image
-            src={props.game.coverImgUrl ? props.game.coverImgUrl : `${config.storageUrl}/resources/empty-cover.svg`}
+            src={
+              props.game.coverImgUrl ??
+              `${config.storageUrl}/resources/games/${get(props, "game.adminGame.name", "")}.png`
+            }
             width="100%"
             height="194px"
             size="cover"

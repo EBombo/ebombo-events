@@ -133,7 +133,7 @@ export const GameView = (props) => {
           {...props}
         />
       )}
-      {game?.adminGame?.name === "roulette" && (
+      {(game?.adminGame?.name === "roulette" || game?.adminGame?.name === "rouletteQuestions") && (
         <RouletteView
           game={game}
           moveGameToFolder={moveGameToFolder}
