@@ -26,6 +26,7 @@ export const GameView = (props) => {
 
   const [resource, setResource] = useState(null);
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
+  const [isVisibleInscriptions, setIsVisibleInscriptions] = useState(false);
 
   const game = useMemo(() => {
     if (!gameId) return {};
@@ -108,7 +109,14 @@ export const GameView = (props) => {
 
   return (
     <div className="w-full grid md:grid-cols-[350px_auto]">
-      <SideBar game={game} {...props} createTokenToPlay={createTokenToPlay} />
+      <SideBar
+        game={game}
+        {...props}
+        toggleFavorite={toggleFavorite}
+        createTokenToPlay={createTokenToPlay}
+        setIsVisibleInscriptions={setIsVisibleInscriptions}
+        isVisibleInscriptions={isVisibleInscriptions}
+      />
       {game?.adminGame?.name === "bingo" && (
         <BingoView
           game={game}

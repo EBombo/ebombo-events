@@ -17,7 +17,7 @@ const FortuneWheel = (props) => {
   return (
     <CustomeWheel buttonColor={props.buttonColor} outerBorderColor={props.outerBorderColor}>
       <Wheel {...props} />
-      <div className="bg-selector bg-contain bg-no-repeat	z-50 absolute top-[8%] right-[2%] w-[17%] h-[118px]" />
+      <div className="bg-selector bg-contain bg-no-repeat	z-50 absolute top-[16%] right-[13%] w-[28px] h-[30px]" />
 
       <div className="btn-container">
         <button className="spin" onClick={(e) => spin(e)}>
