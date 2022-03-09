@@ -8,7 +8,7 @@ import { config, firestore, firestoreTrivia } from "../../../../firebase";
 import {
   triviaQuestionsOptions,
   triviaQuestionsTimes,
-  triviaQuestionsTypes
+  triviaQuestionsTypes,
 } from "../../../../components/common/DataList";
 import { Desktop, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";
