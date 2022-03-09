@@ -24,7 +24,7 @@ export const useStripePlans = (props) => {
           id: p.id,
           amount: p.unit_amount / 100,
           currency: p.currency,
-          ...p
+          ...p,
         }));
 
         plan.currentPrice = {
@@ -38,7 +38,7 @@ export const useStripePlans = (props) => {
 
       const plans_ = await Promise.all(plansPromises);
 
-      setPlans([freePlan, ...(plans_)]);
+      setPlans([freePlan, ...plans_]);
     };
 
     return fetchPlans();

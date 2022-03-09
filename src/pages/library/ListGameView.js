@@ -98,6 +98,7 @@ export const ListGameView = (props) => {
       : router.push(`/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}`);
   };
 
+  // Codigo es ilegible, considere refactorizar/dividir en pequeñas porciones
   return (
     <>
       {props.listType === "icons" && (
@@ -117,11 +118,13 @@ export const ListGameView = (props) => {
             cursor="pointer"
             onClick={() => redirectToGameView()}
           />
+
           <div className="main-content">
             <div className="description">
               <div className="name" onClick={() => redirectToGameView()}>
                 {props.game.name}
               </div>
+
               <div className="right-content">
                 {props.game.isFavorite ? (
                   <Image
@@ -190,11 +193,13 @@ export const ListGameView = (props) => {
                     margin={"0 5px 0 0"}
                     size="contain"
                   />
+
                   <div className="text-['Lato'] font-[400] text-[12px] leading-[14px] text-grayLight">
                     {capitalize(get(props, "game.adminGame.title", ""))}
                   </div>
                 </div>
               </Desktop>
+
               <div className="flex items-center text-['Lato'] text-[13px] leading-[16px] text-grayLight">
                 {getTimeCreation()}{" "}
                 <div className="ml-[10px] flex items-center">
@@ -230,6 +235,7 @@ export const ListGameView = (props) => {
           </div>
         </IconsContainer>
       )}
+
       {props.listType === "list" && (
         <ListContainer>
           <div className="left-content">
@@ -238,6 +244,7 @@ export const ListGameView = (props) => {
             </div>
             <div className="description">{props.game.name}</div>
           </div>
+
           <div className="right-content">
             <ButtonAnt
               variant="contained"

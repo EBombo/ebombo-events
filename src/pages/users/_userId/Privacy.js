@@ -33,11 +33,7 @@ export const Privacy = (props) => {
             acuerdo con ebombo! recopilar y procesar mis datos personales como se describe en la política de privacidad.
           </div>
           <div className="switch">
-            <Switch
-              checked={props.user.terms ?? false}
-              onChange={() => toggleSwitch("terms")}
-              disabled
-            />
+            <Switch checked={props.user.terms ?? false} onChange={() => toggleSwitch("terms")} disabled />
           </div>
         </div>
         <div className="option">
