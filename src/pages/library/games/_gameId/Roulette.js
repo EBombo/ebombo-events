@@ -120,10 +120,13 @@ export const Roulette = (props) => {
     const colorPrimary = data.colorPrimary;
     const colorSecondary = data.colorSecondary;
 
+    const isQuestions = props.currentAdminGame?.name?.toLowerCase()?.includes("questions");
+
     const _game = {
       options,
       name,
       isLive,
+      isQuestions,
       outerBorder,
       lineColor,
       selector,
