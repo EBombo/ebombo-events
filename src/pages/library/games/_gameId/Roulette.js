@@ -107,7 +107,10 @@ export const Roulette = (props) => {
   ];
 
   const saveGame = async (data) => {
-    const options = data.options?.split(/\r?\n/) ?? null;
+    let options = data.options?.split(/\r?\n/) ?? null;
+    // Prevent empty values.
+    options = options.filter((option) => !!option);
+
     const name = data.name;
     const outerBorder = data.outerBorder;
     const lineColor = data.lineColor;
@@ -163,9 +166,11 @@ export const Roulette = (props) => {
           {...props}
         />
       )}
+
       <ButtonAnt color="default" onClick={() => router.back()} disabled={props.isLoading}>
         Cancelar
       </ButtonAnt>
+
       <form onSubmit={handleSubmit(saveGame)}>
         <div className="first-content">
           <div className="flex items-center">
@@ -189,6 +194,7 @@ export const Roulette = (props) => {
               Ajustes
             </ButtonAnt>
           </div>
+
           {props.currentAdminGame?.name === "roulette" && (
             <>
               <Checkbox defaultChecked={isLive} variant="gray" onChange={() => setIsLive(!isLive)}>
@@ -199,6 +205,7 @@ export const Roulette = (props) => {
               </div>
             </>
           )}
+
           {props.currentAdminGame?.name === "roulette" ? (
             <div className="description">
               Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)
@@ -206,10 +213,12 @@ export const Roulette = (props) => {
           ) : (
             <div className="description">Escribe cada pregunta y sepáralos con “ENTER” (Máx. 35 caracteres)</div>
           )}
+
           <TextArea
             onKeyPress={(event) => {
               if (event.key === "Enter") return;
 
+              // Prevent use special characters.
               const regex = new RegExp("^[a-zA-Z .¿?]+$");
               const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
               if (!regex.test(key)) {
@@ -233,6 +242,7 @@ export const Roulette = (props) => {
             </ButtonAnt>
           </Desktop>
         </div>
+
         <div className="second-content">
           <div className="subtitle">Cambia los colores:</div>
           <div className="colors-container">

@@ -22,7 +22,7 @@ const SwitchContainer = styled.div`
 
 const StyledSwitch = styled(AntSwitch)`
   margin-bottom: 1rem !important;
-  background-color: ${(props) => props.inactiveBackgroundColor ?? '#00000040'};
+  background-color: ${(props) => props.inactiveBackgroundColor ?? "#00000040"};
 
   ${(props) =>
     props.hasError &&
@@ -31,7 +31,9 @@ const StyledSwitch = styled(AntSwitch)`
     border-color: ${(props) => props.theme.basic.danger};
   `}
 
-  ${(props) => props.activeBackgroundColor && `
+  ${(props) =>
+    props.activeBackgroundColor &&
+    `
     &.ant-switch-checked {
       background-color: ${(props) => props.activeBackgroundColor ?? props.theme.basic.success} !important;
     }

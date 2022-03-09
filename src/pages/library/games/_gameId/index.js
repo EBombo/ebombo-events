@@ -129,6 +129,7 @@ export const GameContainer = (props) => {
           {...props}
         />
       )}
+
       {currentAdminGame?.name === "hanged" && (
         <Hanged
           submitGame={submitGame}
@@ -139,6 +140,7 @@ export const GameContainer = (props) => {
           {...props}
         />
       )}
+
       {(currentAdminGame?.name === "roulette" || currentAdminGame?.name === "rouletteQuestions") && (
         <Roulette
           submitGame={submitGame}
@@ -150,6 +152,7 @@ export const GameContainer = (props) => {
           {...props}
         />
       )}
+
       {currentAdminGame?.name === "trivia" && (
         <Trivia
           submitGame={submitGame}

@@ -1,29 +1,37 @@
-import React, { useState, useEffect } from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
-import { getYearlyPrice, getMonthlyPrice } from "../../stripe";
+import { getMonthlyPrice, getYearlyPrice } from "../../stripe";
 import { getCurrencySymbol } from "../../components/common/DataList";
 import { config } from "../../firebase";
-import { Anchor, Switch } from "../../components/form";
+import { Anchor } from "../../components/form";
 import { darkTheme } from "../../theme";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { useStripePlans } from "../../hooks/useStripePlans"
+import { useStripePlans } from "../../hooks/useStripePlans";
 
-const specsOrder = ['users', 'live_chat', 'reporting', 'progress_tracking', 'players_identity'];
+const specsOrder = ["users", "live_chat", "reporting", "progress_tracking", "players_identity"];
 
 export const PlansTable = (props) => {
   const [currentPlan] = useState("Avanzado");
 
   const { plans } = useStripePlans();
 
-  const anualPhrase = (price) => (<p>por admin al año (<span className="whitespace-nowrap">{price}</span> mensualmente)</p>);
-  const monthlyPhrase = (price) => (<p>por admin al mes (<span className="whitespace-nowrap">{price}</span> anualmente)</p>);
+  const anualPhrase = (price) => (
+    <p>
+      por admin al año (<span className="whitespace-nowrap">{price}</span> mensualmente)
+    </p>
+  );
+  const monthlyPhrase = (price) => (
+    <p>
+      por admin al mes (<span className="whitespace-nowrap">{price}</span> anualmente)
+    </p>
+  );
 
-  const getYesNoIcon = (value) => value === 'yes' ? <CheckOutlined style={{ color: darkTheme.basic.primary }}/> : <CloseOutlined/>;
+  const getYesNoIcon = (value) =>
+    value === "yes" ? <CheckOutlined style={{ color: darkTheme.basic.primary }} /> : <CloseOutlined />;
 
   return (
     <TableContainer>
-
       <table border="0">
         <tbody>
           <tr>
@@ -32,7 +40,7 @@ export const PlansTable = (props) => {
                 <div className="pb-8 table-title">Comparar planes</div>
               </div>
             </td>
-            <td style={{ borderRadius: '15px 0 0 0' }}>Personas por juego</td>
+            <td style={{ borderRadius: "15px 0 0 0" }}>Personas por juego</td>
             <td>Chat vivo</td>
             <td>Reporte</td>
             <td>Trackear progreso</td>
@@ -44,40 +52,55 @@ export const PlansTable = (props) => {
               <td>
                 <div className={`plan  text-center ${plan.name.toLowerCase()}`}>
                   <div className="name mb-4">{plan.name}</div>
-                  {plan.name === "Exclusivo"
-                    ? (<button className="btn-contact mb-4">
+                  {plan.name === "Exclusivo" ? (
+                    <button className="btn-contact mb-4">
                       Contactar
                       <br />
                       ventas
-                    </button>)
-                    : props?.isMonthly
-                    ? (
-                      <div className="price text-center mb-4">
-                        <span className="text-2xl align-super">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}</span> {getMonthlyPrice(plan)?.amount}
-                      </div>
-                    )
-                    : (
-                      <div className="price text-center mb-4">
-                        <span className="text-2xl align-super">{getCurrencySymbol[getYearlyPrice(plan)?.currency]}</span> {getYearlyPrice(plan)?.amount}
-                      </div>
-                    )}
+                    </button>
+                  ) : props?.isMonthly ? (
+                    <div className="price text-center mb-4">
+                      <span className="text-2xl align-super">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}</span>{" "}
+                      {getMonthlyPrice(plan)?.amount}
+                    </div>
+                  ) : (
+                    <div className="price text-center mb-4">
+                      <span className="text-2xl align-super">{getCurrencySymbol[getYearlyPrice(plan)?.currency]}</span>{" "}
+                      {getYearlyPrice(plan)?.amount}
+                    </div>
+                  )}
 
                   <div className="divider" />
 
                   <div
-                    className={`description mb-4 ${currentPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""}`}
+                    className={`description mb-4 ${
+                      currentPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""
+                    }`}
                   >
-                    {plan.name === "Exclusivo"
-                      ? (<Anchor url="/#contact"><span className="font-bold text-base text-black underline underline-offset-2">{plan.description}</span></Anchor>)
-                      : plan.description
-                      ? plan.description
-                      : props?.isMonthly
-                      ? monthlyPhrase(`${getCurrencySymbol[getMonthlyPrice(plan)?.currency]} ${(getMonthlyPrice(plan)?.amount * 12).toFixed(2)}`)
-                      : anualPhrase(`${getCurrencySymbol[getYearlyPrice(plan)?.currency]} ${(getYearlyPrice(plan)?.amount / 12).toFixed(2)}`)}
+                    {plan.name === "Exclusivo" ? (
+                      <Anchor url="/#contact">
+                        <span className="font-bold text-base text-black underline underline-offset-2">
+                          {plan.description}
+                        </span>
+                      </Anchor>
+                    ) : plan.description ? (
+                      plan.description
+                    ) : props?.isMonthly ? (
+                      monthlyPhrase(
+                        `${getCurrencySymbol[getMonthlyPrice(plan)?.currency]} ${(
+                          getMonthlyPrice(plan)?.amount * 12
+                        ).toFixed(2)}`
+                      )
+                    ) : (
+                      anualPhrase(
+                        `${getCurrencySymbol[getYearlyPrice(plan)?.currency]} ${(
+                          getYearlyPrice(plan)?.amount / 12
+                        ).toFixed(2)}`
+                      )
+                    )}
                   </div>
                 </div>
               </td>
-
 
               {specsOrder.map((keySpec, index) => (
                 <td
@@ -93,8 +116,7 @@ export const PlansTable = (props) => {
                 >
                   {plan.metadata[keySpec] === "yes" || plan.metadata[keySpec] === "no"
                     ? getYesNoIcon(plan.metadata[keySpec])
-                    : plan.metadata[keySpec]
-                  }
+                    : plan.metadata[keySpec]}
                 </td>
               ))}
 
