@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { mediaQuery } from "../../../constants";
 import { products } from "../../../components/common/DataList";
-import { ContactForm } from "../../home/ContactForm";
+import { ContactForm } from "../../contact";
 import { Icon } from "../../../components/common/Icons";
 import { ProductInfo } from "./ProductInfo";
 

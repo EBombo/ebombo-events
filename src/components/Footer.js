@@ -9,22 +9,22 @@ const footerContent = [
   {
     title: "Nosotros",
     children: [
-      { title: "Conócenos", link: "/" },
+      { title: "Conócenos", link: "/about-us" },
       { title: "Términos y condiciones", link: "/" },
     ],
   },
   {
     title: "Plataforma",
     children: [
-      { title: "¿Qué hacemos?", link: "/" },
-      { title: "Pide una demo", link: "/" },
+      { title: "¿Qué hacemos?", link: "/about-us" },
+      { title: "Pide una demo", link: "/contact" },
     ],
   },
   {
     title: "Contacto",
     children: [
-      { title: "Contactar ventas", link: "/" },
-      { title: "Contactar soporte", link: "/" },
+      { title: "Contactar ventas", link: "/contact" },
+      { title: "Contactar soporte", link: "/contact" },
     ],
   },
 ];
@@ -94,7 +94,7 @@ export const Footer = (props) => {
             <div className="items-container">
               {content.children.map((item, index) => (
                 <div key={`desktop-${index}`}>
-                  <Anchor href={item.link} variant="primary" margin="0">
+                  <Anchor href={item.link} variant="primary" margin="0" fontSize="13px">
                     {item.title}
                   </Anchor>
                 </div>

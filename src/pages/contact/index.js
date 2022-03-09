@@ -7,7 +7,7 @@ import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { useFetch } from "../../hooks/useFetch";
 import { useSendError } from "../../hooks";
-import { Image } from "../../components/common/Image";
+import { BannerEbombo } from "../home/BannerEbombo";
 
 export const ContactForm = (props) => {
   const { Fetch } = useFetch();
@@ -51,70 +51,77 @@ export const ContactForm = (props) => {
   };
 
   return (
-    <ContactFormSection ref={props.refProp} config={config}>
-      <div className="px-8 py-4 md:py-8 md:px-12">
-        <div className="title">¿Deseas mayor información?</div>
-        <div className="description">Deja tu consulta y nos pondremos en contacto con usted</div>
-        <form onSubmit={handleSubmit(sendEmail)}>
-          <div className="info-contact">
-            <Input error={errors.name} type="text" ref={register} name="name" placeholder="Nombre" />
-            <Input error={errors.lastName} type="text" ref={register} name="lastName" placeholder="Apellido" />
+    <>
+      <ContactFormSection ref={props.refProp} config={config}>
+        <div className="px-8 py-4 md:py-8 md:px-12">
+          <div className="title">¡Contáctanos!</div>
+
+          <div className="description">
+            Deja tu consulta y el nuestro equipo de ventas se pondrá en contacto contigo.
           </div>
 
-          <Input error={errors.email} type="email" ref={register} name="email" placeholder="Correo electrónico" />
+          <form onSubmit={handleSubmit(sendEmail)}>
+            <div className="info-contact">
+              <Input error={errors.name} type="text" ref={register} name="name" placeholder="Nombre" />
+              <Input error={errors.lastName} type="text" ref={register} name="lastName" placeholder="Apellido" />
+            </div>
 
-          <div className="info-contact">
-            <Input error={errors.company} type="text" ref={register} name="company" placeholder="Empresa" />
-            <Input
-              error={errors.phoneNumber}
-              type="text"
+            <Input error={errors.email} type="email" ref={register} name="email" placeholder="Correo electrónico" />
+
+            <div className="info-contact">
+              <Input error={errors.company} type="text" ref={register} name="company" placeholder="Empresa" />
+              <Input
+                error={errors.phoneNumber}
+                type="text"
+                ref={register}
+                name="phoneNumber"
+                placeholder="Número de teléfono"
+              />
+            </div>
+            <TextArea
+              error={errors.message}
+              name="message"
               ref={register}
-              name="phoneNumber"
-              placeholder="Número de teléfono"
+              rows="10"
+              placeholder="Déjanos tu consulta aquí"
             />
-          </div>
-          <TextArea
-            error={errors.message}
-            name="message"
-            ref={register}
-            rows="10"
-            placeholder="Déjanos tu consulta aquí"
-          />
-          <div className="submit-container">
-            <ButtonAnt
-              variant="contained"
-              color="default"
-              loading={loadingSendingEmail}
-              disabled={loadingSendingEmail}
-              htmlType="submit"
-            >
-              Enviar
-            </ButtonAnt>
-          </div>
-        </form>
-      </div>
-      <Desktop>
-        <div className="grid h-full w-full">
-          <div className="img-contact" />
+            <div className="submit-container">
+              <ButtonAnt
+                variant="contained"
+                color="default"
+                loading={loadingSendingEmail}
+                disabled={loadingSendingEmail}
+                htmlType="submit"
+              >
+                Enviar
+              </ButtonAnt>
+            </div>
+          </form>
         </div>
-      </Desktop>
-    </ContactFormSection>
+        <Desktop>
+          <div className="grid h-full w-full">
+            <div className="img-contact" />
+          </div>
+        </Desktop>
+      </ContactFormSection>
+      <BannerEbombo />
+    </>
   );
 };
 
 const ContactFormSection = styled.section`
-  position: relative;
   width: 100%;
-  background: ${(props) => props.theme.basic.primary};
   display: grid;
+  position: relative;
   grid-template-columns: 1fr;
+  background: ${(props) => props.theme.basic.white};
 
   .title {
     font-family: Lato, sans-serif;
     font-weight: 700;
     font-size: 22px;
     line-height: 26px;
-    color: ${(props) => props.theme.basic.white};
+    color: ${(props) => props.theme.basic.secondary};
     margin-bottom: 16px;
     font-style: normal;
   }
@@ -125,7 +132,7 @@ const ContactFormSection = styled.section`
     font-weight: 100;
     font-size: 18px;
     line-height: 22px;
-    color: ${(props) => props.theme.basic.white};
+    color: ${(props) => props.theme.basic.secondary};
     margin-bottom: 24px;
     font-style: normal;
   }

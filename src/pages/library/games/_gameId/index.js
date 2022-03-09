@@ -10,7 +10,7 @@ import { spinLoader } from "../../../../components/common/loader";
 import { Roulette } from "./Roulette";
 import { Trivia } from "./Trivia";
 
-``
+``;
 
 export const updateGameUrl = (adminGame, game, authUser) => `${adminGame.api}/games/${game.id}/users/${authUser.id}`;
 
