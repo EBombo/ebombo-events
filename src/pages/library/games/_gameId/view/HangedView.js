@@ -64,8 +64,6 @@ export const HangedView = (props) => {
       {}
     );
 
-    console.log(lettersPressed, lettersPressedUpdate);
-
     setState(state);
     setLettersPressed({ ...lettersPressed, ...lettersPressedUpdate });
   };

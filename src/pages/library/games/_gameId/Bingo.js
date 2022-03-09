@@ -77,9 +77,6 @@ export const Bingo = (props) => {
       id: newId,
     };
 
-    console.log("game", props.game);
-    console.log("changing game", _game);
-
     await props.submitGame(_game);
   };
 
