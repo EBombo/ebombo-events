@@ -136,8 +136,9 @@ export const SideBar = (props) => {
             underlined
             variant="dark"
             onClick={() => props.setIsVisibleInscriptions(!props.isVisibleInscriptions)}
+            key={props.isVisibleInscriptions}
           >
-            Ver Inscritos
+            {!props.isVisibleInscriptions ? "Ver Inscritos" : "Vista Previa"}
           </Anchor>
         </div>
       </div>

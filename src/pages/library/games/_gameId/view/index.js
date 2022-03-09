@@ -11,6 +11,7 @@ import { BingoView } from "./BingoView";
 import { HangedView } from "./HangedView";
 import { SideBar } from "./SideBar";
 import { RouletteView } from "./RouletteView";
+import { TriviaView } from "./Trivia.jsView";
 
 // TODO: This component is long consider a refactoring.
 export const GameView = (props) => {
@@ -117,38 +118,48 @@ export const GameView = (props) => {
         setIsVisibleInscriptions={setIsVisibleInscriptions}
         isVisibleInscriptions={isVisibleInscriptions}
       />
-      {game?.adminGame?.name === "bingo" && (
+      {
+        isVisibleInscriptions && (
+          <div>hola</div>
+        )
+      }
+      {game?.adminGame?.name === "bingo" && !isVisibleInscriptions && (
         <BingoView
           game={game}
           moveGameToFolder={moveGameToFolder}
           setIsVisibleModalMove={setIsVisibleModalMove}
           isVisibleModalMove={isVisibleModalMove}
-          createTokenToPlay={createTokenToPlay}
-          toggleFavorite={toggleFavorite}
           deleteGame={deleteGame}
           {...props}
         />
       )}
-      {game?.adminGame?.name === "hanged" && (
+      {game?.adminGame?.name === "hanged" && !isVisibleInscriptions && (
         <HangedView
           game={game}
           moveGameToFolder={moveGameToFolder}
           setIsVisibleModalMove={setIsVisibleModalMove}
           isVisibleModalMove={isVisibleModalMove}
-          createTokenToPlay={createTokenToPlay}
-          toggleFavorite={toggleFavorite}
           deleteGame={deleteGame}
           {...props}
         />
       )}
-      {(game?.adminGame?.name === "roulette" || game?.adminGame?.name === "rouletteQuestions") && (
-        <RouletteView
+      {(game?.adminGame?.name === "roulette" || game?.adminGame?.name === "rouletteQuestions") &&
+        !isVisibleInscriptions && (
+          <RouletteView
+            game={game}
+            moveGameToFolder={moveGameToFolder}
+            setIsVisibleModalMove={setIsVisibleModalMove}
+            isVisibleModalMove={isVisibleModalMove}
+            deleteGame={deleteGame}
+            {...props}
+          />
+        )}
+      {game?.adminGame?.name === "trivia" && !isVisibleInscriptions && (
+        <TriviaView
           game={game}
           moveGameToFolder={moveGameToFolder}
           setIsVisibleModalMove={setIsVisibleModalMove}
           isVisibleModalMove={isVisibleModalMove}
-          createTokenToPlay={createTokenToPlay}
-          toggleFavorite={toggleFavorite}
           deleteGame={deleteGame}
           {...props}
         />

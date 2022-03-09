@@ -107,17 +107,18 @@ export const HangedView = (props) => {
           <div className="text-['Lato'] font-bold text-[15px] leading-[18px] my-4 text-whiteDark">
             Palabras (selecciona una para probar):
           </div>
-          <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(100px,150px))">
+          <div className="flex flex-wrap gap-[10px]">
             {phrases.map((phrase, index) => (
               <div
-                className={`bg-${currentPhrase === phrase ? "success" : "primary"} rounded-[4px] py-2 px-4 text-${
-                  currentPhrase === phrase ? "blackDarken" : "white"
-                } text-['Lato'] text-[15px] leading-[18px] font-bold cursor-pointer`}
+                className={`rounded-[4px] py-2 px-4 ${
+                  currentPhrase === phrase ? "text-blackDarken" : "text-white"
+                } text-['Lato'] text-[15px] leading-[18px] font-bold cursor-pointer ${
+                  currentPhrase === phrase ? "bg-success" : "bg-primary"
+                }`}
                 key={`phrase-${index}`}
-                onClick={() =>{ 
-                  setCurrentPhrase(phrase)
-                  setLettersPressed({})
-
+                onClick={() => {
+                  setCurrentPhrase(phrase);
+                  setLettersPressed({});
                 }}
               >
                 {phrase}
