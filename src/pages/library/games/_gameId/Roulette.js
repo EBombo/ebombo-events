@@ -108,32 +108,17 @@ export const Roulette = (props) => {
 
   const saveGame = async (data) => {
     let options = data.options?.split(/\r?\n/) ?? null;
+
     // Prevent empty values.
     options = options.filter((option) => !!option);
-
-    const name = data.name;
-    const outerBorder = data.outerBorder;
-    const lineColor = data.lineColor;
-    const selector = data.selector;
-    const text = data.text;
-    const button = data.button;
-    const colorPrimary = data.colorPrimary;
-    const colorSecondary = data.colorSecondary;
 
     const isQuestions = props.currentAdminGame?.name?.toLowerCase()?.includes("questions");
 
     const _game = {
+      ...data,
       options,
-      name,
       isLive,
       isQuestions,
-      outerBorder,
-      lineColor,
-      selector,
-      text,
-      button,
-      colorPrimary,
-      colorSecondary,
       coverImgUrl,
       id: newId,
       ownBranding,

@@ -52,6 +52,8 @@ const AnchorTag = styled.a`
       ? theme.basic.warning
       : variant === "danger"
       ? theme.basic.danger
+      : variant === "dark"
+      ? theme.basic.blackDarken
       : theme.basic.default};
 
   :hover {

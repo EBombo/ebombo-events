@@ -47,6 +47,11 @@ let storageTrivia;
 let authTrivia;
 let analyticsTrivia;
 
+let firestoreHanged;
+let storageHanged;
+let authHanged;
+let analyticsHanged;
+
 let analytics;
 let firestore;
 let storage;
@@ -117,6 +122,22 @@ if (isEmpty(firebase.apps)) {
   } catch (error) {
     console.error("error initializeApp", error);
   }
+
+  // Hanged connection.
+  try {
+    firebase.initializeApp(config.firebaseHanged, "hanged");
+    firestoreHanged = firebase.app("hanged").firestore();
+    storageHanged = firebase.app("hanged").storage();
+    authHanged = firebase.app("hanged").auth();
+
+    if (typeof window !== "undefined") {
+      analyticsHanged = firebase.app("hanged").analytics();
+    }
+
+    firestoreHanged.settings({ ignoreUndefinedProperties: true });
+  } catch (error) {
+    console.error("error initializeApp", error);
+  }
 }
 
 if (DOMAIN?.includes("localhost")) {
@@ -157,4 +178,8 @@ export {
   storageTrivia,
   authTrivia,
   analyticsTrivia,
+  firestoreHanged,
+  storageHanged,
+  authHanged,
+  analyticsHanged,
 };

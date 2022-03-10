@@ -1,7 +1,52 @@
 import { darkTheme } from "../../theme";
 import { config } from "../../firebase";
-import React from "reactn";
+import React from "react";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+
+export const skippedWords = ";:!¡?¿ ";
+
+export const tildes = {
+  'a': 'á',
+  'e': 'é',
+  'i': 'í',
+  'o': 'ó',
+  'u': 'ú',
+  'A': 'Á',
+  'E': 'É',
+  'I': 'Í',
+  'O': 'Ó',
+  'U': 'Ú',
+};
+
+export const alphabet = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "Ñ",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
 
 export const landingHeaderMenu = [
   {
@@ -40,6 +85,13 @@ export const triviaQuestionsTypes = [
     value: "Respuesta corta",
   },
 ];
+
+export const questionTypes = {
+  "quiz": "Quiz",
+  "trueFalse": "Verdadero o Falso",
+  "shortAnswer": "Respuesta corta"
+};
+
 
 export const triviaQuestionsOptions = [
   {
