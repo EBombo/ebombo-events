@@ -90,7 +90,7 @@ export const questionTypes = {
   "quiz": "Quiz",
   "trueFalse": "Verdadero o Falso",
   "shortAnswer": "Respuesta corta"
-}
+};
 
 
 export const triviaQuestionsOptions = [

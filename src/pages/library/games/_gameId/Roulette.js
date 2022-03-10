@@ -107,7 +107,10 @@ export const Roulette = (props) => {
   ];
 
   const saveGame = async (data) => {
-    const options = data.options?.split(/\r?\n/) ?? null;
+    let options = data.options?.split(/\r?\n/) ?? null;
+
+    // Prevent empty values.
+    options = options.filter((option) => !!option);
 
     const isQuestions = props.currentAdminGame?.name?.toLowerCase()?.includes("questions");
 
