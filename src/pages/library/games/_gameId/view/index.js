@@ -11,7 +11,7 @@ import { BingoView } from "./BingoView";
 import { HangedView } from "./HangedView";
 import { SideBar } from "./SideBar";
 import { RouletteView } from "./RouletteView";
-import { TriviaView } from "./Trivia.jsView";
+import { TriviaView } from "./TriviaView";
 
 // TODO: This component is long consider a refactoring.
 export const GameView = (props) => {
