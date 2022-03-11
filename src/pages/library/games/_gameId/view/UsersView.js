@@ -43,30 +43,31 @@ export const UsersView = (props) => {
     {
       title: "Nombre del jugador",
       dataIndex: "name",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>,
     },
     {
       title: "Apellido",
       dataIndex: "lastName",
+      render: (text) => <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>,
     },
     {
       title: "Correo",
       dataIndex: "email",
+      render: (text) => <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>,
     },
     {
       title: "Asistencia",
       dataIndex: "attendance",
       render: (value) => (
-          <div className="flex items-center justify-center">
-
-              <Image
-                src={`${config.storageUrl}/resources/attendance-${value ? "true" : "false"}.svg`}
-                width="10px"
-                height="10px"
-                margin="0"
-                size="contain"
-              />
-          </div>
+        <div className="flex items-center justify-center">
+          <Image
+            src={`${config.storageUrl}/resources/attendance-${value ? "true" : "false"}.svg`}
+            width="10px"
+            height="10px"
+            margin="0"
+            size="contain"
+          />
+        </div>
       ),
     },
   ];
@@ -83,9 +84,9 @@ export const UsersView = (props) => {
   };
 
   return (
-    <div className="p-4 max-w-full md:h-[calc(100vh-2rem-50px)] md:p-8">
+    <div className="p-4 max-w-[100vw] md:h-[calc(100vh-2rem-50px)] md:p-8">
       <div className="flex w-full justify-end">
-        <div className="flex items-center w-full max-w-[380px] gap-4">
+        <div className="flex items-center w-full max-w-[350px] gap-4">
           <Input type="search" placeholder="Buscar" />
 
           <Tooltip
@@ -119,7 +120,7 @@ export const UsersView = (props) => {
         </div>
       </div>
 
-      <div className="my-4">
+      <div className="my-4 w-full overflow-auto">
         <div className="min-w-[700px]">
           <Table
             rowSelection={{
