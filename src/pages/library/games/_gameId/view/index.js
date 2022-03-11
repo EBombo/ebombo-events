@@ -12,6 +12,7 @@ import { HangedView } from "./HangedView";
 import { SideBar } from "./SideBar";
 import { RouletteView } from "./RouletteView";
 import { TriviaView } from "./TriviaView";
+import { UsersView } from "./UsersView";
 
 // TODO: This component is long consider a refactoring.
 export const GameView = (props) => {
@@ -118,51 +119,21 @@ export const GameView = (props) => {
         setIsVisibleInscriptions={setIsVisibleInscriptions}
         isVisibleInscriptions={isVisibleInscriptions}
       />
-      {
-        isVisibleInscriptions && (
-          <div>hola</div>
-        )
-      }
+      {isVisibleInscriptions && (
+        <UsersView game={game} isVisibleModalMove={isVisibleModalMove} deleteGame={deleteGame} {...props} />
+      )}
       {game?.adminGame?.name === "bingo" && !isVisibleInscriptions && (
-        <BingoView
-          game={game}
-          moveGameToFolder={moveGameToFolder}
-          setIsVisibleModalMove={setIsVisibleModalMove}
-          isVisibleModalMove={isVisibleModalMove}
-          deleteGame={deleteGame}
-          {...props}
-        />
+        <BingoView game={game} isVisibleModalMove={isVisibleModalMove} deleteGame={deleteGame} {...props} />
       )}
       {game?.adminGame?.name === "hanged" && !isVisibleInscriptions && (
-        <HangedView
-          game={game}
-          moveGameToFolder={moveGameToFolder}
-          setIsVisibleModalMove={setIsVisibleModalMove}
-          isVisibleModalMove={isVisibleModalMove}
-          deleteGame={deleteGame}
-          {...props}
-        />
+        <HangedView game={game} isVisibleModalMove={isVisibleModalMove} deleteGame={deleteGame} {...props} />
       )}
       {(game?.adminGame?.name === "roulette" || game?.adminGame?.name === "rouletteQuestions") &&
         !isVisibleInscriptions && (
-          <RouletteView
-            game={game}
-            moveGameToFolder={moveGameToFolder}
-            setIsVisibleModalMove={setIsVisibleModalMove}
-            isVisibleModalMove={isVisibleModalMove}
-            deleteGame={deleteGame}
-            {...props}
-          />
+          <RouletteView game={game} isVisibleModalMove={isVisibleModalMove} deleteGame={deleteGame} {...props} />
         )}
       {game?.adminGame?.name === "trivia" && !isVisibleInscriptions && (
-        <TriviaView
-          game={game}
-          moveGameToFolder={moveGameToFolder}
-          setIsVisibleModalMove={setIsVisibleModalMove}
-          isVisibleModalMove={isVisibleModalMove}
-          deleteGame={deleteGame}
-          {...props}
-        />
+        <TriviaView game={game} isVisibleModalMove={isVisibleModalMove} deleteGame={deleteGame} {...props} />
       )}
     </div>
   );
