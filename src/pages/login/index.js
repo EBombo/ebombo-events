@@ -32,130 +32,82 @@ const Login = (props) => {
   }, [authUser]);
 
   return (
-    <LoginContainer>
-      <div className="container">
-        <Desktop>
-          <Image src={`${config.storageUrl}/resources/login-img.png`} height="100%" width="100%" size="cover" />
-        </Desktop>
-
-        <form onSubmit={handleSubmit(signIn)} autoComplete="on" className="form-container" noValidate>
+    <div className="w-full h-full bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8">
+      <div className="w-full max-w-[604px]">
+        <form onSubmit={handleSubmit(signIn)} autoComplete="off" className="form-container" noValidate>
           <div className="form-content">
-            <div className="title">Iniciar sesión</div>
-
-            <div className="providers-content">
-              <Divider> o </Divider>
-
-              <ButtonsProviders google />
+            <div className="text-['Lato'] text-[44px] leading-[53px] text-primary tracking-wide mb-8">
+              Iniciar sesión
             </div>
 
-            <div className="input-container">
-              <Input error={errors.email} type="email" ref={register} name="email" placeholder="Correo" height="45px" />
+            <ButtonsProviders google />
+
+            <div className="my-4">
+              <Input
+                error={errors.email}
+                type="email"
+                ref={register}
+                name="email"
+                background="white"
+                placeholder="Correo"
+                height="45px"
+              />
             </div>
-            <div className="input-container">
+            <div className="my-4">
               <Input
                 error={errors.password}
                 type="password"
                 autoComplete="on"
                 ref={register}
                 name="password"
+                background="white"
                 placeholder="Contraseña"
                 height="45px"
               />
             </div>
+            <Anchor
+              underlined
+              url="/recovery"
+              variant="primary"
+              display="block"
+              margin="1rem 0 2rem 0"
+              fontSize="1rem"
+              fontWeight="bold"
+              textAlign="left"
+            >
+              Me olvide mi contraseña
+            </Anchor>
+
             <ButtonAnt
               loading={isLoadingUser}
               disabled={isLoadingUser || isLoadingCreateUser}
-              className="btn-submit"
+              className="w-full"
+              width="100%"
               fontSize="14px"
               height="45px"
               htmlType="submit"
             >
               Iniciar sesión
             </ButtonAnt>
-            <Anchor
-              url="/recovery"
-              variant="primary"
-              display="block"
-              margin="1rem auto"
-              fontSize="1rem"
-              fontWeight="bold"
-            >
-              Recuperar contraseña
-            </Anchor>
+
+            <div className="flex items-center gap-[5px] mt-12">
+              <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-primary">¿No tienes una cuenta?</div>
+              <Anchor
+                underlined
+                url="/register"
+                variant="primary"
+                display="block"
+                margin="0"
+                fontSize="18px"
+              >
+                Regístrate aquí
+              </Anchor>
+            </div>
           </div>
         </form>
       </div>
-    </LoginContainer>
+    </div>
   );
 };
-
-const LoginContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-
-  .container {
-    margin: 0;
-    width: 100%;
-    padding: 1rem;
-    display: grid;
-    background-color: ${(props) => props.theme.basic.gray};
-
-    ${mediaQuery.afterTablet} {
-      padding: 0;
-      margin: 0;
-      grid-template-columns: 1fr 1.5fr;
-    }
-
-    .form-container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-
-      .form-content {
-        width: 100%;
-
-        ${mediaQuery.afterTablet} {
-          margin: auto;
-          width: 80%;
-        }
-      }
-    }
-
-    .title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      text-align: center;
-      color: ${(props) => props.theme.basic.secondary};
-    }
-
-    .input-container {
-      margin: 0.5rem auto;
-
-      ${mediaQuery.afterTablet} {
-        margin: 1rem 5rem;
-      }
-    }
-
-    .providers-content {
-      display: grid;
-      margin: auto 10px;
-
-      ${mediaQuery.afterTablet} {
-        margin: auto 5rem;
-      }
-    }
-
-    .btn-submit {
-      width: 100%;
-      margin: 0 auto;
-
-      ${mediaQuery.afterTablet} {
-        max-width: 380px;
-      }
-    }
-  }
-`;
 
 export default Login;

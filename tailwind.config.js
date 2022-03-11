@@ -39,8 +39,9 @@ module.exports = {
         blue: "#20409B",
       },
       backgroundImage: () => ({
-        pattern: `url('${config.storageUrl}/resources/pattern.svg')`,
-        selector: `url('${config.storageUrl}/resources/selector.png')`,
+        "pattern-gray": `url('${config.storageUrl}/resources/pattern-gray.svg')`, 
+        "pattern": `url('${config.storageUrl}/resources/pattern.svg')`,
+        "selector": `url('${config.storageUrl}/resources/selector.png')`,
       }),
     },
   },
