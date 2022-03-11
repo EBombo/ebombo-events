@@ -1,17 +1,13 @@
+import React, { useState, useEffect } from "react";
 import { ButtonAnt, Input, Select } from "../../components/form";
 import { Controller, useForm } from "react-hook-form";
-import React, { useEffect, useGlobal } from "reactn";
 import { useAuth } from "../../hooks/useAuth";
-import { mediaQuery, sizes } from "../../constants";
-import styled from "styled-components";
 import { dialCodes } from "../../utils";
 import { useRouter } from "next/router";
 import { getData } from "country-list";
 import { object, ref, string } from "yup";
 import get from "lodash/get";
 import { DatePicker } from "antd";
-import moment from "moment";
-import { useState } from "react";
 
 export const Register = (props) => {
   const validationSchema = object().shape({

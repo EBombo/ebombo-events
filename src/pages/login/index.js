@@ -1,14 +1,9 @@
 import React, { useEffect, useGlobal } from "reactn";
 import { Anchor, ButtonAnt, Input } from "../../components/form";
-import { Divider } from "../../components/common/Divider";
 import { useAuth } from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 import { object, string } from "yup";
 import { useRouter } from "next/router";
-import { Desktop, mediaQuery } from "../../constants";
-import { Image } from "../../components/common/Image";
-import { config } from "../../firebase";
 
 const Login = (props) => {
   const router = useRouter();
