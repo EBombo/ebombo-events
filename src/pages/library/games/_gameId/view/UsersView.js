@@ -8,7 +8,7 @@ import { snapshotToArray } from "../../../../../utils";
 import isEmpty from "lodash/isEmpty";
 
 export const UsersView = (props) => {
-  const [selectionType, setSelectionType] = useState("checkbox");
+  const [selectionType, ] = useState("checkbox");
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [currentFirestore, setCurrentFirestore] = useState(null);
