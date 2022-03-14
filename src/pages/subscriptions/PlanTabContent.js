@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "reactn";
+import React, { useEffect } from "reactn";
 import styled from "styled-components";
 import { Desktop, mediaQuery } from "../../constants";
 import { Image } from "../../components/common/Image";
@@ -72,11 +72,11 @@ export const PlanTabContent = (props) => {
           selectPlanLabel="Registrarme"
           onSelectedPlan={async (plan) => {
             if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
-            return router.push("/register")
+            return router.push("/register");
           }}
           {...props}
         />
-      </div> 
+      </div>
     );
 };
 

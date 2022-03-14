@@ -55,13 +55,13 @@ export const Plans = (props) => {
           </div>
         </div>
 
-        <PlanTabContent {...props} tab={tab} isMonthly={isMonthly} setIsMonthly={setIsMonthly}/>
+        <PlanTabContent {...props} tab={tab} isMonthly={isMonthly} setIsMonthly={setIsMonthly} />
       </PlansContainer>
 
       {tab === "games" && (
         <section id="plans-table">
           <TableContainer>
-            <PlansTable {...props} isMonthly={isMonthly} setIsMonthly={setIsMonthly}/>
+            <PlansTable {...props} isMonthly={isMonthly} setIsMonthly={setIsMonthly} />
           </TableContainer>
         </section>
       )}

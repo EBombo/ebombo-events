@@ -28,6 +28,5 @@ export const goToPortalLink = async () => {
 
 export const formatAmount = (price) => +(price / 100)?.toFixed(2);
 
-export const getYearlyPrice = (plan) => plan.prices?.filter((price) => price.interval === 'year')?.[0];
-export const getMonthlyPrice = (plan) => plan.prices?.filter((price) => price.interval === 'month')?.[0];
-
+export const getYearlyPrice = (plan) => plan.prices?.filter((price) => price.interval === "year")?.[0];
+export const getMonthlyPrice = (plan) => plan.prices?.filter((price) => price.interval === "month")?.[0];
