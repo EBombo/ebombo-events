@@ -1,7 +1,52 @@
 import { darkTheme } from "../../theme";
 import { config } from "../../firebase";
-import React from "reactn";
+import React from "react";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+
+export const skippedWords = ";:!¡?¿ ";
+
+export const tildes = {
+  a: "á",
+  e: "é",
+  i: "í",
+  o: "ó",
+  u: "ú",
+  A: "Á",
+  E: "É",
+  I: "Í",
+  O: "Ó",
+  U: "Ú",
+};
+
+export const alphabet = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "Ñ",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
 
 export const landingHeaderMenu = [
   {
@@ -23,6 +68,61 @@ export const landingHeaderMenu = [
   {
     title: "Subscripción",
     url: "/subscriptions",
+  },
+];
+
+export const triviaQuestionsTypes = [
+  {
+    key: "quiz",
+    value: "Quiz",
+  },
+  {
+    key: "trueFalse",
+    value: "Verdadero o Falso",
+  },
+  {
+    key: "shortAnswer",
+    value: "Respuesta corta",
+  },
+];
+
+export const questionTypes = {
+  quiz: "Quiz",
+  trueFalse: "Verdadero o Falso",
+  shortAnswer: "Respuesta corta",
+};
+
+export const triviaQuestionsOptions = [
+  {
+    key: "uniq",
+    value: "Única respuesta",
+  },
+  {
+    key: "multiple",
+    value: "Respuesta multiple",
+  },
+];
+
+export const triviaQuestionsTimes = [
+  {
+    key: 10,
+    value: 10,
+  },
+  {
+    key: 20,
+    value: 20,
+  },
+  {
+    key: 30,
+    value: 30,
+  },
+  {
+    key: 60,
+    value: 60,
+  },
+  {
+    key: 120,
+    value: 120,
   },
 ];
 
@@ -111,9 +211,9 @@ export const landingProducts = [
       {
         title: "Actividades virtuales",
         description:
-          "Ebombo cuenta con más de 20 actividades virtuales para que puedas conectar con tus trabajadores. Contamos con dinámicas de integración, entretenimiento, onboarding, juegos, aniversarios, premiaciones, ceremonias y mucho más.",
+          "Ebombo cuenta con más de 20 actividades virtuales para que puedas conectar con tus trabajadores. Contamos con dinámicas de integraciones, entretenimiento, onboarding, capacitaciones para nuevos trabajadores, juegos, aniversarios, premiaciones, ceremonias y mucho más.",
         background: darkTheme.basic.blackDarken,
-        image: `${config.storageUrl}/resources/product-virtual-events.png`,
+        image: `${config.storageUrl}/resources/videos-landing/video-2.gif`,
         url: "/products/eventos-virtuales",
       },
     ],
@@ -136,7 +236,7 @@ export const landingProducts = [
           "Ceremonias",
         ],
         background: darkTheme.basic.blackDarken,
-        image: `${config.storageUrl}/resources/product-face-to-face.png`,
+        image: `${config.storageUrl}/resources/videos-landing/video-3.gif`,
         url: "/products/eventos-virtuales",
       },
     ],
@@ -149,7 +249,7 @@ export const landingProducts = [
         description: "Tenemos planes para acomodarnos a tus necesidades:",
         options: ["Eventos únicos", "Planes semanales/mensuales/anuales", "Planes personalizados"],
         background: darkTheme.basic.secondary,
-        image: `${config.storageUrl}/resources/product-games.png`,
+        image: `${config.storageUrl}/resources/videos-landing/video-4.gif`,
         url: "/products/juegos-de-integracion",
       },
     ],

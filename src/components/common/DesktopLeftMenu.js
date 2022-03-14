@@ -46,13 +46,13 @@ export const DesktopLeftMenu = (props) => {
 
       {/*
         <div
-        className={`item favorites ${get(router, "asPath", "").includes("/library/folders") ? "active" : ""}`}
-        onClick={() => router.push("/library/folders")}
-      >
-        <CameraOutlined />
-        <div className="name">Crear evento</div>
-      </div>
-         */}
+          className={`item favorites ${get(router, "asPath", "").includes("/library/folders") ? "active" : ""}`}
+          onClick={() => router.push("/library/folders")}
+        >
+          <CameraOutlined />
+          <div className="name">Crear evento</div>
+        </div>
+        */}
     </LeftMenuContent>
   );
 };

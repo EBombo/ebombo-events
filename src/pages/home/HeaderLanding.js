@@ -30,7 +30,7 @@ export const HeaderLanding = (props) => {
       </div>
       <div className="right-container" data-aos="fade-left">
         <div className="image-container">
-          <img src={`${config.storageUrl}/resources/video-lading.gif`} width={"80%"} height={"400px"} />
+          <img src={`${config.storageUrl}/resources/videos-landing/video-1.gif`} width={"80%"} height={"400px"} />
         </div>
       </div>
     </HeaderLandingContainer>

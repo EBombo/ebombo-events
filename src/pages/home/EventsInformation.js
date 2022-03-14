@@ -10,12 +10,14 @@ const items = [
     title: "Pro Hosted",
     description:
       "Déjalo en manos de un miembro del equipo de Customer Success de ebombo. Además, un animador elite o VIP dirigirá tu evento en vivo que unirá a tu equipo en una experiencia colaborativa y divertida.",
+    image: `${config.storageUrl}/resources/videos-landing/video-5.gif`,
   },
   {
     icon: "user.png",
     title: "Self hosted",
     description:
       "Es tu momento. Lo hemos hecho fácil e intuitivo para que tú u otra persona de tu equipo sea quien cree y dirija las actividades virtuales que ebombo ofrece. ",
+    image: `${config.storageUrl}/resources/videos-landing/video-6.gif`,
   },
 ];
 
@@ -29,13 +31,7 @@ export const EventsInformation = (props) => {
 
         <div className="events-content">
           <Tablet>
-            <Image
-              src={`${config.storageUrl}/resources/video-lading.gif`}
-              width="100%"
-              height="250px"
-              desktopHeight="450px"
-              size="contain"
-            />
+            <Image src={items[currentItem].image} width="100%" height="250px" desktopHeight="450px" size="contain" />
           </Tablet>
           <div className="items">
             {items.map((item, index) => (
@@ -60,13 +56,7 @@ export const EventsInformation = (props) => {
           </div>
 
           <Desktop>
-            <Image
-              src={`${config.storageUrl}/resources/video-lading.gif`}
-              margin="0"
-              width="580px"
-              height="350px"
-              size="cover"
-            />
+            <Image src={items[currentItem].image} margin="0" width="580px" height="350px" size="cover" />
           </Desktop>
         </div>
       </div>

@@ -21,18 +21,11 @@ export const Select = ({ variant = "primary", ...props }) => {
 };
 
 const SelectContainer = styled.div`
-  .ant-select-open {
-    border-radius: ${(props) => (props.borderRadius ? props.borderRadius : "4px")} !important;
-  }
-
   .ant-select {
     background: ${(props) => props.theme.basic.whiteLight};
-    border-radius: ${(props) => (props.borderRadius ? props.borderRadius : "5px")} !important;
-    border-right: ${(props) => (props.borderRight ? props.borderRight : "0")} !important;
-    border-left: ${(props) => (props.borderLeft ? props.borderLeft : "0")} !important;
-    border-top: ${(props) => (props.borderTop ? props.borderTop : "0")} !important;
-    border-bottom: ${(props) => (props.borderBottom ? props.borderBottom : "0")} !important;
-    ${(props) => (props.hasError ? `border: 0.5px solid ${props.theme.basic.danger} !important` : "")}
+    border-radius: ${(props) => props.borderRadius ?? "4px"} !important;
+    border: ${(props) => props.border ?? `1px solid ${props.theme.basic.grayLighten}`};
+    ${(props) => (props.hasError ? `border: 0.5px solid ${props.theme.basic.danger} !important` : "")};
   }
 
   .ant-select-arrow {
@@ -42,7 +35,6 @@ const SelectContainer = styled.div`
 
 const StyledSelect = styled(AntSelect)`
   width: 100%;
-  margin-bottom: ${(props) => props.marginbottom || "1rem"} !important;
   height: ${(props) => (props.height ? props.height : "36px")};
 
   color: ${(props) => props.theme.basic.blackDarken};
@@ -56,7 +48,7 @@ const StyledSelect = styled(AntSelect)`
     border: none !important;
     font-size: ${sizes.font.small} !important;
     height: 100% !important;
-    background: ${(props) => props.theme.basic.whiteLight} !important;
+    background: ${(props) => props.background ?? props.theme.basic.whiteLight} !important;
     border-radius: 4px !important;
   }
 
