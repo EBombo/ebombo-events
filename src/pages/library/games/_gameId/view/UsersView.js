@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Tooltip, Table } from "antd";
+import React, { useEffect, useState } from "react";
+import { Table, Tooltip } from "antd";
 import { config, firestoreBingo, firestoreHanged, firestoreRoulette, firestoreTrivia } from "../../../../../firebase";
 import { darkTheme } from "../../../../../theme";
 import { Image } from "../../../../../components/common/Image";
@@ -8,7 +8,7 @@ import { snapshotToArray } from "../../../../../utils";
 import isEmpty from "lodash/isEmpty";
 
 export const UsersView = (props) => {
-  const [selectionType, ] = useState("checkbox");
+  const [selectionType] = useState("checkbox");
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [currentFirestore, setCurrentFirestore] = useState(null);

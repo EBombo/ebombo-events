@@ -6,16 +6,16 @@ import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 export const skippedWords = ";:!¡?¿ ";
 
 export const tildes = {
-  'a': 'á',
-  'e': 'é',
-  'i': 'í',
-  'o': 'ó',
-  'u': 'ú',
-  'A': 'Á',
-  'E': 'É',
-  'I': 'Í',
-  'O': 'Ó',
-  'U': 'Ú',
+  a: "á",
+  e: "é",
+  i: "í",
+  o: "ó",
+  u: "ú",
+  A: "Á",
+  E: "É",
+  I: "Í",
+  O: "Ó",
+  U: "Ú",
 };
 
 export const alphabet = [
@@ -87,11 +87,10 @@ export const triviaQuestionsTypes = [
 ];
 
 export const questionTypes = {
-  "quiz": "Quiz",
-  "trueFalse": "Verdadero o Falso",
-  "shortAnswer": "Respuesta corta"
+  quiz: "Quiz",
+  trueFalse: "Verdadero o Falso",
+  shortAnswer: "Respuesta corta",
 };
-
 
 export const triviaQuestionsOptions = [
   {

@@ -21,7 +21,6 @@ export const Select = ({ variant = "primary", ...props }) => {
 };
 
 const SelectContainer = styled.div`
-
   .ant-select {
     background: ${(props) => props.theme.basic.whiteLight};
     border-radius: ${(props) => props.borderRadius ?? "4px"} !important;

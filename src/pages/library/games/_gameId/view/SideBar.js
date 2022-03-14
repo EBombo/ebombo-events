@@ -120,7 +120,9 @@ export const SideBar = (props) => {
             color="primary"
             onClick={() => {
               window.open(
-                `https://www.${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`,
+                `https://www.${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${
+                  props.game.id
+                }`,
                 "_blank"
               );
             }}

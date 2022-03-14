@@ -86,15 +86,10 @@ const Login = (props) => {
             </ButtonAnt>
 
             <div className="flex items-center gap-[5px] mt-12">
-              <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-primary">¿No tienes una cuenta?</div>
-              <Anchor
-                underlined
-                url="/register"
-                variant="primary"
-                display="block"
-                margin="0"
-                fontSize="18px"
-              >
+              <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-primary">
+                ¿No tienes una cuenta?
+              </div>
+              <Anchor underlined url="/register" variant="primary" display="block" margin="0" fontSize="18px">
                 Regístrate aquí
               </Anchor>
             </div>
