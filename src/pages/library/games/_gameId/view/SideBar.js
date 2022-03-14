@@ -114,22 +114,37 @@ export const SideBar = (props) => {
             </Tooltip>
           </div>
         </div>
-        <div className="m-4">
-          {props.game?.adminGame?.name !== "hanged" && (
-            <ButtonAnt
-              variant="contained"
-              color={copied ? "success" : "primary"}
+        <div className="m-4 flex items-center">
+          <ButtonAnt
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              window.open(
+                `https://www.${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`,
+                "_blank"
+              );
+            }}
+          >
+            <LinkOutlined style={{ fontSize: "18px" }} />
+            Link de Inscripción
+          </ButtonAnt>
+          <div className="ml-[10px] flex items-center gap-[5px]">
+            <Image
+              src={`${config.storageUrl}/resources/duplicate.svg`}
+              width="18px"
+              height="21px"
+              size="contain"
+              cursor="pointer"
+              margin="0"
               onClick={() => {
                 setCopied(true);
                 navigator.clipboard.writeText(
                   `${hostNameBomboGames}/register/${props.game?.adminGame?.name?.toLowerCase()}/${props.game.id}`
                 );
               }}
-            >
-              <LinkOutlined style={{ fontSize: "18px" }} />
-              {copied ? "Copiado!" : "Link de Inscripción"}
-            </ButtonAnt>
-          )}
+            />
+            <div className="text-['Lato'] text-[12px] leading-[15px] text-gray">{copied && "Copiado!"}</div>
+          </div>
         </div>
         <div className="px-4">
           <Anchor

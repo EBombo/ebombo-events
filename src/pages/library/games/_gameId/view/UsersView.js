@@ -5,35 +5,46 @@ import { darkTheme } from "../../../../../theme";
 import { Image } from "../../../../../components/common/Image";
 import { Input } from "../../../../../components/form";
 import { snapshotToArray } from "../../../../../utils";
+import isEmpty from "lodash/isEmpty";
 
 export const UsersView = (props) => {
-  const [selectionType, setSelectionType] = useState("checkbox");
+  const [selectionType, ] = useState("checkbox");
   const [users, setUsers] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [currentFirestore, setCurrentFirestore] = useState(null);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
       let gameRef;
       if (props.game?.adminGame?.name === "bingo") {
         gameRef = firestoreBingo.collection("visitors");
+        setCurrentFirestore(firestoreBingo);
       }
 
       if (props.game?.adminGame?.name === "trivia") {
         gameRef = firestoreTrivia.collection("visitors");
+        setCurrentFirestore(firestoreTrivia);
       }
 
       if (props.game?.adminGame?.name === "hanged") {
         gameRef = firestoreHanged.collection("visitors");
+        setCurrentFirestore(firestoreHanged);
       }
 
       if (props.game?.adminGame?.name === "roulette") {
         gameRef = firestoreRoulette.collection("visitors");
+        setCurrentFirestore(firestoreRoulette);
       }
 
-      gameRef.where("game.id", "==", props.game.id).onSnapshot((usersSnapshot) => {
-        const _users = snapshotToArray(usersSnapshot);
+      gameRef
+        .where("game.id", "==", props.game.id)
+        .where("deleted", "==", false)
+        .onSnapshot((usersSnapshot) => {
+          const _users = snapshotToArray(usersSnapshot);
 
-        setUsers(_users.map((user, index) => ({ ...user, key: index + 1 })));
-      });
+          setUsers(_users.map((user, index) => ({ ...user, key: index + 1 })));
+        });
     };
 
     fetchUsers();
@@ -43,17 +54,23 @@ export const UsersView = (props) => {
     {
       title: "Nombre del jugador",
       dataIndex: "name",
-      render: (text) => <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>,
+      render: (text) => (
+        <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>
+      ),
     },
     {
       title: "Apellido",
       dataIndex: "lastName",
-      render: (text) => <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>,
+      render: (text) => (
+        <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>
+      ),
     },
     {
       title: "Correo",
       dataIndex: "email",
-      render: (text) => <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>,
+      render: (text) => (
+        <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>
+      ),
     },
     {
       title: "Asistencia",
@@ -74,13 +91,23 @@ export const UsersView = (props) => {
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
+      setSelectedUsers(selectedRows);
+      setSelectedRowKeys(selectedRowKeys);
     },
-    getCheckboxProps: (record) => ({
-      disabled: record.name === "Disabled User",
-      // Column configuration not to be checked
-      name: record.name,
-    }),
+  };
+
+  const deleteSelectedUsers = async () => {
+    const usersPromise = selectedUsers.map(
+      async (user) =>
+        await currentFirestore
+          .collection("visitors")
+          .doc(user.id)
+          .update({ ...user, deleted: true })
+    );
+
+    await Promise.all(usersPromise);
+
+    setSelectedRowKeys([]);
   };
 
   return (
@@ -121,8 +148,17 @@ export const UsersView = (props) => {
       </div>
 
       <div className="my-4 w-full overflow-auto">
+        {!isEmpty(selectedUsers) && (
+          <div
+            className="my-4 cursor-pointer text-['Lato'] text-[12px] text-blackDarken leading-[14px] underline md:text-[16px] md:leading-[19px]"
+            onClick={() => deleteSelectedUsers()}
+          >
+            Eliminar
+          </div>
+        )}
         <div className="min-w-[700px]">
           <Table
+            selectedRowKeys={selectedRowKeys}
             rowSelection={{
               type: selectionType,
               ...rowSelection,
