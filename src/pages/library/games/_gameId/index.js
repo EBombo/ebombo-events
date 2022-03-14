@@ -145,6 +145,7 @@ export const GameContainer = (props) => {
           game={currentGame}
           parent={parent}
           setParent={setParent}
+          currentAdminGame={currentAdminGame}
           {...props}
         />
       )}
