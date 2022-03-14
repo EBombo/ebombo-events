@@ -26,10 +26,10 @@ let hostNameBomboGames;
 
 if (DOMAIN?.includes("local") || DOMAIN?.includes("red") || DOMAIN?.includes("dev") || DOMAIN?.includes("shell")) {
   console.log("dev", version);
-  hostNameBomboGames = 'red.ebombo.io';
+  hostNameBomboGames = "red.ebombo.io";
 } else {
   console.log("prod", version);
-  hostNameBomboGames = 'ebombo.io';
+  hostNameBomboGames = "ebombo.io";
 }
 
 let analyticsBingo;

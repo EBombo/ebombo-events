@@ -98,15 +98,15 @@ export const ListGameView = (props) => {
       : router.push(`/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}`);
   };
 
+  // Codigo es ilegible, considere refactorizar/dividir en pequeñas porciones
   return (
     <>
       {props.listType === "icons" && (
         <IconsContainer>
           <Image
             src={
-              get(props, "game.coverImgUrl", null)
-                ? get(props, "game.coverImgUrl", null)
-                : `${config.storageUrl}/resources/empty-cover.svg`
+              get(props, "game.coverImgUrl", null) ??
+              `${config.storageUrl}/resources/games/${get(props, "game.adminGame.name", "")}.png`
             }
             width="91px"
             height="65px"
@@ -118,11 +118,13 @@ export const ListGameView = (props) => {
             cursor="pointer"
             onClick={() => redirectToGameView()}
           />
+
           <div className="main-content">
             <div className="description">
               <div className="name" onClick={() => redirectToGameView()}>
                 {props.game.name}
               </div>
+
               <div className="right-content">
                 {props.game.isFavorite ? (
                   <Image
@@ -182,7 +184,7 @@ export const ListGameView = (props) => {
             </div>
             <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between py-2 px-4 bg-whiteDark rounded-[0_0_5px_0]">
               <Desktop>
-                <div className="bg-gray rounded-[6px] flex items-center p-2 w-[100px]">
+                <div className="bg-gray rounded-[6px] flex items-center p-2">
                   <Image
                     src={`${config.storageUrl}/resources/games/${get(props, "game.adminGame.name", "")}-icon.svg`}
                     height={"20px"}
@@ -191,11 +193,13 @@ export const ListGameView = (props) => {
                     margin={"0 5px 0 0"}
                     size="contain"
                   />
+
                   <div className="text-['Lato'] font-[400] text-[12px] leading-[14px] text-grayLight">
-                    {capitalize(get(props, "game.adminGame.name", ""))}
+                    {capitalize(get(props, "game.adminGame.title", ""))}
                   </div>
                 </div>
               </Desktop>
+
               <div className="flex items-center text-['Lato'] text-[13px] leading-[16px] text-grayLight">
                 {getTimeCreation()}{" "}
                 <div className="ml-[10px] flex items-center">
@@ -231,6 +235,7 @@ export const ListGameView = (props) => {
           </div>
         </IconsContainer>
       )}
+
       {props.listType === "list" && (
         <ListContainer>
           <div className="left-content">
@@ -239,6 +244,7 @@ export const ListGameView = (props) => {
             </div>
             <div className="description">{props.game.name}</div>
           </div>
+
           <div className="right-content">
             <ButtonAnt
               variant="contained"

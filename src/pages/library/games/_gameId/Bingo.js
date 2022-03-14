@@ -77,9 +77,6 @@ export const Bingo = (props) => {
       id: newId,
     };
 
-    console.log("game", props.game);
-    console.log("changing game", _game);
-
     await props.submitGame(_game);
   };
 
@@ -587,6 +584,7 @@ export const CardContainer = styled.div`
   }};
   background-position: center;
   border-radius: 3px;
+  margin: 0 auto;
 
   .card-title {
     font-family: Lato;

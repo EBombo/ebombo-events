@@ -43,8 +43,6 @@ export const Hanged = (props) => {
     const phrases = data.phrases.split(/\r?\n/);
     const name = data.name;
 
-    console.log(phrases);
-
     const _game = {
       phrases,
       name,

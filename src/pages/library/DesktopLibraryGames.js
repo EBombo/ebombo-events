@@ -84,16 +84,17 @@ export const DesktopLibraryGames = (props) => {
 
       <div className="list-container">
         {props.games.map((game) => (
-          <ListGameView
-            game={game}
-            key={game.id}
-            listType={listType}
-            initModalMove={(toggle) => {
-              setIsVisibleModalMove(toggle);
-              setSelectedGameToMove(game);
-            }}
-            {...props}
-          />
+          <div key={game.id}>
+            <ListGameView
+              game={game}
+              listType={listType}
+              initModalMove={(toggle) => {
+                setIsVisibleModalMove(toggle);
+                setSelectedGameToMove(game);
+              }}
+              {...props}
+            />
+          </div>
         ))}
 
         {loadingGames
