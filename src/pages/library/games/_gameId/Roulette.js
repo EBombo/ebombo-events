@@ -79,28 +79,46 @@ export const Roulette = (props) => {
     { option: "Carlos", style: { backgroundColor: watch("colorSecondary"), textColor: watch("text") } },
   ];
 
+  const questions = [
+    {
+      option: "¿Cuál es tu cita favorita y por qué?",
+      style: { backgroundColor: watch("colorPrimary"), textColor: watch("text") },
+    },
+    {
+      option: "¿Cuál es el destino de viaje de tus sueños?",
+      style: { backgroundColor: watch("colorSecondary"), textColor: watch("text") },
+    },
+    {
+      option: "Si pudieras ser un profesional en un deporte, ¿cuál sería?",
+      style: { backgroundColor: watch("colorPrimary"), textColor: watch("text") },
+    },
+    {
+      option: "¿Cuál era tu personaje de película favorito cuando eras joven?",
+      style: { backgroundColor: watch("colorSecondary"), textColor: watch("text") },
+    },
+    {
+      option: "¿Cual es tu color favorito?",
+      style: { backgroundColor: watch("colorPrimary"), textColor: watch("text") },
+    },
+    {
+      option: "¿Puedes contarme sobre el día más emocionante de tu vida?",
+      style: { backgroundColor: watch("colorSecondary"), textColor: watch("text") },
+    },
+  ];
+
   const saveGame = async (data) => {
-    const options = data.options?.split(/\r?\n/) ?? null;
-    const name = data.name;
-    const outerBorder = data.outerBorder;
-    const lineColor = data.lineColor;
-    const selector = data.selector;
-    const text = data.text;
-    const button = data.button;
-    const colorPrimary = data.colorPrimary;
-    const colorSecondary = data.colorSecondary;
+    let options = data.options?.split(/\r?\n/) ?? null;
+
+    // Prevent empty values.
+    options = options.filter((option) => !!option);
+
+    const isQuestions = props.currentAdminGame?.name?.toLowerCase()?.includes("questions");
 
     const _game = {
+      ...data,
       options,
-      name,
       isLive,
-      outerBorder,
-      lineColor,
-      selector,
-      text,
-      button,
-      colorPrimary,
-      colorSecondary,
+      isQuestions,
       coverImgUrl,
       id: newId,
       ownBranding,
@@ -136,9 +154,11 @@ export const Roulette = (props) => {
           {...props}
         />
       )}
+
       <ButtonAnt color="default" onClick={() => router.back()} disabled={props.isLoading}>
         Cancelar
       </ButtonAnt>
+
       <form onSubmit={handleSubmit(saveGame)}>
         <div className="first-content">
           <div className="flex items-center">
@@ -162,18 +182,32 @@ export const Roulette = (props) => {
               Ajustes
             </ButtonAnt>
           </div>
-          <Checkbox defaultChecked={isLive} variant="gray" onChange={() => setIsLive(!isLive)}>
-            En vivo
-          </Checkbox>
-          <div className="text-['Lato'] text-[11px] leading-[13px]">(Las personas que participen del sorteo se tendrán que inscribir en vivo al sorteo mediante un pin)</div>
-          <div className="description">
-            Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)
-          </div>
+
+          {props.currentAdminGame?.name === "roulette" && (
+            <>
+              <Checkbox defaultChecked={isLive} variant="gray" onChange={() => setIsLive(!isLive)}>
+                En vivo
+              </Checkbox>
+              <div className="text-['Lato'] text-[11px] leading-[13px]">
+                (Las personas que participen del sorteo se tendrán que inscribir en vivo al sorteo mediante un pin)
+              </div>
+            </>
+          )}
+
+          {props.currentAdminGame?.name === "roulette" ? (
+            <div className="description">
+              Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)
+            </div>
+          ) : (
+            <div className="description">Escribe cada pregunta y sepáralos con “ENTER” (Máx. 35 caracteres)</div>
+          )}
+
           <TextArea
             onKeyPress={(event) => {
               if (event.key === "Enter") return;
 
-              const regex = new RegExp("^[a-zA-Z ]+$");
+              // Prevent use special characters.
+              const regex = new RegExp("^[a-zA-Z .¿?]+$");
               const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
               if (!regex.test(key)) {
                 event.preventDefault();
@@ -196,6 +230,7 @@ export const Roulette = (props) => {
             </ButtonAnt>
           </Desktop>
         </div>
+
         <div className="second-content">
           <div className="subtitle">Cambia los colores:</div>
           <div className="colors-container">
@@ -328,7 +363,7 @@ export const Roulette = (props) => {
             mustStartSpinning={mustSpin}
             prizeNumber={prizeNumber}
             setPrizeNumber={setPrizeNumber}
-            data={data}
+            data={props.currentAdminGame?.name === "rouletteQuestions" ? questions : data}
             outerBorderColor={watch("outerBorder") ?? darkTheme.basic.secondary}
             outerBorderWidth={20}
             radiusLineColor={watch("lineColor") ?? darkTheme.basic.secondaryDark}
