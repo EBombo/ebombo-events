@@ -35,7 +35,7 @@ module.exports = {
         gray: "#E4E4E4",
       },
       backgroundImage: () => ({
-        "selector": `url('${config.storageUrl}/resources/selector.png')`,
+        selector: `url('${config.storageUrl}/resources/selector.png')`,
       }),
     },
   },

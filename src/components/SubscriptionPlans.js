@@ -1,9 +1,9 @@
-import React, { useState } from "reactn";
+import React from "reactn";
 import styled from "styled-components";
 import { PlansPrices } from "./common/PlansPrices";
 import { Switch } from "./form";
 import { darkTheme } from "../theme";
-import { useStripePlans } from '../hooks/useStripePlans'
+import { useStripePlans } from "../hooks/useStripePlans";
 
 export const SubscriptionPlans = (props) => {
   const { plans } = useStripePlans();
@@ -27,7 +27,8 @@ export const SubscriptionPlans = (props) => {
         isLoading={props.isLoadingCheckoutPlan ?? false}
         plans={plans}
         selectPlanLabel={props.selectPlanLabel ?? "Escoger"}
-        {...props} />
+        {...props}
+      />
     </SubscriptionPlansContainer>
   );
 };
