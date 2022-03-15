@@ -30,10 +30,7 @@ export const Roulette = (props) => {
   const [isLive, setIsLive] = useState(props.game?.isLive ?? false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [options, setOptions] = useState([]);
-
-  const isFetchingOptions = useMemo(() => {
-    return gameId !== "new" && !options?.length;
-  }, [options, gameId]);
+  const [isLoadingOptions, setIsLoadingOptions] = useState(gameId !== "new");
 
   const newId = useMemo(() => {
     return props.game?.id ?? firestore.collection("hanged").doc().id;
@@ -48,6 +45,8 @@ export const Roulette = (props) => {
       const _options = snapshotToArray(optionsQuery);
 
       setOptions(_options.map((option) => option.option));
+
+      setIsLoadingOptions(false);
     };
 
     fetchOptions();
@@ -231,8 +230,8 @@ export const Roulette = (props) => {
             }}
             id="options"
             defaultValue={options.join("\n") ?? "Escribe\n" + "Cada\n" + "Nombre\n" + "en una linea\n" + "unica"}
-            disabled={!!isLive || isFetchingOptions}
-            isLoading={isFetchingOptions}
+            disabled={!!isLive || isLoadingOptions}
+            isLoading={isLoadingOptions}
             error={errors.options}
             name="options"
             ref={register}
@@ -243,8 +242,8 @@ export const Roulette = (props) => {
           <Desktop>
             <ButtonAnt
               htmlType="submit"
-              disabled={props.isLoading || isFetchingOptions}
-              loading={props.isLoading || isFetchingOptions}
+              disabled={props.isLoading || isLoadingOptions}
+              loading={props.isLoading || isLoadingOptions}
               margin="1rem 0"
             >
               Guardar
@@ -357,8 +356,8 @@ export const Roulette = (props) => {
           <Tablet>
             <ButtonAnt
               htmlType="submit"
-              disabled={props.isLoading || isFetchingOptions}
-              loading={props.isLoading || isFetchingOptions}
+              disabled={props.isLoading || isLoadingOptions}
+              loading={props.isLoading || isLoadingOptions}
               margin="1rem 0"
             >
               Guardar
