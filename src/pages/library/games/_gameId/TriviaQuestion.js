@@ -31,7 +31,7 @@ export const TriviaQuestion = (props) => {
     }
 
     if (uniq) {
-      _questions[props.questionIndex].answer = [1];
+      _questions[props.questionIndex].answer = [number];
       return props.setQuestions(_questions);
     }
 
@@ -49,11 +49,11 @@ export const TriviaQuestion = (props) => {
 
   return (
     <>
-      {props.questions[props.questionIndex].type === "quiz" && (
+      {props.questions[props.questionIndex]?.type === "quiz" && (
         <div className="grid max-w-[786px] mx-auto my-4 gap-4 md:grid-cols-[1fr_1fr]">
           <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
             {optionFocus === 0 ? (
-              props.questions[props.questionIndex].answerOption === "uniq" ? (
+              props.questions[props.questionIndex]?.answerOption === "uniq" ? (
                 <CheckboxContainer
                   rounded
                   imageUrl={`${config.storageUrl}/resources/checked.svg`}
@@ -102,7 +102,7 @@ export const TriviaQuestion = (props) => {
               type="text"
               className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
               placeholder="Escribir respuesta"
-              value={props.questions[props.questionIndex].options[0] ?? ""}
+              value={props.questions[props.questionIndex]?.options[0] ?? ""}
               onFocus={() => setOptionFocus(0)}
               onChange={(e) => {
                 updateInputQuiz(0, e);
@@ -111,7 +111,7 @@ export const TriviaQuestion = (props) => {
           </div>
           <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
             {optionFocus === 1 ? (
-              props.questions[props.questionIndex].answerOption === "uniq" ? (
+              props.questions[props.questionIndex]?.answerOption === "uniq" ? (
                 <CheckboxContainer
                   rounded
                   imageUrl={`${config.storageUrl}/resources/checked.svg`}
@@ -120,7 +120,7 @@ export const TriviaQuestion = (props) => {
                   <input
                     id="trigger"
                     type="checkbox"
-                    defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(1)}
+                    defaultChecked={defaultTo(props.questions[props.questionIndex]?.answer, []).includes(1)}
                     onChange={(e) => {
                       updateCheckboxQuiz(1, e, true);
                     }}
@@ -135,7 +135,7 @@ export const TriviaQuestion = (props) => {
                   <input
                     id="trigger"
                     type="checkbox"
-                    defaultChecked={defaultTo(props.questions[props.questionIndex].answer, []).includes(1)}
+                    defaultChecked={defaultTo(props.questions[props.questionIndex]?.answer, []).includes(1)}
                     onChange={(e) => {
                       updateCheckboxQuiz(1, e);
                     }}
@@ -160,7 +160,7 @@ export const TriviaQuestion = (props) => {
               type="text"
               className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
               placeholder="Escribir respuesta"
-              value={props.questions[props.questionIndex].options[1] ?? ""}
+              value={props.questions[props.questionIndex]?.options[1] ?? ""}
               onFocus={() => setOptionFocus(1)}
               onChange={(e) => {
                 updateInputQuiz(1, e);
@@ -169,7 +169,7 @@ export const TriviaQuestion = (props) => {
           </div>
           <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
             {optionFocus === 2 ? (
-              props.questions[props.questionIndex].answerOption === "uniq" ? (
+              props.questions[props.questionIndex]?.answerOption === "uniq" ? (
                 <CheckboxContainer
                   rounded
                   imageUrl={`${config.storageUrl}/resources/checked.svg`}
@@ -218,7 +218,7 @@ export const TriviaQuestion = (props) => {
               type="text"
               className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
               placeholder="Escribir respuesta"
-              value={props.questions[props.questionIndex].options[2] ?? ""}
+              value={props.questions[props.questionIndex]?.options[2] ?? ""}
               onFocus={() => setOptionFocus(2)}
               onChange={(e) => {
                 updateInputQuiz(2, e);
@@ -227,7 +227,7 @@ export const TriviaQuestion = (props) => {
           </div>
           <div className="w-full grid grid-cols-[40px_auto] md:grid-cols-[50px_auto] rounded-[4px] overflow-hidden">
             {optionFocus === 3 ? (
-              props.questions[props.questionIndex].answerOption === "uniq" ? (
+              props.questions[props.questionIndex]?.answerOption === "uniq" ? (
                 <CheckboxContainer
                   rounded
                   imageUrl={`${config.storageUrl}/resources/checked.svg`}
@@ -276,7 +276,7 @@ export const TriviaQuestion = (props) => {
               type="text"
               className="px-4 h-[52px] text-right md:h-[102px] focus:outline-none focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]"
               placeholder="Escribir respuesta"
-              value={props.questions[props.questionIndex].options[3] ?? ""}
+              value={props.questions[props.questionIndex]?.options[3] ?? ""}
               onFocus={() => setOptionFocus(3)}
               onChange={(e) => {
                 updateInputQuiz(3, e);
@@ -286,7 +286,7 @@ export const TriviaQuestion = (props) => {
         </div>
       )}
 
-      {props.questions[props.questionIndex].type === "trueFalse" && (
+      {props.questions[props.questionIndex]?.type === "trueFalse" && (
         <div className="grid max-w-[786px] mx-auto my-4 gap-4 md:grid-cols-[1fr_1fr]">
           <div className="w-full grid grid-cols-[auto_40px] md:grid-cols-[auto_50px] rounded-[4px] overflow-hidden">
             <div className="bg-white px-4 h-[52px] flex items-center justify-center md:h-[102px]">
@@ -311,7 +311,7 @@ export const TriviaQuestion = (props) => {
               <input
                 id="trueCheckbox"
                 type="checkbox"
-                checked={props.questions[props.questionIndex].answer === true}
+                checked={props.questions[props.questionIndex]?.answer === true}
                 onChange={(e) => {
                   updateInputTrueFalse(e, true);
                 }}
@@ -342,7 +342,7 @@ export const TriviaQuestion = (props) => {
               <input
                 id="falseCheckbox"
                 type="checkbox"
-                checked={props.questions[props.questionIndex].answer === false}
+                checked={props.questions[props.questionIndex]?.answer === false}
                 onChange={(e) => {
                   updateInputTrueFalse(e, false);
                 }}
@@ -353,7 +353,7 @@ export const TriviaQuestion = (props) => {
         </div>
       )}
 
-      {props.questions[props.questionIndex].type === "shortAnswer" && (
+      {props.questions[props.questionIndex]?.type === "shortAnswer" && (
         <div className="grid max-w-[786px] mx-auto my-4 gap-4">
           <div className="w-full h-[55px] md:h-[85px] p-4 bg-whiteLight rounded-[4px] grid grid-cols-[auto_144px]">
             <input
@@ -376,7 +376,7 @@ export const TriviaQuestion = (props) => {
               Añadir respuesta
             </ButtonAnt>
           </div>
-          <div className="w-full grid gap-4 grid-cols-[repeat(auto-fill,minmax(100px,auto))]">
+          <div className="w-full flex flex-wrap gap-[10px]">
             {props.questions[props.questionIndex]?.answer.map((answer, idx) => (
               <div
                 className="bg-green px-4 py-2 text-['Lato'] text-white bold-[900] text-[22px] leading-[26px] rounded-[5px] flex items-center text-center"

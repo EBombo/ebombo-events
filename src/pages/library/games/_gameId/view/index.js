@@ -112,8 +112,8 @@ export const GameView = (props) => {
   return (
     <div className="w-full grid md:grid-cols-[350px_auto]">
       <SideBar
-        game={game}
         {...props}
+        game={game}
         toggleFavorite={toggleFavorite}
         createTokenToPlay={createTokenToPlay}
         setIsVisibleInscriptions={setIsVisibleInscriptions}
