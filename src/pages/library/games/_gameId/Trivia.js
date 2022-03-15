@@ -8,7 +8,7 @@ import { config, firestore, firestoreTrivia } from "../../../../firebase";
 import {
   triviaQuestionsOptions,
   triviaQuestionsTimes,
-  triviaQuestionsTypes,
+  triviaQuestionsTypes
 } from "../../../../components/common/DataList";
 import { Desktop, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";
@@ -18,6 +18,7 @@ import { ModalSettings } from "./ModalSettings";
 import { useRouter } from "next/router";
 import { snapshotToArray } from "../../../../utils";
 import { spinLoader } from "../../../../components/common/loader";
+import orderBy from "lodash/orderBy";
 
 export const Trivia = (props) => {
   const router = useRouter();
@@ -56,8 +57,9 @@ export const Trivia = (props) => {
         .collection("questions")
         .onSnapshot((questionsSnapshot) => {
           const questions = snapshotToArray(questionsSnapshot);
-          setQuestions(questions);
-          setLoading(false);
+
+          setQuestions(orderBy(questions, "questionNumber"));
+          setLoading(false)
         });
 
     fetchQuestions();
@@ -189,7 +191,7 @@ export const Trivia = (props) => {
               {questions.map((question, idx) => (
                 <div
                   className={`cursor-pointer bg-${
-                    question.id === questions[questionIndex].id ? "gray" : "white"
+                    question.id === questions[questionIndex]?.id ? "gray" : "white"
                   } h-full w-[115px] min-w-[115px] flex flex-col justify-center items-center md:h-[117px] md:min-h-[117px] md:w-full`}
                   onClick={() => setQuestionIndex(idx)}
                   key={question.id}
@@ -251,18 +253,18 @@ export const Trivia = (props) => {
               type="text"
               className="w-full h-[80px] rounded-[4px] bg-whiteLight text-center text-['Lato'] font-[500] text-[25px] leading-[30px] text-grayLight"
               placeholder="Escribe tu pregunta..."
-              value={questions[questionIndex].question || ""}
+              value={questions[questionIndex]?.question || ""}
               onChange={(e) => {
                 const _questions = [...questions];
                 _questions[questionIndex].question = e.target.value;
                 setQuestions(_questions);
               }}
             />
-            <div className="mx-auto my-4 max-w-[786px]" key={questions[questionIndex].fileUrl ?? ""}>
+            <div className="mx-auto my-4 max-w-[786px]" key={questions[questionIndex]?.fileUrl ?? ""}>
               <FileUpload
-                file={questions[questionIndex].fileUrl ?? null}
+                file={questions[questionIndex]?.fileUrl ?? null}
                 fileName="questionImage"
-                filePath={`questions/${questions[questionIndex].id}`}
+                filePath={`questions/${questions[questionIndex]?.id}`}
                 preview={true}
                 sizes="250x250"
                 width="100%"
@@ -308,7 +310,7 @@ export const Trivia = (props) => {
                   _questions[questionIndex].answerOption = value === "shortAnswer" ? "multiple" : "uniq";
                   setQuestions(_questions);
                 }}
-                value={questions[questionIndex].type}
+                value={questions[questionIndex]?.type}
               >
                 {triviaQuestionsTypes.map((type) => (
                   <option className="py-1" key={type.key} value={type.key}>
@@ -338,7 +340,7 @@ export const Trivia = (props) => {
                   _questions[questionIndex].time = value;
                   setQuestions(_questions);
                 }}
-                value={questions[questionIndex].time}
+                value={questions[questionIndex]?.time}
               >
                 {triviaQuestionsTimes.map((time) => (
                   <option className="py-1" key={time.key} value={time.key}>
@@ -361,7 +363,7 @@ export const Trivia = (props) => {
               <select
                 className="w-full border border-grayLighten border-[1px] bg-white rounded px-3 py-2 outline-none"
                 disabled={
-                  questions[questionIndex].type === "shortAnswer" || questions[questionIndex].type === "trueFalse"
+                  questions[questionIndex]?.type === "shortAnswer" || questions[questionIndex]?.type === "trueFalse"
                 }
                 onChange={(event) => {
                   const value = event.target.value;
@@ -370,7 +372,7 @@ export const Trivia = (props) => {
                   _questions[questionIndex].answer = [];
                   setQuestions(_questions);
                 }}
-                value={questions[questionIndex].answerOption}
+                value={questions[questionIndex]?.answerOption}
               >
                 {triviaQuestionsOptions.map((option) => (
                   <option className="py-1" key={option.key} value={option.key}>
