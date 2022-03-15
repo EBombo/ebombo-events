@@ -123,7 +123,7 @@ export const Navbar = (props) => {
                 <li
                   className="nav-item"
                   onClick={() => {
-                    router.push({ pathname: "/", hash: "contact" });
+                    router.push("/contact");
                     setActive(false);
                   }}
                 >
