@@ -32,7 +32,10 @@ export const UsersView = (props) => {
         setCurrentFirestore(firestoreHanged);
       }
 
-      if (props.game?.adminGame?.name === "roulette") {
+      if (
+        props.game?.adminGame?.name === "roulette" ||
+        props.game?.adminGame?.name.toLowerCase().includes("questions")
+      ) {
         gameRef = firestoreRoulette.collection("visitors");
         setCurrentFirestore(firestoreRoulette);
       }
