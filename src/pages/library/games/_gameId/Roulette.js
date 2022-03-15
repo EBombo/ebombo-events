@@ -14,8 +14,10 @@ import { snapshotToArray } from "../../../../utils";
 
 const FortuneWheel = dynamic(() => import("../../../../components/common/FortuneWheel"), { ssr: false });
 
+// TODO: Consider refactoring to smaller components.
 export const Roulette = (props) => {
   const router = useRouter();
+  const { gameId } = router.query;
 
   const [coverImgUrl, setCoverImgUrl] = useState(null);
   const [ownBranding, setOwnBranding] = useState(props.game?.ownBranding ?? false);
@@ -28,6 +30,10 @@ export const Roulette = (props) => {
   const [isLive, setIsLive] = useState(props.game?.isLive ?? false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [options, setOptions] = useState([]);
+
+  const isFetchingOptions = useMemo(() => {
+    return gameId !== "new" && !options?.length;
+  }, [options, gameId]);
 
   const newId = useMemo(() => {
     return props.game?.id ?? firestore.collection("hanged").doc().id;
@@ -59,9 +65,18 @@ export const Roulette = (props) => {
     options: string(),
   });
 
-  const { handleSubmit, register, errors, watch, control } = useForm({
+  const { handleSubmit, register, errors, watch } = useForm({
     validationSchema: schema,
     reValidateMode: "onSubmit",
+    defaultValues: {
+      outerBorder: get(props, "game.outerBorder", darkTheme.basic.secondary),
+      lineColor: get(props, "game.lineColor", darkTheme.basic.secondaryDark),
+      selector: get(props, "game.selector", "#D3D3D3"),
+      text: get(props, "game.text", darkTheme.basic.whiteLight),
+      buttonColor: get(props, "game.buttonColor", "#DFDFDF"),
+      colorPrimary: get(props, "game.colorPrimary", darkTheme.basic.primary),
+      colorSecondary: get(props, "game.colorSecondary", darkTheme.basic.secondary),
+    },
   });
 
   const data = [
@@ -216,7 +231,8 @@ export const Roulette = (props) => {
             }}
             id="options"
             defaultValue={options.join("\n") ?? "Escribe\n" + "Cada\n" + "Nombre\n" + "en una linea\n" + "unica"}
-            disabled={!!isLive}
+            disabled={!!isLive || isFetchingOptions}
+            isLoading={isFetchingOptions}
             error={errors.options}
             name="options"
             ref={register}
@@ -225,7 +241,12 @@ export const Roulette = (props) => {
           />
 
           <Desktop>
-            <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading} margin="1rem 0">
+            <ButtonAnt
+              htmlType="submit"
+              disabled={props.isLoading || isFetchingOptions}
+              loading={props.isLoading || isFetchingOptions}
+              margin="1rem 0"
+            >
               Guardar
             </ButtonAnt>
           </Desktop>
@@ -238,13 +259,7 @@ export const Roulette = (props) => {
               <div>
                 <div className="color-title">Borde exterior</div>
                 <div className="input-container">
-                  <input
-                    type="color"
-                    name="outerBorder"
-                    defaultValue={get(props, "game.outerBorder", darkTheme.basic.secondary)}
-                    ref={register}
-                    id="input-color-outerBorder"
-                  />
+                  <input type="color" name="outerBorder" ref={register} id="input-color-outerBorder" />
                   <label
                     htmlFor="outerBorder"
                     onClick={() => document.getElementById("input-color-outerBorder").click()}
@@ -256,13 +271,7 @@ export const Roulette = (props) => {
               <div>
                 <div className="color-title">Border interior</div>
                 <div className="input-container">
-                  <input
-                    type="color"
-                    name="lineColor"
-                    defaultValue={get(props, "game.lineColor", darkTheme.basic.secondaryDark)}
-                    id="input-color-lineColor"
-                    ref={register}
-                  />
+                  <input type="color" name="lineColor" id="input-color-lineColor" ref={register} />
                   <label htmlFor="lineColor" onClick={() => document.getElementById("input-color-lineColor").click()}>
                     {watch("lineColor")?.toUpperCase()}
                   </label>
@@ -274,13 +283,7 @@ export const Roulette = (props) => {
               <div>
                 <div className="color-title">Selector</div>
                 <div className="input-container">
-                  <input
-                    type="color"
-                    name="selector"
-                    defaultValue={get(props, "game.selector", "#D3D3D3")}
-                    id="input-color-selector"
-                    ref={register}
-                  />
+                  <input type="color" name="selector" id="input-color-selector" ref={register} />
                   <label htmlFor="selector" onClick={() => document.getElementById("input-color-selector").click()}>
                     {watch("selector")?.toUpperCase()}
                   </label>
@@ -291,13 +294,7 @@ export const Roulette = (props) => {
               <div>
                 <div className="color-title">Textos</div>
                 <div className="input-container">
-                  <input
-                    type="color"
-                    name="text"
-                    defaultValue={get(props, "game.text", darkTheme.basic.whiteLight)}
-                    ref={register}
-                    id="input-color-number"
-                  />
+                  <input type="color" name="text" ref={register} id="input-color-number" />
                   <label htmlFor="text" onClick={() => document.getElementById("input-color-number").click()}>
                     {watch("text")?.toUpperCase()}
                   </label>
@@ -306,13 +303,7 @@ export const Roulette = (props) => {
               <div>
                 <div className="color-title">Botón</div>
                 <div className="input-container">
-                  <input
-                    type="color"
-                    name="buttonColor"
-                    defaultValue={get(props, "game.buttonColor", "#DFDFDF")}
-                    ref={register}
-                    id="input-color-button"
-                  />
+                  <input type="color" name="buttonColor" ref={register} id="input-color-button" />
                   <label htmlFor="buttonColor" onClick={() => document.getElementById("input-color-button").click()}>
                     {watch("buttonColor")?.toUpperCase()}
                   </label>
@@ -323,13 +314,7 @@ export const Roulette = (props) => {
               <div>
                 <div className="color-title">Opciones</div>
                 <div className="input-container">
-                  <input
-                    type="color"
-                    name="colorPrimary"
-                    defaultValue={get(props, "game.colorPrimary", darkTheme.basic.primary)}
-                    ref={register}
-                    id="input-color-primary"
-                  />
+                  <input type="color" name="colorPrimary" ref={register} id="input-color-primary" />
                   <label htmlFor="colorPrimary" onClick={() => document.getElementById("input-color-primary").click()}>
                     {watch("colorPrimary")?.toUpperCase()}
                   </label>
@@ -338,13 +323,7 @@ export const Roulette = (props) => {
               <div>
                 <div className="color-title">Opciones</div>
                 <div className="input-container">
-                  <input
-                    type="color"
-                    name="colorSecondary"
-                    defaultValue={get(props, "game.colorSecondary", darkTheme.basic.secondary)}
-                    ref={register}
-                    id="input-color-secondary"
-                  />
+                  <input type="color" name="colorSecondary" ref={register} id="input-color-secondary" />
                   <label
                     htmlFor="colorSecondary"
                     onClick={() => document.getElementById("input-color-secondary").click()}
@@ -376,7 +355,12 @@ export const Roulette = (props) => {
             }}
           />
           <Tablet>
-            <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading} margin="1rem 0">
+            <ButtonAnt
+              htmlType="submit"
+              disabled={props.isLoading || isFetchingOptions}
+              loading={props.isLoading || isFetchingOptions}
+              margin="1rem 0"
+            >
               Guardar
             </ButtonAnt>
           </Tablet>
@@ -390,7 +374,7 @@ const RouletteContainer = styled.div`
   width: 90%;
   padding: 1rem;
   background: ${(props) => props.theme.basic.gray};
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   margin: 1rem auto;
 
   input[type="text"] {

@@ -115,6 +115,10 @@ export const GameContainer = (props) => {
 
   const createUrl = (adminGame) => `${adminGame.api}/games/new/users/${authUser.id}`;
 
+  const isFetchingGame = useMemo(() => {
+    return gameId !== "new" && !currentGame?.id;
+  }, [currentGame, gameId]);
+
   if (gameId !== "new" && !currentGame) return spinLoader();
 
   return (
@@ -142,15 +146,21 @@ export const GameContainer = (props) => {
       )}
 
       {(currentAdminGame?.name === "roulette" || currentAdminGame?.name === "rouletteQuestions") && (
-        <Roulette
-          submitGame={submitGame}
-          isLoading={isLoading}
-          game={currentGame}
-          parent={parent}
-          setParent={setParent}
-          currentAdminGame={currentAdminGame}
-          {...props}
-        />
+        <>
+          {isFetchingGame ? (
+            spinLoader()
+          ) : (
+            <Roulette
+              submitGame={submitGame}
+              isLoading={isLoading}
+              game={currentGame}
+              parent={parent}
+              setParent={setParent}
+              currentAdminGame={currentAdminGame}
+              {...props}
+            />
+          )}
+        </>
       )}
 
       {currentAdminGame?.name === "trivia" && (
