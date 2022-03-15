@@ -15,6 +15,8 @@ export const UsersView = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   useEffect(() => {
+    if (!props.game) return;
+
     const fetchUsers = async () => {
       let gameRef;
       if (props.game?.adminGame?.name === "bingo") {
@@ -51,7 +53,7 @@ export const UsersView = (props) => {
     };
 
     fetchUsers();
-  }, []);
+  }, [props.game]);
 
   const columns = [
     {
