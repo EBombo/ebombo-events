@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "copy:example": "cp .env.example ./.env",
-    "dev": "npm run copy:example && next dev -p 3001",
+    "dev": "npm run copy:example && next dev -p 3002",
     "build": "next build && next export",
     "postbuild": "next-sitemap",
     "start": "next start -p 5000",
