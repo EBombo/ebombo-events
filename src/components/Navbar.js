@@ -62,7 +62,7 @@ export const Navbar = (props) => {
                 Sobre nosotros
               </Anchor>
               {!authUser && (
-                <Anchor url="/#contact" className="link">
+                <Anchor url="/contact" className="link">
                   Contacto
                 </Anchor>
               )}
@@ -123,7 +123,7 @@ export const Navbar = (props) => {
                 <li
                   className="nav-item"
                   onClick={() => {
-                    router.push({ pathname: "/", hash: "contact" });
+                    router.push("/contact");
                     setActive(false);
                   }}
                 >

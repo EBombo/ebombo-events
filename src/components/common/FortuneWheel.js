@@ -1,12 +1,15 @@
-import React from "reactn";
+import React, { useMemo } from "reactn";
 import styled from "styled-components";
 import { Wheel } from "react-custom-roulette";
 import { mediaQuery } from "../../constants";
+
+const limitText = 18;
 
 const FortuneWheel = (props) => {
   const spin = (e) => {
     e.preventDefault();
 
+    // When the user has reached the limit of winners.
     if (props.disabled) return props.setIsVisibleModalMessage(true);
 
     const newPrizeNumber = Math.floor(Math.random() * props.data.length);
@@ -14,9 +17,22 @@ const FortuneWheel = (props) => {
     props.setMustSpin(true);
   };
 
+  const currentData = useMemo(() => {
+    // Manage large text.
+    return props.data.map((dat) => ({
+      ...dat,
+      option: dat.option.length > limitText ? `${dat.option.slice(0, limitText)}...` : dat.option,
+    }));
+  }, [props.data]);
+
   return (
     <CustomeWheel buttonColor={props.buttonColor} outerBorderColor={props.outerBorderColor}>
-      <Wheel {...props} />
+      {
+        // Reference:
+        // https://www.npmjs.com/package/react-custom-roulette
+      }
+      <Wheel {...props} data={currentData} />
+
       <div className="bg-selector bg-contain bg-no-repeat	z-50 absolute top-[16%] right-[13%] w-[28px] h-[30px]" />
 
       <div className="btn-container">
