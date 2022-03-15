@@ -42,6 +42,16 @@ let storageRoulette;
 let authRoulette;
 let analyticsRoulette;
 
+let firestoreTrivia;
+let storageTrivia;
+let authTrivia;
+let analyticsTrivia;
+
+let firestoreHanged;
+let storageHanged;
+let authHanged;
+let analyticsHanged;
+
 let analytics;
 let firestore;
 let storage;
@@ -96,6 +106,38 @@ if (isEmpty(firebase.apps)) {
   } catch (error) {
     console.error("error initializeApp", error);
   }
+
+  // Trivia connection.
+  try {
+    firebase.initializeApp(config.firebaseTrivia, "trivia");
+    firestoreTrivia = firebase.app("trivia").firestore();
+    storageTrivia = firebase.app("trivia").storage();
+    authTrivia = firebase.app("trivia").auth();
+
+    if (typeof window !== "undefined") {
+      analyticsTrivia = firebase.app("trivia").analytics();
+    }
+
+    firestoreTrivia.settings({ ignoreUndefinedProperties: true });
+  } catch (error) {
+    console.error("error initializeApp", error);
+  }
+
+  // Hanged connection.
+  try {
+    firebase.initializeApp(config.firebaseHanged, "hanged");
+    firestoreHanged = firebase.app("hanged").firestore();
+    storageHanged = firebase.app("hanged").storage();
+    authHanged = firebase.app("hanged").auth();
+
+    if (typeof window !== "undefined") {
+      analyticsHanged = firebase.app("hanged").analytics();
+    }
+
+    firestoreHanged.settings({ ignoreUndefinedProperties: true });
+  } catch (error) {
+    console.error("error initializeApp", error);
+  }
 }
 
 if (DOMAIN?.includes("localhost")) {
@@ -132,4 +174,12 @@ export {
   landingsStorageBucket,
   usersStorageBucket,
   companiesStorageBucket,
+  firestoreTrivia,
+  storageTrivia,
+  authTrivia,
+  analyticsTrivia,
+  firestoreHanged,
+  storageHanged,
+  authHanged,
+  analyticsHanged,
 };
