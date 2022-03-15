@@ -62,7 +62,7 @@ export const Navbar = (props) => {
                 Sobre nosotros
               </Anchor>
               {!authUser && (
-                <Anchor url="/#contact" className="link">
+                <Anchor url="/contact" className="link">
                   Contacto
                 </Anchor>
               )}
