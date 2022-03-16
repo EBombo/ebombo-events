@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { DesktopLibraryGames } from "./DesktopLibraryGames";
 import { DesktopLibraryFolders } from "./DesktopLibraryFolders";
 import { DesktopLeftMenu } from "../../components/common/DesktopLeftMenu";
+import { Events } from "./events";
 
 export const DesktopLibrary = (props) => {
   const router = useRouter();
@@ -11,7 +12,9 @@ export const DesktopLibrary = (props) => {
   return (
     <DesktopLibraryContainer>
       <DesktopLeftMenu {...props} />
-      {router.asPath.includes("/folders") ? <DesktopLibraryFolders {...props} /> : <DesktopLibraryGames {...props} />}
+      {router.asPath.includes("/folders") && <DesktopLibraryFolders {...props} /> }
+      {router.asPath.includes("/games") &&   <DesktopLibraryGames {...props} />}
+      {router.asPath.includes("/events") &&   <Events {...props} />}
     </DesktopLibraryContainer>
   );
 };
