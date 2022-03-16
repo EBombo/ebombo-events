@@ -8,7 +8,7 @@ import { config, firestore, firestoreTrivia } from "../../../../firebase";
 import {
   triviaQuestionsOptions,
   triviaQuestionsTimes,
-  triviaQuestionsTypes,
+  triviaQuestionsTypes
 } from "../../../../components/common/DataList";
 import { Desktop, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";
@@ -59,7 +59,7 @@ export const Trivia = (props) => {
           const questions = snapshotToArray(questionsSnapshot);
 
           setQuestions(orderBy(questions, "questionNumber"));
-          setLoading(false);
+          setLoading(false)
         });
 
     fetchQuestions();
