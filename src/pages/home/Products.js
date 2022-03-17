@@ -167,12 +167,6 @@ const ProductsContainer = styled.div`
     .top-container {
       margin: 0 auto;
       position: relative;
-
-      .background {
-        padding: 20px 0 20px 30px;
-        border-radius: 9px;
-        background: ${(props) => props.theme.basic.blackDarken};
-      }
     }
 
     .subtitle {
