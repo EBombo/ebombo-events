@@ -21,6 +21,7 @@ export const ModalMove = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [folderSelected, setFolderSelected] = useState(null);
   const [isVisibleNewFolder, setIsVisibleNewFolder] = useState(false);
+  const [parent, setParent] = useState(props.parent ?? null)
 
   const schema = yup.object().shape({
     name: yup.string().required(),
@@ -54,7 +55,10 @@ export const ModalMove = (props) => {
 
   const doClickAction = (folder) => setFolderSelected(folder);
 
-  const doDoubleClickAction = (folder) => setFolderId(folder.id);
+  const doDoubleClickAction = (folder) => {
+    setParent(folder);
+    setFolderId(folder.id);
+  };
 
   const handleClick = (folder) => {
     timer = setTimeout(() => {
@@ -76,15 +80,15 @@ export const ModalMove = (props) => {
       const folderRef = firestore.collection("folders");
       const newFolderId = folderRef.doc().id;
 
-      const path = props.parent ? `${props.parent.path}/${data.name}` : `/${data.name}`;
+      const path = parent ? `${parent.path}/${data.name}` : `/${data.name}`;
 
       await folderRef.doc(newFolderId).set(
         {
           ...data,
           id: newFolderId,
           path,
-          parent: props.parent || null,
-          parentId: props.parent?.id || null,
+          parent: parent || null,
+          parentId: parent?.id || null,
           createAt: new Date(),
           updateAt: new Date(),
           deleted: false,
