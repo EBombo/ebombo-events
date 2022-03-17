@@ -82,9 +82,9 @@ export const EbomboStyle = (props) => {
         <div className="title">Al estilo ebombo</div>
 
         <div className="items">
-          {EbomboItems.map((item) => {
+          {EbomboItems.map((item, index) => {
             return item?.title ? (
-              <ItemStyled color={item.color}>
+              <ItemStyled color={item.color} key={`${item.title}-${index}`}>
                 <div className="title-item">{item.title}</div>
                 <div className="description-item">{item.description}</div>
                 <Image
@@ -96,7 +96,7 @@ export const EbomboStyle = (props) => {
                 />
               </ItemStyled>
             ) : (
-              <div />
+              <div key={index} />
             );
           })}
         </div>

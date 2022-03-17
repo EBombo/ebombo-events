@@ -26,12 +26,17 @@ export const ListGameView = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchResource = async () => {
-      const resourceRef = await firestore.collection("games").doc(props.game.adminGameId).get();
-      setResource(resourceRef.data());
-    };
+    const fetchResource = () =>
+      firestore
+        .collection("games")
+        .doc(props.game.adminGameId)
+        .onSnapshot(async (resourceSnap) => {
+          setResource(resourceSnap.data());
+        });
 
-    fetchResource();
+    const unsubscribeResource = fetchResource();
+
+    return () => unsubscribeResource();
   }, []);
 
   const getTimeCreation = () => {

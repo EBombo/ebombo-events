@@ -11,6 +11,7 @@ export const DesktopLeftMenu = (props) => {
   useEffect(() => {
     router.prefetch("/library/games");
     router.prefetch("/library/folders");
+    router.prefetch("/library/events");
   }, []);
 
   return (
@@ -44,15 +45,19 @@ export const DesktopLeftMenu = (props) => {
         <div className="name">Folders</div>
       </div>
 
-      {/*
-        <div
-          className={`item favorites ${get(router, "asPath", "").includes("/library/folders") ? "active" : ""}`}
-          onClick={() => router.push("/library/folders")}
-        >
-          <CameraOutlined />
-          <div className="name">Crear evento</div>
-        </div>
-        */}
+      <div
+        className={`item favorites ${get(router, "asPath", "").includes("/library/events") ? "active" : ""}`}
+        onClick={() => router.push("/library/events")}
+      >
+        <Image
+          src={`${config.storageUrl}/resources/calendar-purple-icon.svg`}
+          width="20px"
+          height="25px"
+          className="icon"
+          margin="0 20px 0 0"
+        />
+        <div className="name">Events</div>
+      </div>
     </LeftMenuContent>
   );
 };
