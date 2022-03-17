@@ -198,6 +198,23 @@ export const Roulette = (props) => {
             </ButtonAnt>
           </div>
 
+          <div className="text-['Lato'] text-[11px] leading-[13px]">
+            Cantidad de{" "}
+            {props.currentAdminGame?.name?.toLowerCase()?.includes("questions") ? "preguntas a sortear" : "ganadores"}
+          </div>
+          <Input
+            variant="primary"
+            placeholder={`Cantidad de ${
+              props.currentAdminGame?.name?.toLowerCase()?.includes("questions") ? "preguntas a sortear" : "ganadores"
+            }`}
+            name="amountWinners"
+            error={errors.amountWinners}
+            defaultValue={1}
+            ref={register}
+            type="number"
+            min={0}
+          />
+
           {props.currentAdminGame?.name === "roulette" && (
             <>
               <Checkbox defaultChecked={isLive} variant="gray" onChange={() => setIsLive(!isLive)}>
