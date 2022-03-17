@@ -161,10 +161,14 @@ export const GameView = (props) => {
       />
 
       {isVisibleInscriptions && <UsersView game={game} {...props} />}
+
       {game?.adminGame?.name === "bingo" && !isVisibleInscriptions && <BingoView game={game} {...props} />}
+
       {game?.adminGame?.name === "hanged" && !isVisibleInscriptions && <HangedView game={game} {...props} />}
+
       {(game?.adminGame?.name === "roulette" || game?.adminGame?.name === "rouletteQuestions") &&
         !isVisibleInscriptions && <RouletteView game={game} {...props} />}
+
       {game?.adminGame?.name === "trivia" && !isVisibleInscriptions && <TriviaView game={game} {...props} />}
     </div>
   );
