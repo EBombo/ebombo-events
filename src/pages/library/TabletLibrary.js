@@ -1,4 +1,4 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { config, firestore } from "../../firebase";
@@ -18,15 +18,26 @@ import { Events } from "./events";
 
 export const TabletLibrary = (props) => {
   const router = useRouter();
+
+  const { sendError } = useSendError();
+
+  const [loadingGames] = useGlobal("loadingGames");
+  const [games] = useGlobal("userGames");
+  const [authUser] = useGlobal("user")
+
+  const [selectedGameToMove, setSelectedGameToMove] = useState(null);
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
   const [folder, setFolder] = useState(null);
-  const [loadingGames] = useGlobal("loadingGames");
-  const [games] = useGlobal("userGames");
-  const { sendError } = useSendError();
-  const [selectedGameToMove, setSelectedGameToMove] = useState(null);
-  const [authUser] = useGlobal("user");
+
+
+  useEffect(() => {
+    router.prefetch("/library/games");
+    router.prefetch("/library/favorites");
+    router.prefetch("/library/events");
+  }, []);
+
 
   const getGames = () => {
     if (router.asPath.includes("/favorites")) return games.filter((game) => !!game.isFavorite);

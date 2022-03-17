@@ -1,4 +1,4 @@
-import React, { useGlobal, useState, useEffect } from "reactn";
+import React, { useEffect } from "reactn";
 import { ModalContainer } from "../../../components/common/ModalContainer";
 import { darkTheme } from "../../../theme";
 import { useRouter } from "next/router";
@@ -7,6 +7,10 @@ import { config } from "../../../firebase";
 
 export const ModalNewEvent = (props) => {
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/events/new");
+  }, []);
 
   return (
     <ModalContainer
