@@ -79,18 +79,9 @@ export const SideBar = (props) => {
                       height={"16px"}
                       size={"contain"}
                       margin={"0 15px 0 0"}
+                      cursor="pointer"
                     />
                     Mover
-                  </div>
-                  <div className="option">
-                    <Image
-                      src={`${config.storageUrl}/resources/duplicate.svg`}
-                      width={"16px"}
-                      height={"16px"}
-                      size={"contain"}
-                      margin={"0 15px 0 0"}
-                    />
-                    Duplicar
                   </div>
                   <div className="option" onClick={() => props.deleteGame()}>
                     <Image
@@ -99,6 +90,7 @@ export const SideBar = (props) => {
                       height={"16px"}
                       size={"contain"}
                       margin={"0 15px 0 0"}
+                      cursor="pointer"
                     />
                     Borrar
                   </div>
