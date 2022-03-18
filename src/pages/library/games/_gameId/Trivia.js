@@ -104,13 +104,15 @@ export const Trivia = (props) => {
 
     let valid = true;
 
-    questions.forEach((question) => {
+    for (let i = 0; i < questions.length; i++) {
+      const question = questions[i];
+
       if (question.type === "quiz") valid = validateQuiz(question);
       if (question.type === "trueFalse") valid = validateTrueFalse(question);
       if (question.type === "shortAnswer") valid = validateShortAnswer(question);
 
-      if (!valid) return;
-    });
+      if (!valid) break;
+    }
 
     if (!valid) return props.showNotification("ERROR", "Verificar que todas las preguntas esten completas.", "error");
 
@@ -133,7 +135,7 @@ export const Trivia = (props) => {
   };
 
   const validateShortAnswer = (question) => {
-    return question.answer.length;
+    return question.answer.length > 0;
   };
 
   if (loading) return spinLoader();
@@ -337,7 +339,7 @@ export const Trivia = (props) => {
                 onChange={(event) => {
                   const value = event.target.value;
                   const _questions = [...questions];
-                  _questions[questionIndex].time = value;
+                  _questions[questionIndex].time = parseInt(value);
                   setQuestions(_questions);
                 }}
                 value={questions[questionIndex]?.time}
