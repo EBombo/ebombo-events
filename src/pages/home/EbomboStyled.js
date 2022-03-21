@@ -84,9 +84,11 @@ export const EbomboStyle = (props) => {
         <div className="items">
           {EbomboItems.map((item, index) => {
             return item?.title ? (
-              <ItemStyled color={item.color} key={`${item.title}-${index}`}>
+              <ItemStyled color={item.color} key={`item-styled-${index}`}>
                 <div className="title-item">{item.title}</div>
+
                 <div className="description-item">{item.description}</div>
+
                 <Image
                   src={`${config.storageUrl}/resources/ebombo-style/${item.img}`}
                   width="100%"
@@ -96,7 +98,7 @@ export const EbomboStyle = (props) => {
                 />
               </ItemStyled>
             ) : (
-              <div key={index} />
+              <div key={`item-styled-${index}`} />
             );
           })}
         </div>

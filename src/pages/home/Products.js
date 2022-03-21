@@ -21,6 +21,7 @@ export const Products = (props) => {
   return (
     <ProductsContainer tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`}>
       <div className="title">UNA MANERA INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO</div>
+
       <div className="sub-title">
         Hemos creado una herramienta simple y sencilla que asegura la conexión de tus trabajadores en un esquema híbrido
         o remoto y el buen ambiente laboral
@@ -29,8 +30,8 @@ export const Products = (props) => {
       <div className="tabs">
         {landingProducts.map((product, index) => (
           <div
-            className={`tab ${index === currentTabIndex ? "active" : ""}`}
             key={product.tab}
+            className={`tab ${index === currentTabIndex ? "active" : ""}`}
             onClick={() => setCurrentTabIx(index)}
           >
             {product.tab}
@@ -41,30 +42,30 @@ export const Products = (props) => {
       {landingProducts[currentTabIndex].content.map((product) => (
         <div className="product" data-aos="fade-right" key={product.title}>
           <div className="top-container">
-            <div className="background" style={{ background: product.background }}>
-              <Image
-                src={product.image}
-                desktopHeight="360px"
-                desktopWidth="470px"
-                height="160px"
-                width="270px"
-                size="contain"
-                margin="0 -30px 0 0"
-                borderRadius="15px"
-              />
-            </div>
+            <Image
+              src={product.image}
+              desktopHeight="360px"
+              desktopWidth="470px"
+              height="160px"
+              width="270px"
+              size="contain"
+              margin="0 -30px 0 0"
+              borderRadius="15px"
+            />
           </div>
 
           <div className="bottom-container" data-aos="fade-right" data-aos-delay="500">
             <div className="subtitle">{product.title}</div>
+
             <div className="description">{product.description}</div>
+
             <div className="options-contain">
-              {chunk(product?.options ?? [], 5)?.map((optionChunk) => {
+              {chunk(product?.options ?? [], 5)?.map((optionChunk, index) => {
                 return (
-                  <div className="options">
+                  <div className="options" key={`option-chunk-${index}`}>
                     {optionChunk.map((option) => {
                       return (
-                        <div className="option">
+                        <div className="option" key={`option-${option}`}>
                           <CheckOutlined /> {option}
                         </div>
                       );
@@ -166,12 +167,6 @@ const ProductsContainer = styled.div`
     .top-container {
       margin: 0 auto;
       position: relative;
-
-      .background {
-        padding: 20px 0 20px 30px;
-        border-radius: 9px;
-        background: ${(props) => props.theme.basic.blackDarken};
-      }
     }
 
     .subtitle {

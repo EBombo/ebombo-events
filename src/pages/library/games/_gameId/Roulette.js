@@ -14,6 +14,8 @@ import { snapshotToArray } from "../../../../utils";
 
 const FortuneWheel = dynamic(() => import("../../../../components/common/FortuneWheel"), { ssr: false });
 
+const defaultWinners = 1;
+
 // TODO: Consider refactoring to smaller components.
 export const Roulette = (props) => {
   const router = useRouter();
@@ -55,6 +57,7 @@ export const Roulette = (props) => {
   const schema = object().shape({
     name: string().required(),
     outerBorder: string().required(),
+    amountWinners: string().required(),
     lineColor: string().required(),
     selector: string().required(),
     text: string().required(),
@@ -140,6 +143,7 @@ export const Roulette = (props) => {
       visibility,
       audio,
       allowDuplicate,
+      amountWinners: +data.amountWinners ?? defaultWinners,
     };
 
     await props.submitGame(_game);
@@ -196,6 +200,23 @@ export const Roulette = (props) => {
               Ajustes
             </ButtonAnt>
           </div>
+
+          <div className="text-['Lato'] text-[11px] leading-[13px]">
+            Cantidad de{" "}
+            {props.currentAdminGame?.name?.toLowerCase()?.includes("questions") ? "preguntas a sortear" : "ganadores"}
+          </div>
+          <Input
+            variant="primary"
+            placeholder={`Cantidad de ${
+              props.currentAdminGame?.name?.toLowerCase()?.includes("questions") ? "preguntas a sortear" : "ganadores"
+            }`}
+            name="amountWinners"
+            error={errors.amountWinners}
+            defaultValue={1}
+            ref={register}
+            type="number"
+            min={0}
+          />
 
           {props.currentAdminGame?.name === "roulette" && (
             <>
