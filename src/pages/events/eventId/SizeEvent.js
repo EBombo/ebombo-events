@@ -34,7 +34,7 @@ export const SizeEvent = (props) => {
         variant="contained"
         fontSize="18px"
         size="big"
-        margin="auto 0 auto auto"
+        margin="1rem 0 auto auto"
       >
         Siguiente
       </ButtonAnt>

@@ -107,7 +107,7 @@ export const EventContainer = (props) => {
         content: (eventSteps, position) => "register",
       },
     ];
-  }, [size, setSize]);
+  }, [size, setSize, budget, setBudget]);
 
   return (
     <EventContainerStyled tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`}>
