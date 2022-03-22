@@ -12,16 +12,16 @@ export const DesktopLibrary = (props) => {
   return (
     <DesktopLibraryContainer>
       <DesktopLeftMenu {...props} />
-      {router.asPath.includes("/folders") && <DesktopLibraryFolders {...props} /> }
-      {router.asPath.includes("/games") &&   <DesktopLibraryGames {...props} />}
-      {router.asPath.includes("/events") &&   <Events {...props} />}
+      {router.asPath.includes("/folders") ? <DesktopLibraryFolders {...props} /> : null}
+      {["/library", "/library/games"].includes(router.asPath) ? <DesktopLibraryGames {...props} /> : null}
+      {router.asPath.includes("/events") ? <Events {...props} /> : null}
     </DesktopLibraryContainer>
   );
 };
 
 const DesktopLibraryContainer = styled.div`
   width: 100%;
-  height: calc(100vh - 50px);
   display: grid;
+  height: calc(100vh - 50px);
   grid-template-columns: 250px auto;
 `;
