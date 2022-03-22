@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./common/Image";
 import { config } from "../firebase";
@@ -27,10 +27,18 @@ export const Navbar = (props) => {
     router.prefetch("/subscriptions");
   }, []);
 
+  const isNavWithBorder = useMemo(() => {
+    const paths = ["/login", "/register"];
+
+    return paths.includes(router.asPath);
+  }, [router]);
+
+  console.log(isNavWithBorder);
+
   return (
     <>
       <Layout>
-        <NavContainer active={active}>
+        <NavContainer active={active} border={isNavWithBorder}>
           <div className="left-container">
             <Image
               src={`${config.storageUrl}/resources/ebombo.svg`}
@@ -189,6 +197,7 @@ const NavContainer = styled.div`
   height: 100px;
   padding: 0 1rem;
   align-items: center;
+  border-bottom: 2px solid ${(props) => (props.border ? props.theme.basic.primaryLight : "")};
   justify-content: space-between;
   background: ${(props) => props.theme.basic.whiteLight};
   position: ${(props) => (props.active ? "fixed" : "inherit")};
