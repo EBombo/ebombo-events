@@ -2,8 +2,7 @@ import React, { useGlobal, useMemo, useState } from "reactn";
 import { useRouter } from "next/router";
 import { config, firestore } from "../../../../firebase";
 import { Image } from "../../../../components/common/Image";
-import { FileUpload } from "../../../../components/common/FileUpload";
-import { Input } from "../../../../components/form";
+import { EventStepOne } from "./EventStepOne";
 
 const steps = [
   { name: "Básico", key: "basic" },
@@ -21,6 +20,9 @@ export const Event = (props) => {
 
   const [currentStep, setCurrentStep] = useState(0);
   const [imageUrl, setImageUrl] = useState(null);
+  const [eventDate, setEventDate] = useState(null);
+  const [startAt, setStartAt] = useState(null);
+  const [endAt, setEndAt] = useState(null);
 
   const documentId = useMemo(() => {
     return props.event?.id ?? firestore.collection("events").doc().id;
@@ -47,32 +49,17 @@ export const Event = (props) => {
             </div>
           ))}
         </div>
-        <div className="w-full h-full bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 md:h-[calc(100vh-180px)] md:overflow-auto">
+        <div className="w-full h-full bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 h-[calc(100vh-180px)] overflow-auto">
           {currentStep === 0 && (
-            <div>
-              <div className="text-primary text-['Lato'] font-[700] text-[20px] leading-[24px] md:text-[44px] md:leading-[53px] tracking-[.03em]">
-                Detalles básicos
-              </div>
-
-              <div>
-                <FileUpload
-                  preview={true}
-                  file={imageUrl}
-                  fileName="imageUrl"
-                  filePath={`/events/${documentId}`}
-                  bucket="landings"
-                  sizes="300x350"
-                  afterUpload={(imageUrls) => setImageUrl(imageUrls[0].url)}
-                />
-
-                <div className="flex items-end gap-4">
-                  <label htmlFor="name" className="text-secondary text-['Lato'] font-[400] text-[18px] leading-[22px]">
-                    Título de tu evento
-                  </label>
-                  <Input id="name" type="text" name="name" label="Route" placeholder="Escribe aquí...." />
-                </div>
-              </div>
-            </div>
+            <EventStepOne
+              currentStep={currentStep}
+              setCurrentStep={setCurrentStep}
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
+              eventDate={eventDate}
+              setEventDate={setEventDate}
+              {...props}
+            />
           )}
         </div>
       </div>
