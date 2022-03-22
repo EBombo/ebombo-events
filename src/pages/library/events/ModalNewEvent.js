@@ -31,7 +31,7 @@ export const ModalNewEvent = (props) => {
         <div className="grid w-full max-w-[950px] gap-4 md:grid-cols-[1fr_1fr] p-8">
           <div
             className="flex flex-col rounded-[6px] overflow-hidden cursor-pointer border-solid border border-gray"
-            onClick={() => router.push("/library/events/new")}
+            onClick={() => router.push("/library/events/new?manageBy=user")}
           >
             <Image
               src={`${config.storageUrl}/resources/own-event.svg`}
@@ -47,7 +47,7 @@ export const ModalNewEvent = (props) => {
           </div>
           <div
             className="flex flex-col rounded-[6px] overflow-hidden cursor-pointer border-solid border border-gray"
-            onClick={() => router.push("/library/events/new")}
+            onClick={() => router.push("/library/events/new?manageBy=ebombo")}
           >
             <Image
               src={`${config.storageUrl}/resources/ebombo-event.svg`}
