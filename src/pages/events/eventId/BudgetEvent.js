@@ -1,5 +1,4 @@
 import React, { useState } from "reactn";
-import styled from "styled-components";
 import { ButtonAnt } from "../../../components/form";
 
 const options = {
@@ -19,7 +18,7 @@ export const BudgetEvent = (props) => {
   const [currentTab, setCurrentTab] = useState(Object.values(options)[0].key);
 
   return (
-    <BudgetEventStyled>
+    <div>
       <div className="text-primary text-4xl mb-6">¿Cuánto es tu presupuesto?</div>
 
       <div className="flex mb-4">
@@ -61,8 +60,6 @@ export const BudgetEvent = (props) => {
       >
         Siguiente
       </ButtonAnt>
-    </BudgetEventStyled>
+    </div>
   );
 };
-
-const BudgetEventStyled = styled.div``;

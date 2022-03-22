@@ -1,12 +1,11 @@
 import React from "reactn";
-import styled from "styled-components";
 import { ButtonAnt } from "../../../components/form";
 
 const options = ["<25", "25-100", "100-500", "500+"];
 
 export const SizeEvent = (props) => {
   return (
-    <SizeEventStyled>
+    <div>
       <div className="text-secondary text-sm mb-3">
         Para preparar tu evento necesitamos cierta información que te pediremos a continuación.
       </div>
@@ -38,8 +37,6 @@ export const SizeEvent = (props) => {
       >
         Siguiente
       </ButtonAnt>
-    </SizeEventStyled>
+    </div>
   );
 };
-
-const SizeEventStyled = styled.div``;
