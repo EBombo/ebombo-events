@@ -17,16 +17,8 @@ export const GamesContainer = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const initialize = () => {
-      router.prefetch("/admin/games/new");
-
-      if (!games?.length) return;
-
-      games.map((game) => router.prefetch(`/admin/games/${game.id}`));
-    };
-
-    initialize();
-  }, [games]);
+    router.prefetch("/admin/games/[gameId]");
+  }, []);
 
   useEffect(() => {
     const fetchGame = async () => {

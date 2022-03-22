@@ -1,16 +1,24 @@
-import React from "reactn";
+import React, { useState } from "reactn";
 import styled from "styled-components";
 import { ButtonAnt } from "../../components/form";
 import { mediaQuery } from "../../constants";
-import { useRouter } from "next/router";
+import { ModalNewEvent } from "../library/events/ModalNewEvent";
 
 export const BannerEbombo = (props) => {
-  const router = useRouter();
+  const [isVisibleModalEvents, setIsVisibleModalEvents] = useState(false);
 
   return (
     <BannerEbomboStyled>
       <div className="content-banner">
         <div className="title">El evento virtual que amarás</div>
+
+        {isVisibleModalEvents && (
+          <ModalNewEvent
+            {...props}
+            isVisibleModalEvents={isVisibleModalEvents}
+            setIsVisibleModalEvents={setIsVisibleModalEvents}
+          />
+        )}
 
         {props.btnContact && (
           <ButtonAnt
@@ -18,9 +26,9 @@ export const BannerEbombo = (props) => {
             variant="contained"
             fontSize="15px"
             margin="25px 0 0 0"
-            onClick={() => router.push("/contact")}
+            onClick={() => setIsVisibleModalEvents(true)}
           >
-            Contáctanos
+            Crea tu evento
           </ButtonAnt>
         )}
       </div>
