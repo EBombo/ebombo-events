@@ -1,4 +1,4 @@
-import React, { useEffect } from "reactn";
+import React, { useEffect, useGlobal } from "reactn";
 import { ModalContainer } from "../../../components/common/ModalContainer";
 import { darkTheme } from "../../../theme";
 import { useRouter } from "next/router";
@@ -7,6 +7,8 @@ import { config } from "../../../firebase";
 
 export const ModalNewEvent = (props) => {
   const router = useRouter();
+
+  const [authUser] = useGlobal("user");
 
   useEffect(() => {
     router.prefetch("/events/[eventId]");
@@ -32,7 +34,10 @@ export const ModalNewEvent = (props) => {
         <div className="grid w-full max-w-[950px] gap-4 md:grid-cols-[1fr_1fr] p-8">
           <div
             className="flex flex-col rounded-[6px] overflow-hidden cursor-pointer border-solid border border-gray"
-            onClick={() => router.push("/events/new")}
+            onClick={() => {
+              const url = !!authUser ? "/library/events/new" : "/events/new";
+              router.push(url);
+            }}
           >
             <Image
               src={`${config.storageUrl}/resources/own-event.svg`}
@@ -48,7 +53,10 @@ export const ModalNewEvent = (props) => {
           </div>
           <div
             className="flex flex-col rounded-[6px] overflow-hidden cursor-pointer border-solid border border-gray"
-            onClick={() => router.push("/events/new")}
+            onClick={() => {
+              const url = !!authUser ? "/library/events/new" : "/events/new";
+              router.push(url);
+            }}
           >
             <Image
               src={`${config.storageUrl}/resources/ebombo-event.svg`}
