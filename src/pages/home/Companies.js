@@ -66,32 +66,30 @@ export const Companies = (props) => {
       <div className="content">
         <div className="title">Grandes compañías han confiado en nosotros, solo faltas tú</div>
 
-        {companies.map((companiesChunk) => {
-          return (
-            <div
-              className={`companies-imgs rows-${companiesChunk.length}`}
-              key={`companies-chunk ${companiesChunk.length}`}
-            >
-              {companiesChunk.map((company) => {
-                return (
-                  <Image
-                    onClick={() => {
-                      if (typeof window === "undefined") return;
+        {/* Companies are chunked.*/}
+        {companies.map((companiesChunk) => (
+          <div
+            className={`companies-imgs rows-${companiesChunk.length}`}
+            key={`companies-chunk ${companiesChunk.length}`}
+          >
+            {/* Companies list.*/}
+            {companiesChunk.map((company) => (
+              <Image
+                onClick={() => {
+                  if (typeof window === "undefined") return;
 
-                      window.open(company.url, "_blank");
-                    }}
-                    key={company.url}
-                    src={company.icon}
-                    size={"contain"}
-                    width="90px"
-                    height="auto"
-                    margin="20px auto"
-                  />
-                );
-              })}
-            </div>
-          );
-        })}
+                  window.open(company.url, "_blank");
+                }}
+                key={company.url}
+                src={company.icon}
+                size={"contain"}
+                width="90px"
+                height="auto"
+                margin="20px auto"
+              />
+            ))}
+          </div>
+        ))}
       </div>
     </CompaniesStyled>
   );
