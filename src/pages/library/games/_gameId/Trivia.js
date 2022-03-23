@@ -121,11 +121,15 @@ export const Trivia = (props) => {
 
   const validateQuiz = (question) => {
     let valid = true;
+    // check all options are filled
     question.options.forEach((option) => {
       if (isEmpty(option)) valid = false;
     });
 
+    // check correct answer is set
     if (!question.answer) valid = false;
+
+    if (Array.isArray(question.answer) && question.answer.length === 0) valid = false;
 
     return valid;
   };
