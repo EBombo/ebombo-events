@@ -1,5 +1,5 @@
 import React, { useState } from "reactn";
-import { ButtonAnt } from "../../../components/form";
+import { Anchor, ButtonAnt } from "../../../components/form";
 
 const options = {
   participants: {
@@ -49,17 +49,28 @@ export const BudgetEvent = (props) => {
         ))}
       </div>
 
-      <ButtonAnt
-        onClick={() => props.setCurrentTab(props.eventSteps[props.position + 1].key)}
-        color="primary"
-        disabled={!props.budget}
-        variant="contained"
-        fontSize="18px"
-        size="big"
-        margin="1rem 0 auto auto"
-      >
-        Siguiente
-      </ButtonAnt>
+      <div className="flex mt-4">
+        <Anchor
+          underlined
+          margin="auto 0"
+          variant="secondary"
+          onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1].key)}
+        >
+          Atras
+        </Anchor>
+
+        <ButtonAnt
+          onClick={() => props.setCurrentTab(props.eventSteps[props.position + 1].key)}
+          color="primary"
+          disabled={!props.budget}
+          variant="contained"
+          fontSize="18px"
+          size="big"
+          margin="1rem 0 auto auto"
+        >
+          Siguiente
+        </ButtonAnt>
+      </div>
     </div>
   );
 };

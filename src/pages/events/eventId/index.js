@@ -5,6 +5,7 @@ import { config } from "../../../firebase";
 import { SizeEvent } from "./SizeEvent";
 import { CheckOutlined } from "@ant-design/icons";
 import { BudgetEvent } from "./BudgetEvent";
+import { DetailsEvent } from "./DetailsEvent";
 
 const { TabPane } = Tabs;
 
@@ -71,7 +72,16 @@ export const EventContainer = (props) => {
           <div className="text-secondary">Detalles</div>
         ),
         key: "detils",
-        content: (eventSteps, position) => "detils",
+        content: (eventSteps, position) => (
+          <DetailsEvent
+            {...props}
+            setCurrentTab={setCurrentTab}
+            eventSteps={eventSteps}
+            position={position}
+            details={details}
+            setDetails={setDetails}
+          />
+        ),
       },
       {
         tab: !!date ? (
