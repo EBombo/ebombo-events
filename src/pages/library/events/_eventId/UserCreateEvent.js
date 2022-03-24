@@ -1,6 +1,6 @@
-import React, { useState } from "reactn";
+import React, { useState, useEffect } from "reactn";
 import { Image } from "../../../../components/common/Image";
-import { config } from "../../../../firebase";
+import { config, firestore } from "../../../../firebase";
 import { EventStepOne } from "./EventStepOne";
 import { EventStepTwo } from "./EventStepTwo";
 
@@ -12,8 +12,12 @@ const steps = [
 ];
 
 export const UserCreateEvent = (props) => {
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(1);
   const [event, setEvent] = useState({});
+
+  useEffect(() => {
+    console.log(event);
+  }, []);
 
   return (
     <div>
@@ -43,11 +47,11 @@ export const UserCreateEvent = (props) => {
       <div className="w-full flex flex-col items center bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 h-[calc(100vh-180px)] overflow-auto">
         {currentStep === 1 && (
           <EventStepOne
+            {...props}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
-            event={event}
             setEvent={setEvent}
-            {...props}
+            event={event}
           />
         )}
         {currentStep === 2 && (

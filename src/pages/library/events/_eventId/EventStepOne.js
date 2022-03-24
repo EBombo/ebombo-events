@@ -2,26 +2,17 @@ import React, { useState } from "reactn";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import { DatePicker, TimePicker } from "antd";
 import { ButtonAnt, Input } from "../../../../components/form";
-import { useForm } from "react-hook-form";
-import { object, string } from "yup";
+import moment from "moment";
 
 export const EventStepOne = (props) => {
-  const [imageUrl, setImageUrl] = useState("");
-  const [eventDate, setEventDate] = useState("");
-  const [startAt, setStartAt] = useState("");
-  const [endAt, setEndAt] = useState("");
+  const [name, setName] = useState(props.event?.name ?? "");
+  const [link, setLink] = useState(props.event?.link ?? "");
+  const [imageUrl, setImageUrl] = useState(props.event?.imageUrl ?? "");
+  const [eventDate, setEventDate] = useState(props.event?.eventDate ?? "");
+  const [startAt, setStartAt] = useState(props.event?.startAt ?? "");
+  const [endAt, setEndAt] = useState(props.event?.endAt ?? "");
 
   const [errorEventDate, setErrorEventDate] = useState(false);
-
-  const schema = object().shape({
-    name: string().required(),
-    link: string(),
-  });
-
-  const { handleSubmit, register, errors } = useForm({
-    validationSchema: schema,
-    reValidateMode: "onSubmit",
-  });
 
   const saveStepOne = async (data) => {
     if (!startAt || !endAt || !eventDate) {
@@ -29,12 +20,18 @@ export const EventStepOne = (props) => {
       return props.showNotification("Error", "Completa la fecha y las horas del evento");
     }
 
-    props.setEvent({ ...props.event, imageUrl, eventDate, startAt, endAt });
+    if (!name) {
+      return props.showNotification("Error", "Completa el nombre del evento");
+    }
+
+    const _event = props.event;
+    console.log(_event);
+    props.setEvent({ ..._event, imageUrl, eventDate, startAt, endAt, name, link });
     props.setCurrentStep(2);
   };
 
   return (
-    <form onSubmit={handleSubmit(saveStepOne)}>
+    <div>
       <div className="text-primary text-['Lato'] font-[700] text-[20px] leading-[24px] md:text-[44px] md:leading-[53px] tracking-[.03em]">
         Detalles básicos
       </div>
@@ -63,10 +60,12 @@ export const EventStepOne = (props) => {
             name="name"
             height="60px"
             background="white"
-            ref={register}
-            defaultValue={props.event?.name}
+            value={name}
+            onChange={(e) => {
+              e.preventDefault();
+              setName(e.target.value);
+            }}
             placeholder="Escribe aquí...."
-            error={errors.name}
           />
         </div>
       </div>
@@ -102,8 +101,7 @@ export const EventStepOne = (props) => {
               use12Hours
               format="h:mm a"
               placeholder="Hora de Inicio"
-              value={startAt}
-              onChange={(value) => setStartAt(value)}
+              onChange={(value) => setStartAt(value.format("hh:mm:ss a"))}
               style={{
                 border: "1px solid #C4C4C4",
                 borderRadius: "4px",
@@ -119,8 +117,7 @@ export const EventStepOne = (props) => {
               use12Hours
               format="h:mm a"
               placeholder="Hora de fin"
-              value={endAt}
-              onChange={(value) => setEndAt(value)}
+              onChange={(value) => setEndAt(value.format("hh:mm:ss a"))}
               style={{
                 border: "1px solid #C4C4C4",
                 borderRadius: "4px",
@@ -143,10 +140,12 @@ export const EventStepOne = (props) => {
           name="link"
           height="60px"
           background="white"
-          ref={register}
-          defaultValue={props.event?.link}
+          value={link}
+          onChange={(e) => {
+            e.preventDefault();
+            setLink(e.target.value);
+          }}
           placeholder="Escribe aquí...."
-          error={errors.link}
         />
       </div>
       <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] mt-[5px]">
@@ -154,8 +153,8 @@ export const EventStepOne = (props) => {
       </div>
 
       <div className="flex w-full items-center justify-end">
-        <ButtonAnt htmlType="submit">Siguiente</ButtonAnt>
+        <ButtonAnt onClick={() => saveStepOne()}>Siguiente</ButtonAnt>
       </div>
-    </form>
+    </div>
   );
 };

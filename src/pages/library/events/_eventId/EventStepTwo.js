@@ -1,32 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useGlobal, useEffect } from "reactn";
 import { Anchor, ButtonAnt, Input, Select } from "../../../../components/form";
 import { Table, Tooltip } from "antd";
 import isEmpty from "lodash/isEmpty";
 import { TextArea } from "../../../../components/form";
+import { firestore } from "../../../../firebase";
+import { snapshotToArray } from "../../../../utils/snapshotToArray";
 
 const filterOptions = [
-  {
-    key: "name",
-    name: "Nombre",
-  },
   {
     key: "email",
     name: "Correo",
   },
   {
-    key: "team",
-    name: "Área",
+    key: "role",
+    name: "Rol",
+  },
+  {
+    key: "status",
+    name: "Estado",
   },
 ];
 
 const columns = [
-  {
-    title: "Nombre",
-    dataIndex: "name",
-    render: (text) => (
-      <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>
-    ),
-  },
   {
     title: "Correo",
     dataIndex: "email",
@@ -35,21 +30,51 @@ const columns = [
     ),
   },
   {
-    title: "Área",
-    dataIndex: "team",
-    render: (value) => (
+    title: "Rol",
+    dataIndex: "role",
+    render: (text) => (
       <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">
-        {text.toUpperCase()}
+        {text === "member" ? "Miembro" : "Administrador"}
+      </div>
+    ),
+  },
+  {
+    title: "Estado",
+    dataIndex: "status",
+    render: (text) => (
+      <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">
+        {text === "Active" ? "Activo" : "Inactivo"}
       </div>
     ),
   },
 ];
 
 export const EventStepTwo = (props) => {
-  const [users, setUsers] = useState([]);
+  const [authUser] = useGlobal("user");
+
+  const [members, setMembers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [visitors, setVisitors] = useState("");
+
+  useEffect(() => {
+    if (!authUser?.company) return;
+
+    const fetchMembers = () =>
+      firestore
+        .collection("companies")
+        .doc(authUser?.company.id)
+        .collection("members")
+        .where("delete", "==", false)
+        .onSnapshot((membersSnapshot) => {
+          const _members = snapshotToArray(membersSnapshot);
+          setMembers(_members);
+        });
+
+    const unsubscribeMembers = fetchMembers();
+
+    return () => unsubscribeMembers();
+  }, []);
 
   const deleteSelectedUsers = () => {};
 
@@ -58,6 +83,26 @@ export const EventStepTwo = (props) => {
       setSelectedUsers(selectedRows);
       setSelectedRowKeys(selectedRowKeys);
     },
+  };
+
+  const validateStepTwo = () => {
+    const visitorsArray = visitors.split("\n");
+
+    const _visitors = visitorsArray.map((visitor) => ({
+      email: visitor,
+      role: "visitor",
+      createAt: new Date(),
+      id: firestore.collection("companies").doc(authUser?.company.id).collection("members").doc().id,
+      searchName: [visitor.toUpperCase()],
+      status: "Active",
+    }));
+
+    props.setEvent({
+      ...props.event,
+      members: [...members, ..._visitors],
+    });
+
+    props.setCurrentStep(3);
   };
 
   return (
@@ -77,7 +122,7 @@ export const EventStepTwo = (props) => {
               <div>Filtrar por:</div>
               <Select
                 showSearch
-                defaultValue={"name"}
+                defaultValue={"email"}
                 virtual={false}
                 optionFilterProp="children"
                 optionsdom={filterOptions.map((filter) => ({
@@ -108,7 +153,7 @@ export const EventStepTwo = (props) => {
                   ...rowSelection,
                 }}
                 columns={columns}
-                dataSource={users}
+                dataSource={members}
               />
             </div>
           </div>
@@ -134,10 +179,17 @@ export const EventStepTwo = (props) => {
             Import Excel
           </ButtonAnt>
 
-          <Anchor underlined variant="secondary">
+          {/* <Anchor underlined variant="secondary">
             Descargar plantilla de Excel
-          </Anchor>
+          </Anchor> */}
         </div>
+      </div>
+
+      <div className="flex w-full items-center justify-between">
+        <Anchor underlined variant="secondary" onClick={() => props.setCurrentStep(1)}>
+          Volver
+        </Anchor>
+        <ButtonAnt onClick={() => validateStepTwo()}>Siguiente</ButtonAnt>
       </div>
     </div>
   );
