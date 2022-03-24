@@ -13,9 +13,7 @@ const UserLayout = dynamic(() => import("../../../../src/components/UserLayout")
 const Game = (props) => (
   <PrivateRoutes>
     <SEOMeta {...props} />
-    <UserLayout {...props}>
-      <GameContainer {...props} />
-    </UserLayout>
+    <GameContainer {...props} />
   </PrivateRoutes>
 );
 

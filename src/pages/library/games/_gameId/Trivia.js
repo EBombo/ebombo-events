@@ -10,7 +10,7 @@ import {
   triviaQuestionsTimes,
   triviaQuestionsTypes
 } from "../../../../components/common/DataList";
-import { Desktop, Tablet } from "../../../../constants";
+import { AfterMobile, Desktop, Mobile, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import isEmpty from "lodash/isEmpty";
 import { TriviaQuestion } from "./TriviaQuestion";
@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import { snapshotToArray } from "../../../../utils";
 import { spinLoader } from "../../../../components/common/loader";
 import orderBy from "lodash/orderBy";
+import { LeftOutlined } from "@ant-design/icons";
 
 export const Trivia = (props) => {
   const router = useRouter();
@@ -59,7 +60,7 @@ export const Trivia = (props) => {
           const questions = snapshotToArray(questionsSnapshot);
 
           setQuestions(orderBy(questions, "questionNumber"));
-          setLoading(false)
+          setLoading(false);
         });
 
     fetchQuestions();
@@ -145,7 +146,7 @@ export const Trivia = (props) => {
   if (loading) return spinLoader();
 
   return (
-    <div className="w-screen">
+    <div className="w-screen h-full">
       {isVisibleModalSettings && (
         <ModalSettings
           isVisibleModalSettings={isVisibleModalSettings}
@@ -168,8 +169,22 @@ export const Trivia = (props) => {
         />
       )}
       <form className="grid" onSubmit={handleSubmit(saveGame)}>
-        <div className="w-full bg-primary py-2 px-4 flex items-center justufy-between">
-          <div className="max-w-[300px]">
+        <div className="w-full bg-primary py-2 px-4 flex items-center gap-[5px] md:gap-4">
+          <Mobile>
+            <LeftOutlined width="18px" height="25px" style={{ color: "white" }} onClick={() => router.back()} />
+          </Mobile>
+          <AfterMobile>
+            <Image
+              src={`${config.storageUrl}/resources/ebombo-white.png`}
+              height="auto"
+              width="125px"
+              size="contain"
+              margin="0"
+              cursor="pointer"
+              onClick={() => router.back()}
+            />
+          </AfterMobile>
+          <div className=" w-full max-w-[300px] ">
             <Input
               defaultValue={get(props, "game.name", "")}
               variant="primary"
@@ -190,8 +205,16 @@ export const Trivia = (props) => {
           >
             Ajustes
           </ButtonAnt>
+          <ButtonAnt
+            color="default"
+            size="small"
+            margin={"0 0 0 10px"}
+            onClick={() => router.back()}
+          >
+            Cancelar
+          </ButtonAnt>
         </div>
-        <div className="w-full h-[calc(100vh-102px)] overflow-auto grid md:grid-cols-[180px_auto_260px] shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
+        <div className="w-full h-[calc(100vh-50px)] overflow-auto grid md:grid-cols-[180px_auto_260px] shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
           <div className="w-full h-[115px] md:h-full overflow-auto grid md:grid-rows-[auto_100px] bg-white">
             <div className="w-full h-[full] flex items-center md:items-start md:flex-col overflow-auto">
               {questions.map((question, idx) => (

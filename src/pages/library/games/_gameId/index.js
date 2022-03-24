@@ -1,5 +1,4 @@
 import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
-import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useSendError } from "../../../../hooks";
 import { useFetch } from "../../../../hooks/useFetch";
@@ -43,6 +42,10 @@ export const GameContainer = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [parent, setParent] = useState(null);
   const [currentGame, setCurrentGame] = useState(null);
+
+  useEffect(() => {
+    router.prefetch("/library/games");
+  });
 
   useEffect(() => {
     if (!folderId) return null;
@@ -102,7 +105,7 @@ export const GameContainer = (props) => {
       }
 
       props.fetchGames();
-      router.push("/library");
+      router.push("/library/games");
     } catch (error) {
       sendError(error, "createGame");
     }
@@ -120,7 +123,7 @@ export const GameContainer = (props) => {
   if (gameId !== "new" && !currentGame) return spinLoader();
 
   return (
-    <GameContainerCss key={adminGameId}>
+    <div className="w-full" key={adminGameId}>
       {currentAdminGame?.name === "bingo" && (
         <Bingo
           submitGame={submitGame}
@@ -171,10 +174,6 @@ export const GameContainer = (props) => {
           {...props}
         />
       )}
-    </GameContainerCss>
+    </div>
   );
 };
-
-const GameContainerCss = styled.div`
-  width: 100%;
-`;
