@@ -8,7 +8,7 @@ import isEmpty from "lodash/isEmpty";
 import defaultTo from "lodash/defaultTo";
 
 export const TriviaQuestion = (props) => {
-  const [optionFocus, setOptionFocus] = useState(0);
+  const [optionFocus, setOptionFocus] = useState(-1);
   const [correctAns, setCorrectAns] = useState("");
 
   const updateInputQuiz = (number, e) => {

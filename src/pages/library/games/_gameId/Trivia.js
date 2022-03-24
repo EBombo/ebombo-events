@@ -6,6 +6,7 @@ import get from "lodash/get";
 import { Image } from "../../../../components/common/Image";
 import { config, firestore, firestoreTrivia } from "../../../../firebase";
 import {
+  questionTypes,
   triviaQuestionsOptions,
   triviaQuestionsTimes,
   triviaQuestionsTypes
@@ -205,12 +206,7 @@ export const Trivia = (props) => {
           >
             Ajustes
           </ButtonAnt>
-          <ButtonAnt
-            color="default"
-            size="small"
-            margin={"0 0 0 10px"}
-            onClick={() => router.back()}
-          >
+          <ButtonAnt color="default" size="small" margin={"0 0 0 10px"} onClick={() => router.back()}>
             Cancelar
           </ButtonAnt>
         </div>
@@ -226,11 +222,11 @@ export const Trivia = (props) => {
                   key={question.id}
                 >
                   <div>
-                    <div className="text-['Lato'] font-bold text-[12px] leading-[14px] text-grayLight">
-                      {idx + 1} Quiz
+                    <div className="text-['Lato'] font-bold text-[12px] leading-[14px] text-grayLight mb-[5px]">
+                      {idx + 1}. {questionTypes[question.type]}
                     </div>
                     <Image
-                      src={question.imageUrl ?? `${config.storageUrl}/resources/question.png`}
+                      src={question.imageUrl ?? `${config.storageUrl}/resources/question-${question?.type}.svg`}
                       size="contain"
                       width="75px"
                       height="45px"
@@ -254,6 +250,7 @@ export const Trivia = (props) => {
                     };
 
                     setQuestions([...questions, _question]);
+                    setQuestionIndex(questions.length);
                   }}
                   size="small"
                   margin="auto"
