@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "reactn";
 import styled from "styled-components";
-import { AfterMobile, Mobile } from "../../../../constants";
+import { AfterMobile, mediaQuery, Mobile } from "../../../../constants";
 import { ButtonAnt, Input, TextArea } from "../../../../components/form";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
@@ -137,64 +137,68 @@ export const Hanged = (props) => {
           </ButtonAnt>
         </div>
 
-        <div className="w-full h-[calc(100vh-50px)] overflow-auto bg-white">
-          <div className="w-[90%] p-4 bg-whiteLighten box-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] my-4 mx-auto max-w-[550px] rounded-[6px] md:p-4 md:my-8">
-            <div className="text-['Lato'] font-bold text-[15px] leading-[18px] text-grayLight my-4">
-              Frases para el juego
-            </div>
-            <div className="text-['Lato'] font-normal text-[13px] leading-[16px] text-grayLight my-4">
-              Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). Solo se aceptan
-              letras, signos de interrogación y exclamación (¿?¡!), espacio y comma (,).
-            </div>
-            <TextArea
-              onPaste={(ev) => {
-                const pasteText = ev.clipboardData.getData("text");
-
-                const newPhrase = `${ev.target.value}${pasteText}`.replaceAll(bannedLetters, "");
-
-                ev.target.value = newPhrase;
-
-                ev.preventDefault();
-              }}
-              onKeyPress={(event) => {
-                if (event.key === "Enter") return;
-
-                if (preventMaxLengthPerLine(event, 50)) {
-                  event.preventDefault();
-                  return false;
-                }
-
-                const regex = allowedLetters;
-                const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-                if (!regex.test(key)) {
-                  event.preventDefault();
-                  return false;
-                }
-              }}
-              id="phrases"
-              defaultValue={props.game?.phrases?.join("\n") ?? "Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"}
-              error={errors.phrases}
-              name="phrases"
-              ref={register}
-              rows="10"
-              placeholder="Frases a advinar"
-              background="#FAFAFA"
-              color="#242424"
-              border="1px solid #C4C4C4"
-            />
-            <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading}>
-              Guardar
-            </ButtonAnt>
+        <HangedContainer>
+          <div className="text-['Lato'] font-bold text-[15px] leading-[18px] text-grayLight my-4">
+            Frases para el juego
           </div>
-        </div>
+          <div className="text-['Lato'] font-normal text-[13px] leading-[16px] text-grayLight my-4">
+            Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). Solo se aceptan letras,
+            signos de interrogación y exclamación (¿?¡!), espacio y comma (,).
+          </div>
+          <TextArea
+            onPaste={(ev) => {
+              const pasteText = ev.clipboardData.getData("text");
+
+              const newPhrase = `${ev.target.value}${pasteText}`.replaceAll(bannedLetters, "");
+
+              ev.target.value = newPhrase;
+
+              ev.preventDefault();
+            }}
+            onKeyPress={(event) => {
+              if (event.key === "Enter") return;
+
+              if (preventMaxLengthPerLine(event, 50)) {
+                event.preventDefault();
+                return false;
+              }
+
+              const regex = allowedLetters;
+              const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+              if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+              }
+            }}
+            id="phrases"
+            defaultValue={props.game?.phrases?.join("\n") ?? "Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"}
+            error={errors.phrases}
+            name="phrases"
+            ref={register}
+            rows="10"
+            placeholder="Frases a advinar"
+            background="#FAFAFA"
+            color="#242424"
+            border="1px solid #C4C4C4"
+          />
+          <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading}>
+            Guardar
+          </ButtonAnt>
+        </HangedContainer>
       </form>
     </div>
   );
 };
-
 const HangedContainer = styled.div`
+  width: 90%;
+  padding: 1rem;
+  background: ${(props) => props.theme.basic.gray};
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 1rem auto;
 
-  .upload-container {
-    margin: 1rem 0;
+  ${mediaQuery.afterTablet} {
+    max-width: 540px;
+    padding: 1rem;
+    margin: 2rem auto;
   }
 `;
