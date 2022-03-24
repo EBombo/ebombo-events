@@ -1,13 +1,15 @@
 import React, { useMemo, useState } from "reactn";
 import styled from "styled-components";
-import { mediaQuery } from "../../../../constants";
+import { AfterMobile, Mobile } from "../../../../constants";
 import { ButtonAnt, Input, TextArea } from "../../../../components/form";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import get from "lodash/get";
 import { useRouter } from "next/router";
-import { firestore } from "../../../../firebase";
+import { config, firestore } from "../../../../firebase";
 import { ModalSettings } from "./ModalSettings";
+import { LeftOutlined } from "@ant-design/icons";
+import { Image } from "../../../../components/common/Image";
 
 const allowedLetters = new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;\n]*$");
 const bannedLetters = new RegExp("[^a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;\n]", "g");
@@ -65,7 +67,7 @@ export const Hanged = (props) => {
   };
 
   return (
-    <HangedContainer>
+    <div>
       {isVisibleModalSettings && (
         <ModalSettings
           isVisibleModalSettings={isVisibleModalSettings}
@@ -87,20 +89,33 @@ export const Hanged = (props) => {
           {...props}
         />
       )}
-      <ButtonAnt color="default" onClick={() => router.back()} disabled={props.isLoading}>
-        Cancelar
-      </ButtonAnt>
       <form onSubmit={handleSubmit(saveGame)}>
-        <div className="flex items-center">
-          <Input
-            defaultValue={get(props, "game.name", "")}
-            variant="primary"
-            type="text"
-            name="name"
-            ref={register}
-            error={errors.name}
-            placeholder="Nombre del Evento"
-          />
+        <div className="w-full bg-primary py-2 px-4 flex items-center gap-[5px] md:gap-4">
+          <Mobile>
+            <LeftOutlined width="18px" height="25px" style={{ color: "white" }} onClick={() => router.back()} />
+          </Mobile>
+          <AfterMobile>
+            <Image
+              src={`${config.storageUrl}/resources/ebombo-white.png`}
+              height="auto"
+              width="125px"
+              size="contain"
+              margin="0"
+              cursor="pointer"
+              onClick={() => router.back()}
+            />
+          </AfterMobile>
+          <div className=" w-full max-w-[300px] ">
+            <Input
+              defaultValue={get(props, "game.name", "")}
+              variant="primary"
+              type="text"
+              name="name"
+              ref={register}
+              error={errors.name}
+              placeholder="Nombre del Evento"
+            />
+          </div>
           <ButtonAnt
             variant="contained"
             color="secondary"
@@ -111,99 +126,75 @@ export const Hanged = (props) => {
           >
             Ajustes
           </ButtonAnt>
+          <ButtonAnt
+            color="default"
+            size="small"
+            margin={"0 0 0 10px"}
+            onClick={() => router.back()}
+            disabled={props.isLoading}
+          >
+            Cancelar
+          </ButtonAnt>
         </div>
-        <label htmlFor="phrases" className="label">
-          Frases para el juego
-        </label>
-        <div className="description">
-          Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). Solo se aceptan letras,
-          signos de interrogación y exclamación (¿?¡!), espacio y comma (,).
+
+        <div className="w-full h-[calc(100vh-50px)] overflow-auto bg-white">
+          <div className="w-[90%] p-4 bg-whiteLighten box-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] my-4 mx-auto max-w-[550px] rounded-[6px] md:p-4 md:my-8">
+            <div className="text-['Lato'] font-bold text-[15px] leading-[18px] text-grayLight my-4">
+              Frases para el juego
+            </div>
+            <div className="text-['Lato'] font-normal text-[13px] leading-[16px] text-grayLight my-4">
+              Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). Solo se aceptan
+              letras, signos de interrogación y exclamación (¿?¡!), espacio y comma (,).
+            </div>
+            <TextArea
+              onPaste={(ev) => {
+                const pasteText = ev.clipboardData.getData("text");
+
+                const newPhrase = `${ev.target.value}${pasteText}`.replaceAll(bannedLetters, "");
+
+                ev.target.value = newPhrase;
+
+                ev.preventDefault();
+              }}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") return;
+
+                if (preventMaxLengthPerLine(event, 50)) {
+                  event.preventDefault();
+                  return false;
+                }
+
+                const regex = allowedLetters;
+                const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+                if (!regex.test(key)) {
+                  event.preventDefault();
+                  return false;
+                }
+              }}
+              id="phrases"
+              defaultValue={props.game?.phrases?.join("\n") ?? "Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"}
+              error={errors.phrases}
+              name="phrases"
+              ref={register}
+              rows="10"
+              placeholder="Frases a advinar"
+              background="#FAFAFA"
+              color="#242424"
+              border="1px solid #C4C4C4"
+            />
+            <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading}>
+              Guardar
+            </ButtonAnt>
+          </div>
         </div>
-        <TextArea
-          onPaste={(ev) => {
-            const pasteText = ev.clipboardData.getData("text");
-
-            const newPhrase = `${ev.target.value}${pasteText}`.replaceAll(bannedLetters, "");
-
-            ev.target.value = newPhrase;
-
-            ev.preventDefault();
-          }}
-          onKeyPress={(event) => {
-            if (event.key === "Enter") return;
-
-            if (preventMaxLengthPerLine(event, 50)) {
-              event.preventDefault();
-              return false;
-            }
-
-            const regex = allowedLetters;
-            const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-            if (!regex.test(key)) {
-              event.preventDefault();
-              return false;
-            }
-          }}
-          id="phrases"
-          defaultValue={props.game?.phrases?.join("\n") ?? "Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"}
-          error={errors.phrases}
-          name="phrases"
-          ref={register}
-          rows="10"
-          placeholder="Frases a advinar"
-        />
-        <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading}>
-          Guardar
-        </ButtonAnt>
       </form>
-    </HangedContainer>
+    </div>
   );
 };
 
 const HangedContainer = styled.div`
-  width: 90%;
-  padding: 1rem;
-  background: ${(props) => props.theme.basic.gray};
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin: 1rem auto;
-
-  input[type="text"] {
-    margin: 1rem 0 !important;
-  }
-
-  .label {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 15px;
-    line-height: 18px;
-    color: ${(props) => props.theme.basic.grayLight};
-    margin: 0.5rem 0;
-  }
-
-  .description {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 13px;
-    line-height: 16px;
-    color: ${(props) => props.theme.basic.grayLight};
-    margin: 0.5rem 0;
-  }
-
-  textarea {
-    background: ${(props) => props.theme.basic.whiteLight};
-    color: ${(props) => props.theme.basic.blackDarken};
-    border: 1px solid ${(props) => props.theme.basic.grayLighten};
-  }
 
   .upload-container {
     margin: 1rem 0;
-  }
-
-  ${mediaQuery.afterTablet} {
-    max-width: 550px;
-    padding: 2rem;
-    margin: 2rem auto;
   }
 `;
