@@ -61,7 +61,7 @@ const goals = [
 export const DetailsEvent = (props) => {
   const [currentInteraction, setCurrentCurrentInteraction] = useState(null);
   const [currentGift, setCurrentCurrentGift] = useState(null);
-  const [currentGoals, setCurrentCurrentGoals] = useState(null);
+  const [currentGoals, setCurrentCurrentGoals] = useState([]);
 
   return (
     <div>
@@ -112,9 +112,16 @@ export const DetailsEvent = (props) => {
           {goals.map((goal) => (
             <div
               key={goal.key}
-              onClick={() => setCurrentCurrentGoals(goal.key)}
+              onClick={() => {
+                if (currentGoals.includes(goal.key)) {
+                  const currentGoalsUpdated = currentGoals.filter((goal_) => goal_ !== goal.key);
+                  return setCurrentCurrentGoals(currentGoalsUpdated);
+                }
+
+                setCurrentCurrentGoals([...currentGoals, goal.key]);
+              }}
               className={`text-1xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
-                currentGoals === goal.key ? "border-primary" : "border-grayLighten"
+                currentGoals.includes(goal.key) ? "border-primary" : "border-grayLighten"
               }`}
             >
               {goal.title}
@@ -154,7 +161,7 @@ export const DetailsEvent = (props) => {
           variant="secondary"
           onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1].key)}
         >
-          Atras
+          Volver
         </Anchor>
 
         <ButtonAnt

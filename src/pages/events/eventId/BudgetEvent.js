@@ -56,7 +56,7 @@ export const BudgetEvent = (props) => {
           variant="secondary"
           onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1].key)}
         >
-          Atras
+          Volver
         </Anchor>
 
         <ButtonAnt
