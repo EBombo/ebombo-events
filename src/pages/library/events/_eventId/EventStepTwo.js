@@ -1,8 +1,7 @@
-import React, { useState, useGlobal, useEffect } from "reactn";
-import { Anchor, ButtonAnt, Input, Select } from "../../../../components/form";
-import { Table, Tooltip } from "antd";
+import React, { useEffect, useGlobal, useState } from "reactn";
+import { Anchor, ButtonAnt, Input, Select, TextArea } from "../../../../components/form";
+import { Table } from "antd";
 import isEmpty from "lodash/isEmpty";
-import { TextArea } from "../../../../components/form";
 import { firestore } from "../../../../firebase";
 import { snapshotToArray } from "../../../../utils/snapshotToArray";
 
@@ -21,7 +20,7 @@ const filterOptions = [
   },
 ];
 
-const columns = [
+export const columns = [
   {
     title: "Correo",
     dataIndex: "email",
@@ -34,7 +33,7 @@ const columns = [
     dataIndex: "role",
     render: (text) => (
       <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">
-        {text === "member" ? "Miembro" : "Administrador"}
+        {text === "member" ? "Miembro" : text === "visitor" ? "Visitante" : "Administrador"}
       </div>
     ),
   },

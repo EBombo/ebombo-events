@@ -1,8 +1,9 @@
-import React, { useState, useGlobal } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import { Image } from "../../../../components/common/Image";
 import { Anchor, ButtonAnt } from "../../../../components/form";
 import { config } from "../../../../firebase";
 import capitalize from "lodash/capitalize";
+import isEmpty from "lodash/isEmpty";
 
 export const EventStepThree = (props) => {
   const [adminGames] = useGlobal("adminGames");
@@ -22,6 +23,8 @@ export const EventStepThree = (props) => {
   };
 
   const validateStepThree = () => {
+    if (isEmpty(selectedGames)) return props.showNotification("Error", "Debe seleccionar al menos 1 juego");
+
     props.setEvent({
       ...props.event,
       adminGames: selectedGames,
@@ -88,7 +91,7 @@ export const EventStepThree = (props) => {
       </div>
 
       <div className="flex w-full items-center justify-between">
-        <Anchor underlined variant="secondary" onClick={() => props.setCurrentStep(1)}>
+        <Anchor underlined variant="secondary" onClick={() => props.setCurrentStep(2)}>
           Volver
         </Anchor>
         <ButtonAnt onClick={() => validateStepThree()}>Siguiente</ButtonAnt>
