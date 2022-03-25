@@ -1,7 +1,68 @@
-import React from "reactn";
+import React, { useState } from "reactn";
 import { Anchor, ButtonAnt, TextArea } from "../../../components/form";
 
+const interactions = [
+  {
+    title: "Sentarse y disfrutar",
+    key: "sit back and enjoy",
+  },
+  {
+    title: "Mucha interacción",
+    key: "lots of interaction",
+  },
+];
+
+const gifts = [
+  {
+    title: "!Sí, claro!",
+    key: "yes",
+  },
+  {
+    title: "No, gracias",
+    key: "no",
+  },
+];
+
+const goals = [
+  {
+    title: "Divertirnos",
+    key: "have fun",
+  },
+  {
+    title: "Celebrar una fecha",
+    key: "celebrate a date",
+  },
+  {
+    title: "Training / Onboarding",
+    key: "training / onboarding",
+  },
+  {
+    title: "Aniversario",
+    key: "anniversary",
+  },
+  {
+    title: "Relajarnos",
+    key: "relax",
+  },
+  {
+    title: "Ver un show",
+    key: "see a show",
+  },
+  {
+    title: "Reconocimientos",
+    key: "recognitions",
+  },
+  {
+    title: "Otros",
+    key: "others",
+  },
+];
+
 export const DetailsEvent = (props) => {
+  const [currentInteraction, setCurrentCurrentInteraction] = useState(null);
+  const [currentGift, setCurrentCurrentGift] = useState(null);
+  const [currentGoals, setCurrentCurrentGoals] = useState(null);
+
   return (
     <div>
       <div className="text-primary text-4xl mb-6">Detalles del evento</div>
@@ -9,32 +70,56 @@ export const DetailsEvent = (props) => {
       <div className="flex gap-5 mb-4">
         <div>
           <div className="text-secondary mb-4">¿Quieres que haya iteracción?</div>
+
           <div className="flex gap-2">
-            <div className="w-52 text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon1</div>
-            <div className="w-52 text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon2</div>
+            {interactions.map((interaction) => (
+              <div
+                key={interaction.key}
+                onClick={() => setCurrentCurrentInteraction(interaction.key)}
+                className={`text-1xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
+                  currentInteraction === interaction.key ? "border-primary" : "border-grayLighten"
+                }`}
+              >
+                {interaction.title}
+              </div>
+            ))}
           </div>
         </div>
 
         <div>
           <div className="text-secondary mb-4">¿Quieres adicionar regalos, premio o algún elemento físico?</div>
+
           <div className="flex gap-2">
-            <div className="w-52 text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon1</div>
-            <div className="w-52 text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon2</div>
+            {gifts.map((gift) => (
+              <div
+                key={gift.key}
+                onClick={() => setCurrentCurrentGift(gift.key)}
+                className={`text-1xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
+                  currentGift === gift.key ? "border-primary" : "border-grayLighten"
+                }`}
+              >
+                {gift.title}
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       <div className="mb-4">
         <div className="text-secondary mb-4">¿Cuáles son los objetivos de tu evento?</div>
+
         <div className="grid grid-cols-4 gap-2">
-          <div className="text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon1</div>
-          <div className="text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon2</div>
-          <div className="text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon3</div>
-          <div className="text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon4</div>
-          <div className="text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon1</div>
-          <div className="text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon2</div>
-          <div className="text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon3</div>
-          <div className="text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer">icon4</div>
+          {goals.map((goal) => (
+            <div
+              key={goal.key}
+              onClick={() => setCurrentCurrentGoals(goal.key)}
+              className={`text-1xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
+                currentGoals === goal.key ? "border-primary" : "border-grayLighten"
+              }`}
+            >
+              {goal.title}
+            </div>
+          ))}
         </div>
       </div>
 
