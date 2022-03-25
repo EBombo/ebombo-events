@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "reactn";
 import { Image } from "../../../../components/common/Image";
-import { config, firestore } from "../../../../firebase";
+import { config } from "../../../../firebase";
 import { EventStepOne } from "./EventStepOne";
 import { EventStepTwo } from "./EventStepTwo";
+import { EventStepThree } from "./EventStepThree";
 
 const steps = [
   { name: "Básico", key: "basic" },
@@ -12,7 +13,7 @@ const steps = [
 ];
 
 export const UserCreateEvent = (props) => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(3);
   const [event, setEvent] = useState({});
 
   useEffect(() => {
@@ -56,6 +57,15 @@ export const UserCreateEvent = (props) => {
         )}
         {currentStep === 2 && (
           <EventStepTwo
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
+            event={event}
+            setEvent={setEvent}
+            {...props}
+          />
+        )}
+        {currentStep === 3 && (
+          <EventStepThree
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
             event={event}
