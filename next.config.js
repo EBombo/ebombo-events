@@ -75,4 +75,16 @@ module.exports = withBundleAnalyzer({
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: '/terms',
+        destination: 'https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/terms-conditions-ebombo.pdf',
+      },
+      {
+        source: '/privacypolicy',
+        destination: 'https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/privacy-policy-ebombo.pdf',
+      },
+    ]
+  },
 });
