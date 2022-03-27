@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import { Anchor, ButtonAnt, TextArea } from "../../../components/form";
 
 const interactions = [
@@ -59,6 +59,9 @@ const goals = [
 ];
 
 export const DetailsEvent = (props) => {
+  const [games] = useGlobal("adminGames");
+  console.log("games", games);
+
   const [currentInteraction, setCurrentCurrentInteraction] = useState(null);
   const [currentGift, setCurrentCurrentGift] = useState(null);
   const [currentGoals, setCurrentCurrentGoals] = useState([]);
@@ -76,7 +79,7 @@ export const DetailsEvent = (props) => {
               <div
                 key={interaction.key}
                 onClick={() => setCurrentCurrentInteraction(interaction.key)}
-                className={`text-1xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
+                className={`w-52 text-xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
                   currentInteraction === interaction.key ? "border-primary" : "border-grayLighten"
                 }`}
               >
@@ -94,7 +97,7 @@ export const DetailsEvent = (props) => {
               <div
                 key={gift.key}
                 onClick={() => setCurrentCurrentGift(gift.key)}
-                className={`text-1xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
+                className={`w-52 text-xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
                   currentGift === gift.key ? "border-primary" : "border-grayLighten"
                 }`}
               >
@@ -120,7 +123,7 @@ export const DetailsEvent = (props) => {
 
                 setCurrentCurrentGoals([...currentGoals, goal.key]);
               }}
-              className={`text-1xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
+              className={`text-xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
                 currentGoals.includes(goal.key) ? "border-primary" : "border-grayLighten"
               }`}
             >
@@ -134,15 +137,9 @@ export const DetailsEvent = (props) => {
         <div>
           <div className="text-secondary mb-4">¿Cuáles de nuestras dinámicas virtuales quisieras en tu eveno?</div>
           <div className="grid grid-cols-4 gap-2">
-            <div>game1</div>
-            <div>game2</div>
-            <div>game3</div>
-            <div>game4</div>
-            <div>game1</div>
-            <div>game2</div>
-            <div>game3</div>
-            <div>game4</div>
-            <div>....</div>
+            {games.map((game) => (
+              <div key={game.id}>{game.name}</div>
+            ))}
           </div>
         </div>
 
