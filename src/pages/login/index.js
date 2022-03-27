@@ -27,8 +27,8 @@ const Login = (props) => {
   }, [authUser]);
 
   return (
-    <div className="w-full h-full bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8">
-      <div className="w-full max-w-[604px]">
+    <div className="w-full h-full bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 flex">
+      <div className="w-full max-w-[604px] mt-auto mb-auto">
         <form onSubmit={handleSubmit(signIn)} autoComplete="off" className="form-container" noValidate>
           <div className="form-content">
             <div className="text-['Lato'] text-[44px] leading-[53px] text-primary tracking-wide mb-8">

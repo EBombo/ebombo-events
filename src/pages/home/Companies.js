@@ -83,9 +83,10 @@ export const Companies = (props) => {
                 key={company.url}
                 src={company.icon}
                 size={"contain"}
-                width="90px"
-                height="auto"
-                margin="20px auto"
+                desktopHeight="50px"
+                height="90px"
+                width="auto"
+                margin="24px"
               />
             ))}
           </div>
