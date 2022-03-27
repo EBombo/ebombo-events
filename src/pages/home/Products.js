@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
-import { Image } from "../../components/common/Image";
-import { mediaQuery } from "../../constants";
+import { Desktop, mediaQuery, Tablet } from "../../constants";
 import { landingProducts } from "../../components/common/DataList";
 import chunk from "lodash/chunk";
 import { CheckOutlined } from "@ant-design/icons";
@@ -42,16 +41,12 @@ export const Products = (props) => {
       {landingProducts[currentTabIndex].content.map((product) => (
         <div className="product" data-aos="fade-right" key={product.title}>
           <div className="top-container">
-            <Image
-              src={product.image}
-              desktopHeight="360px"
-              desktopWidth="470px"
-              height="160px"
-              width="270px"
-              size="contain"
-              margin="0 -30px 0 0"
-              borderRadius="15px"
-            />
+            <Desktop>
+              <img src={product.image} height="360px" width="470px" className="rounded-md" />
+            </Desktop>
+            <Tablet>
+              <img src={product.image} height="160px" width="270px" className="rounded-md" />
+            </Tablet>
           </div>
 
           <div className="bottom-container" data-aos="fade-right" data-aos-delay="500">

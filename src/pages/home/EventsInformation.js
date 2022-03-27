@@ -31,8 +31,9 @@ export const EventsInformation = (props) => {
 
         <div className="events-content">
           <Tablet>
-            <Image src={items[currentItem].image} width="100%" height="250px" desktopHeight="450px" size="contain" />
+            <img src={items[currentItem].image} width="100%" height="250px" className="rounded-md" />
           </Tablet>
+
           <div className="items">
             {items.map((item, index) => (
               <div
@@ -56,7 +57,7 @@ export const EventsInformation = (props) => {
           </div>
 
           <Desktop>
-            <Image src={items[currentItem].image} margin="0" width="580px" height="350px" size="cover" />
+            <img src={items[currentItem].image} width="580px" height="350px" className="rounded-md m-0" />
           </Desktop>
         </div>
       </div>
