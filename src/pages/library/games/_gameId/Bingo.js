@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "reactn";
 import styled from "styled-components";
-import { Desktop, mediaQuery, Tablet } from "../../../../constants";
-import { Anchor, ButtonAnt, Input } from "../../../../components/form";
+import { AfterMobile, Desktop, mediaQuery, Mobile, Tablet } from "../../../../constants";
+import { ButtonAnt, Input } from "../../../../components/form";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import get from "lodash/get";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,9 @@ import { darkTheme } from "../../../../theme";
 import { ModalSettings } from "./ModalSettings";
 import { useRouter } from "next/router";
 import { bingoCard } from "../../../../components/common/DataList";
-import { firestore } from "../../../../firebase";
+import { config, firestore } from "../../../../firebase";
+import { LeftOutlined } from "@ant-design/icons";
+import { Image } from "../../../../components/common/Image";
 
 export const Bingo = (props) => {
   const router = useRouter();
@@ -81,7 +83,7 @@ export const Bingo = (props) => {
   };
 
   return (
-    <BingoContainer>
+    <div>
       {isVisibleModalSettings && (
         <ModalSettings
           isVisibleModalSettings={isVisibleModalSettings}
@@ -103,120 +105,247 @@ export const Bingo = (props) => {
           {...props}
         />
       )}
-      <div className="nav">
-        <div className="name">Crear bingo 1 - 75</div>
-        <Desktop>
-          <Anchor variant="primary" onClick={() => console.log("preview")}>
-            Vista Previa
-          </Anchor>
-        </Desktop>
-      </div>
       <form onSubmit={handleSubmit(saveGame)}>
-        <div className="main-container">
-          <div>
-            <div className="btns-container">
-              <ButtonAnt color="default" disabled={props.isLoading} onClick={() => router.back()}>
-                Cancelar
-              </ButtonAnt>
-              <Tablet>
-                <ButtonAnt
-                  variant={"contained"}
-                  color={"primary"}
-                  htmlType="submit"
-                  loading={props.isLoading}
-                  disabled={props.isLoading}
-                >
-                  Guardar
-                </ButtonAnt>
-              </Tablet>
-            </div>
-            <div className="title">
-              <Input
-                defaultValue={get(props, "game.name", "")}
-                marginBottom={"0"}
-                variant="primary"
-                type="text"
-                name="name"
-                ref={register}
-                error={errors.name}
-                placeholder="Nombre del Evento"
-              />
+        <div className="w-full bg-primary py-2 px-4 flex items-center gap-[5px] md:gap-4">
+          <Mobile>
+            <LeftOutlined width="18px" height="25px" style={{ color: "white" }} onClick={() => router.back()} />
+          </Mobile>
+          <AfterMobile>
+            <Image
+              src={`${config.storageUrl}/resources/ebombo-white.png`}
+              height="auto"
+              width="125px"
+              size="contain"
+              margin="0"
+              cursor="pointer"
+              onClick={() => router.back()}
+            />
+          </AfterMobile>
+          <div className=" w-full max-w-[300px] ">
+            <Input
+              defaultValue={get(props, "game.name", "")}
+              marginBottom={"0"}
+              variant="primary"
+              type="text"
+              name="name"
+              ref={register}
+              error={errors.name}
+              placeholder="Nombre del Evento"
+            />
+          </div>
+          <ButtonAnt
+            variant="contained"
+            color="secondary"
+            size="small"
+            margin={"0 0 0 10px"}
+            onClick={() => setIsVisibleModalSettings(true)}
+            disabled={props.isLoading}
+          >
+            Ajustes
+          </ButtonAnt>
+          <ButtonAnt
+            color="default"
+            size="small"
+            margin={"0 0 0 10px"}
+            onClick={() => router.back()}
+            disabled={props.isLoading}
+          >
+            Cancelar
+          </ButtonAnt>
+        </div>
 
-              <ButtonAnt
-                variant="contained"
-                color="secondary"
-                size="small"
-                margin={"0 0 0 10px"}
-                onClick={() => setIsVisibleModalSettings(true)}
-                disabled={props.isLoading}
-              >
-                Ajustes
-              </ButtonAnt>
-            </div>
-            <div className="subtitle">Personalización de cartilla</div>
-            <div className="bingo-card">
-              <div className="item">
-                <div className="text">Título</div>
-                <Input
-                  defaultValue={get(props, "game.title", "Titulo de Cartilla")}
-                  type="text"
-                  name="title"
-                  ref={register}
-                  error={errors.title}
-                  placeholder="Titulo"
-                />
-                <div className="text">Columnas</div>
-                <div className="bingo-inputs">
+        <BingoContainer>
+          <div className="main-container">
+            <div>
+              <div className="subtitle">Personalización de cartilla</div>
+              <div className="bingo-card">
+                <div className="item">
+                  <div className="text">Título</div>
                   <Input
+                    defaultValue={get(props, "game.title", "Titulo de Cartilla")}
                     type="text"
-                    name="b"
+                    name="title"
                     ref={register}
-                    error={errors.b}
-                    defaultValue={get(props, "game.letters.b", "B")}
-                    className="input-bingo"
-                    maxLength={1}
+                    error={errors.title}
+                    placeholder="Titulo"
                   />
-                  <Input
-                    type="text"
-                    name="i"
-                    ref={register}
-                    error={errors.i}
-                    defaultValue={get(props, "game.letters.i", "I")}
-                    className="input-bingo"
-                    maxLength={1}
-                  />
-                  <Input
-                    type="text"
-                    name="n"
-                    ref={register}
-                    error={errors.n}
-                    defaultValue={get(props, "game.letters.n", "N")}
-                    className="input-bingo"
-                    maxLength={1}
-                  />
-                  <Input
-                    type="text"
-                    name="g"
-                    ref={register}
-                    error={errors.g}
-                    defaultValue={get(props, "game.letters.g", "G")}
-                    className="input-bingo"
-                    maxLength={1}
-                  />
-                  <Input
-                    type="text"
-                    name="o"
-                    ref={register}
-                    error={errors.o}
-                    defaultValue={get(props, "game.letters.o", "O")}
-                    className="input-bingo"
-                    maxLength={1}
-                  />
+                  <div className="text">Columnas</div>
+                  <div className="bingo-inputs">
+                    <Input
+                      type="text"
+                      name="b"
+                      ref={register}
+                      error={errors.b}
+                      defaultValue={get(props, "game.letters.b", "B")}
+                      className="input-bingo"
+                      maxLength={1}
+                    />
+                    <Input
+                      type="text"
+                      name="i"
+                      ref={register}
+                      error={errors.i}
+                      defaultValue={get(props, "game.letters.i", "I")}
+                      className="input-bingo"
+                      maxLength={1}
+                    />
+                    <Input
+                      type="text"
+                      name="n"
+                      ref={register}
+                      error={errors.n}
+                      defaultValue={get(props, "game.letters.n", "N")}
+                      className="input-bingo"
+                      maxLength={1}
+                    />
+                    <Input
+                      type="text"
+                      name="g"
+                      ref={register}
+                      error={errors.g}
+                      defaultValue={get(props, "game.letters.g", "G")}
+                      className="input-bingo"
+                      maxLength={1}
+                    />
+                    <Input
+                      type="text"
+                      name="o"
+                      ref={register}
+                      error={errors.o}
+                      defaultValue={get(props, "game.letters.o", "O")}
+                      className="input-bingo"
+                      maxLength={1}
+                    />
+                  </div>
+                </div>
+                <Tablet>
+                  <div className="card">
+                    <CardContainer
+                      backgroundColor={watch("backgroundColor")}
+                      titleColor={watch("titleColor")}
+                      blocksColor={watch("blocksColor")}
+                      numberColor={watch("numberColor")}
+                    >
+                      <div className="card-title no-wrap">{watch("title")}</div>
+                      <table>
+                        <thead className="thead">
+                          <tr>
+                            <th>{watch("b")}</th>
+                            <th>{watch("i")}</th>
+                            <th>{watch("n")}</th>
+                            <th>{watch("g")}</th>
+                            <th>{watch("o")}</th>
+                          </tr>
+                        </thead>
+                        <tbody className="tbody">
+                          {bingoCard.map((arrNums, index) => (
+                            <tr key={`key-${index}`}>
+                              {arrNums.map((num, idx) => (
+                                <td key={`key-${num}-${idx}`}>{num}</td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </CardContainer>
+                  </div>
+                </Tablet>
+              </div>
+              <div className="subtitle">Selecciona un color para cambiarlo</div>
+              <div className="colors-container">
+                <div className="color-pick">
+                  <div className="color-title">Fondo</div>
+                  <div className="input-container">
+                    <input
+                      type="color"
+                      name="backgroundColor"
+                      defaultValue={get(props, "game.backgroundColor", darkTheme.basic.primaryLight)}
+                      ref={register}
+                      id="input-color-background"
+                      onChange={() => setBackgroundImg(null)}
+                    />
+                    <label
+                      htmlFor="backgroundColor"
+                      onClick={() => document.getElementById("input-color-background").click()}
+                    >
+                      {watch("backgroundColor")}
+                    </label>
+                  </div>
+                </div>
+                <div className="color-pick">
+                  <div className="color-title">Titulo</div>
+                  <div className="input-container">
+                    <input
+                      type="color"
+                      name="titleColor"
+                      defaultValue={get(props, "game.titleColor", darkTheme.basic.secondary)}
+                      id="input-color-title"
+                      ref={register}
+                    />
+                    <label htmlFor="titleColor" onClick={() => document.getElementById("input-color-title").click()}>
+                      {watch("titleColor")}
+                    </label>
+                  </div>
+                </div>
+                <div className="color-pick">
+                  <div className="color-title">Bloques</div>
+                  <div className="input-container">
+                    <input
+                      type="color"
+                      name="blocksColor"
+                      defaultValue={get(props, "game.blocksColor", darkTheme.basic.secondary)}
+                      id="input-color-blocks"
+                      ref={register}
+                    />
+                    <label htmlFor="blocksColor" onClick={() => document.getElementById("input-color-blocks").click()}>
+                      {watch("blocksColor")}
+                    </label>
+                  </div>
+                </div>
+                <div className="color-pick">
+                  <div className="color-title">Número</div>
+                  <div className="input-container">
+                    <input
+                      type="color"
+                      name="numberColor"
+                      defaultValue={get(props, "game.numberColor", darkTheme.basic.whiteLight)}
+                      ref={register}
+                      id="input-color-number"
+                    />
+                    <label htmlFor="numberColor" onClick={() => document.getElementById("input-color-number").click()}>
+                      {watch("numberColor")}
+                    </label>
+                  </div>
                 </div>
               </div>
-              <Tablet>
-                <div className="card">
+              <div className="upload-container">
+                <FileUpload
+                  key={watch("backgroundColor")}
+                  buttonLabel={
+                    backgroundImg ? "Cambiar imagen de fondo para cartilla" : "Subir imagen de fondo para cartilla"
+                  }
+                  file={backgroundImg}
+                  preview={false}
+                  fileName="backgroundImg"
+                  filePath={`/games/Bingo/${newId}`}
+                  sizes="470x570"
+                  disabled={props.isLoading}
+                  afterUpload={(resizeImages) => setBackgroundImg(resizeImages[0].url)}
+                />
+              </div>
+
+              <Desktop>
+                <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading} margin="1rem 0">
+                  Guardar
+                </ButtonAnt>
+              </Desktop>
+            </div>
+
+            <Desktop>
+              <div className="right-container">
+                <div className="card-container">
                   <CardContainer
+                    backgroundImage={backgroundImg}
                     backgroundColor={watch("backgroundColor")}
                     titleColor={watch("titleColor")}
                     blocksColor={watch("blocksColor")}
@@ -245,182 +374,28 @@ export const Bingo = (props) => {
                     </table>
                   </CardContainer>
                 </div>
-              </Tablet>
-            </div>
-            <div className="subtitle">Selecciona un color para cambiarlo</div>
-            <div className="colors-container">
-              <div className="color-pick">
-                <div className="color-title">Fondo</div>
-                <div className="input-container">
-                  <input
-                    type="color"
-                    name="backgroundColor"
-                    defaultValue={get(props, "game.backgroundColor", darkTheme.basic.primaryLight)}
-                    ref={register}
-                    id="input-color-background"
-                    onChange={() => setBackgroundImg(null)}
-                  />
-                  <label
-                    htmlFor="backgroundColor"
-                    onClick={() => document.getElementById("input-color-background").click()}
-                  >
-                    {watch("backgroundColor")}
-                  </label>
-                </div>
               </div>
-              <div className="color-pick">
-                <div className="color-title">Titulo</div>
-                <div className="input-container">
-                  <input
-                    type="color"
-                    name="titleColor"
-                    defaultValue={get(props, "game.titleColor", darkTheme.basic.secondary)}
-                    id="input-color-title"
-                    ref={register}
-                  />
-                  <label htmlFor="titleColor" onClick={() => document.getElementById("input-color-title").click()}>
-                    {watch("titleColor")}
-                  </label>
-                </div>
-              </div>
-              <div className="color-pick">
-                <div className="color-title">Bloques</div>
-                <div className="input-container">
-                  <input
-                    type="color"
-                    name="blocksColor"
-                    defaultValue={get(props, "game.blocksColor", darkTheme.basic.secondary)}
-                    id="input-color-blocks"
-                    ref={register}
-                  />
-                  <label htmlFor="blocksColor" onClick={() => document.getElementById("input-color-blocks").click()}>
-                    {watch("blocksColor")}
-                  </label>
-                </div>
-              </div>
-              <div className="color-pick">
-                <div className="color-title">Número</div>
-                <div className="input-container">
-                  <input
-                    type="color"
-                    name="numberColor"
-                    defaultValue={get(props, "game.numberColor", darkTheme.basic.whiteLight)}
-                    ref={register}
-                    id="input-color-number"
-                  />
-                  <label htmlFor="numberColor" onClick={() => document.getElementById("input-color-number").click()}>
-                    {watch("numberColor")}
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className="upload-container">
-              <FileUpload
-                key={watch("backgroundColor")}
-                buttonLabel={
-                  backgroundImg ? "Cambiar imagen de fondo para cartilla" : "Subir imagen de fondo para cartilla"
-                }
-                file={backgroundImg}
-                preview={false}
-                fileName="backgroundImg"
-                filePath={`/games/Bingo/${newId}`}
-                sizes="470x570"
-                disabled={props.isLoading}
-                afterUpload={(resizeImages) => setBackgroundImg(resizeImages[0].url)}
-              />
-            </div>
+            </Desktop>
+            <Tablet>
+              <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading} margin="1rem auto">
+                Guardar
+              </ButtonAnt>
+            </Tablet>
           </div>
-
-          <Desktop>
-            <div className="right-container">
-              <div className="submit-btn">
-                <ButtonAnt
-                  variant={"contained"}
-                  color={"primary"}
-                  htmlType="submit"
-                  loading={props.isLoading}
-                  disabled={props.isLoading}
-                >
-                  Guardar
-                </ButtonAnt>
-              </div>
-              <div className="card-container">
-                <CardContainer
-                  backgroundImage={backgroundImg}
-                  backgroundColor={watch("backgroundColor")}
-                  titleColor={watch("titleColor")}
-                  blocksColor={watch("blocksColor")}
-                  numberColor={watch("numberColor")}
-                >
-                  <div className="card-title no-wrap">{watch("title")}</div>
-                  <table>
-                    <thead className="thead">
-                      <tr>
-                        <th>{watch("b")}</th>
-                        <th>{watch("i")}</th>
-                        <th>{watch("n")}</th>
-                        <th>{watch("g")}</th>
-                        <th>{watch("o")}</th>
-                      </tr>
-                    </thead>
-                    <tbody className="tbody">
-                      {bingoCard.map((arrNums, index) => (
-                        <tr key={`key-${index}`}>
-                          {arrNums.map((num, idx) => (
-                            <td key={`key-${num}-${idx}`}>{num}</td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </CardContainer>
-              </div>
-            </div>
-          </Desktop>
-        </div>
+        </BingoContainer>
       </form>
-    </BingoContainer>
+    </div>
   );
 };
 
 const BingoContainer = styled.div`
-  width: 100%;
+  width: 90%;
+  padding: 1rem;
+  margin: 1rem auto;
+  background: ${(props) => props.theme.basic.gray};
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 
-  .nav {
-    background: ${(props) => props.theme.basic.primary};
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 40px;
-    padding: 0 1rem;
-
-    .name {
-      font-family: Lato;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 15px;
-      line-height: 18px;
-      color: ${(props) => props.theme.basic.whiteLight};
-    }
-  }
-
-  form {
-    padding: 1rem;
-
-    .btns-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .title {
-      margin-top: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
+  .main-container {
     .subtitle {
       margin: 1rem 0;
       font-family: Lato;
@@ -443,7 +418,6 @@ const BingoContainer = styled.div`
 
     .bingo-card {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
       grid-gap: 0.5rem;
 
       .card {
@@ -535,18 +509,14 @@ const BingoContainer = styled.div`
   }
 
   ${mediaQuery.afterTablet} {
-    min-height: 100vh;
-    background: ${(props) => props.theme.basic.white};
+    max-width: 900px;
+    padding: 1rem;
+    margin: 2rem auto;
 
     .right-container {
-      .submit-btn {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.5rem;
-        justify-content: flex-end;
-      }
-
+      width: 100%;
+      height: 100%;
+      
       .card-container {
         display: flex;
         align-items: center;
@@ -555,123 +525,113 @@ const BingoContainer = styled.div`
     }
 
     .main-container {
-      background: ${(props) => props.theme.basic.gray};
       max-width: 1000px;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 1rem;
       border-radius: 4px;
-      margin: 1rem auto;
-      box-sizing: border-box;
-      padding: 1rem;
-
-      .bingo-card {
-        grid-template-columns: 1fr;
-      }
+      justify-items: center;
     }
   }
 `;
 
-export const CardContainer = styled.div`
+const CardContainer = styled.div`
   width: 100%;
-  height: 210px;
-  max-width: 200px;
+  aspect-ratio: 6/ 8;
+  ${(props) => props.full && "min-width: 550px"};
+  max-width: ${(props) => (props.full ? "100%" : "350px")};
   background: ${(props) => {
-    if (props.backgroundImage) return `url(${props.backgroundImage})`;
+    if (props.backgroundImg) return `url(${props.backgroundImg})`;
     if (props.backgroundColor) return props.backgroundColor;
 
     return props.theme.basic.secondary;
   }};
   background-position: center;
   border-radius: 3px;
+  padding: ${(props) => (props.full ? "1rem" : "0.5rem")};
   margin: 0 auto;
+  display: grid;
+  grid-template-rows: 10% 85%;
+  grid-gap: 5%;
 
   .card-title {
     font-family: Lato;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 18px;
-    color: ${(props) => (props.titleColor ? props.titleColor : props.theme.basic.white)};
+    font-weight: bold;
+    color: ${(props) => (props.titleColor ? props.titleColor : props.theme.basic.secondary)};
     text-align: center;
-    padding: 0.5rem;
+    font-size: ${(props) => (props.full ? "55px" : "32px")};
+    line-height: ${(props) => (props.full ? "59px" : "36px")};
   }
 
   table {
-    width: 90%;
+    width: 100%;
     border-collapse: separate;
-    border-spacing: 2.5px;
+    border-spacing: 5px;
     margin: 0 auto;
 
     thead {
-      th {
-        text-align: center;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 15px;
-        line-height: 18px;
-        color: ${(props) => (props.titleColor ? props.titleColor : props.theme.basic.white)};
+      tr {
+        th {
+          width: 20%;
+          aspect-ratio: 1 / 1;
+          text-align: center;
+          font-family: Lato;
+          font-weight: 700;
+          font-size: ${(props) => (props.full ? "55px" : "32px")};
+          line-height: ${(props) => (props.full ? "59px" : "36px")};
+          font-style: normal;
+          color: ${(props) => (props.titleColor ? props.titleColor : props.theme.basic.secondary)};
+        }
       }
     }
 
     tbody {
       tr {
-        width: 25px;
-        height: 25px;
-
         td {
+          width: 20%;
+          aspect-ratio: 1 / 1;
           margin-right: 5px;
           text-align: center;
           font-family: Lato;
+          font-weight: 700;
+          font-size: ${(props) => (props.full ? "55px" : "32px")};
+          line-height: ${(props) => (props.full ? "59px" : "36px")};
           font-style: normal;
-          font-weight: bold;
-          font-size: 13px;
-          line-height: 15px;
           color: ${(props) => (props.numberColor ? props.numberColor : props.theme.basic.white)};
-          background: ${(props) => (props.blocksColor ? props.blocksColor : props.theme.basic.primary)};
+          background: ${(props) => (props.blocksColor ? props.blocksColor : props.theme.basic.secondary)};
+          justify-content: center;
+
+          .active {
+            border-radius: 50%;
+            background: ${(props) => props.theme.basic.success};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: ${(props) => props.theme.basic.blackDarken};
+            margin: 0 auto;
+          }
+
+          .number {
+            cursor: pointer;
+            width: 80%;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            text-align: center;
+            font-size: 32px;
+
+            ${mediaQuery.afterTablet} {
+              font-size: 28px;
+            }
+          }
         }
       }
     }
   }
 
   ${mediaQuery.afterTablet} {
-    max-width: 460px;
-    height: 500px;
-
-    .card-title {
-      font-size: 28px;
-      line-height: 35px;
-      font-weight: 700;
-      padding: 1rem 0;
-    }
-
-    table {
-      width: 400px;
-      border-collapse: separate;
-      border-spacing: 5px;
-
-      thead {
-        th {
-          font-weight: 700;
-          font-size: 38px;
-          line-height: 41px;
-          color: ${(props) => (props.titleColor ? props.titleColor : props.theme.basic.white)};
-        }
-      }
-
-      tbody {
-        tr {
-          height: 70px;
-
-          td {
-            margin-right: 5px;
-            font-weight: 700;
-            font-size: 38px;
-            line-height: 41px;
-          }
-        }
-      }
-    }
+    padding: 0.5rem 1rem;
   }
 `;
