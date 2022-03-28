@@ -30,10 +30,10 @@ export const AboutUs = (props) => {
         />
         <div className="flex-container">
           <div className="text" data-aos="fade-right">
-            ebombo está enfocada en la industria del entretenimiento para empresas. Las empresas han cambiado y se han
-            tenido que adaptar a la nueva normalidad. Ayudamos a las empresas a mantenerse conectados a través de
-            eventos e integraciones virtuales con nuestros propios juegos y dinámicas que desarrollamos con tecnología.
-            Hemos impactado en más de 100 mil trabajadores.
+            ebombo es una empresa de tecnología de recursos humanos enfocada en el futuro del trabajo. Permitiendo que
+            otras empresas conecten con sus empleados y mejoren su ambiente de trabajo. Todo esto es posible con las
+            actividades virtuales que creamos. Estas actividades consisten en diferentes tipos de juegos, dinámicas de
+            incorporación, capacitaciones y más, de una manera divertida y casual.
             <br />
             <br />
             <br />
