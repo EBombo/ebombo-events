@@ -20,7 +20,7 @@ const comments = [
     logo: `${config.storageUrl}/resources/comments/adidas.png`,
     job: "Sr. Specialist Brand Comms Football & HBS de Adidas Perú",
     comment:
-      'Presentamos el video del Mastercup al director de marketing de Adidas. Amó la iniciativa, las artes, la dinámica y todo. Se lo mostrará a primera línea en Perú y a nivel región como un "Best Practice" a nivel LatAm. Asi que felicitaciones por la chamba y gracias por todo el empuje',
+      'Presentamos el video del Mastercup al director de marketing de Adidas. Amó la iniciativa, la dinámica y todo. Se lo mostrará a primera línea en Perú y a nivel región como un "Best Practice" a nivel LatAm. Asi que felicitaciones por la chamba y gracias por todo el empuje',
   },
   {
     name: "Pamela Román",
@@ -44,7 +44,7 @@ const comments = [
     logo: `${config.storageUrl}/resources/comments/adidas.png`,
     job: "Communications Manager & Social Impact Lead de Adidas México",
     comment:
-      "Muchas gracias por el evento del día de ayer, la verdad es que nos ayudaron bastante en toda la producción. Felicitaciones al equipo de ebombo que hicieron un buen trabajo y supieron que hacer en todo momento.",
+      "Muchas gracias por el evento del día de ayer, la verdad es que nos ayudaron bastante en todo. Felicitaciones al equipo de ebombo que hicieron un buen trabajo y supieron que hacer en todo momento.",
   },
   {
     name: "Diego Portugal",
