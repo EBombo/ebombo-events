@@ -60,7 +60,6 @@ const goals = [
 
 export const DetailsEvent = (props) => {
   const [games] = useGlobal("adminGames");
-  console.log("games", games);
 
   const [currentInteraction, setCurrentCurrentInteraction] = useState(null);
   const [currentGift, setCurrentCurrentGift] = useState(null);
