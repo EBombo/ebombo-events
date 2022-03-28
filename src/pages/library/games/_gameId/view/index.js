@@ -4,7 +4,6 @@ import get from "lodash/get";
 import { useRouter } from "next/router";
 import { config, firestoreBingo, firestoreHanged, firestoreRoulette, firestoreTrivia } from "../../../../../firebase";
 import { spinLoader } from "../../../../../components/common/loader";
-import { updateGame } from "../index";
 import { useSendError } from "../../../../../hooks";
 import { useFetch } from "../../../../../hooks/useFetch";
 import { BingoView } from "./BingoView";
@@ -52,18 +51,6 @@ export const GameView = (props) => {
     folderId
       ? router.push(`/library/games/${gameId}/view?adminGameId=${adminGameId}&folderId=${folderId}`)
       : router.push(`/library/games/${gameId}/view?adminGameId=${adminGameId}`);
-  };
-
-  const moveGameToFolder = async (folder) => {
-    if (!game) return;
-
-    try {
-      await updateGame(game.adminGame, { id: game.id, parentId: folder?.id }, authUser);
-
-      redirectToGameViewWithFolder(folder?.id);
-    } catch (error) {
-      await sendError(error);
-    }
   };
 
   const deleteGame = async () => {
@@ -132,7 +119,7 @@ export const GameView = (props) => {
       .doc(game.id)
       .update({
         ...game,
-        parentId: folderId,
+        parentId: folder.id,
       });
   };
 

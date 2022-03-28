@@ -50,6 +50,7 @@ export const WithConfiguration = (props) => {
         settings: collectionToDate({ ...settingsLS, version }),
         location,
         userGames: [],
+        userEvents: [],
         adminGames: [],
         languageCode,
         register: null,

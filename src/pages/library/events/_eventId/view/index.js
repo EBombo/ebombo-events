@@ -1,53 +1,16 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
-import { Table } from "antd";
-import { columns } from "./EventStepTwo";
-import { Image } from "../../../../components/common/Image";
-import { config, firestore } from "../../../../firebase";
-import capitalize from "lodash/capitalize";
-import defaultTo from "lodash/defaultTo";
+import React from "reactn";
 import moment from "moment";
-import { Anchor, ButtonAnt } from "../../../../components/form";
-import { useRouter } from "next/router";
+import { Table } from "antd";
+import { columns } from "../EventStepTwo";
+import defaultTo from "lodash/defaultTo";
+import { Image } from "../../../../../components/common/Image";
+import { config } from "../../../../../firebase";
+import capitalize from "lodash/capitalize";
+import { Anchor, ButtonAnt } from "../../../../../components/form";
 
-export const EventStepFour = (props) => {
-  const router = useRouter();
-
-  const [authUser] = useGlobal("user");
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    router.prefetch(`/library/events/${props.documentId}/view`);
-  }, []);
-
-  const createEvent = async () => {
-    setIsLoading(true);
-
-    const eventRef = await firestore.collection("events").doc(props.documentId);
-
-    const event = {
-      ...props.event,
-      adminGamesIds: props.event?.adminGames.map((game) => game.id),
-      id: props.documentId,
-      userId: authUser?.id,
-    };
-
-    delete event.adminGames;
-
-    if (!eventRef.exist) {
-      await eventRef.set({ ...event, createAt: new Date(), updateAt: new Date() });
-    }
-
-    if (eventRef.exist) {
-      await eventRef.update({ ...event, updateAt: new Date() });
-    }
-
-    setIsLoading(false);
-    router.push(`/library/events/${props.documentId}/view?manageBy=user`);
-  };
-
-  return (
-    <div className="w-full flex flex-col items center bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 h-[calc(100vh-180px)] overflow-auto">
+export const EventView = props => {
+  return(
+    <div>
       <div className="text-primary text-['Lato'] font-[700] text-[20px] leading-[24px] md:text-[44px] md:leading-[53px] tracking-[.03em]">
         Resumen
       </div>
@@ -113,10 +76,10 @@ export const EventStepFour = (props) => {
         <Anchor underlined variant="secondary" onClick={() => props.setCurrentStep(3)}>
           Volver
         </Anchor>
-        <ButtonAnt color="success" onClick={() => createEvent()} loading={isLoading} disabled={isLoading}>
+        <ButtonAnt color="success" onClick={() => console.log("something")} >
           <div className="w-[120px] text-['Lato'] font-[700] text-[18px] leading-[20px] text-blackDarken">Crear</div>
         </ButtonAnt>
       </div>
     </div>
-  );
-};
+  )
+}
