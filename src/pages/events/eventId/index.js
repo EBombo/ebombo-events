@@ -6,7 +6,7 @@ import { SizeEvent } from "./SizeEvent";
 import { CheckOutlined } from "@ant-design/icons";
 import { BudgetEvent } from "./BudgetEvent";
 import { DetailsEvent } from "./DetailsEvent";
-import { DateEvent } from "./DateEvent";
+import { DatesEvent } from "./DatesEvent";
 
 const { TabPane } = Tabs;
 
@@ -18,7 +18,7 @@ export const EventContainer = (props) => {
   const [size, setSize] = useState(null);
   const [budget, setBudget] = useState(null);
   const [details, setDetails] = useState(null);
-  const [date, setDate] = useState(null);
+  const [dates, setDates] = useState(null);
   const [resume, setResume] = useState(null);
   const [register, setRegister] = useState(null);
 
@@ -85,7 +85,7 @@ export const EventContainer = (props) => {
         ),
       },
       {
-        tab: !!date ? (
+        tab: !!dates ? (
           <div className="text-success">
             <CheckOutlined /> Fecha
           </div>
@@ -94,13 +94,13 @@ export const EventContainer = (props) => {
         ),
         key: "date",
         content: (eventSteps, position) => (
-          <DateEvent
+          <DatesEvent
             {...props}
             setCurrentTab={setCurrentTab}
             eventSteps={eventSteps}
             position={position}
-            date={date}
-            setDate={setDate}
+            dates={dates}
+            setDates={setDates}
           />
         ),
       },
@@ -127,11 +127,11 @@ export const EventContainer = (props) => {
         content: (eventSteps, position) => "register",
       },
     ];
-  }, [size, setSize, budget, setBudget, details, setDetails, date, setDate]);
+  }, [size, setSize, budget, setBudget, details, setDetails, dates, setDates]);
 
   return (
     <EventContainerStyled tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`} className="w-full bg-white">
-      <Tabs activeKey={currentTab} onChange={setCurrentTab}>
+      <Tabs activeKey={currentTab}>
         {createEventSteps.map((step, position) => (
           <TabPane key={step.key} tab={step.tab}>
             <div className="py-8 px-10">{step.content(createEventSteps, position)}</div>
