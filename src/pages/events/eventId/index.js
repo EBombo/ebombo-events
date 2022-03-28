@@ -71,7 +71,7 @@ export const EventContainer = (props) => {
         ) : (
           <div className="text-secondary">Detalles</div>
         ),
-        key: "detils",
+        key: "details",
         content: (eventSteps, position) => (
           <DetailsEvent
             {...props}

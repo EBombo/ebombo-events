@@ -1,5 +1,6 @@
 import React, { useGlobal, useState } from "reactn";
 import { Anchor, ButtonAnt, TextArea } from "../../../components/form";
+import { Image } from "../../../components/common/Image";
 
 const interactions = [
   {
@@ -60,10 +61,12 @@ const goals = [
 
 export const DetailsEvent = (props) => {
   const [games] = useGlobal("adminGames");
+  console.log("games", games);
 
   const [currentInteraction, setCurrentCurrentInteraction] = useState(null);
   const [currentGift, setCurrentCurrentGift] = useState(null);
   const [currentGoals, setCurrentCurrentGoals] = useState([]);
+  const [currentGames, setCurrentGames] = useState([]);
 
   return (
     <div>
@@ -132,13 +135,31 @@ export const DetailsEvent = (props) => {
         </div>
       </div>
 
-      <div className="flex gap-10">
+      <div className="grid grid-cols-2 gap-10">
         <div>
           <div className="text-secondary mb-4">¿Cuáles de nuestras dinámicas virtuales quisieras en tu eveno?</div>
+
           <div className="grid grid-cols-4 gap-2">
-            {games.map((game) => (
-              <div key={game.id}>{game.name}</div>
-            ))}
+            {games
+              .filter((game) => !game.isDisabled)
+              .map((game) => (
+                <div
+                  key={game.id}
+                  className={`text-center rounded-md shadow-md cursor-pointer ${
+                    currentGames.includes(game.id) ? "text-white bg-primary" : ""
+                  }`}
+                  onClick={() => {
+                    if (currentGames.includes(game.id))
+                      return setCurrentGames([...currentGames.filter((gameId) => gameId !== game.id)]);
+
+                    setCurrentGames([game.id, ...currentGames]);
+                  }}
+                >
+                  <Image src={game.coverUrl} width="100%" height="4rem" cursor="pointer" borderRadius="10px 10px 0 0" />
+
+                  <div>{game.name}</div>
+                </div>
+              ))}
           </div>
         </div>
 
@@ -146,6 +167,7 @@ export const DetailsEvent = (props) => {
           <div className="text-secondary mb-4">
             Escribenos comentarios adiciones de tu evento para tenerlos en cuenta
           </div>
+
           <TextArea rows={7} variant="primary" />
         </div>
       </div>
@@ -161,9 +183,18 @@ export const DetailsEvent = (props) => {
         </Anchor>
 
         <ButtonAnt
-          onClick={() => props.setCurrentTab(props.eventSteps[props.position + 1].key)}
+          onClick={() => {
+            props.setDetails({
+              Interaction: currentInteraction,
+              Gift: currentGift,
+              Goals: currentGoals,
+              Games: currentGames,
+            });
+
+            props.setCurrentTab(props.eventSteps[props.position + 1].key);
+          }}
           color="primary"
-          disabled={!props.budget}
+          disabled={!currentInteraction || !currentGift || !currentGoals?.length || !currentGames?.length}
           variant="contained"
           fontSize="18px"
           size="big"
