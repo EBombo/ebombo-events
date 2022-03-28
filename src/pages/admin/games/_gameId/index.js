@@ -8,6 +8,7 @@ import { firestore } from "../../../../firebase";
 import { useSendError } from "../../../../hooks";
 import isEmpty from "lodash/isEmpty";
 import Title from "antd/lib/typography/Title";
+import { spinLoaderMin } from "../../../../components/common/loader";
 
 export const GameContainer = (props) => {
   const router = useRouter();
@@ -75,7 +76,9 @@ export const GameContainer = (props) => {
     setIsSaving(false);
   };
 
-  return (
+  return loading ? (
+    spinLoaderMin()
+  ) : (
     <GameContainerCss>
       <Title>{!isEmpty(game) ? "Editar Juego" : "Nuevo Juego"}</Title>
       <form onSubmit={handleSubmit(saveGame)} autoComplete="off" noValidate>
@@ -126,7 +129,7 @@ export const GameContainer = (props) => {
           onChange={([value]) => value.target.checked}
           as={<Checkbox variant="primary">Desabilitar</Checkbox>}
         />
-        <ButtonAnt htmlType="submit" loading={isSaving || loading} disabled={isSaving || loading}>
+        <ButtonAnt htmlType="submit" loading={isSaving} disabled={isSaving}>
           GUARDAR
         </ButtonAnt>
       </form>
