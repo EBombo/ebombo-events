@@ -2,7 +2,7 @@ import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import isEmpty from "lodash/isEmpty";
 import get from "lodash/get";
 import { useRouter } from "next/router";
-import { config } from "../../../../../firebase";
+import { config, firestoreBingo, firestoreHanged, firestoreRoulette, firestoreTrivia } from "../../../../../firebase";
 import { spinLoader } from "../../../../../components/common/loader";
 import { updateGame } from "../index";
 import { useSendError } from "../../../../../hooks";
@@ -13,6 +13,7 @@ import { SideBar } from "./SideBar";
 import { RouletteView } from "./RouletteView";
 import { TriviaView } from "./TriviaView";
 import { UsersView } from "./UsersView";
+import { ModalMove } from "../../../../../components/common/ModalMove";
 
 // TODO: This component is long consider a refactoring.
 export const GameView = (props) => {
@@ -107,34 +108,68 @@ export const GameView = (props) => {
     }
   };
 
+  const moveToFolder = async (folder) => {
+    let currentFirebase;
+
+    if (game?.adminGame?.name === "bingo") {
+      currentFirebase = firestoreBingo;
+    }
+
+    if (game?.adminGame?.name === "trivia") {
+      currentFirebase = firestoreTrivia;
+    }
+
+    if (game?.adminGame?.name === "hanged") {
+      currentFirebase = firestoreHanged;
+    }
+
+    if (game?.adminGame?.name === "roulette" || game?.adminGame?.name.toLowerCase().includes("questions")) {
+      currentFirebase = firestoreRoulette;
+    }
+
+    await currentFirebase
+      .collection("games")
+      .doc(game.id)
+      .update({
+        ...game,
+        parentId: folderId,
+      });
+  };
+
   if (!game) return spinLoader();
 
   return (
     <div className="w-full grid md:grid-cols-[350px_auto]">
+      <ModalMove
+        {...props}
+        isVisibleModalMove={isVisibleModalMove}
+        setIsVisibleModalMove={setIsVisibleModalMove}
+        moveToFolder={moveToFolder}
+        parent={game.parentId}
+        game={game}
+      />
+
       <SideBar
         {...props}
         game={game}
+        deleteGame={deleteGame}
         toggleFavorite={toggleFavorite}
         createTokenToPlay={createTokenToPlay}
         setIsVisibleInscriptions={setIsVisibleInscriptions}
         isVisibleInscriptions={isVisibleInscriptions}
+        setIsVisibleModalMove={setIsVisibleModalMove}
       />
-      {isVisibleInscriptions && (
-        <UsersView game={game} isVisibleModalMove={isVisibleModalMove} deleteGame={deleteGame} {...props} />
-      )}
-      {game?.adminGame?.name === "bingo" && !isVisibleInscriptions && (
-        <BingoView game={game} isVisibleModalMove={isVisibleModalMove} deleteGame={deleteGame} {...props} />
-      )}
-      {game?.adminGame?.name === "hanged" && !isVisibleInscriptions && (
-        <HangedView game={game} isVisibleModalMove={isVisibleModalMove} deleteGame={deleteGame} {...props} />
-      )}
+
+      {isVisibleInscriptions && <UsersView game={game} {...props} />}
+
+      {game?.adminGame?.name === "bingo" && !isVisibleInscriptions && <BingoView game={game} {...props} />}
+
+      {game?.adminGame?.name === "hanged" && !isVisibleInscriptions && <HangedView game={game} {...props} />}
+
       {(game?.adminGame?.name === "roulette" || game?.adminGame?.name === "rouletteQuestions") &&
-        !isVisibleInscriptions && (
-          <RouletteView game={game} isVisibleModalMove={isVisibleModalMove} deleteGame={deleteGame} {...props} />
-        )}
-      {game?.adminGame?.name === "trivia" && !isVisibleInscriptions && (
-        <TriviaView game={game} isVisibleModalMove={isVisibleModalMove} deleteGame={deleteGame} {...props} />
-      )}
+        !isVisibleInscriptions && <RouletteView game={game} {...props} />}
+
+      {game?.adminGame?.name === "trivia" && !isVisibleInscriptions && <TriviaView game={game} {...props} />}
     </div>
   );
 };

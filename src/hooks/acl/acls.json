@@ -11,6 +11,9 @@
       "/library/folders": "Lista de folders",
       "/library/folders/new": "Crear sub folders",
       "/library/folders/[folderId]": "Ver sub folders",
+      "/library/events": "Lista de eventos",
+      "/library/events/new": "Crear evento",
+      "/library/events/[eventId]": "Editar evento",
       "/reports": "Formulario de Reportes"
     }
   },

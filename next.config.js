@@ -75,4 +75,20 @@ module.exports = withBundleAnalyzer({
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: '/terms',
+        destination: isProd
+        ? 'https://storage.googleapis.com/ebombo-events.appspot.com/resources/terms-conditions-ebombo.pdf'
+        : 'https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/terms-conditions-ebombo.pdf',
+      },
+      {
+        source: '/privacypolicy',
+        destination: isProd
+        ? 'https://storage.googleapis.com/ebombo-events.appspot.com/resources/privacy-policy-ebombo.pdf'
+        : 'https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/privacy-policy-ebombo.pdf',
+      },
+    ]
+  },
 });
