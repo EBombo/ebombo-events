@@ -30,6 +30,8 @@ export const EventStepFour = (props) => {
       adminGamesIds: props.event?.adminGames.map((game) => game.id),
       id: props.documentId,
       userId: authUser?.id,
+      deleted: false,
+      manageByUser: true
     };
 
     delete event.adminGames;
