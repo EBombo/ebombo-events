@@ -7,6 +7,7 @@ import { CheckOutlined } from "@ant-design/icons";
 import { BudgetEvent } from "./BudgetEvent";
 import { DetailsEvent } from "./DetailsEvent";
 import { DatesEvent } from "./DatesEvent";
+import { ResumeEvent } from "./ResumeEvent";
 
 const { TabPane } = Tabs;
 
@@ -118,7 +119,9 @@ export const EventContainer = (props) => {
           <div className="text-secondary">Resumen</div>
         ),
         key: "resume",
-        content: (eventSteps, position) => "resume",
+        content: (eventSteps, position) => (
+          <ResumeEvent {...props} size={size} budget={budget} details={details} dates={dates} />
+        ),
       },
       {
         tab: !!register ? (
