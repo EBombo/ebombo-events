@@ -62,10 +62,10 @@ const goals = [
 export const DetailsEvent = (props) => {
   const [games] = useGlobal("adminGames");
 
-  const [currentInteraction, setCurrentCurrentInteraction] = useState(null);
-  const [currentGift, setCurrentCurrentGift] = useState(null);
-  const [currentGoals, setCurrentCurrentGoals] = useState([]);
-  const [currentGames, setCurrentGames] = useState([]);
+  const [currentInteraction, setCurrentCurrentInteraction] = useState(props.details?.Interaction ?? null);
+  const [currentGift, setCurrentCurrentGift] = useState(props.details?.Gift ?? null);
+  const [currentGoals, setCurrentCurrentGoals] = useState(props.details?.Goals ?? []);
+  const [currentGames, setCurrentGames] = useState(props.details?.Games ?? []);
 
   return (
     <div>
@@ -193,8 +193,8 @@ export const DetailsEvent = (props) => {
             props.setCurrentTab(props.eventSteps[props.position + 1].key);
           }}
           color="primary"
-          disabled={!currentInteraction || !currentGift || !currentGoals?.length || !currentGames?.length}
           variant="contained"
+          disabled={!currentInteraction || !currentGift || !currentGoals?.length || !currentGames?.length}
           fontSize="18px"
           size="big"
           margin="1rem 0 auto auto"

@@ -6,6 +6,7 @@ import { SizeEvent } from "./SizeEvent";
 import { CheckOutlined } from "@ant-design/icons";
 import { BudgetEvent } from "./BudgetEvent";
 import { DetailsEvent } from "./DetailsEvent";
+import { DateEvent } from "./DateEvent";
 
 const { TabPane } = Tabs;
 
@@ -92,7 +93,16 @@ export const EventContainer = (props) => {
           <div className="text-secondary">Fecha</div>
         ),
         key: "date",
-        content: (eventSteps, position) => "date",
+        content: (eventSteps, position) => (
+          <DateEvent
+            {...props}
+            setCurrentTab={setCurrentTab}
+            eventSteps={eventSteps}
+            position={position}
+            date={date}
+            setDate={setDate}
+          />
+        ),
       },
       {
         tab: !!resume ? (
