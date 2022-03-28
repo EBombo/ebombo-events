@@ -23,6 +23,11 @@ export const EventContainer = (props) => {
   const [register, setRegister] = useState(null);
 
   const createEventSteps = useMemo(() => {
+    console.log("size", size);
+    console.log("budget", budget);
+    console.log("details", details);
+    console.log("dates", dates);
+
     return [
       {
         tab: !!size ? (
