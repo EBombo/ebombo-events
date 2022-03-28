@@ -107,7 +107,7 @@ export const WithConfiguration = (props) => {
         .get();
 
       const adminGames_ = snapshotToArray(gamesRef);
-      await setAdminGames(orderBy(adminGames_, ["isDisabled"], ["desc"]));
+      await setAdminGames(orderBy(adminGames_, ["updateAt"], ["desc"]));
     };
 
     initializeConfig();
