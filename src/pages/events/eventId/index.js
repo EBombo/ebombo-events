@@ -127,10 +127,10 @@ export const EventContainer = (props) => {
         content: (eventSteps, position) => "register",
       },
     ];
-  }, [size, setSize, budget, setBudget]);
+  }, [size, setSize, budget, setBudget, details, setDetails, date, setDate]);
 
   return (
-    <EventContainerStyled tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`}>
+    <EventContainerStyled tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`} className="w-full bg-white">
       <Tabs activeKey={currentTab} onChange={setCurrentTab}>
         {createEventSteps.map((step, position) => (
           <TabPane key={step.key} tab={step.tab}>
@@ -143,9 +143,7 @@ export const EventContainer = (props) => {
 };
 
 const EventContainerStyled = styled.div`
-  width: 100%;
   background-image: ${(props) => `url('${props.tapiz}')`};
-  background-color: ${(props) => props.theme.basic.white};
 
   .ant-tabs-nav {
     margin-bottom: 0;
