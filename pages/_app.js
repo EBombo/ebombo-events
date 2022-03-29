@@ -30,6 +30,7 @@ const MyApp = ({ Component, pageProps }) => {
 
   const [authUser] = useGlobal("user");
   const [games, setGames] = useGlobal("userGames");
+  const [events, setEvents] = useGlobal("userEvents");
   const [, setLoadingGames] = useGlobal("loadingGames");
 
   const [parent, setParent] = useState(null);
@@ -48,6 +49,15 @@ const MyApp = ({ Component, pageProps }) => {
       setFolders(snapshotToArray(foldersQuery));
     });
   };
+
+  const fetchEvents = () =>
+    firestore
+      .collection("events")
+      .where("userId", "==", authUser?.id ?? null)
+      .where("deleted", "==", false)
+      .onSnapshot((eventsQuery) => {
+        setEvents(snapshotToArray(eventsQuery));
+      });
 
   const fetchGames = async () => {
     try {
@@ -78,6 +88,10 @@ const MyApp = ({ Component, pageProps }) => {
 
     fetchFolders();
     fetchGames();
+
+    const unsubscribeEvent = fetchEvents();
+
+    return () => unsubscribeEvent();
   }, [folderId, isBack, authUser]);
 
   useEffect(() => {
@@ -164,11 +178,13 @@ const MyApp = ({ Component, pageProps }) => {
           <WithAuthentication>
             <Component
               {...pageProps}
+              events={events}
               games={games}
               parent={parent}
               folders={folders}
               fetchGames={fetchGames}
               fetchFolders={fetchFolders}
+              fetchEvents={fetchEvents}
               showNotification={showNotificationAnt}
             />
           </WithAuthentication>

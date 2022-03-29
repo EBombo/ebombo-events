@@ -23,11 +23,9 @@ export const WithConfiguration = (props) => {
 
   const { Fetch } = useFetch();
 
-  const [authUser] = useGlobal("user");
   const [, setLocation] = useGlobal("location");
   const [, setAdminGames] = useGlobal("adminGames");
   const [settings, setSettings] = useGlobal("settings");
-  const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
 
   const [authUserLS] = useUser();
   const [languageCode] = useLanguageCode();
@@ -50,15 +48,14 @@ export const WithConfiguration = (props) => {
         settings: collectionToDate({ ...settingsLS, version }),
         location,
         userGames: [],
+        userEvents: [],
         adminGames: [],
         languageCode,
         register: null,
         loadingGames: true,
         isLoadingUser: true,
         isLoadingCreateUser: true,
-        isVisibleLoginModal: false,
         isVisibleModalConfirm: false,
-        isVisibleForgotPassword: false,
         openRightDrawer: false,
         openLeftDrawer: false,
         serverTime: new Date(),
@@ -119,10 +116,6 @@ export const WithConfiguration = (props) => {
 
     return () => unsubscribeVersion();
   }, []);
-
-  useEffect(() => {
-    authUser && setIsVisibleLoginModal(false);
-  }, [authUser, setIsVisibleLoginModal]);
 
   useEffect(() => {
     register("/sw.js", { scope: "/" });
