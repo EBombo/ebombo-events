@@ -31,13 +31,9 @@ const StyledSwitch = styled(AntSwitch)`
     border-color: ${(props) => props.theme.basic.danger};
   `}
 
-  ${(props) =>
-    props.activeBackgroundColor &&
-    `
-    &.ant-switch-checked {
-      background-color: ${(props) => props.activeBackgroundColor ?? props.theme.basic.success} !important;
-    }
-  `}
+  &.ant-switch-checked {
+    background-color: ${(props) => props.activeBackgroundColor ?? props.theme.basic.success} !important;
+  }
 `;
 
 const Label = styled.label`
