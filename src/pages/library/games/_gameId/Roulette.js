@@ -4,13 +4,15 @@ import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { ButtonAnt, Checkbox, Input, TextArea } from "../../../../components/form";
 import { useRouter } from "next/router";
-import { firestore, firestoreRoulette } from "../../../../firebase";
+import { config, firestore, firestoreRoulette } from "../../../../firebase";
 import { ModalSettings } from "./ModalSettings";
 import get from "lodash/get";
-import { Desktop, mediaQuery, Tablet } from "../../../../constants";
+import { AfterMobile, Desktop, mediaQuery, Mobile, Tablet } from "../../../../constants";
 import { darkTheme } from "../../../../theme";
 import dynamic from "next/dynamic";
 import { snapshotToArray } from "../../../../utils";
+import { LeftOutlined } from "@ant-design/icons";
+import { Image } from "../../../../components/common/Image";
 
 const FortuneWheel = dynamic(() => import("../../../../components/common/FortuneWheel"), { ssr: false });
 
@@ -150,7 +152,7 @@ export const Roulette = (props) => {
   };
 
   return (
-    <RouletteContainer>
+    <div>
       {isVisibleModalSettings && (
         <ModalSettings
           isVisibleModalSettings={isVisibleModalSettings}
@@ -173,13 +175,23 @@ export const Roulette = (props) => {
         />
       )}
 
-      <ButtonAnt color="default" onClick={() => router.back()} disabled={props.isLoading}>
-        Cancelar
-      </ButtonAnt>
-
       <form onSubmit={handleSubmit(saveGame)}>
-        <div className="first-content">
-          <div className="flex items-center">
+        <div className="w-full bg-primary py-2 px-4 flex items-center gap-[5px] md:gap-4">
+          <Mobile>
+            <LeftOutlined width="18px" height="25px" style={{ color: "white" }} onClick={() => router.back()} />
+          </Mobile>
+          <AfterMobile>
+            <Image
+              src={`${config.storageUrl}/resources/ebombo-white.png`}
+              height="auto"
+              width="125px"
+              size="contain"
+              margin="0"
+              cursor="pointer"
+              onClick={() => router.back()}
+            />
+          </AfterMobile>
+          <div className=" w-full max-w-[300px] ">
             <Input
               defaultValue={get(props, "game.name", "")}
               variant="primary"
@@ -189,204 +201,220 @@ export const Roulette = (props) => {
               error={errors.name}
               placeholder="Nombre del Evento"
             />
-            <ButtonAnt
-              variant="contained"
-              color="secondary"
-              size="small"
-              margin={"0 0 0 10px"}
-              onClick={() => setIsVisibleModalSettings(true)}
-              disabled={props.isLoading}
-            >
-              Ajustes
-            </ButtonAnt>
+          </div>
+          <ButtonAnt
+            variant="contained"
+            color="secondary"
+            size="small"
+            margin={"0 0 0 10px"}
+            onClick={() => setIsVisibleModalSettings(true)}
+            disabled={props.isLoading}
+          >
+            Ajustes
+          </ButtonAnt>
+          <ButtonAnt
+            color="default"
+            size="small"
+            margin={"0 0 0 10px"}
+            onClick={() => router.back()}
+            disabled={props.isLoading}
+          >
+            Cancelar
+          </ButtonAnt>
+        </div>
+        <RouletteContainer>
+          <div className="first-content">
+            <div className="text-['Lato'] text-[11px] leading-[13px] md:text-[13px] md:leading-[16px] my-2">
+              Cantidad de{" "}
+              {props.currentAdminGame?.name?.toLowerCase()?.includes("questions") ? "preguntas a sortear" : "ganadores"}
+            </div>
+            <Input
+              variant="primary"
+              placeholder={`Cantidad de ${
+                props.currentAdminGame?.name?.toLowerCase()?.includes("questions") ? "preguntas a sortear" : "ganadores"
+              }`}
+              name="amountWinners"
+              error={errors.amountWinners}
+              defaultValue={1}
+              ref={register}
+              type="number"
+              min={0}
+            />
+
+            {props.currentAdminGame?.name === "roulette" && (
+              <>
+                <Checkbox defaultChecked={isLive} variant="gray" onChange={() => setIsLive(!isLive)}>
+                  En vivo
+                </Checkbox>
+                <div className="text-['Lato'] text-[11px] leading-[13px]">
+                  (Las personas que participen del sorteo se tendrán que inscribir en vivo al sorteo mediante un pin)
+                </div>
+              </>
+            )}
+
+            {props.currentAdminGame?.name === "roulette" ? (
+              <div className="description">
+                Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)
+              </div>
+            ) : (
+              <div className="description">Escribe cada pregunta y sepáralos con “ENTER” (Máx. 35 caracteres)</div>
+            )}
+
+            <TextArea
+              onKeyPress={(event) => {
+                if (event.key === "Enter") return;
+
+                // Prevent use special characters.
+                const regex = new RegExp("^[a-zA-Z .¿?]+$");
+                const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+                if (!regex.test(key)) {
+                  event.preventDefault();
+                  return false;
+                }
+              }}
+              id="options"
+              defaultValue={options.join("\n") ?? "Escribe\n" + "Cada\n" + "Nombre\n" + "en una linea\n" + "unica"}
+              disabled={!!isLive || isLoadingOptions}
+              isLoading={isLoadingOptions}
+              error={errors.options}
+              name="options"
+              ref={register}
+              rows="10"
+              placeholder="Nombres de participantes"
+            />
+
+            <Desktop>
+              <ButtonAnt
+                htmlType="submit"
+                disabled={props.isLoading || isLoadingOptions}
+                loading={props.isLoading || isLoadingOptions}
+                margin="1rem 0"
+              >
+                Guardar
+              </ButtonAnt>
+            </Desktop>
           </div>
 
-          <div className="text-['Lato'] text-[11px] leading-[13px]">
-            Cantidad de{" "}
-            {props.currentAdminGame?.name?.toLowerCase()?.includes("questions") ? "preguntas a sortear" : "ganadores"}
-          </div>
-          <Input
-            variant="primary"
-            placeholder={`Cantidad de ${
-              props.currentAdminGame?.name?.toLowerCase()?.includes("questions") ? "preguntas a sortear" : "ganadores"
-            }`}
-            name="amountWinners"
-            error={errors.amountWinners}
-            defaultValue={1}
-            ref={register}
-            type="number"
-            min={0}
-          />
-
-          {props.currentAdminGame?.name === "roulette" && (
-            <>
-              <Checkbox defaultChecked={isLive} variant="gray" onChange={() => setIsLive(!isLive)}>
-                En vivo
-              </Checkbox>
-              <div className="text-['Lato'] text-[11px] leading-[13px]">
-                (Las personas que participen del sorteo se tendrán que inscribir en vivo al sorteo mediante un pin)
-              </div>
-            </>
-          )}
-
-          {props.currentAdminGame?.name === "roulette" ? (
-            <div className="description">
-              Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)
-            </div>
-          ) : (
-            <div className="description">Escribe cada pregunta y sepáralos con “ENTER” (Máx. 35 caracteres)</div>
-          )}
-
-          <TextArea
-            onKeyPress={(event) => {
-              if (event.key === "Enter") return;
-
-              // Prevent use special characters.
-              const regex = new RegExp("^[a-zA-Z .¿?]+$");
-              const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-              if (!regex.test(key)) {
-                event.preventDefault();
-                return false;
-              }
-            }}
-            id="options"
-            defaultValue={options.join("\n") ?? "Escribe\n" + "Cada\n" + "Nombre\n" + "en una linea\n" + "unica"}
-            disabled={!!isLive || isLoadingOptions}
-            isLoading={isLoadingOptions}
-            error={errors.options}
-            name="options"
-            ref={register}
-            rows="10"
-            placeholder="Nombres de participantes"
-          />
-
-          <Desktop>
-            <ButtonAnt
-              htmlType="submit"
-              disabled={props.isLoading || isLoadingOptions}
-              loading={props.isLoading || isLoadingOptions}
-              margin="1rem 0"
-            >
-              Guardar
-            </ButtonAnt>
-          </Desktop>
-        </div>
-
-        <div className="second-content">
-          <div className="subtitle">Cambia los colores:</div>
-          <div className="colors-container">
-            <div className="color-pick">
-              <div>
-                <div className="color-title">Borde exterior</div>
-                <div className="input-container">
-                  <input type="color" name="outerBorder" ref={register} id="input-color-outerBorder" />
-                  <label
-                    htmlFor="outerBorder"
-                    onClick={() => document.getElementById("input-color-outerBorder").click()}
-                  >
-                    {watch("outerBorder")?.toUpperCase()}
-                  </label>
+          <div className="second-content">
+            <div className="subtitle">Cambia los colores:</div>
+            <div className="colors-container">
+              <div className="color-pick">
+                <div>
+                  <div className="color-title">Borde exterior</div>
+                  <div className="input-container">
+                    <input type="color" name="outerBorder" ref={register} id="input-color-outerBorder" />
+                    <label
+                      htmlFor="outerBorder"
+                      onClick={() => document.getElementById("input-color-outerBorder").click()}
+                    >
+                      {watch("outerBorder")?.toUpperCase()}
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <div className="color-title">Border interior</div>
+                  <div className="input-container">
+                    <input type="color" name="lineColor" id="input-color-lineColor" ref={register} />
+                    <label htmlFor="lineColor" onClick={() => document.getElementById("input-color-lineColor").click()}>
+                      {watch("lineColor")?.toUpperCase()}
+                    </label>
+                  </div>
                 </div>
               </div>
-              <div>
-                <div className="color-title">Border interior</div>
-                <div className="input-container">
-                  <input type="color" name="lineColor" id="input-color-lineColor" ref={register} />
-                  <label htmlFor="lineColor" onClick={() => document.getElementById("input-color-lineColor").click()}>
-                    {watch("lineColor")?.toUpperCase()}
-                  </label>
-                </div>
-              </div>
-            </div>
 
-            <div className="color-pick">
-              <div>
-                <div className="color-title">Selector</div>
-                <div className="input-container">
-                  <input type="color" name="selector" id="input-color-selector" ref={register} />
-                  <label htmlFor="selector" onClick={() => document.getElementById("input-color-selector").click()}>
-                    {watch("selector")?.toUpperCase()}
-                  </label>
+              <div className="color-pick">
+                <div>
+                  <div className="color-title">Selector</div>
+                  <div className="input-container">
+                    <input type="color" name="selector" id="input-color-selector" ref={register} />
+                    <label htmlFor="selector" onClick={() => document.getElementById("input-color-selector").click()}>
+                      {watch("selector")?.toUpperCase()}
+                    </label>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="color-pick">
-              <div>
-                <div className="color-title">Textos</div>
-                <div className="input-container">
-                  <input type="color" name="text" ref={register} id="input-color-number" />
-                  <label htmlFor="text" onClick={() => document.getElementById("input-color-number").click()}>
-                    {watch("text")?.toUpperCase()}
-                  </label>
+              <div className="color-pick">
+                <div>
+                  <div className="color-title">Textos</div>
+                  <div className="input-container">
+                    <input type="color" name="text" ref={register} id="input-color-number" />
+                    <label htmlFor="text" onClick={() => document.getElementById("input-color-number").click()}>
+                      {watch("text")?.toUpperCase()}
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <div className="color-title">Botón</div>
+                  <div className="input-container">
+                    <input type="color" name="buttonColor" ref={register} id="input-color-button" />
+                    <label htmlFor="buttonColor" onClick={() => document.getElementById("input-color-button").click()}>
+                      {watch("buttonColor")?.toUpperCase()}
+                    </label>
+                  </div>
                 </div>
               </div>
-              <div>
-                <div className="color-title">Botón</div>
-                <div className="input-container">
-                  <input type="color" name="buttonColor" ref={register} id="input-color-button" />
-                  <label htmlFor="buttonColor" onClick={() => document.getElementById("input-color-button").click()}>
-                    {watch("buttonColor")?.toUpperCase()}
-                  </label>
+              <div className="color-pick">
+                <div>
+                  <div className="color-title">Opciones</div>
+                  <div className="input-container">
+                    <input type="color" name="colorPrimary" ref={register} id="input-color-primary" />
+                    <label
+                      htmlFor="colorPrimary"
+                      onClick={() => document.getElementById("input-color-primary").click()}
+                    >
+                      {watch("colorPrimary")?.toUpperCase()}
+                    </label>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="color-pick">
-              <div>
-                <div className="color-title">Opciones</div>
-                <div className="input-container">
-                  <input type="color" name="colorPrimary" ref={register} id="input-color-primary" />
-                  <label htmlFor="colorPrimary" onClick={() => document.getElementById("input-color-primary").click()}>
-                    {watch("colorPrimary")?.toUpperCase()}
-                  </label>
-                </div>
-              </div>
-              <div>
-                <div className="color-title">Opciones</div>
-                <div className="input-container">
-                  <input type="color" name="colorSecondary" ref={register} id="input-color-secondary" />
-                  <label
-                    htmlFor="colorSecondary"
-                    onClick={() => document.getElementById("input-color-secondary").click()}
-                  >
-                    {watch("colorSecondary")?.toUpperCase()}
-                  </label>
+                <div>
+                  <div className="color-title">Opciones</div>
+                  <div className="input-container">
+                    <input type="color" name="colorSecondary" ref={register} id="input-color-secondary" />
+                    <label
+                      htmlFor="colorSecondary"
+                      onClick={() => document.getElementById("input-color-secondary").click()}
+                    >
+                      {watch("colorSecondary")?.toUpperCase()}
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="third-content">
-          <div className="subtitle">Previsualización:</div>
-          <FortuneWheel
-            setMustSpin={setMustSpin}
-            mustStartSpinning={mustSpin}
-            prizeNumber={prizeNumber}
-            setPrizeNumber={setPrizeNumber}
-            data={props.currentAdminGame?.name === "rouletteQuestions" ? questions : data}
-            outerBorderColor={watch("outerBorder") ?? darkTheme.basic.secondary}
-            outerBorderWidth={20}
-            radiusLineColor={watch("lineColor") ?? darkTheme.basic.secondaryDark}
-            radiusLineWidth={1}
-            fontSize={12}
-            buttonColor={watch("buttonColor") ?? darkTheme.basic.gray}
-            selector={watch("selector") ?? darkTheme.basic.gray}
-            onStopSpinning={() => {
-              setMustSpin(false);
-            }}
-          />
-          <Tablet>
-            <ButtonAnt
-              htmlType="submit"
-              disabled={props.isLoading || isLoadingOptions}
-              loading={props.isLoading || isLoadingOptions}
-              margin="1rem 0"
-            >
-              Guardar
-            </ButtonAnt>
-          </Tablet>
-        </div>
+
+          <div className="third-content">
+            <div className="subtitle">Previsualización:</div>
+            <FortuneWheel
+              setMustSpin={setMustSpin}
+              mustStartSpinning={mustSpin}
+              prizeNumber={prizeNumber}
+              setPrizeNumber={setPrizeNumber}
+              data={props.currentAdminGame?.name === "rouletteQuestions" ? questions : data}
+              outerBorderColor={watch("outerBorder") ?? darkTheme.basic.secondary}
+              outerBorderWidth={20}
+              radiusLineColor={watch("lineColor") ?? darkTheme.basic.secondaryDark}
+              radiusLineWidth={1}
+              fontSize={12}
+              buttonColor={watch("buttonColor") ?? darkTheme.basic.gray}
+              selector={watch("selector") ?? darkTheme.basic.gray}
+              onStopSpinning={() => {
+                setMustSpin(false);
+              }}
+            />
+            <Tablet>
+              <ButtonAnt
+                htmlType="submit"
+                disabled={props.isLoading || isLoadingOptions}
+                loading={props.isLoading || isLoadingOptions}
+                margin="1rem 0"
+              >
+                Guardar
+              </ButtonAnt>
+            </Tablet>
+          </div>
+        </RouletteContainer>
       </form>
-    </RouletteContainer>
+    </div>
   );
 };
 
@@ -503,10 +531,8 @@ const RouletteContainer = styled.div`
     padding: 1rem;
     margin: 2rem auto;
 
-    form {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: 1rem;
-    }
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
   }
 `;

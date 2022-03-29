@@ -114,10 +114,6 @@ export const ModalSettings = (props) => {
                       placeholder="Seleccione Audio"
                       showSearch
                       virtual={false}
-                      borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
-                      borderTop={`0.1px solid ${darkTheme.basic.grayLighten}`}
-                      borderLeft={`0.1px solid ${darkTheme.basic.grayLighten}`}
-                      borderBottom={`0.1px solid ${darkTheme.basic.grayLighten}`}
                       error={errors.audioId}
                       defaultValue={get(props, "audio.id", "")}
                       optionFilterProp="children"
