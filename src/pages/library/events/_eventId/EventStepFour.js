@@ -17,7 +17,7 @@ export const EventStepFour = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    router.prefetch(`/library/events/${props.documentId}/view`);
+    router.prefetch("/library/events/[eventId]/view");
   }, []);
 
   const createEvent = async () => {
@@ -31,7 +31,7 @@ export const EventStepFour = (props) => {
       id: props.documentId,
       userId: authUser?.id,
       deleted: false,
-      manageByUser: true
+      manageByUser: true,
     };
 
     delete event.adminGames;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "reactn";
+import React, { useState } from "reactn";
 import { Image } from "../../../../components/common/Image";
 import { config } from "../../../../firebase";
 import { EventStepOne } from "./EventStepOne";
@@ -16,10 +16,6 @@ const steps = [
 export const UserCreateEvent = (props) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [event, setEvent] = useState({});
-
-  useEffect(() => {
-    console.log(event);
-  }, []);
 
   return (
     <div>

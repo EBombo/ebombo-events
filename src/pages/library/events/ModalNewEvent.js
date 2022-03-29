@@ -9,7 +9,7 @@ export const ModalNewEvent = (props) => {
   const router = useRouter();
 
   useEffect(() => {
-    router.prefetch("/library/events/new");
+    router.prefetch("/library/events/[eventId]");
   }, []);
 
   return (

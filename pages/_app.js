@@ -88,7 +88,10 @@ const MyApp = ({ Component, pageProps }) => {
 
     fetchFolders();
     fetchGames();
-    fetchEvents();
+
+    const unsubscribeEvent = fetchEvents();
+
+    return () => unsubscribeEvent();
   }, [folderId, isBack, authUser]);
 
   useEffect(() => {

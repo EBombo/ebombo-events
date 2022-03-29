@@ -25,7 +25,6 @@ export const EventStepOne = (props) => {
     }
 
     const _event = props.event;
-    console.log(_event);
     props.setEvent({ ..._event, imageUrl, eventDate, startAt, endAt, name, link });
     props.setCurrentStep(2);
   };
