@@ -47,12 +47,6 @@ export const GameView = (props) => {
     setResource(currentResource);
   }, [adminGames]);
 
-  const redirectToGameViewWithFolder = (folderId) => {
-    folderId
-      ? router.push(`/library/games/${gameId}/view?adminGameId=${adminGameId}&folderId=${folderId}`)
-      : router.push(`/library/games/${gameId}/view?adminGameId=${adminGameId}`);
-  };
-
   const deleteGame = async () => {
     let newGames = games;
     const gameIndex = newGames.findIndex((_game) => _game.id === game.id);
