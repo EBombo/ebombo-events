@@ -2,7 +2,7 @@ import React, { useGlobal, useMemo, useState } from "reactn";
 import { useRouter } from "next/router";
 import { config, firestore } from "../../../../firebase";
 import { Image } from "../../../../components/common/Image";
-import {UserCreateEvent} from "./UserCreateEvent"
+import { UserCreateEvent } from "./UserCreateEvent";
 
 export const Event = (props) => {
   const router = useRouter();

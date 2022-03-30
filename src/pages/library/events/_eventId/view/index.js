@@ -32,6 +32,7 @@ export const EventView = (props) => {
 
   useEffect(() => {
     router.prefetch("/library/events/[eventId]");
+    router.prefetch("/library/events/[eventId]/release/[releaseId]");
   }, []);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export const EventView = (props) => {
   }, [adminGames]);
 
   useEffect(() => {
-    const fetchReleases = firestore
+    const fetchReleases = () => firestore
       .collection("events")
       .doc(eventId)
       .collection("releases")
@@ -142,6 +143,9 @@ export const EventView = (props) => {
               </div>
             ))}
           </div>
+          <ButtonAnt onClick={() => router.push(`/library/events/${event.id}/releases/new`)} margin="1rem auto">
+            <div className="text-['Lato'] font-[500] text-[13px] leading-[15px]">Crear comunicado</div>
+          </ButtonAnt>
         </div>
       </div>
 

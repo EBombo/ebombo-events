@@ -44,13 +44,20 @@ export const Events = (props) => {
         {events.map((event) => (
           <div
             className="w-full h-[110px] grid grid-cols-[95px_auto] bg-whiteLight rounded-[6px] md:grid-cols-[164px_auto] md:h-[140px] overflow-hidden shadow-[2px_2px_4px_rgb(0,0,0,0.25)] cursor-pointer"
-            onClick={() => router.push(`/library/events/${event.id}/view`)}
             key={event.id}
           >
-            <Image src={event.imageUrl} width="100%" height="100%" size="cover" margin="0" cursor="pointer" />
+            <Image
+              src={event.imageUrl}
+              width="100%"
+              height="100%"
+              size="cover"
+              margin="0"
+              cursor="pointer"
+              onClick={() => router.push(`/library/events/${event.id}/view`)}
+            />
             <div className="grid grid-rows-[auto_35px] md:grid-rows-[auto_45px]">
               <div className="p-2 md:p-3 flex justify-between">
-                <div>
+                <div onClick={() => router.push(`/library/events/${event.id}/view`)}>
                   <div className="text-['Lato'] font-[700] text-[16px] leading-[18px] md:text-[20px] md:leading-[22px]">
                     {event.name}
                   </div>

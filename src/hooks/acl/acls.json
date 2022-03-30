@@ -14,6 +14,10 @@
       "/library/events": "Lista de eventos",
       "/library/events/new": "Crear evento",
       "/library/events/[eventId]": "Editar evento",
+      "/library/events/[eventId]/view": "Vista previa evento",
+      "/library/events/[eventId]/releases/new": "Nuevo comunicado",
+      "/library/events/[eventId]/releases/[releaseId]": "Editar comunicado",
+      "/library/events/[eventId]/releases/[releaseId]/view": "Vista previa comunicado",
       "/reports": "Formulario de Reportes"
     }
   },
