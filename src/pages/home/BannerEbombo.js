@@ -15,6 +15,7 @@ export const BannerEbombo = (props) => {
         {isVisibleModalEvents && (
           <ModalNewEvent
             {...props}
+            hiddeMySelfOption
             isVisibleModalEvents={isVisibleModalEvents}
             setIsVisibleModalEvents={setIsVisibleModalEvents}
           />
@@ -28,7 +29,7 @@ export const BannerEbombo = (props) => {
             margin="25px 0 0 0"
             onClick={() => setIsVisibleModalEvents(true)}
           >
-            Crea tu evento
+            Crear evento
           </ButtonAnt>
         )}
       </div>
