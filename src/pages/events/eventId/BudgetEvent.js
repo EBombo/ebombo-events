@@ -1,5 +1,6 @@
 import React, { useState } from "reactn";
 import { Anchor, ButtonAnt } from "../../../components/form";
+import { config } from "../../../firebase";
 
 const options = {
   participants: {
@@ -38,13 +39,20 @@ export const BudgetEvent = (props) => {
       <div className="flex gap-4" key={currentTab}>
         {options[currentTab].budgets.map((budget) => (
           <div
-            className={`w-52 text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer ${
+            className={`w-52 text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer relative ${
               props.budget?.budget === budget ? "border-primary" : "border-grayLighten"
             }`}
             key={budget}
             onClick={() => props.setBudget({ budget, currentTab })}
           >
             {budget}
+
+            {props.budget?.budget === budget ? (
+              <img
+                src={`${config.storageUrl}/resources/events/check.svg`}
+                className="absolute top-px right-px w-6 h-6"
+              />
+            ) : null}
           </div>
         ))}
       </div>

@@ -1,7 +1,17 @@
-import React from "reactn";
+import React, { useGlobal } from "reactn";
 import { Anchor, ButtonAnt, TextArea } from "../../../components/form";
+import { config } from "../../../firebase";
+import { gifts, goals, interactions } from "./DetailsEvent";
+import get from "lodash/get";
+
+const eventBy = {
+  participants: "asistente",
+  events: "evento",
+};
 
 export const ResumeEvent = (props) => {
+  const [games] = useGlobal("adminGames");
+
   return (
     <div>
       <div className="text-secondary mb-4 text-base">
@@ -13,42 +23,85 @@ export const ResumeEvent = (props) => {
       <div className="grid grid-cols-2 gap-5 mb-4">
         <div className="block">
           <div className="w-full flex gap-4 mb-4">
-            <div className="w-full text-xl text-center bg-white rounded-md border-2 py-4 px-1 grayLighten">asd</div>
-            <div className="w-full text-xl text-center bg-white rounded-md border-2 py-4 px-1 grayLighten">asd</div>
+            <div className="w-full text-xl text-center bg-white rounded-md border-2 py-4 px-1 grayLighten grid grid-cols-[1fr_4fr]">
+              <img src={`${config.storageUrl}/resources/events/user.svg`} className=" w-6 h-6 mx-3" />
+
+              <div>
+                {props.size} {eventBy.participants}s
+              </div>
+            </div>
+            <div className="w-full text-xl text-center bg-white rounded-md border-2 py-4 px-1 grayLighten grid grid-cols-[1fr_4fr]">
+              <img src={`${config.storageUrl}/resources/events/event.svg`} className=" w-6 h-6 mx-3" />
+              {props.budget.budget} por {eventBy[props.budget.currentTab]}
+            </div>
           </div>
 
-          <div className="w-full h-auto rounded-md border-2 py-4 px-1 grayLighten grid grid-cols-2 px-3">
-            <div>Detalles</div>
-            <div>asd</div>
-            <div>asd</div>
-            <div>asd</div>
-            <div>asd</div>
-            <div>Regalo/Premio/Elemento fisico</div>
-            <div>asd</div>
-            <div>asd</div>
-            <div>asd</div>
-            <div>asd</div>
+          <div className="w-full h-auto rounded-md border-2 py-4 px-1 grayLighten px-3">
+            <div className="grid grid-cols-2">
+              <div>
+                <div className="text-secondary">Detalles</div>
+                <div className="text-xl text-secondary">
+                  {interactions.find((interaction) => interaction.key === props.details.interaction)?.title}
+                </div>
+              </div>
+
+              <div>
+                <div className="text-secondary">Regalo/Premio/Elemento fisico</div>
+                <div className="text-xl text-secondary">
+                  {gifts.find((gift) => gift.key === props.details.gift)?.title}
+                </div>
+              </div>
+            </div>
+
+            {goals
+              .filter((goal) => props.details.goals.includes(goal.key))
+              .map((goal) => (
+                <div key={goal.title} className="flex text-secondary">
+                  <div className="bg-primary w-2 h-2 mt-2 mr-2 ml-4 rounded-md" /> {goal.title}
+                </div>
+              ))}
           </div>
         </div>
 
         <div>
           <div className="text-secondary mb-4">Comentarios adicionales</div>
-          <TextArea rows={7} disabled variant="primary" />
+          <TextArea rows={7} disabled variant="primary" defaultValue={props.details.additional} />
         </div>
       </div>
 
       <div className="text-secondary mb-4 text-base">Fechas tentativas</div>
 
-      <div className="w-[200px] text-base text-center bg-white rounded-md border-2 py-2 px-1 grayLighten mb-4">
-        <div>asd</div>
-        <div>asd</div>
+      <div className="flex gap-3">
+        {props.dates.map((date) => (
+          <div
+            key={date.id}
+            className="w-[200px] text-base text-center bg-white rounded-md border-2 py-2 px-1 grayLighten mb-4"
+          >
+            <div className="text-secondary font-bold">{date.month.format("DD MMMM YYYY")}</div>
+            <div className="text-secondary">
+              {date.start.format("h:mm a")} - {date.end.format("h:mm a")}
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="text-secondary mb-4 text-base">Dinamicas escogidas</div>
+      <div className="flex gap-3">
+        {games
+          .filter((game) => props.details.games.includes(game.id))
+          .map((game) => (
+            <div
+              key={game.id}
+              className="w-[300px] text-base bg-white rounded-md border-2 py-2 px-1 grayLighten mb-4 grid grid-cols-[1fr_3fr]"
+            >
+              <img
+                src={`${config.storageUrl}/resources/games/${get(game, "name", "")}-icon.svg`}
+                className=" w-6 h-6 mx-3"
+              />
 
-      <div className="w-[300px] text-base bg-white rounded-md border-2 py-2 px-1 grayLighten mb-4 grid grid-cols-[1fr_3fr]">
-        <div>ICON</div>
-        Juego
+              {game.name}
+            </div>
+          ))}
       </div>
 
       <div className="flex mt-4">

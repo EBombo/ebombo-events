@@ -1,41 +1,46 @@
 import React, { useGlobal, useState } from "reactn";
 import { Anchor, ButtonAnt, TextArea } from "../../../components/form";
 import { Image } from "../../../components/common/Image";
+import { config } from "../../../firebase";
 
-const interactions = [
+export const interactions = [
   {
+    icon: "/resources/events/enjoy.svg",
     title: "Sentarse y disfrutar",
-    key: "sit back and enjoy",
+    key: "sit-back-and-enjoy",
   },
   {
+    icon: "/resources/events/iteraction.svg",
     title: "Mucha interacción",
-    key: "lots of interaction",
+    key: "lots-of-interaction",
   },
 ];
 
-const gifts = [
+export const gifts = [
   {
+    icon: "/resources/events/star.svg",
     title: "!Sí, claro!",
     key: "yes",
   },
   {
+    icon: "/resources/events/no-thanks.svg",
     title: "No, gracias",
     key: "no",
   },
 ];
 
-const goals = [
+export const goals = [
   {
     title: "Divertirnos",
-    key: "have fun",
+    key: "have-fun",
   },
   {
     title: "Celebrar una fecha",
-    key: "celebrate a date",
+    key: "celebrate-a-date",
   },
   {
     title: "Training / Onboarding",
-    key: "training / onboarding",
+    key: "training-onboarding",
   },
   {
     title: "Aniversario",
@@ -47,7 +52,7 @@ const goals = [
   },
   {
     title: "Ver un show",
-    key: "see a show",
+    key: "see-a-show",
   },
   {
     title: "Reconocimientos",
@@ -66,6 +71,7 @@ export const DetailsEvent = (props) => {
   const [currentGift, setCurrentCurrentGift] = useState(props.details?.Gift ?? null);
   const [currentGoals, setCurrentCurrentGoals] = useState(props.details?.Goals ?? []);
   const [currentGames, setCurrentGames] = useState(props.details?.Games ?? []);
+  const [additional, setAdditional] = useState(null);
 
   return (
     <div>
@@ -80,11 +86,20 @@ export const DetailsEvent = (props) => {
               <div
                 key={interaction.key}
                 onClick={() => setCurrentCurrentInteraction(interaction.key)}
-                className={`w-52 text-xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
+                className={`w-52 text-base text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer relative flex ${
                   currentInteraction === interaction.key ? "border-primary" : "border-grayLighten"
                 }`}
               >
+                <img src={`${config.storageUrl}${interaction.icon}`} className=" w-6 h-6 mx-3" />
+
                 {interaction.title}
+
+                {currentInteraction === interaction.key ? (
+                  <img
+                    src={`${config.storageUrl}/resources/events/check.svg`}
+                    className="absolute top-px right-px w-6 h-6"
+                  />
+                ) : null}
               </div>
             ))}
           </div>
@@ -98,11 +113,20 @@ export const DetailsEvent = (props) => {
               <div
                 key={gift.key}
                 onClick={() => setCurrentCurrentGift(gift.key)}
-                className={`w-52 text-xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
+                className={`w-52 text-base text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer relative flex ${
                   currentGift === gift.key ? "border-primary" : "border-grayLighten"
                 }`}
               >
+                <img src={`${config.storageUrl}${gift.icon}`} className=" w-6 h-6 mx-3" />
+
                 {gift.title}
+
+                {currentGift === gift.key ? (
+                  <img
+                    src={`${config.storageUrl}/resources/events/check.svg`}
+                    className="absolute top-px right-px w-6 h-6"
+                  />
+                ) : null}
               </div>
             ))}
           </div>
@@ -124,11 +148,18 @@ export const DetailsEvent = (props) => {
 
                 setCurrentCurrentGoals([...currentGoals, goal.key]);
               }}
-              className={`text-xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer ${
+              className={`text-xl text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer relative ${
                 currentGoals.includes(goal.key) ? "border-primary" : "border-grayLighten"
               }`}
             >
               {goal.title}
+
+              {currentGoals.includes(goal.key) ? (
+                <img
+                  src={`${config.storageUrl}/resources/events/check.svg`}
+                  className="absolute top-px right-px w-6 h-6"
+                />
+              ) : null}
             </div>
           ))}
         </div>
@@ -167,7 +198,7 @@ export const DetailsEvent = (props) => {
             Escribenos comentarios adiciones de tu evento para tenerlos en cuenta
           </div>
 
-          <TextArea rows={7} variant="primary" />
+          <TextArea rows={7} variant="primary" color="black" onChange={(event) => setAdditional(event.target.value)} />
         </div>
       </div>
 
@@ -184,10 +215,11 @@ export const DetailsEvent = (props) => {
         <ButtonAnt
           onClick={() => {
             props.setDetails({
-              Interaction: currentInteraction,
-              Gift: currentGift,
-              Goals: currentGoals,
-              Games: currentGames,
+              interaction: currentInteraction,
+              gift: currentGift,
+              goals: currentGoals,
+              games: currentGames,
+              additional: additional,
             });
 
             props.setCurrentTab(props.eventSteps[props.position + 1].key);

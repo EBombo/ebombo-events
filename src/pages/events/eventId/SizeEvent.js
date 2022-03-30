@@ -1,5 +1,6 @@
 import React from "reactn";
 import { ButtonAnt } from "../../../components/form";
+import { config } from "../../../firebase";
 
 const options = ["<25", "25-100", "100-500", "500+"];
 
@@ -15,13 +16,20 @@ export const SizeEvent = (props) => {
       <div className="flex gap-3">
         {options.map((option) => (
           <div
-            className={`w-52 text-2xl bg-white rounded-md ${
+            className={`w-52 text-2xl bg-white rounded-md relative ${
               props.size === option ? "border-primary" : "border-grayLighten"
             } border-2 py-2 px-1 cursor-pointer`}
             key={option}
             onClick={() => props.setSize(option)}
           >
             {option}
+
+            {props.size === option ? (
+              <img
+                src={`${config.storageUrl}/resources/events/check.svg`}
+                className="absolute top-px right-px w-6 h-6"
+              />
+            ) : null}
           </div>
         ))}
       </div>
