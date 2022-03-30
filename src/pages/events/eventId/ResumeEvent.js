@@ -132,7 +132,7 @@ export const ResumeEvent = (props) => {
 
         <ButtonAnt
           onClick={() => {
-            //Enviar a correo, enviado los datos a la API.
+            // TODO: Enviar los datos del registro a la API que Sebas envia.
             props.setRegister({
               name: name,
               lastName: lastName,
