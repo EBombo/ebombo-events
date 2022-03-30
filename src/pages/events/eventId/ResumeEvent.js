@@ -115,7 +115,17 @@ export const ResumeEvent = (props) => {
         </Anchor>
 
         <ButtonAnt
-          onClick={() => props.setCurrentTab(props.eventSteps[props.position + 1].key)}
+          onClick={() => {
+            //Enviar a correo
+            props.setRegister({
+              name: "name",
+              lastName: "last",
+              email: "email",
+              password: "passssss",
+            });
+            props.setResume(true);
+            props.setCurrentTab(props.eventSteps[props.position + 1].key);
+          }}
           color="primary"
           variant="contained"
           fontSize="18px"

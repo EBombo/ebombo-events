@@ -8,6 +8,7 @@ import { BudgetEvent } from "./BudgetEvent";
 import { DetailsEvent } from "./DetailsEvent";
 import { DatesEvent } from "./DatesEvent";
 import { ResumeEvent } from "./ResumeEvent";
+import { Register } from "../../register";
 
 const { TabPane } = Tabs;
 
@@ -24,11 +25,6 @@ export const EventContainer = (props) => {
   const [register, setRegister] = useState(null);
 
   const createEventSteps = useMemo(() => {
-    console.log("size", size);
-    console.log("budget", budget);
-    console.log("details", details);
-    console.log("dates", dates);
-
     return [
       {
         tab: !!size ? (
@@ -129,22 +125,43 @@ export const EventContainer = (props) => {
             budget={budget}
             details={details}
             dates={dates}
+            setResume={setResume}
+            setRegister={setRegister}
           />
         ),
       },
       {
-        tab: !!register ? (
-          <div className="text-success">
-            <CheckOutlined /> Registro
-          </div>
-        ) : (
-          <div className="text-secondary">Registro</div>
-        ),
+        tab: <div className="text-secondary">Registro</div>,
         key: "register",
-        content: (eventSteps, position) => "register",
+        content: (eventSteps, position) => (
+          <Register
+            {...props}
+            {...register}
+            eventRequest={{
+              size: props.size,
+              budget: props.budget,
+              details: props.details,
+              dates: props.dates,
+              resume: props.resume,
+            }}
+          />
+        ),
       },
     ];
-  }, [size, setSize, budget, setBudget, details, setDetails, dates, setDates]);
+  }, [
+    size,
+    setSize,
+    budget,
+    setBudget,
+    details,
+    setDetails,
+    dates,
+    setDates,
+    resume,
+    setResume,
+    register,
+    setRegister,
+  ]);
 
   return (
     <EventContainerStyled tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`} className="w-full bg-white">
