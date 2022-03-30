@@ -120,7 +120,16 @@ export const EventContainer = (props) => {
         ),
         key: "resume",
         content: (eventSteps, position) => (
-          <ResumeEvent {...props} size={size} budget={budget} details={details} dates={dates} />
+          <ResumeEvent
+            {...props}
+            setCurrentTab={setCurrentTab}
+            eventSteps={eventSteps}
+            position={position}
+            size={size}
+            budget={budget}
+            details={details}
+            dates={dates}
+          />
         ),
       },
       {
