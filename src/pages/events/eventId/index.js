@@ -134,19 +134,7 @@ export const EventContainer = (props) => {
       {
         tab: <div className="text-secondary">Registro</div>,
         key: "register",
-        content: (eventSteps, position) => (
-          <Register
-            {...props}
-            {...register}
-            eventRequest={{
-              size: props.size,
-              budget: props.budget,
-              details: props.details,
-              dates: props.dates,
-              resume: props.resume,
-            }}
-          />
-        ),
+        content: () => <Register {...props} {...register} />,
       },
     ];
   }, [
