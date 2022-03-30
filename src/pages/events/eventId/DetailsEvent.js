@@ -77,16 +77,16 @@ export const DetailsEvent = (props) => {
     <div>
       <div className="text-primary text-4xl mb-6">Detalles del evento</div>
 
-      <div className="flex gap-5 mb-4">
+      <div className="grid md:flex gap-5 mb-4">
         <div>
           <div className="text-secondary mb-4">¿Quieres que haya iteracción?</div>
 
-          <div className="flex gap-2">
+          <div className="grid md:flex gap-2">
             {interactions.map((interaction) => (
               <div
                 key={interaction.key}
                 onClick={() => setCurrentCurrentInteraction(interaction.key)}
-                className={`w-52 text-base text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer relative flex ${
+                className={`w-full md:w-52 text-base text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer relative flex ${
                   currentInteraction === interaction.key ? "border-primary" : "border-grayLighten"
                 }`}
               >
@@ -108,12 +108,12 @@ export const DetailsEvent = (props) => {
         <div>
           <div className="text-secondary mb-4">¿Quieres adicionar regalos, premio o algún elemento físico?</div>
 
-          <div className="flex gap-2">
+          <div className="grid md:flex gap-2">
             {gifts.map((gift) => (
               <div
                 key={gift.key}
                 onClick={() => setCurrentCurrentGift(gift.key)}
-                className={`w-52 text-base text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer relative flex ${
+                className={`w-full md:w-52 text-base text-center bg-white rounded-md border-2 py-4 px-1 cursor-pointer relative flex ${
                   currentGift === gift.key ? "border-primary" : "border-grayLighten"
                 }`}
               >
@@ -136,7 +136,7 @@ export const DetailsEvent = (props) => {
       <div className="mb-4">
         <div className="text-secondary mb-4">¿Cuáles son los objetivos de tu evento?</div>
 
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid md:grid-cols-4 gap-2">
           {goals.map((goal) => (
             <div
               key={goal.key}
@@ -165,7 +165,7 @@ export const DetailsEvent = (props) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-10">
+      <div className="grid md:grid-cols-2 gap-10">
         <div>
           <div className="text-secondary mb-4">¿Cuáles de nuestras dinámicas virtuales quisieras en tu eveno?</div>
 

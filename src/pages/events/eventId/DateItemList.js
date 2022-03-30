@@ -10,7 +10,7 @@ export const DateItemList = (props) => {
   return isEdit ? (
     <DateEvent currentDate={props.date} setIsEdit={setIsEdit} {...props} />
   ) : (
-    <div className="grid grid-cols-5 gap-3 w-9/12 rounded-md border-2 border-grayLighten py-6 px-4 mb-4">
+    <div className="grid md:grid-cols-5 gap-3 w-full md:w-9/12 rounded-md border-2 border-grayLighten py-6 px-4 mb-4">
       <div>
         <div className="text-grayDarken mb-4">Día del evento</div>
         <div className="text-secondary text-base mb-4">{props.date.month.format("dddd DD MMMM")}</div>

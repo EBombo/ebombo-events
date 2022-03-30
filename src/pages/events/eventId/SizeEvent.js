@@ -13,10 +13,10 @@ export const SizeEvent = (props) => {
 
       <div className="text-primary text-4xl mb-6">¿Cuántes personas esperas en tu evento?</div>
 
-      <div className="flex gap-3">
+      <div className="grid gap-3 md:flex">
         {options.map((option) => (
           <div
-            className={`w-52 text-2xl bg-white rounded-md relative ${
+            className={`w-full text-2xl bg-white rounded-md relative md:w-52 ${
               props.size === option ? "border-primary" : "border-grayLighten"
             } border-2 py-2 px-1 cursor-pointer`}
             key={option}

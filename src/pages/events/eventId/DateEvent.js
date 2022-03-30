@@ -12,7 +12,7 @@ export const DateEvent = (props) => {
   const disabledDate = (current) => current && current < moment().endOf("day");
 
   return (
-    <div className="grid grid-cols-4 gap-3 w-9/12 rounded-md border-2 border-grayLighten py-6 px-4 mb-9">
+    <div className="grid md:grid-cols-4 gap-3 w-full md:w-9/12 rounded-md border-2 border-grayLighten py-6 px-4 mb-9">
       <div>
         <div className="text-secondary mb-4">Día del evento</div>
         <ConfigProvider locale={locale}>

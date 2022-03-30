@@ -9,6 +9,7 @@ import { DetailsEvent } from "./DetailsEvent";
 import { DatesEvent } from "./DatesEvent";
 import { ResumeEvent } from "./ResumeEvent";
 import { Register } from "../../register";
+import { mediaQuery } from "../../../constants";
 
 const { TabPane } = Tabs;
 
@@ -177,22 +178,27 @@ export const EventContainer = (props) => {
 };
 
 const EventContainerStyled = styled.div`
+  display: flex;
+  max-width: 100vw;
   background-image: ${(props) => `url('${props.tapiz}')`};
 
   .ant-tabs-nav {
     margin-bottom: 0;
     padding-top: 3rem;
-    padding-left: 4rem;
     background: ${(props) => props.theme.basic.white};
+
+    ${mediaQuery.afterTablet} {
+      padding-left: 4rem;
+    }
 
     .ant-tabs-tab-active {
       .ant-tabs-tab-btn {
-        color: ${(props) => props.theme.basic.nada};
+        color: ${(props) => props.theme.basic.secondary};
       }
     }
 
     .ant-tabs-ink-bar {
-      background: ${(props) => props.theme.basic.secondary}!important;
+      background: ${(props) => props.theme.basic.secondary} !important;
     }
   }
 `;

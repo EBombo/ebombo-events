@@ -36,10 +36,10 @@ export const BudgetEvent = (props) => {
         ))}
       </div>
 
-      <div className="flex gap-4" key={currentTab}>
+      <div className="grid gap-3 md:flex" key={currentTab}>
         {options[currentTab].budgets.map((budget) => (
           <div
-            className={`w-52 text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer relative ${
+            className={`w-full text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer relative md:w-52 ${
               props.budget?.budget === budget ? "border-primary" : "border-grayLighten"
             }`}
             key={budget}

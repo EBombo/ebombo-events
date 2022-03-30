@@ -20,17 +20,18 @@ export const ResumeEvent = (props) => {
 
       <div className="text-primary text-4xl mb-6">Resumen de tu evento</div>
 
-      <div className="grid grid-cols-2 gap-5 mb-4">
+      <div className="grid md:grid-cols-2 gap-5 mb-4">
         <div className="block">
-          <div className="w-full flex gap-4 mb-4">
-            <div className="w-full text-xl text-center bg-white rounded-md border-2 py-4 px-1 grayLighten grid grid-cols-[1fr_4fr]">
+          <div className="w-full grid md:flex gap-4 mb-4">
+            <div className="w-full text-base text-center bg-white rounded-md border-2 py-4 px-1 grayLighten grid grid-cols-[1fr_4fr]">
               <img src={`${config.storageUrl}/resources/events/user.svg`} className=" w-6 h-6 mx-3" />
 
               <div>
                 {props.size} {eventBy.participants}s
               </div>
             </div>
-            <div className="w-full text-xl text-center bg-white rounded-md border-2 py-4 px-1 grayLighten grid grid-cols-[1fr_4fr]">
+
+            <div className="w-full text-base text-center bg-white rounded-md border-2 py-4 px-1 grayLighten grid grid-cols-[1fr_4fr]">
               <img src={`${config.storageUrl}/resources/events/event.svg`} className=" w-6 h-6 mx-3" />
               {props.budget.budget} por {eventBy[props.budget.currentTab]}
             </div>
@@ -71,11 +72,11 @@ export const ResumeEvent = (props) => {
 
       <div className="text-secondary mb-4 text-base">Fechas tentativas</div>
 
-      <div className="flex gap-3">
+      <div className="grid md:flex gap-3">
         {props.dates.map((date) => (
           <div
             key={date.id}
-            className="w-[200px] text-base text-center bg-white rounded-md border-2 py-2 px-1 grayLighten mb-4"
+            className="w-full md:w-[200px] text-base text-center bg-white rounded-md border-2 py-2 px-1 grayLighten mb-4"
           >
             <div className="text-secondary font-bold">{date.month.format("DD MMMM YYYY")}</div>
             <div className="text-secondary">
@@ -86,13 +87,13 @@ export const ResumeEvent = (props) => {
       </div>
 
       <div className="text-secondary mb-4 text-base">Dinamicas escogidas</div>
-      <div className="flex gap-3">
+      <div className="grid md:flex gap-3">
         {games
           .filter((game) => props.details.games.includes(game.id))
           .map((game) => (
             <div
               key={game.id}
-              className="w-[300px] text-base bg-white rounded-md border-2 py-2 px-1 grayLighten mb-4 grid grid-cols-[1fr_3fr]"
+              className="w-full md:w-[300px] text-base bg-white rounded-md border-2 py-2 px-1 grayLighten mb-4 grid grid-cols-[1fr_3fr]"
             >
               <img
                 src={`${config.storageUrl}/resources/games/${get(game, "name", "")}-icon.svg`}
