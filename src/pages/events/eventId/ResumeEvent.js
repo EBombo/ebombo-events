@@ -1,5 +1,5 @@
-import React, { useGlobal } from "reactn";
-import { Anchor, ButtonAnt, TextArea } from "../../../components/form";
+import React, { useGlobal, useState } from "reactn";
+import { Anchor, ButtonAnt, Input, TextArea } from "../../../components/form";
 import { config } from "../../../firebase";
 import { gifts, goals, interactions } from "./DetailsEvent";
 import get from "lodash/get";
@@ -11,6 +11,11 @@ const eventBy = {
 
 export const ResumeEvent = (props) => {
   const [games] = useGlobal("adminGames");
+
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div>
@@ -87,6 +92,7 @@ export const ResumeEvent = (props) => {
       </div>
 
       <div className="text-secondary mb-4 text-base">Dinamicas escogidas</div>
+
       <div className="grid md:flex gap-3">
         {games
           .filter((game) => props.details.games.includes(game.id))
@@ -105,6 +111,15 @@ export const ResumeEvent = (props) => {
           ))}
       </div>
 
+      <div className="text-secondary mb-4 text-base">Regístrate y manda el resumen de tu evento</div>
+
+      <div className="grid md:grid-cols-2 gap-2 md:w-9/12">
+        <Input placeholder="Nombre" onChange={(event) => setName(event.target.value)} />
+        <Input placeholder="Apellidos" onChange={(event) => setLastName(event.target.value)} />
+        <Input placeholder="Correo" onChange={(event) => setEmail(event.target.value)} />
+        <Input placeholder="Contraseña" type="password" onChange={(event) => setPassword(event.target.value)} />
+      </div>
+
       <div className="flex mt-4">
         <Anchor
           underlined
@@ -117,12 +132,12 @@ export const ResumeEvent = (props) => {
 
         <ButtonAnt
           onClick={() => {
-            //Enviar a correo
+            //Enviar a correo, enviado los datos a la API.
             props.setRegister({
-              name: "name",
-              lastName: "last",
-              email: "email",
-              password: "passssss",
+              name: name,
+              lastName: lastName,
+              email: email,
+              password: password,
             });
             props.setResume(true);
             props.setCurrentTab(props.eventSteps[props.position + 1].key);
