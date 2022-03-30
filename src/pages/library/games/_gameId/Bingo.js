@@ -535,7 +535,7 @@ const BingoContainer = styled.div`
   }
 `;
 
-const CardContainer = styled.div`
+export const CardContainer = styled.div`
   width: 100%;
   aspect-ratio: 6/ 8;
   ${(props) => props.full && "min-width: 550px"};

@@ -4,47 +4,9 @@ import get from "lodash/get";
 import { config } from "../../../../../firebase";
 import { bingoCard } from "../../../../../components/common/DataList";
 import { CardContainer } from "../Bingo";
-import { ModalMove } from "../../../../../components/common/ModalMove";
 import { Image } from "../../../../../components/common/Image";
 
 export const BingoView = (props) => {
-  const showBingoCard = () => (
-    <CardContainer
-      backgroundColor={get(props.game, "backgroundColor", "")}
-      backgroundImage={get(props.game, "backgroundImg", "")}
-      titleColor={get(props.game, "titleColor", "")}
-      blocksColor={get(props.game, "blocksColor", "")}
-      numberColor={get(props.game, "numberColor", "")}
-    >
-      <ModalMove
-        moveToFolder={props.moveGameToFolder}
-        setIsVisibleModalMove={props.setIsVisibleModalMove}
-        isVisibleModalMove={props.isVisibleModalMove}
-        {...props}
-      />
-      <div className="card-title">{get(props.game, "title", "")}</div>
-      <table>
-        <thead className="thead">
-          <tr>
-            <th>{get(props.game, "letters.b", "")}</th>
-            <th>{get(props.game, "letters.i", "")}</th>
-            <th>{get(props.game, "letters.n", "")}</th>
-            <th>{get(props.game, "letters.g", "")}</th>
-            <th>{get(props.game, "letters.o", "")}</th>
-          </tr>
-        </thead>
-        <tbody className="tbody">
-          {bingoCard.map((arrNums, index) => (
-            <tr key={`key-${index}`}>
-              {arrNums.map((num, idx) => (
-                <td key={`key-${num}-${idx}`}>{num}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </CardContainer>
-  );
 
   return (
     <div className="w-full bg-cover bg-no-repeat bg-secondary bg-pattern">
@@ -53,7 +15,37 @@ export const BingoView = (props) => {
           <div className="text-['Lato'] font-bold text-[15px] leading-[18px] my-4 text-whiteDark">
             Cartilla (vista previa)
           </div>
-          <div className="w-full mx-auto">{showBingoCard()}</div>
+          <div className="w-full mx-auto">
+            <CardContainer
+              backgroundColor={get(props.game, "backgroundColor", "")}
+              backgroundImage={get(props.game, "backgroundImg", "")}
+              titleColor={get(props.game, "titleColor", "")}
+              blocksColor={get(props.game, "blocksColor", "")}
+              numberColor={get(props.game, "numberColor", "")}
+            >
+              <div className="card-title">{get(props.game, "title", "")}</div>
+              <table>
+                <thead className="thead">
+                  <tr>
+                    <th>{get(props.game, "letters.b", "")}</th>
+                    <th>{get(props.game, "letters.i", "")}</th>
+                    <th>{get(props.game, "letters.n", "")}</th>
+                    <th>{get(props.game, "letters.g", "")}</th>
+                    <th>{get(props.game, "letters.o", "")}</th>
+                  </tr>
+                </thead>
+                <tbody className="tbody">
+                  {bingoCard.map((arrNums, index) => (
+                    <tr key={`key-${index}`}>
+                      {arrNums.map((num, idx) => (
+                        <td key={`key-${num}-${idx}`}>{num}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </CardContainer>
+          </div>
         </div>
         <div>
           <div className="text-['Lato'] font-bold text-[15px] leading-[18px] my-4 text-whiteDark">Colores:</div>
