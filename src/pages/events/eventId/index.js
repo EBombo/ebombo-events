@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Tabs } from "antd";
 import { config } from "../../../firebase";
@@ -10,12 +10,20 @@ import { DatesEvent } from "./DatesEvent";
 import { ResumeEvent } from "./ResumeEvent";
 import { Register } from "../../register";
 import { mediaQuery } from "../../../constants";
+import { spinLoader } from "../../../components/common/loader";
+import { useRouter } from "next/router";
 
 const { TabPane } = Tabs;
 
 const defaultTab = "size";
 
 export const EventContainer = (props) => {
+  const router = useRouter();
+
+  const [authUser] = useGlobal("user");
+  const [isLoadingUser] = useGlobal("isLoadingUser");
+  const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
+
   const [currentTab, setCurrentTab] = useState(defaultTab);
 
   const [size, setSize] = useState(null);
@@ -24,6 +32,16 @@ export const EventContainer = (props) => {
   const [dates, setDates] = useState(null);
   const [resume, setResume] = useState(null);
   const [register, setRegister] = useState(null);
+
+  useEffect(() => {
+    router.prefetch("/library");
+  }, []);
+
+  useEffect(() => {
+    if (!authUser) return;
+
+    router.push("/library");
+  }, [authUser]);
 
   const createEventSteps = useMemo(() => {
     return [
@@ -151,6 +169,8 @@ export const EventContainer = (props) => {
     register,
     setRegister,
   ]);
+
+  if (isLoadingUser || isLoadingCreateUser) return spinLoader();
 
   return (
     <EventContainerStyled tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`} className="w-full bg-white">
