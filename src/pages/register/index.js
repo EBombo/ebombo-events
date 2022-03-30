@@ -47,19 +47,11 @@ export const Register = (props) => {
     return get(country, "dialCode", null);
   };
 
-  const signUpUser = async (user) => {
-    let newUser = {
+  const signUpUser = async (user) =>
+    await signUp({
       ...user,
       birthDate,
-    };
-
-    // Add event request.
-    if (props.eventRequest) {
-      newUser = { ...newUser, eventRequest: prosp.eventRequest };
-    }
-
-    await signUp(newUser);
-  };
+    });
 
   return (
     <div className="w-full h-full bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 flex">
