@@ -33,6 +33,7 @@ export const ResumeEvent = (props) => {
   const { sendError } = useSendError();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   const [authUser] = useGlobal("user");
   const [games] = useGlobal("adminGames");
@@ -40,8 +41,6 @@ export const ResumeEvent = (props) => {
   const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
 
   const signUpUser = async (user) => {
-    setIsLoading(true);
-
     const eventMapped = {
       size: props.size,
       budget: props.budget,
@@ -70,11 +69,12 @@ export const ResumeEvent = (props) => {
       event: eventMapped,
     });
 
-    //router.push("/library/events");
+    setIsVisibleModal(true);
   };
 
   const registerEvent = async (event) => {
     try {
+      setIsLoading(true);
       const eventRef = firestore.collection("events");
 
       const eventId = eventRef.doc().id;
@@ -95,6 +95,7 @@ export const ResumeEvent = (props) => {
     } catch (error) {
       sendError(error, "registerEvent");
     }
+    setIsLoading(false);
   };
 
   const { register, errors, handleSubmit } = useForm({
@@ -104,6 +105,8 @@ export const ResumeEvent = (props) => {
 
   return (
     <div>
+      {/*TODO: Add modal to redirect events list page.*/}
+      {String(isVisibleModal)}
       <div className="text-secondary mb-4 text-base">
         Manda tu resumen al equipo de ebombo y nos pondremos lo antes posible en contacto contigo
       </div>

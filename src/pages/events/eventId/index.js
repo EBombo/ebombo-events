@@ -9,7 +9,6 @@ import { DetailsEvent } from "./DetailsEvent";
 import { DatesEvent } from "./DatesEvent";
 import { ResumeEvent } from "./ResumeEvent";
 import { mediaQuery } from "../../../constants";
-import { spinLoader } from "../../../components/common/loader";
 import { useRouter } from "next/router";
 
 const { TabPane } = Tabs;
@@ -20,8 +19,6 @@ export const EventContainer = (props) => {
   const router = useRouter();
 
   const [authUser] = useGlobal("user");
-  const [isLoadingUser] = useGlobal("isLoadingUser");
-  const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
 
   const [currentTab, setCurrentTab] = useState(defaultTab);
 
@@ -147,8 +144,6 @@ export const EventContainer = (props) => {
       },
     ];
   }, [size, setSize, budget, setBudget, details, setDetails, dates, setDates, resume, setResume]);
-
-  if (isLoadingUser || isLoadingCreateUser) return spinLoader();
 
   return (
     <EventContainerStyled tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`} className="w-full bg-white">
