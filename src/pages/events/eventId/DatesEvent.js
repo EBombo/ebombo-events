@@ -30,13 +30,13 @@ export const DatesEvent = (props) => {
           underlined
           margin="auto 0"
           variant="secondary"
-          onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1].key)}
+          onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1]?.key)}
         >
           Volver
         </Anchor>
 
         <ButtonAnt
-          onClick={() => props.setCurrentTab(props.eventSteps[props.position + 1].key)}
+          onClick={() => props.setCurrentTab(props.eventSteps[props.position + 1]?.key)}
           color="primary"
           variant="contained"
           disabled={!props.dates?.length}

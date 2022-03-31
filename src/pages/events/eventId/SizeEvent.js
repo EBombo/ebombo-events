@@ -35,7 +35,7 @@ export const SizeEvent = (props) => {
       </div>
 
       <ButtonAnt
-        onClick={() => props.setCurrentTab(props.eventSteps[props.position + 1].key)}
+        onClick={() => props.setCurrentTab(props.eventSteps[props.position + 1]?.key)}
         color="primary"
         disabled={!props.size}
         variant="contained"

@@ -255,7 +255,7 @@ export const ResumeEvent = (props) => {
             underlined
             margin="auto 0"
             variant="secondary"
-            onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1].key)}
+            onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1]?.key)}
           >
             Volver
           </Anchor>
