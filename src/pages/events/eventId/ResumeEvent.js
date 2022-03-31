@@ -1,8 +1,14 @@
 import React, { useGlobal, useState } from "reactn";
 import { Anchor, ButtonAnt, Input, TextArea } from "../../../components/form";
-import { config } from "../../../firebase";
+import { config, firestore } from "../../../firebase";
 import { gifts, goals, interactions } from "./DetailsEvent";
 import get from "lodash/get";
+import { object, string } from "yup";
+import { useForm } from "react-hook-form";
+import { useAuth } from "../../../hooks/useAuth";
+import { useSendError } from "../../../hooks";
+import { useRouter } from "next/router";
+import moment from "moment";
 
 const eventBy = {
   participants: "asistente",
@@ -10,12 +16,91 @@ const eventBy = {
 };
 
 export const ResumeEvent = (props) => {
-  const [games] = useGlobal("adminGames");
+  const validationSchema = object().shape({
+    name: string().required(),
+    lastName: string().required(),
+    email: string()
+      .required()
+      .email()
+      .test("", "Email invalid!", (email_) => !email_.includes("yopmail.com")),
+    password: string().required().min(6),
+  });
 
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const { signUp } = useAuth();
+
+  const { sendError } = useSendError();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [authUser] = useGlobal("user");
+  const [games] = useGlobal("adminGames");
+  const [isLoadingUser] = useGlobal("isLoadingUser");
+  const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
+
+  const signUpUser = async (user) => {
+    setIsLoading(true);
+
+    const eventMapped = {
+      size: props.size,
+      budget: props.budget,
+      details: props.details,
+      dates: props.dates.map((date) => {
+        const startDateFormatted = `${date.month.format("DD/MM/YYYY")} ${date.start.format("h:mm a")}`;
+        const endDateFormatted = `${date.month.format("DD/MM/YYYY")} ${date.end.format("h:mm a")}`;
+
+        return {
+          startAt: moment(startDateFormatted, "DD/MM/YYYY h:mm a").toDate(),
+          endAt: moment(endDateFormatted, "DD/MM/YYYY h:mm a").toDate(),
+        };
+      }),
+      resume: props.resume,
+    };
+
+    // Register event on firebase.
+    if (authUser) {
+      await registerEvent(eventMapped);
+      return router.push("/library/events");
+    }
+
+    // Create account and register event on backend side.
+    await signUp({
+      ...user,
+      event: eventMapped,
+    });
+
+    //router.push("/library/events");
+  };
+
+  const registerEvent = async (event) => {
+    try {
+      const eventRef = firestore.collection("events");
+
+      const eventId = eventRef.doc().id;
+
+      await eventRef.doc(eventId).set(
+        {
+          ...event,
+          ...event.dates[0],
+          userId: authUser.id,
+          manageByUser: false,
+          createAt: new Date(),
+          updateAt: new Date(),
+          deleted: false,
+          id: eventId,
+        },
+        { merge: true }
+      );
+    } catch (error) {
+      sendError(error, "registerEvent");
+    }
+  };
+
+  const { register, errors, handleSubmit } = useForm({
+    validationSchema: authUser ? null : validationSchema,
+    reValidateMode: "onSubmit",
+  });
 
   return (
     <div>
@@ -111,55 +196,81 @@ export const ResumeEvent = (props) => {
           ))}
       </div>
 
-      <div className="text-secondary mb-4 text-base mt-4">Regístrate y manda el resumen de tu evento</div>
+      {authUser ? null : (
+        <div className="text-secondary mb-4 text-base mt-4">Regístrate y manda el resumen de tu evento</div>
+      )}
 
-      <div className="grid md:grid-cols-2 gap-2 md:w-9/12">
-        <Input placeholder="Nombre" onChange={(event) => setName(event.target.value)} />
-        <Input placeholder="Apellidos" onChange={(event) => setLastName(event.target.value)} />
-        <Input placeholder="Correo" onChange={(event) => setEmail(event.target.value)} />
-        <Input placeholder="Contraseña" type="password" onChange={(event) => setPassword(event.target.value)} />
-      </div>
+      <form onSubmit={handleSubmit(signUpUser)} autoComplete="off" className="form-container" noValidate>
+        {authUser ? null : (
+          <div className="grid md:grid-cols-2 gap-2 md:w-9/12">
+            <Input
+              error={errors.name}
+              type="text"
+              ref={register}
+              height="40px"
+              name="name"
+              background="white"
+              autoComplete="off"
+              placeholder="Nombre"
+            />
+            <Input
+              error={errors.lastName}
+              type="text"
+              ref={register}
+              height="40px"
+              name="lastName"
+              background="white"
+              autoComplete="off"
+              placeholder="Apellidos"
+            />
+            <Input
+              error={errors.email}
+              defaultValue={props.email}
+              type="email"
+              ref={register}
+              name="email"
+              height="40px"
+              background="white"
+              autoComplete="off"
+              placeholder="Correo"
+            />
+            <Input
+              error={errors.password}
+              type="password"
+              ref={register}
+              height="40px"
+              name="password"
+              autoComplete="off"
+              background="white"
+              placeholder="Contraseña"
+            />
+          </div>
+        )}
 
-      <div className="flex mt-4">
-        <Anchor
-          underlined
-          margin="auto 0"
-          variant="secondary"
-          onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1].key)}
-        >
-          Volver
-        </Anchor>
+        <div className="flex mt-4">
+          <Anchor
+            underlined
+            margin="auto 0"
+            variant="secondary"
+            onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1].key)}
+          >
+            Volver
+          </Anchor>
 
-        <ButtonAnt
-          onClick={() => {
-            // TODO: Enviar los datos del registro a la API que Sebas envia.
-            /*
-            {
-              size: props.size,
-              budget: props.budget,
-              details: props.details,
-              dates: props.dates,
-              resume: props.resume,
-            }
-             */
-            props.setRegister({
-              name: name,
-              lastName: lastName,
-              email: email,
-              password: password,
-            });
-            props.setResume(true);
-            props.setCurrentTab(props.eventSteps[props.position + 1].key);
-          }}
-          color="primary"
-          variant="contained"
-          fontSize="18px"
-          size="big"
-          margin="1rem 0 auto auto"
-        >
-          Enviar
-        </ButtonAnt>
-      </div>
+          <ButtonAnt
+            htmlType="submit"
+            color="primary"
+            variant="contained"
+            fontSize="18px"
+            size="big"
+            margin="1rem 0 auto auto"
+            loading={isLoadingCreateUser || isLoading}
+            disabled={isLoadingUser || isLoadingCreateUser || isLoading}
+          >
+            Enviar
+          </ButtonAnt>
+        </div>
+      </form>
     </div>
   );
 };

@@ -8,7 +8,6 @@ import { BudgetEvent } from "./BudgetEvent";
 import { DetailsEvent } from "./DetailsEvent";
 import { DatesEvent } from "./DatesEvent";
 import { ResumeEvent } from "./ResumeEvent";
-import { Register } from "../../register";
 import { mediaQuery } from "../../../constants";
 import { spinLoader } from "../../../components/common/loader";
 import { useRouter } from "next/router";
@@ -31,17 +30,10 @@ export const EventContainer = (props) => {
   const [details, setDetails] = useState(null);
   const [dates, setDates] = useState(null);
   const [resume, setResume] = useState(null);
-  const [register, setRegister] = useState(null);
 
   useEffect(() => {
     router.prefetch("/library");
   }, []);
-
-  useEffect(() => {
-    if (!authUser) return;
-
-    router.push("/library");
-  }, [authUser]);
 
   const createEventSteps = useMemo(() => {
     return [
@@ -145,30 +137,16 @@ export const EventContainer = (props) => {
             details={details}
             dates={dates}
             setResume={setResume}
-            setRegister={setRegister}
           />
         ),
       },
       {
-        tab: <div className="text-secondary">Registro</div>,
+        tab: authUser ? null : <div className="text-secondary">Registro</div>,
         key: "register",
-        content: () => <Register {...props} {...register} />,
+        content: () => null,
       },
     ];
-  }, [
-    size,
-    setSize,
-    budget,
-    setBudget,
-    details,
-    setDetails,
-    dates,
-    setDates,
-    resume,
-    setResume,
-    register,
-    setRegister,
-  ]);
+  }, [size, setSize, budget, setBudget, details, setDetails, dates, setDates, resume, setResume]);
 
   if (isLoadingUser || isLoadingCreateUser) return spinLoader();
 
@@ -189,6 +167,10 @@ const EventContainerStyled = styled.div`
   display: flex;
   max-width: 100vw;
   background-image: ${(props) => `url('${props.tapiz}')`};
+
+  .ant-tabs {
+    width: 100%;
+  }
 
   .ant-tabs-nav {
     margin-bottom: 0;
