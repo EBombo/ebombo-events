@@ -1,17 +1,19 @@
-import React, { useGlobal, useMemo, useState } from "reactn";
+import React, { useGlobal, useMemo } from "reactn";
 import { useRouter } from "next/router";
 import { config, firestore } from "../../../../firebase";
 import { Image } from "../../../../components/common/Image";
-import {UserCreateEvent} from "./UserCreateEvent"
+import { UserCreateEvent } from "./UserCreateEvent";
 
 export const Event = (props) => {
   const router = useRouter();
 
+  // TODO: Why the eventId is not used?.
   const { eventId, manageBy } = router.query;
 
   const [authUser] = useGlobal("user");
 
   const documentId = useMemo(() => {
+    // TODO: Instead of "props.event?.id" you should use eventId?.
     return props.event?.id ?? firestore.collection("events").doc().id;
   }, [props.event]);
 

@@ -12,8 +12,11 @@ export const DesktopLibrary = (props) => {
   return (
     <DesktopLibraryContainer>
       <DesktopLeftMenu {...props} />
+
       {router.asPath.includes("/folders") ? <DesktopLibraryFolders {...props} /> : null}
+
       {["/library", "/library/games"].includes(router.asPath) ? <DesktopLibraryGames {...props} /> : null}
+
       {router.asPath.includes("/events") ? <Events {...props} /> : null}
     </DesktopLibraryContainer>
   );

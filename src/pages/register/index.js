@@ -65,6 +65,7 @@ export const Register = (props) => {
             <div className="my-3 grid gap-[10px] w-full md:grid-cols-[1fr_1fr] md:my-4">
               <Input
                 error={errors.name}
+                defaultValue={props.name}
                 type="text"
                 ref={register}
                 height="40px"
@@ -75,6 +76,7 @@ export const Register = (props) => {
               />
               <Input
                 error={errors.lastName}
+                defaultValue={props.lastName}
                 type="text"
                 ref={register}
                 height="40px"
@@ -88,6 +90,7 @@ export const Register = (props) => {
             <div className="my-3 grid gap-[10px] w-full md:grid-cols-[1fr_1fr] md:my-4">
               <Input
                 error={errors.email}
+                defaultValue={props.email}
                 type="email"
                 ref={register}
                 name="email"
@@ -143,6 +146,7 @@ export const Register = (props) => {
             <div className="my-3 grid gap-[10px] w-full md:grid-cols-[1fr_1fr] md:my-4">
               <Input
                 error={errors.password}
+                defaultValue={props.password}
                 type="password"
                 ref={register}
                 height="40px"
@@ -154,6 +158,7 @@ export const Register = (props) => {
 
               <Input
                 error={errors.passwordConfirmation}
+                defaultValue={props.password}
                 type="password"
                 ref={register}
                 height="40px"
