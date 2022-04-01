@@ -43,18 +43,19 @@ export const EventView = (props) => {
   }, [adminGames]);
 
   useEffect(() => {
-    const fetchReleases = () => firestore
-      .collection("events")
-      .doc(eventId)
-      .collection("releases")
-      .where("deleted", "==", false)
-      .onSnapshot((releasesQuery) => {
-        setReleases(snapshotToArray(releasesQuery));
-      });
+    const fetchReleases = () =>
+      firestore
+        .collection("events")
+        .doc(eventId)
+        .collection("releases")
+        .where("deleted", "==", false)
+        .onSnapshot((releasesQuery) => {
+          setReleases(snapshotToArray(releasesQuery));
+        });
 
     const unsubscribeReleases = fetchReleases();
 
-    return unsubscribeReleases();
+    return () => unsubscribeReleases && unsubscribeReleases();
   }, [eventId]);
 
   return (

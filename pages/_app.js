@@ -91,7 +91,7 @@ const MyApp = ({ Component, pageProps }) => {
 
     const unsubscribeEvent = fetchEvents();
 
-    return () => unsubscribeEvent();
+    return () => unsubscribeEvent && unsubscribeEvent();
   }, [folderId, isBack, authUser]);
 
   useEffect(() => {

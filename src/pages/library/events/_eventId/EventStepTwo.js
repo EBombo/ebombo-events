@@ -72,7 +72,7 @@ export const EventStepTwo = (props) => {
 
     const unsubscribeMembers = fetchMembers();
 
-    return () => unsubscribeMembers();
+    return () => unsubscribeMembers && unsubscribeMembers();
   }, []);
 
   const deleteSelectedUsers = () => {};
