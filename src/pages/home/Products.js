@@ -75,9 +75,9 @@ export const Products = (props) => {
               variant="contained"
               fontSize="15px"
               margin="25px 0 0 0"
-              onClick={() => router.push("/contact")}
+              onClick={() => props.setIsVisibleModalEvents((prev) => !prev)}
             >
-              Contáctanos
+              Reservar evento
             </ButtonAnt>
           </div>
         </div>

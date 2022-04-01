@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import { HeaderLanding } from "./HeaderLanding";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -9,11 +9,14 @@ import { Options } from "./Options";
 import { Companies } from "./Companies";
 import { BannerEbombo } from "./BannerEbombo";
 import { Comments } from "./Comments";
+import { ModalNewEvent } from "../library/events/ModalNewEvent";
 
 export const Home = (props) => {
   const router = useRouter();
 
   const [authUser] = useGlobal("user");
+
+  const [isVisibleModalEvents, setIsVisibleModalEvents] = useState(false);
 
   useEffect(() => {
     router.prefetch("/library");
@@ -27,21 +30,30 @@ export const Home = (props) => {
 
   return (
     <LandingContainer>
-      <HeaderLanding />
+      {isVisibleModalEvents && (
+        <ModalNewEvent
+          {...props}
+          hiddeMySelfOption
+          isVisibleModalEvents={isVisibleModalEvents}
+          setIsVisibleModalEvents={setIsVisibleModalEvents}
+        />
+      )}
 
-      <Products />
+      <HeaderLanding setIsVisibleModalEvents={setIsVisibleModalEvents} />
+
+      <Products setIsVisibleModalEvents={setIsVisibleModalEvents} />
 
       <EventsInformation {...props} />
 
       <EbomboStyle {...props} />
 
-      <Options {...props} />
+      <Options {...props} setIsVisibleModalEvents={setIsVisibleModalEvents} />
 
       <Companies {...props} />
 
       <Comments {...props} />
 
-      <BannerEbombo {...props} btnContact />
+      <BannerEbombo {...props} setIsVisibleModalEvents={setIsVisibleModalEvents} btnContact />
     </LandingContainer>
   );
 };

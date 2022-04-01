@@ -1,25 +1,13 @@
-import React, { useState } from "reactn";
+import React from "reactn";
 import styled from "styled-components";
 import { ButtonAnt } from "../../components/form";
 import { mediaQuery } from "../../constants";
-import { ModalNewEvent } from "../library/events/ModalNewEvent";
 
 export const BannerEbombo = (props) => {
-  const [isVisibleModalEvents, setIsVisibleModalEvents] = useState(false);
-
   return (
     <BannerEbomboStyled>
       <div className="content-banner">
         <div className="title">El evento virtual que amarás</div>
-
-        {isVisibleModalEvents && (
-          <ModalNewEvent
-            {...props}
-            hiddeMySelfOption
-            isVisibleModalEvents={isVisibleModalEvents}
-            setIsVisibleModalEvents={setIsVisibleModalEvents}
-          />
-        )}
 
         {props.btnContact && (
           <ButtonAnt
@@ -27,9 +15,9 @@ export const BannerEbombo = (props) => {
             variant="contained"
             fontSize="15px"
             margin="25px 0 0 0"
-            onClick={() => setIsVisibleModalEvents(true)}
+            onClick={() => props.setIsVisibleModalEvents((prev) => !prev)}
           >
-            Crear evento
+            Reservar evento
           </ButtonAnt>
         )}
       </div>
