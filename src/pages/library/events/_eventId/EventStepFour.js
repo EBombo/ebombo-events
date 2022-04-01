@@ -34,6 +34,10 @@ export const EventStepFour = (props) => {
       manageByUser: true,
     };
 
+    const members = [...event.members];
+
+    delete event.members;
+
     delete event.adminGames;
 
     if (!eventRef.exist) {
@@ -43,6 +47,17 @@ export const EventStepFour = (props) => {
     if (eventRef.exist) {
       await eventRef.update({ ...event, updateAt: new Date() });
     }
+
+    const membersPromise = members.map(
+      async (member) =>
+        await firestore
+          .collection("events")
+          .doc(event.id)
+          .collection("members")
+          .set({ ...member, updateAt: new Date() }, { merge: true })
+    );
+
+    await Promise.all(membersPromise);
 
     setIsLoading(false);
     router.push(`/library/events/${props.documentId}/view?manageBy=user`);

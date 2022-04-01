@@ -7,7 +7,7 @@ import { Image } from "../../../../../components/common/Image";
 import { config, firestore } from "../../../../../firebase";
 import capitalize from "lodash/capitalize";
 import { useRouter } from "next/router";
-import { ButtonAnt } from "../../../../../components/form";
+import { Anchor, ButtonAnt } from "../../../../../components/form";
 import { snapshotToArray } from "../../../../../utils";
 
 export const EventView = (props) => {
@@ -133,14 +133,21 @@ export const EventView = (props) => {
             Comunicados
           </div>
           <div className="flex flex-col md:h-[350px] md:overflow-auto md:overflow-x-hidden">
-            {defaultTo(event?.releases, []).map((release) => (
+            {releases.map((release) => (
               <div
-                className="bg-white rounded-[6px] flex items-center p-2 border-grayLighten border-[1px] w-[350px] my-2"
+                className="bg-white rounded-[6px] flex items-center p-2 border-grayLighten border-[1px] w-[350px] my-2 flex items-center gap-4"
                 key={release.id}
               >
-                <div className="text-['Lato'] font-[400] text-[14px] leading-[16px] text-grayLight">
-                  {capitalize(release.name)}
+                <div className="text-['Lato'] font-[400] text-[14px] leading-[16px] text-grayLight no-wrap">
+                  {capitalize(release.subject)}
                 </div>
+                <Anchor
+                  underlined
+                  variant="secondary"
+                  onClick={() => router.push(`/library/events/${eventId}/releases/${release.id}`)}
+                >
+                  Ver
+                </Anchor>
               </div>
             ))}
           </div>
