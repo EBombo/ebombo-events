@@ -8,6 +8,7 @@ import { Tooltip } from "antd";
 import { Desktop } from "../../../constants";
 import capitalize from "lodash/capitalize";
 import { useRouter } from "next/router";
+import moment from "moment";
 
 export const Events = (props) => {
   const router = useRouter();
@@ -53,13 +54,26 @@ export const Events = (props) => {
               size="cover"
               margin="0"
               cursor="pointer"
-              onClick={() => router.push(`/library/events/${event.id}/view`)}
+              onClick={() => {
+                if (!event.manageByUser) return;
+                router.push(`/library/events/${event.id}/view`);
+              }}
             />
             <div className="grid grid-rows-[auto_35px] md:grid-rows-[auto_45px]">
               <div className="p-2 md:p-3 flex justify-between">
-                <div onClick={() => router.push(`/library/events/${event.id}/view`)}>
-                  <div className="text-['Lato'] font-[700] text-[16px] leading-[18px] md:text-[20px] md:leading-[22px]">
-                    {event.name}
+                <div>
+                  <div
+                    className="text-['Lato'] font-[700] text-[16px] leading-[18px] md:text-[20px] md:leading-[22px]"
+                    onClick={() => {
+                     if (!event.manageByUser) return;
+                     router.push(`/library/events/${event.id}/view`);
+                    }}
+                  >
+                    {event.manageByUser
+                      ? event.name
+                      : `Solicitud de evento al equipo de Ebombo - ${moment(event.createAt.toDate()).format(
+                          "DD/MM/YYYY HH:MM a"
+                        )}`}
                   </div>
                   {event.link && (
                     <div className="flex items-center gap-[5px] text-['Lato'] font-[400] text-[13px] leading-[15px] text-blackDarken mt-[10px] max-w-[200px]">
@@ -109,7 +123,9 @@ export const Events = (props) => {
                     margin="0"
                   />
                   <div className="text-black text-['Lato'] text-[13px] leading[16px]">
-                    {`${event.startAt} - ${event.endAt}`}
+                    {`${
+                      event.startAt?.toDate ? moment(event.startAt.toDate()).format("HH:MM:SS a") : event.startAt
+                    } - ${event.endAt?.toDate ? moment(event.endAt.toDate()).format("HH:MM:SS a") : event.endAt}`}
                   </div>
                 </div>
                 <div className="flex items-center gap-[10px]">

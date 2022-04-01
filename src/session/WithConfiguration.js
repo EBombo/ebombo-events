@@ -13,6 +13,7 @@ import { spinLoader } from "../components/common/loader";
 import dynamic from "next/dynamic";
 import { initializeReactGA, snapshotToArray } from "../utils";
 import { useRouter } from "next/router";
+import "moment/locale/es-us";
 
 const UpdateVersion = dynamic(() => import("../components/versions/UpdateVersion"), {
   loading: () => spinLoader(),

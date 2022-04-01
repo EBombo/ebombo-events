@@ -33,7 +33,11 @@ export const Navbar = (props) => {
     return paths.includes(router.asPath);
   }, [router]);
 
-  console.log(isNavWithBorder);
+  const isEventPage = useMemo(() => {
+    const path = router.asPath;
+
+    return path.includes("/events/new");
+  }, [router]);
 
   return (
     <>
@@ -51,7 +55,9 @@ export const Navbar = (props) => {
               onClick={() => router.push(authUser ? "/library" : "/")}
             />
             <Desktop>
-              {/*
+              {isEventPage ? null : (
+                <>
+                  {/*
                 <a
                   className="ant-dropdown-link"
                   onClick={() => {
@@ -61,18 +67,20 @@ export const Navbar = (props) => {
                   Games
                 </a>
               */}
-              {/*
+                  {/*
                 <Anchor url="/subscriptions" className="link">
                 Planes
               </Anchor>
                  */}
-              <Anchor url="/about-us" className="link">
-                Sobre nosotros
-              </Anchor>
-              {!authUser && (
-                <Anchor url="/contact" className="link">
-                  Contacto
-                </Anchor>
+                  <Anchor url="/about-us" className="link">
+                    Sobre nosotros
+                  </Anchor>
+                  {!authUser && (
+                    <Anchor url="/contact" className="link">
+                      Contacto
+                    </Anchor>
+                  )}
+                </>
               )}
             </Desktop>
           </div>
@@ -94,16 +102,25 @@ export const Navbar = (props) => {
                 >
                   Iniciar sesión
                 </Anchor>
-                <ButtonAnt onClick={() => router.push("/contact")} color="success" variant="contained" fontSize="18px">
-                  Contáctanos
-                </ButtonAnt>
+                {isEventPage ? null : (
+                  <ButtonAnt
+                    onClick={() => router.push("/contact")}
+                    color="success"
+                    variant="contained"
+                    fontSize="18px"
+                  >
+                    Contáctanos
+                  </ButtonAnt>
+                )}
               </div>
             )}
           </Desktop>
 
           <Tablet>
             <ul className={`nav-menu ${active ? "active" : ""}`}>
-              {/*
+              {isEventPage ? null : (
+                <>
+                  {/*
                 <li
                   className="nav-item"
                   onClick={() => {
@@ -113,43 +130,47 @@ export const Navbar = (props) => {
                   Games
                 </li>
               */}
-              {/*
+                  {/*
                 <li className="nav-item" onClick={() => router.push("/subscriptions")}>
                   Planes
                 </li>
                 */}
-              <li
-                className="nav-item"
-                onClick={() => {
-                  router.push("/about-us");
-                  setActive(false);
-                }}
-              >
-                Sobre nosotros
-              </li>
-              {!authUser && (
-                <li
-                  className="nav-item"
-                  onClick={() => {
-                    router.push("/contact");
-                    setActive(false);
-                  }}
-                >
-                  Contacto
-                </li>
+                  <li
+                    className="nav-item"
+                    onClick={() => {
+                      router.push("/about-us");
+                      setActive(false);
+                    }}
+                  >
+                    Sobre nosotros
+                  </li>
+                  {!authUser && (
+                    <li
+                      className="nav-item"
+                      onClick={() => {
+                        router.push("/contact");
+                        setActive(false);
+                      }}
+                    >
+                      Contacto
+                    </li>
+                  )}
+                </>
               )}
 
               {!authUser ? (
                 <>
-                  <ButtonAnt
-                    margin="1.5rem auto"
-                    onClick={() => router.push("/contact")}
-                    color="success"
-                    variant="contained"
-                    fontSize="18px"
-                  >
-                    Contáctanos
-                  </ButtonAnt>
+                  {isEventPage ? null : (
+                    <ButtonAnt
+                      margin="1.5rem auto"
+                      onClick={() => router.push("/contact")}
+                      color="success"
+                      variant="contained"
+                      fontSize="18px"
+                    >
+                      Contáctanos
+                    </ButtonAnt>
+                  )}
                   <li className="nav-item" onClick={() => router.push("/login")}>
                     Iniciar sesión
                   </li>
