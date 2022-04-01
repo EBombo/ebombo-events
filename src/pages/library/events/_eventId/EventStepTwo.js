@@ -87,7 +87,11 @@ export const EventStepTwo = (props) => {
   const validateStepTwo = () => {
     const visitorsArray = visitors.split("\n");
 
-    const _visitors = visitorsArray.map((visitor) => ({
+    const _filterVisitors = visitorsArray.filter((visitor) => {
+      return visitor !== "";
+    });
+
+    const _visitors = _filterVisitors.map((visitor) => ({
       email: visitor,
       role: "visitor",
       createAt: new Date(),
