@@ -4,10 +4,11 @@ import { Table } from "antd";
 import { columns } from "../EventStepTwo";
 import defaultTo from "lodash/defaultTo";
 import { Image } from "../../../../../components/common/Image";
-import { config } from "../../../../../firebase";
+import { config, firestore } from "../../../../../firebase";
 import capitalize from "lodash/capitalize";
 import { useRouter } from "next/router";
 import { ButtonAnt } from "../../../../../components/form";
+import { snapshotToArray } from "../../../../../utils";
 
 export const EventView = (props) => {
   const router = useRouter();
@@ -17,6 +18,8 @@ export const EventView = (props) => {
   const [events] = useGlobal("userEvents");
   const [adminGames] = useGlobal("adminGames");
   const [adminGamesHash, setAdminGamesHash] = useState({});
+
+  const [releases, setReleases] = useState([]);
 
   const event = useMemo(() => {
     if (!eventId) return {};
@@ -28,11 +31,32 @@ export const EventView = (props) => {
   }, [events, eventId]);
 
   useEffect(() => {
+    router.prefetch("/library/events/[eventId]");
+    router.prefetch("/library/events/[eventId]/release/[releaseId]");
+  }, []);
+
+  useEffect(() => {
     const _adminGamesHash = {};
     adminGames.map((game) => (_adminGamesHash[game.id] = game));
 
     setAdminGamesHash(_adminGamesHash);
   }, [adminGames]);
+
+  useEffect(() => {
+    const fetchReleases = () =>
+      firestore
+        .collection("events")
+        .doc(eventId)
+        .collection("releases")
+        .where("deleted", "==", false)
+        .onSnapshot((releasesQuery) => {
+          setReleases(snapshotToArray(releasesQuery));
+        });
+
+    const unsubscribeReleases = fetchReleases();
+
+    return () => unsubscribeReleases && unsubscribeReleases();
+  }, [eventId]);
 
   return (
     <div className="w-full flex flex-col items center bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 h-[calc(100vh-50px)] overflow-auto">
@@ -44,7 +68,7 @@ export const EventView = (props) => {
           </div>
         </div>
         <div className="hidden md:block">
-          <ButtonAnt onClick={() => router.push(`/library/events/${event.id}`)}>
+          <ButtonAnt onClick={() => router.push(`/library/events/${event.id}?manageBy=user`)}>
             <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">Editar</div>
           </ButtonAnt>
         </div>
@@ -120,11 +144,14 @@ export const EventView = (props) => {
               </div>
             ))}
           </div>
+          <ButtonAnt onClick={() => router.push(`/library/events/${event.id}/releases/new`)} margin="1rem auto">
+            <div className="text-['Lato'] font-[500] text-[13px] leading-[15px]">Crear comunicado</div>
+          </ButtonAnt>
         </div>
       </div>
 
       <div className="block md:hidden w-full">
-        <ButtonAnt onClick={() => router.push(`/library/events/${event.id}`)} margin="1rem auto">
+        <ButtonAnt onClick={() => router.push(`/library/events/${event.id}?manageBy=user`)} margin="1rem auto">
           <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">Editar</div>
         </ButtonAnt>
       </div>

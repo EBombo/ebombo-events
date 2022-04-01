@@ -36,7 +36,7 @@ export const ListGameView = (props) => {
 
     const unsubscribeResource = fetchResource();
 
-    return () => unsubscribeResource();
+    return () => unsubscribeResource && unsubscribeResource();
   }, []);
 
   const getTimeCreation = () => {

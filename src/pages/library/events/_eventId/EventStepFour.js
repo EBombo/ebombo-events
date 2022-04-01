@@ -89,10 +89,10 @@ export const EventStepFour = (props) => {
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
             Juegos seleccionados
           </div>
-          {defaultTo(props.event?.adminGames, []).map((game) => (
+          {defaultTo(props.event?.adminGames, []).map((game, index) => (
             <div
               className="bg-white rounded-[6px] flex items-center p-2 border-grayLighten border-[2px] w-[170px] my-2"
-              key={game.id}
+              key={`${game.id}-${index}`}
             >
               <Image
                 src={`${config.storageUrl}/resources/games/${game.name}-icon.svg`}
