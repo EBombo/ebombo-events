@@ -2,7 +2,6 @@ import React, { useState } from "reactn";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import { DatePicker, TimePicker } from "antd";
 import { ButtonAnt, Input } from "../../../../components/form";
-import moment from "moment";
 
 export const EventStepOne = (props) => {
   const [name, setName] = useState(props.event?.name ?? "");

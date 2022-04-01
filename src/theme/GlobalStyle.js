@@ -230,4 +230,12 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
   /*-------------- BREADCRUMB ---------------*/
+
+  .ant-btn-primary{
+    background: ${(props) => props.theme.basic.primary} !important;
+  }
+  
+  .ant-btn-primary[disabled]{
+    background: #f5f5f5 !important;
+  }
 `;

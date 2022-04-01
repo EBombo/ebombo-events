@@ -43,7 +43,7 @@ export const Events = (props) => {
       <div className="my-4 md:my-8">
         {events.map((event) => (
           <div
-            className="w-full h-[110px] grid grid-cols-[95px_auto] bg-whiteLight rounded-[6px] md:grid-cols-[164px_auto] md:h-[140px] overflow-hidden shadow-[2px_2px_4px_rgb(0,0,0,0.25)] cursor-pointer"
+            className="w-full mb-4 h-[110px] grid grid-cols-[95px_auto] bg-whiteLight rounded-[6px] md:grid-cols-[164px_auto] md:h-[140px] overflow-hidden shadow-[2px_2px_4px_rgb(0,0,0,0.25)] cursor-pointer"
             key={event.id}
           >
             <Image
@@ -76,7 +76,7 @@ export const Events = (props) => {
                   title={
                     <div className="flex flex-col">
                       <div
-                        className="flex items-center font-[normal] text-['Lato'] p-2 text-[16px] leading-[19px]"
+                        className="flex items-center font-[normal] text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
                         onClick={() => deleteEvent(event)}
                       >
                         <Image
@@ -86,7 +86,7 @@ export const Events = (props) => {
                           size={"contain"}
                           margin={"0 15px 0 0"}
                         />
-                        Borrar
+                        Eliminar
                       </div>
                     </div>
                   }
