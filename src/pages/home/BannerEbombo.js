@@ -15,7 +15,7 @@ export const BannerEbombo = (props) => {
             variant="contained"
             fontSize="15px"
             margin="25px 0 0 0"
-            onClick={() => props.setIsVisibleModalEvents((prev) => !prev)}
+            onClick={() => props.createEvent()}
           >
             Reservar evento
           </ButtonAnt>
