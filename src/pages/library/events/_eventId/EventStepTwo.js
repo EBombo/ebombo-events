@@ -4,6 +4,7 @@ import { Table } from "antd";
 import isEmpty from "lodash/isEmpty";
 import { firestore } from "../../../../firebase";
 import { snapshotToArray } from "../../../../utils/snapshotToArray";
+import { useRouter } from "next/router";
 
 const filterOptions = [
   {
@@ -49,6 +50,10 @@ export const columns = [
 ];
 
 export const EventStepTwo = (props) => {
+  const router = useRouter();
+
+  const { eventId } = router.query;
+
   const [authUser] = useGlobal("user");
 
   const [members, setMembers] = useState([]);
@@ -57,9 +62,9 @@ export const EventStepTwo = (props) => {
   const [visitors, setVisitors] = useState("");
 
   useEffect(() => {
-    if (!authUser?.company) return;
+    if (!authUser?.company || eventId === "new") return;
 
-    const fetchMembers = () =>
+    const fetchCompanyMembers = () =>
       firestore
         .collection("companies")
         .doc(authUser?.company.id)
@@ -70,10 +75,29 @@ export const EventStepTwo = (props) => {
           setMembers(_members);
         });
 
-    const unsubscribeMembers = fetchMembers();
+    const unsubscribeMembers = fetchCompanyMembers();
 
     return () => unsubscribeMembers && unsubscribeMembers();
   }, []);
+
+  useEffect(() => {
+    if ( eventId !== "new") return;
+
+    const fetchMembers = () =>
+      firestore
+        .collection("events")
+        .doc(eventId)
+        .collection("members")
+        .where("delete", "==", false)
+        .onSnapshot((membersSnapshot) => {
+          const _members = snapshotToArray(membersSnapshot);
+          setMembers(_members);
+        });
+
+    const unsubscribeMembers = fetchMembers();
+
+    return () => unsubscribeMembers && unsubscribeMembers();
+  },[])
 
   const deleteSelectedUsers = () => {};
 
