@@ -49,7 +49,7 @@ export const EventView = (props) => {
         .collection("events")
         .doc(eventId)
         .collection("members")
-        .where("delete", "==", false)
+        .where("deleted", "==", false)
         .onSnapshot((membersSnapshot) => {
           const _members = snapshotToArray(membersSnapshot);
           setMembers(_members);
@@ -66,7 +66,7 @@ export const EventView = (props) => {
         .collection("events")
         .doc(eventId)
         .collection("releases")
-        .where("delete", "==", false)
+        .where("deleted", "==", false)
         .onSnapshot((releasesQuery) => {
           setReleases(snapshotToArray(releasesQuery));
         });

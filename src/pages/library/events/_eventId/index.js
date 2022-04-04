@@ -36,7 +36,7 @@ export const Event = (props) => {
         .collection("companies")
         .doc(authUser?.company.id)
         .collection("members")
-        .where("delete", "==", false)
+        .where("deleted", "==", false)
         .onSnapshot((membersSnapshot) => {
           const _members = snapshotToArray(membersSnapshot);
           setMembers(_members);
@@ -55,7 +55,7 @@ export const Event = (props) => {
         .collection("events")
         .doc(eventId)
         .collection("members")
-        .where("delete", "==", false)
+        .where("deleted", "==", false)
         .onSnapshot((membersSnapshot) => {
           const _members = snapshotToArray(membersSnapshot);
           setMembers(_members);

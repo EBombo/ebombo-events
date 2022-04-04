@@ -91,7 +91,7 @@ export const EventStepTwo = (props) => {
       id: firestore.collection("companies").doc(authUser?.company.id).collection("members").doc().id,
       searchName: [visitor.toUpperCase()],
       status: "Active",
-      delete: false,
+      deleted: false,
     }));
 
     await props.setMembers(props.members.concat(_visitors));
