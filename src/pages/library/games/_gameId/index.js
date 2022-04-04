@@ -8,6 +8,7 @@ import { Hanged } from "./Hanged";
 import { spinLoader } from "../../../../components/common/loader";
 import { Roulette } from "./Roulette";
 import { Trivia } from "./Trivia";
+import defaultTo from "lodash/defaultTo";
 
 export const updateGameUrl = (adminGame, game, authUser) => `${adminGame.api}/games/${game.id}/users/${authUser.id}`;
 
@@ -59,9 +60,12 @@ export const GameContainer = (props) => {
   }, [folderId]);
 
   useEffect(() => {
+    if (!gameId) return;
+
     if (gameId === "new") return;
 
-    const _game = games.find((game) => game.id === gameId);
+    
+    const _game = defaultTo(games, []).find((game) => game.id === gameId);
 
     setCurrentGame(_game);
   }, [gameId, games]);
