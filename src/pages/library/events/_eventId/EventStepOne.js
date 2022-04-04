@@ -1,19 +1,34 @@
-import React, { useState } from "reactn";
+import React, { useEffect, useState } from "reactn";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import { DatePicker, TimePicker } from "antd";
 import { ButtonAnt, Input } from "../../../../components/form";
+import moment from "moment";
+import isEmpty from "lodash/isEmpty";
 
 export const EventStepOne = (props) => {
-  const [name, setName] = useState(props.event?.name ?? "");
-  const [link, setLink] = useState(props.event?.link ?? "");
-  const [imageUrl, setImageUrl] = useState(props.event?.imageUrl ?? "");
-  const [eventDate, setEventDate] = useState(props.event?.eventDate ?? "");
-  const [startAt, setStartAt] = useState(props.event?.startAt ?? "");
-  const [endAt, setEndAt] = useState(props.event?.endAt ?? "");
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [eventDate, setEventDate] = useState("");
+  const [startAt, setStartAt] = useState("");
+  const [endAt, setEndAt] = useState("");
 
   const [errorEventDate, setErrorEventDate] = useState(false);
 
-  const saveStepOne = async (data) => {
+  const dateFormat = "DD/MM/YYYY";
+
+  useEffect(() => {
+    if (!props.event) return;
+
+    setName(props.event.name ?? "");
+    setLink(props.event.link ?? "");
+    setImageUrl(props.event.imageUrl ?? "");
+    setEventDate(props.event.eventDate ?? "");
+    setStartAt(props.event.startAt ?? "");
+    setEndAt(props.event.endAt ?? "");
+  }, [props.event]);
+
+  const saveStepOne = async () => {
     if (!startAt || !endAt || !eventDate) {
       setErrorEventDate(true);
       return props.showNotification("Error", "Completa la fecha y las horas del evento");
@@ -78,9 +93,12 @@ export const EventStepOne = (props) => {
         <div className="flex flex-col gap-[5px] w-full md:w-fit">
           <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">Día del evento</div>
           <DatePicker
+            key={eventDate}
             onChange={(value) => {
-              setEventDate(value.toDate());
+              setEventDate(value.format(dateFormat));
             }}
+            defaultValue={!isEmpty(eventDate) ? moment(eventDate, dateFormat) : ""}
+            format={dateFormat}
             style={{
               border: "1px solid #C4C4C4",
               borderRadius: "4px",
@@ -96,10 +114,11 @@ export const EventStepOne = (props) => {
             <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">Inicio del evento</div>
 
             <TimePicker
-              use12Hours
-              format="h:mm a"
+              key={startAt}
+              format="hh:mm"
               placeholder="Hora de Inicio"
-              onChange={(value) => setStartAt(value.format("hh:mm:ss a"))}
+              defaultValue={!isEmpty(startAt) ? moment(startAt, "HH:mm") : ""}
+              onChange={(value) => setStartAt(value.format("HH:mm"))}
               style={{
                 border: "1px solid #C4C4C4",
                 borderRadius: "4px",
@@ -112,10 +131,11 @@ export const EventStepOne = (props) => {
           <div className="flex flex-col gap-[5px]">
             <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">Fin del evento</div>
             <TimePicker
-              use12Hours
-              format="h:mm a"
+              key={endAt}
+              format="hh:mm"
               placeholder="Hora de fin"
-              onChange={(value) => setEndAt(value.format("hh:mm:ss a"))}
+              defaultValue={!isEmpty(endAt) ? moment(endAt, "HH:mm") : ""}
+              onChange={(value) => setEndAt(value.format("HH:mm"))}
               style={{
                 border: "1px solid #C4C4C4",
                 borderRadius: "4px",
