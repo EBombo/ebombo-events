@@ -9,6 +9,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { useSendError } from "../../../hooks";
 import { useRouter } from "next/router";
 import moment from "moment";
+import { timeoutPromise } from "../../../utils/promised";
 
 const eventBy = {
   participants: "asistente",
@@ -68,6 +69,11 @@ export const ResumeEvent = (props) => {
       ...user,
       event: eventMapped,
     });
+
+    // TODO: Consider use listener to redirect after the account is created.
+    await timeoutPromise(5000);
+
+    await router.push("/library/events");
 
     setIsVisibleModal(true);
   };

@@ -20,6 +20,7 @@ export const Home = (props) => {
 
   useEffect(() => {
     router.prefetch("/library");
+    router.prefetch("/library/events");
   }, []);
 
   useEffect(() => {
@@ -27,6 +28,12 @@ export const Home = (props) => {
 
     router.push("/");
   }, [authUser]);
+
+  const createEvent = () => {
+    if (authUser) return router.push("/library/events");
+
+    setIsVisibleModalEvents((prev) => !prev);
+  };
 
   return (
     <LandingContainer>
@@ -39,21 +46,21 @@ export const Home = (props) => {
         />
       )}
 
-      <HeaderLanding setIsVisibleModalEvents={setIsVisibleModalEvents} />
+      <HeaderLanding createEvent={createEvent} />
 
-      <Products setIsVisibleModalEvents={setIsVisibleModalEvents} />
+      <Products createEvent={createEvent} />
 
       <EventsInformation {...props} />
 
       <EbomboStyle {...props} />
 
-      <Options {...props} setIsVisibleModalEvents={setIsVisibleModalEvents} />
+      <Options {...props} createEvent={createEvent} />
 
       <Companies {...props} />
 
       <Comments {...props} />
 
-      <BannerEbombo {...props} setIsVisibleModalEvents={setIsVisibleModalEvents} btnContact />
+      <BannerEbombo {...props} createEvent={createEvent} btnContact />
     </LandingContainer>
   );
 };
