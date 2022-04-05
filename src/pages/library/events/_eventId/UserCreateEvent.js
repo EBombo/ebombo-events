@@ -15,7 +15,6 @@ const steps = [
 
 export const UserCreateEvent = (props) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [event, setEvent] = useState({});
 
   return (
     <div>
@@ -43,42 +42,10 @@ export const UserCreateEvent = (props) => {
         ))}
       </div>
       <div className="w-full flex flex-col items center bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 h-[calc(100vh-180px)] overflow-auto">
-        {currentStep === 1 && (
-          <EventStepOne
-            {...props}
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-            setEvent={setEvent}
-            event={event}
-          />
-        )}
-        {currentStep === 2 && (
-          <EventStepTwo
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-            event={event}
-            setEvent={setEvent}
-            {...props}
-          />
-        )}
-        {currentStep === 3 && (
-          <EventStepThree
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-            event={event}
-            setEvent={setEvent}
-            {...props}
-          />
-        )}
-        {currentStep === 4 && (
-          <EventStepFour
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-            event={event}
-            setEvent={setEvent}
-            {...props}
-          />
-        )}
+        {currentStep === 1 && <EventStepOne {...props} currentStep={currentStep} setCurrentStep={setCurrentStep} />}
+        {currentStep === 2 && <EventStepTwo currentStep={currentStep} setCurrentStep={setCurrentStep} {...props} />}
+        {currentStep === 3 && <EventStepThree currentStep={currentStep} setCurrentStep={setCurrentStep} {...props} />}
+        {currentStep === 4 && <EventStepFour currentStep={currentStep} setCurrentStep={setCurrentStep} {...props} />}
       </div>
     </div>
   );
