@@ -42,6 +42,7 @@ module.exports = {
         "pattern-gray": `url('${config.storageUrl}/resources/pattern-gray.svg')`,
         pattern: `url('${config.storageUrl}/resources/pattern.svg')`,
         selector: `url('${config.storageUrl}/resources/selector.png')`,
+        "tapiz-1": `url(${config.storageUrl}/resources/tapiz-v2.svg)`,
       }),
     },
   },

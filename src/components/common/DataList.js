@@ -929,3 +929,13 @@ export const PlanIntervals = {
   month: "mensual",
   year: "anual",
 };
+
+export const TeamBuildingLiterals = {
+  header: {
+    subheading: "Házlo como nadie",
+    heading: "TEAM BUILDING",
+    description: "Creado por profesionales que se toman la diversión seria, nuestro equipo virtual de team building events crea ese tipo de enlaces que demorarían años en crearse en una forma de trabajo remoto. ",
+  },
+};
+
+

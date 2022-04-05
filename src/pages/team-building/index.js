@@ -5,18 +5,39 @@ import { mediaQuery } from "../../constants";
 import { Icon } from "../../components/common/Icons";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
+import { ButtonAnt } from "../../components/form";
+import { TeamBuildingLiterals } from "../../components/common/DataList";
 
 export const TeamBuilding = (props) => {
   const router = useRouter();
 
   return (
-    <TeamBuildingContainer>
+    <div>
+      <section className="bg-tapiz-1 bg-white h-screen">
+        <div className="grid md:grid-cols-[1fr_2fr] max-w-[1500px] mx-auto">
+          <div className="px-8">
+            <h3 className="text-primary">{TeamBuildingLiterals.header.subheading}</h3>
+            <h2 className="text-secondary uppercase">{TeamBuildingLiterals.header.heading}</h2>
+            <p className="text-secondary">{TeamBuildingLiterals.header.description}</p>
+            <ButtonAnt className="hidden md:block">Regístrate</ButtonAnt>   
+          </div>
+          <div className="px-8">
+            <img src="https://via.placeholder.com/300x300" alt="" />
+          </div>
+          <div className="md:hidden">
+           <ButtonAnt>Regístrate</ButtonAnt>   
+          </div>
+
+        </div>
+
+      </section>
       <div className="title-container">
         <div className="back-container">
           <Icon className="back-icon" type="left" onClick={() => router.back()} />
         </div>
         <div className="title">¿Quiénes somos?</div>
       </div>
+
       <div className="main-content">
         <Image
           data-aos="fade-right"
@@ -46,7 +67,7 @@ export const TeamBuilding = (props) => {
              */}
         </div>
       </div>
-    </TeamBuildingContainer>
+    </div>
   );
 };
 
