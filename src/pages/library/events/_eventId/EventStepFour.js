@@ -5,7 +5,6 @@ import { Image } from "../../../../components/common/Image";
 import { config, firestore } from "../../../../firebase";
 import capitalize from "lodash/capitalize";
 import defaultTo from "lodash/defaultTo";
-import moment from "moment";
 import { Anchor, ButtonAnt } from "../../../../components/form";
 import { useRouter } from "next/router";
 
@@ -34,10 +33,6 @@ export const EventStepFour = (props) => {
       manageByUser: true,
     };
 
-    const members = [...event.members];
-
-    delete event.members;
-
     delete event.adminGames;
 
     if (!eventRef.exist) {
@@ -48,12 +43,13 @@ export const EventStepFour = (props) => {
       await eventRef.update({ ...event, updateAt: new Date() });
     }
 
-    const membersPromise = members.map(
+    const membersPromise = props.members.map(
       async (member) =>
         await firestore
           .collection("events")
           .doc(event.id)
           .collection("members")
+          .doc(member.id)
           .set({ ...member, updateAt: new Date() }, { merge: true })
     );
 
@@ -81,9 +77,7 @@ export const EventStepFour = (props) => {
             Fecha
           </div>
           <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px] md:text-[18px] md:leading-[22px]">
-            {`${moment(props.event?.eventDate ?? "").format(
-              "LL"
-            )} ${props.event?.startAt?.toUpperCase()} ${props.event?.endAt?.toUpperCase()}`}
+            {`${props.event?.eventDate} ${props.event?.startAt?.toUpperCase()} ${props.event?.endAt?.toUpperCase()}`}
           </div>
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
             Link de la reunión
@@ -97,7 +91,7 @@ export const EventStepFour = (props) => {
             Invitados
           </div>
           <div className="min-w-[500px]">
-            <Table columns={columns} dataSource={props.event?.members ?? []} className="rounded-[6px]" />
+            <Table columns={columns} dataSource={props.members} className="rounded-[6px]" />
           </div>
         </div>
         <div className="flex flex-col md:h-[350px] md:overflow-auto md:overflow-x-hidden">
