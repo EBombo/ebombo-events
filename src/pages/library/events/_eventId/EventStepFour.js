@@ -12,13 +12,23 @@ import { useRouter } from "next/router";
 export const EventStepFour = (props) => {
   const router = useRouter();
 
+  const { eventId } = router.query;
+
   const [authUser] = useGlobal("user");
+  const [games] = useGlobal("userGames");
 
   const [isLoading, setIsLoading] = useState(false);
+  const [eventGames, setEventGames] = useState([]);
 
   useEffect(() => {
     router.prefetch("/library/events/[eventId]/view");
   }, []);
+
+  useEffect(() => {
+    const _eventGames = defaultTo(games, []).filter((game) => game.eventId === eventId);
+
+    setEventGames(_eventGames);
+  }, [eventId, games]);
 
   const createEvent = async () => {
     setIsLoading(true);
@@ -65,6 +75,16 @@ export const EventStepFour = (props) => {
   };
 
   const createEventGames = async (event, adminGames) => {
+    const deletePromise = eventGames.map(async (game) => {
+      let currentFirestore = gamesFirestore(game?.adminGame?.name);
+
+      await currentFirestore.collectio("games").doc(game.id).update({
+        deleted: true,
+      });
+    });
+
+    await Promise.all(deletePromise);
+
     const gamesPromises = adminGames.map(async (adminGame) => {
       const currentFirebase = gamesFirestore(adminGame.name);
 
