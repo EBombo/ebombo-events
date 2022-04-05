@@ -1,4 +1,4 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import { Image } from "../../../../components/common/Image";
 import { Anchor, ButtonAnt } from "../../../../components/form";
 import { config } from "../../../../firebase";
@@ -8,7 +8,19 @@ import isEmpty from "lodash/isEmpty";
 export const EventStepThree = (props) => {
   const [adminGames] = useGlobal("adminGames");
 
-  const [selectedGames, setSelectedGames] = useState(props.event?.adminGames ?? []);
+  const [selectedGames, setSelectedGames] = useState([]);
+
+  useEffect(() => {
+    if (!props.event?.adminGamesIds) return;
+
+    setSelectedGames(adminGames.filter((game) => props.event.adminGamesIds.includes(game.id)));
+  }, [props.event]);
+
+  useEffect(() => {
+    if (!props.event?.adminGames) return;
+
+    setSelectedGames(adminGames.filter((game) => props.event.adminGames.map((game) => game.id).includes(game.id)));
+  }, [props.event]);
 
   const addGame = (game) => {
     if (selectedGames.map((game) => game.id).includes(game.id)) {
