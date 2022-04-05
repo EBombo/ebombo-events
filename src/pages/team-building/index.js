@@ -2,16 +2,15 @@ import React from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { mediaQuery } from "../../constants";
-import { ContactForm } from "../contact";
 import { Icon } from "../../components/common/Icons";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
 
-export const OnBoarding = (props) => {
+export const TeamBuilding = (props) => {
   const router = useRouter();
 
   return (
-    <AboutUsContainer>
+    <TeamBuildingContainer>
       <div className="title-container">
         <div className="back-container">
           <Icon className="back-icon" type="left" onClick={() => router.back()} />
@@ -47,9 +46,7 @@ export const OnBoarding = (props) => {
              */}
         </div>
       </div>
-
-      <ContactForm />
-    </AboutUsContainer>
+    </TeamBuildingContainer>
   );
 };
 
