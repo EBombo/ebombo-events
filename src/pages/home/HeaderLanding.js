@@ -8,7 +8,7 @@ import { useTranslation } from "../../hooks";
 
 export const HeaderLanding = (props) => {
   const router = useRouter();
-  const { t } = useTranslation("landing");
+  const { t } = useTranslation("landing.header");
 
   useEffect(() => {
     router.prefetch("/register");

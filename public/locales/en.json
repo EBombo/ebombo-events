@@ -3,10 +3,12 @@
   "es": "Spanish",
   "language": "Language",
   "landing": {
-    "ebombo-style": "Ebombo style",
-    "title": "We help your company connect with your workers to improve the work environment",
-    "sub-title": "The way your workers meet influences the climate and culture of your company. Our platform allows you to have online experiences and virtual events to promote the productivity, engagement and fun of your workers.",
-    "book-an-event": "book an event"
+    "header": {
+      "ebombo-style": "Ebombo style",
+      "title": "We help your company connect with your workers to improve the work environment",
+      "sub-title": "The way your workers meet influences the climate and culture of your company. Our platform allows you to have online experiences and virtual events to promote the productivity, engagement and fun of your workers.",
+      "book-an-event": "book an event"
+    }
   },
   "nav": {
     "login": "Log in",
