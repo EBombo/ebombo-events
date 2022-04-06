@@ -3,6 +3,7 @@ import { Table } from "antd";
 import { columns } from "./EventStepTwo";
 import { Image } from "../../../../components/common/Image";
 import { config, firestore } from "../../../../firebase";
+import { gamesFirestore } from "../../../../components/common/DataList";
 import capitalize from "lodash/capitalize";
 import defaultTo from "lodash/defaultTo";
 import { Anchor, ButtonAnt } from "../../../../components/form";
@@ -11,13 +12,23 @@ import { useRouter } from "next/router";
 export const EventStepFour = (props) => {
   const router = useRouter();
 
+  const { eventId } = router.query;
+
   const [authUser] = useGlobal("user");
+  const [games] = useGlobal("userGames");
 
   const [isLoading, setIsLoading] = useState(false);
+  const [eventGames, setEventGames] = useState([]);
 
   useEffect(() => {
     router.prefetch("/library/events/[eventId]/view");
   }, []);
+
+  useEffect(() => {
+    const _eventGames = defaultTo(games, []).filter((game) => game.eventId === eventId);
+
+    setEventGames(_eventGames);
+  }, [eventId, games]);
 
   const createEvent = async () => {
     setIsLoading(true);
@@ -33,6 +44,8 @@ export const EventStepFour = (props) => {
       manageByUser: true,
     };
 
+    const adminGames = props.event?.adminGames;
+
     delete event.adminGames;
 
     if (!eventRef.exist) {
@@ -42,6 +55,8 @@ export const EventStepFour = (props) => {
     if (eventRef.exist) {
       await eventRef.update({ ...event, updateAt: new Date() });
     }
+
+    await createEventGames(event, adminGames);
 
     const membersPromise = props.members.map(
       async (member) =>
@@ -57,6 +72,44 @@ export const EventStepFour = (props) => {
 
     setIsLoading(false);
     router.push(`/library/events/${props.documentId}/view?manageBy=user`);
+  };
+
+  const createEventGames = async (event, adminGames) => {
+    const deletePromise = eventGames.map(async (game) => {
+      let currentFirestore = gamesFirestore(game?.adminGame?.name);
+
+      await currentFirestore.collectio("games").doc(game.id).update({
+        deleted: true,
+      });
+    });
+
+    await Promise.all(deletePromise);
+
+    const gamesPromises = adminGames.map(async (adminGame) => {
+      const currentFirebase = gamesFirestore(adminGame.name);
+
+      const newId = currentFirebase.collection("games").doc().id;
+
+      await currentFirebase
+        .collection("games")
+        .doc(newId)
+        .set(
+          {
+            name: `Juego ${adminGame.title} sin nombre`,
+            deleted: false,
+            user: authUser,
+            usersIds: [authUser?.id],
+            createAt: new Date(),
+            updateAt: new Date(),
+            id: newId,
+            eventId: event.id,
+            adminGame,
+          },
+          { merge: true }
+        );
+    });
+
+    await Promise.all(gamesPromises);
   };
 
   return (

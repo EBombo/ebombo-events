@@ -1,7 +1,24 @@
 import { darkTheme } from "../../theme";
-import { config } from "../../firebase";
+import { config, firestoreBingo, firestoreHanged, firestoreRoulette, firestoreTrivia } from "../../firebase";
 import React from "react";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+
+export const gamesFirestore = (name) => {
+  switch (name) {
+    case "bingo":
+      return firestoreBingo;
+    case "trivia":
+      return firestoreTrivia;
+    case "hanged":
+      return firestoreHanged;
+    case "roulette":
+      return firestoreRoulette;
+    case "rouletteQuestions":
+      return firestoreRoulette;
+    default:
+      return firestoreBingo;
+  }
+};
 
 export const skippedWords = ";:!¡?¿ ";
 
