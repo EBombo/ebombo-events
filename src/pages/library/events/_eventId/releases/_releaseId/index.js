@@ -30,7 +30,7 @@ export const Release = (props) => {
     if (releaseId === "new") return;
 
     const fetchRelease = async () => {
-      const releaseRef = firestore.collection("events").doc(eventId).collection("releases").doc(releaseId).get();
+      const releaseRef = await firestore.collection("events").doc(eventId).collection("releases").doc(releaseId).get();
 
       const _release = releaseRef.data();
       setRelease(_release);

@@ -7,7 +7,7 @@ import { Image } from "../../../../../components/common/Image";
 import { config, firestore } from "../../../../../firebase";
 import capitalize from "lodash/capitalize";
 import { useRouter } from "next/router";
-import { ButtonAnt } from "../../../../../components/form";
+import { Anchor, ButtonAnt } from "../../../../../components/form";
 import { snapshotToArray } from "../../../../../utils";
 
 export const EventView = (props) => {
@@ -17,8 +17,9 @@ export const EventView = (props) => {
 
   const [events] = useGlobal("userEvents");
   const [adminGames] = useGlobal("adminGames");
-  const [adminGamesHash, setAdminGamesHash] = useState({});
 
+  const [adminGamesHash, setAdminGamesHash] = useState({});
+  const [members, setMembers] = useState([]);
   const [releases, setReleases] = useState([]);
 
   const event = useMemo(() => {
@@ -41,6 +42,23 @@ export const EventView = (props) => {
 
     setAdminGamesHash(_adminGamesHash);
   }, [adminGames]);
+
+  useEffect(() => {
+    const fetchMembers = () =>
+      firestore
+        .collection("events")
+        .doc(eventId)
+        .collection("members")
+        .where("deleted", "==", false)
+        .onSnapshot((membersSnapshot) => {
+          const _members = snapshotToArray(membersSnapshot);
+          setMembers(_members);
+        });
+
+    const unsubscribeMembers = fetchMembers();
+
+    return () => unsubscribeMembers && unsubscribeMembers();
+  }, [eventId]);
 
   useEffect(() => {
     const fetchReleases = () =>
@@ -97,7 +115,7 @@ export const EventView = (props) => {
             Invitados
           </div>
           <div className="min-w-[500px]">
-            <Table columns={columns} dataSource={event?.members ?? []} className="rounded-[6px]" />
+            <Table columns={columns} dataSource={members} className="rounded-[6px]" />
           </div>
         </div>
 
@@ -133,14 +151,21 @@ export const EventView = (props) => {
             Comunicados
           </div>
           <div className="flex flex-col md:h-[350px] md:overflow-auto md:overflow-x-hidden">
-            {defaultTo(event?.releases, []).map((release) => (
+            {releases.map((release) => (
               <div
-                className="bg-white rounded-[6px] flex items-center p-2 border-grayLighten border-[1px] w-[350px] my-2"
+                className="bg-white rounded-[6px] flex items-center p-2 border-grayLighten border-[1px] w-[350px] my-2 flex items-center gap-4"
                 key={release.id}
               >
-                <div className="text-['Lato'] font-[400] text-[14px] leading-[16px] text-grayLight">
-                  {capitalize(release.name)}
+                <div className="text-['Lato'] font-[400] text-[14px] leading-[16px] text-grayLight no-wrap">
+                  {capitalize(release.subject)}
                 </div>
+                <Anchor
+                  underlined
+                  variant="secondary"
+                  onClick={() => router.push(`/library/events/${eventId}/releases/${release.id}`)}
+                >
+                  Ver
+                </Anchor>
               </div>
             ))}
           </div>

@@ -1,9 +1,11 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import { Anchor, ButtonAnt, Input, Select, TextArea } from "../../../../components/form";
 import { Table } from "antd";
 import isEmpty from "lodash/isEmpty";
 import { firestore } from "../../../../firebase";
-import { snapshotToArray } from "../../../../utils/snapshotToArray";
+import { useRouter } from "next/router";
+import { object, string } from "yup";
+import { useForm } from "react-hook-form";
 
 const filterOptions = [
   {
@@ -49,31 +51,24 @@ export const columns = [
 ];
 
 export const EventStepTwo = (props) => {
+  const router = useRouter();
+
+  const { eventId } = router.query;
+
   const [authUser] = useGlobal("user");
 
-  const [members, setMembers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [visitors, setVisitors] = useState("");
+  const [addingVisitors, setAddingVisitors] = useState(false);
 
-  useEffect(() => {
-    if (!authUser?.company) return;
+  const schema = object().shape({
+    visitors: string().required(),
+  });
 
-    const fetchMembers = () =>
-      firestore
-        .collection("companies")
-        .doc(authUser?.company.id)
-        .collection("members")
-        .where("delete", "==", false)
-        .onSnapshot((membersSnapshot) => {
-          const _members = snapshotToArray(membersSnapshot);
-          setMembers(_members);
-        });
-
-    const unsubscribeMembers = fetchMembers();
-
-    return () => unsubscribeMembers && unsubscribeMembers();
-  }, []);
+  const { register, errors, handleSubmit, reset } = useForm({
+    validationSchema: schema,
+    reValidateMode: "onSubmit",
+  });
 
   const deleteSelectedUsers = () => {};
 
@@ -84,12 +79,10 @@ export const EventStepTwo = (props) => {
     },
   };
 
-  const validateStepTwo = () => {
-    const visitorsArray = visitors.split("\n");
-
-    const _filterVisitors = visitorsArray.filter((visitor) => {
-      return visitor !== "";
-    });
+  const addVisitors = async (data) => {
+    setAddingVisitors(true);
+    const visitorsArray = data.visitors.split("\n");
+    const _filterVisitors = visitorsArray.filter((visitor) => visitor !== "");
 
     const _visitors = _filterVisitors.map((visitor) => ({
       email: visitor,
@@ -98,14 +91,14 @@ export const EventStepTwo = (props) => {
       id: firestore.collection("companies").doc(authUser?.company.id).collection("members").doc().id,
       searchName: [visitor.toUpperCase()],
       status: "Active",
+      deleted: false,
     }));
 
-    props.setEvent({
-      ...props.event,
-      members: [...members, ..._visitors],
-    });
+    await props.setMembers(props.members.concat(_visitors));
 
-    props.setCurrentStep(3);
+    await reset();
+
+    setAddingVisitors(false);
   };
 
   return (
@@ -156,43 +149,38 @@ export const EventStepTwo = (props) => {
                   ...rowSelection,
                 }}
                 columns={columns}
-                dataSource={members}
+                dataSource={props.members}
               />
             </div>
           </div>
         </div>
-        <div className="w-full md:max-w-[400px]">
+        <form className="w-full md:max-w-[400px]" onSubmit={handleSubmit(addVisitors)}>
           <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">Invitados extras</div>
           <div className="mt-4">
             <TextArea
-              onChange={(e) => {
-                e.preventDefault();
-                setVisitors(e.target.value);
-              }}
+              name="visitors"
+              ref={register}
+              error={errors.visitors}
               color="black"
               background={"#FAFAFA"}
               border={"1px solid #C4C4C4"}
-              value={visitors}
               placeholder={"Escribe\n" + "Cada\n" + "Correo\n" + "en una linea\n" + "unica"}
-              name="visitors"
               rows="10"
             />
           </div>
-          <ButtonAnt color="default" margin="1rem 0">
-            Import Excel
+          <ButtonAnt color="default" margin="1rem 0" htmlType="submit" loading={addingVisitors}>
+            Añadir
           </ButtonAnt>
-
-          {/* <Anchor underlined variant="secondary">
-            Descargar plantilla de Excel
-          </Anchor> */}
-        </div>
+        </form>
       </div>
 
       <div className="flex w-full items-center justify-between">
         <Anchor underlined variant="secondary" onClick={() => props.setCurrentStep(1)}>
           Volver
         </Anchor>
-        <ButtonAnt onClick={() => validateStepTwo()}>Siguiente</ButtonAnt>
+        <ButtonAnt disabled={addingVisitors} onClick={() => props.setCurrentStep(3)}>
+          Siguiente
+        </ButtonAnt>
       </div>
     </div>
   );
