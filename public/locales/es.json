@@ -39,6 +39,17 @@
           "custom-plans": "Planes personalizados"
         }
       }
+    },
+    "information": {
+      "title": "Dirige como quieras las dinámicas virtuales",
+      "titles": {
+        "pro-hosted": "Pro Hosted",
+        "self-hosted": "Self hosted"
+      },
+      "descriptions": {
+        "pro-hosted": "Déjalo en manos de un miembro del equipo de Customer Success de ebombo. Además, un animador elite o VIP dirigirá tu evento en vivo que unirá a tu equipo en una experiencia colaborativa y divertida.",
+        "self-hosted": "Es tu momento. Lo hemos hecho fácil e intuitivo para que tú u otra persona de tu equipo sea quien cree y dirija las actividades virtuales que ebombo ofrece."
+      }
     }
   },
   "nav": {
