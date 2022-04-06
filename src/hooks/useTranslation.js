@@ -19,7 +19,7 @@ export const useTranslation = (path) => {
     (locale) => {
       router.push(asPath, asPath, { locale });
     },
-    [asPath]
+    [asPath, router, locale]
   );
 
   // You can use:
@@ -28,7 +28,7 @@ export const useTranslation = (path) => {
     (keyString) => {
       return get(TRANSLATIONS[locale], `${path ? `${path}.` : ""}${keyString}`);
     },
-    [TRANSLATIONS, locale]
+    [TRANSLATIONS, locale, path]
   );
 
   return { t, locales, locale, setLocale };
