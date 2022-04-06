@@ -25,8 +25,10 @@ export const useTranslation = (path) => {
   // You can use:
   // const {t} = useTranslation("landing") or t("landing.title")
   const t = useCallback(
-    (keyString) => {
-      return get(TRANSLATIONS[locale], `${path ? `${path}.` : ""}${keyString}`);
+    (keyString, defaultValue = "") => {
+      const route = path ? `${path}.` : "";
+
+      return get(TRANSLATIONS[locale], `${route}${keyString}`, defaultValue ?? keyString);
     },
     [TRANSLATIONS, locale, path]
   );
