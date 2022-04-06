@@ -23,7 +23,8 @@ export const useTranslation = (path) => {
   );
 
   // You can use:
-  // const {t} = useTranslation("landing") or t("landing.title")
+  // t("landing.title"); OR const {t} = useTranslation("landing");
+  // You can define a default value: t("landing.title","defaultValue");
   const t = useCallback(
     (keyString, defaultValue = "") => {
       const route = path ? `${path}.` : "";
