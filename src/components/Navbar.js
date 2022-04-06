@@ -8,11 +8,15 @@ import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import { Layout } from "./common/Layout";
 import { Footer } from "./Footer";
+import { useTranslation } from "../hooks";
+import { Popover } from "antd";
 
 export const Navbar = (props) => {
   const router = useRouter();
 
   const { signOut } = useAuth();
+
+  const { t, locale, locales, setLocale } = useTranslation();
 
   const [authUser] = useGlobal("user");
 
@@ -41,7 +45,7 @@ export const Navbar = (props) => {
 
   return (
     <>
-      <Layout>
+      <Layout key={locale}>
         <NavContainer active={active} border={isNavWithBorder}>
           <div className="left-container">
             <Image
@@ -73,22 +77,33 @@ export const Navbar = (props) => {
               </Anchor>
                  */}
                   <Anchor url="/about-us" className="link">
-                    Sobre nosotros
+                    {t("nav.about-us")}
                   </Anchor>
                   {!authUser && (
                     <Anchor url="/contact" className="link">
-                      Contacto
+                      {t("nav.contact")}
                     </Anchor>
                   )}
                 </>
               )}
+
+              <Popover
+                placement="bottom"
+                content={locales.map((locale) => (
+                  <div key={locale} onClick={() => setLocale(locale)} className="cursor-pointer">
+                    {t(locale)}
+                  </div>
+                ))}
+              >
+                <Anchor className="link">{t("language")}</Anchor>
+              </Popover>
             </Desktop>
           </div>
 
           <Desktop>
             {authUser ? (
               <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
-                Cerrar Sesión
+                {t("nav.logout")}
               </Anchor>
             ) : (
               <div className="btns-container">
@@ -100,7 +115,7 @@ export const Navbar = (props) => {
                   margin="auto 8px"
                   className="anchor"
                 >
-                  Iniciar sesión
+                  {t("nav.login")}
                 </Anchor>
                 {isEventPage ? null : (
                   <ButtonAnt
@@ -109,7 +124,7 @@ export const Navbar = (props) => {
                     variant="contained"
                     fontSize="18px"
                   >
-                    Contáctanos
+                    {t("nav.contact-us")}
                   </ButtonAnt>
                 )}
               </div>

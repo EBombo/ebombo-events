@@ -5,6 +5,11 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 const isProd = process.env.NODE_ENV === "production";
 
 module.exports = withBundleAnalyzer({
+  reactStrictMode: true,
+  i18n: {
+    locales: ["es", "en"],
+    defaultLocale: "es",
+  },
   webpack: (config, { webpack }) => {
     config.plugins.push(
       new webpack.IgnorePlugin({
@@ -78,17 +83,17 @@ module.exports = withBundleAnalyzer({
   async rewrites() {
     return [
       {
-        source: '/terms',
+        source: "/terms",
         destination: isProd
-        ? 'https://storage.googleapis.com/ebombo-events.appspot.com/resources/terms-conditions-ebombo.pdf'
-        : 'https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/terms-conditions-ebombo.pdf',
+          ? "https://storage.googleapis.com/ebombo-events.appspot.com/resources/terms-conditions-ebombo.pdf"
+          : "https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/terms-conditions-ebombo.pdf",
       },
       {
-        source: '/privacypolicy',
+        source: "/privacypolicy",
         destination: isProd
-        ? 'https://storage.googleapis.com/ebombo-events.appspot.com/resources/privacy-policy-ebombo.pdf'
-        : 'https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/privacy-policy-ebombo.pdf',
+          ? "https://storage.googleapis.com/ebombo-events.appspot.com/resources/privacy-policy-ebombo.pdf"
+          : "https://storage.googleapis.com/ebombo-events-dev.appspot.com/resources/privacy-policy-ebombo.pdf",
       },
-    ]
+    ];
   },
 });
