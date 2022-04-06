@@ -206,7 +206,7 @@ export const reasons = [
 
 export const landingProducts = [
   {
-    tab: "Actividades virtuales",
+    tab: "virtual-activities",
     content: [
       {
         title: "Actividades virtuales",
@@ -219,7 +219,7 @@ export const landingProducts = [
     ],
   },
   {
-    tab: "Formas de interactuar",
+    tab: "ways-to-interact",
     content: [
       {
         title: "Formas de interactuar",
@@ -242,7 +242,7 @@ export const landingProducts = [
     ],
   },
   {
-    tab: "Planes",
+    tab: "plans",
     content: [
       {
         title: "Planes",

@@ -33,7 +33,7 @@ export const Products = (props) => {
             className={`tab ${index === currentTabIndex ? "active" : ""}`}
             onClick={() => setCurrentTabIx(index)}
           >
-            {product.tab}
+            {t(`tabs.${product.tab}`)}
           </div>
         ))}
       </div>
@@ -77,7 +77,7 @@ export const Products = (props) => {
               margin="25px 0 0 0"
               onClick={() => props.createEvent()}
             >
-              Reservar evento
+              {t("book-an-event")}
             </ButtonAnt>
           </div>
         </div>

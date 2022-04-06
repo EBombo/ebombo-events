@@ -7,18 +7,24 @@
       "ebombo-style": "Ebombo style",
       "title": "We help your company connect with your workers to improve the work environment",
       "sub-title": "The way your workers meet influences the climate and culture of your company. Our platform allows you to have online experiences and virtual events to promote the productivity, engagement and fun of your workers.",
-      "book-an-event": "book an event"
+      "book-an-event": "Book an event"
     },
     "products": {
       "title": "AN INCREDIBLE WAY IN THE WAY YOU CONNECT WITH YOUR TEAM",
-      "sub-title": "We have created a simple and straightforward tool that ensures the connection of your workers in a hybrid or remote scheme and a good work environment"
+      "sub-title": "We have created a simple and straightforward tool that ensures the connection of your workers in a hybrid or remote scheme and a good work environment",
+      "book-an-event": "Book an event",
+      "tabs": {
+        "virtual-activities": "Virtual activities",
+        "ways-to-interact": "Ways to interact",
+        "plans": "Plans"
+      }
     }
   },
   "nav": {
     "login": "Log in",
-    "logout": "logout",
+    "logout": "Logout",
     "about-us": "About us",
     "contact-us": "Contact us",
-    "contact": "contact"
+    "contact": "Contact"
   }
 }

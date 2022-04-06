@@ -11,7 +11,13 @@
     },
     "products": {
       "title": "UNA MANERA INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO",
-      "sub-title": "Hemos creado una herramienta simple y sencilla que asegura la conexión de tus trabajadores en un esquema híbrido o remoto y el buen ambiente laboral"
+      "sub-title": "Hemos creado una herramienta simple y sencilla que asegura la conexión de tus trabajadores en un esquema híbrido o remoto y el buen ambiente laboral",
+      "book-an-event": "Reservar evento",
+      "tabs": {
+        "virtual-activities": "Actividades virtuales",
+        "ways-to-interact": "Formas de interactuar",
+        "plans": "Planes"
+      }
     }
   },
   "nav": {
