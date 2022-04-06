@@ -13,7 +13,7 @@ export const useTranslation = (path) => {
   // Current languages.
   const locales = Object.keys(TRANSLATIONS);
 
-  // Update language an redirect.
+  // Update language and redirect.
   const setLocale = (locale) => router.push(asPath, asPath, { locale });
 
   // You can use:
