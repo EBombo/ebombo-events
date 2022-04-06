@@ -7,9 +7,12 @@ import { CheckOutlined } from "@ant-design/icons";
 import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
+import { useTranslation } from "../../hooks";
 
 export const Products = (props) => {
   const router = useRouter();
+
+  const { t } = useTranslation("landing.products");
 
   const [currentTabIndex, setCurrentTabIx] = useState(0);
 
@@ -19,12 +22,9 @@ export const Products = (props) => {
 
   return (
     <ProductsContainer tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`}>
-      <div className="title">UNA MANERA INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO</div>
+      <div className="title">{t("title")}</div>
 
-      <div className="sub-title">
-        Hemos creado una herramienta simple y sencilla que asegura la conexión de tus trabajadores en un esquema híbrido
-        o remoto y el buen ambiente laboral
-      </div>
+      <div className="sub-title">{t("sub-title")}</div>
 
       <div className="tabs">
         {landingProducts.map((product, index) => (
