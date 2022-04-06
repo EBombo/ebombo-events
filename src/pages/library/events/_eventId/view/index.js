@@ -16,11 +16,13 @@ export const EventView = (props) => {
   const { eventId } = router.query;
 
   const [events] = useGlobal("userEvents");
+  const [games] = useGlobal("userGames");
   const [adminGames] = useGlobal("adminGames");
 
   const [adminGamesHash, setAdminGamesHash] = useState({});
   const [members, setMembers] = useState([]);
   const [releases, setReleases] = useState([]);
+  const [eventGames, setEventGames] = useState([]);
 
   const event = useMemo(() => {
     if (!eventId) return {};
@@ -32,6 +34,7 @@ export const EventView = (props) => {
   }, [events, eventId]);
 
   useEffect(() => {
+    router.prefetch("/library/games/[gameId]");
     router.prefetch("/library/events/[eventId]");
     router.prefetch("/library/events/[eventId]/release/[releaseId]");
   }, []);
@@ -75,6 +78,12 @@ export const EventView = (props) => {
 
     return () => unsubscribeReleases && unsubscribeReleases();
   }, [eventId]);
+
+  useEffect(() => {
+    const _eventGames = defaultTo(games, []).filter((game) => game.eventId === eventId);
+
+    setEventGames(_eventGames);
+  }, [eventId, games]);
 
   return (
     <div className="w-full flex flex-col items center bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 h-[calc(100vh-50px)] overflow-auto">
@@ -124,23 +133,30 @@ export const EventView = (props) => {
             Juegos seleccionados
           </div>
           <div className="flex flex-col md:h-[350px] md:overflow-auto md:overflow-x-hidden">
-            {defaultTo(event?.adminGamesIds, []).map((gameId) => (
+            {eventGames.map((game) => (
               <div
-                className="bg-white rounded-[6px] flex items-center p-2 border-grayLighten border-[1px] w-[320px] my-2"
-                key={gameId}
+                className="bg-white rounded-[6px] grid items-center grid-cols-[auto_auto_60px] p-2 border-grayLighten border-[1px] w-[320px] my-2"
+                key={game.id}
               >
                 <Image
-                  src={`${config.storageUrl}/resources/games/${adminGamesHash[gameId]?.name}.png`}
+                  src={`${config.storageUrl}/resources/games/${adminGamesHash[game?.adminGame?.id]?.name}.png`}
                   height={"60px"}
                   width={"80px"}
                   borderRadius="4px"
-                  margin={"0 5px 0 0"}
+                  margin="0"
                   size="cover"
                 />
 
                 <div className="text-['Lato'] font-[400] text-[14px] leading-[16px] text-grayLight">
-                  {capitalize(adminGamesHash[gameId]?.title)}
+                  {capitalize(game.name)}
                 </div>
+
+                <ButtonAnt
+                  size="small"
+                  onClick={() => router.push(`/library/games/${game.id}?adminGameId=${game.adminGame.id}`)}
+                >
+                  Editar
+                </ButtonAnt>
               </div>
             ))}
           </div>
