@@ -16,7 +16,23 @@
       "tabs": {
         "virtual-activities": "Virtual activities",
         "ways-to-interact": "Ways to interact",
-        "plans": "Plans"
+        "plans": "Plans",
+        "contents": {
+          "titles": {
+            "virtual-activities": "Virtual activities"
+          },
+          "descriptions": {
+            "virtual-activities": "Ebombo has more than 20 virtual activities so you can connect with your workers. We have integration dynamics, entertainment, onboarding, training for new workers, games, anniversaries, awards, ceremonies and much more."
+          }
+        },
+        "options": {
+          "holiday-party": "Holiday party",
+          "trainings": "Trainings",
+          "workshops": "Workshops",
+          "awards": "Awards",
+          "tournaments":"Tournaments",
+          "ceremonies":"Ceremonies"
+        }
       }
     }
   },

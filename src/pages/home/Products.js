@@ -50,24 +50,22 @@ export const Products = (props) => {
           </div>
 
           <div className="bottom-container" data-aos="fade-right" data-aos-delay="500">
-            <div className="subtitle">{product.title}</div>
+            <div className="subtitle">{t(`tabs.contents.titles.${product.title}`)}</div>
 
-            <div className="description">{product.description}</div>
+            <div className="description">{t(`tabs.contents.descriptions.${product.description}`)}</div>
 
             <div className="options-contain">
-              {chunk(product?.options ?? [], 5)?.map((optionChunk, index) => {
-                return (
-                  <div className="options" key={`option-chunk-${index}`}>
-                    {optionChunk.map((option) => {
-                      return (
-                        <div className="option" key={`option-${option}`}>
-                          <CheckOutlined /> {option}
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
+              {/*The options were chunked.*/}
+              {chunk(product?.options ?? [], 5)?.map((optionChunk, index) => (
+                <div className="options" key={`option-chunk-${index}`}>
+                  {/*Chunk options map.*/}
+                  {optionChunk.map((option) => (
+                    <div className="option" key={`option-${option}`}>
+                      <CheckOutlined /> {t(`tabs.options.${option}`, option)}
+                    </div>
+                  ))}
+                </div>
+              ))}
             </div>
 
             <ButtonAnt
