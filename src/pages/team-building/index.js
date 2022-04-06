@@ -1,168 +1,156 @@
-import React from "reactn";
+import React, { useRef } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { mediaQuery } from "../../constants";
+import { Desktop } from "../../constants";
 import { Icon } from "../../components/common/Icons";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt } from "../../components/form";
 import { TeamBuildingLiterals } from "../../components/common/DataList";
+import { Carousel } from "../../components/common/Carousel";
 
 export const TeamBuilding = (props) => {
   const router = useRouter();
 
+  const carouselRef = useRef(null);
+
+  const goPrevious = () => {
+    carouselRef.current.prev();
+  };
+
+  const goNext = () => {
+    carouselRef.current.next();
+  };
+
+  const GameContentItem = ({ gameContent }) => (<div>
+    <div className="text-white">
+      <div className="aspect-square w-full mb-4"><img src={gameContent.img} alt="" /></div>
+      <div className="text-2xl mb-4">{gameContent.title}</div>
+      <p className="text-base">{gameContent.description}</p>
+    </div>
+  </div>);
+
   return (
     <div>
-      <section className="bg-tapiz-1 bg-white h-screen">
-        <div className="grid md:grid-cols-[1fr_2fr] max-w-[1500px] mx-auto">
+      <section className="bg-tapiz-1 bg-white md:h-[calc(100vh-100px)] flex flex-col justify-center pt-14 md:pt-0">
+        <div className="grid md:grid-cols-[4fr_6fr] max-w-[1500px] mx-auto">
           <div className="px-8">
-            <h3 className="text-primary">{TeamBuildingLiterals.header.subheading}</h3>
-            <h2 className="text-secondary uppercase">{TeamBuildingLiterals.header.heading}</h2>
-            <p className="text-secondary">{TeamBuildingLiterals.header.description}</p>
-            <ButtonAnt className="hidden md:block">Regístrate</ButtonAnt>   
-          </div>
-          <div className="px-8">
-            <img src="https://via.placeholder.com/300x300" alt="" />
-          </div>
-          <div className="md:hidden">
-           <ButtonAnt>Regístrate</ButtonAnt>   
+            <h3 className="text-primary font-bold text-3xl md:text-5xl">{TeamBuildingLiterals.header.subheading}</h3>
+            <h2 className="text-secondary text-5xl md:text-7xl font-bold uppercase">{TeamBuildingLiterals.header.heading}</h2>
+            <p className="text-secondary text-base md:text-2xl">{TeamBuildingLiterals.header.description}</p>
+            <div className="hidden md:block">
+              <ButtonAnt size="big" color="success"><span className="text-lg font-bold">Regístrate</span></ButtonAnt>
+            </div>
           </div>
 
+          <div className="px-8">
+            <img
+              src="https://via.placeholder.com/500x300"
+              alt=""
+              className="w-full aspect-video rounded-2xl"
+            />
+          </div>
+
+          <div className="md:hidden px-8 py-8">
+           <ButtonAnt size="big" color="success"><span className="text-lg font-bold">Regístrate</span></ButtonAnt>   
+          </div>
         </div>
-
       </section>
-      <div className="title-container">
-        <div className="back-container">
-          <Icon className="back-icon" type="left" onClick={() => router.back()} />
-        </div>
-        <div className="title">¿Quiénes somos?</div>
-      </div>
 
-      <div className="main-content">
-        <Image
-          data-aos="fade-right"
-          src={`${config.storageUrl}/resources/ebombo-white.png`}
-          height="auto"
-          width="200px"
-          desktopHeight="75px"
-          desktopWidth="280px"
-          margin="2rem 0 4rem 0"
-        />
-        <div className="flex-container">
-          <div className="text" data-aos="fade-right">
-            ebombo es una empresa de tecnología de recursos humanos enfocada en el futuro del trabajo. Permitiendo que
-            otras empresas conecten con sus empleados y mejoren su ambiente de trabajo. Todo esto es posible con las
-            actividades virtuales que creamos. Estas actividades consisten en diferentes tipos de juegos, dinámicas de
-            incorporación, capacitaciones y más, de una manera divertida y casual.
-            <br />
-            <br />
-            <br />
-            Nuestra misión es impactar en la vida de millones de trabajadores con entretenimiento. Entendemos que muchos
-            quieren trabajar de forma remota y que mantener a los trabajadores integrados en este esquema es díficil.
+      <section className="bg-gradient-primary-to-secondary">
+        <div className="max-w-[1500px] mx-auto py-8 px-8 grid md:grid-cols-[1fr_1fr]">
+          <div className="grid grid-cols-[15px_auto] mb-8 mt-0 md:mt-8">
+            <div className="bg-successLight"></div>
+            <div className="text-white font-bold text-3xl md:text-7xl self-center px-8 md:px-12">{TeamBuildingLiterals.whyItWorks.title}</div>
           </div>
-          {/*
-            <div className="img-container" data-aos="fade-left">
-            <Image src={`${config.storageUrl}/resources/about-us.png`} height="100%" width="80%" margin="1rem auto" />
+
+          <div>
+            <div className="mb-6 text-white text-base md:text-2xl">{TeamBuildingLiterals.whyItWorks.description}</div>
+            <div className="text-white text-base md:text-2xl">{TeamBuildingLiterals.whyItWorks.description2}</div>
           </div>
-             */}
         </div>
-      </div>
+      </section>
+
+      <section className="bg-tapiz-1 bg-white">
+        <div className="max-w-[1500px] mx-auto py-8 px-8 grid">
+          <div className="max-w-[1200px] mx-auto mb-6 text-secondary text-center font-bold text-3xl md:text-7xl self-center px-8 md:px-12">{TeamBuildingLiterals.activities.title}</div>
+
+          <div className="text-secondary text-base md:text-2xl text-center">{TeamBuildingLiterals.activities.description}</div>
+        </div>
+      </section>
+
+      <section className="bg-gradient-primary-to-secondary">
+        <div className="max-w-[1000px] md:mx-auto grid grid-cols-[min-content_auto_min-content] items-center mx-4 sm:mx-8">
+          <div className="">
+            <Icon
+              type="left"
+              style={{color: "#FFFFFF"}}
+              className="p-2 bg-primary rounded-lg cursor-pointer"
+              onClick={() => goPrevious() }
+            />
+          </div>
+          <div className="max-w-[300px] md:max-w-[900px] mx-auto py-8 px-8">
+            <Carousel
+              hideIndicators
+              ref={carouselRef}
+              components={TeamBuildingLiterals.games.map((_, index) => (
+              <div key={`carousel-wrapper-${index}`} className="grid grid-cols-[1fr] md:grid-cols-[1fr_1fr_1fr] gap-8">
+                <GameContentItem gameContent={TeamBuildingLiterals.games[index % TeamBuildingLiterals.games.length]}/>
+
+                <Desktop>
+                  <>
+                    <GameContentItem gameContent={TeamBuildingLiterals.games[(index + 1) % TeamBuildingLiterals.games.length]}/>
+
+                    <GameContentItem gameContent={TeamBuildingLiterals.games[(index + 2) % TeamBuildingLiterals.games.length]}/>
+                  </>
+                </Desktop>
+              </div>
+            ))} />
+          </div>
+          <div className="">
+            <Icon
+              type="right"
+              style={{color: "#FFFFFF"}}
+              className="p-2 bg-primary rounded-lg cursor-pointer"
+              onClick={() => goNext()} /> 
+          </div>
+        </div>
+        
+      </section>
+
+      <section className="bg-tapiz-1 bg-white">
+        <div className="max-w-[1500px] mx-auto py-8 px-8 grid">
+          <div className="max-w-[1200px] mx-auto mb-6 uppercase text-secondary text-center font-bold text-3xl md:text-7xl self-center px-8 md:px-12">{TeamBuildingLiterals.virtualEvents.title}</div>
+
+          <div className="my-8">
+            {TeamBuildingLiterals.virtualEvents.items.reduce((acc, item, i) => {
+              const isOdd = i%2 === 1;
+
+              const childItems = [
+                (<img key={`img-${i}`} src={item.img} alt="" className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video`} />),
+                (<div key={`content-${i}`} className={`${isOdd ? "md:order-2" : "md:order-1"} order-2`}>
+                  <div className="mb-6 uppercase font-bold text-primary text-2xl md:text-3xl">{item.title}</div>
+                  <div className="text-base md:text-2xl">{item.description}</div>
+                </div>)
+              ];
+
+              const wrapperEl = (<div key={`wrapper-${i}`} className="grid md:grid-cols-[1fr_1fr] my-10 gap-10">{childItems}</div>);
+
+              return [...acc, wrapperEl]; 
+            }, [])}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-gradient-black-to-secondary">
+        <div className="max-w-[1500px] mx-auto py-8 px-8">
+          <div className="text-white font-bold text-3xl md:text-7xl">{TeamBuildingLiterals.virtualEventYouLove.title}</div>
+          <div className="py-8">
+           <ButtonAnt size="big" color="success"><span className="text-lg font-bold">Regístrate</span></ButtonAnt>   
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
-
-const AboutUsContainer = styled.div`
-  width: 100%;
-
-  .title-container {
-    height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 1rem;
-    background: ${(props) => props.theme.basic.whiteLighten};
-
-    .title {
-      font-family: Lato;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 28px;
-      line-height: 32px;
-      color: ${(props) => props.theme.basic.secondary};
-    }
-
-    .back-container {
-      margin: 0 1rem 0 0;
-
-      span {
-        border-radius: 50%;
-        padding: 8px;
-        background: ${(props) => props.theme.basic.primary};
-        cursor: pointer;
-        vertical-align: bottom;
-        color: ${(props) => props.theme.basic.white};
-        svg {
-          font-size: 18px;
-        }
-      }
-    }
-  }
-
-  .main-content {
-    padding: 1rem;
-    background: ${(props) => props.theme.basic.secondary};
-
-    ${mediaQuery.afterTablet} {
-      padding: 3rem;
-      height: 90vh;
-    }
-
-    .flex-container {
-      display: flex;
-      flex-direction: column-reverse;
-
-      .text {
-        font-family: Lato;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 18px;
-        line-height: 22px;
-        color: ${(props) => props.theme.basic.whiteLighten};
-        text-align: justify;
-
-        ${mediaQuery.afterTablet} {
-          font-size: 24px;
-          line-height: 28px;
-        }
-      }
-    }
-  }
-
-  .contests-container {
-    margin-top: 5rem;
-    height: 75px;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    max-width: 880px;
-    background: ${(props) => props.theme.basic.whiteLighten};
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 10px;
-
-    .text {
-      font-family: Lato;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 16px;
-      line-height: 18px;
-      color: ${(props) => props.theme.basic.blackDarken};
-
-      ${mediaQuery.afterTablet} {
-        font-size: 24px;
-        line-height: 29px;
-      }
-    }
-  }
-`;
 

@@ -936,6 +936,43 @@ export const TeamBuildingLiterals = {
     heading: "TEAM BUILDING",
     description: "Creado por profesionales que se toman la diversión seria, nuestro equipo virtual de team building events crea ese tipo de enlaces que demorarían años en crearse en una forma de trabajo remoto. ",
   },
+  whyItWorks: {
+    title: "¿Por qué ebombo funciona?",
+    description: `Un desafío del trabajo remoto es la falta de conexión. Nuestra plataforma brinda momentos de colaboración para que los equipos remotos se diviertan juntos y conecten de mejor manera.`,
+    description2: `Usamos el poder de activdades para fortalecer la cultura de la empresa, crear relaciones de trabajo más productivas y mejorar el compromiso del equipo, lo que conduce a una mayor retención de empleados y una mayor satisfacción en el lugar de trabajo.`,
+  },
+  activities: {
+    title: "ACTIVIDADES DE TEAM BULDING VIRTUALES ",
+    description: `¿Buscas los mejores actividades virtuales para involucrar a los empleados y facilitar la vinculación del equipo? Te tenemos cubierto. ¡Elige entre más de 25 actividades en nuestra biblioteca inigualables o pídenos algo personalizado!`,
+  },
+
+  games: [
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "Trivia", description: "Reúne a tu equipo para actividades de preguntas dándole el enfoque que tu quieras: películas, deportes o hasta temas onboarding y capacitaciones." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "BINGO", description: "Juega de manera virtual un Bingo interactivo con tus colaborades. Usa nuestra plataforma para que tus trabajadores tengan sus cartillas y lo jueguen desde sus casas o en el trabajo." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "Ruleta", description: "Haz sorteos en vivo o con una lista ya hecha de presentes que quisieras regalar a tus trabajadores por una fecha importante." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "Ruleta rompehielo", description: "Usa la ruleta rompehielo para romper el ambiente. Saldrán preguntas que escojas y los colaboradores tendrán que responderlas de manera divertida." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "Ahorcado", description: "Escoje palabras o frases que desees. Pueden ser relacionadas a la cultura de la empresa o dale el enfoque que quieras." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "2 verdades y 1 mentira", description: "Menciona tres enunciados sobre el tema que quieras y el jugador deberá adivinar cuál es la mentira. Perfecto para capacitaciones." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "Zoom a la imagen", description: "Danos una imagen completa de lo que quieras y mostraremos una parte a los colaboradores. Quien adivine de qué trata la imagen ganará." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "Adivina la película", description: "Te daremos datos de una película y el jugador que pueda adivinar cuál es primero, ganará." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "Letras revueltas", description: "Te mostraremos ordenigmas de las frases o palabras que quieras y los colaboradores deberán competir para ver quién puede ordenar las letras primero." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "Charadas", description: "Haz que tus colaboradores se paren de su asiento, muevan sus cuerpos y actúen lo que se les muestre en pantalla. Los otros trabajadores deberán adivinar de qué se trata." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "Adivina la canción", description: "Reproduciremos un extracto de una canción y el colaborador que adivine el nombre primero ganará un punto y si canta, uno adicional." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "Lenguaje Emoji", description: "Mostraremos tres emojis y los colaboradores deberán interpretarlos y encontrar la frase o palabra oculta." },
+    { img: "https://via.placeholder.com/300x300", placeholderUrl: "", title: "Película doméstica", description: "Reproduciremos una pequeña escena de una película y acto seguido dos colaboradores deberán imitar las actuaciones." },
+  ],
+
+  virtualEvents: {
+    title: "Eventos virtuales y juegos que fortalecerán tu equipo",
+    items: [
+      {img: "https://via.placeholder.com/500x300", title: "Miles de opciones de dinámicas de teambuilding", description: "Nuestras actividades de equipos remoto están diseñadas para mejorar las conexiones, funcionan tan bien con grupos que se conocen como con equipos que se reúnen por primera vez."},
+      {img: "https://via.placeholder.com/500x300", title: "Eventos de team building personalizado", description: "Nuestras actividades funcionan tan bien con grupos que se conocen como con equipos que se reúnen por primera vez. Nuestra variedad de contenido le permite planificar un evento para colegas de toda la vida o con colegas nuevos."},
+      {img: "https://via.placeholder.com/500x300", title: "UNA PLATAFORMA DE TEAM BUILDING DIFERENTE", description: "Utilice la actividad adecuada para cada ocasión. No importa el tamaño de la empresa, todos los colaboradores pueden participar de una manera divertida. Desde una happy hour, hasta una conferencia es fácil planificar. Estamos aquí para acercarlos virtualmente."},
+    ],
+  },
+  virtualEventYouLove: {
+    title: "El evento virtual que amarás",
+  }
 };
 
 
