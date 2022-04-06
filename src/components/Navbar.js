@@ -157,7 +157,7 @@ export const Navbar = (props) => {
                       setActive(false);
                     }}
                   >
-                    Sobre nosotros
+                    {t("nav.about-us")}
                   </li>
                   {!authUser && (
                     <li
@@ -167,7 +167,7 @@ export const Navbar = (props) => {
                         setActive(false);
                       }}
                     >
-                      Contacto
+                      {t("nav.contact")}
                     </li>
                   )}
                 </>
@@ -183,16 +183,16 @@ export const Navbar = (props) => {
                       variant="contained"
                       fontSize="18px"
                     >
-                      Contáctanos
+                      {t("nav.contact-us")}
                     </ButtonAnt>
                   )}
                   <li className="nav-item" onClick={() => router.push("/login")}>
-                    Iniciar sesión
+                    {t("nav.login")}
                   </li>
                 </>
               ) : (
                 <li className="nav-item" onClick={() => signOut()}>
-                  Cerrar Sesión
+                  {t("nav.logout")}
                 </li>
               )}
             </ul>
