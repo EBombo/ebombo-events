@@ -261,9 +261,9 @@ export const landingProducts = [
     tab: "plans",
     content: [
       {
-        title: "Planes",
-        description: "Tenemos planes para acomodarnos a tus necesidades:",
-        options: ["Eventos únicos", "Planes semanales/mensuales/anuales", "Planes personalizados"],
+        title: "plans",
+        description: "plans",
+        options: ["unique-events", "seasonal-plans", "custom-plans"],
         background: darkTheme.basic.secondary,
         image: `${config.storageUrl}/resources/videos-landing/video-4.gif`,
         url: "/products/juegos-de-integracion",

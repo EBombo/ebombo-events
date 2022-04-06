@@ -19,10 +19,12 @@
         "plans": "Plans",
         "contents": {
           "titles": {
-            "virtual-activities": "Virtual activities"
+            "virtual-activities": "Virtual activities",
+            "plans": "Plans"
           },
           "descriptions": {
-            "virtual-activities": "Ebombo has more than 20 virtual activities so you can connect with your workers. We have integration dynamics, entertainment, onboarding, training for new workers, games, anniversaries, awards, ceremonies and much more."
+            "virtual-activities": "Ebombo has more than 20 virtual activities so you can connect with your workers. We have integration dynamics, entertainment, onboarding, training for new workers, games, anniversaries, awards, ceremonies and much more.",
+            "plans": "We have plans to accommodate your needs:"
           }
         },
         "options": {
@@ -31,7 +33,10 @@
           "workshops": "Workshops",
           "awards": "Awards",
           "tournaments":"Tournaments",
-          "ceremonies":"Ceremonies"
+          "ceremonies":"Ceremonies",
+          "unique-events": "Unique events",
+          "seasonal-plans":"Weekly/monthly/yearly plans",
+          "custom-plans": "Custom plans"
         }
       }
     }
