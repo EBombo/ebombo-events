@@ -6,12 +6,14 @@ import { Desktop, mediaQuery } from "../../constants";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { useFetch } from "../../hooks/useFetch";
-import { useSendError } from "../../hooks";
+import { useSendError, useTranslation } from "../../hooks";
 import { BannerEbombo } from "../home/BannerEbombo";
 
 export const ContactForm = (props) => {
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
+
+  const { t } = useTranslation("pages.about-us.contact-us");
 
   const [loadingSendingEmail, setLoadingSendingEmail] = useState(false);
 
@@ -54,28 +56,26 @@ export const ContactForm = (props) => {
     <>
       <ContactFormSection ref={props.refProp} config={config}>
         <div className="px-8 py-4 md:py-8 md:px-12">
-          <div className="title">¡Contáctanos!</div>
+          <div className="title">{t("title")}</div>
 
-          <div className="description">
-            Deja tu consulta y el nuestro equipo de ventas se pondrá en contacto contigo.
-          </div>
+          <div className="description">{t("description")}</div>
 
           <form onSubmit={handleSubmit(sendEmail)}>
             <div className="info-contact">
-              <Input error={errors.name} type="text" ref={register} name="name" placeholder="Nombre" />
-              <Input error={errors.lastName} type="text" ref={register} name="lastName" placeholder="Apellido" />
+              <Input error={errors.name} type="text" ref={register} name="name" placeholder={t("name")} />
+              <Input error={errors.lastName} type="text" ref={register} name="lastName" placeholder={t("lastName")} />
             </div>
 
-            <Input error={errors.email} type="email" ref={register} name="email" placeholder="Correo electrónico" />
+            <Input error={errors.email} type="email" ref={register} name="email" placeholder={t("email")} />
 
             <div className="info-contact">
-              <Input error={errors.company} type="text" ref={register} name="company" placeholder="Empresa" />
+              <Input error={errors.company} type="text" ref={register} name="company" placeholder={t("company")} />
               <Input
                 error={errors.phoneNumber}
                 type="text"
                 ref={register}
                 name="phoneNumber"
-                placeholder="Número de teléfono"
+                placeholder={t("phone-number")}
               />
             </div>
             <TextArea
@@ -83,7 +83,7 @@ export const ContactForm = (props) => {
               name="message"
               ref={register}
               rows="10"
-              placeholder="Déjanos tu consulta aquí"
+              placeholder={t("leave-us-your-query")}
             />
             <div className="submit-container">
               <ButtonAnt
@@ -93,7 +93,7 @@ export const ContactForm = (props) => {
                 disabled={loadingSendingEmail}
                 htmlType="submit"
               >
-                Enviar
+                {t("send")}
               </ButtonAnt>
             </div>
           </form>

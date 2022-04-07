@@ -3,14 +3,16 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { ButtonAnt, Input } from "../../components/form";
 import { useAuth } from "../../hooks/useAuth";
-import { useSendError } from "../../hooks";
+import { useSendError, useTranslation } from "../../hooks";
 
 const ForgotPassword = (props) => {
   const { sendError } = useSendError();
   const { recoveryPassword } = useAuth();
+  const { t } = useTranslation("pages.recovery");
+
   const [emailSent, setEmailSent] = useState(false);
-  const [loadingSendEmailStatus, setLoadingSendEmailStatus] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [loadingSendEmailStatus, setLoadingSendEmailStatus] = useState(false);
 
   const schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -45,19 +47,17 @@ const ForgotPassword = (props) => {
         <div className="content">
           {emailSent ? (
             <React.Fragment>
-              <h1 className="title">Muy bien!</h1>
-              <p className="forgot-password-note">
-                Le hemos enviado un correo electrónico con instrucciones para restablecer su contraseña.
-              </p>
+              <h1 className="title">{t("title")}</h1>
+
+              <p className="forgot-password-note">{t("note")}</p>
             </React.Fragment>
           ) : (
             <React.Fragment>
               <div className="text-['Lato'] text-[44px] leading-[53px] text-primary tracking-wide mb-8">
-                Recuperar contraseña
+                {t("recover-password")}
               </div>
               <div className="text-['Lato'] text-[14px] leading-[16px] text-blackDarken tracking-wide">
-                Por favor, introduce la dirección de correo electrónico asociada a tu cuenta. Te enviaremos un correo
-                electrónico que te permitirá crear una nueva contraseña.
+                {t("description-1")}
               </div>
               <form onSubmit={handleSubmit(recoverPassword)} noValidate>
                 {errorMessage ? <h3>{errorMessage}</h3> : <br />}
@@ -70,7 +70,7 @@ const ForgotPassword = (props) => {
                   autoComplete="off"
                   error={errors.email}
                   className="input-forgot-password-desktop"
-                  placeholder="Email"
+                  placeholder={t("email")}
                 />
                 <ButtonAnt
                   block={true}
@@ -81,7 +81,7 @@ const ForgotPassword = (props) => {
                   loading={loadingSendEmailStatus}
                   disabled={loadingSendEmailStatus}
                 >
-                  Recuperar contraseña
+                  {t("recover-password")}
                 </ButtonAnt>
               </form>
             </React.Fragment>

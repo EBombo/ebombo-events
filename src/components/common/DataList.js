@@ -1,7 +1,24 @@
 import { darkTheme } from "../../theme";
-import { config } from "../../firebase";
+import { config, firestoreBingo, firestoreHanged, firestoreRoulette, firestoreTrivia } from "../../firebase";
 import React from "react";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+
+export const gamesFirestore = (name) => {
+  switch (name) {
+    case "bingo":
+      return firestoreBingo;
+    case "trivia":
+      return firestoreTrivia;
+    case "hanged":
+      return firestoreHanged;
+    case "roulette":
+      return firestoreRoulette;
+    case "rouletteQuestions":
+      return firestoreRoulette;
+    default:
+      return firestoreBingo;
+  }
+};
 
 export const skippedWords = ";:!¡?¿ ";
 
@@ -206,12 +223,11 @@ export const reasons = [
 
 export const landingProducts = [
   {
-    tab: "Actividades virtuales",
+    tab: "virtual-activities",
     content: [
       {
-        title: "Actividades virtuales",
-        description:
-          "Ebombo cuenta con más de 20 actividades virtuales para que puedas conectar con tus trabajadores. Contamos con dinámicas de integraciones, entretenimiento, onboarding, capacitaciones para nuevos trabajadores, juegos, aniversarios, premiaciones, ceremonias y mucho más.",
+        title: "virtual-activities",
+        description: "virtual-activities",
         background: darkTheme.basic.blackDarken,
         image: `${config.storageUrl}/resources/videos-landing/video-2.gif`,
         url: "/products/eventos-virtuales",
@@ -219,7 +235,7 @@ export const landingProducts = [
     ],
   },
   {
-    tab: "Formas de interactuar",
+    tab: "ways-to-interact",
     content: [
       {
         title: "Formas de interactuar",
@@ -227,13 +243,13 @@ export const landingProducts = [
           "Happy Hours",
           "Ice breakers",
           "Onboardings",
-          "Celebración de días festivos",
+          "holiday-party",
           "Networking",
-          "Capacitaciones",
-          "Talleres",
-          "Premiaciones",
-          "Torneos",
-          "Ceremonias",
+          "Trainings",
+          "workshops",
+          "awards",
+          "tournaments",
+          "ceremonies",
         ],
         background: darkTheme.basic.blackDarken,
         image: `${config.storageUrl}/resources/videos-landing/video-3.gif`,
@@ -242,12 +258,12 @@ export const landingProducts = [
     ],
   },
   {
-    tab: "Planes",
+    tab: "plans",
     content: [
       {
-        title: "Planes",
-        description: "Tenemos planes para acomodarnos a tus necesidades:",
-        options: ["Eventos únicos", "Planes semanales/mensuales/anuales", "Planes personalizados"],
+        title: "plans",
+        description: "plans",
+        options: ["unique-events", "seasonal-plans", "custom-plans"],
         background: darkTheme.basic.secondary,
         image: `${config.storageUrl}/resources/videos-landing/video-4.gif`,
         url: "/products/juegos-de-integracion",

@@ -1,0 +1,166 @@
+{
+  "es": "Español",
+  "en": "Ingles",
+  "language": "Idioma",
+  "landing": {
+    "header": {
+      "ebombo-style": "Al estilo ebombo",
+      "title": "Ayudamos a tu empresa a conectar con tus trabajadores para mejorar el ambiente de trabajo",
+      "sub-title": "La forma en que tus trabajadores se reunen influye en el clima y cultura de tu empresa. Nuestra plataforma te permite tener experiencias en línea y eventos virtuales para promover la productividad, el compromiso y la diversión de tus trabajadores.",
+      "book-an-event": "Reservar evento"
+    },
+    "products": {
+      "title": "UNA MANERA INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO",
+      "sub-title": "Hemos creado una herramienta simple y sencilla que asegura la conexión de tus trabajadores en un esquema híbrido o remoto y el buen ambiente laboral",
+      "book-an-event": "Reservar evento",
+      "tabs": {
+        "virtual-activities": "Actividades virtuales",
+        "ways-to-interact": "Formas de interactuar",
+        "plans": "Planes",
+        "contents": {
+          "titles": {
+            "virtual-activities": "Actividades virtuales",
+            "plans": "Planes"
+          },
+          "descriptions": {
+            "virtual-activities": "Ebombo cuenta con más de 20 actividades virtuales para que puedas conectar con tus trabajadores. Contamos con dinámicas de integraciones, entretenimiento, onboarding, capacitaciones para nuevos trabajadores, juegos, aniversarios, premiaciones, ceremonias y mucho más.",
+            "plans": "Tenemos planes para acomodarnos a tus necesidades:"
+          }
+        },
+        "options": {
+          "holiday-party": "Celebración de días festivos",
+          "trainings": "Capacitaciones",
+          "workshops": "Talleres",
+          "awards": "Premiaciones",
+          "tournaments": "Torneos",
+          "ceremonies": "Ceremonias",
+          "unique-events": "Eventos únicos",
+          "seasonal-plans": "Planes semanales/mensuales/anuales",
+          "custom-plans": "Planes personalizados"
+        }
+      }
+    },
+    "information": {
+      "title": "Dirige como quieras las dinámicas virtuales",
+      "titles": {
+        "pro-hosted": "Pro Hosted",
+        "self-hosted": "Self hosted"
+      },
+      "descriptions": {
+        "pro-hosted": "Déjalo en manos de un miembro del equipo de Customer Success de ebombo. Además, un animador elite o VIP dirigirá tu evento en vivo que unirá a tu equipo en una experiencia colaborativa y divertida.",
+        "self-hosted": "Es tu momento. Lo hemos hecho fácil e intuitivo para que tú u otra persona de tu equipo sea quien cree y dirija las actividades virtuales que ebombo ofrece."
+      }
+    },
+    "style": {
+      "title": "Al estilo ebombo",
+      "items": {
+        "titles": {
+          "training-and-orientation": "Training y Orientación",
+          "onboardings": "Onboardings",
+          "games": "Juegos",
+          "happy-hour": "Happy Hour",
+          "holidays": "Días festivos",
+          "benefit-plan": "Plan de beneficios",
+          "weather-activities": "Actividades de clima",
+          "awards": "Premiaciones",
+          "icebreaker-activities": "Actividades rompe hielo",
+          "connect": "Conecta"
+        },
+        "descriptions": {
+          "training-and-orientation": "Ayudamos a que tus trabajadores tengan entrenamientos para conocer más temas técnicos de una manera super divertida y que permite tener una alta tasa de engagement.",
+          "onboardings": "Ofrecemos actividades virtuales de capacitación para nuevos trabajadores, pero de una manera super divertida.",
+          "games": "Tenemos varios juegos creados por nosotros como 'Bingo, Hangman, Ruletas, Trivias y más'.",
+          "happy-hour": "Reúne a tu equipo en una happy hour virtual y olvídate de la distancia. Diversión asegurada con o sin bebidas, tú decides.",
+          "holidays": "Ya sea estés celebrando Navidad, Día de la Mujer, Día del Trabajador, Día de la comunidad LGTBI, Aniversarios, Día de la Madre, Día del Padre, Día del Niño y más, contamos con las mejores opciones.",
+          "benefit-plan": "Por cada actividad que se use, tus trabajadores irán acumulando puntos y luego lo podrán canjear por premios increíbles",
+          "weather-activities": "Realiza actividades para tu equipo de una forma divertida, auténtica e innovadora.",
+          "awards": "Hacemos premiaciones para festejar los logros de tus trabajadores.",
+          "icebreaker-activities": "Tenemos muchas actividades para fortalecer el clima laboral en la empresa. Realiza divertidas dinámicas para motivar tu equipo   y ayudar a tus compañeros a entenderse más entre ellos.",
+          "connect": "Conectar a tu equipo de manera virtual no tiene porque ser un desafío. Hemos construído actividades innovadoras con tecnología que une personas en cualquier lugar, en cualquier momento y en cualquier ocasión."
+        }
+      }
+    },
+    "options": {
+      "book-an-event": "Reservar evento",
+      "title": "Eventos virtuales para el equipo con todas las opciones",
+      "sub-title": "Con la confianza de empresas líderes",
+      "options": {
+        "opt1": "Acceda a nuestra biblioteca de juegos completa que incluye Trivia, Bingo, Ruleta de preguntas, Ahorcado, entre varias actividades",
+        "opt2": "Eventos organizados o autoorganizados",
+        "opt3": "Organice fácilmente eventos con nosotros",
+        "opt4": "Permita que equipos grandes puedan tener un espacio de diversión, entretenimiento e integración"
+      }
+    },
+    "companies": {
+      "title": "Grandes compañías han confiado en nosotros, solo faltas tú"
+    },
+    "banner": {
+      "title": "El evento virtual que amarás",
+      "book-an-event": "Reservar evento"
+    }
+  },
+  "nav": {
+    "login": "Iniciar sesión",
+    "logout": "Cerrar Sesión",
+    "about-us": "Sobre nosotros",
+    "contact-us": "Contáctanos",
+    "contact": "Contacto"
+  },
+  "footer": {
+    "us": "Nosotros",
+    "know-us": "Conócenos",
+    "terms-and-conditions": "Términos y condiciones",
+    "platform": "Plataforma",
+    "what-do-we-do": "¿Qué hacemos?",
+    "request-a-demo": "Pide una demo",
+    "contact": "Contacto",
+    "contact-sales": "Contactar ventas",
+    "contact-support": "Contactar soporte"
+  },
+  "pages": {
+    "about-us": {
+      "title": "¿Quiénes somos?",
+      "description-1": "ebombo es una empresa de tecnología de recursos humanos enfocada en el futuro del trabajo. Permitiendo que otras empresas conecten con sus empleados y mejoren su ambiente de trabajo. Todo esto es posible con las actividades virtuales que creamos. Estas actividades consisten en diferentes tipos de juegos, dinámicas de incorporación, capacitaciones y más, de una manera divertida y casual.",
+      "description-2": "Nuestra misión es impactar en la vida de millones de trabajadores con entretenimiento. Entendemos que muchos quieren trabajar de forma remota y que mantener a los trabajadores integrados en este esquema es díficil.",
+      "contact-us": {
+        "title": "¡Contáctanos!",
+        "description": "Deja tu consulta y el nuestro equipo de ventas se pondrá en contacto contigo.",
+        "send": "Enviar",
+        "name": "Nombre",
+        "lastName": "Apellido",
+        "email": "Correo electrónico",
+        "company": "Empresa",
+        "phone-number": "Número de teléfono",
+        "leave-us-your-query": "Déjanos tu consulta aquí"
+      }
+    },
+    "login": {
+      "title": "Iniciar sesión",
+      "google-login": "Ingresar con Google",
+      "email": "Correo",
+      "password": "Contraseña",
+      "forgot-password": "Me olvide mi contraseña",
+      "login": "Iniciar sesión",
+      "not-have-account": "¿No tienes una cuenta?",
+      "sign-up": "Regístrate aquí"
+    },
+    "recovery": {
+      "title": "Muy bien!",
+      "note": "Le hemos enviado un correo electrónico con instrucciones para restablecer su contraseña.",
+      "recover-password": "Recuperar contraseña",
+      "description-1": "Por favor, introduce la dirección de correo electrónico asociada a tu cuenta. Te enviaremos un correo electrónico que te permitirá crear una nueva contraseña.",
+      "email": "Correo"
+    },
+    "register": {
+      "google-login": "Ingresar con Google",
+      "sign-up": "Regístrate",
+      "name": "Nombre",
+      "last-name": "Apellidos",
+      "email": "Correo",
+      "date-of-birth": "Fecha de nacimiento",
+      "country": "País",
+      "phone": "Celular",
+      "password": "Contraseña"
+    }
+  }
+}

@@ -33,6 +33,7 @@ export const DesktopNav = (props) => {
           setIsVisibleModalGame={setIsVisibleModalGame}
         />
       )}
+
       <div className="items-container">
         <Image
           src={`${config.storageUrl}/resources/ebombo-white.png`}

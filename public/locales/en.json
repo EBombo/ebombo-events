@@ -1,0 +1,166 @@
+{
+  "en": "English",
+  "es": "Spanish",
+  "language": "Language",
+  "landing": {
+    "header": {
+      "ebombo-style": "Ebombo style",
+      "title": "We help your company connect with your workers to improve the work environment",
+      "sub-title": "The way your workers meet influences the climate and culture of your company. Our platform allows you to have online experiences and virtual events to promote the productivity, engagement and fun of your workers.",
+      "book-an-event": "Book an event"
+    },
+    "products": {
+      "title": "AN INCREDIBLE WAY IN THE WAY YOU CONNECT WITH YOUR TEAM",
+      "sub-title": "We have created a simple and straightforward tool that ensures the connection of your workers in a hybrid or remote scheme and a good work environment",
+      "book-an-event": "Book an event",
+      "tabs": {
+        "virtual-activities": "Virtual activities",
+        "ways-to-interact": "Ways to interact",
+        "plans": "Plans",
+        "contents": {
+          "titles": {
+            "virtual-activities": "Virtual activities",
+            "plans": "Plans"
+          },
+          "descriptions": {
+            "virtual-activities": "Ebombo has more than 20 virtual activities so you can connect with your workers. We have integration dynamics, entertainment, onboarding, training for new workers, games, anniversaries, awards, ceremonies and much more.",
+            "plans": "We have plans to accommodate your needs:"
+          }
+        },
+        "options": {
+          "holiday-party": "Holiday party",
+          "trainings": "Trainings",
+          "workshops": "Workshops",
+          "awards": "Awards",
+          "tournaments": "Tournaments",
+          "ceremonies": "Ceremonies",
+          "unique-events": "Unique events",
+          "seasonal-plans": "Weekly/monthly/yearly plans",
+          "custom-plans": "Custom plans"
+        }
+      }
+    },
+    "information": {
+      "title": "Direct the virtual dynamics as you wish",
+      "titles": {
+        "pro-hosted": "Pro Hosted",
+        "self-hosted": "Self hosted"
+      },
+      "descriptions": {
+        "pro-hosted": "Leave it in the hands of a member of the ebombo Customer Success team. In addition, an elite or VIP entertainer will lead your live event that will unite your team in a collaborative and fun experience.",
+        "self-hosted": "Is your moment. We have made it easy and intuitive for you or another person on your team to be the one to create and direct the virtual activities that ebombo offers."
+      }
+    },
+    "style": {
+      "title": "Ebombo style",
+      "items": {
+        "titles": {
+          "training-and-orientation": "Training and Orientation",
+          "onboardings": "Onboardings",
+          "games": "Games",
+          "happy-hour": "Happy Hour",
+          "holidays": "Holidays",
+          "benefit-plan": "Benefit plan",
+          "weather-activities": "Weather activities",
+          "awards": "Awards",
+          "icebreaker-activities": "Icebreaker activities",
+          "connect": "Connect"
+        },
+        "descriptions": {
+          "training-and-orientation": "We help your workers have training to learn more technical issues in a super fun way that allows for a high rate of engagement.",
+          "onboardings": "We offer virtual training activities for new workers, but in a super fun way.",
+          "games": "We have several games created by us such as 'Bingo, Hangman, Roulette, Trivia and more'.",
+          "happy-hour": "Bring your team together for a virtual happy hour and forget about the distance. Guaranteed fun with or without drinks, you decide.",
+          "holidays": "Whether you are celebrating Christmas, Women's Day, Labor Day, LGTBI Community Day, Anniversaries, Mother's Day, Father's Day, Children's Day and more, we have the best options.",
+          "benefit-plan": "For each activity that is used, your workers will accumulate points and then they can redeem them for incredible prizes",
+          "weather-activities": "Carry out activities for your team in a fun, authentic and innovative way.",
+          "awards": "We make awards to celebrate the achievements of your workers.",
+          "icebreaker-activities": "We have many activities to strengthen the work environment in the company. Make fun dynamics to motivate your team and help your colleagues to understand each other better.",
+          "connect": "Connecting your team virtually doesn't have to be a challenge. We have built innovative activities with technology that bring people together anywhere, anytime and on any occasion."
+        }
+      }
+    },
+    "options": {
+      "book-an-event": "Book an event",
+      "title": "Virtual events for the team with all the options",
+      "sub-title": "Trusted by leading companies",
+      "options": {
+        "opt1": "Access our complete game library including Trivia, Bingo, Trivia Wheel, Hangman, among many other activities",
+        "opt2": "Organized or self-organized events",
+        "opt3": "Easily organize events with us",
+        "opt4": "Allow large teams to have a space for fun, entertainment and integration"
+      }
+    },
+    "companies": {
+      "title": "Big companies have trusted us, the only thing missing is you"
+    },
+    "banner": {
+      "title": "The virtual event you will love",
+      "book-an-event": "Book an event"
+    }
+  },
+  "nav": {
+    "login": "Log in",
+    "logout": "Logout",
+    "about-us": "About us",
+    "contact-us": "Contact us",
+    "contact": "Contact"
+  },
+  "footer": {
+    "us": "Us",
+    "know-us": "Know us",
+    "terms-and-conditions": "Terms and conditions",
+    "platform": "Platform",
+    "what-do-we-do": "What do we do?",
+    "request-a-demo": "Request a demo",
+    "contact": "Contact",
+    "contact-sales": "Contact sales",
+    "contact-support": "Contact support"
+  },
+  "pages": {
+    "about-us": {
+      "title": "About us?",
+      "description-1": "ebombo is an HR technology company focused on the future of work. Allowing other companies to connect with their employees and improve their work environment. All this is possible with the virtual activities that we create. These activities consist of different types of games, dynamics of incorporation, training and more, in a fun and casual way.",
+      "description-2": "Our mission is to impact the lives of millions of workers with entertainment. We understand that many they want to work remotely and that keeping workers integrated in this scheme is difficult.",
+      "contact-us": {
+        "title": "Contact us",
+        "description": "Leave your query and our sales team will contact you.",
+        "send": "Send",
+        "name": "Name",
+        "lastName": "LastName",
+        "email": "email",
+        "company": "Company",
+        "phone-number": "Phone number",
+        "leave-us-your-query": "Leave us your query here"
+      }
+    },
+    "login": {
+      "title": "Log in",
+      "google-login": "Sign in with Google",
+      "email": "Email",
+      "password": "Password",
+      "forgot-password": "I forgot my password",
+      "login": "Login",
+      "not-have-account": "You do not have an account?",
+      "sign-up": "Sign up here"
+    },
+    "recovery": {
+      "title": "Very good!",
+      "note": "We have sent you an email with instructions to reset your password.",
+      "recover-password": "Recover password",
+      "description-1": "Please enter the email address associated with your account. We will send you an email that will allow you to create a new password.",
+      "email": "Email"
+    },
+    "register": {
+      "google-login": "Sign in with Google",
+      "sign-up": "Sign up",
+      "name": "Name",
+      "last-name": "LastName",
+      "email": "Email",
+      "date-of-birth": "Date of birth",
+      "country": "Country",
+      "phone": "Phone number",
+      "password": "Password"
+    }
+  }
+}

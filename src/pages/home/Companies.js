@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
 import { mediaQuery } from "../../constants";
+import { useTranslation } from "../../hooks";
 
 const companies = [
   [
@@ -40,6 +41,8 @@ const companies = [
 ];
 
 export const Companies = (props) => {
+  const { t } = useTranslation("landing.companies");
+
   return (
     <CompaniesStyled>
       <Image
@@ -64,7 +67,7 @@ export const Companies = (props) => {
       />
 
       <div className="content">
-        <div className="title">Grandes compañías han confiado en nosotros, solo faltas tú</div>
+        <div className="title">{t("title")}</div>
 
         {/* Companies are chunked.*/}
         {companies.map((companiesChunk) => (
