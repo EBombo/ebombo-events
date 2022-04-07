@@ -79,6 +79,17 @@
           "connect": "Connecting your team virtually doesn't have to be a challenge. We have built innovative activities with technology that bring people together anywhere, anytime and on any occasion."
         }
       }
+    },
+    "options": {
+      "book-an-event": "Book an event",
+      "title": "Virtual events for the team with all the options",
+      "sub-title": "Trusted by leading companies",
+      "options": {
+        "opt1": "Access our complete game library including Trivia, Bingo, Trivia Wheel, Hangman, among many other activities",
+        "opt2": "Organized or self-organized events",
+        "opt3": "Easily organize events with us",
+        "opt4": "Allow large teams to have a space for fun, entertainment and integration"
+      }
     }
   },
   "nav": {

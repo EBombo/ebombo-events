@@ -79,6 +79,17 @@
           "connect": "Conectar a tu equipo de manera virtual no tiene porque ser un desafío. Hemos construído actividades innovadoras con tecnología que une personas en cualquier lugar, en cualquier momento y en cualquier ocasión."
         }
       }
+    },
+    "options": {
+      "book-an-event": "Reservar evento",
+      "title": "Eventos virtuales para el equipo con todas las opciones",
+      "dub-title": "Con la confianza de empresas líderes",
+      "options": {
+        "opt1": "Acceda a nuestra biblioteca de juegos completa que incluye Trivia, Bingo, Ruleta de preguntas, Ahorcado, entre varias actividades",
+        "opt2": "Eventos organizados o autoorganizados",
+        "opt3": "Organice fácilmente eventos con nosotros",
+        "opt4": "Permita que equipos grandes puedan tener un espacio de diversión, entretenimiento e integración"
+      }
     }
   },
   "nav": {
