@@ -1,6 +1,7 @@
 import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./common/Image";
+import { Icon } from "./common/Icons";
 import { config } from "../firebase";
 import { Desktop, Tablet } from "../constants";
 import { Anchor, ButtonAnt } from "./form";
@@ -10,6 +11,10 @@ import { Layout } from "./common/Layout";
 import { Footer } from "./Footer";
 import { useTranslation } from "../hooks";
 import { Popover } from "antd";
+
+const useCaseMenu = [
+  { url: "/team-building", label: "nav.use-case.team-building" },
+];
 
 export const Navbar = (props) => {
   const router = useRouter();
@@ -48,16 +53,18 @@ export const Navbar = (props) => {
       <Layout key={locale}>
         <NavContainer active={active} border={isNavWithBorder}>
           <div className="left-container">
-            <Image
-              src={`${config.storageUrl}/resources/ebombo.svg`}
-              height="auto"
-              width="125px"
-              size="contain"
-              margin="0"
-              cursor="pointer"
-              alt=""
-              onClick={() => router.push(authUser ? "/library" : "/")}
-            />
+            <div className="mr-8 inline-block">
+              <Image
+                src={`${config.storageUrl}/resources/ebombo.svg`}
+                height="auto"
+                width="125px"
+                size="contain"
+                margin="0"
+                cursor="pointer"
+                alt=""
+                onClick={() => router.push(authUser ? "/library" : "/")}
+              />
+            </div>
             <Desktop>
               {isEventPage ? null : (
                 <>
@@ -76,9 +83,11 @@ export const Navbar = (props) => {
                 Planes
               </Anchor>
                  */}
+                  {/*
                   <Anchor url="/about-us" className="link">
                     {t("nav.about-us")}
                   </Anchor>
+                 */}
                   {!authUser && (
                     <Anchor url="/contact" className="link">
                       {t("nav.contact")}
@@ -89,13 +98,30 @@ export const Navbar = (props) => {
 
               <Popover
                 placement="bottom"
+                color="#FFFFFF"
+                content={useCaseMenu.map((menuItem) => (
+                  <Anchor key={menuItem} className="link text-black" url={menuItem.url}>
+                    <span className="align-middle font-bold text-base">{t(menuItem.label)}</span>
+                  </Anchor>
+                ))}
+              >
+                <Anchor className="link hover:bg-violet-100 rounded-xl px-2 py-2">
+                  <span className="align-middle">{t("nav.use-case.title")}</span> <Icon type="down" />
+                </Anchor>
+              </Popover>
+
+              <Popover
+                placement="bottom"
+                color="#FFFFFF"
                 content={locales.map((locale) => (
-                  <div key={locale} onClick={() => setLocale(locale)} className="cursor-pointer">
-                    {t(locale)}
+                  <div key={locale} onClick={() => setLocale(locale)} className="link text-black cursor-pointer">
+                    <span className="align-middle font-bold text-base">{t(locale)}</span>
                   </div>
                 ))}
               >
-                <Anchor className="link">{t("language")}</Anchor>
+                <Anchor className="link hover:bg-violet-100 rounded-xl px-2 py-2">
+                  <span className="align-middle">{t("language")}</span> <Icon type="down" />
+                </Anchor>
               </Popover>
             </Desktop>
           </div>

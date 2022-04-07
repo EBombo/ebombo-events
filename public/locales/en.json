@@ -102,6 +102,10 @@
   "nav": {
     "login": "Log in",
     "logout": "Logout",
+    "use-case": {
+      "title": "Use Case",
+      "team-building": "Team Building"
+    },
     "about-us": "About us",
     "contact-us": "Contact us",
     "contact": "Contact"

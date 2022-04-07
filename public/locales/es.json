@@ -102,6 +102,10 @@
   "nav": {
     "login": "Iniciar sesión",
     "logout": "Cerrar Sesión",
+    "use-case": {
+      "title": "Uso",
+      "team-building": "Team Building"
+    },
     "about-us": "Sobre nosotros",
     "contact-us": "Contáctanos",
     "contact": "Contacto"
