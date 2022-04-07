@@ -4,13 +4,17 @@ import { useAuth } from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import { useRouter } from "next/router";
+import { useTranslation } from "../../hooks";
 
 const Login = (props) => {
-  const router = useRouter();
   const validationSchema = object().shape({
     email: string().required().email(),
     password: string().required(),
   });
+
+  const router = useRouter();
+
+  const { t } = useTranslation("pages.login");
 
   const { ButtonsProviders, signIn } = useAuth();
   const [authUser] = useGlobal("user");
@@ -31,11 +35,9 @@ const Login = (props) => {
       <div className="w-full max-w-[604px] mt-auto mb-auto">
         <form onSubmit={handleSubmit(signIn)} autoComplete="off" className="form-container" noValidate>
           <div className="form-content">
-            <div className="text-['Lato'] text-[44px] leading-[53px] text-primary tracking-wide mb-8">
-              Iniciar sesión
-            </div>
+            <div className="text-['Lato'] text-[44px] leading-[53px] text-primary tracking-wide mb-8">{t("title")}</div>
 
-            <ButtonsProviders google />
+            <ButtonsProviders google googleLabel={t("google-login")} />
 
             <div className="my-4">
               <Input
@@ -44,7 +46,7 @@ const Login = (props) => {
                 ref={register}
                 name="email"
                 background="white"
-                placeholder="Correo"
+                placeholder={t("email")}
                 height="45px"
               />
             </div>
@@ -56,7 +58,7 @@ const Login = (props) => {
                 ref={register}
                 name="password"
                 background="white"
-                placeholder="Contraseña"
+                placeholder={t("password")}
                 height="45px"
               />
             </div>
@@ -70,7 +72,7 @@ const Login = (props) => {
               fontWeight="bold"
               textAlign="left"
             >
-              Me olvide mi contraseña
+              {t("forgot-password")}
             </Anchor>
 
             <ButtonAnt
@@ -82,15 +84,15 @@ const Login = (props) => {
               height="45px"
               htmlType="submit"
             >
-              Iniciar sesión
+              {t("login")}
             </ButtonAnt>
 
             <div className="flex items-center gap-[5px] mt-12">
               <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-primary">
-                ¿No tienes una cuenta?
+                {t("not-have-account")}
               </div>
               <Anchor underlined url="/register" variant="primary" display="block" margin="0" fontSize="18px">
-                Regístrate aquí
+                {t("sign-up")}
               </Anchor>
             </div>
           </div>
