@@ -32,10 +32,10 @@
           "trainings": "Trainings",
           "workshops": "Workshops",
           "awards": "Awards",
-          "tournaments":"Tournaments",
-          "ceremonies":"Ceremonies",
+          "tournaments": "Tournaments",
+          "ceremonies": "Ceremonies",
           "unique-events": "Unique events",
-          "seasonal-plans":"Weekly/monthly/yearly plans",
+          "seasonal-plans": "Weekly/monthly/yearly plans",
           "custom-plans": "Custom plans"
         }
       }
@@ -49,6 +49,35 @@
       "descriptions": {
         "pro-hosted": "Leave it in the hands of a member of the ebombo Customer Success team. In addition, an elite or VIP entertainer will lead your live event that will unite your team in a collaborative and fun experience.",
         "self-hosted": "Is your moment. We have made it easy and intuitive for you or another person on your team to be the one to create and direct the virtual activities that ebombo offers."
+      }
+    },
+    "style": {
+      "title": "Ebombo style",
+      "items": {
+        "titles": {
+          "training-and-orientation": "Training and Orientation",
+          "onboardings": "Onboardings",
+          "games": "Games",
+          "happy-hour": "Happy Hour",
+          "holidays": "Holidays",
+          "benefit-plan": "Benefit plan",
+          "weather-activities": "Weather activities",
+          "awards": "Awards",
+          "icebreaker-activities": "Icebreaker activities",
+          "connect": "Connect"
+        },
+        "descriptions": {
+          "training-and-orientation": "We help your workers have training to learn more technical issues in a super fun way that allows for a high rate of engagement.",
+          "onboardings": "We offer virtual training activities for new workers, but in a super fun way.",
+          "games": "We have several games created by us such as 'Bingo, Hangman, Roulette, Trivia and more'.",
+          "happy-hour": "Bring your team together for a virtual happy hour and forget about the distance. Guaranteed fun with or without drinks, you decide.",
+          "holidays": "Whether you are celebrating Christmas, Women's Day, Labor Day, LGTBI Community Day, Anniversaries, Mother's Day, Father's Day, Children's Day and more, we have the best options.",
+          "benefit-plan": "For each activity that is used, your workers will accumulate points and then they can redeem them for incredible prizes",
+          "weather-activities": "Carry out activities for your team in a fun, authentic and innovative way.",
+          "awards": "We make awards to celebrate the achievements of your workers.",
+          "icebreaker-activities": "We have many activities to strengthen the work environment in the company. Make fun dynamics to motivate your team and help your colleagues to understand each other better.",
+          "connect": "Connecting your team virtually doesn't have to be a challenge. We have built innovative activities with technology that bring people together anywhere, anytime and on any occasion."
+        }
       }
     }
   },

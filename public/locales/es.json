@@ -50,6 +50,35 @@
         "pro-hosted": "Déjalo en manos de un miembro del equipo de Customer Success de ebombo. Además, un animador elite o VIP dirigirá tu evento en vivo que unirá a tu equipo en una experiencia colaborativa y divertida.",
         "self-hosted": "Es tu momento. Lo hemos hecho fácil e intuitivo para que tú u otra persona de tu equipo sea quien cree y dirija las actividades virtuales que ebombo ofrece."
       }
+    },
+    "style": {
+      "title": "Al estilo ebombo",
+      "items": {
+        "titles": {
+          "training-and-orientation": "Training y Orientación",
+          "onboardings": "Onboardings",
+          "games": "Juegos",
+          "happy-hour": "Happy Hour",
+          "holidays": "Días festivos",
+          "benefit-plan": "Plan de beneficios",
+          "weather-activities": "Actividades de clima",
+          "awards": "Premiaciones",
+          "icebreaker-activities": "Actividades rompe hielo",
+          "connect": "Conecta"
+        },
+        "descriptions": {
+          "training-and-orientation": "Ayudamos a que tus trabajadores tengan entrenamientos para conocer más temas técnicos de una manera super divertida y que permite tener una alta tasa de engagement.",
+          "onboardings": "Ofrecemos actividades virtuales de capacitación para nuevos trabajadores, pero de una manera super divertida.",
+          "games": "Tenemos varios juegos creados por nosotros como 'Bingo, Hangman, Ruletas, Trivias y más'.",
+          "happy-hour": "Reúne a tu equipo en una happy hour virtual y olvídate de la distancia. Diversión asegurada con o sin bebidas, tú decides.",
+          "holidays": "Ya sea estés celebrando Navidad, Día de la Mujer, Día del Trabajador, Día de la comunidad LGTBI, Aniversarios, Día de la Madre, Día del Padre, Día del Niño y más, contamos con las mejores opciones.",
+          "benefit-plan": "Por cada actividad que se use, tus trabajadores irán acumulando puntos y luego lo podrán canjear por premios increíbles",
+          "weather-activities": "Realiza actividades para tu equipo de una forma divertida, auténtica e innovadora.",
+          "awards": "Hacemos premiaciones para festejar los logros de tus trabajadores.",
+          "icebreaker-activities": "Tenemos muchas actividades para fortalecer el clima laboral en la empresa. Realiza divertidas dinámicas para motivar tu equipo   y ayudar a tus compañeros a entenderse más entre ellos.",
+          "connect": "Conectar a tu equipo de manera virtual no tiene porque ser un desafío. Hemos construído actividades innovadoras con tecnología que une personas en cualquier lugar, en cualquier momento y en cualquier ocasión."
+        }
+      }
     }
   },
   "nav": {
