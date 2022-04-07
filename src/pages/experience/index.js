@@ -1,7 +1,7 @@
 import React, { useEffect } from "reactn";
-import { ButtonAnt } from "../components/form";
+import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
-import { config } from "../firebase";
+import { config } from "../../firebase";
 import styled from "styled-components";
 
 export const Experience = (props) => {
