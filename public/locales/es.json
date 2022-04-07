@@ -83,7 +83,7 @@
     "options": {
       "book-an-event": "Reservar evento",
       "title": "Eventos virtuales para el equipo con todas las opciones",
-      "dub-title": "Con la confianza de empresas líderes",
+      "sub-title": "Con la confianza de empresas líderes",
       "options": {
         "opt1": "Acceda a nuestra biblioteca de juegos completa que incluye Trivia, Bingo, Ruleta de preguntas, Ahorcado, entre varias actividades",
         "opt2": "Eventos organizados o autoorganizados",
@@ -105,5 +105,16 @@
     "about-us": "Sobre nosotros",
     "contact-us": "Contáctanos",
     "contact": "Contacto"
+  },
+  "footer": {
+    "us": "Nosotros",
+    "know-us": "Conócenos",
+    "terms-and-conditions": "Términos y condiciones",
+    "platform": "Plataforma",
+    "what-do-we-do": "¿Qué hacemos?",
+    "request-a-demo": "Pide una demo",
+    "contact": "Contacto",
+    "contact-sales": "Contactar ventas",
+    "contact-support": "Contactar soporte"
   }
 }

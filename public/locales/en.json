@@ -105,5 +105,16 @@
     "about-us": "About us",
     "contact-us": "Contact us",
     "contact": "Contact"
+  },
+  "footer": {
+    "us": "Us",
+    "know-us": "Know us",
+    "terms-and-conditions": "Terms and conditions",
+    "platform": "Platform",
+    "what-do-we-do": "What do we do?",
+    "request-a-demo": "Request a demo",
+    "contact": "Contact",
+    "contact-sales": "Contact sales",
+    "contact-support": "Contact support"
   }
 }
