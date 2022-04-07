@@ -4,32 +4,35 @@ import { Desktop, mediaQuery, Tablet } from "../constants";
 import { Image } from "./common/Image";
 import { Anchor } from "./form";
 import { config } from "../firebase";
+import { useTranslation } from "../hooks";
 
 const footerContent = [
   {
-    title: "Nosotros",
+    title: "us",
     children: [
-      { title: "Conócenos", link: "/about-us" },
-      { title: "Términos y condiciones", link: "/" },
+      { title: "know-us", link: "/about-us" },
+      { title: "terms-and-conditions", link: "/" },
     ],
   },
   {
-    title: "Plataforma",
+    title: "platform",
     children: [
-      { title: "¿Qué hacemos?", link: "/about-us" },
-      { title: "Pide una demo", link: "/contact" },
+      { title: "what-do-we-do", link: "/about-us" },
+      { title: "request-a-demo", link: "/contact" },
     ],
   },
   {
-    title: "Contacto",
+    title: "contact",
     children: [
-      { title: "Contactar ventas", link: "/contact" },
+      { title: "contact-sales", link: "/contact" },
       { title: "Contactar soporte", link: "/contact" },
     ],
   },
 ];
 
 export const Footer = (props) => {
+  const { t } = useTranslation("footer");
+
   const email = useMemo(() => {
     return (
       <div className="email" onClick={() => window.open("mailto:events@ebombo.com.pe")}>
@@ -89,13 +92,13 @@ export const Footer = (props) => {
 
         {footerContent.map((content) => (
           <div className="content-wrapper" key={content.title}>
-            <div className="title">{content.title}</div>
+            <div className="title">{t(content.title)}</div>
 
             <div className="items-container">
               {content.children.map((item, index) => (
                 <div key={`desktop-${index}`}>
                   <Anchor href={item.link} variant="primary" margin="0" fontSize="13px">
-                    {item.title}
+                    {t(item.title)}
                   </Anchor>
                 </div>
               ))}

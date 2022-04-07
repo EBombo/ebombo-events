@@ -6,9 +6,12 @@ import { ContactForm } from "../contact";
 import { Icon } from "../../components/common/Icons";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
+import { useTranslation } from "../../hooks";
 
 export const AboutUs = (props) => {
   const router = useRouter();
+
+  const { t } = useTranslation("pages.about-us");
 
   return (
     <AboutUsContainer>
@@ -16,7 +19,7 @@ export const AboutUs = (props) => {
         <div className="back-container">
           <Icon className="back-icon" type="left" onClick={() => router.back()} />
         </div>
-        <div className="title">¿Quiénes somos?</div>
+        <div className="title">{t("title")}</div>
       </div>
       <div className="main-content">
         <Image
@@ -30,15 +33,11 @@ export const AboutUs = (props) => {
         />
         <div className="flex-container">
           <div className="text" data-aos="fade-right">
-            ebombo es una empresa de tecnología de recursos humanos enfocada en el futuro del trabajo. Permitiendo que
-            otras empresas conecten con sus empleados y mejoren su ambiente de trabajo. Todo esto es posible con las
-            actividades virtuales que creamos. Estas actividades consisten en diferentes tipos de juegos, dinámicas de
-            incorporación, capacitaciones y más, de una manera divertida y casual.
+            {t("description-1")}
             <br />
             <br />
             <br />
-            Nuestra misión es impactar en la vida de millones de trabajadores con entretenimiento. Entendemos que muchos
-            quieren trabajar de forma remota y que mantener a los trabajadores integrados en este esquema es díficil.
+            {t("description-2")}
           </div>
           {/*
             <div className="img-container" data-aos="fade-left">

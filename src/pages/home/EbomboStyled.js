@@ -3,91 +3,87 @@ import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { config } from "../../firebase";
 import { mediaQuery } from "../../constants";
+import { useTranslation } from "../../hooks";
 
 const EbomboItems = [
   {
-    title: "Training y Orientación",
-    description:
-      "Ayudamos a que tus trabajadores tengan entrenamientos para conocer más temas técnicos de una manera super divertida y que permite tener una alta tasa de engagement.",
+    title: "training-and-orientation",
+    description: "training-and-orientation",
     img: "orientacion.svg",
     color: "#4FBA6F",
   },
   {
-    title: "Onboardings",
-    description:
-      "Ofrecemos actividades virtuales de capacitación para nuevos trabajadores, pero de una manera super divertida",
+    title: "onboardings",
+    description: "onboardings",
     img: "onboarding.svg",
     color: "#FFD15B",
   },
   {
-    title: "Juegos",
-    description: 'Tenemos varios juegos creados por nosotros como "Bingo, Hangman, Ruletas, Trivias y más"',
+    title: "games",
+    description: "games",
     img: "games.svg",
     color: "#FFD15B",
   },
   {
-    title: "Happy Hour",
-    description:
-      "Reúne a tu equipo en una happy hour virtual y olvídate de la distancia. Diversión asegurada con o sin bebidas, tú decides.",
+    title: "happy-hour",
+    description: "happy-hour",
     img: "happy-hour.svg",
     color: "#FFD15B",
   },
   {
-    title: "Días festivos",
-    description:
-      "Ya sea estés celebrando Navidad, Día de la Mujer, Día del Trabajador, Día de la comunidad LGTBI, Aniversarios, Día de la Madre, Día del Padre, Día del Niño y más, contamos con las mejores opciones.",
+    title: "holidays",
+    description: "holidays",
     img: "dias-festivos.svg",
     color: "#E3954E",
   },
   {
-    title: "Plan de beneficios",
-    description:
-      "Por cada actividad que se use, tus trabajadores irán acumulando puntos y luego lo podrán canjear por premios increíbles",
+    title: "benefit-plan",
+    description: "benefit-plan",
     img: "beneficios.svg",
     color: "#93D8E4",
   },
   {
-    title: "Actividades de clima",
-    description: "Realiza actividades para tu equipo de una forma divertida, auténtica e innovadora.",
+    title: "weather-activities",
+    description: "weather-activities",
     img: "clima.svg",
     color: "#74829C",
   },
   {
-    title: "Premiaciones",
-    description: "Hacemos premiaciones para festejar los logros de tus trabajadores",
+    title: "awards",
+    description: "awards",
     img: "premiacion.svg",
     color: "#E12AFF",
   },
   {
-    title: "Actividades rompe hielo",
-    description:
-      "Tenemos muchas actividades para fortalecer el clima laboral en la empresa. Realiza divertidas dinámicas para motivar tu equipo   y ayudar a tus compañeros a entenderse más entre ellos. ",
+    title: "icebreaker-activities",
+    description: "icebreaker-activities",
     img: "hielo.svg",
     color: "#7AFFE4",
   },
   {}, // This is necessary for center item.
   {
-    title: "Conecta",
-    description:
-      "Conectar a tu equipo de manera virtual no tiene porque ser un desafío. Hemos construído actividades innovadoras con tecnología que une personas en cualquier lugar, en cualquier momento y en cualquier ocasión.",
+    title: "connect",
+    description: "connect",
     img: "conecta.svg",
     color: "#98B3F9",
   },
 ];
 
 export const EbomboStyle = (props) => {
+  const { t } = useTranslation("landing.style");
+
   return (
     <EbomboStyleStyled>
       <div className="content">
-        <div className="title">Al estilo ebombo</div>
+        <div className="title">{t("title")}</div>
 
         <div className="items">
-          {EbomboItems.map((item, index) => {
-            return item?.title ? (
+          {EbomboItems.map((item, index) =>
+            item?.title ? (
               <ItemStyled color={item.color} key={`item-styled-${index}`}>
-                <div className="title-item">{item.title}</div>
+                <div className="title-item">{t(`items.titles.${item.title}`)}</div>
 
-                <div className="description-item">{item.description}</div>
+                <div className="description-item">{t(`items.descriptions.${item.description}`)}</div>
 
                 <Image
                   src={`${config.storageUrl}/resources/ebombo-style/${item.img}`}
@@ -99,8 +95,8 @@ export const EbomboStyle = (props) => {
               </ItemStyled>
             ) : (
               <div key={`item-styled-${index}`} />
-            );
-          })}
+            )
+          )}
         </div>
       </div>
     </EbomboStyleStyled>
