@@ -8,6 +8,7 @@ import { Image } from "../../components/common/Image";
 import { ButtonAnt } from "../../components/form";
 import { TeamBuildingLiterals } from "../../components/common/DataList";
 import { Carousel } from "../../components/common/Carousel";
+import { Image as ImageV2 } from "ebombo-components";
 
 export const TeamBuilding = (props) => {
   const router = useRouter();
@@ -38,8 +39,9 @@ export const TeamBuilding = (props) => {
             <h3 className="text-primary font-bold text-3xl md:text-5xl">{TeamBuildingLiterals.header.subheading}</h3>
             <h2 className="text-secondary text-5xl md:text-7xl font-bold uppercase">{TeamBuildingLiterals.header.heading}</h2>
             <p className="text-secondary text-base md:text-2xl">{TeamBuildingLiterals.header.description}</p>
-            <div className="hidden md:block">
+            <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
               <ButtonAnt size="big" color="success"><span className="text-lg font-bold">Regístrate</span></ButtonAnt>
+              <ButtonAnt size="big" color="primary"><span className="text-lg font-bold">Contáctanos</span></ButtonAnt>
             </div>
           </div>
 
@@ -51,8 +53,9 @@ export const TeamBuilding = (props) => {
             />
           </div>
 
-          <div className="md:hidden px-8 py-8">
-           <ButtonAnt size="big" color="success"><span className="text-lg font-bold">Regístrate</span></ButtonAnt>   
+          <div className="md:hidden inline-flex flex-cols flex-wrap gap-4 px-8 py-8">
+            <ButtonAnt size="big" color="success"><span className="text-lg font-bold">Regístrate</span></ButtonAnt>   
+            <ButtonAnt size="big" color="primary"><span className="text-lg font-bold">Contáctanos</span></ButtonAnt>
           </div>
         </div>
       </section>
@@ -79,7 +82,14 @@ export const TeamBuilding = (props) => {
         </div>
       </section>
 
-      <section className="bg-gradient-primary-to-secondary">
+      <section className="bg-gradient-primary-to-secondary relative">
+        <div class="absolute top-[-30px] md:top-[-60px] left-2 md:left-8">
+          <Image src={`${config.storageUrl}/resources/planet-1.svg`} alt="" width="60px" desktopWidth="120px"/>
+        </div>
+        <div class="absolute bottom-[-30px] md:bottom-[-60px] right-2 md:right-8">
+          <Image src={`${config.storageUrl}/resources/planet-2.svg`} alt="" width="60px" desktopWidth="120px"/>
+        </div>
+
         <div className="max-w-[1000px] md:mx-auto grid grid-cols-[min-content_auto_min-content] items-center mx-4 sm:mx-8">
           <div className="">
             <Icon
@@ -127,7 +137,13 @@ export const TeamBuilding = (props) => {
               const isOdd = i%2 === 1;
 
               const childItems = [
-                (<img key={`img-${i}`} src={item.img} alt="" className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video`} />),
+                (<ImageV2
+                    key={`img-${i}`}
+                    src={item.img}
+                    alt=""
+                    placeholderUrl={item.placeholder}
+                    className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video rounded-lg`}
+                  />),
                 (<div key={`content-${i}`} className={`${isOdd ? "md:order-2" : "md:order-1"} order-2`}>
                   <div className="mb-6 uppercase font-bold text-primary text-2xl md:text-3xl">{item.title}</div>
                   <div className="text-base md:text-2xl">{item.description}</div>
