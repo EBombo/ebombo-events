@@ -143,6 +143,11 @@
       "login": "Iniciar sesión",
       "not-have-account": "¿No tienes una cuenta?",
       "sign-up": "Regístrate aquí"
+    },
+    "recovery": {
+      "recover-password": "Recuperar contraseña",
+      "description-1": "Por favor, introduce la dirección de correo electrónico asociada a tu cuenta. Te enviaremos un correo electrónico que te permitirá crear una nueva contraseña.",
+      "email": "Correo"
     }
   }
 }
