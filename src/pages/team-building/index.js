@@ -1,5 +1,4 @@
 import React, { useRef } from "reactn";
-import styled from "styled-components";
 import { useRouter } from "next/router";
 import { Desktop } from "../../constants";
 import { Icon } from "../../components/common/Icons";
