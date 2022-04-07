@@ -93,6 +93,10 @@
     },
     "companies": {
       "title": "Grandes compañías han confiado en nosotros, solo faltas tú"
+    },
+    "banner": {
+      "title": "El evento virtual que amarás",
+      "book-an-event": "Reservar evento"
     }
   },
   "nav": {

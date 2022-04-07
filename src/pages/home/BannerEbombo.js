@@ -2,12 +2,15 @@ import React from "reactn";
 import styled from "styled-components";
 import { ButtonAnt } from "../../components/form";
 import { mediaQuery } from "../../constants";
+import { useTranslation } from "../../hooks";
 
 export const BannerEbombo = (props) => {
+  const { t } = useTranslation("landing.banner");
+
   return (
     <BannerEbomboStyled>
       <div className="content-banner">
-        <div className="title">El evento virtual que amarás</div>
+        <div className="title">{t("title")}</div>
 
         {props.btnContact && (
           <ButtonAnt
@@ -17,7 +20,7 @@ export const BannerEbombo = (props) => {
             margin="25px 0 0 0"
             onClick={() => props.createEvent()}
           >
-            Reservar evento
+            {t("book-an-event")}
           </ButtonAnt>
         )}
       </div>

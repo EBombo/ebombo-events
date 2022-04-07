@@ -93,6 +93,10 @@
     },
     "companies": {
       "title": "Big companies have trusted us, the only thing missing is you"
+    },
+    "banner": {
+      "title": "The virtual event you will love",
+      "book-an-event": "Book an event"
     }
   },
   "nav": {
