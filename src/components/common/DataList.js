@@ -965,9 +965,9 @@ export const TeamBuildingLiterals = {
   virtualEvents: {
     title: "Eventos virtuales y juegos que fortalecerán tu equipo",
     items: [
-      {img: "https://via.placeholder.com/500x300", title: "Miles de opciones de dinámicas de teambuilding", description: "Nuestras actividades de equipos remoto están diseñadas para mejorar las conexiones, funcionan tan bien con grupos que se conocen como con equipos que se reúnen por primera vez."},
-      {img: "https://via.placeholder.com/500x300", title: "Eventos de team building personalizado", description: "Nuestras actividades funcionan tan bien con grupos que se conocen como con equipos que se reúnen por primera vez. Nuestra variedad de contenido le permite planificar un evento para colegas de toda la vida o con colegas nuevos."},
-      {img: "https://via.placeholder.com/500x300", title: "UNA PLATAFORMA DE TEAM BUILDING DIFERENTE", description: "Utilice la actividad adecuada para cada ocasión. No importa el tamaño de la empresa, todos los colaboradores pueden participar de una manera divertida. Desde una happy hour, hasta una conferencia es fácil planificar. Estamos aquí para acercarlos virtualmente."},
+      {img: `${config.storageUrl}/resources/TEAM_BUILDING_1.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_1_12x12.webp`, title: "Miles de opciones de dinámicas de teambuilding", description: "Nuestras actividades de equipos remoto están diseñadas para mejorar las conexiones, funcionan tan bien con grupos que se conocen como con equipos que se reúnen por primera vez."},
+      {img: `${config.storageUrl}/resources/TEAM_BUILDING_2.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_2_12x12.webp`, title: "Eventos de team building personalizado", description: "Nuestras actividades funcionan tan bien con grupos que se conocen como con equipos que se reúnen por primera vez. Nuestra variedad de contenido le permite planificar un evento para colegas de toda la vida o con colegas nuevos."},
+      {img: `${config.storageUrl}/resources/TEAM_BUILDING_3.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_3_12x12.webp`, title: "UNA PLATAFORMA DE TEAM BUILDING DIFERENTE", description: "Utilice la actividad adecuada para cada ocasión. No importa el tamaño de la empresa, todos los colaboradores pueden participar de una manera divertida. Desde una happy hour, hasta una conferencia es fácil planificar. Estamos aquí para acercarlos virtualmente."},
     ],
   },
   virtualEventYouLove: {

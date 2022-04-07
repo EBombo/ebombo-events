@@ -24,6 +24,7 @@
     "antd": "^4.14.1",
     "aos": "^2.3.4",
     "country-list": "^2.2.0",
+    "ebombo-components": "github:EBombo/ebombo-components#0.0.3",
     "firebase": "^8.3.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
