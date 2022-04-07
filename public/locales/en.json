@@ -148,6 +148,17 @@
       "recover-password": "Recover password",
       "description-1": "Please enter the email address associated with your account. We will send you an email that will allow you to create a new password.",
       "email": "Email"
+    },
+    "register": {
+      "google-login": "Sign in with Google",
+      "sign-up": "Sign up",
+      "name": "Name",
+      "last-name": "LastName",
+      "email": "Email",
+      "date-of-birth": "Date of birth",
+      "country": "Country",
+      "phone": "Phone number",
+      "password": "Password"
     }
   }
 }

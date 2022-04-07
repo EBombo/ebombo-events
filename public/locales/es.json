@@ -148,6 +148,17 @@
       "recover-password": "Recuperar contraseña",
       "description-1": "Por favor, introduce la dirección de correo electrónico asociada a tu cuenta. Te enviaremos un correo electrónico que te permitirá crear una nueva contraseña.",
       "email": "Correo"
+    },
+    "register": {
+      "google-login": "Ingresar con Google",
+      "sign-up": "Regístrate",
+      "name": "Nombre",
+      "last-name": "Apellidos",
+      "email": "Correo",
+      "date-of-birth": "Fecha de nacimiento",
+      "country": "País",
+      "phone": "Celular",
+      "password": "Contraseña"
     }
   }
 }
