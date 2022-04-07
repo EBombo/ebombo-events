@@ -161,6 +161,13 @@
       "country": "País",
       "phone": "Celular",
       "password": "Contraseña"
+    },
+    "experience": {
+      "title": "LAS ACTIVIDADES MÁS DIVERTIDAS QUE TE PUEDAS ENCONTRAR",
+      "subtitle": "Establecemos el estándar para el compromiso virtual y mejora la cultura de la oficina remota.",
+      "loginButton": "Iniciar sesión",
+      "freeTrial": "OBTÉN UNA PRUEBA GRATUITA",
+      "freeTrial-time": "POR 1 MES"
     }
   }
 }

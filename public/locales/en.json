@@ -161,6 +161,13 @@
       "country": "Country",
       "phone": "Phone number",
       "password": "Password"
+    },
+    "experience": {
+      "title": "THE MOST FUN ACTIVITIES YOU CAN FIND",
+      "subtitle": "We set the standard for virtual engagement and enhance remote office culture.",
+      "loginButton": "Log in",
+      "freeTrial": "GET A FREE TRIAL",
+      "freeTrial-time": "FOR 1 MONTH"
     }
   }
 }

@@ -3,9 +3,12 @@ import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import styled from "styled-components";
+import { useTranslation } from "../../hooks";
 
 export const Experience = (props) => {
   const router = useRouter();
+
+  const { t } = useTranslation("pages.experience");
 
   useEffect(() => {
     router.prefetch("/login");
@@ -13,24 +16,24 @@ export const Experience = (props) => {
 
   return (
     <ExperienceContainer>
-      <div className="w-full bg-cover bg-no-repeat bg-secondary bg-pattern grid gap-4 md:grid-cols-[1fr_1fr] md:h-[800px]">
-        <div className="p-4 flex flex-col items-center justify-center">
-          <div className="text-['Lato'] font-[900] text-white text-[40px] leading-[48px] text-center md:text-left md:text-[50px] md:leading-[55px]">
-            LAS ACTIVIDADES MÁS DIVERTIDAS QUE TE PUEDAS ENCONTRAR
+      <div className="w-full bg-cover bg-no-repeat bg-secondary bg-pattern grid gap-4 p-2 md:p-4 lg:grid-cols-[auto_670px] lg:h-[800px]">
+        <div className="p-4 flex flex-col items-center justify-center min-h-[450px]">
+          <div className="w-full text-['Lato'] font-[900] text-white text-[25px] leading-[35px] md:text-[40px] md:leading-[48px] text-center lg:text-left lg:text-[50px] lg:leading-[55px]">
+            {t("title")}
           </div>
-          <div className="text-['Lato'] font-[400] text-white text-[16px] leading-[19px] my-4 text-center md:text-left md:text-[25px] md:leading-[28px]">
-            Establecemos el estándar para el compromiso virtual y mejora la cultura de la oficina remota.
+          <div className="w-full text-['Lato'] font-[400] text-white text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] my-4 text-center lg:text-left lg:text-[25px] lg:leading-[28px]">
+            {t("subtitle")}
           </div>
-          <div className="w-full flex items-center justify-center md:justify-start">
-            <ButtonAnt color="danger" onClick={() => router.push("/login")} margin="0">
-              <div className="text-['Lato'] font-[400] text-blackDarkent text-[25px] leading-[28px] py-2 px-4">
-                Iniciar sesión
+          <div className="w-full flex items-center justify-center lg:justify-start">
+            <ButtonAnt color="orange" onClick={() => router.push("/login")} margin="0">
+              <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
+                {t("loginButton")}
               </div>
             </ButtonAnt>
           </div>
         </div>
 
-        <div className="hidden h-full overflow-hidden md:flex md:gap-4">
+        <div className="hidden h-full overflow-hidden lg:flex lg:gap-[5px]">
           <div className="slider ">
             <div className="slide-track">
               <div className="slide">
@@ -69,7 +72,7 @@ export const Experience = (props) => {
             </div>
           </div>
 
-          <div className="slider ">
+          <div className="slider">
             <div className="slide-track-middle">
               <div className="slide">
                 <img src={`${config.storageUrl}/resources/games/triviaCrack.png`} />
@@ -146,11 +149,46 @@ export const Experience = (props) => {
           </div>
         </div>
       </div>
+
+      <div className="bg-primary p-4 w-full md:flex md:items-center gap-[5px] md:justify-center">
+        <div className="flex gap-[5px] items-center justify-center">
+          <div className="hidden border-[1px] border-white bg-success w-[10px] h-[10px] rounded-[50%] lg:block" />
+          <div className="text-['Lato'] font-[800] text-[24px] leading-[29px] flex gap-[5px] lg:text-[42px] lg:leading-[50px]">
+            <p className="text-white text-center m-0">
+              {t("freeTrial").toUpperCase()}
+              <span className="text-secondary ml-[5px]">{t("freeTrial-time").toUpperCase()}</span>
+            </p>
+          </div>
+        </div>
+        <div className="flex justify-center mt-2 lg:mt-0 lg:ml-4 lg:justify-start">
+          <ButtonAnt color="orange" onClick={() => router.push("/login")} margin="0">
+            <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
+              {t("loginButton")}
+            </div>
+          </ButtonAnt>
+        </div>
+      </div>
+
+      <div className="w-full bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8">
+        <div>
+          <div className="">Más populares</div>
+        </div>
+
+        <div>
+          <div>Entre empresas</div>
+        </div>
+
+        <div>
+          <div>Team building</div>
+        </div>
+      </div>
     </ExperienceContainer>
   );
 };
 
 const ExperienceContainer = styled.div`
+  width: 100vw;
+
   .slider {
     width: 220px;
     margin: auto;
@@ -167,8 +205,8 @@ const ExperienceContainer = styled.div`
     height: calc(220px * 8);
     animation: scroll 30s linear infinite;
   }
-  
-  .slide-track-middle{
+
+  .slide-track-middle {
     display: flex;
     flex-direction: column;
     height: calc(220px * 8);
@@ -199,13 +237,13 @@ const ExperienceContainer = styled.div`
       transform: translateY(calc(-220px * 4));
     }
   }
-  
+
   @keyframes vertical-scroll {
     0% {
-      transform: translateY(0);
+      transform: translateY(calc(-220px * 4));
     }
     100% {
-      transform: translateY(calc(+220px * 4));
+      transform: translateY(0);
     }
   }
 `;
