@@ -133,6 +133,16 @@
         "phone-number": "Número de teléfono",
         "leave-us-your-query": "Déjanos tu consulta aquí"
       }
+    },
+    "login": {
+      "title": "Iniciar sesión",
+      "google-login": "Ingresar con Google",
+      "email": "Correo",
+      "password": "Contraseña",
+      "forgot-password": "Me olvide mi contraseña",
+      "login": "Iniciar sesión",
+      "not-have-account": "¿No tienes una cuenta?",
+      "sign-up": "Regístrate aquí"
     }
   }
 }
