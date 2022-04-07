@@ -24,7 +24,7 @@ export const TeamBuilding = (props) => {
 
   const GameContentItem = ({ gameContent }) => (<div>
     <div className="text-white">
-      <div className="aspect-square w-full mb-4"><img src={gameContent.img} alt="" /></div>
+      <div className="aspect-square w-full mb-4"><ImageV2 src={gameContent.img} placeholderUrl={gameContent.placeholderUrl} alt="" /></div>
       <div className="text-2xl mb-4">{gameContent.title}</div>
       <p className="text-base">{gameContent.description}</p>
     </div>
@@ -45,8 +45,9 @@ export const TeamBuilding = (props) => {
           </div>
 
           <div className="px-8">
-            <img
-              src="https://via.placeholder.com/500x300"
+            <ImageV2
+              placeholderUrl={`${config.storageUrl}/resources/team-building-video-snapshot.jpg`}
+              src={`${config.storageUrl}/resources/team-building-video.gif`}
               alt=""
               className="w-full aspect-video rounded-2xl"
             />
