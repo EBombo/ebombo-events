@@ -47,11 +47,9 @@ const ForgotPassword = (props) => {
         <div className="content">
           {emailSent ? (
             <React.Fragment>
-              <h1 className="title">Muy bien!</h1>
+              <h1 className="title">{t("title")}</h1>
 
-              <p className="forgot-password-note">
-                Le hemos enviado un correo electrónico con instrucciones para restablecer su contraseña.
-              </p>
+              <p className="forgot-password-note">{t("note")}</p>
             </React.Fragment>
           ) : (
             <React.Fragment>

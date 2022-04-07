@@ -145,6 +145,8 @@
       "sign-up": "Regístrate aquí"
     },
     "recovery": {
+      "title": "Muy bien!",
+      "note": "Le hemos enviado un correo electrónico con instrucciones para restablecer su contraseña.",
       "recover-password": "Recuperar contraseña",
       "description-1": "Por favor, introduce la dirección de correo electrónico asociada a tu cuenta. Te enviaremos un correo electrónico que te permitirá crear una nueva contraseña.",
       "email": "Correo"
