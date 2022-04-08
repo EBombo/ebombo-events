@@ -37,37 +37,37 @@ export const Experience = (props) => {
           <div className="slider ">
             <div className="slide-track">
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/trivia.png`} />
+                <img src={`${config.storageUrl}/resources/games/trivia.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/roulette.png`} />
+                <img src={`${config.storageUrl}/resources/games/roulette.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/rouletteQuestions.png`} />
+                <img src={`${config.storageUrl}/resources/games/rouletteQuestions.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/hanged.png`} />
+                <img src={`${config.storageUrl}/resources/games/hanged.svg`} />
               </div>
 
               {/*  repeat 4 images*/}
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/trivia.png`} />
+                <img src={`${config.storageUrl}/resources/games/trivia.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/roulette.png`} />
+                <img src={`${config.storageUrl}/resources/games/roulette.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/rouletteQuestions.png`} />
+                <img src={`${config.storageUrl}/resources/games/rouletteQuestions.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/hanged.png`} />
+                <img src={`${config.storageUrl}/resources/games/hanged.svg`} />
               </div>
             </div>
           </div>
@@ -75,37 +75,37 @@ export const Experience = (props) => {
           <div className="slider">
             <div className="slide-track-middle">
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/triviaCrack.png`} />
+                <img src={`${config.storageUrl}/resources/games/triviaCrack.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/bingo.png`} />
+                <img src={`${config.storageUrl}/resources/games/bingo.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/drawAndGuess.png`} />
+                <img src={`${config.storageUrl}/resources/games/drawAndGuess.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/scrabble.png`} />
+                <img src={`${config.storageUrl}/resources/games/scrabble.svg`} />
               </div>
 
               {/*  repeat 4 images*/}
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/triviaCrack.png`} />
+                <img src={`${config.storageUrl}/resources/games/triviaCrack.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/bingo.png`} />
+                <img src={`${config.storageUrl}/resources/games/bingo.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/drawAndGuess.png`} />
+                <img src={`${config.storageUrl}/resources/games/drawAndGuess.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/scrabble.png`} />
+                <img src={`${config.storageUrl}/resources/games/scrabble.svg`} />
               </div>
             </div>
           </div>
@@ -113,37 +113,37 @@ export const Experience = (props) => {
           <div className="slider ">
             <div className="slide-track">
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/movie.png`} />
+                <img src={`${config.storageUrl}/resources/games/movie.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/triviaOnboarding.png`} />
+                <img src={`${config.storageUrl}/resources/games/triviaOnboarding.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/domesticMovie.png`} />
+                <img src={`${config.storageUrl}/resources/games/domesticMovie.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/song.png`} />
+                <img src={`${config.storageUrl}/resources/games/song.svg`} />
               </div>
 
               {/*  repeat 4 images*/}
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/movie.png`} />
+                <img src={`${config.storageUrl}/resources/games/movie.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/triviaOnboarding.png`} />
+                <img src={`${config.storageUrl}/resources/games/triviaOnboarding.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/domesticMovie.png`} />
+                <img src={`${config.storageUrl}/resources/games/domesticMovie.svg`} />
               </div>
 
               <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/song.png`} />
+                <img src={`${config.storageUrl}/resources/games/song.svg`} />
               </div>
             </div>
           </div>
@@ -171,15 +171,25 @@ export const Experience = (props) => {
 
       <div className="w-full bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8">
         <div>
-          <div className="">Más populares</div>
+          <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
+            Más populares
+          </div>
+
+          <div>
+
+          </div>
         </div>
 
         <div>
-          <div>Entre empresas</div>
+          <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
+            Entre empresas
+          </div>
         </div>
 
         <div>
-          <div>Team building</div>
+          <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
+            Team building
+          </div>
         </div>
       </div>
     </ExperienceContainer>
