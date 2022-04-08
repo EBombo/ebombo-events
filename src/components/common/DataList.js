@@ -948,46 +948,46 @@ export const PlanIntervals = {
 
 export const TeamBuildingLiterals = {
   header: {
-    subheading: "Házlo como nadie",
-    heading: "TEAM BUILDING",
-    description: "Creado por profesionales que se toman la diversión seria, nuestro equipo virtual de team building events crea ese tipo de enlaces que demorarían años en crearse en una forma de trabajo remoto. ",
+    subheading: "landing.team-building.intro-subheading",
+    heading: "landing.team-building.intro-team-building-title",
+    description: "landing.team-building.intro-team-building-description",
   },
   whyItWorks: {
-    title: "¿Por qué ebombo funciona?",
-    description: `Un desafío del trabajo remoto es la falta de conexión. Nuestra plataforma brinda momentos de colaboración para que los equipos remotos se diviertan juntos y conecten de mejor manera.`,
-    description2: `Usamos el poder de activdades para fortalecer la cultura de la empresa, crear relaciones de trabajo más productivas y mejorar el compromiso del equipo, lo que conduce a una mayor retención de empleados y una mayor satisfacción en el lugar de trabajo.`,
+    title: "landing.team-building.why-ebombo-works.title",
+    description: "landing.team-building.why-ebombo-works.description",
+    description2: "landing.team-building.why-ebombo-works.description-paragraph-2",
   },
   activities: {
-    title: "ACTIVIDADES DE TEAM BULDING VIRTUALES ",
-    description: `¿Buscas los mejores actividades virtuales para involucrar a los empleados y facilitar la vinculación del equipo? Te tenemos cubierto. ¡Elige entre más de 25 actividades en nuestra biblioteca inigualables o pídenos algo personalizado!`,
+    title: "landing.team-building.activities.title",
+    description: "landing.team-building.activities.description",
   },
 
   games: [
-    { img: `${config.storageUrl}/resources/trivia-game.png`, placeholderUrl: `${config.storageUrl}/resources/trivia-game_12x12.png`, title: "Trivia", description: "Reúne a tu equipo para actividades de preguntas dándole el enfoque que tu quieras: películas, deportes o hasta temas onboarding y capacitaciones." },
-    { img: `${config.storageUrl}/resources/bingo-game.png`, placeholderUrl: `${config.storageUrl}/resources/bingo-game_12x12.png`, title: "BINGO", description: "Juega de manera virtual un Bingo interactivo con tus colaborades. Usa nuestra plataforma para que tus trabajadores tengan sus cartillas y lo jueguen desde sus casas o en el trabajo." },
-    { img: `${config.storageUrl}/resources/ruleta-game.png`, placeholderUrl: `${config.storageUrl}/resources/ruleta-game_12x12.png`, title: "Ruleta", description: "Haz sorteos en vivo o con una lista ya hecha de presentes que quisieras regalar a tus trabajadores por una fecha importante." },
-    { img: `${config.storageUrl}/resources/ruleta-rompehielo-game.png`, placeholderUrl: `${config.storageUrl}/resources/ruleta-rompehielo-game_12x12.png`, title: "Ruleta rompehielo", description: "Usa la ruleta rompehielo para romper el ambiente. Saldrán preguntas que escojas y los colaboradores tendrán que responderlas de manera divertida." },
-    { img: `${config.storageUrl}/resources/ahorcado-game.png`, placeholderUrl: `${config.storageUrl}/resources/ahorcado-game_12x12.png`, title: "Ahorcado", description: "Escoje palabras o frases que desees. Pueden ser relacionadas a la cultura de la empresa o dale el enfoque que quieras." },
-    { img: `${config.storageUrl}/resources/2-true-1-false-game.png`, placeholderUrl: `${config.storageUrl}/resources/2-true-1-false-game_12x12.png`, title: "2 verdades y 1 mentira", description: "Menciona tres enunciados sobre el tema que quieras y el jugador deberá adivinar cuál es la mentira. Perfecto para capacitaciones." },
-    { img: `${config.storageUrl}/resources/zoom-game.png`, placeholderUrl: `${config.storageUrl}/resources/zoom-game_12x12.png`, title: "Zoom a la imagen", description: "Danos una imagen completa de lo que quieras y mostraremos una parte a los colaboradores. Quien adivine de qué trata la imagen ganará." },
-    { img: `${config.storageUrl}/resources/movie-guess-game.png`, placeholderUrl: `${config.storageUrl}/resources/movie-guess-game_12x12.png`, title: "Adivina la película", description: "Te daremos datos de una película y el jugador que pueda adivinar cuál es primero, ganará." },
-    { img: `${config.storageUrl}/resources/letras-revueltas-game.png`, placeholderUrl: `${config.storageUrl}/resources/letras-revueltas-game_12x12.png`, title: "Letras revueltas", description: "Te mostraremos ordenigmas de las frases o palabras que quieras y los colaboradores deberán competir para ver quién puede ordenar las letras primero." },
-    { img: `${config.storageUrl}/resources/charadas-game.png`, placeholderUrl: `${config.storageUrl}/resources/charadas-game_12x12.png`, title: "Charadas", description: "Haz que tus colaboradores se paren de su asiento, muevan sus cuerpos y actúen lo que se les muestre en pantalla. Los otros trabajadores deberán adivinar de qué se trata." },
-    { img: `${config.storageUrl}/resources/trivia-game.png`, placeholderUrl: `${config.storageUrl}/resources/trivia-game_12x12.png`, title: "Adivina la canción", description: "Reproduciremos un extracto de una canción y el colaborador que adivine el nombre primero ganará un punto y si canta, uno adicional." },
-    { img: `${config.storageUrl}/resources/trivia-game.png`, placeholderUrl: `${config.storageUrl}/resources/trivia-game_12x12.png`, title: "Lenguaje Emoji", description: "Mostraremos tres emojis y los colaboradores deberán interpretarlos y encontrar la frase o palabra oculta." },
-    { img: `${config.storageUrl}/resources/pelicula-domestica-game.png`, placeholderUrl: `${config.storageUrl}/resources/pelicula-domestica-game_12x12.png`, title: "Película doméstica", description: "Reproduciremos una pequeña escena de una película y acto seguido dos colaboradores deberán imitar las actuaciones." },
+    { img: `${config.storageUrl}/resources/trivia-game.png`, placeholderUrl: `${config.storageUrl}/resources/trivia-game_12x12.png`, title: "landing.team-building.games.trivia.title", description: "landing.team-building.games.trivia.description" },
+    { img: `${config.storageUrl}/resources/bingo-game.png`, placeholderUrl: `${config.storageUrl}/resources/bingo-game_12x12.png`, title: "landing.team-building.games.bingo.title", description: "landing.team-building.games.bingo.description" },
+    { img: `${config.storageUrl}/resources/ruleta-game.png`, placeholderUrl: `${config.storageUrl}/resources/ruleta-game_12x12.png`, title: "landing.team-building.games.roulette.title", description: "landing.team-building.games.roulette.description" },
+    { img: `${config.storageUrl}/resources/ruleta-rompehielo-game.png`, placeholderUrl: `${config.storageUrl}/resources/ruleta-rompehielo-game_12x12.png`, title: "landing.team-building.games.roulette-icebreaker.title", description: "landing.team-building.games.roulette-icebreaker.description" },
+    { img: `${config.storageUrl}/resources/ahorcado-game.png`, placeholderUrl: `${config.storageUrl}/resources/ahorcado-game_12x12.png`, title: "landing.team-building.games.hangman.title", description: "landing.team-building.games.hangman.description" },
+    { img: `${config.storageUrl}/resources/2-true-1-false-game.png`, placeholderUrl: `${config.storageUrl}/resources/2-true-1-false-game_12x12.png`, title: "landing.team-building.games.2-true-1-false.title", description: "landing.team-building.games.2-true-1-false.description" },
+    { img: `${config.storageUrl}/resources/zoom-game.png`, placeholderUrl: `${config.storageUrl}/resources/zoom-game_12x12.png`, title: "landing.team-building.games.zoom.title", description: "landing.team-building.games.zoom.description" },
+    { img: `${config.storageUrl}/resources/movie-guess-game.png`, placeholderUrl: `${config.storageUrl}/resources/movie-guess-game_12x12.png`, title: "landing.team-building.games.movie-guess.title", description: "landing.team-building.games.movie-guess.description" },
+    { img: `${config.storageUrl}/resources/letras-revueltas-game.png`, placeholderUrl: `${config.storageUrl}/resources/letras-revueltas-game_12x12.png`, title: "landing.team-building.games.scrambled-letters.title", description: "landing.team-building.games.scrambled-letters.description" },
+    { img: `${config.storageUrl}/resources/charadas-game.png`, placeholderUrl: `${config.storageUrl}/resources/charadas-game_12x12.png`, title: "landing.team-building.games.charadas.title", description: "landing.team-building.games.charadas.description" },
+    { img: `${config.storageUrl}/resources/song-guess-game.png`, placeholderUrl: `${config.storageUrl}/resources/song-guess-game_12x12.png`, title: "landing.team-building.games.song-guess.title", description: "landing.team-building.games.song-guess.description" },
+    { img: `${config.storageUrl}/resources/trivia-game.png`, placeholderUrl: `${config.storageUrl}/resources/trivia-game_12x12.png`, title: "landing.team-building.games.song-guess.title", description: "landing.team-building.games.song-guess.description" },
+    { img: `${config.storageUrl}/resources/pelicula-domestica-game.png`, placeholderUrl: `${config.storageUrl}/resources/pelicula-domestica-game_12x12.png`, title: "landing.team-building.games.domestic-movie.title", description: "landing.team-building.games.domestic-movie.description" },
   ],
 
   virtualEvents: {
-    title: "Eventos virtuales y juegos que fortalecerán tu equipo",
+    title: "landing.team-building.virtual-events.title",
     items: [
-      {img: `${config.storageUrl}/resources/TEAM_BUILDING_1.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_1_12x12.webp`, title: "Miles de opciones de dinámicas de teambuilding", description: "Nuestras actividades de equipos remoto están diseñadas para mejorar las conexiones, funcionan tan bien con grupos que se conocen como con equipos que se reúnen por primera vez."},
-      {img: `${config.storageUrl}/resources/TEAM_BUILDING_2.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_2_12x12.webp`, title: "Eventos de team building personalizado", description: "Nuestras actividades funcionan tan bien con grupos que se conocen como con equipos que se reúnen por primera vez. Nuestra variedad de contenido le permite planificar un evento para colegas de toda la vida o con colegas nuevos."},
-      {img: `${config.storageUrl}/resources/TEAM_BUILDING_3.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_3_12x12.webp`, title: "UNA PLATAFORMA DE TEAM BUILDING DIFERENTE", description: "Utilice la actividad adecuada para cada ocasión. No importa el tamaño de la empresa, todos los colaboradores pueden participar de una manera divertida. Desde una happy hour, hasta una conferencia es fácil planificar. Estamos aquí para acercarlos virtualmente."},
+      {img: `${config.storageUrl}/resources/TEAM_BUILDING_1.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_1_12x12.webp`, title: "landing.team-building.virtual-events.items-1.title", description: "landing.team-building.virtual-events.items-1.description"},
+      {img: `${config.storageUrl}/resources/TEAM_BUILDING_2.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_2_12x12.webp`, title: "landing.team-building.virtual-events.items-2.title", description: "landing.team-building.virtual-events.items-2.description"},
+      {img: `${config.storageUrl}/resources/TEAM_BUILDING_3.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_3_12x12.webp`, title: "landing.team-building.virtual-events.items-3.title", description: "landing.team-building.virtual-events.items-3.description"},
     ],
   },
   virtualEventYouLove: {
-    title: "El evento virtual que amarás",
+    title: "landing.team-building.virtual-event-you-love.title",
   }
 };
 
