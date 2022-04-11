@@ -404,7 +404,10 @@ export const TriviaQuestion = (props) => {
                 if (isEmpty(correctAns)) return;
 
                 const _questions = [...props.questions];
-                _questions[props.questionIndex].answer = [...props.questions[props.questionIndex].answer, correctAns?.trim()];
+                _questions[props.questionIndex].answer = [
+                  ...props.questions[props.questionIndex].answer,
+                  correctAns?.trim(),
+                ];
                 props.setQuestions(_questions);
                 setCorrectAns("");
               }}

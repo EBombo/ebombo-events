@@ -963,32 +963,105 @@ export const TeamBuildingLiterals = {
   },
 
   games: [
-    { img: `${config.storageUrl}/resources/trivia-game.svg`, placeholderUrl: `${config.storageUrl}/resources/trivia-game_12x12.png`, title: "landing.team-building.games.trivia.title", description: "landing.team-building.games.trivia.description" },
-    { img: `${config.storageUrl}/resources/bingo-game.svg`, placeholderUrl: `${config.storageUrl}/resources/bingo-game_12x12.png`, title: "landing.team-building.games.bingo.title", description: "landing.team-building.games.bingo.description" },
-    { img: `${config.storageUrl}/resources/roulette-game.svg`, placeholderUrl: `${config.storageUrl}/resources/ruleta-game_12x12.png`, title: "landing.team-building.games.roulette.title", description: "landing.team-building.games.roulette.description" },
-    { img: `${config.storageUrl}/resources/roulette-icebreaker-game.svg`, placeholderUrl: `${config.storageUrl}/resources/ruleta-rompehielo-game_12x12.png`, title: "landing.team-building.games.roulette-icebreaker.title", description: "landing.team-building.games.roulette-icebreaker.description" },
-    { img: `${config.storageUrl}/resources/ahorcado-game.svg`, placeholderUrl: `${config.storageUrl}/resources/ahorcado-game_12x12.png`, title: "landing.team-building.games.hangman.title", description: "landing.team-building.games.hangman.description" },
-    { img: `${config.storageUrl}/resources/2-true-1-false-game.png`, placeholderUrl: `${config.storageUrl}/resources/2-true-1-false-game_12x12.png`, title: "landing.team-building.games.2-true-1-false.title", description: "landing.team-building.games.2-true-1-false.description" },
-    { img: `${config.storageUrl}/resources/zoom-game.svg`, placeholderUrl: `${config.storageUrl}/resources/zoom-game_12x12.png`, title: "landing.team-building.games.zoom.title", description: "landing.team-building.games.zoom.description" },
-    { img: `${config.storageUrl}/resources/movie-guess-game.svg`, placeholderUrl: `${config.storageUrl}/resources/movie-guess-game_12x12.png`, title: "landing.team-building.games.movie-guess.title", description: "landing.team-building.games.movie-guess.description" },
-    { img: `${config.storageUrl}/resources/letras-revueltas-game.svg`, placeholderUrl: `${config.storageUrl}/resources/letras-revueltas-game_12x12.png`, title: "landing.team-building.games.scrambled-letters.title", description: "landing.team-building.games.scrambled-letters.description" },
-    { img: `${config.storageUrl}/resources/charadas-game.svg`, placeholderUrl: `${config.storageUrl}/resources/charadas-game_12x12.png`, title: "landing.team-building.games.charadas.title", description: "landing.team-building.games.charadas.description" },
-    { img: `${config.storageUrl}/resources/song-guess-game.svg`, placeholderUrl: `${config.storageUrl}/resources/song-guess-game_12x12.png`, title: "landing.team-building.games.song-guess.title", description: "landing.team-building.games.song-guess.description" },
+    {
+      img: `${config.storageUrl}/resources/trivia-game.svg`,
+      placeholderUrl: `${config.storageUrl}/resources/trivia-game_12x12.png`,
+      title: "landing.team-building.games.trivia.title",
+      description: "landing.team-building.games.trivia.description",
+    },
+    {
+      img: `${config.storageUrl}/resources/bingo-game.svg`,
+      placeholderUrl: `${config.storageUrl}/resources/bingo-game_12x12.png`,
+      title: "landing.team-building.games.bingo.title",
+      description: "landing.team-building.games.bingo.description",
+    },
+    {
+      img: `${config.storageUrl}/resources/roulette-game.svg`,
+      placeholderUrl: `${config.storageUrl}/resources/ruleta-game_12x12.png`,
+      title: "landing.team-building.games.roulette.title",
+      description: "landing.team-building.games.roulette.description",
+    },
+    {
+      img: `${config.storageUrl}/resources/roulette-icebreaker-game.svg`,
+      placeholderUrl: `${config.storageUrl}/resources/ruleta-rompehielo-game_12x12.png`,
+      title: "landing.team-building.games.roulette-icebreaker.title",
+      description: "landing.team-building.games.roulette-icebreaker.description",
+    },
+    {
+      img: `${config.storageUrl}/resources/ahorcado-game.svg`,
+      placeholderUrl: `${config.storageUrl}/resources/ahorcado-game_12x12.png`,
+      title: "landing.team-building.games.hangman.title",
+      description: "landing.team-building.games.hangman.description",
+    },
+    {
+      img: `${config.storageUrl}/resources/2-true-1-false-game.png`,
+      placeholderUrl: `${config.storageUrl}/resources/2-true-1-false-game_12x12.png`,
+      title: "landing.team-building.games.2-true-1-false.title",
+      description: "landing.team-building.games.2-true-1-false.description",
+    },
+    {
+      img: `${config.storageUrl}/resources/zoom-game.svg`,
+      placeholderUrl: `${config.storageUrl}/resources/zoom-game_12x12.png`,
+      title: "landing.team-building.games.zoom.title",
+      description: "landing.team-building.games.zoom.description",
+    },
+    {
+      img: `${config.storageUrl}/resources/movie-guess-game.svg`,
+      placeholderUrl: `${config.storageUrl}/resources/movie-guess-game_12x12.png`,
+      title: "landing.team-building.games.movie-guess.title",
+      description: "landing.team-building.games.movie-guess.description",
+    },
+    {
+      img: `${config.storageUrl}/resources/letras-revueltas-game.svg`,
+      placeholderUrl: `${config.storageUrl}/resources/letras-revueltas-game_12x12.png`,
+      title: "landing.team-building.games.scrambled-letters.title",
+      description: "landing.team-building.games.scrambled-letters.description",
+    },
+    {
+      img: `${config.storageUrl}/resources/charadas-game.svg`,
+      placeholderUrl: `${config.storageUrl}/resources/charadas-game_12x12.png`,
+      title: "landing.team-building.games.charadas.title",
+      description: "landing.team-building.games.charadas.description",
+    },
+    {
+      img: `${config.storageUrl}/resources/song-guess-game.svg`,
+      placeholderUrl: `${config.storageUrl}/resources/song-guess-game_12x12.png`,
+      title: "landing.team-building.games.song-guess.title",
+      description: "landing.team-building.games.song-guess.description",
+    },
     // { img: `${config.storageUrl}/resources/song-guess-game.svg`, placeholderUrl: `${config.storageUrl}/resources/trivia-game_12x12.png`, title: "landing.team-building.games.song-guess.title", description: "landing.team-building.games.song-guess.description" },
-    { img: `${config.storageUrl}/resources/pelicula-domestica-game.svg`, placeholderUrl: `${config.storageUrl}/resources/pelicula-domestica-game_12x12.png`, title: "landing.team-building.games.domestic-movie.title", description: "landing.team-building.games.domestic-movie.description" },
+    {
+      img: `${config.storageUrl}/resources/pelicula-domestica-game.svg`,
+      placeholderUrl: `${config.storageUrl}/resources/pelicula-domestica-game_12x12.png`,
+      title: "landing.team-building.games.domestic-movie.title",
+      description: "landing.team-building.games.domestic-movie.description",
+    },
   ],
 
   virtualEvents: {
     title: "landing.team-building.virtual-events.title",
     items: [
-      {img: `${config.storageUrl}/resources/TEAM_BUILDING_1.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_1_12x12.webp`, title: "landing.team-building.virtual-events.items-1.title", description: "landing.team-building.virtual-events.items-1.description"},
-      {img: `${config.storageUrl}/resources/TEAM_BUILDING_2.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_2_12x12.webp`, title: "landing.team-building.virtual-events.items-2.title", description: "landing.team-building.virtual-events.items-2.description"},
-      {img: `${config.storageUrl}/resources/TEAM_BUILDING_3.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_3_12x12.webp`, title: "landing.team-building.virtual-events.items-3.title", description: "landing.team-building.virtual-events.items-3.description"},
+      {
+        img: `${config.storageUrl}/resources/TEAM_BUILDING_1.jpg`,
+        placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_1_12x12.webp`,
+        title: "landing.team-building.virtual-events.items-1.title",
+        description: "landing.team-building.virtual-events.items-1.description",
+      },
+      {
+        img: `${config.storageUrl}/resources/TEAM_BUILDING_2.jpg`,
+        placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_2_12x12.webp`,
+        title: "landing.team-building.virtual-events.items-2.title",
+        description: "landing.team-building.virtual-events.items-2.description",
+      },
+      {
+        img: `${config.storageUrl}/resources/TEAM_BUILDING_3.jpg`,
+        placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_3_12x12.webp`,
+        title: "landing.team-building.virtual-events.items-3.title",
+        description: "landing.team-building.virtual-events.items-3.description",
+      },
     ],
   },
   virtualEventYouLove: {
     title: "landing.team-building.virtual-event-you-love.title",
-  }
+  },
 };
-
-

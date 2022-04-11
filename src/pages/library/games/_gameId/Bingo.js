@@ -516,7 +516,7 @@ const BingoContainer = styled.div`
     .right-container {
       width: 100%;
       height: 100%;
-      
+
       .card-container {
         display: flex;
         align-items: center;

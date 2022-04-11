@@ -9,7 +9,7 @@ import {
   questionTypes,
   triviaQuestionsOptions,
   triviaQuestionsTimes,
-  triviaQuestionsTypes
+  triviaQuestionsTypes,
 } from "../../../../components/common/DataList";
 import { AfterMobile, Desktop, Mobile, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";

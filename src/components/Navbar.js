@@ -12,9 +12,7 @@ import { Footer } from "./Footer";
 import { useTranslation } from "../hooks";
 import { Popover } from "antd";
 
-const useCaseMenu = [
-  { url: "/team-building", label: "nav.use-case.team-building" },
-];
+const useCaseMenu = [{ url: "/team-building", label: "nav.use-case.team-building" }];
 
 export const Navbar = (props) => {
   const router = useRouter();

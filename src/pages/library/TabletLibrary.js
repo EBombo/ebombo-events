@@ -23,7 +23,7 @@ export const TabletLibrary = (props) => {
 
   const [loadingGames] = useGlobal("loadingGames");
   const [games] = useGlobal("userGames");
-  const [authUser] = useGlobal("user")
+  const [authUser] = useGlobal("user");
 
   const [selectedGameToMove, setSelectedGameToMove] = useState(null);
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
@@ -31,13 +31,11 @@ export const TabletLibrary = (props) => {
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
   const [folder, setFolder] = useState(null);
 
-
   useEffect(() => {
     router.prefetch("/library/games");
     router.prefetch("/library/favorites");
     router.prefetch("/library/events");
   }, []);
-
 
   const getGames = () => {
     if (router.asPath.includes("/favorites")) return games.filter((game) => !!game.isFavorite);

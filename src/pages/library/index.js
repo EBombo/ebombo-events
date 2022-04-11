@@ -13,4 +13,3 @@ export const LibraryContainer = (props) => (
     </Tablet>
   </div>
 );
-
