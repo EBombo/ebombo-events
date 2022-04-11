@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { Carousel as CarouselAntd } from "antd";
 import styled from "styled-components";
 import { Arrows } from "./arrowsCarousel";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { ButtonAnt } from "../form";
 
 export const Carousel = (props) => {
   const slider = useRef(null);
@@ -33,6 +35,14 @@ export const Carousel = (props) => {
 
   return (
     <Container width={props.width} height={props.height}>
+      {props.showArrows && (
+        <div className="absolute top-[30%] left-0">
+          <ButtonAnt padding="0.5rem" onClick={() => prev()} margin="0">
+            <LeftOutlined style={{ color: "white" }} />
+          </ButtonAnt>
+        </div>
+      )}
+
       <CarouselStyled
         ref={slider}
         dots={false}
@@ -47,6 +57,14 @@ export const Carousel = (props) => {
           </div>
         ))}
       </CarouselStyled>
+
+      {props.showArrows && (
+        <div className="absolute top-[30%] right-0">
+          <ButtonAnt padding="0.5rem" onClick={() => next()} margin="0">
+            <RightOutlined style={{ color: "white" }} />
+          </ButtonAnt>
+        </div>
+      )}
       {!props.hideIndicators && <Arrows next={next} prev={prev} indicator={indicator} goTo={goTo} {...props} />}
     </Container>
   );
@@ -58,6 +76,7 @@ const Container = styled.div`
   max-width: 100%;
   overflow: hidden;
   color: ${(props) => props.theme.basic.white};
+  position: relative;
   .slider-decorator-0 {
     bottom: -20px !important;
   }

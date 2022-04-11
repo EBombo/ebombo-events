@@ -167,7 +167,37 @@
       "subtitle": "We set the standard for virtual engagement and enhance remote office culture.",
       "loginButton": "Log in",
       "freeTrial": "GET A FREE TRIAL",
-      "freeTrial-time": "FOR 1 MONTH"
+      "freeTrial-time": "FOR 1 MONTH",
+      "firstSection": "More popular",
+      "secondSection": "Between Companies",
+      "thirdSection": "Team Building",
+      "trivia": "Gather your team for quiz activities giving it the focus you want: movies, sports or even onboarding and training topics.",
+      "bingo": "Virtually play an interactive Bingo with your collaborators. Use our platform so that your workers have their cards and play it from home or at work.",
+      "roulette": "Haz sorteos en vivo o con una lista ya hecha de presentes que quisieras regalar a tus trabajadores por una fecha importante.",
+      "domesticMovie": "Do live raffles or with a ready-made list of presents that you would like to give to your workers for an important date.",
+      "triviaCrack": "Create entertaining trivia on topics such as movies, history, sports, art, science and much more. Gather your collaborators and show who is the most \"cultured\" of all.",
+      "song": "We will play an excerpt from a song and the collaborator who guesses the name first will win a point and if he sings, an additional one.",
+      "scrabble": "We will show you ordering of the phrases or words you want and the collaborators will have to compete to see who can order the letters first.",
+      "imagesZoom": "Give us a complete picture of what you want and we will show a part to collaborators. Whoever guesses what the picture is about will win.",
+      "rouletteQuestions": "Use the icebreaker roulette to break the atmosphere. Questions that you choose will come up and the collaborators will have to answer them in a fun way.",
+      "triviaOnboarding": "Make onboarding trivia and teach your workers in a fun, efficient and group way. Your tests can be all kinds.",
+      "charade": "Make your collaborators stand up from their seats, move their bodies and act out what is shown on the screen. The other workers will have to guess what it is.",
+      "emoji": "We will show three emojis and the collaborators will have to interpret them and find the hidden phrase or word.",
+      "games": {
+        "trivia": "Trivia",
+        "bingo": "Bingo",
+        "roulette": "Roulette",
+        "domesticMovie": "Domestic Movie",
+        "triviaCrack": "Trivia Crack",
+        "song": "Song",
+        "scrabble": "Scrabble",
+        "imagesZoom": "Images Zoom",
+        "rouletteQuestions": "Icebreaker Roulette",
+        "triviaOnboarding": "Trivia Onboarding",
+        "charade": "Charade",
+        "emoji": "Emoji Language"
+      },
+      "lastTitle": "The virtual event you will love"
     }
   }
 }

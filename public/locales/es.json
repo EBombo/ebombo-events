@@ -167,7 +167,37 @@
       "subtitle": "Establecemos el estándar para el compromiso virtual y mejora la cultura de la oficina remota.",
       "loginButton": "Iniciar sesión",
       "freeTrial": "OBTÉN UNA PRUEBA GRATUITA",
-      "freeTrial-time": "POR 1 MES"
+      "freeTrial-time": "POR 1 MES",
+      "firstSection": "Más populares",
+      "secondSection": "Entre Empresas",
+      "thirdSection": "Team Building",
+      "trivia": "Reúne a tu equipo para actividades de preguntas dándole el enfoque que tu quieras: películas, deportes o hasta temas onboarding y capacitaciones.",
+      "bingo": "Juega de manera virtual un Bingo interactivo con tus colaborades. Usa nuestra plataforma para que tus trabajadores tengan sus cartillas y lo jueguen desde sus casas o en el trabajo.",
+      "roulette": "Haz sorteos en vivo o con una lista ya hecha de presentes que quisieras regalar a tus trabajadores por una fecha importante.",
+      "domesticMovie": "Reproduciremos una pequeña escena de una película y acto seguido dos colaboradores deberán imitar las actuaciones.",
+      "triviaCrack": "Crea trivias de entreteimiento de temas cómo películas, historia, deportes, arte, ciencia y muchos temas más. Reune a tus colaboradores y demuestra quién es el más “culto” de todos.  ",
+      "song": "Reproduciremos un extracto de una canción y el colaborador que adivine el nombre primero ganará un punto y si canta, uno adicional.",
+      "scrabble": "Te mostraremos ordenigmas de las frases o palabras que quieras y los colaboradores deberán competir para ver quién puede ordenar las letras primero.",
+      "imagesZoom": "Danos una imagen completa de lo que quieras y mostraremos una parte a los colaboradores. Quien adivine de qué trata la imagen ganará.",
+      "rouletteQuestions": "Usa la ruleta rompehielo para romper el ambiente. Saldrán preguntas que escojas y los colaboradores tendrán que responderlas de manera divertida.",
+      "triviaOnboarding": "Elabora trivias de onboarding y enseñales a tus trabjadores de manera divertida, eficiente y grupal. \nTus pruebas pueden ser todo tipo.",
+      "charade": "Haz que tus colaboradores se paren de su asiento, muevan sus cuerpos y actúen lo que se les muestre en pantalla. Los otros trabajadores deberán adivinar de qué se trata.",
+      "emoji": "Mostraremos tres emojis y los colaboradores deberán interpretarlos y encontrar la frase o palabra oculta.",
+      "games": {
+        "trivia": "Trivia",
+        "bingo": "Bingo",
+        "roulette": "Ruleta",
+        "domesticMovie": "Película Doméstica",
+        "triviaCrack": "Trivia Crack",
+        "song": "Adivina la Canción",
+        "scrabble": "Letras Revueltas",
+        "imagesZoom": "Zoom a la Imagen",
+        "rouletteQuestions": "Ruleta Rompehielo",
+        "triviaOnboarding": "Trivia Onboarding",
+        "charade": "Charada",
+        "emoji": "Lenguaje Emoji"
+      },
+      "lastTitle": "El evento virtual que amarás"
     }
   }
 }

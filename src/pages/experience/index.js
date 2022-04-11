@@ -4,6 +4,17 @@ import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import styled from "styled-components";
 import { useTranslation } from "../../hooks";
+import { Image } from "../../components/common/Image";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Carousel } from "../../components/common/Carousel";
+
+const firstColumn = ["trivia", "roulette", "rouletteQuestions", "hanged"];
+const secondColumn = ["triviaCrack", "bingo", "drawAndGuess", "scrabble"];
+const thirdColumn = ["movie", "triviaOnboarding", "domesticMovie", "song"];
+
+const firstRow = ["trivia", "bingo", "roulette", "domesticMovie"];
+const secondRow = ["triviaCrack", "song", "scrabble", "imagesZoom"];
+const thirdRow = ["rouletteQuestions", "triviaOnboarding", "charade", "emoji"];
 
 export const Experience = (props) => {
   const router = useRouter();
@@ -13,6 +24,39 @@ export const Experience = (props) => {
   useEffect(() => {
     router.prefetch("/login");
   }, []);
+
+  const scrollElement = (to, section) => {
+    const element = document.getElementById(section);
+
+    const width = element.offsetWidth;
+
+    element.scrollTo(to === "left" ? -width : width, 0);
+  };
+
+  const content = (gameName, carousel = false) => (
+    <div
+      className={`flex flex-col items-center md:items-start ${!carousel && "w-[calc(100vw-2rem)] md:w-[370px]"}`}
+      key={gameName}
+    >
+      <Image
+        width="270px"
+        height="270px"
+        desktopHeight="370px"
+        desktopWidth="370px"
+        margin="0"
+        size="cover"
+        src={`${config.storageUrl}/resources/games/${gameName}.svg`}
+        borderRadius="10px"
+        className="aspect-square w-full"
+      />
+      <div className="text-['Lato'] text-blackDarken font-[900] text-[20px] leading-[24px] lg:text-[32px] lg:leading-[36px] my-2">
+        {t(`games[${gameName}]`)}
+      </div>
+      <div className="text-['Lato'] text-secondary font-[400] text-[16px] leading-[19px] lg:text-[20px] lg:leading-[24px] text-center md:text-left">
+        {t(gameName)}
+      </div>
+    </div>
+  );
 
   return (
     <ExperienceContainer>
@@ -25,7 +69,7 @@ export const Experience = (props) => {
             {t("subtitle")}
           </div>
           <div className="w-full flex items-center justify-center lg:justify-start">
-            <ButtonAnt color="orange" onClick={() => router.push("/login")} margin="0">
+            <ButtonAnt color="success" onClick={() => router.push("/login")} margin="0">
               <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
                 {t("loginButton")}
               </div>
@@ -36,115 +80,47 @@ export const Experience = (props) => {
         <div className="hidden h-full overflow-hidden lg:flex lg:gap-[5px]">
           <div className="slider ">
             <div className="slide-track">
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/trivia.svg`} />
-              </div>
+              {firstColumn.map((gameName, index) => (
+                <div className="slide" key={`${gameName}-${index}`}>
+                  <img src={`${config.storageUrl}/resources/games/${gameName}.svg`} />
+                </div>
+              ))}
 
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/roulette.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/rouletteQuestions.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/hanged.svg`} />
-              </div>
-
-              {/*  repeat 4 images*/}
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/trivia.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/roulette.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/rouletteQuestions.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/hanged.svg`} />
-              </div>
+              {firstColumn.map((gameName, index) => (
+                <div className="slide" key={`${gameName}-${index}`}>
+                  <img src={`${config.storageUrl}/resources/games/${gameName}.svg`} />
+                </div>
+              ))}
             </div>
           </div>
 
           <div className="slider">
             <div className="slide-track-middle">
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/triviaCrack.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/bingo.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/drawAndGuess.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/scrabble.svg`} />
-              </div>
-
-              {/*  repeat 4 images*/}
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/triviaCrack.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/bingo.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/drawAndGuess.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/scrabble.svg`} />
-              </div>
+              {secondColumn.map((gameName, index) => (
+                <div className="slide" key={`${gameName}-${index}`}>
+                  <img src={`${config.storageUrl}/resources/games/${gameName}.svg`} />
+                </div>
+              ))}
+              {secondColumn.map((gameName, index) => (
+                <div className="slide" key={`${gameName}-${index}`}>
+                  <img src={`${config.storageUrl}/resources/games/${gameName}.svg`} />
+                </div>
+              ))}
             </div>
           </div>
 
           <div className="slider ">
             <div className="slide-track">
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/movie.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/triviaOnboarding.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/domesticMovie.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/song.svg`} />
-              </div>
-
-              {/*  repeat 4 images*/}
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/movie.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/triviaOnboarding.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/domesticMovie.svg`} />
-              </div>
-
-              <div className="slide">
-                <img src={`${config.storageUrl}/resources/games/song.svg`} />
-              </div>
+              {thirdColumn.map((gameName, index) => (
+                <div className="slide" key={`${gameName}-${index}`}>
+                  <img src={`${config.storageUrl}/resources/games/${gameName}.svg`} />
+                </div>
+              ))}
+              {thirdColumn.map((gameName, index) => (
+                <div className="slide" key={`${gameName}-${index}`}>
+                  <img src={`${config.storageUrl}/resources/games/${gameName}.svg`} />
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -161,7 +137,7 @@ export const Experience = (props) => {
           </div>
         </div>
         <div className="flex justify-center mt-2 lg:mt-0 lg:ml-4 lg:justify-start">
-          <ButtonAnt color="orange" onClick={() => router.push("/login")} margin="0">
+          <ButtonAnt color="success" onClick={() => router.push("/login")} margin="0">
             <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
               {t("loginButton")}
             </div>
@@ -170,31 +146,108 @@ export const Experience = (props) => {
       </div>
 
       <div className="w-full bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8">
-        <div>
+        <div className="flex items-center gap-[10px] mt-8">
           <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-            Más populares
+            {t("firstSection")}
           </div>
-
-          <div>
-
-          </div>
-        </div>
-
-        <div>
-          <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-            Entre empresas
+          <div className="items-center gap-[5px] hidden md:flex">
+            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("left", "firstSection")}>
+              <LeftOutlined style={{ color: "white" }} />
+            </ButtonAnt>
+            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("right", "firstSection")}>
+              <RightOutlined style={{ color: "white" }} />
+            </ButtonAnt>
           </div>
         </div>
 
-        <div>
+        <div className="block md:hidden">
+          <Carousel
+            showArrows
+            components={firstRow.map((gameName, index) => content(gameName, true))}
+            hideIndicators={false}
+          />
+        </div>
+
+        <div className="w-full no-scrollbar overflow-auto hidden md:block" id="firstSection">
+          <div className="grid items-start gap-4 grid-cols-[repeat(4,calc(100vw-2rem))] md:grid-cols-[repeat(auto-fit,370px)] w-[1550px] my-4">
+            {firstRow.map((gameName) => content(gameName))}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-[10px] mt-8">
           <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-            Team building
+            {t("secondSection")}
+          </div>
+          <div className="items-center gap-[5px] hidden md:flex">
+            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("left", "secondSection")}>
+              <LeftOutlined style={{ color: "white" }} />
+            </ButtonAnt>
+            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("right", "secondSection")}>
+              <RightOutlined style={{ color: "white" }} />
+            </ButtonAnt>
+          </div>
+        </div>
+
+        <div className="block md:hidden">
+          <Carousel
+            showArrows
+            components={secondRow.map((gameName, index) => content(gameName, true))}
+            hideIndicators={false}
+          />
+        </div>
+
+        <div className="w-full no-scrollbar overflow-auto hidden md:block" id="secondSection">
+          <div className="grid items-start gap-4 grid-cols-[repeat(4,calc(100vw-2rem))] md:grid-cols-[repeat(auto-fit,370px)] w-[1550px] my-4">
+            {secondRow.map((gameName) => content(gameName))}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-[10px] mt-8">
+          <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
+            {t("thirdSection")}
+          </div>
+          <div className="items-center gap-[5px] hidden md:flex">
+            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("left", "thirdSection")}>
+              <LeftOutlined style={{ color: "white" }} />
+            </ButtonAnt>
+            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("right", "thirdSection")}>
+              <RightOutlined style={{ color: "white" }} />
+            </ButtonAnt>
+          </div>
+        </div>
+
+        <div className="block md:hidden">
+          <Carousel
+            showArrows
+            components={thirdRow.map((gameName, index) => content(gameName, true))}
+            hideIndicators={false}
+          />
+        </div>
+
+        <div className="w-full no-scrollbar overflow-auto hidden md:block" id="thirdSection">
+          <div className="grid items-start gap-4 grid-cols-[repeat(4,calc(100vw-2rem))] md:grid-cols-[repeat(auto-fit,370px)] w-[1550px] my-4">
+            {thirdRow.map((gameName) => content(gameName))}
           </div>
         </div>
       </div>
+
+      <StyledFooter className="p-4 lg:p-8">
+        <div className="text-white mb-4 text-['Lato'] font-[900] text-[26px] leading-[31px] lg:text-[100px] lg:leading-[120px]">
+          {t("lastTitle")}
+        </div>
+        <ButtonAnt color="success" onClick={() => router.push("/login")}>
+          <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
+            {t("loginButton")}
+          </div>
+        </ButtonAnt>
+      </StyledFooter>
     </ExperienceContainer>
   );
 };
+
+const StyledFooter = styled.div`
+  background: linear-gradient(270deg, #1d1138 0%, #331e6d 31.25%, #1e1239 100%);
+`;
 
 const ExperienceContainer = styled.div`
   width: 100vw;
