@@ -238,4 +238,13 @@ export const GlobalStyle = createGlobalStyle`
   .ant-btn-primary[disabled]{
     background: #f5f5f5 !important;
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 `;

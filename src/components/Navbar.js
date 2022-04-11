@@ -34,6 +34,7 @@ export const Navbar = (props) => {
     router.prefetch("/library");
     router.prefetch("/about-us");
     router.prefetch("/subscriptions");
+    router.prefetch("/experience");
   }, []);
 
   const isNavWithBorder = useMemo(() => {
@@ -83,11 +84,12 @@ export const Navbar = (props) => {
                 Planes
               </Anchor>
                  */}
-                  {/*
-                  <Anchor url="/about-us" className="link">
-                    {t("nav.about-us")}
+                  {/*<Anchor url="/about-us" className="link">*/}
+                  {/*  {t("nav.about-us")}*/}
+                  {/*</Anchor>*/}
+                  <Anchor url="/experience" className="link">
+                    {t("nav.experience")}
                   </Anchor>
-                 */}
                   {!authUser && (
                     <Anchor url="/contact" className="link">
                       {t("nav.contact")}
