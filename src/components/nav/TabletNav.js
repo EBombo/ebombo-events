@@ -4,12 +4,14 @@ import { Image } from "../common/Image";
 import { config } from "../../firebase";
 import { Anchor } from "../form";
 import { useRouter } from "next/router";
-import { useAcl } from "../../hooks";
+import { useAcl, useTranslation } from "../../hooks";
 
 export const TabletNav = (props) => {
   const router = useRouter();
 
   const { userAcls } = useAcl();
+
+  const { t } = useTranslation("userLayout");
 
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
@@ -38,7 +40,7 @@ export const TabletNav = (props) => {
       />
       {!authUser && (
         <Anchor url="/login" variant="primary" fontSize={"1rem"}>
-          Iniciar sesión
+          {t("login")}
         </Anchor>
       )}
       {authUser && (

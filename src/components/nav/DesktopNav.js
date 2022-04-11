@@ -1,7 +1,7 @@
 import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useAcl } from "../../hooks";
+import { useAcl, useTranslation } from "../../hooks";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
 import { Anchor, ButtonAnt } from "../form";
@@ -12,6 +12,8 @@ export const DesktopNav = (props) => {
   const router = useRouter();
 
   const { userAcls } = useAcl();
+
+  const { t } = useTranslation("userLayout");
 
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
@@ -63,7 +65,7 @@ export const DesktopNav = (props) => {
                   className="icon"
                   margin="0 5px 0 0"
                 />
-                Librería
+                {t("library")}
               </li>
               <li
                 className={`${router.asPath.includes("reports") ? "active" : ""}`}
@@ -76,7 +78,7 @@ export const DesktopNav = (props) => {
                   className="icon"
                   margin="0 5px 0 0"
                 />
-                Reportes
+                {t("reports")}
               </li>
             </ul>
           </div>
@@ -84,7 +86,7 @@ export const DesktopNav = (props) => {
       </div>
       {!authUser && (
         <Anchor url="/login" variant="primary" fontSize={"1rem"}>
-          Iniciar sesión
+          {t("login")}
         </Anchor>
       )}
       {authUser && (
@@ -103,7 +105,7 @@ export const DesktopNav = (props) => {
           </Popover>
              */}
           <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
-            Crear
+            {t("create")}
           </ButtonAnt>
           <div className="hamburger" onClick={() => setOpenRightDrawer(!openRightDrawer)}>
             <Image

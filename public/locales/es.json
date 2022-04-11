@@ -200,6 +200,12 @@
     "contact": "Contacto",
     "experience": "Experiencia"
   },
+  "userLayout": {
+    "library": "Librería",
+    "reports": "Reportes",
+    "login": "Iniciar sesión",
+    "create": "Crear"
+  },
   "footer": {
     "us": "Nosotros",
     "know-us": "Conócenos",
