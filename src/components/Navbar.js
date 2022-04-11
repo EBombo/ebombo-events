@@ -88,7 +88,7 @@ export const Navbar = (props) => {
                   {/*  {t("nav.about-us")}*/}
                   {/*</Anchor>*/}
                   <Anchor url="/experience" className="link">
-                    Experiencia
+                    {t("nav.experience")}
                   </Anchor>
                   {!authUser && (
                     <Anchor url="/contact" className="link">
