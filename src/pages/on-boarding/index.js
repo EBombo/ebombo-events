@@ -62,8 +62,8 @@ export const OnBoarding = (props) => {
 
           <div className="px-8">
             <ImageV2
-              placeholderUrl={`${config.storageUrl}/resources/team-building-video-snapshot.jpg`}
-              src={`${config.storageUrl}/resources/team-building-video.gif`}
+              placeholderUrl={`${config.storageUrl}/resources/on-boarding-video-snapshot.jpg`}
+              src={`${config.storageUrl}/resources/on-boarding-video.gif`}
               className="w-full aspect-video rounded-2xl"
               width="100%"
               aspectRatio="16 / 9"
