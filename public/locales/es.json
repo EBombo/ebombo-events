@@ -245,16 +245,16 @@
       "intro-subheading": "Todo lo que necesitas para",
       "intro-title": "Experiencias de entrenamiento y onboarding",
       "intro-description": "Crear una experiencia virtual de incorporación de empleados más fluida que integre diversión y acelere la conexión para crear equipos más fuertes desde el principio.",
-      "register-button-label": "Register",
+      "register-button-label": "Registrar",
       "sign-in-button-label": "Iniciar sesión",
-      "contact-button-label": "Contact us",
+      "contact-button-label": "Contacto",
       "why-ebombo-works": {
         "title": "Why does ebombo work?",
         "description": "Puede ser un desafío incorporar a nuevos empleados o practicantes de forma remota mientras los hace bienvenidos y conectados. ebombo te permite personalizar las experiencias virtuales de capacitación, orientación e incorporación de los empleados.",
         "description-paragraph-2": "Enséñale a los nuevos empleados tu empresa se toma en serio la diversión y el trabajo."
       },
       "activities": {
-        "title": "onboarding Y ENTRENAMIENTO virtual COMO NINGÚN OTRO",
+        "title": "ONBOARDING Y ENTRENAMIENTO VIRTUAL COMO NINGÚN OTRO",
         "description": "¿Incorporar un equipo remoto?  Te tenemos cubierto. Lleva la experiencia de capacitación de tus empleados al siguiente nivel con nuestras actividades totalmente divertidas. ¡Elige de nuestra biblioteca inigualable o pídenos algo personalizado!"
       },
       "virtual-events": {
@@ -273,7 +273,7 @@
         }
       },
       "virtual-event-you-love": {
-        "title": "The virtual event you will love"
+        "title": "El evento virtual que amarás"
       }
     }
   },
