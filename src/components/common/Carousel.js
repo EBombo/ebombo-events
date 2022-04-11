@@ -1,12 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, forwardRef } from "react";
 import { Carousel as CarouselAntd } from "antd";
 import styled from "styled-components";
 import { Arrows } from "./arrowsCarousel";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { ButtonAnt } from "../form";
 
-export const Carousel = (props) => {
-  const slider = useRef(null);
+export const Carousel = forwardRef((props, ref) => {
+  const slider = useRef(ref);
   const [indicator, setIndicator] = useState(0);
   const lengthComponents = props.components.length;
 
@@ -44,8 +44,9 @@ export const Carousel = (props) => {
       )}
 
       <CarouselStyled
-        ref={slider}
-        dots={false}
+        effect="fade"
+        ref={ref}
+        dots={props.dots ?? false}
         autoplay={!!props.autoplay}
         afterChange={(current) => setIndicator(current)}
         width={props.width}
@@ -68,7 +69,7 @@ export const Carousel = (props) => {
       {!props.hideIndicators && <Arrows next={next} prev={prev} indicator={indicator} goTo={goTo} {...props} />}
     </Container>
   );
-};
+});
 
 const Container = styled.div`
   width: ${(props) => (props.width ? props.width : "100%")};

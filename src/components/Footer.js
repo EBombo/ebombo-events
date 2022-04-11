@@ -11,7 +11,7 @@ const footerContent = [
     title: "us",
     children: [
       { title: "know-us", link: "/about-us" },
-      { title: "terms-and-conditions", link: "/" },
+      { title: "terms-and-conditions", link: "/terms" },
     ],
   },
   {
