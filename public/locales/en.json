@@ -98,6 +98,60 @@
       "title": "The virtual event you will love",
       "book-an-event": "Book an event"
     },
+    "games-descriptions": {
+      "trivia": {
+        "title": "Trivia",
+        "description": "Gather your team for quiz activities giving it the focus you want: movies, sports or even onboarding and training topics."
+      },
+      "bingo": {
+        "title": "BINGO",
+        "description": "Virtually play an interactive Bingo with your collaborators. Use our platform so that your workers have their cards and play it from home or at work."
+      },
+      "roulette": {
+        "title": "Roulette",
+        "description": "Do live raffles or with a ready-made list of presents that you would like to give to your workers for an important date."
+      },
+      "roulette-icebreaker": {
+        "title": "Icebreaker Roulette",
+        "description": "Use the icebreaker roulette to break the atmosphere. Questions that you choose will come up and the collaborators will have to answer them in a fun way."
+      },
+      "hangman": {
+        "title": "Hangman",
+        "description": "Choose words or phrases you want. They can be related to the culture of the company or give it the focus you want."
+      },
+      "2-true-1-false": {
+        "title": "Two truths and a Lie",
+        "description": "Mention three statements about the topic you want and the player must guess which one is the lie. Perfect for trainings."
+      },
+      "zoom": {
+        "title": "Zoom to image",
+        "description": "Give us a complete picture of what you want and we will show a part to collaborators. Whoever guesses what the picture is about will win."
+      },
+      "movie-guess": {
+        "title": "Guess the movie",
+        "description": "We will give you details of a movie and the player who can guess which one is first, will win."
+      },
+      "scrambled-letters": {
+        "title": "Scrambled Letters",
+        "description": "We will show you ordering of the phrases or words you want and the collaborators will have to compete to see who can order the letters first."
+      },
+      "charadas": {
+        "title": "Charades",
+        "description": "Make your collaborators stand up from their seats, move their bodies and act out what is shown on the screen. The other workers will have to guess what it is."
+      },
+      "song-guess": {
+        "title": "Guess the song",
+        "description": "We will play an excerpt from a song and the collaborator who guesses the name first will win a point and if he sings, an additional one."
+      },
+      "emoji-language": {
+        "title": "Emoji Language",
+        "description": "We will show three emojis and the collaborators will have to interpret them and find the hidden phrase or word."
+      },
+      "domestic-movie": {
+        "title": "Home Movie",
+        "description": "We will reproduce a small scene from a movie and then two collaborators will have to imitate the performances."
+      }
+    },
     "team-building": {
       "intro-subheading": "Do it like nobody else",
       "intro-team-building-title": "TEAM BUILDING",
@@ -181,6 +235,41 @@
         "items-3": {
           "title": "A DIFFERENT TEAM BUILDING PLATFORM",
           "description": "Use the right activity for each occasion. No matter the size of the company, all employees can participate in a fun way. From a happy hour to a conference it's easy to plan. We are here to bring you closer virtually."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
+    },
+    "on-boarding": {
+      "intro-subheading": "Everything you need for",
+      "intro-title": "Training and Onboarding Experiences",
+      "intro-description": "Create a smoother virtual employee onboarding experience that integrates fun and accelerates connection to build stronger teams from the start.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "It can be challenging to onboard new employees or interns remotely while making them welcome and connected. ebombo allows you to personalize virtual employee training, orientation and onboarding experiences.",
+        "description-paragraph-2": "Show new employees that your company is serious about fun and work."
+      },
+      "activities": {
+        "title": "ONBOARDING AND VIRTUAL TRAINING LIKE NO OTHER",
+        "description": "Bring in a remote team? We've got you covered. Take your employee training experience to the next level with our totally fun activities. Choose from our unrivaled library or ask us for something custom!"
+      },
+      "virtual-events": {
+        "title": "VIRTUAL INCORPORATIONS THAT RESULT IN RETENTION AND CONNECTION",
+        "items-1": {
+          "title": "VIRTUAL EMPLOYEE TRAINING THAT MAKES ONBOARDING FUN",
+          "description": "We believe in the importance of starting off on the right foot with your new hires, so you can better retain them, do it efficiently and in a fun way. Whether you incorporate 1 or 1000 people. Create an unforgettable experience by switching to game mode where new hires can answer questions about what they just learned."
+        },
+        "items-2": {
+          "title": "PROMOTE THE TEAM BOND WITH VIRTUAL DYNAMICS",
+          "description": "Help new hires fit in with your team by connecting them with their new colleagues. With new content every month, you can plan new experiences every time you have a new hire to keep virtual employee training fresh and fun."
+        },
+        "items-3": {
+          "title": "CUSTOMIZE YOUR VIRTUAL EMPLOYEE INTEGRATION",
+          "description": "Create personalized onboarding experiences. Use your event as a learning and fun tool to teach and transmit company information. Design your own experience that combines purposeful learning, bonding, and friendly competition."
         }
       },
       "virtual-event-you-love": {

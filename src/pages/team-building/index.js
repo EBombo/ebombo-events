@@ -5,7 +5,7 @@ import { Icon } from "../../components/common/Icons";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Anchor } from "../../components/form";
-import { TeamBuildingLiterals } from "../../components/common/DataList";
+import { TeamBuildingLiterals, LandingGames } from "../../components/common/DataList";
 import { Carousel } from "../../components/common/Carousel";
 import { Image as ImageV2 } from "ebombo-components";
 import { useTranslation } from "../../hooks";
@@ -123,15 +123,15 @@ export const TeamBuilding = (props) => {
             <Carousel
               hideIndicators
               ref={carouselRef}
-              components={TeamBuildingLiterals.games.map((_, index) => (
+              components={LandingGames.map((_, index) => (
               <div key={`carousel-wrapper-${index}`} className="grid grid-cols-[1fr] md:grid-cols-[1fr_1fr_1fr] gap-8">
-                <GameContentItem gameContent={TeamBuildingLiterals.games[index % TeamBuildingLiterals.games.length]}/>
+                <GameContentItem gameContent={LandingGames[index % LandingGames.length]}/>
 
                 <Desktop>
                   <>
-                    <GameContentItem gameContent={TeamBuildingLiterals.games[(index + 1) % TeamBuildingLiterals.games.length]}/>
+                    <GameContentItem gameContent={LandingGames[(index + 1) % LandingGames.length]}/>
 
-                    <GameContentItem gameContent={TeamBuildingLiterals.games[(index + 2) % TeamBuildingLiterals.games.length]}/>
+                    <GameContentItem gameContent={LandingGames[(index + 2) % LandingGames.length]}/>
                   </>
                 </Desktop>
               </div>

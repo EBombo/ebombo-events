@@ -98,6 +98,60 @@
       "title": "El evento virtual que amarás",
       "book-an-event": "Reservar evento"
     },
+    "games-descriptions": {
+      "trivia": {
+        "title": "Trivia",
+        "description": "Reúne a tu equipo para actividades de preguntas dándole el enfoque que tu quieras: películas, deportes o hasta temas onboarding y capacitaciones."
+      },
+      "bingo": {
+        "title": "BINGO",
+        "description": "Juega de manera virtual un Bingo interactivo con tus colaborades. Usa nuestra plataforma para que tus trabajadores tengan sus cartillas y lo jueguen desde sus casas o en el trabajo."
+      },
+      "roulette": {
+        "title": "Ruleta",
+        "description": "Haz sorteos en vivo o con una lista ya hecha de presentes que quisieras regalar a tus trabajadores por una fecha importante."
+      },
+      "roulette-icebreaker": {
+        "title": "Ruleta rompehielo",
+        "description": "Usa la ruleta rompehielo para romper el ambiente. Saldrán preguntas que escojas y los colaboradores tendrán que responderlas de manera divertida."
+      },
+      "hangman": {
+        "title": "Ahorcado",
+        "description": "Escoje palabras o frases que desees. Pueden ser relacionadas a la cultura de la empresa o dale el enfoque que quieras."
+      },
+      "2-true-1-false": {
+        "title": "2 verdades y 1 mentira",
+        "description": "Menciona tres enunciados sobre el tema que quieras y el jugador deberá adivinar cuál es la mentira. Perfecto para capacitaciones."
+      },
+      "zoom": {
+        "title": "Zoom a la imagen",
+        "description": "Danos una imagen completa de lo que quieras y mostraremos una parte a los colaboradores. Quien adivine de qué trata la imagen ganará."
+      },
+      "movie-guess": {
+        "title": "Adivina la película",
+        "description": "Te daremos datos de una película y el jugador que pueda adivinar cuál es primero, ganará."
+      },
+      "scrambled-letters": {
+        "title": "Letras revueltas",
+        "description": "Te mostraremos ordenigmas de las frases o palabras que quieras y los colaboradores deberán competir para ver quién puede ordenar las letras primero."
+      },
+      "charadas": {
+        "title": "Charadas",
+        "description": "Haz que tus colaboradores se paren de su asiento, muevan sus cuerpos y actúen lo que se les muestre en pantalla. Los otros trabajadores deberán adivinar de qué se trata."
+      },
+      "song-guess": {
+        "title": "Adivina la canción",
+        "description": "Reproduciremos un extracto de una canción y el colaborador que adivine el nombre primero ganará un punto y si canta, uno adicional."
+      },
+      "emoji-language": {
+        "title": "Lenguaje Emoji",
+        "description": "Mostraremos tres emojis y los colaboradores deberán interpretarlos y encontrar la frase o palabra oculta."
+      },
+      "domestic-movie": {
+        "title": "Película doméstica",
+        "description": "Reproduciremos una pequeña escena de una película y acto seguido dos colaboradores deberán imitar las actuaciones."
+      }
+    },
     "team-building": {
       "intro-subheading": "Házlo como nadie",
       "intro-team-building-title": "TEAM BUILDING",
@@ -185,6 +239,41 @@
       },
       "virtual-event-you-love": {
         "title": "El evento virtual que amarás"
+      }
+    },
+    "on-boarding": {
+      "intro-subheading": "Todo lo que necesitas para",
+      "intro-title": "Experiencias de entrenamiento y onboarding",
+      "intro-description": "Crear una experiencia virtual de incorporación de empleados más fluida que integre diversión y acelere la conexión para crear equipos más fuertes desde el principio.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Iniciar sesión",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "Puede ser un desafío incorporar a nuevos empleados o practicantes de forma remota mientras los hace bienvenidos y conectados. ebombo te permite personalizar las experiencias virtuales de capacitación, orientación e incorporación de los empleados.",
+        "description-paragraph-2": "Enséñale a los nuevos empleados tu empresa se toma en serio la diversión y el trabajo."
+      },
+      "activities": {
+        "title": "onboarding Y ENTRENAMIENTO virtual COMO NINGÚN OTRO",
+        "description": "¿Incorporar un equipo remoto?  Te tenemos cubierto. Lleva la experiencia de capacitación de tus empleados al siguiente nivel con nuestras actividades totalmente divertidas. ¡Elige de nuestra biblioteca inigualable o pídenos algo personalizado!"
+      },
+      "virtual-events": {
+        "title": "INCORPORACIONES VIRTUALES QUE RESULTAN EN RETENCIÓN Y CONEXIÓN",
+        "items-1": {
+          "title": "CAPACITACIÓN VIRTUAL PARA EMPLEADOS QUE HACE LA INCORPORACIÓN DIVERTIDA",
+          "description": "Creemos en la importancia de comenzar con el pie derecho con sus nuevos empleados, para que pueda retenerlos mejor, hazlo manera eficiente y divertida. Ya sea que incorpores a 1 o 1000 personas. Crea una experiencia inolvidable cambiando al modo de juego donde los nuevos empleados puedan responder preguntas sobre lo que acaban de aprender."
+        },
+        "items-2": {
+          "title": "PROMOVER EL VÍNCULO DE EQUIPO CON DINÁMICAS VIRTUALES",
+          "description": "Ayuda a los nuevos empleados  a encajar en su equipo conectándolos con sus nuevos compañeros. Con nuevo contenido cada mes, puede planificar nuevas experiencias cada vez que tenga una nueva contratación para mantener la capacitación virtual de los empleados fresca y divertida."
+        },
+        "items-3": {
+          "title": "PERSONALIZA TU INTEGRACIÓN VIRTUAL DE EMPLEADOS",
+          "description": "Crea experiencias de incorporación personalizadas. Utiliza tu evento como una herramienta de aprendizaje y diversión para enseñar y transmitir información de la empresa. Diseña tu propia experiencia que combine el objetivo de aprendizaje, la vinculación y la competencia amistosa."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
       }
     }
   },
