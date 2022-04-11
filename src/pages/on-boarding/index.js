@@ -32,8 +32,8 @@ export const OnBoarding = (props) => {
     carouselRef.current.next();
   };
 
-  const GameContentItem = ({ gameContent }) => (<div>
-    <div className="text-white">
+  const GameContentItem = ({ gameContent, className }) => (<div>
+    <div className={`${className} text-white`}>
       <div className="aspect-square w-full mb-4"><ImageV2 src={gameContent.img} placeholderUrl={gameContent.placeholderUrl} alt="" /></div>
       <div className="text-2xl mb-4">{t(gameContent.title)}</div>
       <p className="text-base">{t(gameContent.description)}</p>
@@ -123,13 +123,9 @@ export const OnBoarding = (props) => {
               <div key={`carousel-wrapper-${index}`} className="grid grid-cols-[1fr] md:grid-cols-[1fr_1fr_1fr] gap-8">
                 <GameContentItem gameContent={LandingGames[index % LandingGames.length]}/>
 
-                <Desktop>
-                  <>
-                    <GameContentItem gameContent={LandingGames[(index + 1) % LandingGames.length]}/>
+                <GameContentItem className="hidden md:block" gameContent={LandingGames[(index + 1) % LandingGames.length]}/>
 
-                    <GameContentItem gameContent={LandingGames[(index + 2) % LandingGames.length]}/>
-                  </>
-                </Desktop>
+                <GameContentItem className="hidden md:block" gameContent={LandingGames[(index + 2) % LandingGames.length]}/>
               </div>
             ))} />
           </div>

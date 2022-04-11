@@ -14,6 +14,7 @@ import { Popover } from "antd";
 
 const useCaseMenu = [
   { url: "/team-building", label: "nav.use-case.team-building" },
+  { url: "/on-boarding", label: "nav.use-case.on-boarding" },
 ];
 
 export const Navbar = (props) => {
@@ -100,8 +101,8 @@ export const Navbar = (props) => {
                 placement="bottom"
                 color="#FFFFFF"
                 content={useCaseMenu.map((menuItem) => (
-                  <Anchor key={menuItem} className="link text-black" url={menuItem.url}>
-                    <span className="align-middle font-bold text-base">{t(menuItem.label)}</span>
+                  <Anchor key={menuItem} className="block link text-black" url={menuItem.url}>
+                    <span className="align-middle font-bold text-left text-base">{t(menuItem.label)}</span>
                   </Anchor>
                 ))}
               >
