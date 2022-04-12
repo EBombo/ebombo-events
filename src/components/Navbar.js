@@ -116,7 +116,7 @@ export const Navbar = (props) => {
           <Desktop>
             <div className="btns-container flex">
               <Switch
-                margin="auto"
+                margin="5px auto"
                 onChange={(event) => setLocale(event ? locales[1] : locales[0])}
                 defaultChecked={locale === locales[1]}
                 checkedChildren={locales[1]}
