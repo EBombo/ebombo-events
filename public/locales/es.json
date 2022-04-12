@@ -218,6 +218,18 @@
     "contact-support": "Contactar soporte"
   },
   "pages": {
+    "library": {
+      "my-games": "Mis juegos",
+      "library": "Librería",
+      "folders": "Carpetas",
+      "events": "Eventos",
+      "search": "Buscar",
+      "folder-empty": "No cuentas con folders",
+      "rename": "Cambiar Nombre",
+      "duplcate": "Duplicar",
+      "delete": "Borrar",
+      "create-game": "Crear juego"
+    },
     "about-us": {
       "title": "¿Quiénes somos?",
       "description-1": "ebombo es una empresa de tecnología de recursos humanos enfocada en el futuro del trabajo. Permitiendo que otras empresas conecten con sus empleados y mejoren su ambiente de trabajo. Todo esto es posible con las actividades virtuales que creamos. Estas actividades consisten en diferentes tipos de juegos, dinámicas de incorporación, capacitaciones y más, de una manera divertida y casual.",
