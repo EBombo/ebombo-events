@@ -2,14 +2,17 @@ import React, { useEffect, useGlobal } from "reactn";
 import styled from "styled-components";
 import { Image } from "../common/Image";
 import { config } from "../../firebase";
-import { Anchor } from "../form";
+import { Anchor, Switch } from "../form";
 import { useRouter } from "next/router";
-import { useAcl } from "../../hooks";
+import { useAcl, useTranslation } from "../../hooks";
+import { darkTheme } from "../../theme";
 
 export const TabletNav = (props) => {
   const router = useRouter();
 
   const { userAcls } = useAcl();
+
+  const { t, locale, locales, setLocale } = useTranslation("userLayout");
 
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
@@ -36,9 +39,18 @@ export const TabletNav = (props) => {
         width="88px"
         size="contain"
       />
+      <Switch
+        margin="auto 15px"
+        onChange={(event) => setLocale(event ? locales[1] : locales[0])}
+        defaultChecked={locale === locales[1]}
+        checkedChildren={locales[1]}
+        unCheckedChildren={locales[0]}
+        inactiveBackgroundColor={darkTheme.basic.primary}
+        activeBackgroundColor={darkTheme.basic.primary}
+      />
       {!authUser && (
         <Anchor url="/login" variant="primary" fontSize={"1rem"}>
-          Iniciar sesión
+          {t("login")}
         </Anchor>
       )}
       {authUser && (

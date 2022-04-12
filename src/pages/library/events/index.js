@@ -65,8 +65,8 @@ export const Events = (props) => {
                   <div
                     className="text-['Lato'] font-[700] text-[16px] leading-[18px] md:text-[20px] md:leading-[22px]"
                     onClick={() => {
-                     if (!event.manageByUser) return;
-                     router.push(`/library/events/${event.id}/view`);
+                      if (!event.manageByUser) return;
+                      router.push(`/library/events/${event.id}/view`);
                     }}
                   >
                     {event.manageByUser

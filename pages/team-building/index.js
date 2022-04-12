@@ -13,4 +13,3 @@ const TeamBuildingContainer = (props) => (
 );
 
 export default TeamBuildingContainer;
-

@@ -10,12 +10,15 @@ import { config, firestore } from "../../../../firebase";
 import { ModalSettings } from "./ModalSettings";
 import { LeftOutlined } from "@ant-design/icons";
 import { Image } from "../../../../components/common/Image";
+import { useTranslation } from "../../../../hooks";
 
 const allowedLetters = new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;\n]*$");
 const bannedLetters = new RegExp("[^a-zA-ZñÑáéíóúÁÉÍÓÚ, ¿?!¡:;\n]", "g");
 
 export const Hanged = (props) => {
   const router = useRouter();
+
+  const { t } = useTranslation("pages.library.hanged");
 
   const [coverImgUrl, setCoverImgUrl] = useState(null);
   const [ownBranding, setOwnBranding] = useState(props.game?.ownBranding ?? false);
@@ -113,7 +116,7 @@ export const Hanged = (props) => {
               name="name"
               ref={register}
               error={errors.name}
-              placeholder="Nombre del Evento"
+              placeholder={t("event-name")}
             />
           </div>
           <ButtonAnt
@@ -124,7 +127,7 @@ export const Hanged = (props) => {
             onClick={() => setIsVisibleModalSettings(true)}
             disabled={props.isLoading}
           >
-            Ajustes
+            {t("settings")}
           </ButtonAnt>
           <ButtonAnt
             color="default"
@@ -133,17 +136,14 @@ export const Hanged = (props) => {
             onClick={() => router.back()}
             disabled={props.isLoading}
           >
-            Cancelar
+            {t("cancel")}
           </ButtonAnt>
         </div>
 
         <HangedContainer>
-          <div className="text-['Lato'] font-bold text-[15px] leading-[18px] text-grayLight my-4">
-            Frases para el juego
-          </div>
+          <div className="text-['Lato'] font-bold text-[15px] leading-[18px] text-grayLight my-4">{t("phrases")}</div>
           <div className="text-['Lato'] font-normal text-[13px] leading-[16px] text-grayLight my-4">
-            Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). Solo se aceptan letras,
-            signos de interrogación y exclamación (¿?¡!), espacio y comma (,).
+            {t("description-area")}
           </div>
           <TextArea
             onPaste={(ev) => {
@@ -176,13 +176,13 @@ export const Hanged = (props) => {
             name="phrases"
             ref={register}
             rows="10"
-            placeholder="Frases a advinar"
+            placeholder={t("phhrases-to-guess")}
             background="#FAFAFA"
             color="#242424"
             border="1px solid #C4C4C4"
           />
           <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading}>
-            Guardar
+            {t("save")}
           </ButtonAnt>
         </HangedContainer>
       </form>

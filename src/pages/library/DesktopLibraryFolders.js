@@ -10,21 +10,26 @@ import { useRouter } from "next/router";
 import { ListGameView } from "./ListGameView";
 import { darkTheme } from "../../theme";
 import { Modal, Tooltip } from "antd";
-import { useSendError } from "../../hooks";
+import { useSendError, useTranslation } from "../../hooks";
 import { ModalMove } from "../../components/common/ModalMove";
 import { updateGame } from "./games/_gameId";
 
 export const DesktopLibraryFolders = (props) => {
-  const [loadingGames] = useGlobal("loadingGames");
-  const [listType, setListType] = useState("icons");
-  const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
-  const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
-  const [folder, setFolder] = useState(null);
   const router = useRouter();
+
   const { sendError } = useSendError();
-  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
+
+  const { t } = useTranslation("pages.library");
+
   const [authUser] = useGlobal("user");
+  const [loadingGames] = useGlobal("loadingGames");
+
+  const [folder, setFolder] = useState(null);
+  const [listType, setListType] = useState("icons");
   const [selectedGameToMove, setSelectedGameToMove] = useState(null);
+  const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
+  const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
+  const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
 
   const moveGameToFolder = async (folder) => {
     if (!selectedGameToMove) return;
@@ -86,7 +91,7 @@ export const DesktopLibraryFolders = (props) => {
 
         <div className="list-type">
           <div className="search-bar">
-            <Input type="search" placeholder="Buscar" />
+            <Input type="search" placeholder={t("search")} />
           </div>
 
           <div className="folder-icon" onClick={() => setIsVisibleModalFolder(true)} />
@@ -104,7 +109,7 @@ export const DesktopLibraryFolders = (props) => {
       </div>
       <div className="folders-container">
         {isEmpty(props.folders) ? (
-          <div className="empty-message">No cuentas con folders</div>
+          <div className="empty-message">{t("folder-empty")}</div>
         ) : (
           props.folders.map((folder) => (
             <div key={folder.id} className="folder">
@@ -137,7 +142,7 @@ export const DesktopLibraryFolders = (props) => {
                         size={"contain"}
                         margin={"0 15px 0 0"}
                       />
-                      Cambiar Nombre
+                      {t("rename")}
                     </div>
                     {/*
                     <div className="folder-option">
@@ -159,7 +164,7 @@ export const DesktopLibraryFolders = (props) => {
                         size={"contain"}
                         margin={"0 15px 0 0"}
                       />
-                      Duplicar
+                      {t("duplicate")}
                     </div>
                     <div className="folder-option" onClick={() => deleteFolder(folder)}>
                       <Image
@@ -169,7 +174,7 @@ export const DesktopLibraryFolders = (props) => {
                         size={"contain"}
                         margin={"0 15px 0 0"}
                       />
-                      Borrar
+                      {t("delete")}
                     </div>
                   </ToolTipContent>
                 }
@@ -194,7 +199,7 @@ export const DesktopLibraryFolders = (props) => {
             onClick={() => setIsVisibleModalGame(true)}
             loading={loadingGames}
           >
-            Crear juego
+            {t("create-game")}
           </ButtonAnt>
         </div>
       ) : (

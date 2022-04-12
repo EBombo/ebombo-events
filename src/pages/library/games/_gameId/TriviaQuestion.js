@@ -6,8 +6,11 @@ import { mediaQuery } from "../../../../constants";
 import styled from "styled-components";
 import isEmpty from "lodash/isEmpty";
 import defaultTo from "lodash/defaultTo";
+import { useTranslation } from "../../../../hooks";
 
 export const TriviaQuestion = (props) => {
+  const { t } = useTranslation("pages.library.trivia");
+
   const [optionFocus, setOptionFocus] = useState(-1);
   const [correctAns, setCorrectAns] = useState("");
 
@@ -69,7 +72,7 @@ export const TriviaQuestion = (props) => {
               className={`px-4 h-[52px] text-right md:h-[102px] focus:outline-none ${
                 !isEmpty(props.questions[props.questionIndex]?.options[0]) ? "bg-red" : "bg-white"
               } focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
-              placeholder="Escribir respuesta"
+              placeholder={t("write-answer")}
               value={props.questions[props.questionIndex]?.options[0] ?? ""}
               onFocus={() => setOptionFocus(0)}
               onChange={(e) => {
@@ -137,7 +140,7 @@ export const TriviaQuestion = (props) => {
               className={`px-4 h-[52px] text-right md:h-[102px] ${
                 !isEmpty(props.questions[props.questionIndex]?.options[1]) ? "bg-green" : "bg-white"
               } focus:outline-none focus:bg-green focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
-              placeholder="Escribir respuesta"
+              placeholder={t("write-answer")}
               value={props.questions[props.questionIndex]?.options[1] ?? ""}
               onFocus={() => setOptionFocus(1)}
               onChange={(e) => {
@@ -204,7 +207,7 @@ export const TriviaQuestion = (props) => {
               className={`px-4 h-[52px] text-right md:h-[102px] ${
                 !isEmpty(props.questions[props.questionIndex]?.options[2]) ? "bg-orange" : "bg-white"
               } focus:outline-none focus:bg-orange focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
-              placeholder="Escribir respuesta"
+              placeholder={t("write-answer")}
               value={props.questions[props.questionIndex]?.options[2] ?? ""}
               onFocus={() => setOptionFocus(2)}
               onChange={(e) => {
@@ -271,7 +274,7 @@ export const TriviaQuestion = (props) => {
               className={`px-4 h-[52px] text-right md:h-[102px] ${
                 !isEmpty(props.questions[props.questionIndex]?.options[3]) ? "bg-blue" : "bg-white"
               } focus:outline-none focus:bg-blue focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
-              placeholder="Escribir respuesta"
+              placeholder={t("write-answer")}
               value={props.questions[props.questionIndex]?.options[3] ?? ""}
               onFocus={() => setOptionFocus(3)}
               onChange={(e) => {
@@ -336,7 +339,7 @@ export const TriviaQuestion = (props) => {
                 margin="0 10px 0 0"
               />
               <div className="text-blackDarken text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]">
-                Verdadero
+                {t("true")}
               </div>
             </div>
             <CheckboxContainer
@@ -367,7 +370,7 @@ export const TriviaQuestion = (props) => {
                 margin="0 10px 0 0"
               />
               <div className="text-blackDarken text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]">
-                Falso
+                {t("false")}
               </div>
             </div>
             <CheckboxContainer
@@ -397,19 +400,22 @@ export const TriviaQuestion = (props) => {
               className="text-['Lato'] bold-[500] text-[16px] leading-[19px] h-full bg-transparent focus:outline-none"
               value={correctAns}
               onChange={(e) => setCorrectAns(e.target.value)}
-              placeholder="Escribe una respuesta..."
+              placeholder={`${t("write-answer")}..`}
             />
             <ButtonAnt
               onClick={() => {
                 if (isEmpty(correctAns)) return;
 
                 const _questions = [...props.questions];
-                _questions[props.questionIndex].answer = [...props.questions[props.questionIndex].answer, correctAns?.trim()];
+                _questions[props.questionIndex].answer = [
+                  ...props.questions[props.questionIndex].answer,
+                  correctAns?.trim(),
+                ];
                 props.setQuestions(_questions);
                 setCorrectAns("");
               }}
             >
-              Añadir respuesta
+              {t("add-question")}
             </ButtonAnt>
           </div>
           <div className="w-full flex flex-wrap gap-[10px]">

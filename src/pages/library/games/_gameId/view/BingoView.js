@@ -7,7 +7,6 @@ import { CardContainer } from "../Bingo";
 import { Image } from "../../../../../components/common/Image";
 
 export const BingoView = (props) => {
-
   return (
     <div className="w-full bg-cover bg-no-repeat bg-secondary bg-pattern">
       <div className="grid gap-4 m-2 p-2 bg-[#221545] rounded-[4px] bg-opacity-50 md:m-8 md:p-8 md:grid-cols-[1.5fr_1fr]">
