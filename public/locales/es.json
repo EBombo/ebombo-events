@@ -262,6 +262,28 @@
         "description-area": "Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). Solo se aceptan letras, signos de interrogación y exclamación (¿?¡!), espacio y comma (,).",
         "phrases-to-guess": "Frases a advinar",
         "save": "Guardar"
+      },
+      "roulette": {
+        "event-name": "Nombre del Evento",
+        "settings": "Ajustes",
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "amount-of": "Cantidad de",
+        "questions": "preguntas a sortear",
+        "winners": "ganadores",
+        "live": "En vivo",
+        "description-live": "(Las personas que participen del sorteo se tendrán que inscribir en vivo al sorteo mediante un pin)",
+        "description-area": "Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)",
+        "description-placeholder": "Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)",
+        "participant-name": "Nombres de participantes",
+        "change-colors": "Cambia los colores:",
+        "border": "Borde exterior",
+        "border-in": "Border interior",
+        "selector": "Selector",
+        "texts": "Textos",
+        "button": "Botón",
+        "options": "Opciones",
+        "preview": "Previsualización"
       }
     },
     "about-us": {

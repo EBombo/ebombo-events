@@ -262,6 +262,28 @@
         "description-area": "Write the sentences and separate them with “ENTER” (Max. 50 characters per word or sentence). Only letters, question and exclamation marks (?!), space, and comma (,) are accepted.",
         "phrases-to-guess": "Phrases to guess",
         "save": "Save"
+      },
+      "roulette": {
+        "event-name": "Event name",
+        "settings": "Settings",
+        "cancel": "Cancel",
+        "save": "Save",
+        "amount-of": "Amount of",
+        "questions": "questions to be sorted",
+        "winners": "winners",
+        "live": "Live",
+        "description-live": "(People who participate in the draw will have to register live for the draw using a pin)",
+        "description-area": "Write the name of the participants and separate them with “ENTER” (Max. 25 characters)",
+        "description-placeholder": "Write each question and separate them with “ENTER” (Max. 35 characters)",
+        "participant-name": "Participant names",
+        "change-colors": "Change colors",
+        "border": "Outer edge",
+        "border-in": "Inner edge",
+        "selector": "Selector",
+        "texts": "Texts",
+        "button": "Button",
+        "options": "Options",
+        "preview": "Preview"
       }
     },
     "about-us": {
