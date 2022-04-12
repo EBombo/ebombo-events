@@ -3,11 +3,16 @@ import { useCallback } from "reactn";
 import { useRouter } from "next/router";
 import en from "../../public/locales/en.json";
 import es from "../../public/locales/es.json";
-import modalsEs from "../../public/locales/es/modals.json";
 import modalsEn from "../../public/locales/en/modals.json";
+import modalsEs from "../../public/locales/es/modals.json";
+import eventsEn from "../../public/locales/en/events.json";
+import eventsEs from "../../public/locales/es/events.json";
 
 // TODO: Consider chunk the json files.
-const TRANSLATIONS = { en: { ...en, ...modalsEn }, es: { ...es, ...modalsEs } };
+const TRANSLATIONS = {
+  en: { ...en, modals: modalsEn, pages: { ...en.pages, events: eventsEn } },
+  es: { ...es, modals: modalsEs, pages: { ...es.pages, events: eventsEs } },
+};
 
 // TODO: Support capitalize.
 export const useTranslation = (path) => {
