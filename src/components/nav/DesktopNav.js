@@ -4,16 +4,17 @@ import { useRouter } from "next/router";
 import { useAcl, useTranslation } from "../../hooks";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
-import { Anchor, ButtonAnt } from "../form";
+import { Anchor, ButtonAnt, Switch } from "../form";
 import { sizes } from "../../constants";
 import { ModalNewGame } from "../../pages/library/ModalNewGame";
+import { darkTheme } from "../../theme";
 
 export const DesktopNav = (props) => {
   const router = useRouter();
 
   const { userAcls } = useAcl();
 
-  const { t } = useTranslation("userLayout");
+  const { t, locale, locales, setLocale } = useTranslation("userLayout");
 
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
@@ -91,6 +92,15 @@ export const DesktopNav = (props) => {
       )}
       {authUser && (
         <div className="menu-profile">
+          <Switch
+            margin="auto 15px"
+            onChange={(event) => setLocale(event ? locales[1] : locales[0])}
+            defaultChecked={locale === locales[1]}
+            checkedChildren={locales[1]}
+            unCheckedChildren={locales[0]}
+            inactiveBackgroundColor={darkTheme.basic.primary}
+            activeBackgroundColor={darkTheme.basic.primary}
+          />
           <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
             {t("create")}
           </ButtonAnt>

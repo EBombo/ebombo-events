@@ -374,6 +374,21 @@
         "button": "Button",
         "options": "Options",
         "preview": "Preview"
+      },
+      "trivia": {
+        "title": "Title",
+        "event-name": "Event name",
+        "settings": "Settings",
+        "cancel": "Cancel",
+        "save": "Save",
+        "add-question": "Add question",
+        "write-question": "Write your question",
+        "write-answer": "Write answer",
+        "false": "False",
+        "true": "True",
+        "question-type": "Question type",
+        "time-limit": "Time limit",
+        "answer-options": "Answer options"
       }
     },
     "about-us": {

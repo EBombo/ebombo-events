@@ -201,6 +201,18 @@ export const Navbar = (props) => {
                 </>
               )}
 
+              <li className="nav-item">
+                <Switch
+                  margin="auto"
+                  onChange={(event) => setLocale(event ? locales[1] : locales[0])}
+                  defaultChecked={locale === locales[1]}
+                  checkedChildren={locales[1]}
+                  unCheckedChildren={locales[0]}
+                  inactiveBackgroundColor={darkTheme.basic.primary}
+                  activeBackgroundColor={darkTheme.basic.primary}
+                />
+              </li>
+
               {!authUser ? (
                 <>
                   {isEventPage ? null : (
