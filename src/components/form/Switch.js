@@ -21,7 +21,7 @@ const SwitchContainer = styled.div`
 `;
 
 const StyledSwitch = styled(AntSwitch)`
-  margin-bottom: 1rem !important;
+  ${(props) => `margin:${props.margin};` ?? "margin-bottom:1rem !important;"}
   background-color: ${(props) => props.inactiveBackgroundColor ?? "#00000040"};
 
   ${(props) =>

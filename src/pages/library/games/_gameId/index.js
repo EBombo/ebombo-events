@@ -64,7 +64,6 @@ export const GameContainer = (props) => {
 
     if (gameId === "new") return;
 
-    
     const _game = defaultTo(games, []).find((game) => game.id === gameId);
 
     setCurrentGame(_game);
