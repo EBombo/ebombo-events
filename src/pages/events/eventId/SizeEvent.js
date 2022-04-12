@@ -1,11 +1,14 @@
 import React from "reactn";
-import { ButtonAnt } from "../../../components/form";
+import { Anchor, ButtonAnt } from "../../../components/form";
 import { config } from "../../../firebase";
 import { useTranslation } from "../../../hooks";
+import { useRouter } from "next/router";
 
 const options = ["0 - 10", "11 - 25", "26 - 50", "51 - 100", "100 - 500", "500 +"];
 
 export const SizeEvent = (props) => {
+  const router = useRouter();
+
   const { t } = useTranslation("pages.events");
 
   return (
@@ -35,17 +38,23 @@ export const SizeEvent = (props) => {
         ))}
       </div>
 
-      <ButtonAnt
-        onClick={() => props.setCurrentTab(props.eventSteps[props.position + 1]?.key)}
-        color="primary"
-        disabled={!props.size}
-        variant="contained"
-        fontSize="18px"
-        size="big"
-        margin="1rem 0 auto auto"
-      >
-        {t("next")}
-      </ButtonAnt>
+      <div className="flex mt-4">
+        <Anchor underlined margin="auto 0" variant="secondary" onClick={() => router.back()}>
+          {t("back")}
+        </Anchor>
+
+        <ButtonAnt
+          onClick={() => props.setCurrentTab(props.eventSteps[props.position + 1]?.key)}
+          color="primary"
+          disabled={!props.size}
+          variant="contained"
+          fontSize="18px"
+          size="big"
+          margin="1rem 0 auto auto"
+        >
+          {t("next")}
+        </ButtonAnt>
+      </div>
     </div>
   );
 };

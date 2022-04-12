@@ -7,5 +7,10 @@
     "register": "Register",
     "prepare-you-event": "To prepare your event we need certain information that we will ask you for below.",
     "how-many-people": "How many people do you expect at your event?",
-    "next": "Next"
+    "next": "Next",
+    "how-budget": "How much is your budget?",
+    "back": "Back",
+    "for-participant": "For participant",
+    "for-event": "For the event",
+    "not-sure": "I'm not sure"
 }
