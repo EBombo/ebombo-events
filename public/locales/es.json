@@ -253,6 +253,15 @@
         "save": "Guardar",
         "upload-img": "Subir imagen de fondo para cartilla",
         "update-img": "Cambiar imagen de fondo para cartilla"
+      },
+      "hanged": {
+        "event-name": "Nombre del Evento",
+        "settings": "Ajustes",
+        "cancel": "Cancelar",
+        "phrases": "Frases para el juego",
+        "description-area": "Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). Solo se aceptan letras, signos de interrogación y exclamación (¿?¡!), espacio y comma (,).",
+        "phrases-to-guess": "Frases a advinar",
+        "save": "Guardar"
       }
     },
     "about-us": {

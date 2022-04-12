@@ -253,6 +253,15 @@
         "save": "Save",
         "upload-img": "Upload background image for primer",
         "update-img": "Change background image for primer"
+      },
+      "hanged": {
+        "event-name": "Event name",
+        "settings": "Settings",
+        "cancel": "Cancel",
+        "phrases": "Phrases for the game",
+        "description-area": "Write the sentences and separate them with “ENTER” (Max. 50 characters per word or sentence). Only letters, question and exclamation marks (?!), space, and comma (,) are accepted.",
+        "phrases-to-guess": "Phrases to guess",
+        "save": "Save"
       }
     },
     "about-us": {
