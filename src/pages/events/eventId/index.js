@@ -10,6 +10,7 @@ import { DatesEvent } from "./DatesEvent";
 import { ResumeEvent } from "./ResumeEvent";
 import { mediaQuery } from "../../../constants";
 import { useRouter } from "next/router";
+import { useTranslation } from "../../../hooks";
 
 const { TabPane } = Tabs;
 
@@ -19,6 +20,8 @@ export const EventContainer = (props) => {
   const router = useRouter();
 
   const [authUser] = useGlobal("user");
+
+  const { t } = useTranslation("pages.events");
 
   const [currentTab, setCurrentTab] = useState(defaultTab);
 
@@ -37,10 +40,10 @@ export const EventContainer = (props) => {
       {
         tab: !!size ? (
           <div className="text-success">
-            <CheckOutlined /> Tamaño
+            <CheckOutlined /> {t("size")}
           </div>
         ) : (
-          <div className="text-secondary">Tamaño</div>
+          <div className="text-secondary">{t("size")}</div>
         ),
         key: defaultTab,
         content: (eventSteps, position) => (
@@ -57,10 +60,10 @@ export const EventContainer = (props) => {
       {
         tab: !!budget ? (
           <div className="text-success">
-            <CheckOutlined /> Presupuesto
+            <CheckOutlined /> {t("budget")}
           </div>
         ) : (
-          <div className="text-secondary">Presupuesto</div>
+          <div className="text-secondary">{t("budget")}</div>
         ),
         key: "budget",
         content: (eventSteps, position) => (
@@ -77,10 +80,10 @@ export const EventContainer = (props) => {
       {
         tab: !!details ? (
           <div className="text-success">
-            <CheckOutlined /> Detalles
+            <CheckOutlined /> {t("details")}
           </div>
         ) : (
-          <div className="text-secondary">Detalles</div>
+          <div className="text-secondary">{t("details")}</div>
         ),
         key: "details",
         content: (eventSteps, position) => (
@@ -97,10 +100,10 @@ export const EventContainer = (props) => {
       {
         tab: !!dates ? (
           <div className="text-success">
-            <CheckOutlined /> Fecha
+            <CheckOutlined /> {t("date")}
           </div>
         ) : (
-          <div className="text-secondary">Fecha</div>
+          <div className="text-secondary">{t("date")}</div>
         ),
         key: "date",
         content: (eventSteps, position) => (
@@ -117,10 +120,10 @@ export const EventContainer = (props) => {
       {
         tab: !!resume ? (
           <div className="text-success">
-            <CheckOutlined /> Resumen
+            <CheckOutlined /> {t("resume")}
           </div>
         ) : (
-          <div className="text-secondary">Resumen</div>
+          <div className="text-secondary">{t("resume")}</div>
         ),
         key: "resume",
         content: (eventSteps, position) => (
@@ -138,7 +141,7 @@ export const EventContainer = (props) => {
         ),
       },
       {
-        tab: authUser ? null : <div className="text-secondary">Registro</div>,
+        tab: authUser ? null : <div className="text-secondary">{t("register")}</div>,
         key: "register",
         content: () => null,
       },

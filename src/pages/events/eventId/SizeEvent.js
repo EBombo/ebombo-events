@@ -17,8 +17,8 @@ export const SizeEvent = (props) => {
         {options.map((option) => (
           <div
             className={`w-full text-2xl bg-white rounded-md relative md:w-52 ${
-              props.size === option ? "border-primary" : "border-grayLighten"
-            } border-2 py-2 px-1 cursor-pointer`}
+              props.size === option ? "border-primary text-primary" : "border-grayLighten"
+            } border-2 py-2 px-1 cursor-pointer text-bold`}
             key={option}
             onClick={() => props.setSize(option)}
           >

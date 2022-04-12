@@ -11,7 +11,7 @@ export const ModalNewEvent = (props) => {
 
   const [authUser] = useGlobal("user");
 
-  const { t } = useTranslation("new-event");
+  const { t } = useTranslation("modals.new-event");
 
   useEffect(() => {
     router.prefetch("/events/[eventId]");
