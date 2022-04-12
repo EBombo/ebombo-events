@@ -278,46 +278,46 @@
     },
     "activities": {
       "intro-subheading": "Ebombo style",
-      "intro-title": "Dinámicas únicas en su tipo",
-      "intro-bullet-1": "Mini actividades fáciles de jugar y de administrar.",
-      "intro-bullet-2": "Acceda a nuestra biblioteca de juegos completa.",
-      "intro-bullet-3": "Diviertete con todos tus colaboradores.",
-      "register-button-label": "Registrar",
-      "sign-in-button-label": "Iniciar sesión",
-      "contact-button-label": "Contacto",
+      "intro-title": "One-of-a-kind dynamics",
+      "intro-bullet-1": "Mini activities easy to play and manage.",
+      "intro-bullet-2": "Get access to our whole library of games.",
+      "intro-bullet-3": "Have fun with all your collaborators.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
       "ebombo-style": {
-        "title": "El estilo ebombo",
+        "title": "Ebombo style",
         "items-1": {
           "title": "Trivia",
-          "description": "Reúne a tu equipo para actividades de preguntas dándole el enfoque que tu quieras: películas, deportes o hasta temas onboarding y capacitaciones."
+          "description": "Gather your team for quiz activities giving it the focus you want: movies, sports or even onboarding and training topics."
         },
         "items-2": {
-          "title": "Canta y gana",
-          "description": "Los jugadores pueden elegir una canción para cantar una pequeña parte. Cada uno tiene un momento para brillar. Proporcionaremos la letra y la música. ¡Cuanto más divertido, más puntos!"
+          "title": "Sing and win!",
+          "description": "Players can choose a song to sing a small part. Everyone has a moment to shine. We will provide the lyrics and music. The more fun, the more points!"
         },
         "items-3": {
-          "title": "¡A quién me traiga!",
-          "description": "A los jugadores se les menciona una pista de  un artículo cotidiano que se encuentra comúnmente en sus hogares. Quien descrife primero cuál es el objeto misterioso y lo muestre a la cámara ganará puntos."
+          "title": "who will bring me a...!",
+          "description": "Players are given a clue from an everyday item commonly found in their homes. Whoever first describes what the mystery object is and shows it to the camera will win points."
         },
         "items-4": {
-          "title": "Adivina la canción",
-          "description": "Reproduciremos un extracto de una canción y el colaborador que adivine el nombre primero ganará un punto y si canta, uno adicional."
+          "title": "Guess the song",
+          "description": "We will play an excerpt from a song and the collaborator who guesses the name first will win a point and if he sings, an additional one."
         },
         "items-5": {
-          "title": "Película Doméstica",
-          "description": "Reproduciremos una pequeña escena de una película y acto seguido dos colaboradores deberán imitar las actuaciones."
+          "title": "Domestic Movie",
+          "description": "We will reproduce a small scene from a movie and then two collaborators will have to imitate the performances."
         },
         "items-6": {
-          "title": "Zoom a la imagen",
-          "description": "Danos una imagen completa de lo que quieras y mostraremos una parte a los colaboradores. Quien adivine de qué trata la imagen ganará."
+          "title": "Zoom to image",
+          "description": "Give us a complete picture of what you want and we will show a part to collaborators. Whoever guesses what the picture is about will win."
         },
         "items-7": {
-          "title": "2 verdades y 1 mentira",
-          "description": "Menciona tres enunciados sobre el tema que quieras y el jugador deberá adivinar cuál es la mentira. Perfecto para capacitaciones."
+          "title": "2 truths and 1 lie",
+          "description": "Mention three statements about the topic you want and the player must guess which one is the lie. Perfect for trainings."
         },
         "items-8": {
-          "title": "Ruleta rompe hielo",
-          "description": "Usa la ruleta rompehielo para romper el ambiente. Saldrán preguntas que escojas y los colaboradores tendrán que responderlas de manera divertida."
+          "title": "Icebreaker Roulette",
+          "description": "Use the icebreaker roulette to break the atmosphere. Questions that you choose will come up and the collaborators will have to answer them in a fun way."
         }
       },
       "virtual-event-you-love": {
