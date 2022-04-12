@@ -228,7 +228,8 @@
       "rename": "Rename",
       "duplicate": "Duplicate",
       "delete": "Delete",
-      "create-game": "Create game"
+      "create-game": "Create game",
+      "favorites": "Favorites"
     },
     "about-us": {
       "title": "About us?",

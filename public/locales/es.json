@@ -228,7 +228,8 @@
       "rename": "Cambiar Nombre",
       "duplcate": "Duplicar",
       "delete": "Borrar",
-      "create-game": "Crear juego"
+      "create-game": "Crear juego",
+      "favorites": "Favoritos"
     },
     "about-us": {
       "title": "¿Quiénes somos?",
