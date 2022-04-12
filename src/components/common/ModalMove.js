@@ -21,7 +21,7 @@ export const ModalMove = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [folderSelected, setFolderSelected] = useState(null);
   const [isVisibleNewFolder, setIsVisibleNewFolder] = useState(false);
-  const [parent, setParent] = useState(props.parent ?? null)
+  const [parent, setParent] = useState(props.parent ?? null);
 
   const schema = yup.object().shape({
     name: yup.string().required(),

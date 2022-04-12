@@ -996,14 +996,29 @@ export const TeamBuildingLiterals = {
   virtualEvents: {
     title: "landing.team-building.virtual-events.title",
     items: [
-      {img: `${config.storageUrl}/resources/TEAM_BUILDING_1.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_1_12x12.webp`, title: "landing.team-building.virtual-events.items-1.title", description: "landing.team-building.virtual-events.items-1.description"},
-      {img: `${config.storageUrl}/resources/TEAM_BUILDING_2.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_2_12x12.webp`, title: "landing.team-building.virtual-events.items-2.title", description: "landing.team-building.virtual-events.items-2.description"},
-      {img: `${config.storageUrl}/resources/TEAM_BUILDING_3.jpg`, placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_3_12x12.webp`, title: "landing.team-building.virtual-events.items-3.title", description: "landing.team-building.virtual-events.items-3.description"},
+      {
+        img: `${config.storageUrl}/resources/TEAM_BUILDING_1.jpg`,
+        placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_1_12x12.webp`,
+        title: "landing.team-building.virtual-events.items-1.title",
+        description: "landing.team-building.virtual-events.items-1.description",
+      },
+      {
+        img: `${config.storageUrl}/resources/TEAM_BUILDING_2.jpg`,
+        placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_2_12x12.webp`,
+        title: "landing.team-building.virtual-events.items-2.title",
+        description: "landing.team-building.virtual-events.items-2.description",
+      },
+      {
+        img: `${config.storageUrl}/resources/TEAM_BUILDING_3.jpg`,
+        placeholder: `${config.storageUrl}/resources/TEAM_BUILDING_3_12x12.webp`,
+        title: "landing.team-building.virtual-events.items-3.title",
+        description: "landing.team-building.virtual-events.items-3.description",
+      },
     ],
   },
   virtualEventYouLove: {
     title: "landing.team-building.virtual-event-you-love.title",
-  }
+  },
 };
 
 export const OnBoardingLiterals = {

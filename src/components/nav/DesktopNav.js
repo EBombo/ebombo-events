@@ -1,17 +1,20 @@
 import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useAcl } from "../../hooks";
+import { useAcl, useTranslation } from "../../hooks";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
-import { Anchor, ButtonAnt } from "../form";
+import { Anchor, ButtonAnt, Switch } from "../form";
 import { sizes } from "../../constants";
 import { ModalNewGame } from "../../pages/library/ModalNewGame";
+import { darkTheme } from "../../theme";
 
 export const DesktopNav = (props) => {
   const router = useRouter();
 
   const { userAcls } = useAcl();
+
+  const { t, locale, locales, setLocale } = useTranslation("userLayout");
 
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
@@ -63,7 +66,7 @@ export const DesktopNav = (props) => {
                   className="icon"
                   margin="0 5px 0 0"
                 />
-                Librería
+                {t("library")}
               </li>
               <li
                 className={`${router.asPath.includes("reports") ? "active" : ""}`}
@@ -76,7 +79,7 @@ export const DesktopNav = (props) => {
                   className="icon"
                   margin="0 5px 0 0"
                 />
-                Reportes
+                {t("reports")}
               </li>
             </ul>
           </div>
@@ -84,26 +87,22 @@ export const DesktopNav = (props) => {
       </div>
       {!authUser && (
         <Anchor url="/login" variant="primary" fontSize={"1rem"}>
-          Iniciar sesión
+          {t("login")}
         </Anchor>
       )}
       {authUser && (
         <div className="menu-profile">
-          {/*
-            <Popover trigger="hover" content="Bienvenido a nuestra versión BETA">
-            <button className="premium-btn" onClick={() => console.log("premium")}>
-              <Image
-                src={`${config.storageUrl}/resources/premium.svg`}
-                height={"27px"}
-                weight={"27px"}
-                margin={"0 5px 0 0"}
-              />
-              Beta
-            </button>
-          </Popover>
-             */}
+          <Switch
+            margin="auto 15px"
+            onChange={(event) => setLocale(event ? locales[1] : locales[0])}
+            defaultChecked={locale === locales[1]}
+            checkedChildren={locales[1]}
+            unCheckedChildren={locales[0]}
+            inactiveBackgroundColor={darkTheme.basic.primary}
+            activeBackgroundColor={darkTheme.basic.primary}
+          />
           <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
-            Crear
+            {t("create")}
           </ButtonAnt>
           <div className="hamburger" onClick={() => setOpenRightDrawer(!openRightDrawer)}>
             <Image
