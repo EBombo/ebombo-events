@@ -20,6 +20,7 @@ const useCaseMenu = [
 
 const featuresMenu = [
   { url: "/activities", label: "nav.features.activities" },
+  { url: "/content", label: "nav.features.content" },
 ];
 
 export const Navbar = (props) => {
@@ -108,8 +109,8 @@ export const Navbar = (props) => {
                 placement="bottom"
                 color="#FFFFFF"
                 content={featuresMenu.map((menuItem) => (
-                  <Anchor key={menuItem} className="block link text-black" url={menuItem.url}>
-                    <span className="align-middle font-bold text-left text-base">{t(menuItem.label)}</span>
+                  <Anchor key={menuItem} className="block link text-black text-left" url={menuItem.url}>
+                    <span className="font-bold text-left text-base w-full text-left block">{t(menuItem.label)}</span>
                   </Anchor>
                 ))}
               >
@@ -123,7 +124,7 @@ export const Navbar = (props) => {
                 color="#FFFFFF"
                 content={useCaseMenu.map((menuItem) => (
                   <Anchor key={menuItem} className="block link text-black" url={menuItem.url}>
-                    <span className="align-middle font-bold text-left text-base">{t(menuItem.label)}</span>
+                    <span className="font-bold text-left text-base w-full text-left block">{t(menuItem.label)}</span>
                   </Anchor>
                 ))}
               >
