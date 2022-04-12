@@ -312,7 +312,8 @@
     },
     "features": {
       "title": "Features",
-      "activities": "Activities"
+      "activities": "Activities",
+      "content": "Content"
     },
     "about-us": "About us",
     "contact-us": "Contact us",

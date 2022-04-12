@@ -20,6 +20,7 @@ const useCaseMenu = [
 
 const featuresMenu = [
   { url: "/activities", label: "nav.features.activities" },
+  { url: "/content", label: "nav.features.content" },
 ];
 
 export const Navbar = (props) => {
