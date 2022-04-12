@@ -222,14 +222,19 @@
       "my-games": "My games",
       "library": "Library",
       "folders": "Folders",
+      "folder": "Folder",
       "events": "Events",
       "search": "Search",
       "folder-empty": "You don't have folders",
+      "games-empty": "You don't have games",
       "rename": "Rename",
       "duplicate": "Duplicate",
+      "move": "Move",
       "delete": "Delete",
       "create-game": "Create game",
-      "favorites": "Favorites"
+      "favorites": "Favorites",
+      "recent": "Recent",
+      "games": "Games"
     },
     "about-us": {
       "title": "About us?",

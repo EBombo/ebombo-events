@@ -222,14 +222,19 @@
       "my-games": "Mis juegos",
       "library": "Librería",
       "folders": "Carpetas",
+      "folder": "Carpeta",
       "events": "Eventos",
       "search": "Buscar",
       "folder-empty": "No cuentas con folders",
+      "games-empty": "No cuentas con juegos",
       "rename": "Cambiar Nombre",
-      "duplcate": "Duplicar",
+      "duplicate": "Duplicar",
+      "mover": "Mover",
       "delete": "Borrar",
       "create-game": "Crear juego",
-      "favorites": "Favoritos"
+      "favorites": "Favoritos",
+      "recent": "Recientes",
+      "games": "Juegos"
     },
     "about-us": {
       "title": "¿Quiénes somos?",

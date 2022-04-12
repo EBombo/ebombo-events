@@ -11,7 +11,7 @@ import { ModalNewFolder } from "./ModalNewFolder";
 import { ModalNewGame } from "./ModalNewGame";
 import { ListGameView } from "./ListGameView";
 import { spinLoaderMin } from "../../components/common/loader";
-import { useSendError } from "../../hooks";
+import { useSendError, useTranslation } from "../../hooks";
 import { ModalMove } from "../../components/common/ModalMove";
 import { updateGame } from "./games/_gameId";
 import { Events } from "./events";
@@ -21,15 +21,17 @@ export const TabletLibrary = (props) => {
 
   const { sendError } = useSendError();
 
-  const [loadingGames] = useGlobal("loadingGames");
-  const [games] = useGlobal("userGames");
-  const [authUser] = useGlobal("user");
+  const { t } = useTranslation("pages.library");
 
+  const [authUser] = useGlobal("user");
+  const [games] = useGlobal("userGames");
+  const [loadingGames] = useGlobal("loadingGames");
+
+  const [folder, setFolder] = useState(null);
   const [selectedGameToMove, setSelectedGameToMove] = useState(null);
   const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
-  const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
-  const [folder, setFolder] = useState(null);
+  const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
 
   useEffect(() => {
     router.prefetch("/library/games");
@@ -99,9 +101,9 @@ export const TabletLibrary = (props) => {
       />
       {router.asPath === "/library" && (
         <>
-          <div className="subtitle">Librería</div>
+          <div className="subtitle">{t("library")}</div>
           <div className="main-content">
-            <div className="recents">Recientes</div>
+            <div className="recents">{t("recent")}</div>
             <div className="most-recent" />
             <div className="item games" onClick={() => router.push("/library/games")}>
               <div className="left">
@@ -112,7 +114,7 @@ export const TabletLibrary = (props) => {
                   className="icon"
                   margin="0 20px 0 0"
                 />
-                <div className="name">Mis juegos</div>
+                <div className="name">{t("my-games")}</div>
               </div>
             </div>
             <div className="item favorites" onClick={() => router.push("/library/favorites")}>
@@ -124,7 +126,7 @@ export const TabletLibrary = (props) => {
                   className="icon"
                   margin="0 20px 0 0"
                 />
-                <div className="name">Favoritos</div>
+                <div className="name">{t("favorites")}</div>
               </div>
             </div>
             <div className="item favorites" onClick={() => router.push("/library/events")}>
@@ -136,7 +138,7 @@ export const TabletLibrary = (props) => {
                   className="icon"
                   margin="0 20px 0 0"
                 />
-                <div className="name">Eventos</div>
+                <div className="name">{t("events")}</div>
               </div>
             </div>
           </div>
@@ -146,7 +148,7 @@ export const TabletLibrary = (props) => {
       {router.asPath.includes("/library/") && !router.asPath.includes("/events") && (
         <>
           <div className="subtitle">
-            Mis Juegos
+            {t("my-games")}
             <Tooltip
               placement="bottomLeft"
               trigger="click"
@@ -192,11 +194,11 @@ export const TabletLibrary = (props) => {
           </div>
           <div className="main-content">
             <div className="item-subtitle">
-              Folder ({props.folders.length}) [{props.parent?.path}]
+              {t("folder")} ({props.folders.length}) [{props.parent?.path}]
             </div>
 
             {isEmpty(props.folders) ? (
-              <div className="empty-message">No cuentas con folders</div>
+              <div className="empty-message">{t("folder-empty")}</div>
             ) : (
               props.folders.map((folder) => (
                 <div key={folder.id} className="item games folder">
@@ -229,7 +231,7 @@ export const TabletLibrary = (props) => {
                             size={"contain"}
                             margin={"0 15px 0 0"}
                           />
-                          Cambiar Nombre
+                          {t("rename")}
                         </div>
                         <div className="folder-option">
                           <Image
@@ -239,7 +241,7 @@ export const TabletLibrary = (props) => {
                             size={"contain"}
                             margin={"0 15px 0 0"}
                           />
-                          Mover
+                          {t("move")}
                         </div>
                         <div className="folder-option">
                           <Image
@@ -249,7 +251,7 @@ export const TabletLibrary = (props) => {
                             size={"contain"}
                             margin={"0 15px 0 0"}
                           />
-                          Duplicar
+                          {t("duplicate")}
                         </div>
                         <div className="folder-option" onClick={() => deleteFolder(folder)}>
                           <Image
@@ -259,7 +261,7 @@ export const TabletLibrary = (props) => {
                             size={"contain"}
                             margin={"0 15px 0 0"}
                           />
-                          Borrar
+                          {t("delete")}
                         </div>
                       </ToolTipContentOptions>
                     }
@@ -275,12 +277,14 @@ export const TabletLibrary = (props) => {
               ))
             )}
 
-            <div className="item-subtitle">Juegos ({props.games.length})</div>
+            <div className="item-subtitle">
+              {t("games")} ({props.games.length})
+            </div>
 
             {loadingGames ? (
               spinLoaderMin()
             ) : isEmpty(props.games) ? (
-              <div className="empty-message">No cuentas con juegos</div>
+              <div className="empty-message">{t("games-empty")}</div>
             ) : (
               getGames().map((game) => (
                 <ListGameView
