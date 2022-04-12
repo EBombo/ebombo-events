@@ -38,7 +38,7 @@ export const CorporateEvents = (props) => {
 
   return (
     <div className="w-[100vw]">
-      <section className="bg-tapiz-1 bg-white flex flex-col justify-center p-4 lg:p-8">
+      <section className="bg-tapiz-1 bg-white flex flex-col justify-center p-4 lg:p-8 lg:min-h-[calc(100vh-100px)]">
         <div className="w-full lg:grid lg:grid-cols-[50%_50%] max-w-[1500px] mx-auto">
           <div className="w-full">
             <h3 className="text-primary font-bold text-3xl md:text-5xl">
@@ -72,7 +72,7 @@ export const CorporateEvents = (props) => {
               placeholderUrl={`${config.storageUrl}/resources/corporate-events-video-snapshot.jpg`}
               src={`${config.storageUrl}/resources/corporate-events-video.gif`}
               className="w-full aspect-video rounded-2xl mx-auto"
-              width="90%"
+              width="100%"
               aspectRatio="16 / 9"
             />
           </div>
