@@ -15,7 +15,6 @@ const WspIcon = dynamic(() => import("./common/wspIcon"));
 const FooterBar = dynamic(() => import("./FooterBar"));
 
 const UserLayout = (props) => {
-
   return (
     <>
       <RightDrawer />
@@ -23,19 +22,25 @@ const UserLayout = (props) => {
         <Desktop>
           <DesktopNav {...props} />
         </Desktop>
+
         <Tablet>
           <TabletNav {...props} />
         </Tablet>
+
         <LayoutMenu>
           <Desktop>
             <Body isLanding>{props.children}</Body>
           </Desktop>
+
           <Tablet>
             <Body isLanding={props.isLanding}>{props.children}</Body>
             {!props.isLanding && <FooterBar {...props} />}
           </Tablet>
+
           <Footer />
+
           <PWA />
+
           <WspIcon />
         </LayoutMenu>
       </Layout>

@@ -1,15 +1,16 @@
 import React from "reactn";
 import { SEOMeta } from "../../src/components/common/seo";
 import { Navbar } from "../../src/components/Navbar";
-import { TeamBuilding } from "../../src/pages/team-building";
+import { Activities } from "../../src/pages/activities";
 
-const TeamBuildingContainer = (props) => (
+const ActivitiesContainer = (props) => (
   <>
     <SEOMeta {...props} />
     <Navbar>
-      <TeamBuilding {...props} />
+      <Activities {...props} />
     </Navbar>
   </>
 );
 
-export default TeamBuildingContainer;
+export default ActivitiesContainer;
+

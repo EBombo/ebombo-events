@@ -5,11 +5,13 @@ import { ListGameView } from "./ListGameView";
 import isEmpty from "lodash/isEmpty";
 import { spinLoaderMin } from "../../components/common/loader";
 import { ModalMove } from "../../components/common/ModalMove";
-import { useSendError } from "../../hooks";
+import { useSendError, useTranslation } from "../../hooks";
 import { updateGame } from "./games/_gameId";
 
 export const DesktopLibraryGames = (props) => {
   const { sendError } = useSendError();
+
+  const { t } = useTranslation("pages.library");
 
   const [authUser] = useGlobal("user");
   const [loadingGames] = useGlobal("loadingGames");
@@ -51,10 +53,10 @@ export const DesktopLibraryGames = (props) => {
         <div className="tabs-search-container">
           <div className="tabs-container">
             <div className={`tab ${tab === "all" ? "active" : ""}`} onClick={() => setTab("all")}>
-              Mis juegos
+              {t("my-games")}
             </div>
             <div className={`tab middle ${tab === "favorites" ? "active" : ""}`} onClick={() => setTab("favorites")}>
-              Favoritos
+              {t("favorites")}
             </div>
             {/*<div*/}
             {/*  className={`tab ${tab === "drafts" ? "active" : ""}`}*/}
@@ -65,7 +67,7 @@ export const DesktopLibraryGames = (props) => {
           </div>
 
           <div className="search-bar">
-            <Input type="search" placeholder="Buscar" />
+            <Input type="search" placeholder={t("search")} />
           </div>
         </div>
 
@@ -99,7 +101,7 @@ export const DesktopLibraryGames = (props) => {
 
         {loadingGames
           ? spinLoaderMin()
-          : isEmpty(props.games) && <div className="empty-container">No cuentas con juegos.</div>}
+          : isEmpty(props.games) && <div className="empty-container">{t("games-empty")}.</div>}
       </div>
     </GamesContainer>
   );

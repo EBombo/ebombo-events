@@ -276,6 +276,54 @@
         "title": "El evento virtual que amarás"
       }
     },
+    "activities": {
+      "intro-subheading": "Al estilo ebombo",
+      "intro-title": "Dinámicas únicas en su tipo",
+      "intro-bullet-1": "Mini actividades fáciles de jugar y de administrar.",
+      "intro-bullet-2": "Acceda a nuestra biblioteca de juegos completa.",
+      "intro-bullet-3": "Diviertete con todos tus colaboradores.",
+      "register-button-label": "Registrar",
+      "sign-in-button-label": "Iniciar sesión",
+      "contact-button-label": "Contacto",
+      "ebombo-style": {
+        "title": "El estilo ebombo",
+        "items-1": {
+          "title": "Trivia",
+          "description": "Reúne a tu equipo para actividades de preguntas dándole el enfoque que tu quieras: películas, deportes o hasta temas onboarding y capacitaciones."
+        },
+        "items-2": {
+          "title": "Canta y gana",
+          "description": "Los jugadores pueden elegir una canción para cantar una pequeña parte. Cada uno tiene un momento para brillar. Proporcionaremos la letra y la música. ¡Cuanto más divertido, más puntos!"
+        },
+        "items-3": {
+          "title": "¡A quién me traiga!",
+          "description": "A los jugadores se les menciona una pista de  un artículo cotidiano que se encuentra comúnmente en sus hogares. Quien descrife primero cuál es el objeto misterioso y lo muestre a la cámara ganará puntos."
+        },
+        "items-4": {
+          "title": "Adivina la canción",
+          "description": "Reproduciremos un extracto de una canción y el colaborador que adivine el nombre primero ganará un punto y si canta, uno adicional."
+        },
+        "items-5": {
+          "title": "Película Doméstica",
+          "description": "Reproduciremos una pequeña escena de una película y acto seguido dos colaboradores deberán imitar las actuaciones."
+        },
+        "items-6": {
+          "title": "Zoom a la imagen",
+          "description": "Danos una imagen completa de lo que quieras y mostraremos una parte a los colaboradores. Quien adivine de qué trata la imagen ganará."
+        },
+        "items-7": {
+          "title": "2 verdades y 1 mentira",
+          "description": "Menciona tres enunciados sobre el tema que quieras y el jugador deberá adivinar cuál es la mentira. Perfecto para capacitaciones."
+        },
+        "items-8": {
+          "title": "Ruleta rompe hielo",
+          "description": "Usa la ruleta rompehielo para romper el ambiente. Saldrán preguntas que escojas y los colaboradores tendrán que responderlas de manera divertida."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "El evento virtual que amarás"
+      }
+    },
     "corporate-events": {
       "intro-subheading": "Crea tus propios",
       "intro-title": "Eventos corporativos",
@@ -321,10 +369,20 @@
       "on-boarding": "On Boarding",
       "corporate-events": "Eventos Corporativos"
     },
+    "features": {
+      "title": "Características",
+      "activities": "Actividades"
+    },
     "about-us": "Sobre nosotros",
     "contact-us": "Contáctanos",
     "contact": "Contacto",
     "experience": "Experiencia"
+  },
+  "userLayout": {
+    "library": "Librería",
+    "reports": "Reportes",
+    "login": "Iniciar sesión",
+    "create": "Crear"
   },
   "footer": {
     "us": "Nosotros",
@@ -338,6 +396,89 @@
     "contact-support": "Contactar soporte"
   },
   "pages": {
+    "library": {
+      "my-games": "Mis juegos",
+      "library": "Librería",
+      "folders": "Carpetas",
+      "folder": "Carpeta",
+      "events": "Eventos",
+      "search": "Buscar",
+      "folder-empty": "No cuentas con folders",
+      "games-empty": "No cuentas con juegos",
+      "rename": "Cambiar Nombre",
+      "duplicate": "Duplicar",
+      "mover": "Mover",
+      "delete": "Borrar",
+      "create-game": "Crear juego",
+      "favorites": "Favoritos",
+      "recent": "Recientes",
+      "games": "Juegos",
+      "created-ago": "Creado hace",
+      "edit": "Editar",
+      "play": "Jugar",
+      "bingo": {
+        "card-title": "Título de Cartilla",
+        "event-name": "Nombre del Evento",
+        "settings": "Ajustes",
+        "cancel": "Cancelar",
+        "customize-card": "Personalización de cartilla",
+        "title": "Titulo",
+        "columns": "Columnas",
+        "select-color": "Selecciona un color para cambiarlo",
+        "background": "Fondo",
+        "blocks": "Bloques",
+        "number": "Número",
+        "save": "Guardar",
+        "upload-img": "Subir imagen de fondo para cartilla",
+        "update-img": "Cambiar imagen de fondo para cartilla"
+      },
+      "hanged": {
+        "event-name": "Nombre del Evento",
+        "settings": "Ajustes",
+        "cancel": "Cancelar",
+        "phrases": "Frases para el juego",
+        "description-area": "Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). Solo se aceptan letras, signos de interrogación y exclamación (¿?¡!), espacio y comma (,).",
+        "phrases-to-guess": "Frases a advinar",
+        "save": "Guardar"
+      },
+      "roulette": {
+        "event-name": "Nombre del Evento",
+        "settings": "Ajustes",
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "amount-of": "Cantidad de",
+        "questions": "preguntas a sortear",
+        "winners": "ganadores",
+        "live": "En vivo",
+        "description-live": "(Las personas que participen del sorteo se tendrán que inscribir en vivo al sorteo mediante un pin)",
+        "description-area": "Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)",
+        "description-placeholder": "Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)",
+        "participant-name": "Nombres de participantes",
+        "change-colors": "Cambia los colores:",
+        "border": "Borde exterior",
+        "border-in": "Border interior",
+        "selector": "Selector",
+        "texts": "Textos",
+        "button": "Botón",
+        "options": "Opciones",
+        "preview": "Previsualización"
+      },
+      "trivia": {
+        "title": "Titulo",
+        "event-name": "Nombre del Evento",
+        "settings": "Ajustes",
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "add-question": "Añadir Pregunta",
+        "write-question": "Escribe tu pregunta",
+        "write-answer": "Escribir respuesta",
+        "false": "Falso",
+        "true": "Verdadero",
+        "question-type": "Tipo de pregunta",
+        "time-limit": "Límite de tiempo",
+        "answer-options": "Opciones de respuesta"
+      }
+    },
     "about-us": {
       "title": "¿Quiénes somos?",
       "description-1": "ebombo es una empresa de tecnología de recursos humanos enfocada en el futuro del trabajo. Permitiendo que otras empresas conecten con sus empleados y mejoren su ambiente de trabajo. Todo esto es posible con las actividades virtuales que creamos. Estas actividades consisten en diferentes tipos de juegos, dinámicas de incorporación, capacitaciones y más, de una manera divertida y casual.",

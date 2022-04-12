@@ -5,13 +5,13 @@
   "landing": {
     "header": {
       "ebombo-style": "Ebombo style",
-      "title": "We help your company connect with your workers to improve the work environment",
+      "title": "Our dynamic approach to connecting workers online will help your work environment",
       "sub-title": "The way your workers meet influences the climate and culture of your company. Our platform allows you to have online experiences and virtual events to promote the productivity, engagement and fun of your workers.",
       "book-an-event": "Book an event"
     },
     "products": {
-      "title": "AN INCREDIBLE WAY IN THE WAY YOU CONNECT WITH YOUR TEAM",
-      "sub-title": "We have created a simple and straightforward tool that ensures the connection of your workers in a hybrid or remote scheme and a good work environment",
+      "title": "AN INCREDIBLE WAY TO CONNECT WITH YOUR TEAM",
+      "sub-title": "We have created a straightforward tool that ensures an improved work environment",
       "book-an-event": "Book an event",
       "tabs": {
         "virtual-activities": "Virtual activities",
@@ -48,7 +48,7 @@
       },
       "descriptions": {
         "pro-hosted": "Leave it in the hands of a member of the ebombo Customer Success team. In addition, an elite or VIP entertainer will lead your live event that will unite your team in a collaborative and fun experience.",
-        "self-hosted": "Is your moment. We have made it easy and intuitive for you or another person on your team to be the one to create and direct the virtual activities that ebombo offers."
+        "self-hosted": "It is your moment. We have made it easy and intuitive for your team to be the ones to create and direct the virtual activities that ebombo offers."
       }
     },
     "style": {
@@ -67,9 +67,9 @@
           "connect": "Connect"
         },
         "descriptions": {
-          "training-and-orientation": "We help your workers have training to learn more technical issues in a super fun way that allows for a high rate of engagement.",
-          "onboardings": "We offer virtual training activities for new workers, but in a super fun way.",
-          "games": "We have several games created by us such as 'Bingo, Hangman, Roulette, Trivia and more'.",
+          "training-and-orientation": "We help your workers have training to learn more technical issues in a fun way that allows for a high rate of engagement.",
+          "onboardings": "We offer virtual training activities for new workers, but in a fun way.",
+          "games": "We have several well-known virtual activities with our own exciting twists such as 'Bingo, Hangman, Roulette, Trivia and more'.",
           "happy-hour": "Bring your team together for a virtual happy hour and forget about the distance. Guaranteed fun with or without drinks, you decide.",
           "holidays": "Whether you are celebrating Christmas, Women's Day, Labor Day, LGTBI Community Day, Anniversaries, Mother's Day, Father's Day, Children's Day and more, we have the best options.",
           "benefit-plan": "For each activity that is used, your workers will accumulate points and then they can redeem them for incredible prizes",
@@ -92,7 +92,7 @@
       }
     },
     "companies": {
-      "title": "Big companies have trusted us, the only thing missing is you"
+      "title": "Companies we have worked with"
     },
     "banner": {
       "title": "The virtual event you will love",
@@ -276,6 +276,54 @@
         "title": "The virtual event you will love"
       }
     },
+    "activities": {
+      "intro-subheading": "Ebombo style",
+      "intro-title": "One-of-a-kind dynamics",
+      "intro-bullet-1": "Mini activities easy to play and manage.",
+      "intro-bullet-2": "Get access to our whole library of games.",
+      "intro-bullet-3": "Have fun with all your collaborators.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "ebombo-style": {
+        "title": "Ebombo style",
+        "items-1": {
+          "title": "Trivia",
+          "description": "Gather your team for quiz activities giving it the focus you want: movies, sports or even onboarding and training topics."
+        },
+        "items-2": {
+          "title": "Sing and win!",
+          "description": "Players can choose a song to sing a small part. Everyone has a moment to shine. We will provide the lyrics and music. The more fun, the more points!"
+        },
+        "items-3": {
+          "title": "who will bring me a...!",
+          "description": "Players are given a clue from an everyday item commonly found in their homes. Whoever first describes what the mystery object is and shows it to the camera will win points."
+        },
+        "items-4": {
+          "title": "Guess the song",
+          "description": "We will play an excerpt from a song and the collaborator who guesses the name first will win a point and if he sings, an additional one."
+        },
+        "items-5": {
+          "title": "Domestic Movie",
+          "description": "We will reproduce a small scene from a movie and then two collaborators will have to imitate the performances."
+        },
+        "items-6": {
+          "title": "Zoom to image",
+          "description": "Give us a complete picture of what you want and we will show a part to collaborators. Whoever guesses what the picture is about will win."
+        },
+        "items-7": {
+          "title": "2 truths and 1 lie",
+          "description": "Mention three statements about the topic you want and the player must guess which one is the lie. Perfect for trainings."
+        },
+        "items-8": {
+          "title": "Icebreaker Roulette",
+          "description": "Use the icebreaker roulette to break the atmosphere. Questions that you choose will come up and the collaborators will have to answer them in a fun way."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
+    },
     "corporate-events": {
       "intro-subheading": "Create your own",
       "intro-title": "Corporate Events",
@@ -321,10 +369,20 @@
       "on-boarding": "On Boarding",
       "corporate-events": "Corporate Events"
     },
+    "features": {
+      "title": "Características",
+      "activities": "Actividades"
+    },
     "about-us": "About us",
     "contact-us": "Contact us",
     "contact": "Contact",
     "experience": "Experience"
+  },
+  "userLayout": {
+    "library": "Library",
+    "reports": "Reports",
+    "login": "Log in",
+    "create": "Create"
   },
   "footer": {
     "us": "Us",
@@ -338,6 +396,89 @@
     "contact-support": "Contact support"
   },
   "pages": {
+    "library": {
+      "my-games": "My games",
+      "library": "Library",
+      "folders": "Folders",
+      "folder": "Folder",
+      "events": "Events",
+      "search": "Search",
+      "folder-empty": "You don't have folders",
+      "games-empty": "You don't have games",
+      "rename": "Rename",
+      "duplicate": "Duplicate",
+      "move": "Move",
+      "delete": "Delete",
+      "create-game": "Create game",
+      "favorites": "Favorites",
+      "recent": "Recent",
+      "games": "Games",
+      "created-ago": "Created ago",
+      "edit": "Edit",
+      "play": "Play",
+      "bingo": {
+        "card-title": "Card title",
+        "event-name": "Event name",
+        "settings": "Settings",
+        "cancel": "Cancel",
+        "customize-card": "Customize Card",
+        "title": "Title",
+        "columns": "Columns",
+        "select-color":"Select a color to change it",
+        "background": "Background",
+        "blocks": "Blocks",
+        "number": "Number",
+        "save": "Save",
+        "upload-img": "Upload background image for primer",
+        "update-img": "Change background image for primer"
+      },
+      "hanged": {
+        "event-name": "Event name",
+        "settings": "Settings",
+        "cancel": "Cancel",
+        "phrases": "Phrases for the game",
+        "description-area": "Write the sentences and separate them with “ENTER” (Max. 50 characters per word or sentence). Only letters, question and exclamation marks (?!), space, and comma (,) are accepted.",
+        "phrases-to-guess": "Phrases to guess",
+        "save": "Save"
+      },
+      "roulette": {
+        "event-name": "Event name",
+        "settings": "Settings",
+        "cancel": "Cancel",
+        "save": "Save",
+        "amount-of": "Amount of",
+        "questions": "questions to be sorted",
+        "winners": "winners",
+        "live": "Live",
+        "description-live": "(People who participate in the draw will have to register live for the draw using a pin)",
+        "description-area": "Write the name of the participants and separate them with “ENTER” (Max. 25 characters)",
+        "description-placeholder": "Write each question and separate them with “ENTER” (Max. 35 characters)",
+        "participant-name": "Participant names",
+        "change-colors": "Change colors",
+        "border": "Outer edge",
+        "border-in": "Inner edge",
+        "selector": "Selector",
+        "texts": "Texts",
+        "button": "Button",
+        "options": "Options",
+        "preview": "Preview"
+      },
+      "trivia": {
+        "title": "Title",
+        "event-name": "Event name",
+        "settings": "Settings",
+        "cancel": "Cancel",
+        "save": "Save",
+        "add-question": "Add question",
+        "write-question": "Write your question",
+        "write-answer": "Write answer",
+        "false": "False",
+        "true": "True",
+        "question-type": "Question type",
+        "time-limit": "Time limit",
+        "answer-options": "Answer options"
+      }
+    },
     "about-us": {
       "title": "About us?",
       "description-1": "ebombo is an HR technology company focused on the future of work. Allowing other companies to connect with their employees and improve their work environment. All this is possible with the virtual activities that we create. These activities consist of different types of games, dynamics of incorporation, training and more, in a fun and casual way.",

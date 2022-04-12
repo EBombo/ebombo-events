@@ -4,18 +4,23 @@ import { Image } from "./common/Image";
 import { Icon } from "./common/Icons";
 import { config } from "../firebase";
 import { Desktop, Tablet } from "../constants";
-import { Anchor, ButtonAnt } from "./form";
+import { Anchor, ButtonAnt, Switch } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import { Layout } from "./common/Layout";
 import { Footer } from "./Footer";
 import { useTranslation } from "../hooks";
 import { Popover } from "antd";
+import { darkTheme } from "../theme";
 
 const useCaseMenu = [
   { url: "/team-building", label: "nav.use-case.team-building" },
   { url: "/on-boarding", label: "nav.use-case.on-boarding" },
   { url: "/corporate-events", label: "nav.use-case.corporate-events" },
+];
+
+const featuresMenu = [
+  { url: "/activities", label: "nav.features.activities" },
 ];
 
 export const Navbar = (props) => {
@@ -85,6 +90,20 @@ export const Navbar = (props) => {
               <Popover
                 placement="bottom"
                 color="#FFFFFF"
+                content={featuresMenu.map((menuItem) => (
+                  <Anchor key={menuItem} className="block link text-black" url={menuItem.url}>
+                    <span className="align-middle font-bold text-left text-base">{t(menuItem.label)}</span>
+                  </Anchor>
+                ))}
+              >
+                <Anchor className="link hover:bg-violet-100 rounded-xl px-2 py-2">
+                  <span className="align-middle">{t("nav.features.title")}</span> <Icon type="down" />
+                </Anchor>
+              </Popover>
+
+              <Popover
+                placement="bottom"
+                color="#FFFFFF"
                 content={useCaseMenu.map((menuItem) => (
                   <Anchor key={menuItem} className="block link text-black" url={menuItem.url}>
                     <span className="align-middle font-bold text-left text-base">{t(menuItem.label)}</span>
@@ -95,52 +114,50 @@ export const Navbar = (props) => {
                   <span className="align-middle">{t("nav.use-case.title")}</span> <Icon type="down" />
                 </Anchor>
               </Popover>
-
-              <Popover
-                placement="bottom"
-                color="#FFFFFF"
-                content={locales.map((locale) => (
-                  <div key={locale} onClick={() => setLocale(locale)} className="link text-black cursor-pointer">
-                    <span className="align-middle font-bold text-base">{t(locale)}</span>
-                  </div>
-                ))}
-              >
-                <Anchor className="link hover:bg-violet-100 rounded-xl px-2 py-2">
-                  <span className="align-middle">{t("language")}</span> <Icon type="down" />
-                </Anchor>
-              </Popover>
             </Desktop>
           </div>
 
           <Desktop>
-            {authUser ? (
-              <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
-                {t("nav.logout")}
-              </Anchor>
-            ) : (
-              <div className="btns-container">
-                <Anchor
-                  url="/login"
-                  variant="secondary"
-                  fontSize="18px"
-                  fontWeight="500"
-                  margin="auto 8px"
-                  className="anchor"
-                >
-                  {t("nav.login")}
+            <div className="btns-container flex">
+              <Switch
+                margin="auto 15px"
+                onChange={(event) => setLocale(event ? locales[1] : locales[0])}
+                defaultChecked={locale === locales[1]}
+                checkedChildren={locales[1]}
+                unCheckedChildren={locales[0]}
+                inactiveBackgroundColor={darkTheme.basic.primary}
+                activeBackgroundColor={darkTheme.basic.primary}
+              />
+
+              {authUser ? (
+                <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
+                  {t("nav.logout")}
                 </Anchor>
-                {isEventPage ? null : (
-                  <ButtonAnt
-                    onClick={() => router.push("/contact")}
-                    color="success"
-                    variant="contained"
+              ) : (
+                <>
+                  <Anchor
+                    url="/login"
+                    variant="secondary"
                     fontSize="18px"
+                    fontWeight="500"
+                    margin="auto 8px"
+                    className="anchor"
                   >
-                    {t("nav.contact-us")}
-                  </ButtonAnt>
-                )}
-              </div>
-            )}
+                    {t("nav.login")}
+                  </Anchor>
+                  {isEventPage ? null : (
+                    <ButtonAnt
+                      onClick={() => router.push("/contact")}
+                      color="success"
+                      variant="contained"
+                      fontSize="18px"
+                    >
+                      {t("nav.contact-us")}
+                    </ButtonAnt>
+                  )}
+                </>
+              )}
+            </div>
           </Desktop>
 
           <Tablet>
@@ -169,6 +186,18 @@ export const Navbar = (props) => {
                   )}
                 </>
               )}
+
+              <li className="nav-item">
+                <Switch
+                  margin="auto"
+                  onChange={(event) => setLocale(event ? locales[1] : locales[0])}
+                  defaultChecked={locale === locales[1]}
+                  checkedChildren={locales[1]}
+                  unCheckedChildren={locales[0]}
+                  inactiveBackgroundColor={darkTheme.basic.primary}
+                  activeBackgroundColor={darkTheme.basic.primary}
+                />
+              </li>
 
               {!authUser ? (
                 <>
