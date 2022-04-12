@@ -275,6 +275,54 @@
       "virtual-event-you-love": {
         "title": "The virtual event you will love"
       }
+    },
+    "activities": {
+      "intro-subheading": "Ebombo style",
+      "intro-title": "One-of-a-kind dynamics",
+      "intro-bullet-1": "Mini activities easy to play and manage.",
+      "intro-bullet-2": "Get access to our whole library of games.",
+      "intro-bullet-3": "Have fun with all your collaborators.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "ebombo-style": {
+        "title": "Ebombo style",
+        "items-1": {
+          "title": "Trivia",
+          "description": "Gather your team for quiz activities giving it the focus you want: movies, sports or even onboarding and training topics."
+        },
+        "items-2": {
+          "title": "Sing and win!",
+          "description": "Players can choose a song to sing a small part. Everyone has a moment to shine. We will provide the lyrics and music. The more fun, the more points!"
+        },
+        "items-3": {
+          "title": "who will bring me a...!",
+          "description": "Players are given a clue from an everyday item commonly found in their homes. Whoever first describes what the mystery object is and shows it to the camera will win points."
+        },
+        "items-4": {
+          "title": "Guess the song",
+          "description": "We will play an excerpt from a song and the collaborator who guesses the name first will win a point and if he sings, an additional one."
+        },
+        "items-5": {
+          "title": "Domestic Movie",
+          "description": "We will reproduce a small scene from a movie and then two collaborators will have to imitate the performances."
+        },
+        "items-6": {
+          "title": "Zoom to image",
+          "description": "Give us a complete picture of what you want and we will show a part to collaborators. Whoever guesses what the picture is about will win."
+        },
+        "items-7": {
+          "title": "2 truths and 1 lie",
+          "description": "Mention three statements about the topic you want and the player must guess which one is the lie. Perfect for trainings."
+        },
+        "items-8": {
+          "title": "Icebreaker Roulette",
+          "description": "Use the icebreaker roulette to break the atmosphere. Questions that you choose will come up and the collaborators will have to answer them in a fun way."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
     }
   },
   "nav": {
@@ -284,6 +332,10 @@
       "title": "Use Case",
       "team-building": "Team Building",
       "on-boarding": "On Boarding"
+    },
+    "features": {
+      "title": "Características",
+      "activities": "Actividades"
     },
     "about-us": "About us",
     "contact-us": "Contact us",
