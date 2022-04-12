@@ -13,11 +13,14 @@ import { bingoCard } from "../../../../components/common/DataList";
 import { config, firestore } from "../../../../firebase";
 import { LeftOutlined } from "@ant-design/icons";
 import { Image } from "../../../../components/common/Image";
+import { useTranslation } from "../../../../hooks";
 
 export const Bingo = (props) => {
   const router = useRouter();
 
   const { gameId } = router.query;
+
+  const { t } = useTranslation("pages.library.bingo");
 
   const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
   const [backgroundImg, setBackgroundImg] = useState(props.game ? props.game.backgroundImg : null);
@@ -45,7 +48,7 @@ export const Bingo = (props) => {
       titleColor: darkTheme.basic.secondary,
       blocksColor: darkTheme.basic.secondary,
       numberColor: darkTheme.basic.whiteLight,
-      title: "Título de Cartilla",
+      title: t("card-title"),
       b: "B",
       i: "I",
       n: "N",
@@ -130,7 +133,7 @@ export const Bingo = (props) => {
               name="name"
               ref={register}
               error={errors.name}
-              placeholder="Nombre del Evento"
+              placeholder={t("event-name")}
             />
           </div>
           <ButtonAnt
@@ -141,7 +144,7 @@ export const Bingo = (props) => {
             onClick={() => setIsVisibleModalSettings(true)}
             disabled={props.isLoading}
           >
-            Ajustes
+            {t("settings")}
           </ButtonAnt>
           <ButtonAnt
             color="default"
@@ -150,26 +153,26 @@ export const Bingo = (props) => {
             onClick={() => router.back()}
             disabled={props.isLoading}
           >
-            Cancelar
+            {t("cancel")}
           </ButtonAnt>
         </div>
 
         <BingoContainer>
           <div className="main-container">
             <div>
-              <div className="subtitle">Personalización de cartilla</div>
+              <div className="subtitle">{t("customize-card")}</div>
               <div className="bingo-card">
                 <div className="item">
-                  <div className="text">Título</div>
+                  <div className="text">{t("title")}</div>
                   <Input
-                    defaultValue={get(props, "game.title", "Titulo de Cartilla")}
+                    defaultValue={get(props, "game.title", t("card-title"))}
                     type="text"
                     name="title"
                     ref={register}
                     error={errors.title}
-                    placeholder="Titulo"
+                    placeholder={t("title")}
                   />
-                  <div className="text">Columnas</div>
+                  <div className="text">{t("columns")}</div>
                   <div className="bingo-inputs">
                     <Input
                       type="text"
@@ -251,10 +254,10 @@ export const Bingo = (props) => {
                   </div>
                 </Tablet>
               </div>
-              <div className="subtitle">Selecciona un color para cambiarlo</div>
+              <div className="subtitle">{t("select-color")}</div>
               <div className="colors-container">
                 <div className="color-pick">
-                  <div className="color-title">Fondo</div>
+                  <div className="color-title">{t("background")}</div>
                   <div className="input-container">
                     <input
                       type="color"
@@ -273,7 +276,7 @@ export const Bingo = (props) => {
                   </div>
                 </div>
                 <div className="color-pick">
-                  <div className="color-title">Titulo</div>
+                  <div className="color-title">{t("title")}</div>
                   <div className="input-container">
                     <input
                       type="color"
@@ -288,7 +291,7 @@ export const Bingo = (props) => {
                   </div>
                 </div>
                 <div className="color-pick">
-                  <div className="color-title">Bloques</div>
+                  <div className="color-title">{t("blocks")}</div>
                   <div className="input-container">
                     <input
                       type="color"
@@ -303,7 +306,7 @@ export const Bingo = (props) => {
                   </div>
                 </div>
                 <div className="color-pick">
-                  <div className="color-title">Número</div>
+                  <div className="color-title">{t("number")}</div>
                   <div className="input-container">
                     <input
                       type="color"
@@ -321,9 +324,7 @@ export const Bingo = (props) => {
               <div className="upload-container">
                 <FileUpload
                   key={watch("backgroundColor")}
-                  buttonLabel={
-                    backgroundImg ? "Cambiar imagen de fondo para cartilla" : "Subir imagen de fondo para cartilla"
-                  }
+                  buttonLabel={backgroundImg ? t("update-img") : t("upload-img")}
                   file={backgroundImg}
                   preview={false}
                   fileName="backgroundImg"
@@ -336,7 +337,7 @@ export const Bingo = (props) => {
 
               <Desktop>
                 <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading} margin="1rem 0">
-                  Guardar
+                  {t("save")}
                 </ButtonAnt>
               </Desktop>
             </div>
@@ -378,7 +379,7 @@ export const Bingo = (props) => {
             </Desktop>
             <Tablet>
               <ButtonAnt htmlType="submit" disabled={props.isLoading} loading={props.isLoading} margin="1rem auto">
-                Guardar
+                {t("save")}
               </ButtonAnt>
             </Tablet>
           </div>

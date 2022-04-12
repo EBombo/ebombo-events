@@ -237,7 +237,23 @@
       "games": "Juegos",
       "created-ago": "Creado hace",
       "edit": "Editar",
-      "play": "Jugar"
+      "play": "Jugar",
+      "bingo": {
+        "card-title": "Título de Cartilla",
+        "event-name": "Nombre del Evento",
+        "settings": "Ajustes",
+        "cancel": "Cancelar",
+        "customize-card": "Personalización de cartilla",
+        "title": "Titulo",
+        "columns": "Columnas",
+        "select-color": "Selecciona un color para cambiarlo",
+        "background": "Fondo",
+        "blocks": "Bloques",
+        "number": "Número",
+        "save": "Guardar",
+        "upload-img": "Subir imagen de fondo para cartilla",
+        "update-img": "Cambiar imagen de fondo para cartilla"
+      }
     },
     "about-us": {
       "title": "¿Quiénes somos?",
