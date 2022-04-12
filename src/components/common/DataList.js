@@ -1046,3 +1046,28 @@ export const OnBoardingLiterals = {
   },
 };
 
+export const ContentLiterals = {
+  virtualEvents: {
+    items: [
+      {
+        img: `${config.storageUrl}/resources/CONTENT-1.jpg`,
+        placeholder: `${config.storageUrl}/resources/CONTENT-1_12x12.webp`,
+        title: "landing.content.virtual-events.items-1.title",
+        description: "landing.content.virtual-events.items-1.description"
+      },
+      {
+        img: `${config.storageUrl}/resources/CONTENT-2.jpg`,
+        placeholder: `${config.storageUrl}/resources/CONTENT-2_12x12.webp`,
+        title: "landing.content.virtual-events.items-2.title",
+        description: "landing.content.virtual-events.items-2.description"
+      },
+      {
+        img: `${config.storageUrl}/resources/CONTENT-3.jpg`,
+        placeholder: `${config.storageUrl}/resources/CONTENT-3_12x12.webp`,
+        title: "landing.content.virtual-events.items-3.title",
+        description: "landing.content.virtual-events.items-3.description"
+      },
+    ],
+  },
+};
+
