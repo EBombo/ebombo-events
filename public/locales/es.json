@@ -223,34 +223,34 @@
       }
     },
     "content": {
-      "intro-subheading": "See all of",
-      "intro-title": "Our content",
-      "intro-description": "From easy trivia to quick holiday-themed rounds, our content is fun, relevant, and designed to bring your team together.",
-      "register-button-label": "Register",
-      "sign-in-button-label": "Sign in",
-      "contact-button-label": "Contact us",
+      "intro-subheading": "Mira todo",
+      "intro-title": "Nuestro contenido",
+      "intro-description": "Desde una trivia sencilla hasta rondas rápidas con temas festivos, nuestro contenido es divertido, relevante y está diseñado para acercar a su equipo.",
+      "register-button-label": "Registrar",
+      "sign-in-button-label": "Iniciar sesión",
+      "contact-button-label": "Contacto",
       "why-ebombo-works": {
-        "title": "How it works?",
-        "description": "As part of our commitment to amazing new content, we have a team committed to creating new activities and challenges every month.",
+        "title": "¿Cómo funciona?",
+        "description": "Como parte de nuestro compromiso con el contenido nuevo y sorprendente, contamos con un equipo comprometido a crear nuevas actividades y desafíos cada mes. ",
         "description-paragraph-2": ""
       },
       "virtual-events": {
         "title": "",
         "items-1": {
-          "title": "Game of the month",
-          "description": "Our team creates completely new experiences every month. We have worked hard to make sure that different types of personalities enjoy our experiences. Our content is created to appeal to everyone."
+          "title": "Juego del mes",
+          "description": "Nuestro equipo crea experiencias completamente nuevas cada mes. Hemos trabajado duro para asegurarnos de que diferentes tipos de personalidades disfruten de nuestras experiencias. Nuestro contenido está creado para atraer a todos."
         },
         "items-2": {
-          "title": "International Offers",
-          "description": "We have connected people internationally. Our library of content and activities built for remote teams is always in development."
+          "title": "Ofertas Internacionales",
+          "description": "Hemos conectado a personas internacionalmente. Nuestra biblioteca de contenido y actividades creada para equipos remotos siempre está en desarrollo."
         },
         "items-3": {
-          "title": "Bilingual Delivery",
-          "description": "Between our regional partners and bilingual hosts, we can deliver content in Spanish and English without any problem. If we don't speak your language yet, we will have automatic translation very soon."
+          "title": "ENTREGA BILINGÜE",
+          "description": "Entre nuestros socios regionales y anfitriones bilingüe, podemos entregar contenido en español e inglés sin ningún problema. Si aún no hablamos su idioma, tendremos traducción automática muy pronto."
         }
       },
       "virtual-event-you-love": {
-        "title": "The virtual event you will love"
+        "title": "El evento virtual que amarás"
       }
     },
     "activities": {
