@@ -3,8 +3,11 @@ import { Anchor, ButtonAnt } from "../../../components/form";
 import { DateEvent } from "./DateEvent";
 import { DateItemList } from "./DateItemList";
 import orderBy from "lodash/orderBy";
+import { useTranslation } from "../../../hooks";
 
 export const DatesEvent = (props) => {
+  const { t } = useTranslation("pages.events");
+
   return (
     <div>
       <div className="text-primary text-4xl mb-6">¿Cuándo planeas hacer tu evento?</div>

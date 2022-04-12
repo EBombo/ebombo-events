@@ -112,7 +112,7 @@ export const ResumeEvent = (props) => {
   return (
     <div>
       {/*TODO: Add modal to redirect events list page.*/}
-      {String(isVisibleModal)}
+      {/*String(isVisibleModal)*/}
       <div className="text-secondary mb-4 text-base">
         Manda tu resumen al equipo de ebombo y nos pondremos lo antes posible en contacto contigo
       </div>
@@ -169,7 +169,7 @@ export const ResumeEvent = (props) => {
         </div>
       </div>
 
-      <div className="text-secondary mb-4 text-base">Fechas tentativas</div>
+      <div className="text-secondary mb-4 text-base">Fechas tentativas.</div>
 
       <div className="grid md:flex gap-3">
         {props.dates.map((date) => (
@@ -185,7 +185,7 @@ export const ResumeEvent = (props) => {
         ))}
       </div>
 
-      <div className="text-secondary mb-4 text-base mt-4">Dinamicas escogidas</div>
+      <div className="text-secondary mb-4 text-base mt-4">Dinamicas escogidas.</div>
 
       <div className="grid md:flex gap-3">
         {games
