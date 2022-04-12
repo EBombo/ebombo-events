@@ -4,11 +4,14 @@ import { darkTheme } from "../../../theme";
 import { useRouter } from "next/router";
 import { Image } from "../../../components/common/Image";
 import { config } from "../../../firebase";
+import { useTranslation } from "../../../hooks";
 
 export const ModalNewEvent = (props) => {
   const router = useRouter();
 
   const [authUser] = useGlobal("user");
+
+  const { t } = useTranslation("modals.new-event");
 
   useEffect(() => {
     router.prefetch("/events/[eventId]");
@@ -28,7 +31,7 @@ export const ModalNewEvent = (props) => {
     >
       <div>
         <div className="text-blackDarken text-['Lato'] font-[700] text-[25px] leading-[30px] p-2 box-shadow-[0_4px_4px_rgba(0,0,0,0.25)] border-b-[1px] border-primary md:py-4">
-          Crear un evento nuevo
+          {t("create-event")}
         </div>
 
         <div
@@ -55,7 +58,7 @@ export const ModalNewEvent = (props) => {
                 cursor="pointer"
               />
               <div className="h-[40px] w-full flex items-center justify-center text-['Lato'] font-[700] text-[18px] leading-[22px] text-secondary">
-                Hacerlo yo mismo
+                {t("do-it-myself")}
               </div>
             </div>
           )}
@@ -75,7 +78,7 @@ export const ModalNewEvent = (props) => {
               cursor="pointer"
             />
             <div className="h-[40px] w-full flex items-center justify-center text-['Lato'] font-[700] text-[18px] leading-[22px] text-secondary">
-              Dejarlo en manos de ebombo
+              {t("leave-ebombo-hands")}
             </div>
           </div>
         </div>

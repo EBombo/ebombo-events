@@ -21,6 +21,7 @@ export const Home = (props) => {
   useEffect(() => {
     router.prefetch("/library");
     router.prefetch("/library/events");
+    router.prefetch("/events/[eventId]");
   }, []);
 
   useEffect(() => {
@@ -32,7 +33,10 @@ export const Home = (props) => {
   const createEvent = () => {
     if (authUser) return router.push("/library/events");
 
-    setIsVisibleModalEvents((prev) => !prev);
+    return router.push("/events/new");
+
+    // TODO: Allow creating event without account and managed by user.
+    //setIsVisibleModalEvents((prev) => !prev);
   };
 
   return (
