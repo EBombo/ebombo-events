@@ -5,13 +5,13 @@
   "landing": {
     "header": {
       "ebombo-style": "Ebombo style",
-      "title": "We help your company connect with your workers to improve the work environment",
+      "title": "Our dynamic approach to connecting workers online will help your work environment",
       "sub-title": "The way your workers meet influences the climate and culture of your company. Our platform allows you to have online experiences and virtual events to promote the productivity, engagement and fun of your workers.",
       "book-an-event": "Book an event"
     },
     "products": {
-      "title": "AN INCREDIBLE WAY IN THE WAY YOU CONNECT WITH YOUR TEAM",
-      "sub-title": "We have created a simple and straightforward tool that ensures the connection of your workers in a hybrid or remote scheme and a good work environment",
+      "title": "AN INCREDIBLE WAY TO CONNECT WITH YOUR TEAM",
+      "sub-title": "We have created a straightforward tool that ensures an improved work environment",
       "book-an-event": "Book an event",
       "tabs": {
         "virtual-activities": "Virtual activities",
@@ -48,7 +48,7 @@
       },
       "descriptions": {
         "pro-hosted": "Leave it in the hands of a member of the ebombo Customer Success team. In addition, an elite or VIP entertainer will lead your live event that will unite your team in a collaborative and fun experience.",
-        "self-hosted": "Is your moment. We have made it easy and intuitive for you or another person on your team to be the one to create and direct the virtual activities that ebombo offers."
+        "self-hosted": "It is your moment. We have made it easy and intuitive for your team to be the ones to create and direct the virtual activities that ebombo offers."
       }
     },
     "style": {
@@ -67,9 +67,9 @@
           "connect": "Connect"
         },
         "descriptions": {
-          "training-and-orientation": "We help your workers have training to learn more technical issues in a super fun way that allows for a high rate of engagement.",
-          "onboardings": "We offer virtual training activities for new workers, but in a super fun way.",
-          "games": "We have several games created by us such as 'Bingo, Hangman, Roulette, Trivia and more'.",
+          "training-and-orientation": "We help your workers have training to learn more technical issues in a fun way that allows for a high rate of engagement.",
+          "onboardings": "We offer virtual training activities for new workers, but in a fun way.",
+          "games": "We have several well-known virtual activities with our own exciting twists such as 'Bingo, Hangman, Roulette, Trivia and more'.",
           "happy-hour": "Bring your team together for a virtual happy hour and forget about the distance. Guaranteed fun with or without drinks, you decide.",
           "holidays": "Whether you are celebrating Christmas, Women's Day, Labor Day, LGTBI Community Day, Anniversaries, Mother's Day, Father's Day, Children's Day and more, we have the best options.",
           "benefit-plan": "For each activity that is used, your workers will accumulate points and then they can redeem them for incredible prizes",
@@ -92,7 +92,7 @@
       }
     },
     "companies": {
-      "title": "Big companies have trusted us, the only thing missing is you"
+      "title": "Companies we have worked with"
     },
     "banner": {
       "title": "The virtual event you will love",
