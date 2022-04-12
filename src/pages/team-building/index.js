@@ -15,23 +15,27 @@ export const TeamBuilding = (props) => {
 
   const { t } = useTranslation();
 
-  const GameContentItem = ({ gameContent, className }) => (<div>
-    <div className={`${className} text-white`}>
-      <div className="aspect-square w-full mb-4 rounded-xl overflow-hidden"><ImageV2 src={gameContent.img} placeholderUrl={gameContent.placeholderUrl} alt="" /></div>
-      <div className="text-2xl mb-4">{t(gameContent.title)}</div>
-      <p className="text-base">{t(gameContent.description)}</p>
+  const GameContentItem = ({ gameContent, className }) => (
+    <div>
+      <div className={`${className} text-white`}>
+        <div className="aspect-square w-full mb-4 rounded-xl overflow-hidden">
+          <ImageV2 src={gameContent.img} placeholderUrl={gameContent.placeholderUrl} alt="" />
+        </div>
+        <div className="text-2xl mb-4">{t(gameContent.title)}</div>
+        <p className="text-base">{t(gameContent.description)}</p>
+      </div>
     </div>
-  </div>);
+  );
 
   return (
-    <div>
-      <section className="bg-tapiz-1 bg-white md:h-[calc(100vh-100px)] flex flex-col justify-center pt-14 md:pt-0">
-        <div className="grid md:grid-cols-[4fr_6fr] max-w-[1500px] mx-auto">
-          <div className="px-8">
+    <div className="w-[100vw]">
+      <section className="bg-tapiz-1 bg-white flex flex-col justify-center p-4 lg:p-8">
+        <div className="w-full lg:grid lg:grid-cols-[50%_50%] max-w-[1500px] mx-auto">
+          <div className="w-full">
             <h3 className="text-primary font-bold text-3xl md:text-5xl">
               {t("landing.team-building.intro-subheading")}
             </h3>
-            <h2 className="text-secondary text-5xl md:text-7xl font-bold uppercase">
+            <h2 className="text-secondary text-4xl md:text-7xl font-bold uppercase break-words">
               {t(TeamBuildingLiterals.header.heading)}
             </h2>
             <p className="text-secondary text-base md:text-2xl">{t(TeamBuildingLiterals.header.description)}</p>
@@ -54,17 +58,17 @@ export const TeamBuilding = (props) => {
             </div>
           </div>
 
-          <div className="px-8">
+          <div className="lg:h-full lg:flex lg:items-center px-8">
             <ImageV2
               placeholderUrl={`${config.storageUrl}/resources/team-building-video-snapshot.jpg`}
               src={`${config.storageUrl}/resources/team-building-video.gif`}
-              className="w-full aspect-video rounded-2xl"
-              width="100%"
+              className="w-full aspect-video rounded-2xl mx-auto"
+              width="90%"
               aspectRatio="16 / 9"
             />
           </div>
 
-          <div className="md:hidden inline-flex flex-cols flex-wrap gap-4 px-8 py-8">
+          <div className="lg:hidden inline-flex flex-wrap gap-4 py-8">
             <ButtonAnt size="big" color="success">
               <span className="text-lg font-bold">{t("landing.team-building.sign-in-button-label")}</span>
             </ButtonAnt>
@@ -78,7 +82,7 @@ export const TeamBuilding = (props) => {
       <section className="bg-gradient-primary-to-secondary">
         <div className="max-w-[1500px] mx-auto py-8 px-8 grid md:grid-cols-[1fr_1fr]">
           <div className="grid grid-cols-[15px_auto] mb-8 mt-0 md:mt-8">
-            <div className="bg-successLight"></div>
+            <div className="bg-successLight" />
             <div className="text-white font-bold text-3xl md:text-7xl self-center px-8 md:px-12">
               {t(TeamBuildingLiterals.whyItWorks.title)}
             </div>
