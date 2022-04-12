@@ -91,19 +91,6 @@ export const DesktopNav = (props) => {
       )}
       {authUser && (
         <div className="menu-profile">
-          {/*
-            <Popover trigger="hover" content="Bienvenido a nuestra versión BETA">
-            <button className="premium-btn" onClick={() => console.log("premium")}>
-              <Image
-                src={`${config.storageUrl}/resources/premium.svg`}
-                height={"27px"}
-                weight={"27px"}
-                margin={"0 5px 0 0"}
-              />
-              Beta
-            </button>
-          </Popover>
-             */}
           <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
             {t("create")}
           </ButtonAnt>
