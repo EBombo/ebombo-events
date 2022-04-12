@@ -15,6 +15,7 @@ import { Popover } from "antd";
 const useCaseMenu = [
   { url: "/team-building", label: "nav.use-case.team-building" },
   { url: "/on-boarding", label: "nav.use-case.on-boarding" },
+  { url: "/corporate-events", label: "nav.use-case.corporate-events" },
 ];
 
 export const Navbar = (props) => {
@@ -70,24 +71,6 @@ export const Navbar = (props) => {
             <Desktop>
               {isEventPage ? null : (
                 <>
-                  {/*
-                <a
-                  className="ant-dropdown-link"
-                  onClick={() => {
-                    router.push("/games");
-                  }}
-                >
-                  Games
-                </a>
-              */}
-                  {/*
-                <Anchor url="/subscriptions" className="link">
-                Planes
-              </Anchor>
-                 */}
-                  {/*<Anchor url="/about-us" className="link">*/}
-                  {/*  {t("nav.about-us")}*/}
-                  {/*</Anchor>*/}
                   <Anchor url="/experience" className="link">
                     {t("nav.experience")}
                   </Anchor>
@@ -164,21 +147,6 @@ export const Navbar = (props) => {
             <ul className={`nav-menu ${active ? "active" : ""}`}>
               {isEventPage ? null : (
                 <>
-                  {/*
-                <li
-                  className="nav-item"
-                  onClick={() => {
-                    router.push("/games");
-                  }}
-                >
-                  Games
-                </li>
-              */}
-                  {/*
-                <li className="nav-item" onClick={() => router.push("/subscriptions")}>
-                  Planes
-                </li>
-                */}
                   <li
                     className="nav-item"
                     onClick={() => {
