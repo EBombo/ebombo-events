@@ -1,11 +1,9 @@
-import React, { useRef, useGlobal, useEffect } from "reactn";
+import React, { useGlobal } from "reactn";
 import { useRouter } from "next/router";
-import { Desktop } from "../../constants";
-import { Icon } from "../../components/common/Icons";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
-import { ButtonAnt, Anchor } from "../../components/form";
-import { TeamBuildingLiterals, LandingGames } from "../../components/common/DataList";
+import { Anchor, ButtonAnt } from "../../components/form";
+import { LandingGames, TeamBuildingLiterals } from "../../components/common/DataList";
 import { Carousel } from "../../components/common/Carousel";
 import { Image as ImageV2 } from "ebombo-components";
 import { useTranslation } from "../../hooks";
@@ -16,21 +14,6 @@ export const TeamBuilding = (props) => {
   const [authUser] = useGlobal("user");
 
   const { t } = useTranslation();
-
-  const carouselRef = useRef(null);
-
-  useEffect(() => {
-    router.prefetch("/events/[eventId]");
-    router.prefetch("/library/events/[eventId]");
-  }, []);
-
-  const goPrevious = () => {
-    carouselRef.current.prev();
-  };
-
-  const goNext = () => {
-    carouselRef.current.next();
-  };
 
   const GameContentItem = ({ gameContent, className }) => (<div>
     <div className={`${className} text-white`}>
@@ -122,7 +105,7 @@ export const TeamBuilding = (props) => {
         </div>
       </section>
 
-      <section className="bg-gradient-primary-to-secondary relative">
+      <section className="bg-gradient-primary-to-secondary relative p-4 md:p-8">
         <div className="absolute top-[-30px] md:top-[-60px] left-2 md:left-8">
           <Image src={`${config.storageUrl}/resources/planet-1.svg`} alt="" width="60px" desktopWidth="120px" />
         </div>
@@ -130,37 +113,26 @@ export const TeamBuilding = (props) => {
           <Image src={`${config.storageUrl}/resources/planet-2.svg`} alt="" width="60px" desktopWidth="120px" />
         </div>
 
-        <div className="max-w-[1000px] md:mx-auto grid grid-cols-[min-content_auto_min-content] items-center mx-4 sm:mx-8">
-          <div className="">
-            <Icon
-              type="left"
-              style={{ color: "#FFFFFF" }}
-              className="p-2 bg-primary rounded-lg cursor-pointer"
-              onClick={() => goPrevious()}
-            />
-          </div>
-          <div className="max-w-[300px] md:max-w-[900px] mx-auto py-8 px-8">
-            <Carousel
-              hideIndicators
-              ref={carouselRef}
-              components={LandingGames.map((_, index) => (
-              <div key={`carousel-wrapper-${index}`} className="grid grid-cols-[1fr] md:grid-cols-[1fr_1fr_1fr] gap-8">
-                <GameContentItem gameContent={LandingGames[index % LandingGames.length]}/>
+        <div className="max-w-[300px] md:max-w-[1000px] my-8 mx-auto">
+          <Carousel
+            showArrows
+            hideIndicators
+            components={LandingGames.map((_, index) => (
+              <div key={`carousel-wrapper-${index}`} className="md:grid md:grid-cols-[1fr_1fr_1fr] gap-8">
+                <GameContentItem gameContent={LandingGames[index % LandingGames.length]} />
 
-                <GameContentItem className="hidden md:block" gameContent={LandingGames[(index + 1) % LandingGames.length]}/>
+                <GameContentItem
+                  className="hidden md:block"
+                  gameContent={LandingGames[(index + 1) % LandingGames.length]}
+                />
 
-                <GameContentItem className="hidden md:block" gameContent={LandingGames[(index + 2) % LandingGames.length]}/>
+                <GameContentItem
+                  className="hidden md:block"
+                  gameContent={LandingGames[(index + 2) % LandingGames.length]}
+                />
               </div>
-            ))} />
-          </div>
-          <div className="">
-            <Icon
-              type="right"
-              style={{ color: "#FFFFFF" }}
-              className="p-2 bg-primary rounded-lg cursor-pointer"
-              onClick={() => goNext()}
-            />
-          </div>
+            ))}
+          />
         </div>
       </section>
 
