@@ -234,7 +234,10 @@
       "create-game": "Crear juego",
       "favorites": "Favoritos",
       "recent": "Recientes",
-      "games": "Juegos"
+      "games": "Juegos",
+      "created-ago": "Creado hace",
+      "edit": "Editar",
+      "play": "Jugar"
     },
     "about-us": {
       "title": "¿Quiénes somos?",
