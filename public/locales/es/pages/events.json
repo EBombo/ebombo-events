@@ -4,5 +4,8 @@
     "details": "Detalles",
     "date": "Fecha",
     "resume":"Resumen",
-    "register": "Registro"
+    "register": "Registro",
+    "prepare-you-event": "Para preparar tu evento necesitamos cierta información que te pediremos a continuación.",
+    "how-many-people": "¿Cuántes personas esperas en tu evento?",
+    "next": "Siguiente"
 }

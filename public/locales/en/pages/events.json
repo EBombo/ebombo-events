@@ -4,5 +4,8 @@
     "details": "Details",
     "date": "Date",
     "resume":"Resume",
-    "register": "Register"
+    "register": "Register",
+    "prepare-you-event": "To prepare your event we need certain information that we will ask you for below.",
+    "how-many-people": "How many people do you expect at your event?",
+    "next": "Next"
 }
