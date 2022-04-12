@@ -36,7 +36,7 @@ export const Carousel = (props) => {
   return (
     <Container width={props.width} height={props.height}>
       {props.showArrows && (
-        <div className="absolute top-[30%] left-0">
+        <div className="absolute top-[30%] left-[-20px]">
           <ButtonAnt padding="0.5rem" onClick={() => prev()} margin="0">
             <LeftOutlined style={{ color: "white" }} />
           </ButtonAnt>
@@ -60,7 +60,7 @@ export const Carousel = (props) => {
       </CarouselStyled>
 
       {props.showArrows && (
-        <div className="absolute top-[30%] right-0">
+        <div className="absolute top-[30%] right-[-20px]">
           <ButtonAnt padding="0.5rem" onClick={() => next()} margin="0">
             <RightOutlined style={{ color: "white" }} />
           </ButtonAnt>
@@ -75,7 +75,6 @@ const Container = styled.div`
   width: ${(props) => (props.width ? props.width : "100%")};
   height: ${(props) => (props.height ? props.height : "100%")};
   max-width: 100%;
-  overflow: hidden;
   color: ${(props) => props.theme.basic.white};
   position: relative;
   .slider-decorator-0 {
