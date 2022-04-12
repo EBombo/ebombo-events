@@ -18,6 +18,10 @@ const useCaseMenu = [
   { url: "/on-boarding", label: "nav.use-case.on-boarding" },
 ];
 
+const featuresMenu = [
+  { url: "/activities", label: "nav.features.activities" },
+];
+
 export const Navbar = (props) => {
   const router = useRouter();
 
@@ -99,6 +103,20 @@ export const Navbar = (props) => {
                   )}
                 </>
               )}
+
+              <Popover
+                placement="bottom"
+                color="#FFFFFF"
+                content={featuresMenu.map((menuItem) => (
+                  <Anchor key={menuItem} className="block link text-black" url={menuItem.url}>
+                    <span className="align-middle font-bold text-left text-base">{t(menuItem.label)}</span>
+                  </Anchor>
+                ))}
+              >
+                <Anchor className="link hover:bg-violet-100 rounded-xl px-2 py-2">
+                  <span className="align-middle">{t("nav.features.title")}</span> <Icon type="down" />
+                </Anchor>
+              </Popover>
 
               <Popover
                 placement="bottom"

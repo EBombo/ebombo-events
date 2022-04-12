@@ -223,30 +223,78 @@
       }
     },
     "content": {
-      "intro-subheading": "Mira todo",
-      "intro-title": "Nuestro contenido",
-      "intro-description": "Desde una trivia sencilla hasta rondas rápidas con temas festivos, nuestro contenido es divertido, relevante y está diseñado para acercar a su equipo.",
-      "register-button-label": "Registrar",
-      "sign-in-button-label": "Iniciar sesión",
-      "contact-button-label": "Contacto",
+      "intro-subheading": "See all of",
+      "intro-title": "Our content",
+      "intro-description": "From easy trivia to quick holiday-themed rounds, our content is fun, relevant, and designed to bring your team together.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
       "why-ebombo-works": {
-        "title": "¿Cómo funciona?",
-        "description": "Como parte de nuestro compromiso con el contenido nuevo y sorprendente, contamos con un equipo comprometido a crear nuevas actividades y desafíos cada mes.",
+        "title": "How it works?",
+        "description": "As part of our commitment to amazing new content, we have a team committed to creating new activities and challenges every month.",
         "description-paragraph-2": ""
       },
       "virtual-events": {
         "title": "",
         "items-1": {
-          "title": "JUEGO DEL MES",
-          "description": "Nuestro equipo crea experiencias completamente nuevas cada mes. Hemos trabajado duro para asegurarnos de que diferentes tipos de personalidades disfruten de nuestras experiencias. Nuestro contenido está creado para atraer a todos."
+          "title": "Game of the month",
+          "description": "Our team creates completely new experiences every month. We have worked hard to make sure that different types of personalities enjoy our experiences. Our content is created to appeal to everyone."
         },
         "items-2": {
-          "title": "OFERTAS INTERNACIONALES",
-          "description": "Hemos conectado a personas internacionalmente. Nuestra biblioteca de contenido y actividades creada para equipos remotos siempre está en desarrollo."
+          "title": "International Offers",
+          "description": "We have connected people internationally. Our library of content and activities built for remote teams is always in development."
         },
         "items-3": {
-          "title": "ENTREGA BILINGÜE",
-          "description": "Entre nuestros socios regionales y anfitriones bilingüe, podemos entregar contenido en español e inglés sin ningún problema. Si aún no hablamos su idioma, tendremos traducción automática muy pronto."
+          "title": "Bilingual Delivery",
+          "description": "Between our regional partners and bilingual hosts, we can deliver content in Spanish and English without any problem. If we don't speak your language yet, we will have automatic translation very soon."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
+    },
+    "activities": {
+      "intro-subheading": "Al estilo ebombo",
+      "intro-title": "Dinámicas únicas en su tipo",
+      "intro-bullet-1": "Mini actividades fáciles de jugar y de administrar.",
+      "intro-bullet-2": "Acceda a nuestra biblioteca de juegos completa.",
+      "intro-bullet-3": "Diviertete con todos tus colaboradores.",
+      "register-button-label": "Registrar",
+      "sign-in-button-label": "Iniciar sesión",
+      "contact-button-label": "Contacto",
+      "ebombo-style": {
+        "title": "El estilo ebombo",
+        "items-1": {
+          "title": "Trivia",
+          "description": "Reúne a tu equipo para actividades de preguntas dándole el enfoque que tu quieras: películas, deportes o hasta temas onboarding y capacitaciones."
+        },
+        "items-2": {
+          "title": "Canta y gana",
+          "description": "Los jugadores pueden elegir una canción para cantar una pequeña parte. Cada uno tiene un momento para brillar. Proporcionaremos la letra y la música. ¡Cuanto más divertido, más puntos!"
+        },
+        "items-3": {
+          "title": "¡A quién me traiga!",
+          "description": "A los jugadores se les menciona una pista de  un artículo cotidiano que se encuentra comúnmente en sus hogares. Quien descrife primero cuál es el objeto misterioso y lo muestre a la cámara ganará puntos."
+        },
+        "items-4": {
+          "title": "Adivina la canción",
+          "description": "Reproduciremos un extracto de una canción y el colaborador que adivine el nombre primero ganará un punto y si canta, uno adicional."
+        },
+        "items-5": {
+          "title": "Película Doméstica",
+          "description": "Reproduciremos una pequeña escena de una película y acto seguido dos colaboradores deberán imitar las actuaciones."
+        },
+        "items-6": {
+          "title": "Zoom a la imagen",
+          "description": "Danos una imagen completa de lo que quieras y mostraremos una parte a los colaboradores. Quien adivine de qué trata la imagen ganará."
+        },
+        "items-7": {
+          "title": "2 verdades y 1 mentira",
+          "description": "Menciona tres enunciados sobre el tema que quieras y el jugador deberá adivinar cuál es la mentira. Perfecto para capacitaciones."
+        },
+        "items-8": {
+          "title": "Ruleta rompe hielo",
+          "description": "Usa la ruleta rompehielo para romper el ambiente. Saldrán preguntas que escojas y los colaboradores tendrán que responderlas de manera divertida."
         }
       },
       "virtual-event-you-love": {
@@ -261,6 +309,10 @@
       "title": "Uso",
       "team-building": "Team Building",
       "on-boarding": "On Boarding"
+    },
+    "features": {
+      "title": "Características",
+      "activities": "Actividades"
     },
     "about-us": "Sobre nosotros",
     "contact-us": "Contáctanos",
