@@ -148,6 +148,7 @@ export const Trivia = (props) => {
 
   if (loading) return spinLoader();
 
+  // TODO: Consider refactoring, the component is long.
   return (
     <div className="w-screen h-full">
       {isVisibleModalSettings && (
