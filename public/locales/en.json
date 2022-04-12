@@ -168,60 +168,6 @@
         "title": "VIRTUAL DE TEAM BULDING ACTIVITIES",
         "description": "Looking for the best virtual activities to engage employees and facilitate team bonding? We've got you covered. Choose from over 25 activities in our unmatched library or ask us for something custom!"
       },
-      "games": {
-        "trivia": {
-          "title": "Trivia",
-          "description": "Gather your team for quiz activities giving it the focus you want: movies, sports or even onboarding and training topics."
-        },
-        "bingo": {
-          "title": "BINGO",
-          "description": "Virtually play an interactive Bingo with your collaborators. Use our platform so that your workers have their cards and play it from home or at work."
-        },
-        "roulette": {
-          "title": "Roulette",
-          "description": "Do live raffles or with a ready-made list of presents that you would like to give to your workers for an important date."
-        },
-        "roulette-icebreaker": {
-          "title": "Icebreaker Roulette",
-          "description": "Use the icebreaker roulette to break the atmosphere. Questions that you choose will come up and the collaborators will have to answer them in a fun way."
-        },
-        "hangman": {
-          "title": "Hangman",
-          "description": "Choose words or phrases you want. They can be related to the culture of the company or give it the focus you want."
-        },
-        "2-true-1-false": {
-          "title": "Two truths and a Lie",
-          "description": "Mention three statements about the topic you want and the player must guess which one is the lie. Perfect for trainings."
-        },
-        "zoom": {
-          "title": "Zoom to image",
-          "description": "Give us a complete picture of what you want and we will show a part to collaborators. Whoever guesses what the picture is about will win."
-        },
-        "movie-guess": {
-          "title": "Guess the movie",
-          "description": "We will give you details of a movie and the player who can guess which one is first, will win."
-        },
-        "scrambled-letters": {
-          "title": "Scrambled Letters",
-          "description": "We will show you ordering of the phrases or words you want and the collaborators will have to compete to see who can order the letters first."
-        },
-        "charadas": {
-          "title": "Charades",
-          "description": "Make your collaborators stand up from their seats, move their bodies and act out what is shown on the screen. The other workers will have to guess what it is."
-        },
-        "song-guess": {
-          "title": "Guess the song",
-          "description": "We will play an excerpt from a song and the collaborator who guesses the name first will win a point and if he sings, an additional one."
-        },
-        "emoji-language": {
-          "title": "Emoji Language",
-          "description": "We will show three emojis and the collaborators will have to interpret them and find the hidden phrase or word."
-        },
-        "domestic-movie": {
-          "title": "Home Movie",
-          "description": "We will reproduce a small scene from a movie and then two collaborators will have to imitate the performances."
-        }
-      },
       "virtual-events": {
         "title": "Virtual events and games that will strengthen your team",
         "items-1": {
@@ -270,6 +216,37 @@
         "items-3": {
           "title": "CUSTOMIZE YOUR VIRTUAL EMPLOYEE INTEGRATION",
           "description": "Create personalized onboarding experiences. Use your event as a learning and fun tool to teach and transmit company information. Design your own experience that combines purposeful learning, bonding, and friendly competition."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
+    },
+    "content": {
+      "intro-subheading": "See all of",
+      "intro-title": "Our content",
+      "intro-description": "From easy trivia to quick holiday-themed rounds, our content is fun, relevant, and designed to bring your team together.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "How it works?",
+        "description": "As part of our commitment to amazing new content, we have a team committed to creating new activities and challenges every month.",
+        "description-paragraph-2": ""
+      },
+      "virtual-events": {
+        "title": "",
+        "items-1": {
+          "title": "Game of the month",
+          "description": "Our team creates completely new experiences every month. We have worked hard to make sure that different types of personalities enjoy our experiences. Our content is created to appeal to everyone."
+        },
+        "items-2": {
+          "title": "International Offers",
+          "description": "We have connected people internationally. Our library of content and activities built for remote teams is always in development."
+        },
+        "items-3": {
+          "title": "Bilingual Delivery",
+          "description": "Between our regional partners and bilingual hosts, we can deliver content in Spanish and English without any problem. If we don't speak your language yet, we will have automatic translation very soon."
         }
       },
       "virtual-event-you-love": {
@@ -370,8 +347,9 @@
       "corporate-events": "Corporate Events"
     },
     "features": {
-      "title": "Características",
-      "activities": "Actividades"
+      "title": "Features",
+      "activities": "Activities",
+      "content": "Content"
     },
     "about-us": "About us",
     "contact-us": "Contact us",

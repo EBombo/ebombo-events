@@ -18,7 +18,7 @@ export const SizeEvent = (props) => {
           <div
             className={`w-full text-2xl bg-white rounded-md relative md:w-52 ${
               props.size === option ? "border-primary" : "border-grayLighten"
-            } border-2 py-2 px-1 cursor-pointer`}
+            } border-2 py-2 px-1 cursor-pointer text-bold text-secondary`}
             key={option}
             onClick={() => props.setSize(option)}
           >
