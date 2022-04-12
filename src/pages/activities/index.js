@@ -116,8 +116,8 @@ export const Activities = (props) => {
 
           <div className="px-8">
             <ImageV2
-              placeholderUrl={`${config.storageUrl}/resources/on-boarding-video-snapshot.jpg`}
-              src={`${config.storageUrl}/resources/on-boarding-video.gif`}
+              placeholderUrl={`${config.storageUrl}/resources/feature-activities-video-snapshot.jpg`}
+              src={`${config.storageUrl}/resources/feature-activities-video.gif`}
               className="w-full aspect-video rounded-2xl"
               width="100%"
               aspectRatio="16 / 9"
