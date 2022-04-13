@@ -4,8 +4,11 @@ import locale from "antd/lib/locale/es_ES";
 import { ButtonAnt, DatePicker } from "../../../components/form";
 import { firestore } from "../../../firebase";
 import moment from "moment";
+import { useTranslation } from "../../../hooks";
 
 export const DateEvent = (props) => {
+  const { t } = useTranslation("pages.events");
+
   const [currentDate, setCurrentDate] = useState(props.currentDate ?? {});
 
   // Only allow days after today.
@@ -14,7 +17,7 @@ export const DateEvent = (props) => {
   return (
     <div className="grid md:grid-cols-4 gap-3 w-full md:w-9/12 rounded-md border-2 border-grayLighten py-6 px-4 mb-9">
       <div>
-        <div className="text-secondary mb-4">Día del evento</div>
+        <div className="text-secondary mb-4">{t("event-day")}</div>
         <ConfigProvider locale={locale}>
           <DatePicker
             format="dddd DD MMMM"
@@ -26,7 +29,7 @@ export const DateEvent = (props) => {
       </div>
 
       <div>
-        <div className="text-secondary mb-4">Inicio del evento</div>
+        <div className="text-secondary mb-4">{t("start-event")}</div>
         <TimePicker
           format="h:mm a"
           className="w-full"
@@ -36,7 +39,7 @@ export const DateEvent = (props) => {
       </div>
 
       <div>
-        <div className="text-secondary mb-4">Fin del evento</div>
+        <div className="text-secondary mb-4">{t("end-event")}</div>
         <TimePicker
           format="h:mm a"
           className="w-full"
@@ -68,7 +71,7 @@ export const DateEvent = (props) => {
             setCurrentDate({});
           }}
         >
-          {props.currentDate?.id ? "Guardar fecha" : "Adicionar fecha"}
+          {props.currentDate?.id ? t("save-date") : t("add-date")}
         </ButtonAnt>
       </div>
     </div>

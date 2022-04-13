@@ -48,7 +48,7 @@ export const Events = (props) => {
             key={event.id}
           >
             <Image
-              src={event.imageUrl}
+              src={event.imageUrl ? event.imageUrl : `${config.storageUrl}/resources/default-background.svg`}
               width="100%"
               height="100%"
               size="cover"
@@ -123,9 +123,19 @@ export const Events = (props) => {
                     margin="0"
                   />
                   <div className="text-black text-['Lato'] text-[13px] leading[16px]">
-                    {`${
-                      event.startAt?.toDate ? moment(event.startAt.toDate()).format("HH:MM:SS a") : event.startAt
-                    } - ${event.endAt?.toDate ? moment(event.endAt.toDate()).format("HH:MM:SS a") : event.endAt}`}
+                    {event.dates?.length ? (
+                      <>
+                        {event.dates.reduce(
+                          (dates, date) =>
+                            `${dates} ${!!dates ? "/" : ""} ${moment(date.startAt.toDate()).format("HH:MM")} - ${moment(
+                              date.endAt.toDate()
+                            ).format("HH:MM")}`,
+                          ""
+                        )}
+                      </>
+                    ) : (
+                      `${event.startAt} - ${event.endAt}`
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center gap-[10px]">

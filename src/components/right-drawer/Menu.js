@@ -6,6 +6,7 @@ import { Tabs } from "antd";
 import { mediaQuery } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
 import { firestore } from "../../firebase";
+import { useTranslation } from "../../hooks";
 
 const { TabPane } = Tabs;
 
@@ -13,6 +14,8 @@ export const Menu = (props) => {
   const router = useRouter();
 
   const { signOut } = useAuth();
+
+  const { t } = useTranslation("drawer");
 
   const [authUser] = useGlobal("user");
   const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
@@ -28,14 +31,14 @@ export const Menu = (props) => {
       </div>
 
       <MenuTabs defaultActiveKey="1">
-        <TabPane tab={<b>Mi Cuenta</b>} key="1">
+        <TabPane tab={<b>{t("my-account")}</b>} key="1">
           <MenuItem
             onClick={() => {
               setOpenRightDrawer(false);
               router.push(`/users/${authUser.id}`);
             }}
           >
-            <span className="item">Ajustes del Perfil</span>
+            <span className="item">{t("profile-settings")}</span>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -43,7 +46,7 @@ export const Menu = (props) => {
               return router.push(`/companies/${companyId}`);
             }}
           >
-            <span className="item">Ajustes de la Empresa</span>
+            <span className="item">{t("company-settings")}</span>
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -53,7 +56,7 @@ export const Menu = (props) => {
               return router.push(`/companies/${companyId}?currentTab=billing`);
             }}
           >
-            <span className="item">Facturación</span>
+            <span className="item">{t("billing")}</span>
           </MenuItem>
           <MenuItem
             logout
@@ -63,7 +66,7 @@ export const Menu = (props) => {
             }}
           >
             <span className="item" onClick={() => signOut()}>
-              Cerrar Sesión
+              {t("logout")}
             </span>
           </MenuItem>
         </TabPane>
