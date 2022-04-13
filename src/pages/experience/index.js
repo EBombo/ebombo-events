@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { useTranslation } from "../../hooks";
 import { Image } from "../../components/common/Image";
 import { Carousel } from "../../components/common/Carousel";
-import { MostPopularGames, BetweenCompaniesGames, TeamBuildingGames } from "../../components/common/DataList";
+import { BetweenCompaniesGames, MostPopularGames, TeamBuildingGames } from "../../components/common/DataList";
 
 const firstColumn = ["trivia", "roulette", "rouletteQuestions", "hanged"];
 const secondColumn = ["triviaCrack", "bingo", "drawAndGuess", "scrabble"];
@@ -16,7 +16,7 @@ const thirdColumn = ["movie", "triviaOnboarding", "domesticMovie", "song"];
 export const Experience = (props) => {
   const router = useRouter();
 
-  const { t } = useTranslation("pages.experience");
+  const { t } = useTranslation();
 
   useEffect(() => {
     router.prefetch("/login");
@@ -28,8 +28,8 @@ export const Experience = (props) => {
         <div className="aspect-square w-full mb-4">
           <ImageV2 src={gameContent.img} placeholderUrl={gameContent.placeholderUrl} alt="" />
         </div>
-        <div className="text-2xl mb-4">{t(gameContent.title)}</div>
-        <p className="text-base">{t(gameContent.description)}</p>
+        <div className="text-secondary text-2xl mb-4">{t(gameContent.title)}</div>
+        <p className="text-blackDarken text-base">{t(gameContent.description)}</p>
       </div>
     </div>
   );
@@ -51,10 +51,10 @@ export const Experience = (props) => {
         className="aspect-square w-full"
       />
       <div className="text-['Lato'] text-blackDarken font-[900] text-[20px] leading-[24px] lg:text-[32px] lg:leading-[36px] my-2">
-        {t(`games[${gameName}]`)}
+        {t(`pages.experience.games[${gameName}]`)}
       </div>
       <div className="text-['Lato'] text-secondary font-[400] text-[16px] leading-[19px] lg:text-[20px] lg:leading-[24px] text-center md:text-left">
-        {t(gameName)}
+        {t(`pages.experience[${gameName}]`)}
       </div>
     </div>
   );
@@ -64,15 +64,15 @@ export const Experience = (props) => {
       <div className="w-full bg-cover bg-no-repeat bg-secondary bg-pattern grid gap-4 p-2 md:p-4 lg:overflow-hidden lg:grid-cols-[50%_1050px] lg:h-[800px]">
         <div className="p-4 flex flex-col items-center justify-center min-h-[450px]">
           <div className="w-full text-['Lato'] font-[900] text-white text-[25px] leading-[35px] md:text-[40px] md:leading-[48px] text-center lg:text-left lg:text-[50px] lg:leading-[55px]">
-            {t("title")}
+            {t("pages.experience.title")}
           </div>
           <div className="w-full text-['Lato'] font-[400] text-white text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] my-4 text-center lg:text-left lg:text-[25px] lg:leading-[28px]">
-            {t("subtitle")}
+            {t("pages.experience.subtitle")}
           </div>
           <div className="w-full flex items-center justify-center lg:justify-start">
             <ButtonAnt color="success" onClick={() => router.push("/login")} margin="0">
               <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
-                {t("loginButton")}
+                {t("pages.experience.loginButton")}
               </div>
             </ButtonAnt>
           </div>
@@ -132,15 +132,15 @@ export const Experience = (props) => {
           <div className="hidden border-[1px] border-white bg-success w-[10px] h-[10px] rounded-[50%] lg:block" />
           <div className="text-['Lato'] font-[800] text-[24px] leading-[29px] flex gap-[5px] lg:text-[42px] lg:leading-[50px]">
             <p className="text-white text-center m-0">
-              {t("freeTrial").toUpperCase()}
-              <span className="text-secondary ml-[5px]">{t("freeTrial-time").toUpperCase()}</span>
+              {t("pages.experience.freeTrial").toUpperCase()}
+              <span className="text-secondary ml-[5px]">{t("pages.experience.freeTrial-time").toUpperCase()}</span>
             </p>
           </div>
         </div>
         <div className="flex justify-center mt-2 lg:mt-0 lg:ml-4 lg:justify-start">
           <ButtonAnt color="success" onClick={() => router.push("/login")} margin="0">
             <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
-              {t("loginButton")}
+              {t("pages.experience.loginButton")}
             </div>
           </ButtonAnt>
         </div>
@@ -151,12 +151,13 @@ export const Experience = (props) => {
           <div>
             <div className="flex items-center gap-[10px] mt-8">
               <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-                {t("firstSection")}
+                {t("pages.experience.firstSection")}
               </div>
             </div>
             <div className="">
               <Carousel
                 showArrows
+                hideIndicators
                 components={MostPopularGames.map((_, index) => (
                   <div key={`carousel-wrapper-${index}`} className="md:grid md:grid-cols-[1fr_1fr_1fr] gap-8">
                     <CarouselContent gameContent={MostPopularGames[index % MostPopularGames.length]} />
@@ -179,12 +180,13 @@ export const Experience = (props) => {
           <div>
             <div className="flex items-center gap-[10px] mt-8">
               <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-                {t("secondSection")}
+                {t("pages.experience.secondSection")}
               </div>
             </div>
             <div className="">
               <Carousel
                 showArrows
+                hideIndicators
                 components={BetweenCompaniesGames.map((_, index) => (
                   <div key={`carousel-wrapper-${index}`} className="md:grid md:grid-cols-[1fr_1fr_1fr] gap-8">
                     <CarouselContent gameContent={BetweenCompaniesGames[index % BetweenCompaniesGames.length]} />
@@ -207,12 +209,13 @@ export const Experience = (props) => {
           <div>
             <div className="flex items-center gap-[10px] mt-8">
               <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-                {t("thirdSection")}
+                {t("pages.experience.thirdSection")}
               </div>
             </div>
             <div>
               <Carousel
                 showArrows
+                hideIndicators
                 components={TeamBuildingGames.map((_, index) => (
                   <div key={`carousel-wrapper-${index}`} className="md:grid md:grid-cols-[1fr_1fr_1fr] gap-8">
                     <CarouselContent gameContent={TeamBuildingGames[index % TeamBuildingGames.length]} />
@@ -236,11 +239,11 @@ export const Experience = (props) => {
 
       <StyledFooter className="p-4 lg:p-8">
         <div className="text-white mb-4 text-['Lato'] font-[900] text-[26px] leading-[31px] lg:text-[100px] lg:leading-[120px]">
-          {t("lastTitle")}
+          {t("pages.experience.lastTitle")}
         </div>
         <ButtonAnt color="success" onClick={() => router.push("/login")}>
           <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
-            {t("loginButton")}
+            {t("pages.experience.loginButton")}
           </div>
         </ButtonAnt>
       </StyledFooter>

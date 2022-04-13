@@ -975,6 +975,12 @@ export const MostPopularGames = [
 
 export const BetweenCompaniesGames = [
   {
+    img: `${config.storageUrl}/resources/trivia-crack-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/trivia-crack-game_12x12.webp`,
+    title: "landing.games-descriptions.trivia-crack.title",
+    description: "landing.games-descriptions.trivia-crack.description",
+  },
+  {
     img: `${config.storageUrl}/resources/song-guess-game.svg`,
     placeholderUrl: `${config.storageUrl}/resources/song-guess-game_12x12.png`,
     title: "landing.games-descriptions.song-guess.title",
@@ -1002,16 +1008,22 @@ export const TeamBuildingGames = [
     description: "landing.games-descriptions.roulette-icebreaker.description",
   },
   {
+    img: `${config.storageUrl}/resources/trivia-onboarding-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/trivia-onboarding-game_12x12.webp`,
+    title: "landing.games-descriptions.trivia-onboarding.title",
+    description: "landing.games-descriptions.trivia-onboarding.description",
+  },
+  {
     img: `${config.storageUrl}/resources/charadas-game.svg`,
     placeholderUrl: `${config.storageUrl}/resources/charadas-game_12x12.png`,
     title: "landing.games-descriptions.charadas.title",
     description: "landing.games-descriptions.charadas.description",
   },
   {
-    img: `${config.storageUrl}/resources/zoom-game.svg`,
-    placeholderUrl: `${config.storageUrl}/resources/zoom-game_12x12.png`,
-    title: "landing.games-descriptions.zoom.title",
-    description: "landing.games-descriptions.zoom.description",
+    img: `${config.storageUrl}/resources/emoji-language-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/emoji-language-game_12x12.webp`,
+    title: "landing.games-descriptions.emoji-language.title",
+    description: "landing.games-descriptions.emoji-language.description",
   },
 ];
 
