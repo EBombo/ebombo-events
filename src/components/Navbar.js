@@ -91,8 +91,8 @@ export const Navbar = (props) => {
               <Popover
                 placement="bottom"
                 color="#FFFFFF"
-                content={featuresMenu.map((menuItem) => (
-                  <Anchor key={menuItem} className="block link text-black text-left" url={menuItem.url}>
+                content={featuresMenu.map((menuItem, i) => (
+                  <Anchor key={`features-${i}`} className="block link text-black text-left" url={menuItem.url}>
                     <span className="font-bold text-left text-base w-full text-left block">{t(menuItem.label)}</span>
                   </Anchor>
                 ))}
@@ -105,8 +105,8 @@ export const Navbar = (props) => {
               <Popover
                 placement="bottom"
                 color="#FFFFFF"
-                content={useCaseMenu.map((menuItem) => (
-                  <Anchor key={menuItem} className="block link text-black" url={menuItem.url}>
+                content={useCaseMenu.map((menuItem, i) => (
+                  <Anchor key={`use-case-${i}`} className="block link text-black" url={menuItem.url}>
                     <span className="font-bold text-left text-base w-full text-left block">{t(menuItem.label)}</span>
                   </Anchor>
                 ))}
