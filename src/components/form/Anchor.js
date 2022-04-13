@@ -36,7 +36,7 @@ const AnchorTag = styled.a`
   font-family: Lato;
   font-weight: ${(props) => (props.fontWeight ? props.fontWeight : 500)};
   font-size: ${(props) => (props.fontSize ? props.fontSize : "12px")};
-  line-height: ${(props) => (props.lineHeight ? props.lineHeight : "11px")};
+  line-height: ${(props) => (props.lineHeight ? props.lineHeight : "16px")};
   text-decoration: ${(props) => (props.underlined ? `underline` : "")};
   border: ${(props) => (props.border ? props.border : "")};
   margin: ${(props) => (props.margin ? props.margin : "")};
