@@ -946,6 +946,75 @@ export const PlanIntervals = {
   year: "anual",
 };
 
+export const MostPopularGames = [
+  {
+    img: `${config.storageUrl}/resources/trivia-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/trivia-game_12x12.png`,
+    title: "landing.games-descriptions.trivia.title",
+    description: "landing.games-descriptions.trivia.description",
+  },
+  {
+    img: `${config.storageUrl}/resources/bingo-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/bingo-game_12x12.png`,
+    title: "landing.games-descriptions.bingo.title",
+    description: "landing.games-descriptions.bingo.description",
+  },
+  {
+    img: `${config.storageUrl}/resources/roulette-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/ruleta-game_12x12.png`,
+    title: "landing.games-descriptions.roulette.title",
+    description: "landing.games-descriptions.roulette.description",
+  },
+  {
+    img: `${config.storageUrl}/resources/pelicula-domestica-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/pelicula-domestica-game_12x12.png`,
+    title: "landing.games-descriptions.domestic-movie.title",
+    description: "landing.games-descriptions.domestic-movie.description",
+  },
+];
+
+export const BetweenCompaniesGames = [
+  {
+    img: `${config.storageUrl}/resources/song-guess-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/song-guess-game_12x12.png`,
+    title: "landing.games-descriptions.song-guess.title",
+    description: "landing.games-descriptions.song-guess.description",
+  },
+  {
+    img: `${config.storageUrl}/resources/letras-revueltas-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/letras-revueltas-game_12x12.png`,
+    title: "landing.games-descriptions.scrambled-letters.title",
+    description: "landing.games-descriptions.scrambled-letters.description",
+  },
+  {
+    img: `${config.storageUrl}/resources/zoom-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/zoom-game_12x12.png`,
+    title: "landing.games-descriptions.zoom.title",
+    description: "landing.games-descriptions.zoom.description",
+  },
+];
+
+export const TeamBuildingGames = [
+  {
+    img: `${config.storageUrl}/resources/roulette-icebreaker-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/ruleta-rompehielo-game_12x12.png`,
+    title: "landing.games-descriptions.roulette-icebreaker.title",
+    description: "landing.games-descriptions.roulette-icebreaker.description",
+  },
+  {
+    img: `${config.storageUrl}/resources/charadas-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/charadas-game_12x12.png`,
+    title: "landing.games-descriptions.charadas.title",
+    description: "landing.games-descriptions.charadas.description",
+  },
+  {
+    img: `${config.storageUrl}/resources/zoom-game.svg`,
+    placeholderUrl: `${config.storageUrl}/resources/zoom-game_12x12.png`,
+    title: "landing.games-descriptions.zoom.title",
+    description: "landing.games-descriptions.zoom.description",
+  },
+];
+
 export const LandingGames = [
   {
     img: `${config.storageUrl}/resources/trivia-game.svg`,
@@ -978,7 +1047,7 @@ export const LandingGames = [
     description: "landing.games-descriptions.hangman.description",
   },
   {
-    img: `${config.storageUrl}/resources/2-true-1-false-game.png`,
+    img: `${config.storageUrl}/resources/2-true-1-false-game.svg`,
     placeholderUrl: `${config.storageUrl}/resources/2-true-1-false-game_12x12.png`,
     title: "landing.games-descriptions.2-true-1-false.title",
     description: "landing.games-descriptions.2-true-1-false.description",
