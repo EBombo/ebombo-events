@@ -6,7 +6,7 @@ import get from "lodash/get";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../../hooks/useAuth";
-import { useSendError } from "../../../hooks";
+import { useSendError, useTranslation } from "../../../hooks";
 import { useRouter } from "next/router";
 import moment from "moment";
 import { timeoutPromise } from "../../../utils/promised";
@@ -32,6 +32,8 @@ export const ResumeEvent = (props) => {
   const { signUp } = useAuth();
 
   const { sendError } = useSendError();
+
+  const { t } = useTranslation("pages.events");
 
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -113,11 +115,9 @@ export const ResumeEvent = (props) => {
     <div>
       {/*TODO: Add modal to redirect events list page.*/}
       {/*String(isVisibleModal)*/}
-      <div className="text-secondary mb-4 text-base">
-        Manda tu resumen al equipo de ebombo y nos pondremos lo antes posible en contacto contigo
-      </div>
+      <div className="text-secondary mb-4 text-base">{t("send-your-summary")}</div>
 
-      <div className="text-primary text-4xl mb-6">Resumen de tu evento</div>
+      <div className="text-primary text-4xl mb-6">{t("summary-event")}</div>
 
       <div className="grid md:grid-cols-2 gap-5 mb-4">
         <div className="block">
@@ -139,16 +139,16 @@ export const ResumeEvent = (props) => {
           <div className="w-full h-auto rounded-md border-2 border-grayLighten py-4 px-1 grayLighten px-3">
             <div className="grid grid-cols-2">
               <div>
-                <div className="text-secondary">Detalles</div>
+                <div className="text-secondary">{t("details")}</div>
                 <div className="text-xl text-secondary">
-                  {interactions.find((interaction) => interaction.key === props.details.interaction)?.title}
+                  {t(interactions.find((interaction) => interaction.key === props.details.interaction)?.title)}
                 </div>
               </div>
 
               <div>
-                <div className="text-secondary">Regalo/Premio/Elemento fisico</div>
+                <div className="text-secondary">{t("resume-gift")}</div>
                 <div className="text-xl text-secondary">
-                  {gifts.find((gift) => gift.key === props.details.gift)?.title}
+                  {t(gifts.find((gift) => gift.key === props.details.gift)?.title)}
                 </div>
               </div>
             </div>
@@ -157,19 +157,19 @@ export const ResumeEvent = (props) => {
               .filter((goal) => props.details.goals.includes(goal.key))
               .map((goal) => (
                 <div key={goal.title} className="flex text-secondary">
-                  <div className="bg-primary w-2 h-2 mt-2 mr-2 ml-4 rounded-md" /> {goal.title}
+                  <div className="bg-primary w-2 h-2 mt-2 mr-2 ml-4 rounded-md" /> {t(goal.title)}
                 </div>
               ))}
           </div>
         </div>
 
         <div>
-          <div className="text-secondary mb-4">Comentarios adicionales</div>
+          <div className="text-secondary mb-4">{t("additional-comment")}</div>
           <TextArea rows={7} disabled variant="primary" defaultValue={props.details.additional} />
         </div>
       </div>
 
-      <div className="text-secondary mb-4 text-base">Fechas tentativas.</div>
+      <div className="text-secondary mb-4 text-base">{t("tentative-dates")}.</div>
 
       <div className="grid md:flex gap-3">
         {props.dates.map((date) => (
@@ -185,7 +185,7 @@ export const ResumeEvent = (props) => {
         ))}
       </div>
 
-      <div className="text-secondary mb-4 text-base mt-4">Dinamicas escogidas.</div>
+      <div className="text-secondary mb-4 text-base mt-4">{t("chosen-dynamics")}</div>
 
       <div className="grid md:flex gap-3">
         {games
@@ -205,9 +205,7 @@ export const ResumeEvent = (props) => {
           ))}
       </div>
 
-      {authUser ? null : (
-        <div className="text-secondary mb-4 text-base mt-4">Regístrate y manda el resumen de tu evento</div>
-      )}
+      {authUser ? null : <div className="text-secondary mb-4 text-base mt-4">{t("register-and-send-summary")}</div>}
 
       <form onSubmit={handleSubmit(signUpUser)} autoComplete="off" className="form-container" noValidate>
         {authUser ? null : (
@@ -220,7 +218,7 @@ export const ResumeEvent = (props) => {
               name="name"
               background="white"
               autoComplete="off"
-              placeholder="Nombre"
+              placeholder={t("name")}
             />
             <Input
               error={errors.lastName}
@@ -230,7 +228,7 @@ export const ResumeEvent = (props) => {
               name="lastName"
               background="white"
               autoComplete="off"
-              placeholder="Apellidos"
+              placeholder={t("last-name")}
             />
             <Input
               error={errors.email}
@@ -241,7 +239,7 @@ export const ResumeEvent = (props) => {
               height="40px"
               background="white"
               autoComplete="off"
-              placeholder="Correo"
+              placeholder={t("email")}
             />
             <Input
               error={errors.password}
@@ -251,7 +249,7 @@ export const ResumeEvent = (props) => {
               name="password"
               autoComplete="off"
               background="white"
-              placeholder="Contraseña"
+              placeholder={t("password")}
             />
           </div>
         )}
@@ -263,7 +261,7 @@ export const ResumeEvent = (props) => {
             variant="secondary"
             onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1]?.key)}
           >
-            Volver
+            {t("back")}
           </Anchor>
 
           <ButtonAnt
@@ -276,7 +274,7 @@ export const ResumeEvent = (props) => {
             loading={isLoadingCreateUser || isLoading}
             disabled={isLoadingUser || isLoadingCreateUser || isLoading}
           >
-            Enviar
+            {t("send")}
           </ButtonAnt>
         </div>
       </form>

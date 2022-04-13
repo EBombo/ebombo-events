@@ -39,5 +39,16 @@
     "end-event": "Fin del evento",
     "edit": "Editar",
     "save-date": "Guardar fecha",
-    "add-date": "Adicionar fecha"
+    "add-date": "Adicionar fecha",
+    "additional-comment": "Comentarios adicionales",
+    "send-your-summary": "Manda tu resumen al equipo de ebombo y nos pondremos lo antes posible en contacto contigo",
+    "summary-event": "Resumen de tu evento",
+    "resume-gift": "Regalo/Premio/Elemento fisico",
+    "chosen-dynamics": "Dinámicas escogidas.",
+    "register-and-send-summary": "Regístrate y manda el resumen de tu evento",
+    "name": "Nombre",
+    "last-name": "Apellidos",
+    "email": "Correo",
+    "password": "Contraseña",
+    "send": "Enviar"
 }
