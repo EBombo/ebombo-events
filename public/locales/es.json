@@ -150,6 +150,26 @@
       "domestic-movie": {
         "title": "Película doméstica",
         "description": "Reproduciremos una pequeña escena de una película y acto seguido dos colaboradores deberán imitar las actuaciones."
+      },
+      "pinta-acierta": {
+        "title": "Pinta acierta",
+        "description": "Reproduciremos una pequeña escena de una película y acto seguido dos colaboradores deberán imitar las actuaciones."
+      },
+      "trivia-crack": {
+        "title": "Trivia Crack",
+        "description": "Crea trivias de entreteimiento de temas cómo películas, historia, deportes, arte, ciencia y muchos temas más. Reune a tus colaboradores y demuestra quién es el más “culto” de todos."
+      },
+      "trivia-onboarding": {
+        "title": "Trivia Onboarding",
+        "description": "Elabora trivias de onboarding y enseñales a tus trabjadores de manera divertida, eficiente y grupal. Tus pruebas pueden ser todo tipo."
+      },
+      "sing-and-win": {
+        "title": "Canta y Gana",
+        "description": ""
+      },
+      "whom-brings-to-me": {
+        "title": "A quien me traiga",
+        "description": ""
       }
     },
     "team-building": {
