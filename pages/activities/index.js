@@ -13,4 +13,3 @@ const ActivitiesContainer = (props) => (
 );
 
 export default ActivitiesContainer;
-

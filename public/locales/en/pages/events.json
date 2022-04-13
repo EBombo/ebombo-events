@@ -1,8 +1,8 @@
 {
-    "size": "Size",
-    "budget": "Budget",
-    "details": "Details",
-    "date": "Date",
-    "resume":"Resume",
-    "register": "Register"
+  "size": "Size",
+  "budget": "Budget",
+  "details": "Details",
+  "date": "Date",
+  "resume": "Resume",
+  "register": "Register"
 }

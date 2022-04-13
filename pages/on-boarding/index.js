@@ -13,4 +13,3 @@ const OnBoardingContainer = (props) => (
 );
 
 export default OnBoardingContainer;
-

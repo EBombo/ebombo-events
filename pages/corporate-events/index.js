@@ -13,4 +13,3 @@ const CorporateEventsContainer = (props) => (
 );
 
 export default CorporateEventsContainer;
-
