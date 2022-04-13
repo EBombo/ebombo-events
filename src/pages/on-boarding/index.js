@@ -35,13 +35,13 @@ export const OnBoarding = (props) => {
   return (
     <div className="w-[100vw]">
       <section className="bg-tapiz-1 bg-white flex flex-col justify-center p-4 lg:p-8 lg:min-h-[calc(100vh-100px)]">
-        <div className="w-full lg:grid lg:grid-cols-[50%_50%] max-w-[1500px] mx-auto">
+        <div className="w-full lg:grid lg:grid-cols-[3fr_4fr] gap-8 max-w-[1500px] mx-auto">
           <div className="w-full">
-            <h3 className="text-primary font-bold text-3xl md:text-5xl">{t("landing.on-boarding.intro-subheading")}</h3>
-            <h2 className="text-secondary text-4xl md:text-7xl font-bold uppercase break-words">
+            <h3 className="text-primary font-bold text-2xl md:text-4xl">{t("landing.on-boarding.intro-subheading")}</h3>
+            <h2 className="text-secondary text-3xl md:text-5xl font-bold uppercase break-words">
               {t("landing.on-boarding.intro-title")}
             </h2>
-            <p className="text-secondary text-base md:text-2xl">{t("landing.on-boarding.intro-description")}</p>
+            <p className="text-secondary text-base md:text-xl mb-8">{t("landing.on-boarding.intro-description")}</p>
             <div className="hidden lg:inline-grid lg:grid-cols-[min-content_min-content] gap-8">
               <ButtonAnt
                 size="big"
@@ -138,7 +138,7 @@ export const OnBoarding = (props) => {
       </section>
 
       <section className="bg-tapiz-1 bg-white">
-        <div className="max-w-[1500px] mx-auto py-8 px-8 grid">
+        <div className="max-w-[1500px] mx-auto pb-8 pt-40 px-8 grid">
           <div className="max-w-[1200px] mx-auto mb-6 uppercase text-secondary text-center font-bold text-3xl md:text-7xl self-center px-8 md:px-12">
             {t("landing.on-boarding.virtual-events.title")}
           </div>
@@ -153,7 +153,7 @@ export const OnBoarding = (props) => {
                   src={item.img}
                   alt=""
                   placeholderUrl={item.placeholder}
-                  className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video rounded-lg`}
+                  className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video rounded-lg self-center`}
                 />,
                 <div key={`content-${i}`} className={`${isOdd ? "md:order-2" : "md:order-1"} order-2`}>
                   <div className="mb-6 uppercase font-bold text-primary text-2xl md:text-3xl">{t(item.title)}</div>
@@ -162,7 +162,7 @@ export const OnBoarding = (props) => {
               ];
 
               const wrapperEl = (
-                <div key={`wrapper-${i}`} className="grid md:grid-cols-[1fr_1fr] my-10 gap-10">
+                <div key={`wrapper-${i}`} className={`grid ${isOdd ? "md:grid-cols-[4fr_3fr]" : "md:grid-cols-[3fr_4fr]"}  my-32 gap-32`}>
                   {childItems}
                 </div>
               );
