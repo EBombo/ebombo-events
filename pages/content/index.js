@@ -13,4 +13,3 @@ const ContentContainer = (props) => (
 );
 
 export default ContentContainer;
-

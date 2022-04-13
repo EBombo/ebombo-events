@@ -300,6 +300,41 @@
       "virtual-event-you-love": {
         "title": "The virtual event you will love"
       }
+    },
+    "corporate-events": {
+      "intro-subheading": "Create your own",
+      "intro-title": "Corporate Events",
+      "intro-description": "Create virtual corporate events to build better teams, strengthen company culture, and create community. The platform is easy to use and to customize. It will make your next event the best ever.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "ebombo allows you to gather all your employees from all over the world for your next event. Whether your team is big, small, or growing, our platform can help you create big moments and intimate experiences.",
+        "description-paragraph-2": "Whatever you're planning and want to stream and share at your next event, we'll help you make it happen by increasing engagement, retention and fun.\n"
+      },
+      "activities": {
+        "title": "VIRTUAL CORPORATE AND BUSINESS EVENTS THAT EXCITE EVERYONE",
+        "description": "Update your virtual events. Gather all your collaborators and create unforgettable and personalized events that motivate the entire company. Choose from our library of games or ask us for something custom!"
+      },
+      "virtual-events": {
+        "title": "Corporate virtual events for everyone",
+        "items-1": {
+          "title": "TEAM BUILDING ACTIVITIES FOR CORPORATE EVENTS",
+          "description": "Update your virtual corporate events. Create a personalized company trivia or some other activity such as an icebreaker wheel or giveaway wheel at your meeting. We have an activity for every occasion and enough team building activities for corporate events that you can now plan all year long. (And if you're looking at the entire next year's worth of events, you should take a look at our subscription model.)"
+        },
+        "items-2": {
+          "title": "CREATE UNFORGETTABLE VIRTUAL CORPORATE EVENTS",
+          "description": "Our entry PIN feature makes it quick and easy for collaborators to enter the activity so everyone is on the same page and can participate simultaneously. Do you want to collect information from thousands of attendees at once? Our post activity surveys allow you to see the results."
+        },
+        "items-3": {
+          "title": "VIRTUAL CORPORATE EVENTS THAT SHOW YOUR PERSONALITY",
+          "description": "Make your company's personality shine by presenting your brand's logo and colors during the event. It's easy to customize whatever the event is. And if you want to get started with a video of something related to your business, we're here to help with that too. We'd love to have a few opening words from a member of the team."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
     }
   },
   "nav": {
@@ -308,7 +343,8 @@
     "use-case": {
       "title": "Use Case",
       "team-building": "Team Building",
-      "on-boarding": "On Boarding"
+      "on-boarding": "On Boarding",
+      "corporate-events": "Corporate Events"
     },
     "features": {
       "title": "Features",
@@ -366,7 +402,7 @@
         "customize-card": "Customize Card",
         "title": "Title",
         "columns": "Columns",
-        "select-color":"Select a color to change it",
+        "select-color": "Select a color to change it",
         "background": "Background",
         "blocks": "Blocks",
         "number": "Number",

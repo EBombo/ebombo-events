@@ -300,6 +300,41 @@
       "virtual-event-you-love": {
         "title": "El evento virtual que amarás"
       }
+    },
+    "corporate-events": {
+      "intro-subheading": "Crea tus propios",
+      "intro-title": "Eventos corporativos",
+      "intro-description": "Crea eventos corporativos virtuales para construir mejores equipos, fortalecer la cultura de la empresa y crear una comunidad. La plataforma es fácil de usar y de personalizar. Hará que su próximo evento sea el mejor de todos.",
+      "register-button-label": "Registrar",
+      "sign-in-button-label": "Iniciar sesión",
+      "contact-button-label": "Contacto",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "ebombo te permite reunir a todos tus empleados de todo el mundo para su próximo evento. No importa que tu equipo sea grande, pequeño o esté creciendo, nuestra plataforma puede ayudarte a crear grandes momentos y experiencias íntimas.",
+        "description-paragraph-2": "Lo que sea que estés planeando y lo que quieras transmitir y compartir en tu próximo evento, te ayudaremos a hacerlo realidad aumentando el compromiso, la retención y la diversión."
+      },
+      "activities": {
+        "title": "EVENTOS VIRTUALES CORPORATIVOS Y EMPRESARIALES QUE ENTUSIASMAN A TODOS",
+        "description": "Actualiza tus eventos virtuales. Reúne a todos tus colaboradores y crea eventos inolvidables y personalizados que motiven a toda la empresa. ¡Elige de nuestra biblioteca de juegos o pídenos algo personalizado!"
+      },
+      "virtual-events": {
+        "title": "Eventos virtuales corporativos para todos",
+        "items-1": {
+          "title": "ACTIVIDADES DE TEAM BUILDING PARA EVENTOS CORPORATIVOS",
+          "description": "Actualiza tus eventos corporativos virtuales. Crea en tu reunión una trivia personalizada de la empresa o alguna otra actividad como una ruleta rompehielo o ruleta de sorteos. Tenemos una actividad para cada ocasión y suficientes dinámicas de formación de equipos para eventos corporativos que ahora puede planificar todo el año. (Y si está viendo todo el próximo año de eventos, debería echar un vistazo a nuestro modelo de suscripción)."
+        },
+        "items-2": {
+          "title": "CREE EVENTOS CORPORATIVOS VIRTUALES INOLVIDABLES",
+          "description": "Nuestra función de PIN de entrada hace que los colaboradores puedan ingresar a la actividad de manera rápida y sencillla para que todos estén en la misma página y puedan participar simultáneamente. ¿Quiere recopilar información de miles de asistentes a la vez? Nuestras post encuestas de la actividad te permite ver los resultados."
+        },
+        "items-3": {
+          "title": "EVENTOS CORPORATIVOS VIRTUALES QUE DEMUESTRAN TU PERSONALIDAD",
+          "description": "Haz brillar la personalidad de tu empresa presentando el logo y colores de tu marca durante el evento. Es fácil personalizar el evento que sea. Y si desea comenzar con un video de algo relacionado a su empresa, también estamos aquí para ayudarlo con eso. Nos encanta que un miembro del equipo de unas palabras de apertura."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "El evento virtual que amarás"
+      }
     }
   },
   "nav": {
@@ -308,7 +343,8 @@
     "use-case": {
       "title": "Uso",
       "team-building": "Team Building",
-      "on-boarding": "On Boarding"
+      "on-boarding": "On Boarding",
+      "corporate-events": "Eventos Corporativos"
     },
     "features": {
       "title": "Características",

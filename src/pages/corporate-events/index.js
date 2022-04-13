@@ -2,13 +2,13 @@ import React, { useEffect, useGlobal } from "reactn";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
-import { ButtonAnt } from "../../components/form";
-import { LandingGames, OnBoardingLiterals } from "../../components/common/DataList";
+import { Anchor, ButtonAnt } from "../../components/form";
+import { CorporateEventsLiterals, LandingGames } from "../../components/common/DataList";
 import { Carousel } from "../../components/common/Carousel";
 import { Image as ImageV2 } from "ebombo-components";
 import { useTranslation } from "../../hooks";
 
-export const OnBoarding = (props) => {
+export const CorporateEvents = (props) => {
   const router = useRouter();
 
   const [authUser] = useGlobal("user");
@@ -23,7 +23,7 @@ export const OnBoarding = (props) => {
   const GameContentItem = ({ gameContent, className }) => (
     <div>
       <div className={`${className} text-white`}>
-        <div className="aspect-square w-full mb-4">
+        <div className="aspect-square w-full mb-4 rounded-xl overflow-hidden">
           <ImageV2 src={gameContent.img} placeholderUrl={gameContent.placeholderUrl} alt="" />
         </div>
         <div className="text-2xl mb-4">{t(gameContent.title)}</div>
@@ -37,12 +37,14 @@ export const OnBoarding = (props) => {
       <section className="bg-tapiz-1 bg-white flex flex-col justify-center p-4 lg:p-8 lg:min-h-[calc(100vh-100px)]">
         <div className="w-full lg:grid lg:grid-cols-[50%_50%] max-w-[1500px] mx-auto">
           <div className="w-full">
-            <h3 className="text-primary font-bold text-3xl md:text-5xl">{t("landing.on-boarding.intro-subheading")}</h3>
+            <h3 className="text-primary font-bold text-3xl md:text-5xl">
+              {t(CorporateEventsLiterals.header.subheading)}
+            </h3>
             <h2 className="text-secondary text-4xl md:text-7xl font-bold uppercase break-words">
-              {t("landing.on-boarding.intro-title")}
+              {t(CorporateEventsLiterals.header.heading)}
             </h2>
-            <p className="text-secondary text-base md:text-2xl">{t("landing.on-boarding.intro-description")}</p>
-            <div className="hidden lg:inline-grid lg:grid-cols-[min-content_min-content] gap-8">
+            <p className="text-secondary text-base md:text-2xl">{t(CorporateEventsLiterals.header.description)}</p>
+            <div className="hidden lg:inline-grid md:grid-cols-[min-content_min-content] gap-8">
               <ButtonAnt
                 size="big"
                 color="success"
@@ -51,15 +53,20 @@ export const OnBoarding = (props) => {
                   router.push(url);
                 }}
               >
-                <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
+                <span className="text-lg font-bold">{t("landing.corporate-events.sign-in-button-label")}</span>
+              </ButtonAnt>
+              <ButtonAnt size="big" color="primary">
+                <Anchor url="/contact">
+                  <span className="text-lg font-bold">{t("landing.corporate-events.contact-button-label")}</span>
+                </Anchor>
               </ButtonAnt>
             </div>
           </div>
 
           <div className="lg:h-full lg:flex lg:items-center px-8">
             <ImageV2
-              placeholderUrl={`${config.storageUrl}/resources/on-boarding-video-snapshot.jpg`}
-              src={`${config.storageUrl}/resources/on-boarding-video.gif`}
+              placeholderUrl={`${config.storageUrl}/resources/corporate-events-video-snapshot.jpg`}
+              src={`${config.storageUrl}/resources/corporate-events-video.gif`}
               className="w-full aspect-video rounded-2xl mx-auto"
               width="100%"
               aspectRatio="16 / 9"
@@ -68,7 +75,10 @@ export const OnBoarding = (props) => {
 
           <div className="lg:hidden inline-flex flex-wrap gap-4 py-8">
             <ButtonAnt size="big" color="success">
-              <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
+              <span className="text-lg font-bold">{t("landing.corporate-events.sign-in-button-label")}</span>
+            </ButtonAnt>
+            <ButtonAnt size="big" color="primary">
+              <span className="text-lg font-bold">{t("landing.corporate-events.contact-button-label")}</span>
             </ButtonAnt>
           </div>
         </div>
@@ -79,29 +89,27 @@ export const OnBoarding = (props) => {
           <div className="grid grid-cols-[15px_auto] mb-8 mt-0 md:mt-8">
             <div className="bg-successLight" />
             <div className="text-white font-bold text-3xl md:text-7xl self-center px-8 md:px-12">
-              {t("landing.on-boarding.why-ebombo-works.title")}
+              {t(CorporateEventsLiterals.whyItWorks.title)}
             </div>
           </div>
 
           <div>
             <div className="mb-6 text-white text-base md:text-2xl">
-              {t("landing.on-boarding.why-ebombo-works.description")}
+              {t(CorporateEventsLiterals.whyItWorks.description)}
             </div>
-            <div className="text-white text-base md:text-2xl">
-              {t("landing.on-boarding.why-ebombo-works.description-paragraph-2")}
-            </div>
+            <div className="text-white text-base md:text-2xl">{t(CorporateEventsLiterals.whyItWorks.description2)}</div>
           </div>
         </div>
       </section>
 
       <section className="bg-tapiz-1 bg-white pb-16">
         <div className="max-w-[1500px] mx-auto py-8 px-8 grid">
-          <div className="max-w-[1200px] mx-auto mb-6 text-secondary text-center font-bold text-3xl md:text-7xl self-center px-8 md:px-12 uppercase">
-            {t("landing.on-boarding.activities.title")}
+          <div className="max-w-[1200px] mx-auto mb-6 text-secondary text-center font-bold text-3xl md:text-7xl self-center px-8 md:px-12">
+            {t(CorporateEventsLiterals.activities.title)}
           </div>
 
           <div className="text-secondary text-base md:text-2xl text-center">
-            {t("landing.on-boarding.activities.description")}
+            {t(CorporateEventsLiterals.activities.description)}
           </div>
         </div>
       </section>
@@ -140,12 +148,12 @@ export const OnBoarding = (props) => {
       <section className="bg-tapiz-1 bg-white">
         <div className="max-w-[1500px] mx-auto py-8 px-8 grid">
           <div className="max-w-[1200px] mx-auto mb-6 uppercase text-secondary text-center font-bold text-3xl md:text-7xl self-center px-8 md:px-12">
-            {t("landing.on-boarding.virtual-events.title")}
+            {t(CorporateEventsLiterals.virtualEvents.title)}
           </div>
 
           <div className="my-8">
-            {OnBoardingLiterals.virtualEvents.items.reduce((acc, item, i) => {
-              const isOdd = i % 2 === 1;
+            {CorporateEventsLiterals.virtualEvents.items.reduce((acc, item, i) => {
+              const isOdd = i % 2 !== 1;
 
               const childItems = [
                 <ImageV2
@@ -176,7 +184,7 @@ export const OnBoarding = (props) => {
       <section className="bg-gradient-black-to-secondary">
         <div className="max-w-[1500px] mx-auto py-8 px-8">
           <div className="text-white font-bold text-3xl md:text-7xl">
-            {t("landing.on-boarding.virtual-event-you-love.title")}
+            {t(CorporateEventsLiterals.virtualEventYouLove.title)}
           </div>
           <div className="py-8">
             <ButtonAnt
@@ -187,7 +195,7 @@ export const OnBoarding = (props) => {
                 router.push(url);
               }}
             >
-              <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
+              <span className="text-lg font-bold">{t("landing.corporate-events.sign-in-button-label")}</span>
             </ButtonAnt>
           </div>
         </div>
