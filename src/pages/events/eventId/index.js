@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Tabs } from "antd";
 import { config } from "../../../firebase";
 import { SizeEvent } from "./SizeEvent";
-import { CheckOutlined } from "@ant-design/icons";
 import { BudgetEvent } from "./BudgetEvent";
 import { DetailsEvent } from "./DetailsEvent";
 import { DatesEvent } from "./DatesEvent";
@@ -11,6 +10,7 @@ import { ResumeEvent } from "./ResumeEvent";
 import { mediaQuery } from "../../../constants";
 import { useRouter } from "next/router";
 import { useTranslation } from "../../../hooks";
+import { Image } from "../../../components/common/Image";
 
 const { TabPane } = Tabs;
 
@@ -39,11 +39,18 @@ export const EventContainer = (props) => {
     return [
       {
         tab: !!size ? (
-          <div className="text-success">
-            <CheckOutlined /> {t("size")}
+          <div className="text-success flex text-xl text-bold text-[#1CF68D]">
+            <Image
+              src={`${config.storageUrl}/resources/check-icon.svg`}
+              width="18px"
+              height="14px"
+              size="contain"
+              margin="auto 5px"
+            />{" "}
+            {t("size")}
           </div>
         ) : (
-          <div className="text-secondary">{t("size")}</div>
+          <div className="text-xl text-bold">{t("size")}</div>
         ),
         key: defaultTab,
         content: (eventSteps, position) => (
@@ -59,11 +66,18 @@ export const EventContainer = (props) => {
       },
       {
         tab: !!budget ? (
-          <div className="text-success">
-            <CheckOutlined /> {t("budget")}
+          <div className="text-success flex text-xl text-bold text-[#1CF68D]">
+            <Image
+              src={`${config.storageUrl}/resources/check-icon.svg`}
+              width="18px"
+              height="14px"
+              size="contain"
+              margin="auto 5px"
+            />{" "}
+            {t("budget")}
           </div>
         ) : (
-          <div className="text-secondary">{t("budget")}</div>
+          <div className="text-xl text-bold">{t("budget")}</div>
         ),
         key: "budget",
         content: (eventSteps, position) => (
@@ -79,11 +93,18 @@ export const EventContainer = (props) => {
       },
       {
         tab: !!details ? (
-          <div className="text-success">
-            <CheckOutlined /> {t("details")}
+          <div className="text-success flex text-xl text-bold text-[#1CF68D]">
+            <Image
+              src={`${config.storageUrl}/resources/check-icon.svg`}
+              width="18px"
+              height="14px"
+              size="contain"
+              margin="auto 5px"
+            />{" "}
+            {t("details")}
           </div>
         ) : (
-          <div className="text-secondary">{t("details")}</div>
+          <div className="text-xl text-bold">{t("details")}</div>
         ),
         key: "details",
         content: (eventSteps, position) => (
@@ -99,11 +120,18 @@ export const EventContainer = (props) => {
       },
       {
         tab: !!dates ? (
-          <div className="text-success">
-            <CheckOutlined /> {t("date")}
+          <div className="text-success flex text-xl text-bold text-[#1CF68D]">
+            <Image
+              src={`${config.storageUrl}/resources/check-icon.svg`}
+              width="18px"
+              height="14px"
+              size="contain"
+              margin="auto 5px"
+            />{" "}
+            {t("date")}
           </div>
         ) : (
-          <div className="text-secondary">{t("date")}</div>
+          <div className="text-xl text-bold">{t("date")}</div>
         ),
         key: "date",
         content: (eventSteps, position) => (
@@ -119,11 +147,18 @@ export const EventContainer = (props) => {
       },
       {
         tab: !!resume ? (
-          <div className="text-success">
-            <CheckOutlined /> {t("resume")}
+          <div className="text-success flex text-xl text-bold text-[#1CF68D]">
+            <Image
+              src={`${config.storageUrl}/resources/check-icon.svg`}
+              width="18px"
+              height="14px"
+              size="contain"
+              margin="auto 5px"
+            />{" "}
+            {t("resume")}
           </div>
         ) : (
-          <div className="text-secondary">{t("resume")}</div>
+          <div className="text-xl text-bold">{t("resume")}</div>
         ),
         key: "resume",
         content: (eventSteps, position) => (
@@ -141,7 +176,7 @@ export const EventContainer = (props) => {
         ),
       },
       {
-        tab: authUser ? null : <div className="text-secondary">{t("register")}</div>,
+        tab: authUser ? null : <div className="text-xl text-bold">{t("register")}</div>,
         key: "register",
         content: () => null,
       },
@@ -181,7 +216,13 @@ const EventContainerStyled = styled.div`
 
     .ant-tabs-tab-active {
       .ant-tabs-tab-btn {
-        color: ${(props) => props.theme.basic.secondary};
+        color: ${(props) => props.theme.basic.secondary}!important;
+      }
+    }
+
+    .ant-tabs-tab {
+      .ant-tabs-tab-btn {
+        color: ${(props) => props.theme.basic.primaryLight};
       }
     }
 
