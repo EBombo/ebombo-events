@@ -72,6 +72,8 @@ export const ResumeEvent = (props) => {
       event: eventMapped,
     });
 
+    props.showNotification("OK", "Event was created!", "success");
+
     // TODO: Consider use listener to redirect after the account is created.
     await timeoutPromise(5000);
 
