@@ -30,15 +30,15 @@ export const TeamBuilding = (props) => {
   return (
     <div className="w-[100vw]">
       <section className="bg-tapiz-1 bg-white flex flex-col justify-center p-4 lg:p-8 lg:min-h-[calc(100vh-100px)]">
-        <div className="w-full lg:grid lg:grid-cols-[50%_50%] max-w-[1500px] mx-auto">
+        <div className="w-full lg:grid lg:grid-cols-[3fr_4fr] gap-8 max-w-[1500px] mx-auto">
           <div className="w-full">
-            <h3 className="text-primary font-bold text-3xl md:text-5xl">
+            <h3 className="text-primary font-bold text-2xl md:text-4xl">
               {t("landing.team-building.intro-subheading")}
             </h3>
-            <h2 className="text-secondary text-4xl md:text-7xl font-bold uppercase break-words">
+            <h2 className="text-secondary text-3xl md:text-5xl font-bold uppercase break-words">
               {t(TeamBuildingLiterals.header.heading)}
             </h2>
-            <p className="text-secondary text-base md:text-2xl">{t(TeamBuildingLiterals.header.description)}</p>
+            <p className="text-secondary text-base md:text-xl">{t(TeamBuildingLiterals.header.description)}</p>
             <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
               <ButtonAnt
                 size="big"
@@ -80,7 +80,7 @@ export const TeamBuilding = (props) => {
       </section>
 
       <section className="bg-gradient-primary-to-secondary">
-        <div className="max-w-[1500px] mx-auto py-8 px-8 grid md:grid-cols-[1fr_1fr]">
+        <div className="max-w-[1500px] mx-auto py-16 px-8 grid md:grid-cols-[1fr_1fr]">
           <div className="grid grid-cols-[15px_auto] mb-8 mt-0 md:mt-8">
             <div className="bg-successLight" />
             <div className="text-white font-bold text-3xl md:text-7xl self-center px-8 md:px-12">
@@ -97,7 +97,7 @@ export const TeamBuilding = (props) => {
         </div>
       </section>
 
-      <section className="bg-tapiz-1 bg-white pb-16">
+      <section className="bg-tapiz-1 bg-white py-16">
         <div className="max-w-[1500px] mx-auto py-8 px-8 grid">
           <div className="max-w-[1200px] mx-auto mb-6 text-secondary text-center font-bold text-3xl md:text-7xl self-center px-8 md:px-12">
             {t(TeamBuildingLiterals.activities.title)}
@@ -117,7 +117,7 @@ export const TeamBuilding = (props) => {
           <Image src={`${config.storageUrl}/resources/planet-2.svg`} alt="" width="60px" desktopWidth="120px" />
         </div>
 
-        <div className="max-w-[300px] md:max-w-[1000px] my-8 mx-auto">
+        <div className="max-w-[300px] md:max-w-[1000px] my-12 mx-auto">
           <Carousel
             showArrows
             hideIndicators
@@ -141,8 +141,8 @@ export const TeamBuilding = (props) => {
       </section>
 
       <section className="bg-tapiz-1 bg-white">
-        <div className="max-w-[1500px] mx-auto py-8 px-8 grid">
-          <div className="max-w-[1200px] mx-auto mb-6 uppercase text-secondary text-center font-bold text-3xl md:text-7xl self-center px-8 md:px-12">
+        <div className="max-w-[1500px] mx-auto pb-8 pt-40 px-8 grid">
+          <div className="max-w-[1200px] mx-auto mb-6 uppercase text-secondary text-center font-bold text-2xl md:text-5xl self-center px-8 md:px-12">
             {t(TeamBuildingLiterals.virtualEvents.title)}
           </div>
 
@@ -156,7 +156,7 @@ export const TeamBuilding = (props) => {
                   src={item.img}
                   alt=""
                   placeholderUrl={item.placeholder}
-                  className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video rounded-lg`}
+                  className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video rounded-lg self-center`}
                 />,
                 <div key={`content-${i}`} className={`${isOdd ? "md:order-2" : "md:order-1"} order-2`}>
                   <div className="mb-6 uppercase font-bold text-primary text-2xl md:text-3xl">{t(item.title)}</div>
@@ -165,7 +165,7 @@ export const TeamBuilding = (props) => {
               ];
 
               const wrapperEl = (
-                <div key={`wrapper-${i}`} className="grid md:grid-cols-[1fr_1fr] my-10 gap-10">
+                <div key={`wrapper-${i}`} className={`grid ${isOdd ? "md:grid-cols-[4fr_3fr]" : "md:grid-cols-[3fr_4fr]"}  my-32 gap-32`}>
                   {childItems}
                 </div>
               );

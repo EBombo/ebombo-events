@@ -1,26 +1,29 @@
 import React, { useState } from "reactn";
 import { Anchor, ButtonAnt } from "../../../components/form";
 import { config } from "../../../firebase";
+import { useTranslation } from "../../../hooks";
 
 const options = {
   participants: {
-    title: "Por participante",
+    title: "for-participant",
     key: "participants",
-    budgets: ["$10 - $40", "$40 - $70", "$70 - $100", "Más de $100"],
+    budgets: ["$1 - $10", "$11 - $40", "$41 - $70", "$71 - $100", "$100 +"],
   },
   events: {
-    title: "Para el evento",
+    title: "for-event",
     key: "events",
-    budgets: ["$500 - $1000", "$1000 - $3000", "$3000 - $6000", "Más de $6000", "No estoy seguro"],
+    budgets: ["$500 - $1000", "$1000 - $3000", "$3000 - $6000", "Más de $6000", "not-sure"],
   },
 };
 
 export const BudgetEvent = (props) => {
+  const { t } = useTranslation("pages.events");
+
   const [currentTab, setCurrentTab] = useState(Object.values(options)[0].key);
 
   return (
     <div>
-      <div className="text-primary text-4xl mb-6">¿Cuánto es tu presupuesto?</div>
+      <div className="text-primary text-4xl mb-6">{t("how-budget")}</div>
 
       <div className="flex mb-4">
         {Object.values(options).map((option) => (
@@ -31,7 +34,7 @@ export const BudgetEvent = (props) => {
             key={option.key}
             onClick={() => setCurrentTab(option.key)}
           >
-            {option.title}
+            {t(option.title)}
           </div>
         ))}
       </div>
@@ -39,13 +42,13 @@ export const BudgetEvent = (props) => {
       <div className="grid gap-3 md:flex" key={currentTab}>
         {options[currentTab].budgets.map((budget) => (
           <div
-            className={`w-full text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer relative md:w-52 ${
+            className={`w-full text-2xl bg-white rounded-md border-2 py-2 px-1 cursor-pointer relative md:w-52 text-bold text-secondary pl-2 ${
               props.budget?.budget === budget ? "border-primary" : "border-grayLighten"
             }`}
             key={budget}
             onClick={() => props.setBudget({ budget, currentTab })}
           >
-            {budget}
+            {t(budget, budget)}
 
             {props.budget?.budget === budget ? (
               <img
@@ -64,7 +67,7 @@ export const BudgetEvent = (props) => {
           variant="secondary"
           onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1]?.key)}
         >
-          Volver
+          {t("back")}
         </Anchor>
 
         <ButtonAnt
@@ -76,7 +79,7 @@ export const BudgetEvent = (props) => {
           size="big"
           margin="1rem 0 auto auto"
         >
-          Siguiente
+          {t("next")}
         </ButtonAnt>
       </div>
     </div>

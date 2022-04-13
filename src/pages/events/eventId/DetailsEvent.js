@@ -2,16 +2,17 @@ import React, { useGlobal, useState } from "reactn";
 import { Anchor, ButtonAnt, TextArea } from "../../../components/form";
 import { Image } from "../../../components/common/Image";
 import { config } from "../../../firebase";
+import { useTranslation } from "../../../hooks";
 
 export const interactions = [
   {
     icon: "/resources/events/enjoy.svg",
-    title: "Sentarse y disfrutar",
+    title: "sit-and-enjoy",
     key: "sit-back-and-enjoy",
   },
   {
     icon: "/resources/events/iteraction.svg",
-    title: "Mucha interacción",
+    title: "lot-interaction",
     key: "lots-of-interaction",
   },
 ];
@@ -19,53 +20,55 @@ export const interactions = [
 export const gifts = [
   {
     icon: "/resources/events/star.svg",
-    title: "!Sí, claro!",
+    title: "yes-of-course",
     key: "yes",
   },
   {
     icon: "/resources/events/no-thanks.svg",
-    title: "No, gracias",
+    title: "no-thanks",
     key: "no",
   },
 ];
 
 export const goals = [
   {
-    title: "Divertirnos",
+    title: "have-fun",
     key: "have-fun",
   },
   {
-    title: "Celebrar una fecha",
+    title: "celebrate-a-date",
     key: "celebrate-a-date",
   },
   {
-    title: "Training / Onboarding",
+    title: "training-onboarding",
     key: "training-onboarding",
   },
   {
-    title: "Aniversario",
+    title: "anniversary",
     key: "anniversary",
   },
   {
-    title: "Relajarnos",
+    title: "relax",
     key: "relax",
   },
   {
-    title: "Ver un show",
+    title: "see-a-show",
     key: "see-a-show",
   },
   {
-    title: "Reconocimientos",
+    title: "recognitions",
     key: "recognitions",
   },
   {
-    title: "Otros",
+    title: "others",
     key: "others",
   },
 ];
 
 export const DetailsEvent = (props) => {
   const [games] = useGlobal("adminGames");
+
+  const { t } = useTranslation("pages.events");
 
   const [currentInteraction, setCurrentCurrentInteraction] = useState(props.details?.Interaction ?? null);
   const [currentGift, setCurrentCurrentGift] = useState(props.details?.Gift ?? null);
@@ -75,11 +78,11 @@ export const DetailsEvent = (props) => {
 
   return (
     <div>
-      <div className="text-primary text-4xl mb-6">Detalles del evento</div>
+      <div className="text-primary text-4xl mb-6">{t("event-details")}</div>
 
-      <div className="grid md:flex gap-5 mb-4">
+      <div className="grid md:flex gap-14 mb-4">
         <div>
-          <div className="text-secondary mb-4">¿Quieres que haya iteracción?</div>
+          <div className="text-secondary mb-4">{t("want-interaction")}</div>
 
           <div className="grid md:flex gap-2">
             {interactions.map((interaction) => (
@@ -92,7 +95,7 @@ export const DetailsEvent = (props) => {
               >
                 <img src={`${config.storageUrl}${interaction.icon}`} className=" w-6 h-6 mx-3" />
 
-                {interaction.title}
+                {t(interaction.title)}
 
                 {currentInteraction === interaction.key ? (
                   <img
@@ -106,7 +109,7 @@ export const DetailsEvent = (props) => {
         </div>
 
         <div>
-          <div className="text-secondary mb-4">¿Quieres adicionar regalos, premio o algún elemento físico?</div>
+          <div className="text-secondary mb-4">{t("want-add-gifts")}</div>
 
           <div className="grid md:flex gap-2">
             {gifts.map((gift) => (
@@ -119,7 +122,7 @@ export const DetailsEvent = (props) => {
               >
                 <img src={`${config.storageUrl}${gift.icon}`} className=" w-6 h-6 mx-3" />
 
-                {gift.title}
+                {t(gift.title)}
 
                 {currentGift === gift.key ? (
                   <img
@@ -134,7 +137,7 @@ export const DetailsEvent = (props) => {
       </div>
 
       <div className="mb-4">
-        <div className="text-secondary mb-4">¿Cuáles son los objetivos de tu evento?</div>
+        <div className="text-secondary mb-4">{t("event-objectives")}</div>
 
         <div className="grid md:grid-cols-4 gap-2">
           {goals.map((goal) => (
@@ -152,7 +155,7 @@ export const DetailsEvent = (props) => {
                 currentGoals.includes(goal.key) ? "border-primary" : "border-grayLighten"
               }`}
             >
-              {goal.title}
+              {t(goal.title)}
 
               {currentGoals.includes(goal.key) ? (
                 <img
@@ -167,7 +170,7 @@ export const DetailsEvent = (props) => {
 
       <div className="grid md:grid-cols-2 gap-10">
         <div>
-          <div className="text-secondary mb-4">¿Cuáles de nuestras dinámicas virtuales quisieras en tu eveno?</div>
+          <div className="text-secondary mb-4">{t("virtual-dynamic")}</div>
 
           <div className="grid grid-cols-4 gap-2">
             {games
@@ -194,9 +197,7 @@ export const DetailsEvent = (props) => {
         </div>
 
         <div>
-          <div className="text-secondary mb-4">
-            Escribenos comentarios adiciones de tu evento para tenerlos en cuenta
-          </div>
+          <div className="text-secondary mb-4">{t("additional-comments")}</div>
 
           <TextArea rows={7} variant="primary" color="black" onChange={(event) => setAdditional(event.target.value)} />
         </div>
@@ -209,7 +210,7 @@ export const DetailsEvent = (props) => {
           variant="secondary"
           onClick={() => props.setCurrentTab(props.eventSteps[props.position - 1]?.key)}
         >
-          Volver
+          {t("back")}
         </Anchor>
 
         <ButtonAnt
@@ -231,7 +232,7 @@ export const DetailsEvent = (props) => {
           size="big"
           margin="1rem 0 auto auto"
         >
-          Siguiente
+          {t("next")}
         </ButtonAnt>
       </div>
     </div>

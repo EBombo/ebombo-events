@@ -150,6 +150,26 @@
       "domestic-movie": {
         "title": "Película doméstica",
         "description": "Reproduciremos una pequeña escena de una película y acto seguido dos colaboradores deberán imitar las actuaciones."
+      },
+      "pinta-acierta": {
+        "title": "Pinta acierta",
+        "description": "Reproduciremos una pequeña escena de una película y acto seguido dos colaboradores deberán imitar las actuaciones."
+      },
+      "trivia-crack": {
+        "title": "Trivia Crack",
+        "description": "Crea trivias de entreteimiento de temas cómo películas, historia, deportes, arte, ciencia y muchos temas más. Reune a tus colaboradores y demuestra quién es el más “culto” de todos."
+      },
+      "trivia-onboarding": {
+        "title": "Trivia Onboarding",
+        "description": "Elabora trivias de onboarding y enseñales a tus trabjadores de manera divertida, eficiente y grupal. Tus pruebas pueden ser todo tipo."
+      },
+      "sing-and-win": {
+        "title": "Canta y Gana",
+        "description": ""
+      },
+      "whom-brings-to-me": {
+        "title": "A quien me traiga",
+        "description": ""
       }
     },
     "team-building": {
@@ -193,9 +213,9 @@
       "intro-description": "Crear una experiencia virtual de incorporación de empleados más fluida que integre diversión y acelere la conexión para crear equipos más fuertes desde el principio.",
       "register-button-label": "Registrar",
       "sign-in-button-label": "Iniciar sesión",
-      "contact-button-label": "Contacto",
+      "contact-button-label": "Contáctanos",
       "why-ebombo-works": {
-        "title": "Why does ebombo work?",
+        "title": "¿Por qué funciona ebombo?",
         "description": "Puede ser un desafío incorporar a nuevos empleados o practicantes de forma remota mientras los hace bienvenidos y conectados. ebombo te permite personalizar las experiencias virtuales de capacitación, orientación e incorporación de los empleados.",
         "description-paragraph-2": "Enséñale a los nuevos empleados tu empresa se toma en serio la diversión y el trabajo."
       },
@@ -228,7 +248,7 @@
       "intro-description": "Desde una trivia sencilla hasta rondas rápidas con temas festivos, nuestro contenido es divertido, relevante y está diseñado para acercar a su equipo.",
       "register-button-label": "Registrar",
       "sign-in-button-label": "Iniciar sesión",
-      "contact-button-label": "Contacto",
+      "contact-button-label": "Contáctanos",
       "why-ebombo-works": {
         "title": "¿Cómo funciona?",
         "description": "Como parte de nuestro compromiso con el contenido nuevo y sorprendente, contamos con un equipo comprometido a crear nuevas actividades y desafíos cada mes. ",
@@ -261,7 +281,7 @@
       "intro-bullet-3": "Diviertete con todos tus colaboradores.",
       "register-button-label": "Registrar",
       "sign-in-button-label": "Iniciar sesión",
-      "contact-button-label": "Contacto",
+      "contact-button-label": "Contáctanos",
       "ebombo-style": {
         "title": "El estilo ebombo",
         "items-1": {
