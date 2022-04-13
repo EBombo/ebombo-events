@@ -150,6 +150,26 @@
       "domestic-movie": {
         "title": "Home Movie",
         "description": "We will reproduce a small scene from a movie and then two collaborators will have to imitate the performances."
+      },
+      "pinta-acierta": {
+        "title": "Pinta acierta",
+        "description": "We will reproduce a small scene from a movie and then two collaborators will have to imitate the performances."
+      },
+      "trivia-crack": {
+        "title": "Trivia Crack",
+        "description": "Create entertaining trivia on topics such as movies, history, sports, art, science and much more. Gather your collaborators and show who is the most \"cultured\" of all."
+      },
+      "trivia-onboarding": {
+        "title": "Trivia Onboarding",
+        "description": "Make onboarding trivia and teach your workers in a fun, efficient and group way. Your tests can be all kinds."
+      },
+      "sing-and-win": {
+        "title": "Canta y Gana",
+        "description": ""
+      },
+      "whom-brings-to-me": {
+        "title": "A quien me traiga",
+        "description": ""
       }
     },
     "team-building": {

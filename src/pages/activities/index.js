@@ -102,11 +102,20 @@ export const Activities = (props) => {
       <section className="bg-tapiz-1 bg-white md:h-[calc(100vh-100px)] flex flex-col justify-center pt-14 md:pt-0">
         <div className="grid md:grid-cols-[4fr_6fr] max-w-[1500px] mx-auto">
           <div className="px-8">
-            <h3 className="text-primary font-bold text-3xl md:text-5xl">{t("landing.activities.intro-subheading")}</h3>
-            <h2 className="text-secondary text-5xl md:text-7xl font-bold uppercase">
+            <h3 className="text-primary font-bold text-2xl md:text-3xl">{t("landing.activities.intro-subheading")}</h3>
+            <h2 className="text-secondary text-3xl md:text-5xl font-bold uppercase">
               {t("landing.activities.intro-title")}
             </h2>
-            <p className="text-secondary text-base md:text-2xl">{t("landing.activities.intro-description")}</p>
+            <p className="text-base md:text-xl">
+              <span><ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`}/></span> {t("landing.activities.intro-bullet-1")}
+            </p>
+            <p className="text-base md:text-xl">
+              <span><ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`}/></span> {t("landing.activities.intro-bullet-2")}
+            </p>
+            <p className="text-base md:text-xl mb-8">
+              <span><ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`}/></span> {t("landing.activities.intro-bullet-3")}
+            </p>
+
             <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
               <ButtonAnt
                 size="big"
@@ -117,6 +126,9 @@ export const Activities = (props) => {
                 }}
               >
                 <span className="text-lg font-bold">{t("landing.activities.sign-in-button-label")}</span>
+              </ButtonAnt>
+              <ButtonAnt size="big" color="primary">
+                <span className="text-lg font-bold">{t("landing.activities.contact-button-label")}</span>
               </ButtonAnt>
             </div>
           </div>
@@ -135,13 +147,17 @@ export const Activities = (props) => {
             <ButtonAnt size="big" color="success">
               <span className="text-lg font-bold">{t("landing.activities.sign-in-button-label")}</span>
             </ButtonAnt>
+            <ButtonAnt size="big" color="primary">
+              <span className="text-lg font-bold">{t("landing.activities.contact-button-label")}</span>
+            </ButtonAnt>
           </div>
         </div>
       </section>
 
       <section className="bg-gradient-primary-to-secondary relative">
         <div className="max-w-[1200px] md:mx-auto items-center mx-4 sm:mx-8">
-          <div className="mx-auto py-8 px-8">
+          <div className="mx-auto pt-8 pb-32 px-8">
+            <div className="text-white font-bold text-xl md:text-3xl text-center py-16">{t("landing.activities.ebombo-style.title")}</div>
             <div className="grid grid-cols-[1fr] md:grid-cols-[1fr_1fr_1fr] gap-8">
               {EbomboStyleGames.map((_, index) => (
                 <GameContentItem
