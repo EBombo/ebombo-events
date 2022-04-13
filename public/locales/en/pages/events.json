@@ -30,5 +30,14 @@
     "recognitions": "Acknowledgments",
     "others":"Others",
     "virtual-dynamic": "Which of our virtual dynamics would you like in your event?.",
-    "additional-comments": "Write us additional comments about your event to take them into account"
+    "additional-comments": "Write us additional comments about your event to take them into account",
+    "when-plan-hold-event": "When do you plan to hold your event?",
+    "choose-tentative-date": "Choose tentative dates for your event. That way we can hold your event without a crossover.",
+    "tentative-dates": "Tentative dates chosen",
+    "event-day": "Event day",
+    "start-event": "Start of the event",
+    "end-event": "End of the event",
+    "edit": "Edit",
+    "save-date": "Save date",
+    "add-date": "Add date"
 }
