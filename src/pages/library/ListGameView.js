@@ -10,11 +10,13 @@ import capitalize from "lodash/capitalize";
 import moment from "moment";
 import { Desktop, mediaQuery } from "../../constants";
 import { useRouter } from "next/router";
-import { useSendError } from "../../hooks";
+import { useSendError, useTranslation } from "../../hooks";
 import { useFetch } from "../../hooks/useFetch";
 
 export const ListGameView = (props) => {
   const router = useRouter();
+
+  const { t } = useTranslation("pages.library");
 
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
@@ -36,7 +38,7 @@ export const ListGameView = (props) => {
 
     const unsubscribeResource = fetchResource();
 
-    return () => unsubscribeResource();
+    return () => unsubscribeResource && unsubscribeResource();
   }, []);
 
   const getTimeCreation = () => {
@@ -46,10 +48,10 @@ export const ListGameView = (props) => {
     const newTime = moment.duration(time);
 
     return newTime.days() > 0
-      ? `Creado hace ${newTime.days()} día${newTime.days() > 1 ? "s" : ""}`
+      ? `${t("created-ago")} ${newTime.days()} día${newTime.days() > 1 ? "s" : ""}`
       : newTime.hours() > 0
-      ? `Creado hace ${newTime.hours()} hora${newTime.hours() > 1 ? "s" : ""}`
-      : `Creado hace ${newTime.minutes()} minutos`;
+      ? `${t("created-ago")} ${newTime.hours()} hora${newTime.hours() > 1 ? "s" : ""}`
+      : `${t("created-ago")} ${newTime.minutes()} minutos`;
   };
 
   const toggleFavorite = async () => {
@@ -163,7 +165,7 @@ export const ListGameView = (props) => {
                           size={"contain"}
                           margin={"0 15px 0 0"}
                         />
-                        Mover
+                        {t("move")}
                       </div>
                       <div className="option" onClick={() => deleteGame()}>
                         <Image
@@ -173,7 +175,7 @@ export const ListGameView = (props) => {
                           size={"contain"}
                           margin={"0 15px 0 0"}
                         />
-                        Borrar
+                        {t("delete")}
                       </div>
                     </ToolTipContent>
                   }
@@ -228,10 +230,10 @@ export const ListGameView = (props) => {
                         setIsLoading(false);
                       }}
                     >
-                      Editar
+                      {t("edit")}
                     </ButtonAnt>
                     <ButtonAnt variant="contained" color="primary" loading={isLoading} onClick={createTokenToPlay}>
-                      Jugar
+                      {t("play")}
                     </ButtonAnt>
                   </div>
                 </Desktop>
@@ -263,10 +265,10 @@ export const ListGameView = (props) => {
                   : router.push(`/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`);
               }}
             >
-              Editar
+              {t("edit")}
             </ButtonAnt>
             <ButtonAnt variant="contained" color="primary" margin="0 1rem" onClick={createTokenToPlay}>
-              Jugar
+              {t("play")}
             </ButtonAnt>
             {props.game.isFavorite ? (
               <Image
@@ -300,7 +302,7 @@ export const ListGameView = (props) => {
                       size={"contain"}
                       margin={"0 15px 0 0"}
                     />
-                    Mover
+                    {t("move")}
                   </div>
                   <div className="option" onClick={() => deleteGame()}>
                     <Image
@@ -310,7 +312,7 @@ export const ListGameView = (props) => {
                       size={"contain"}
                       margin={"0 15px 0 0"}
                     />
-                    Borrar
+                    {t("delete")}
                   </div>
                 </ToolTipContent>
               }

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { darkTheme } from "../../../../theme";
-import { ButtonAnt, Select } from "../../../../components/form";
+import { ButtonAnt, Select, Switch } from "../../../../components/form";
 import { mediaQuery } from "../../../../constants";
 import get from "lodash/get";
-import { Radio, Switch } from "antd";
+import { Radio } from "antd";
 import { object, string } from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { firestore } from "../../../../firebase";
@@ -114,10 +114,6 @@ export const ModalSettings = (props) => {
                       placeholder="Seleccione Audio"
                       showSearch
                       virtual={false}
-                      borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
-                      borderTop={`0.1px solid ${darkTheme.basic.grayLighten}`}
-                      borderLeft={`0.1px solid ${darkTheme.basic.grayLighten}`}
-                      borderBottom={`0.1px solid ${darkTheme.basic.grayLighten}`}
                       error={errors.audioId}
                       defaultValue={get(props, "audio.id", "")}
                       optionFilterProp="children"

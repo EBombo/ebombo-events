@@ -1,18 +1,35 @@
 import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./common/Image";
+import { Icon } from "./common/Icons";
 import { config } from "../firebase";
-import { Desktop, Tablet } from "../constants";
-import { Anchor, ButtonAnt } from "./form";
+import { Desktop, mediaQuery, Tablet } from "../constants";
+import { Anchor, ButtonAnt, Switch } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import { Layout } from "./common/Layout";
 import { Footer } from "./Footer";
+import { useTranslation } from "../hooks";
+import { Popover } from "antd";
+import { darkTheme } from "../theme";
+
+const useCaseMenu = [
+  { url: "/team-building", label: "nav.use-case.team-building" },
+  { url: "/on-boarding", label: "nav.use-case.on-boarding" },
+  { url: "/corporate-events", label: "nav.use-case.corporate-events" },
+];
+
+const featuresMenu = [
+  { url: "/activities", label: "nav.features.activities" },
+  { url: "/content", label: "nav.features.content" },
+];
 
 export const Navbar = (props) => {
   const router = useRouter();
 
   const { signOut } = useAuth();
+
+  const { t, locale, locales, setLocale } = useTranslation();
 
   const [authUser] = useGlobal("user");
 
@@ -25,6 +42,7 @@ export const Navbar = (props) => {
     router.prefetch("/library");
     router.prefetch("/about-us");
     router.prefetch("/subscriptions");
+    router.prefetch("/experience");
   }, []);
 
   const isNavWithBorder = useMemo(() => {
@@ -33,130 +51,193 @@ export const Navbar = (props) => {
     return paths.includes(router.asPath);
   }, [router]);
 
-  console.log(isNavWithBorder);
+  const isEventPage = useMemo(() => {
+    const path = router.asPath;
+
+    return path.includes("/events/new");
+  }, [router]);
 
   return (
     <>
-      <Layout>
+      <Layout key={locale}>
         <NavContainer active={active} border={isNavWithBorder}>
           <div className="left-container">
-            <Image
-              src={`${config.storageUrl}/resources/ebombo.svg`}
-              height="auto"
-              width="125px"
-              size="contain"
-              margin="0"
-              cursor="pointer"
-              alt=""
-              onClick={() => router.push(authUser ? "/library" : "/")}
-            />
+            <div className="mr-8 inline-block">
+              <Image
+                src={`${config.storageUrl}/resources/ebombo.svg`}
+                height="auto"
+                width="125px"
+                size="contain"
+                margin="0"
+                cursor="pointer"
+                alt=""
+                onClick={() => router.push(authUser ? "/library" : "/")}
+              />
+            </div>
             <Desktop>
-              {/*
-                <a
-                  className="ant-dropdown-link"
-                  onClick={() => {
-                    router.push("/games");
-                  }}
-                >
-                  Games
-                </a>
-              */}
-              {/*
-                <Anchor url="/subscriptions" className="link">
-                Planes
-              </Anchor>
-                 */}
-              <Anchor url="/about-us" className="link">
-                Sobre nosotros
-              </Anchor>
-              {!authUser && (
-                <Anchor url="/contact" className="link">
-                  Contacto
-                </Anchor>
+              {isEventPage ? null : (
+                <>
+                  <Popover
+                    placement="bottom"
+                    color="#FFFFFF"
+                    content={featuresMenu.map((menuItem, i) => (
+                      <Anchor key={`features-${i}`} className="block link text-black text-left" url={menuItem.url}>
+                        <span className="font-bold text-left text-base w-full text-left block">
+                          {t(menuItem.label)}
+                        </span>
+                      </Anchor>
+                    ))}
+                  >
+                    <Anchor className="link hover:bg-violet-100 rounded-xl px-2 py-2">
+                      <span className="align-middle">{t("nav.features.title")}</span> <Icon type="down" />
+                    </Anchor>
+                  </Popover>
+
+                  <Popover
+                    placement="bottom"
+                    color="#FFFFFF"
+                    content={useCaseMenu.map((menuItem, i) => (
+                      <Anchor key={`use-case-${i}`} className="block link text-black" url={menuItem.url}>
+                        <span className="font-bold text-left text-base w-full text-left block">
+                          {t(menuItem.label)}
+                        </span>
+                      </Anchor>
+                    ))}
+                  >
+                    <Anchor className="link hover:bg-violet-100 rounded-xl px-2 py-2">
+                      <span className="align-middle">{t("nav.use-case.title")}</span> <Icon type="down" />
+                    </Anchor>
+                  </Popover>
+
+                  <Anchor url="/experience" className="link">
+                    {t("nav.experience")}
+                  </Anchor>
+                </>
               )}
             </Desktop>
           </div>
 
           <Desktop>
-            {authUser ? (
-              <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
-                Cerrar Sesión
-              </Anchor>
-            ) : (
-              <div className="btns-container">
-                <Anchor
-                  url="/login"
-                  variant="secondary"
-                  fontSize="18px"
-                  fontWeight="500"
-                  margin="auto 8px"
-                  className="anchor"
-                >
-                  Iniciar sesión
+            <div>
+              <Switch
+                margin="auto 15px"
+                onChange={(event) => setLocale(event ? locales[1] : locales[0])}
+                defaultChecked={locale === locales[1]}
+                checkedChildren={locales[1]}
+                unCheckedChildren={locales[0]}
+                inactiveBackgroundColor={darkTheme.basic.primary}
+                activeBackgroundColor={darkTheme.basic.primary}
+              />
+            </div>
+          </Desktop>
+
+          <Desktop>
+            <div className="flex items-center justify-end gap-[5px]">
+              {authUser ? (
+                <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
+                  {t("nav.logout")}
                 </Anchor>
-                <ButtonAnt onClick={() => router.push("/contact")} color="success" variant="contained" fontSize="18px">
-                  Contáctanos
-                </ButtonAnt>
-              </div>
-            )}
+              ) : (
+                <>
+                  <Anchor
+                    url="/login"
+                    variant="secondary"
+                    fontSize="18px"
+                    lineHeight="22px"
+                    fontWeight="500"
+                    margin="auto 8px"
+                    className="anchor"
+                  >
+                    {t("nav.login")}
+                  </Anchor>
+                  {isEventPage ? null : (
+                    <ButtonAnt
+                      onClick={() => router.push("/contact")}
+                      color="success"
+                      variant="contained"
+                      fontSize="18px"
+                    >
+                      {t("nav.contact-us")}
+                    </ButtonAnt>
+                  )}
+                </>
+              )}
+            </div>
           </Desktop>
 
           <Tablet>
             <ul className={`nav-menu ${active ? "active" : ""}`}>
-              {/*
-                <li
-                  className="nav-item"
-                  onClick={() => {
-                    router.push("/games");
-                  }}
-                >
-                  Games
-                </li>
-              */}
-              {/*
-                <li className="nav-item" onClick={() => router.push("/subscriptions")}>
-                  Planes
-                </li>
-                */}
-              <li
-                className="nav-item"
-                onClick={() => {
-                  router.push("/about-us");
-                  setActive(false);
-                }}
-              >
-                Sobre nosotros
-              </li>
-              {!authUser && (
-                <li
-                  className="nav-item"
-                  onClick={() => {
-                    router.push("/contact");
-                    setActive(false);
-                  }}
-                >
-                  Contacto
-                </li>
+              {isEventPage ? null : (
+                <>
+                  {featuresMenu.map((menuItem, i) => (
+                    <li
+                      className="nav-item"
+                      onClick={() => {
+                        router.push(menuItem.url);
+                        setActive(false);
+                      }}
+                    >
+                      {t(menuItem.label)}
+                    </li>
+                  ))}
+
+                  {useCaseMenu.map((menuItem, i) => (
+                    <li
+                      className="nav-item"
+                      onClick={() => {
+                        router.push(menuItem.url);
+                        setActive(false);
+                      }}
+                    >
+                      {t(menuItem.label)}
+                    </li>
+                  ))}
+                  {!authUser && (
+                    <li
+                      className="nav-item"
+                      onClick={() => {
+                        router.push("/contact");
+                        setActive(false);
+                      }}
+                    >
+                      {t("nav.contact")}
+                    </li>
+                  )}
+                </>
               )}
+
+              <li className="nav-item">
+                <Switch
+                  margin="auto"
+                  onChange={(event) => setLocale(event ? locales[1] : locales[0])}
+                  defaultChecked={locale === locales[1]}
+                  checkedChildren={locales[1]}
+                  unCheckedChildren={locales[0]}
+                  inactiveBackgroundColor={darkTheme.basic.primary}
+                  activeBackgroundColor={darkTheme.basic.primary}
+                />
+              </li>
 
               {!authUser ? (
                 <>
-                  <ButtonAnt
-                    margin="1.5rem auto"
-                    onClick={() => router.push("/contact")}
-                    color="success"
-                    variant="contained"
-                    fontSize="18px"
-                  >
-                    Contáctanos
-                  </ButtonAnt>
+                  {isEventPage ? null : (
+                    <ButtonAnt
+                      margin="1.5rem auto"
+                      onClick={() => router.push("/contact")}
+                      color="success"
+                      variant="contained"
+                      fontSize="18px"
+                    >
+                      {t("nav.contact-us")}
+                    </ButtonAnt>
+                  )}
                   <li className="nav-item" onClick={() => router.push("/login")}>
-                    Iniciar sesión
+                    {t("nav.login")}
                   </li>
                 </>
               ) : (
                 <li className="nav-item" onClick={() => signOut()}>
-                  Cerrar Sesión
+                  {t("nav.logout")}
                 </li>
               )}
             </ul>
@@ -244,7 +325,7 @@ const NavContainer = styled.div`
     position: fixed;
     z-index: 999;
     left: -100%;
-    top: 5rem;
+    top: 100px;
     flex-direction: column;
     background-color: ${(props) => props.theme.basic.whiteLight};
     width: 100%;
@@ -291,8 +372,8 @@ const NavContainer = styled.div`
     cursor: pointer;
   }
 
-  .btns-container {
-    display: flex;
-    align-items: center;
+  ${mediaQuery.afterTablet} {
+    display: grid;
+    grid-template-columns: 75% 5% 20%;
   }
 `;

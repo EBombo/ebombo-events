@@ -1,6 +1,6 @@
 import React, { useGlobal } from "reactn";
 import styled from "styled-components";
-import { Switch } from "antd";
+import { Switch } from "../../../components/form/Switch";
 import { firestore } from "../../../firebase";
 import { mediaQuery } from "../../../constants";
 import defaultTo from "lodash/defaultTo";

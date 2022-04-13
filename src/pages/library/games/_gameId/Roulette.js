@@ -13,6 +13,7 @@ import dynamic from "next/dynamic";
 import { snapshotToArray } from "../../../../utils";
 import { LeftOutlined } from "@ant-design/icons";
 import { Image } from "../../../../components/common/Image";
+import { useTranslation } from "../../../../hooks";
 
 const FortuneWheel = dynamic(() => import("../../../../components/common/FortuneWheel"), { ssr: false });
 
@@ -22,6 +23,8 @@ const defaultWinners = 1;
 export const Roulette = (props) => {
   const router = useRouter();
   const { gameId } = router.query;
+
+  const { t } = useTranslation("pages.library.roulette");
 
   const [coverImgUrl, setCoverImgUrl] = useState(null);
   const [ownBranding, setOwnBranding] = useState(props.game?.ownBranding ?? false);
@@ -199,7 +202,7 @@ export const Roulette = (props) => {
               name="name"
               ref={register}
               error={errors.name}
-              placeholder="Nombre del Evento"
+              placeholder={t("event-name")}
             />
           </div>
           <ButtonAnt
@@ -210,7 +213,7 @@ export const Roulette = (props) => {
             onClick={() => setIsVisibleModalSettings(true)}
             disabled={props.isLoading}
           >
-            Ajustes
+            {t("settings")}
           </ButtonAnt>
           <ButtonAnt
             color="default"
@@ -219,18 +222,18 @@ export const Roulette = (props) => {
             onClick={() => router.back()}
             disabled={props.isLoading}
           >
-            Cancelar
+            {t("cancel")}
           </ButtonAnt>
         </div>
         <RouletteContainer>
           <div className="first-content">
             <div className="text-['Lato'] text-[11px] leading-[13px] md:text-[13px] md:leading-[16px] my-2">
-              Cantidad de{" "}
-              {props.currentAdminGame?.name?.toLowerCase()?.includes("questions") ? "preguntas a sortear" : "ganadores"}
+              {t("amount-of")}{" "}
+              {props.currentAdminGame?.name?.toLowerCase()?.includes("questions") ? t("questions") : t("winners")}
             </div>
             <Input
               variant="primary"
-              placeholder={`Cantidad de ${
+              placeholder={`${t("amount-of")} ${
                 props.currentAdminGame?.name?.toLowerCase()?.includes("questions") ? "preguntas a sortear" : "ganadores"
               }`}
               name="amountWinners"
@@ -244,20 +247,16 @@ export const Roulette = (props) => {
             {props.currentAdminGame?.name === "roulette" && (
               <>
                 <Checkbox defaultChecked={isLive} variant="gray" onChange={() => setIsLive(!isLive)}>
-                  En vivo
+                  {t("live")}
                 </Checkbox>
-                <div className="text-['Lato'] text-[11px] leading-[13px]">
-                  (Las personas que participen del sorteo se tendrán que inscribir en vivo al sorteo mediante un pin)
-                </div>
+                <div className="text-['Lato'] text-[11px] leading-[13px]">{t("description-live")}</div>
               </>
             )}
 
             {props.currentAdminGame?.name === "roulette" ? (
-              <div className="description">
-                Escribe el nombre de los participantes y sepáralos con “ENTER” (Máx. 25 caracteres)
-              </div>
+              <div className="description">{t("description-area")}</div>
             ) : (
-              <div className="description">Escribe cada pregunta y sepáralos con “ENTER” (Máx. 35 caracteres)</div>
+              <div className="description">{t("description-placeholder")}</div>
             )}
 
             <TextArea
@@ -280,7 +279,7 @@ export const Roulette = (props) => {
               name="options"
               ref={register}
               rows="10"
-              placeholder="Nombres de participantes"
+              placeholder={t("participant-name")}
             />
 
             <Desktop>
@@ -290,17 +289,17 @@ export const Roulette = (props) => {
                 loading={props.isLoading || isLoadingOptions}
                 margin="1rem 0"
               >
-                Guardar
+                {t("save")}
               </ButtonAnt>
             </Desktop>
           </div>
 
           <div className="second-content">
-            <div className="subtitle">Cambia los colores:</div>
+            <div className="subtitle">{t("change-colors")}</div>
             <div className="colors-container">
               <div className="color-pick">
                 <div>
-                  <div className="color-title">Borde exterior</div>
+                  <div className="color-title">{t("border")}</div>
                   <div className="input-container">
                     <input type="color" name="outerBorder" ref={register} id="input-color-outerBorder" />
                     <label
@@ -312,7 +311,7 @@ export const Roulette = (props) => {
                   </div>
                 </div>
                 <div>
-                  <div className="color-title">Border interior</div>
+                  <div className="color-title">{t("border-in")}</div>
                   <div className="input-container">
                     <input type="color" name="lineColor" id="input-color-lineColor" ref={register} />
                     <label htmlFor="lineColor" onClick={() => document.getElementById("input-color-lineColor").click()}>
@@ -324,7 +323,7 @@ export const Roulette = (props) => {
 
               <div className="color-pick">
                 <div>
-                  <div className="color-title">Selector</div>
+                  <div className="color-title">{t("selector")}</div>
                   <div className="input-container">
                     <input type="color" name="selector" id="input-color-selector" ref={register} />
                     <label htmlFor="selector" onClick={() => document.getElementById("input-color-selector").click()}>
@@ -335,7 +334,7 @@ export const Roulette = (props) => {
               </div>
               <div className="color-pick">
                 <div>
-                  <div className="color-title">Textos</div>
+                  <div className="color-title">{t("texts")}</div>
                   <div className="input-container">
                     <input type="color" name="text" ref={register} id="input-color-number" />
                     <label htmlFor="text" onClick={() => document.getElementById("input-color-number").click()}>
@@ -344,7 +343,7 @@ export const Roulette = (props) => {
                   </div>
                 </div>
                 <div>
-                  <div className="color-title">Botón</div>
+                  <div className="color-title">{t("button")}</div>
                   <div className="input-container">
                     <input type="color" name="buttonColor" ref={register} id="input-color-button" />
                     <label htmlFor="buttonColor" onClick={() => document.getElementById("input-color-button").click()}>
@@ -355,7 +354,7 @@ export const Roulette = (props) => {
               </div>
               <div className="color-pick">
                 <div>
-                  <div className="color-title">Opciones</div>
+                  <div className="color-title">{t("options")}</div>
                   <div className="input-container">
                     <input type="color" name="colorPrimary" ref={register} id="input-color-primary" />
                     <label
@@ -367,7 +366,7 @@ export const Roulette = (props) => {
                   </div>
                 </div>
                 <div>
-                  <div className="color-title">Opciones</div>
+                  <div className="color-title">{t("options")}</div>
                   <div className="input-container">
                     <input type="color" name="colorSecondary" ref={register} id="input-color-secondary" />
                     <label
@@ -383,7 +382,7 @@ export const Roulette = (props) => {
           </div>
 
           <div className="third-content">
-            <div className="subtitle">Previsualización:</div>
+            <div className="subtitle">{t("preview")}:</div>
             <FortuneWheel
               setMustSpin={setMustSpin}
               mustStartSpinning={mustSpin}
@@ -408,7 +407,7 @@ export const Roulette = (props) => {
                 loading={props.isLoading || isLoadingOptions}
                 margin="1rem 0"
               >
-                Guardar
+                {t("save")}
               </ButtonAnt>
             </Tablet>
           </div>

@@ -5,10 +5,9 @@ import { useSendError } from "../../../hooks";
 import { useFetch } from "../../../hooks/useFetch";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
-import { ButtonAnt, Input } from "../../../components/form";
+import { ButtonAnt, Input, Switch } from "../../../components/form";
 import { FileUpload } from "../../../components/common/FileUpload";
 import get from "lodash/get";
-import { Switch } from "antd";
 import { mediaQuery } from "../../../constants";
 
 export const EditCompany = (props) => {

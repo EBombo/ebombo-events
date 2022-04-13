@@ -4,9 +4,12 @@ import { Image } from "./Image";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
+import { useTranslation } from "../../hooks";
 
 export const DesktopLeftMenu = (props) => {
   const router = useRouter();
+
+  const { t } = useTranslation("pages.library");
 
   useEffect(() => {
     router.prefetch("/library/games");
@@ -16,7 +19,7 @@ export const DesktopLeftMenu = (props) => {
 
   return (
     <LeftMenuContent>
-      <div className="subtitle">Libreria</div>
+      <div className="subtitle">{t("library")}</div>
       <div
         className={`item games ${get(router, "asPath", "") === "/library/games" ? "active" : ""}`}
         onClick={() => router.push("/library/games")}
@@ -28,7 +31,7 @@ export const DesktopLeftMenu = (props) => {
           className="icon"
           margin="0 20px 0 0"
         />
-        <div className="name">Mis juegos</div>
+        <div className="name">{t("my-games")}</div>
       </div>
 
       <div
@@ -42,7 +45,7 @@ export const DesktopLeftMenu = (props) => {
           className="icon"
           margin="0 20px 0 0"
         />
-        <div className="name">Folders</div>
+        <div className="name">{t("folders")}</div>
       </div>
 
       <div
@@ -56,7 +59,7 @@ export const DesktopLeftMenu = (props) => {
           className="icon"
           margin="0 20px 0 0"
         />
-        <div className="name">Events</div>
+        <div className="name">{t("events")}</div>
       </div>
     </LeftMenuContent>
   );

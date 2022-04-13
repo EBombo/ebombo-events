@@ -5,7 +5,8 @@
   "scripts": {
     "copy:example": "cp .env.example ./.env",
     "dev": "npm run copy:example && next dev -p 3001",
-    "build": "next build && next export",
+    "reference": "next build && next export -> https://nextjs.org/docs/advanced-features/i18n-routing#how-does-this-work-with-static-generation",
+    "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start -p 5000",
     "format": "npx prettier --write .",
@@ -24,6 +25,7 @@
     "antd": "^4.14.1",
     "aos": "^2.3.4",
     "country-list": "^2.2.0",
+    "ebombo-components": "github:EBombo/ebombo-components#0.0.3",
     "firebase": "^8.3.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",

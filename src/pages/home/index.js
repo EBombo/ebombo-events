@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import { HeaderLanding } from "./HeaderLanding";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -9,14 +9,19 @@ import { Options } from "./Options";
 import { Companies } from "./Companies";
 import { BannerEbombo } from "./BannerEbombo";
 import { Comments } from "./Comments";
+import { ModalNewEvent } from "../library/events/ModalNewEvent";
 
 export const Home = (props) => {
   const router = useRouter();
 
   const [authUser] = useGlobal("user");
 
+  const [isVisibleModalEvents, setIsVisibleModalEvents] = useState(false);
+
   useEffect(() => {
     router.prefetch("/library");
+    router.prefetch("/library/events");
+    router.prefetch("/events/[eventId]");
   }, []);
 
   useEffect(() => {
@@ -25,23 +30,41 @@ export const Home = (props) => {
     router.push("/");
   }, [authUser]);
 
+  const createEvent = () => {
+    if (authUser) return router.push("/library/events");
+
+    return router.push("/events/new");
+
+    // TODO: Allow creating event without account and managed by user.
+    //setIsVisibleModalEvents((prev) => !prev);
+  };
+
   return (
     <LandingContainer>
-      <HeaderLanding />
+      {isVisibleModalEvents && (
+        <ModalNewEvent
+          {...props}
+          hiddeMySelfOption
+          isVisibleModalEvents={isVisibleModalEvents}
+          setIsVisibleModalEvents={setIsVisibleModalEvents}
+        />
+      )}
 
-      <Products />
+      <HeaderLanding createEvent={createEvent} />
+
+      <Products createEvent={createEvent} />
 
       <EventsInformation {...props} />
 
       <EbomboStyle {...props} />
 
-      <Options {...props} />
+      <Options {...props} createEvent={createEvent} />
 
       <Companies {...props} />
 
       <Comments {...props} />
 
-      <BannerEbombo {...props} btnContact />
+      <BannerEbombo {...props} createEvent={createEvent} btnContact />
     </LandingContainer>
   );
 };

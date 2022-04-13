@@ -6,16 +6,14 @@ import { useRouter } from "next/router";
 import { CheckOutlined } from "@ant-design/icons";
 import { Image } from "../../components/common/Image";
 import { config } from "../../firebase";
+import { useTranslation } from "../../hooks";
 
-const options = [
-  "Acceda a nuestra biblioteca de juegos completa que incluye Trivia, Bingo, Ruleta de preguntas, Ahorcado, entre varias actividades",
-  "Eventos organizados o autoorganizados",
-  "Organice fácilmente eventos con nosotros",
-  "Permita que equipos grandes puedan tener un espacio de diversión, entretenimiento e integración",
-];
+const options = ["opt1", "opt2", "opt3", "opt4"];
 
 export const Options = (props) => {
   const router = useRouter();
+
+  const { t } = useTranslation("landing.options");
 
   useEffect(() => {
     router.prefetch("/register");
@@ -24,13 +22,13 @@ export const Options = (props) => {
   return (
     <OptionsStyled>
       <div className="content">
-        <div className="title">Eventos virtuales para el equipo con todas las opciones</div>
+        <div className="title">{t("title")}</div>
 
         <div className="options">
           {options.map((option) => (
             <div className="option" key={option}>
               {" "}
-              <CheckOutlined /> {option}
+              <CheckOutlined /> {t(`options.${option}`)}
             </div>
           ))}
         </div>
@@ -40,13 +38,13 @@ export const Options = (props) => {
           variant="contained"
           fontSize="15px"
           margin="15px 0 0 0"
-          onClick={() => router.push("/contact")}
+          onClick={() => props.createEvent()}
         >
-          Contáctanos
+          {t("book-an-event")}
         </ButtonAnt>
 
         <div className="hr">
-          <div className="sub-title">Con la confianza de empresas líderes</div>
+          <div className="sub-title">{t("sub-title")}</div>
         </div>
         <div className="images">
           <Image

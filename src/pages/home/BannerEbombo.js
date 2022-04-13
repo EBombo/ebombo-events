@@ -2,15 +2,15 @@ import React from "reactn";
 import styled from "styled-components";
 import { ButtonAnt } from "../../components/form";
 import { mediaQuery } from "../../constants";
-import { useRouter } from "next/router";
+import { useTranslation } from "../../hooks";
 
 export const BannerEbombo = (props) => {
-  const router = useRouter();
+  const { t } = useTranslation("landing.banner");
 
   return (
     <BannerEbomboStyled>
       <div className="content-banner">
-        <div className="title">El evento virtual que amarás</div>
+        <div className="title">{t("title")}</div>
 
         {props.btnContact && (
           <ButtonAnt
@@ -18,9 +18,9 @@ export const BannerEbombo = (props) => {
             variant="contained"
             fontSize="15px"
             margin="25px 0 0 0"
-            onClick={() => router.push("/contact")}
+            onClick={() => props.createEvent()}
           >
-            Contáctanos
+            {t("book-an-event")}
           </ButtonAnt>
         )}
       </div>

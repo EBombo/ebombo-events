@@ -1,0 +1,562 @@
+{
+  "en": "English",
+  "es": "Spanish",
+  "language": "Language",
+  "landing": {
+    "header": {
+      "ebombo-style": "Ebombo style",
+      "title": "Our dynamic approach to connecting workers online will help your work environment",
+      "sub-title": "The way your workers meet influences the climate and culture of your company. Our platform allows you to have online experiences and virtual events to promote the productivity, engagement and fun of your workers.",
+      "book-an-event": "Book an event"
+    },
+    "products": {
+      "title": "AN INCREDIBLE WAY TO CONNECT WITH YOUR TEAM",
+      "sub-title": "We have created a straightforward tool that ensures an improved work environment",
+      "book-an-event": "Book an event",
+      "tabs": {
+        "virtual-activities": "Virtual activities",
+        "ways-to-interact": "Ways to interact",
+        "plans": "Plans",
+        "contents": {
+          "titles": {
+            "virtual-activities": "Virtual activities",
+            "plans": "Plans"
+          },
+          "descriptions": {
+            "virtual-activities": "Ebombo has more than 20 virtual activities so you can connect with your workers. We have integration dynamics, entertainment, onboarding, training for new workers, games, anniversaries, awards, ceremonies and much more.",
+            "plans": "We have plans to accommodate your needs:"
+          }
+        },
+        "options": {
+          "holiday-party": "Holiday party",
+          "trainings": "Trainings",
+          "workshops": "Workshops",
+          "awards": "Awards",
+          "tournaments": "Tournaments",
+          "ceremonies": "Ceremonies",
+          "unique-events": "Unique events",
+          "seasonal-plans": "Weekly/monthly/yearly plans",
+          "custom-plans": "Custom plans"
+        }
+      }
+    },
+    "information": {
+      "title": "Direct the virtual dynamics as you wish",
+      "titles": {
+        "pro-hosted": "Pro Hosted",
+        "self-hosted": "Self hosted"
+      },
+      "descriptions": {
+        "pro-hosted": "Leave it in the hands of a member of the ebombo Customer Success team. In addition, an elite or VIP entertainer will lead your live event that will unite your team in a collaborative and fun experience.",
+        "self-hosted": "It is your moment. We have made it easy and intuitive for your team to be the ones to create and direct the virtual activities that ebombo offers."
+      }
+    },
+    "style": {
+      "title": "Ebombo style",
+      "items": {
+        "titles": {
+          "training-and-orientation": "Training and Orientation",
+          "onboardings": "Onboardings",
+          "games": "Games",
+          "happy-hour": "Happy Hour",
+          "holidays": "Holidays",
+          "benefit-plan": "Benefit plan",
+          "weather-activities": "Weather activities",
+          "awards": "Awards",
+          "icebreaker-activities": "Icebreaker activities",
+          "connect": "Connect"
+        },
+        "descriptions": {
+          "training-and-orientation": "We help your workers have training to learn more technical issues in a fun way that allows for a high rate of engagement.",
+          "onboardings": "We offer virtual training activities for new workers, but in a fun way.",
+          "games": "We have several well-known virtual activities with our own exciting twists such as 'Bingo, Hangman, Roulette, Trivia and more'.",
+          "happy-hour": "Bring your team together for a virtual happy hour and forget about the distance. Guaranteed fun with or without drinks, you decide.",
+          "holidays": "Whether you are celebrating Christmas, Women's Day, Labor Day, LGTBI Community Day, Anniversaries, Mother's Day, Father's Day, Children's Day and more, we have the best options.",
+          "benefit-plan": "For each activity that is used, your workers will accumulate points and then they can redeem them for incredible prizes",
+          "weather-activities": "Carry out activities for your team in a fun, authentic and innovative way.",
+          "awards": "We make awards to celebrate the achievements of your workers.",
+          "icebreaker-activities": "We have many activities to strengthen the work environment in the company. Make fun dynamics to motivate your team and help your colleagues to understand each other better.",
+          "connect": "Connecting your team virtually doesn't have to be a challenge. We have built innovative activities with technology that bring people together anywhere, anytime and on any occasion."
+        }
+      }
+    },
+    "options": {
+      "book-an-event": "Book an event",
+      "title": "Virtual events for the team with all the options",
+      "sub-title": "Trusted by leading companies",
+      "options": {
+        "opt1": "Access our complete game library including Trivia, Bingo, Trivia Wheel, Hangman, among many other activities",
+        "opt2": "Organized or self-organized events",
+        "opt3": "Easily organize events with us",
+        "opt4": "Allow large teams to have a space for fun, entertainment and integration"
+      }
+    },
+    "companies": {
+      "title": "Companies we have worked with"
+    },
+    "banner": {
+      "title": "The virtual event you will love",
+      "book-an-event": "Book an event"
+    },
+    "games-descriptions": {
+      "trivia": {
+        "title": "Trivia",
+        "description": "Gather your team for quiz activities giving it the focus you want: movies, sports or even onboarding and training topics."
+      },
+      "bingo": {
+        "title": "BINGO",
+        "description": "Virtually play an interactive Bingo with your collaborators. Use our platform so that your workers have their cards and play it from home or at work."
+      },
+      "roulette": {
+        "title": "Roulette",
+        "description": "Do live raffles or with a ready-made list of presents that you would like to give to your workers for an important date."
+      },
+      "roulette-icebreaker": {
+        "title": "Icebreaker Roulette",
+        "description": "Use the icebreaker roulette to break the atmosphere. Questions that you choose will come up and the collaborators will have to answer them in a fun way."
+      },
+      "hangman": {
+        "title": "Hangman",
+        "description": "Choose words or phrases you want. They can be related to the culture of the company or give it the focus you want."
+      },
+      "2-true-1-false": {
+        "title": "Two truths and a Lie",
+        "description": "Mention three statements about the topic you want and the player must guess which one is the lie. Perfect for trainings."
+      },
+      "zoom": {
+        "title": "Zoom to image",
+        "description": "Give us a complete picture of what you want and we will show a part to collaborators. Whoever guesses what the picture is about will win."
+      },
+      "movie-guess": {
+        "title": "Guess the movie",
+        "description": "We will give you details of a movie and the player who can guess which one is first, will win."
+      },
+      "scrambled-letters": {
+        "title": "Scrambled Letters",
+        "description": "We will show you ordering of the phrases or words you want and the collaborators will have to compete to see who can order the letters first."
+      },
+      "charadas": {
+        "title": "Charades",
+        "description": "Make your collaborators stand up from their seats, move their bodies and act out what is shown on the screen. The other workers will have to guess what it is."
+      },
+      "song-guess": {
+        "title": "Guess the song",
+        "description": "We will play an excerpt from a song and the collaborator who guesses the name first will win a point and if he sings, an additional one."
+      },
+      "emoji-language": {
+        "title": "Emoji Language",
+        "description": "We will show three emojis and the collaborators will have to interpret them and find the hidden phrase or word."
+      },
+      "domestic-movie": {
+        "title": "Home Movie",
+        "description": "We will reproduce a small scene from a movie and then two collaborators will have to imitate the performances."
+      },
+      "pinta-acierta": {
+        "title": "Pinta acierta",
+        "description": "We will reproduce a small scene from a movie and then two collaborators will have to imitate the performances."
+      },
+      "trivia-crack": {
+        "title": "Trivia Crack",
+        "description": "Create entertaining trivia on topics such as movies, history, sports, art, science and much more. Gather your collaborators and show who is the most \"cultured\" of all."
+      },
+      "trivia-onboarding": {
+        "title": "Trivia Onboarding",
+        "description": "Make onboarding trivia and teach your workers in a fun, efficient and group way. Your tests can be all kinds."
+      },
+      "sing-and-win": {
+        "title": "Canta y Gana",
+        "description": ""
+      },
+      "whom-brings-to-me": {
+        "title": "A quien me traiga",
+        "description": ""
+      }
+    },
+    "team-building": {
+      "intro-subheading": "Do it like nobody else",
+      "intro-team-building-title": "TEAM BUILDING",
+      "intro-team-building-description": "Created by professionals who take fun seriously, our virtual team building events team creates the kind of links that would take years to create in a remote working manner.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "One challenge of remote work is the lack of connection. Our platform provides collaborative moments for remote teams to have fun together and better connect.",
+        "description-paragraph-2": "We use the power of activities to strengthen company culture, create more productive working relationships and improve team engagement, which leads to higher employee retention and higher workplace satisfaction."
+      },
+      "activities": {
+        "title": "VIRTUAL DE TEAM BULDING ACTIVITIES",
+        "description": "Looking for the best virtual activities to engage employees and facilitate team bonding? We've got you covered. Choose from over 25 activities in our unmatched library or ask us for something custom!"
+      },
+      "virtual-events": {
+        "title": "Virtual events and games that will strengthen your team",
+        "items-1": {
+          "title": "Thousands of teambuilding dynamic options",
+          "description": "Our remote team activities are designed to enhance connections, they work just as well with groups getting to know each other as they do with teams meeting for the first time."
+        },
+        "items-2": {
+          "title": "Personalized team building events",
+          "description": "Our activities work just as well with groups getting to know each other as they do with teams meeting for the first time. Our variety of content allows you to plan an event for longtime colleagues or with new colleagues."
+        },
+        "items-3": {
+          "title": "A DIFFERENT TEAM BUILDING PLATFORM",
+          "description": "Use the right activity for each occasion. No matter the size of the company, all employees can participate in a fun way. From a happy hour to a conference it's easy to plan. We are here to bring you closer virtually."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
+    },
+    "on-boarding": {
+      "intro-subheading": "Everything you need for",
+      "intro-title": "Training and Onboarding Experiences",
+      "intro-description": "Create a smoother virtual employee onboarding experience that integrates fun and accelerates connection to build stronger teams from the start.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "It can be challenging to onboard new employees or interns remotely while making them welcome and connected. ebombo allows you to personalize virtual employee training, orientation and onboarding experiences.",
+        "description-paragraph-2": "Show new employees that your company is serious about fun and work."
+      },
+      "activities": {
+        "title": "ONBOARDING AND VIRTUAL TRAINING LIKE NO OTHER",
+        "description": "Bring in a remote team? We've got you covered. Take your employee training experience to the next level with our totally fun activities. Choose from our unrivaled library or ask us for something custom!"
+      },
+      "virtual-events": {
+        "title": "VIRTUAL INCORPORATIONS THAT RESULT IN RETENTION AND CONNECTION",
+        "items-1": {
+          "title": "VIRTUAL EMPLOYEE TRAINING THAT MAKES ONBOARDING FUN",
+          "description": "We believe in the importance of starting off on the right foot with your new hires, so you can better retain them, do it efficiently and in a fun way. Whether you incorporate 1 or 1000 people. Create an unforgettable experience by switching to game mode where new hires can answer questions about what they just learned."
+        },
+        "items-2": {
+          "title": "PROMOTE THE TEAM BOND WITH VIRTUAL DYNAMICS",
+          "description": "Help new hires fit in with your team by connecting them with their new colleagues. With new content every month, you can plan new experiences every time you have a new hire to keep virtual employee training fresh and fun."
+        },
+        "items-3": {
+          "title": "CUSTOMIZE YOUR VIRTUAL EMPLOYEE INTEGRATION",
+          "description": "Create personalized onboarding experiences. Use your event as a learning and fun tool to teach and transmit company information. Design your own experience that combines purposeful learning, bonding, and friendly competition."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
+    },
+    "content": {
+      "intro-subheading": "See all of",
+      "intro-title": "Our content",
+      "intro-description": "From easy trivia to quick holiday-themed rounds, our content is fun, relevant, and designed to bring your team together.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "How it works?",
+        "description": "As part of our commitment to amazing new content, we have a team committed to creating new activities and challenges every month.",
+        "description-paragraph-2": ""
+      },
+      "virtual-events": {
+        "title": "",
+        "items-1": {
+          "title": "Game of the month",
+          "description": "Our team creates completely new experiences every month. We have worked hard to make sure that different types of personalities enjoy our experiences. Our content is created to appeal to everyone."
+        },
+        "items-2": {
+          "title": "International Offers",
+          "description": "We have connected people internationally. Our library of content and activities built for remote teams is always in development."
+        },
+        "items-3": {
+          "title": "Bilingual Delivery",
+          "description": "Between our regional partners and bilingual hosts, we can deliver content in Spanish and English without any problem. If we don't speak your language yet, we will have automatic translation very soon."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
+    },
+    "activities": {
+      "intro-subheading": "Ebombo style",
+      "intro-title": "One-of-a-kind dynamics",
+      "intro-bullet-1": "Mini activities easy to play and manage.",
+      "intro-bullet-2": "Get access to our whole library of games.",
+      "intro-bullet-3": "Have fun with all your collaborators.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "ebombo-style": {
+        "title": "Ebombo style",
+        "items-1": {
+          "title": "Trivia",
+          "description": "Gather your team for quiz activities giving it the focus you want: movies, sports or even onboarding and training topics."
+        },
+        "items-2": {
+          "title": "Sing and win!",
+          "description": "Players can choose a song to sing a small part. Everyone has a moment to shine. We will provide the lyrics and music. The more fun, the more points!"
+        },
+        "items-3": {
+          "title": "who will bring me a...!",
+          "description": "Players are given a clue from an everyday item commonly found in their homes. Whoever first describes what the mystery object is and shows it to the camera will win points."
+        },
+        "items-4": {
+          "title": "Guess the song",
+          "description": "We will play an excerpt from a song and the collaborator who guesses the name first will win a point and if he sings, an additional one."
+        },
+        "items-5": {
+          "title": "Domestic Movie",
+          "description": "We will reproduce a small scene from a movie and then two collaborators will have to imitate the performances."
+        },
+        "items-6": {
+          "title": "Zoom to image",
+          "description": "Give us a complete picture of what you want and we will show a part to collaborators. Whoever guesses what the picture is about will win."
+        },
+        "items-7": {
+          "title": "2 truths and 1 lie",
+          "description": "Mention three statements about the topic you want and the player must guess which one is the lie. Perfect for trainings."
+        },
+        "items-8": {
+          "title": "Icebreaker Roulette",
+          "description": "Use the icebreaker roulette to break the atmosphere. Questions that you choose will come up and the collaborators will have to answer them in a fun way."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
+    },
+    "corporate-events": {
+      "intro-subheading": "Create your own",
+      "intro-title": "Corporate Events",
+      "intro-description": "Create virtual corporate events to build better teams, strengthen company culture, and create community. The platform is easy to use and to customize. It will make your next event the best ever.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "ebombo allows you to gather all your employees from all over the world for your next event. Whether your team is big, small, or growing, our platform can help you create big moments and intimate experiences.",
+        "description-paragraph-2": "Whatever you're planning and want to stream and share at your next event, we'll help you make it happen by increasing engagement, retention and fun.\n"
+      },
+      "activities": {
+        "title": "VIRTUAL CORPORATE AND BUSINESS EVENTS THAT EXCITE EVERYONE",
+        "description": "Update your virtual events. Gather all your collaborators and create unforgettable and personalized events that motivate the entire company. Choose from our library of games or ask us for something custom!"
+      },
+      "virtual-events": {
+        "title": "Corporate virtual events for everyone",
+        "items-1": {
+          "title": "TEAM BUILDING ACTIVITIES FOR CORPORATE EVENTS",
+          "description": "Update your virtual corporate events. Create a personalized company trivia or some other activity such as an icebreaker wheel or giveaway wheel at your meeting. We have an activity for every occasion and enough team building activities for corporate events that you can now plan all year long. (And if you're looking at the entire next year's worth of events, you should take a look at our subscription model.)"
+        },
+        "items-2": {
+          "title": "CREATE UNFORGETTABLE VIRTUAL CORPORATE EVENTS",
+          "description": "Our entry PIN feature makes it quick and easy for collaborators to enter the activity so everyone is on the same page and can participate simultaneously. Do you want to collect information from thousands of attendees at once? Our post activity surveys allow you to see the results."
+        },
+        "items-3": {
+          "title": "VIRTUAL CORPORATE EVENTS THAT SHOW YOUR PERSONALITY",
+          "description": "Make your company's personality shine by presenting your brand's logo and colors during the event. It's easy to customize whatever the event is. And if you want to get started with a video of something related to your business, we're here to help with that too. We'd love to have a few opening words from a member of the team."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
+    }
+  },
+  "nav": {
+    "login": "Log in",
+    "logout": "Logout",
+    "use-case": {
+      "title": "Use Case",
+      "team-building": "Team Building",
+      "on-boarding": "On Boarding",
+      "corporate-events": "Corporate Events"
+    },
+    "features": {
+      "title": "Features",
+      "activities": "Activities",
+      "content": "Content"
+    },
+    "about-us": "About us",
+    "contact-us": "Contact us",
+    "contact": "Contact",
+    "experience": "Experience"
+  },
+  "userLayout": {
+    "library": "Library",
+    "reports": "Reports",
+    "login": "Log in",
+    "create": "Create"
+  },
+  "footer": {
+    "us": "Us",
+    "know-us": "Know us",
+    "terms-and-conditions": "Terms and conditions",
+    "platform": "Platform",
+    "what-do-we-do": "What do we do?",
+    "request-a-demo": "Request a demo",
+    "contact": "Contact",
+    "contact-sales": "Contact sales",
+    "contact-support": "Contact support"
+  },
+  "pages": {
+    "library": {
+      "my-games": "My games",
+      "library": "Library",
+      "folders": "Folders",
+      "folder": "Folder",
+      "events": "Events",
+      "search": "Search",
+      "folder-empty": "You don't have folders",
+      "games-empty": "You don't have games",
+      "rename": "Rename",
+      "duplicate": "Duplicate",
+      "move": "Move",
+      "delete": "Delete",
+      "create-game": "Create game",
+      "favorites": "Favorites",
+      "recent": "Recent",
+      "games": "Games",
+      "created-ago": "Created ago",
+      "edit": "Edit",
+      "play": "Play",
+      "bingo": {
+        "card-title": "Card title",
+        "event-name": "Event name",
+        "settings": "Settings",
+        "cancel": "Cancel",
+        "customize-card": "Customize Card",
+        "title": "Title",
+        "columns": "Columns",
+        "select-color": "Select a color to change it",
+        "background": "Background",
+        "blocks": "Blocks",
+        "number": "Number",
+        "save": "Save",
+        "upload-img": "Upload background image for primer",
+        "update-img": "Change background image for primer"
+      },
+      "hanged": {
+        "event-name": "Event name",
+        "settings": "Settings",
+        "cancel": "Cancel",
+        "phrases": "Phrases for the game",
+        "description-area": "Write the sentences and separate them with “ENTER” (Max. 50 characters per word or sentence). Only letters, question and exclamation marks (?!), space, and comma (,) are accepted.",
+        "phrases-to-guess": "Phrases to guess",
+        "save": "Save"
+      },
+      "roulette": {
+        "event-name": "Event name",
+        "settings": "Settings",
+        "cancel": "Cancel",
+        "save": "Save",
+        "amount-of": "Amount of",
+        "questions": "questions to be sorted",
+        "winners": "winners",
+        "live": "Live",
+        "description-live": "(People who participate in the draw will have to register live for the draw using a pin)",
+        "description-area": "Write the name of the participants and separate them with “ENTER” (Max. 25 characters)",
+        "description-placeholder": "Write each question and separate them with “ENTER” (Max. 35 characters)",
+        "participant-name": "Participant names",
+        "change-colors": "Change colors",
+        "border": "Outer edge",
+        "border-in": "Inner edge",
+        "selector": "Selector",
+        "texts": "Texts",
+        "button": "Button",
+        "options": "Options",
+        "preview": "Preview"
+      },
+      "trivia": {
+        "title": "Title",
+        "event-name": "Event name",
+        "settings": "Settings",
+        "cancel": "Cancel",
+        "save": "Save",
+        "add-question": "Add question",
+        "write-question": "Write your question",
+        "write-answer": "Write answer",
+        "false": "False",
+        "true": "True",
+        "question-type": "Question type",
+        "time-limit": "Time limit",
+        "answer-options": "Answer options"
+      }
+    },
+    "about-us": {
+      "title": "About us?",
+      "description-1": "ebombo is an HR technology company focused on the future of work. Allowing other companies to connect with their employees and improve their work environment. All this is possible with the virtual activities that we create. These activities consist of different types of games, dynamics of incorporation, training and more, in a fun and casual way.",
+      "description-2": "Our mission is to impact the lives of millions of workers with entertainment. We understand that many they want to work remotely and that keeping workers integrated in this scheme is difficult.",
+      "contact-us": {
+        "title": "Contact us",
+        "description": "Leave your query and our sales team will contact you.",
+        "send": "Send",
+        "name": "Name",
+        "lastName": "LastName",
+        "email": "email",
+        "company": "Company",
+        "phone-number": "Phone number",
+        "leave-us-your-query": "Leave us your query here"
+      }
+    },
+    "login": {
+      "title": "Log in",
+      "google-login": "Sign in with Google",
+      "email": "Email",
+      "password": "Password",
+      "forgot-password": "I forgot my password",
+      "login": "Login",
+      "not-have-account": "You do not have an account?",
+      "sign-up": "Sign up here"
+    },
+    "recovery": {
+      "title": "Very good!",
+      "note": "We have sent you an email with instructions to reset your password.",
+      "recover-password": "Recover password",
+      "description-1": "Please enter the email address associated with your account. We will send you an email that will allow you to create a new password.",
+      "email": "Email"
+    },
+    "register": {
+      "google-login": "Sign in with Google",
+      "sign-up": "Sign up",
+      "name": "Name",
+      "last-name": "LastName",
+      "email": "Email",
+      "date-of-birth": "Date of birth",
+      "country": "Country",
+      "phone": "Phone number",
+      "password": "Password"
+    },
+    "experience": {
+      "title": "THE MOST FUN ACTIVITIES YOU CAN FIND",
+      "subtitle": "We set the standard for virtual engagement and enhance remote office culture.",
+      "loginButton": "Log in",
+      "freeTrial": "GET A FREE TRIAL",
+      "freeTrial-time": "FOR 1 MONTH",
+      "firstSection": "More popular",
+      "secondSection": "Between Companies",
+      "thirdSection": "Team Building",
+      "trivia": "Gather your team for quiz activities giving it the focus you want: movies, sports or even onboarding and training topics.",
+      "bingo": "Virtually play an interactive Bingo with your collaborators. Use our platform so that your workers have their cards and play it from home or at work.",
+      "roulette": "Haz sorteos en vivo o con una lista ya hecha de presentes que quisieras regalar a tus trabajadores por una fecha importante.",
+      "domesticMovie": "Do live raffles or with a ready-made list of presents that you would like to give to your workers for an important date.",
+      "triviaCrack": "Create entertaining trivia on topics such as movies, history, sports, art, science and much more. Gather your collaborators and show who is the most \"cultured\" of all.",
+      "song": "We will play an excerpt from a song and the collaborator who guesses the name first will win a point and if he sings, an additional one.",
+      "scrabble": "We will show you ordering of the phrases or words you want and the collaborators will have to compete to see who can order the letters first.",
+      "imagesZoom": "Give us a complete picture of what you want and we will show a part to collaborators. Whoever guesses what the picture is about will win.",
+      "rouletteQuestions": "Use the icebreaker roulette to break the atmosphere. Questions that you choose will come up and the collaborators will have to answer them in a fun way.",
+      "triviaOnboarding": "Make onboarding trivia and teach your workers in a fun, efficient and group way. Your tests can be all kinds.",
+      "charade": "Make your collaborators stand up from their seats, move their bodies and act out what is shown on the screen. The other workers will have to guess what it is.",
+      "emoji": "We will show three emojis and the collaborators will have to interpret them and find the hidden phrase or word.",
+      "games": {
+        "trivia": "Trivia",
+        "bingo": "Bingo",
+        "roulette": "Roulette",
+        "domesticMovie": "Domestic Movie",
+        "triviaCrack": "Trivia Crack",
+        "song": "Song",
+        "scrabble": "Scrabble",
+        "imagesZoom": "Images Zoom",
+        "rouletteQuestions": "Icebreaker Roulette",
+        "triviaOnboarding": "Trivia Onboarding",
+        "charade": "Charade",
+        "emoji": "Emoji Language"
+      },
+      "lastTitle": "The virtual event you will love"
+    }
+  }
+}

@@ -3,20 +3,19 @@ import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { config } from "../../firebase";
 import { Desktop, mediaQuery, Tablet } from "../../constants";
+import { useTranslation } from "../../hooks";
 
 const items = [
   {
     icon: "star.png",
-    title: "Pro Hosted",
-    description:
-      "Déjalo en manos de un miembro del equipo de Customer Success de ebombo. Además, un animador elite o VIP dirigirá tu evento en vivo que unirá a tu equipo en una experiencia colaborativa y divertida.",
+    title: "pro-hosted",
+    description: "pro-hosted",
     image: `${config.storageUrl}/resources/videos-landing/video-5.gif`,
   },
   {
     icon: "user.png",
-    title: "Self hosted",
-    description:
-      "Es tu momento. Lo hemos hecho fácil e intuitivo para que tú u otra persona de tu equipo sea quien cree y dirija las actividades virtuales que ebombo ofrece. ",
+    title: "self-hosted",
+    description: "self-hosted",
     image: `${config.storageUrl}/resources/videos-landing/video-6.gif`,
   },
 ];
@@ -24,10 +23,12 @@ const items = [
 export const EventsInformation = (props) => {
   const [currentItem, setCurrentItem] = useState(0);
 
+  const { t } = useTranslation("landing.information");
+
   return (
     <EventsInformationStyled>
       <div className="content-information">
-        <div className="title">Dirige como quieras las dinámicas virtuales</div>
+        <div className="title">{t("title")}</div>
 
         <div className="events-content">
           <Tablet>
@@ -49,9 +50,9 @@ export const EventsInformation = (props) => {
                     size="contain"
                     margin="0 8px 0 0"
                   />
-                  {item.title}
+                  {t(`titles.${item.title}`)}
                 </div>
-                <div className="description">{item.description}</div>
+                <div className="description">{t(`descriptions.${item.description}`)}</div>
               </div>
             ))}
           </div>

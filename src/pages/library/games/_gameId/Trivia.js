@@ -9,7 +9,7 @@ import {
   questionTypes,
   triviaQuestionsOptions,
   triviaQuestionsTimes,
-  triviaQuestionsTypes
+  triviaQuestionsTypes,
 } from "../../../../components/common/DataList";
 import { AfterMobile, Desktop, Mobile, Tablet } from "../../../../constants";
 import { FileUpload } from "../../../../components/common/FileUpload";
@@ -21,11 +21,13 @@ import { snapshotToArray } from "../../../../utils";
 import { spinLoader } from "../../../../components/common/loader";
 import orderBy from "lodash/orderBy";
 import { LeftOutlined } from "@ant-design/icons";
+import { useTranslation } from "../../../../hooks";
 
 export const Trivia = (props) => {
   const router = useRouter();
-
   const { gameId } = router.query;
+
+  const { t } = useTranslation("pages.library.trivia");
 
   const [questions, setQuestions] = useState([
     {
@@ -146,6 +148,7 @@ export const Trivia = (props) => {
 
   if (loading) return spinLoader();
 
+  // TODO: Consider refactoring, the component is long.
   return (
     <div className="w-screen h-full">
       {isVisibleModalSettings && (
@@ -193,7 +196,7 @@ export const Trivia = (props) => {
               name="name"
               ref={register}
               error={errors.name}
-              placeholder="Nombre del Evento"
+              placeholder={t("event-name")}
             />
           </div>
           <ButtonAnt
@@ -204,10 +207,10 @@ export const Trivia = (props) => {
             onClick={() => setIsVisibleModalSettings(true)}
             disabled={props.isLoading}
           >
-            Ajustes
+            {t("settings")}
           </ButtonAnt>
           <ButtonAnt color="default" size="small" margin={"0 0 0 10px"} onClick={() => router.back()}>
-            Cancelar
+            {t("cancel")}
           </ButtonAnt>
         </div>
         <div className="w-full h-[calc(100vh-50px)] overflow-auto grid md:grid-cols-[180px_auto_260px] shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
@@ -255,7 +258,7 @@ export const Trivia = (props) => {
                   size="small"
                   margin="auto"
                 >
-                  Añadir Pregunta
+                  {t("add-question")}
                 </ButtonAnt>
               </div>
             </div>
@@ -268,7 +271,7 @@ export const Trivia = (props) => {
                   disabled={props.isLoading}
                   loading={props.isLoading}
                 >
-                  Guardar
+                  {t("save")}
                 </ButtonAnt>
               </div>
             </Desktop>
@@ -278,7 +281,7 @@ export const Trivia = (props) => {
             <input
               type="text"
               className="w-full h-[80px] rounded-[4px] bg-whiteLight text-center text-['Lato'] font-[500] text-[25px] leading-[30px] text-grayLight"
-              placeholder="Escribe tu pregunta..."
+              placeholder={`${t("write-question")}...`}
               value={questions[questionIndex]?.question || ""}
               onChange={(e) => {
                 const _questions = [...questions];
@@ -323,7 +326,7 @@ export const Trivia = (props) => {
                   margin="0 5px 0 0"
                 />
                 <div className="text-grayLight text-['Lato'] font-bold text-[11px] leading-[13px]">
-                  Tipo de pregunta
+                  {t("question-type")}
                 </div>
               </div>
               <select
@@ -355,7 +358,7 @@ export const Trivia = (props) => {
                   margin="0 5px 0 0"
                 />
                 <div className="text-grayLight text-['Lato'] font-bold text-[11px] leading-[13px]">
-                  Límite de tiempo
+                  {t("time-limit")}
                 </div>
               </div>
               <select
@@ -383,7 +386,7 @@ export const Trivia = (props) => {
                   margin="0 5px 0 0"
                 />
                 <div className="text-grayLight text-['Lato'] font-bold text-[11px] leading-[13px]">
-                  Opciones de respuesta
+                  {t("answer-options")}
                 </div>
               </div>
               <select

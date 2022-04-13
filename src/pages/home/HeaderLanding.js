@@ -4,9 +4,11 @@ import { mediaQuery } from "../../constants";
 import { config } from "../../firebase";
 import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
+import { useTranslation } from "../../hooks";
 
 export const HeaderLanding = (props) => {
   const router = useRouter();
+  const { t } = useTranslation("landing.header");
 
   useEffect(() => {
     router.prefetch("/register");
@@ -15,19 +17,21 @@ export const HeaderLanding = (props) => {
   return (
     <HeaderLandingContainer>
       <div className="left-container">
-        <div className="text-primary text-2xl">Al estilo ebombo</div>
+        <div className="text-primary text-2xl">{t("ebombo-style")}</div>
+
         <div className="title" data-aos="fade-up" data-aos-delay="0" data-aos-anchor-placement="top-center">
-          Ayudamos a tu empresa a conectar con tus trabajadores para mejorar el ambiente de trabajo
+          {t("title")}
         </div>
+
         <div className="description" data-aos="fade-up" data-aos-delay="500" data-aos-anchor-placement="top-center">
-          La forma en que tus trabajadores se reunen influye en el clima y cultura de tu empresa. Nuestra plataforma te
-          permite tener experiencias en línea y eventos virtuales para promover la productividad, el compromiso y la
-          diversión de tus trabajadores.
+          {t("sub-title")}
         </div>
-        <ButtonAnt color="success" fontSize="20px" margin="15px 0 0 0" onClick={() => router.push("/contact")}>
-          Contáctanos
+
+        <ButtonAnt color="success" fontSize="20px" margin="15px 0 0 0" onClick={() => props.createEvent()}>
+          {t("book-an-event")}
         </ButtonAnt>
       </div>
+
       <div className="right-container" data-aos="fade-left">
         <div className="image-container">
           <img src={`${config.storageUrl}/resources/videos-landing/video-1.gif`} width={"80%"} height={"400px"} />

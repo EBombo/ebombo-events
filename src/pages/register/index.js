@@ -8,6 +8,7 @@ import { getData } from "country-list";
 import { object, ref, string } from "yup";
 import get from "lodash/get";
 import { DatePicker } from "antd";
+import { useTranslation } from "../../hooks";
 
 export const Register = (props) => {
   const validationSchema = object().shape({
@@ -24,6 +25,8 @@ export const Register = (props) => {
   });
 
   const { signUp, ButtonsProviders } = useAuth();
+  const { t } = useTranslation("pages.register");
+
   const [authUser] = useGlobal("user");
   const [isLoadingUser] = useGlobal("isLoadingUser");
   const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
@@ -58,43 +61,48 @@ export const Register = (props) => {
       <div className="w-full max-w-[604px] mt-auto mb-auto">
         <form onSubmit={handleSubmit(signUpUser)} autoComplete="off" className="form-container" noValidate>
           <div className="form-content">
-            <div className="text-['Lato'] text-[44px] leading-[53px] text-primary tracking-wide mb-8">Regístrate</div>
+            <div className="text-['Lato'] text-[44px] leading-[53px] text-primary tracking-wide mb-8">
+              {t("sign-up")}
+            </div>
 
-            <ButtonsProviders google />
+            <ButtonsProviders google googleLabel={t("google-login")} />
 
             <div className="my-3 grid gap-[10px] w-full md:grid-cols-[1fr_1fr] md:my-4">
               <Input
                 error={errors.name}
+                defaultValue={props.name}
                 type="text"
                 ref={register}
                 height="40px"
                 name="name"
                 background="white"
                 autoComplete="off"
-                placeholder="Nombre"
+                placeholder={t("name")}
               />
               <Input
                 error={errors.lastName}
+                defaultValue={props.lastName}
                 type="text"
                 ref={register}
                 height="40px"
                 name="lastName"
                 background="white"
                 autoComplete="off"
-                placeholder="Apellidos"
+                placeholder={t("last-name")}
               />
             </div>
 
             <div className="my-3 grid gap-[10px] w-full md:grid-cols-[1fr_1fr] md:my-4">
               <Input
                 error={errors.email}
+                defaultValue={props.email}
                 type="email"
                 ref={register}
                 name="email"
                 height="40px"
                 background="white"
                 autoComplete="off"
-                placeholder="Correo"
+                placeholder={t("email")}
               />
 
               <DatePicker
@@ -102,7 +110,7 @@ export const Register = (props) => {
                   setBirthDate(value.toDate());
                 }}
                 style={{ border: "1px solid #C4C4C4", borderRadius: "4px", height: "40px" }}
-                placeholder="Fecha de nacimiento"
+                placeholder={t("date-of-birth")}
               />
             </div>
 
@@ -112,7 +120,7 @@ export const Register = (props) => {
                 control={control}
                 as={
                   <Select
-                    placeholder="Pais"
+                    placeholder={t("country")}
                     showSearch
                     virtual={false}
                     height="40px"
@@ -136,31 +144,33 @@ export const Register = (props) => {
                 name="phoneNumber"
                 background="white"
                 autoComplete="off"
-                placeholder="Celular"
+                placeholder={t("phone")}
               />
             </div>
 
             <div className="my-3 grid gap-[10px] w-full md:grid-cols-[1fr_1fr] md:my-4">
               <Input
                 error={errors.password}
+                defaultValue={props.password}
                 type="password"
                 ref={register}
                 height="40px"
                 name="password"
                 autoComplete="off"
                 background="white"
-                placeholder="Contraseña"
+                placeholder={t("password")}
               />
 
               <Input
                 error={errors.passwordConfirmation}
+                defaultValue={props.password}
                 type="password"
                 ref={register}
                 height="40px"
                 name="passwordConfirmation"
                 background="white"
                 autoComplete="off"
-                placeholder="Contraseña"
+                placeholder={t("password")}
               />
             </div>
 
@@ -170,7 +180,7 @@ export const Register = (props) => {
               loading={isLoadingCreateUser}
               disabled={isLoadingUser || isLoadingCreateUser}
             >
-              Regístrate
+              {t("sign-up")}
             </ButtonAnt>
           </div>
         </form>

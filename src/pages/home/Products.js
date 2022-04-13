@@ -7,9 +7,12 @@ import { CheckOutlined } from "@ant-design/icons";
 import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
+import { useTranslation } from "../../hooks";
 
 export const Products = (props) => {
   const router = useRouter();
+
+  const { t } = useTranslation("landing.products");
 
   const [currentTabIndex, setCurrentTabIx] = useState(0);
 
@@ -19,12 +22,9 @@ export const Products = (props) => {
 
   return (
     <ProductsContainer tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`}>
-      <div className="title">UNA MANERA INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO</div>
+      <div className="title">{t("title")}</div>
 
-      <div className="sub-title">
-        Hemos creado una herramienta simple y sencilla que asegura la conexión de tus trabajadores en un esquema híbrido
-        o remoto y el buen ambiente laboral
-      </div>
+      <div className="sub-title">{t("sub-title")}</div>
 
       <div className="tabs">
         {landingProducts.map((product, index) => (
@@ -33,7 +33,7 @@ export const Products = (props) => {
             className={`tab ${index === currentTabIndex ? "active" : ""}`}
             onClick={() => setCurrentTabIx(index)}
           >
-            {product.tab}
+            {t(`tabs.${product.tab}`)}
           </div>
         ))}
       </div>
@@ -50,24 +50,22 @@ export const Products = (props) => {
           </div>
 
           <div className="bottom-container" data-aos="fade-right" data-aos-delay="500">
-            <div className="subtitle">{product.title}</div>
+            <div className="subtitle">{t(`tabs.contents.titles.${product.title}`)}</div>
 
-            <div className="description">{product.description}</div>
+            <div className="description">{t(`tabs.contents.descriptions.${product.description}`)}</div>
 
             <div className="options-contain">
-              {chunk(product?.options ?? [], 5)?.map((optionChunk, index) => {
-                return (
-                  <div className="options" key={`option-chunk-${index}`}>
-                    {optionChunk.map((option) => {
-                      return (
-                        <div className="option" key={`option-${option}`}>
-                          <CheckOutlined /> {option}
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
+              {/*The options were chunked.*/}
+              {chunk(product?.options ?? [], 5)?.map((optionChunk, index) => (
+                <div className="options" key={`option-chunk-${index}`}>
+                  {/*Chunk options map.*/}
+                  {optionChunk.map((option) => (
+                    <div className="option" key={`option-${option}`}>
+                      <CheckOutlined /> {t(`tabs.options.${option}`, option)}
+                    </div>
+                  ))}
+                </div>
+              ))}
             </div>
 
             <ButtonAnt
@@ -75,9 +73,9 @@ export const Products = (props) => {
               variant="contained"
               fontSize="15px"
               margin="25px 0 0 0"
-              onClick={() => router.push("/contact")}
+              onClick={() => props.createEvent()}
             >
-              Contáctanos
+              {t("book-an-event")}
             </ButtonAnt>
           </div>
         </div>

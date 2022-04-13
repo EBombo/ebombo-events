@@ -49,10 +49,6 @@ export const TabletUsers = (props) => {
           showSearch
           defaultValue={usersOrder[0].name}
           virtual={false}
-          borderRight={`0.1px solid ${darkTheme.basic.grayLighten}`}
-          borderTop={`0.1px solid ${darkTheme.basic.grayLighten}`}
-          borderLeft={`0.1px solid ${darkTheme.basic.grayLighten}`}
-          borderBottom={`0.1px solid ${darkTheme.basic.grayLighten}`}
           optionFilterProp="children"
           optionsdom={usersOrder.map((order) => ({
             key: order.id,
