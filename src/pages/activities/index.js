@@ -2,6 +2,7 @@ import React, { useEffect, useGlobal } from "reactn";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { ButtonAnt } from "../../components/form";
+import { SharpButton } from "../../components/common/SharpButton";
 import { Image as ImageV2 } from "ebombo-components";
 import { useTranslation } from "../../hooks";
 
@@ -117,19 +118,18 @@ export const Activities = (props) => {
             </p>
 
             <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
-              <ButtonAnt
+              <SharpButton
                 size="big"
-                color="success"
                 onClick={() => {
                   const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
                   router.push(url);
                 }}
               >
-                <span className="text-lg font-bold">{t("landing.activities.sign-in-button-label")}</span>
-              </ButtonAnt>
-              <ButtonAnt size="big" color="primary">
+                <span className="font-bold">{t("landing.activities.sign-in-button-label")}</span>
+              </SharpButton>
+              <SharpButton size="big" color="primary">
                 <span className="text-lg font-bold">{t("landing.activities.contact-button-label")}</span>
-              </ButtonAnt>
+              </SharpButton>
             </div>
           </div>
 
