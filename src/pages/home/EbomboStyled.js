@@ -19,7 +19,7 @@ const EbomboItems = [
     color: "#FFD15B",
   },
   {
-    title: "games",
+    title: "activities",
     description: "games",
     img: "games.svg",
     color: "#FFD15B",
