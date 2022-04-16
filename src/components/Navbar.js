@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useRef, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./common/Image";
 import { Icon } from "./common/Icons";
@@ -26,6 +26,7 @@ const featuresMenu = [
 
 export const Navbar = (props) => {
   const router = useRouter();
+  const inputRef = useRef(null);
 
   const { signOut } = useAuth();
 
@@ -128,6 +129,23 @@ export const Navbar = (props) => {
                 inactiveBackgroundColor={darkTheme.basic.primary}
                 activeBackgroundColor={darkTheme.basic.primary}
               />
+              <StyledSwitch className="switch" onClick={() => inputRef.current.click()}>
+                <input
+                  ref={inputRef}
+                  id="language-toggle"
+                  className="check-toggle check-toggle-round-flat"
+                  type="checkbox"
+                  defaultChecked={locale[1]}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    console.log(event.target.checked);
+                    setLocale(event.target.checked ? locales[1] : locales[0]);
+                  }}
+                />
+                <label htmlFor="language-toggle" />
+                <span className="on">EN</span>
+                <span className="off">ES</span>
+              </StyledSwitch>
             </div>
           </Desktop>
 
@@ -216,6 +234,13 @@ export const Navbar = (props) => {
                   inactiveBackgroundColor={darkTheme.basic.primary}
                   activeBackgroundColor={darkTheme.basic.primary}
                 />
+
+                <StyledSwitch className="switch">
+                  <input id="language-toggle" className="check-toggle check-toggle-round-flat" type="checkbox" />
+                  <label htmlFor="language-toggle" />
+                  <span className="on">En</span>
+                  <span className="off">Es</span>
+                </StyledSwitch>
               </li>
 
               {!authUser ? (
@@ -375,5 +400,112 @@ const NavContainer = styled.div`
   ${mediaQuery.afterTablet} {
     display: grid;
     grid-template-columns: 75% 5% 20%;
+  }
+`;
+
+const StyledSwitch = styled.div`
+  position: relative;
+  display: inline-block;
+
+  span {
+    position: absolute;
+    top: 5px;
+    pointer-events: none;
+    font-family: Lato;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+    width: 50%;
+    text-align: center;
+  }
+
+  input.check-toggle-round-flat:checked ~ .off {
+    color: ${(props) => props.theme.basic.primary};
+  }
+
+  input.check-toggle-round-flat:checked ~ .on {
+    color: ${(props) => props.theme.basic.white};
+  }
+
+  span.on {
+    left: 0;
+    padding-left: 2px;
+    color: ${(props) => props.theme.basic.primary};
+  }
+
+  span.off {
+    right: 0;
+    padding-right: 4px;
+    color: ${(props) => props.theme.basic.white};
+  }
+
+  .check-toggle {
+    position: absolute;
+    margin-left: -9999px;
+    visibility: hidden;
+  }
+  .check-toggle + label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  input.check-toggle-round-flat + label {
+    padding: 2px;
+    width: 50px;
+    height: 25px;
+    background-color: ${(props) => props.theme.basic.primary};
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    -ms-border-radius: 60px;
+    -o-border-radius: 60px;
+    border-radius: 60px;
+  }
+  input.check-toggle-round-flat + label:before,
+  input.check-toggle-round-flat + label:after {
+    display: block;
+    position: absolute;
+    content: "";
+  }
+
+  input.check-toggle-round-flat + label:before {
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    right: 2px;
+    background-color: ${(props) => props.theme.basic.primary};
+    -webkit-moz-border-radius: 60px;
+    -webkit-ms-border-radius: 60px;
+    -webkit-o-border-radius: 60px;
+    border-radius: 60px;
+  }
+  input.check-toggle-round-flat + label:after {
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    width: 25px;
+    background-color: #fff;
+    -webkit-border-radius: 52px;
+    -moz-border-radius: 52px;
+    -ms-border-radius: 52px;
+    -o-border-radius: 52px;
+    border-radius: 52px;
+    -webkit-transition: margin 0.2s;
+    -moz-transition: margin 0.2s;
+    -o-transition: margin 0.2s;
+    transition: margin 0.2s;
+  }
+
+  input.check-toggle-round-flat:checked + label {
+  }
+
+  input.check-toggle-round-flat:checked + label:after {
+    margin-left: 20px;
   }
 `;
