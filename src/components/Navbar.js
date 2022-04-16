@@ -119,7 +119,7 @@ export const Navbar = (props) => {
           </div>
 
           <Desktop>
-            <StyledSwitch className="switch" onClick={() => inputRef.current.click()}>
+            <StyledSwitch className="switch" onClick={() => inputRef.current.click()} key={locale}>
               <input
                 ref={inputRef}
                 id="language-toggle"
@@ -223,7 +223,7 @@ export const Navbar = (props) => {
                   activeBackgroundColor={darkTheme.basic.primary}
                 />
 
-                <StyledSwitch className="switch" onClick={() => inputRef.current.click()}>
+                <StyledSwitch className="switch" onClick={() => inputRef.current.click()} key={locale}>
                   <input
                     ref={inputRef}
                     id="language-toggle"
@@ -404,6 +404,7 @@ const NavContainer = styled.div`
 const StyledSwitch = styled.div`
   position: relative;
   display: inline-block;
+  width: 50px;
 
   span {
     position: absolute;
@@ -498,9 +499,6 @@ const StyledSwitch = styled.div`
     -moz-transition: margin 0.2s;
     -o-transition: margin 0.2s;
     transition: margin 0.2s;
-  }
-
-  input.check-toggle-round-flat:checked + label {
   }
 
   input.check-toggle-round-flat:checked + label:after {
