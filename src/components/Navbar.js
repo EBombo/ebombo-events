@@ -119,34 +119,22 @@ export const Navbar = (props) => {
           </div>
 
           <Desktop>
-            <div>
-              <Switch
-                margin="auto 15px"
-                onChange={(event) => setLocale(event ? locales[1] : locales[0])}
-                defaultChecked={locale === locales[1]}
-                checkedChildren={locales[1]}
-                unCheckedChildren={locales[0]}
-                inactiveBackgroundColor={darkTheme.basic.primary}
-                activeBackgroundColor={darkTheme.basic.primary}
+            <StyledSwitch className="switch" onClick={() => inputRef.current.click()}>
+              <input
+                ref={inputRef}
+                id="language-toggle"
+                className="check-toggle check-toggle-round-flat"
+                type="checkbox"
+                defaultChecked={locale[1]}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setLocale(event.target.checked ? locales[1] : locales[0]);
+                }}
               />
-              <StyledSwitch className="switch" onClick={() => inputRef.current.click()}>
-                <input
-                  ref={inputRef}
-                  id="language-toggle"
-                  className="check-toggle check-toggle-round-flat"
-                  type="checkbox"
-                  defaultChecked={locale[1]}
-                  onChange={(event) => {
-                    event.preventDefault();
-                    console.log(event.target.checked);
-                    setLocale(event.target.checked ? locales[1] : locales[0]);
-                  }}
-                />
-                <label htmlFor="language-toggle" />
-                <span className="on">EN</span>
-                <span className="off">ES</span>
-              </StyledSwitch>
-            </div>
+              <label htmlFor="language-toggle" />
+              <span className="on">EN</span>
+              <span className="off">ES</span>
+            </StyledSwitch>
           </Desktop>
 
           <Desktop>
@@ -235,11 +223,21 @@ export const Navbar = (props) => {
                   activeBackgroundColor={darkTheme.basic.primary}
                 />
 
-                <StyledSwitch className="switch">
-                  <input id="language-toggle" className="check-toggle check-toggle-round-flat" type="checkbox" />
+                <StyledSwitch className="switch" onClick={() => inputRef.current.click()}>
+                  <input
+                    ref={inputRef}
+                    id="language-toggle"
+                    className="check-toggle check-toggle-round-flat"
+                    type="checkbox"
+                    defaultChecked={locale[1]}
+                    onChange={(event) => {
+                      event.preventDefault();
+                      setLocale(event.target.checked ? locales[1] : locales[0]);
+                    }}
+                  />
                   <label htmlFor="language-toggle" />
-                  <span className="on">En</span>
-                  <span className="off">Es</span>
+                  <span className="on">EN</span>
+                  <span className="off">ES</span>
                 </StyledSwitch>
               </li>
 
