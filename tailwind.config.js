@@ -39,6 +39,7 @@ module.exports = {
         orange: "#F9A31D",
         blue: "#20409B",
         orangeLight: "#FF7059",
+        orangeDark: "#EB6853",
       },
       backgroundImage: () => ({
         "pattern-gray": `url('${config.storageUrl}/resources/pattern-gray.svg')`,
@@ -49,8 +50,8 @@ module.exports = {
         "gradient-black-to-secondary": "linear-gradient(270deg, #1D1138 0%, #331E6D 31.25%, #1E1239 100%)",
       }),
       boxShadow: {
-        'sharp': '-5px 5px 0px 1px #382079',
-        'sharp-md': '-10px 6px 0px 1px #382079',
+        'sharp': '-5px 3px 0px 1px #382079',
+        'sharp-sm': '-2px 2px 0px 1px #382079',
       },
     },
   },
