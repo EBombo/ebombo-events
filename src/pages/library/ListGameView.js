@@ -221,15 +221,23 @@ export const ListGameView = (props) => {
                       margin="0 1rem"
                       loading={isLoading}
                       onClick={() => {
-                        setIsLoading(true);
+                        try {
+                          setIsLoading(true);
 
-                        const url = get(props, "game.parentId", null)
-                          ? `/library/games/${props.game.id}?adminGameId=${props.game.adminGame.id}&folderId=${props.game.parentId}`
-                          : `/library/games/${props.game.id}?adminGameId=${props.game.adminGame.id}`;
+                          const adminGameId = props.game.adminGameId ?? props.game.adminGame.id;
 
-                        router.push(url);
+                          const url = get(props, "game.parentId", null)
+                            ? `/library/games/${props.game.id}?adminGameId=${adminGameId}&folderId=${props.game.parentId}`
+                            : `/library/games/${props.game.id}?adminGameId=${adminGameId}`;
 
-                        setIsLoading(false);
+                          router.push(url);
+
+                          setIsLoading(false);
+                        } catch (error) {
+                          props.showNotification("Error", "Algo salio mal. Por favor intenta nuevamente.");
+                          sendError(error, "action edit game");
+                          router.back();
+                        }
                       }}
                     >
                       {t("edit")}
