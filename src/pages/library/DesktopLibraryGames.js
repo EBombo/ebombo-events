@@ -41,6 +41,8 @@ export const DesktopLibraryGames = (props) => {
     setGames(_games);
   }, [tab]);
 
+  console.log("props.games", props.games);
+
   return (
     <GamesContainer>
       <ModalMove

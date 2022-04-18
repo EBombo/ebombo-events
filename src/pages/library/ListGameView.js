@@ -222,11 +222,13 @@ export const ListGameView = (props) => {
                       loading={isLoading}
                       onClick={() => {
                         setIsLoading(true);
-                        get(props, "game.parentId", null)
-                          ? router.push(
-                              `/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
-                            )
-                          : router.push(`/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`);
+
+                        const url = get(props, "game.parentId", null)
+                          ? `/library/games/${props.game.id}?adminGameId=${props.game.adminGame.id}&folderId=${props.game.parentId}`
+                          : `/library/games/${props.game.id}?adminGameId=${props.game.adminGame.id}`;
+
+                        router.push(url);
+
                         setIsLoading(false);
                       }}
                     >
