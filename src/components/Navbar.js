@@ -1,10 +1,10 @@
-import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useRef, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./common/Image";
 import { Icon } from "./common/Icons";
 import { config } from "../firebase";
 import { Desktop, mediaQuery, Tablet } from "../constants";
-import { Anchor, ButtonAnt, Switch } from "./form";
+import { Anchor, ButtonAnt } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import { Layout } from "./common/Layout";
@@ -12,7 +12,6 @@ import { SharpButton } from "./common/SharpButton";
 import { Footer } from "./Footer";
 import { useTranslation } from "../hooks";
 import { Popover } from "antd";
-import { darkTheme } from "../theme";
 
 const useCaseMenu = [
   { url: "/team-building", label: "nav.use-case.team-building" },
@@ -27,6 +26,7 @@ const featuresMenu = [
 
 export const Navbar = (props) => {
   const router = useRouter();
+  const inputRef = useRef(null);
 
   const { signOut } = useAuth();
 
@@ -125,17 +125,22 @@ export const Navbar = (props) => {
           </div>
 
           <Desktop>
-            <div>
-              <Switch
-                margin="auto 15px"
-                onChange={(event) => setLocale(event ? locales[1] : locales[0])}
-                defaultChecked={locale === locales[1]}
-                checkedChildren={locales[1]}
-                unCheckedChildren={locales[0]}
-                inactiveBackgroundColor={darkTheme.basic.primary}
-                activeBackgroundColor={darkTheme.basic.primary}
+            <StyledSwitch className="switch" onClick={() => inputRef.current.click()} >
+              <input
+                ref={inputRef}
+                id="language-toggle"
+                className="check-toggle check-toggle-round-flat"
+                type="checkbox"
+                checked={locale === locales[1] ? true : false}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setLocale(event.target.checked ? locales[1] : locales[0]);
+                }}
               />
-            </div>
+              <label htmlFor="language-toggle" />
+              <span className="on">EN</span>
+              <span className="off">ES</span>
+            </StyledSwitch>
           </Desktop>
 
           <Desktop>
@@ -180,6 +185,7 @@ export const Navbar = (props) => {
                   {featuresMenu.map((menuItem, i) => (
                     <li
                       className="nav-item"
+                      key={`features-menu-${i}`}
                       onClick={() => {
                         router.push(menuItem.url);
                         setActive(false);
@@ -192,6 +198,7 @@ export const Navbar = (props) => {
                   {useCaseMenu.map((menuItem, i) => (
                     <li
                       className="nav-item"
+                      key={`use-cases-menu-${i}`}
                       onClick={() => {
                         router.push(menuItem.url);
                         setActive(false);
@@ -215,15 +222,22 @@ export const Navbar = (props) => {
               )}
 
               <li className="nav-item">
-                <Switch
-                  margin="auto"
-                  onChange={(event) => setLocale(event ? locales[1] : locales[0])}
-                  defaultChecked={locale === locales[1]}
-                  checkedChildren={locales[1]}
-                  unCheckedChildren={locales[0]}
-                  inactiveBackgroundColor={darkTheme.basic.primary}
-                  activeBackgroundColor={darkTheme.basic.primary}
-                />
+                <StyledSwitch className="switch" onClick={() => inputRef.current.click()} >
+                  <input
+                    ref={inputRef}
+                    id="language-toggle"
+                    className="check-toggle check-toggle-round-flat"
+                    type="checkbox"
+                    checked={locale === locales[1] ? true : false}
+                    onChange={(event) => {
+                      event.preventDefault();
+                      setLocale(event.target.checked ? locales[1] : locales[0]);
+                    }}
+                  />
+                  <label htmlFor="language-toggle" />
+                  <span className="on">EN</span>
+                  <span className="off">ES</span>
+                </StyledSwitch>
               </li>
 
               {!authUser ? (
@@ -383,5 +397,100 @@ const NavContainer = styled.div`
   ${mediaQuery.afterTablet} {
     display: grid;
     grid-template-columns: 70% 5% 25%;
+  }
+`;
+
+const StyledSwitch = styled.div`
+  position: relative;
+  display: inline-block;
+  width: 50px;
+
+  .on, .off {
+    position: absolute;
+    top: 5px;
+    pointer-events: none;
+    font-family: Lato;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+    width: 50%;
+    text-align: center;
+  }
+
+  .check-toggle-round-flat:checked ~ {
+    .off {
+      color: ${(props) => props.theme.basic.primary};
+    }
+
+    .on {
+      color: ${(props) => props.theme.basic.white};
+    }
+  }
+
+  .on {
+    left: 0;
+    padding-left: 2px;
+    color: ${(props) => props.theme.basic.primary};
+  }
+
+  .off {
+    right: 0;
+    padding-right: 4px;
+    color: ${(props) => props.theme.basic.white};
+  }
+
+  .check-toggle {
+    position: absolute;
+    margin-left: -9999px;
+    visibility: hidden;
+  }
+
+  .check-toggle + label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .check-toggle-round-flat + label {
+    padding: 2px;
+    width: 50px;
+    height: 25px;
+    background-color: ${(props) => props.theme.basic.primary};
+    border-radius: 60px;
+
+    ::before,
+    ::after {
+      display: block;
+      position: absolute;
+      content: "";
+    }
+
+    ::before {
+      top: 2px;
+      left: 2px;
+      bottom: 2px;
+      right: 2px;
+      background-color: ${(props) => props.theme.basic.primary};
+      border-radius: 60px;
+    }
+
+    ::after {
+      top: 2px;
+      left: 2px;
+      bottom: 2px;
+      width: 25px;
+      background-color: ${(props) => props.theme.basic.white};
+      border-radius: 52px;
+    }
+  }
+
+  .check-toggle-round-flat:checked + label:after {
+    margin-right: 20px;
+  }
+
+  .check-toggle-round-flat:checked + label:after {
+    margin-left: 20px;
   }
 `;
