@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Image } from "./common/Image";
 import { Icon } from "./common/Icons";
 import { config } from "../firebase";
-import { Desktop, Tablet } from "../constants";
+import { Desktop, mediaQuery, Tablet } from "../constants";
 import { Anchor, ButtonAnt, Switch } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
@@ -77,49 +77,48 @@ export const Navbar = (props) => {
             <Desktop>
               {isEventPage ? null : (
                 <>
+                  <Popover
+                    placement="bottom"
+                    color="#FFFFFF"
+                    content={featuresMenu.map((menuItem, i) => (
+                      <Anchor key={`features-${i}`} className="block link text-black text-left" url={menuItem.url}>
+                        <span className="font-bold text-left text-base w-full text-left block">
+                          {t(menuItem.label)}
+                        </span>
+                      </Anchor>
+                    ))}
+                  >
+                    <Anchor className="link hover:bg-violet-100 rounded-xl px-2 py-2">
+                      <span className="align-middle">{t("nav.features.title")}</span> <Icon type="down" />
+                    </Anchor>
+                  </Popover>
+
+                  <Popover
+                    placement="bottom"
+                    color="#FFFFFF"
+                    content={useCaseMenu.map((menuItem, i) => (
+                      <Anchor key={`use-case-${i}`} className="block link text-black" url={menuItem.url}>
+                        <span className="font-bold text-left text-base w-full text-left block">
+                          {t(menuItem.label)}
+                        </span>
+                      </Anchor>
+                    ))}
+                  >
+                    <Anchor className="link hover:bg-violet-100 rounded-xl px-2 py-2">
+                      <span className="align-middle">{t("nav.use-case.title")}</span> <Icon type="down" />
+                    </Anchor>
+                  </Popover>
+
                   <Anchor url="/experience" className="link">
                     {t("nav.experience")}
                   </Anchor>
-                  {!authUser && (
-                    <Anchor url="/contact" className="link">
-                      {t("nav.contact")}
-                    </Anchor>
-                  )}
                 </>
               )}
-
-              <Popover
-                placement="bottom"
-                color="#FFFFFF"
-                content={featuresMenu.map((menuItem, i) => (
-                  <Anchor key={`features-${i}`} className="block link text-black text-left" url={menuItem.url}>
-                    <span className="font-bold text-left text-base w-full text-left block">{t(menuItem.label)}</span>
-                  </Anchor>
-                ))}
-              >
-                <Anchor className="link hover:bg-violet-100 rounded-xl px-2 py-2">
-                  <span className="align-middle">{t("nav.features.title")}</span> <Icon type="down" />
-                </Anchor>
-              </Popover>
-
-              <Popover
-                placement="bottom"
-                color="#FFFFFF"
-                content={useCaseMenu.map((menuItem, i) => (
-                  <Anchor key={`use-case-${i}`} className="block link text-black" url={menuItem.url}>
-                    <span className="font-bold text-left text-base w-full text-left block">{t(menuItem.label)}</span>
-                  </Anchor>
-                ))}
-              >
-                <Anchor className="link hover:bg-violet-100 rounded-xl px-2 py-2">
-                  <span className="align-middle">{t("nav.use-case.title")}</span> <Icon type="down" />
-                </Anchor>
-              </Popover>
             </Desktop>
           </div>
 
           <Desktop>
-            <div className="btns-container flex">
+            <div>
               <Switch
                 margin="auto 15px"
                 onChange={(event) => setLocale(event ? locales[1] : locales[0])}
@@ -129,7 +128,11 @@ export const Navbar = (props) => {
                 inactiveBackgroundColor={darkTheme.basic.primary}
                 activeBackgroundColor={darkTheme.basic.primary}
               />
+            </div>
+          </Desktop>
 
+          <Desktop>
+            <div className="flex items-center justify-end gap-[5px]">
               {authUser ? (
                 <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
                   {t("nav.logout")}
@@ -140,6 +143,7 @@ export const Navbar = (props) => {
                     url="/login"
                     variant="secondary"
                     fontSize="18px"
+                    lineHeight="22px"
                     fontWeight="500"
                     margin="auto 8px"
                     className="anchor"
@@ -165,15 +169,29 @@ export const Navbar = (props) => {
             <ul className={`nav-menu ${active ? "active" : ""}`}>
               {isEventPage ? null : (
                 <>
-                  <li
-                    className="nav-item"
-                    onClick={() => {
-                      router.push("/about-us");
-                      setActive(false);
-                    }}
-                  >
-                    {t("nav.about-us")}
-                  </li>
+                  {featuresMenu.map((menuItem, i) => (
+                    <li
+                      className="nav-item"
+                      onClick={() => {
+                        router.push(menuItem.url);
+                        setActive(false);
+                      }}
+                    >
+                      {t(menuItem.label)}
+                    </li>
+                  ))}
+
+                  {useCaseMenu.map((menuItem, i) => (
+                    <li
+                      className="nav-item"
+                      onClick={() => {
+                        router.push(menuItem.url);
+                        setActive(false);
+                      }}
+                    >
+                      {t(menuItem.label)}
+                    </li>
+                  ))}
                   {!authUser && (
                     <li
                       className="nav-item"
@@ -307,7 +325,7 @@ const NavContainer = styled.div`
     position: fixed;
     z-index: 999;
     left: -100%;
-    top: 5rem;
+    top: 100px;
     flex-direction: column;
     background-color: ${(props) => props.theme.basic.whiteLight};
     width: 100%;
@@ -354,8 +372,8 @@ const NavContainer = styled.div`
     cursor: pointer;
   }
 
-  .btns-container {
-    display: flex;
-    align-items: center;
+  ${mediaQuery.afterTablet} {
+    display: grid;
+    grid-template-columns: 75% 5% 20%;
   }
 `;

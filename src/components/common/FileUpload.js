@@ -105,7 +105,7 @@ export const FileUpload = (props) => {
       )}
       {!previewFile && props.preview && (
         <div className="upload-file" onClick={() => inputRef.current.click()}>
-          <ButtonAnt onClick={() => inputRef.current.click()} padding="1rem">
+          <ButtonAnt padding="1rem">
             <Image
               src={`${config.storageUrl}/resources/plus-icon.svg`}
               width="22px"

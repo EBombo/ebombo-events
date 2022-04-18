@@ -1,37 +1,38 @@
 import React, { useEffect } from "reactn";
+import { Image as ImageV2 } from "ebombo-components";
 import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import styled from "styled-components";
 import { useTranslation } from "../../hooks";
 import { Image } from "../../components/common/Image";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Carousel } from "../../components/common/Carousel";
+import { BetweenCompaniesGames, MostPopularGames, TeamBuildingGames } from "../../components/common/DataList";
 
 const firstColumn = ["trivia", "roulette", "rouletteQuestions", "hanged"];
 const secondColumn = ["triviaCrack", "bingo", "drawAndGuess", "scrabble"];
 const thirdColumn = ["movie", "triviaOnboarding", "domesticMovie", "song"];
 
-const firstRow = ["trivia", "bingo", "roulette", "domesticMovie"];
-const secondRow = ["triviaCrack", "song", "scrabble", "imagesZoom"];
-const thirdRow = ["rouletteQuestions", "triviaOnboarding", "charade", "emoji"];
-
 export const Experience = (props) => {
   const router = useRouter();
 
-  const { t } = useTranslation("pages.experience");
+  const { t } = useTranslation();
 
   useEffect(() => {
     router.prefetch("/login");
   }, []);
 
-  const scrollElement = (to, section) => {
-    const element = document.getElementById(section);
-
-    const width = element.offsetWidth;
-
-    element.scrollTo(to === "left" ? -width : width, 0);
-  };
+  const CarouselContent = ({ gameContent, className }) => (
+    <div>
+      <div className={`${className} text-white`}>
+        <div className="aspect-square w-full mb-4">
+          <ImageV2 src={gameContent.img} placeholderUrl={gameContent.placeholderUrl} alt="" />
+        </div>
+        <div className="text-secondary text-2xl mb-4">{t(gameContent.title)}</div>
+        <p className="text-blackDarken text-base">{t(gameContent.description)}</p>
+      </div>
+    </div>
+  );
 
   const content = (gameName, carousel = false) => (
     <div
@@ -50,28 +51,28 @@ export const Experience = (props) => {
         className="aspect-square w-full"
       />
       <div className="text-['Lato'] text-blackDarken font-[900] text-[20px] leading-[24px] lg:text-[32px] lg:leading-[36px] my-2">
-        {t(`games[${gameName}]`)}
+        {t(`pages.experience.games[${gameName}]`)}
       </div>
       <div className="text-['Lato'] text-secondary font-[400] text-[16px] leading-[19px] lg:text-[20px] lg:leading-[24px] text-center md:text-left">
-        {t(gameName)}
+        {t(`pages.experience[${gameName}]`)}
       </div>
     </div>
   );
 
   return (
     <ExperienceContainer>
-      <div className="w-full bg-cover bg-no-repeat bg-secondary bg-pattern grid gap-4 p-2 md:p-4 lg:grid-cols-[auto_670px] lg:h-[800px]">
+      <div className="w-full bg-cover bg-no-repeat bg-secondary bg-pattern grid gap-4 p-2 md:p-4 lg:overflow-hidden lg:grid-cols-[50%_1050px] lg:h-[800px]">
         <div className="p-4 flex flex-col items-center justify-center min-h-[450px]">
           <div className="w-full text-['Lato'] font-[900] text-white text-[25px] leading-[35px] md:text-[40px] md:leading-[48px] text-center lg:text-left lg:text-[50px] lg:leading-[55px]">
-            {t("title")}
+            {t("pages.experience.title")}
           </div>
           <div className="w-full text-['Lato'] font-[400] text-white text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] my-4 text-center lg:text-left lg:text-[25px] lg:leading-[28px]">
-            {t("subtitle")}
+            {t("pages.experience.subtitle")}
           </div>
           <div className="w-full flex items-center justify-center lg:justify-start">
             <ButtonAnt color="success" onClick={() => router.push("/login")} margin="0">
               <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
-                {t("loginButton")}
+                {t("pages.experience.loginButton")}
               </div>
             </ButtonAnt>
           </div>
@@ -131,113 +132,118 @@ export const Experience = (props) => {
           <div className="hidden border-[1px] border-white bg-success w-[10px] h-[10px] rounded-[50%] lg:block" />
           <div className="text-['Lato'] font-[800] text-[24px] leading-[29px] flex gap-[5px] lg:text-[42px] lg:leading-[50px]">
             <p className="text-white text-center m-0">
-              {t("freeTrial").toUpperCase()}
-              <span className="text-secondary ml-[5px]">{t("freeTrial-time").toUpperCase()}</span>
+              {t("pages.experience.freeTrial").toUpperCase()}
+              <span className="text-secondary ml-[5px]">{t("pages.experience.freeTrial-time").toUpperCase()}</span>
             </p>
           </div>
         </div>
         <div className="flex justify-center mt-2 lg:mt-0 lg:ml-4 lg:justify-start">
           <ButtonAnt color="success" onClick={() => router.push("/login")} margin="0">
             <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
-              {t("loginButton")}
+              {t("pages.experience.loginButton")}
             </div>
           </ButtonAnt>
         </div>
       </div>
 
       <div className="w-full bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8">
-        <div className="flex items-center gap-[10px] mt-8">
-          <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-            {t("firstSection")}
-          </div>
-          <div className="items-center gap-[5px] hidden md:flex">
-            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("left", "firstSection")}>
-              <LeftOutlined style={{ color: "white" }} />
-            </ButtonAnt>
-            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("right", "firstSection")}>
-              <RightOutlined style={{ color: "white" }} />
-            </ButtonAnt>
-          </div>
-        </div>
+        <div className="mx-auto max-w-[1110px]">
+          <div>
+            <div className="flex items-center gap-[10px] mt-8">
+              <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
+                {t("pages.experience.firstSection")}
+              </div>
+            </div>
+            <div className="">
+              <Carousel
+                showArrows
+                hideIndicators
+                components={MostPopularGames.map((_, index) => (
+                  <div key={`carousel-wrapper-${index}`} className="md:grid md:grid-cols-[1fr_1fr_1fr] gap-8">
+                    <CarouselContent gameContent={MostPopularGames[index % MostPopularGames.length]} />
 
-        <div className="block md:hidden">
-          <Carousel
-            showArrows
-            components={firstRow.map((gameName, index) => content(gameName, true))}
-            hideIndicators={false}
-          />
-        </div>
+                    <CarouselContent
+                      className="hidden md:block"
+                      gameContent={MostPopularGames[(index + 1) % MostPopularGames.length]}
+                    />
 
-        <div className="w-full no-scrollbar overflow-auto hidden md:block" id="firstSection">
-          <div className="grid items-start gap-4 grid-cols-[repeat(4,calc(100vw-2rem))] md:grid-cols-[repeat(auto-fit,370px)] w-[1550px] my-4">
-            {firstRow.map((gameName) => content(gameName))}
+                    <CarouselContent
+                      className="hidden md:block"
+                      gameContent={MostPopularGames[(index + 2) % MostPopularGames.length]}
+                    />
+                  </div>
+                ))}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-[10px] mt-8">
-          <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-            {t("secondSection")}
+          <div>
+            <div className="flex items-center gap-[10px] mt-8">
+              <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
+                {t("pages.experience.secondSection")}
+              </div>
+            </div>
+            <div className="">
+              <Carousel
+                showArrows
+                hideIndicators
+                components={BetweenCompaniesGames.map((_, index) => (
+                  <div key={`carousel-wrapper-${index}`} className="md:grid md:grid-cols-[1fr_1fr_1fr] gap-8">
+                    <CarouselContent gameContent={BetweenCompaniesGames[index % BetweenCompaniesGames.length]} />
+
+                    <CarouselContent
+                      className="hidden md:block"
+                      gameContent={BetweenCompaniesGames[(index + 1) % BetweenCompaniesGames.length]}
+                    />
+
+                    <CarouselContent
+                      className="hidden md:block"
+                      gameContent={BetweenCompaniesGames[(index + 2) % BetweenCompaniesGames.length]}
+                    />
+                  </div>
+                ))}
+              />
+            </div>
           </div>
-          <div className="items-center gap-[5px] hidden md:flex">
-            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("left", "secondSection")}>
-              <LeftOutlined style={{ color: "white" }} />
-            </ButtonAnt>
-            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("right", "secondSection")}>
-              <RightOutlined style={{ color: "white" }} />
-            </ButtonAnt>
-          </div>
-        </div>
 
-        <div className="block md:hidden">
-          <Carousel
-            showArrows
-            components={secondRow.map((gameName, index) => content(gameName, true))}
-            hideIndicators={false}
-          />
-        </div>
+          <div>
+            <div className="flex items-center gap-[10px] mt-8">
+              <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
+                {t("pages.experience.thirdSection")}
+              </div>
+            </div>
+            <div>
+              <Carousel
+                showArrows
+                hideIndicators
+                components={TeamBuildingGames.map((_, index) => (
+                  <div key={`carousel-wrapper-${index}`} className="md:grid md:grid-cols-[1fr_1fr_1fr] gap-8">
+                    <CarouselContent gameContent={TeamBuildingGames[index % TeamBuildingGames.length]} />
 
-        <div className="w-full no-scrollbar overflow-auto hidden md:block" id="secondSection">
-          <div className="grid items-start gap-4 grid-cols-[repeat(4,calc(100vw-2rem))] md:grid-cols-[repeat(auto-fit,370px)] w-[1550px] my-4">
-            {secondRow.map((gameName) => content(gameName))}
-          </div>
-        </div>
+                    <CarouselContent
+                      className="hidden md:block"
+                      gameContent={TeamBuildingGames[(index + 1) % TeamBuildingGames.length]}
+                    />
 
-        <div className="flex items-center gap-[10px] mt-8">
-          <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-            {t("thirdSection")}
-          </div>
-          <div className="items-center gap-[5px] hidden md:flex">
-            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("left", "thirdSection")}>
-              <LeftOutlined style={{ color: "white" }} />
-            </ButtonAnt>
-            <ButtonAnt padding="0.5rem" onClick={() => scrollElement("right", "thirdSection")}>
-              <RightOutlined style={{ color: "white" }} />
-            </ButtonAnt>
-          </div>
-        </div>
-
-        <div className="block md:hidden">
-          <Carousel
-            showArrows
-            components={thirdRow.map((gameName, index) => content(gameName, true))}
-            hideIndicators={false}
-          />
-        </div>
-
-        <div className="w-full no-scrollbar overflow-auto hidden md:block" id="thirdSection">
-          <div className="grid items-start gap-4 grid-cols-[repeat(4,calc(100vw-2rem))] md:grid-cols-[repeat(auto-fit,370px)] w-[1550px] my-4">
-            {thirdRow.map((gameName) => content(gameName))}
+                    <CarouselContent
+                      className="hidden md:block"
+                      gameContent={TeamBuildingGames[(index + 2) % TeamBuildingGames.length]}
+                    />
+                  </div>
+                ))}
+              />
+            </div>
           </div>
         </div>
       </div>
 
       <StyledFooter className="p-4 lg:p-8">
         <div className="text-white mb-4 text-['Lato'] font-[900] text-[26px] leading-[31px] lg:text-[100px] lg:leading-[120px]">
-          {t("lastTitle")}
+          {t("pages.experience.lastTitle")}
         </div>
         <ButtonAnt color="success" onClick={() => router.push("/login")}>
           <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
-            {t("loginButton")}
+            {t("pages.experience.loginButton")}
           </div>
         </ButtonAnt>
       </StyledFooter>
@@ -253,7 +259,7 @@ const ExperienceContainer = styled.div`
   width: 100vw;
 
   .slider {
-    width: 220px;
+    width: 350px;
     margin: auto;
     position: relative;
     display: grid;
@@ -265,24 +271,23 @@ const ExperienceContainer = styled.div`
   .slide-track {
     display: flex;
     flex-direction: column;
-    height: calc(220px * 8);
+    height: calc(350px * 8);
     animation: scroll 30s linear infinite;
   }
 
   .slide-track-middle {
     display: flex;
     flex-direction: column;
-    height: calc(220px * 8);
+    height: calc(350px * 8);
     animation: vertical-scroll 30s linear infinite;
   }
 
   .slide {
-    width: 220px;
-    height: 220px;
+    width: 350px;
+    height: 350px;
     display: flex;
     align-items: center;
-    padding: 10px 0;
-    perspective: 100px;
+    padding: 5px 0;
     border-radius: 10px;
 
     img {
@@ -297,13 +302,13 @@ const ExperienceContainer = styled.div`
       transform: translateY(0);
     }
     100% {
-      transform: translateY(calc(-220px * 4));
+      transform: translateY(calc(-350px * 4));
     }
   }
 
   @keyframes vertical-scroll {
     0% {
-      transform: translateY(calc(-220px * 4));
+      transform: translateY(calc(-350px * 4));
     }
     100% {
       transform: translateY(0);
