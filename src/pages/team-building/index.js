@@ -42,7 +42,6 @@ export const TeamBuilding = (props) => {
             <p className="text-secondary text-base md:text-xl mb-10">{t(TeamBuildingLiterals.header.description)}</p>
             <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
               <SharpButton
-                size="big"
                 prefixIcon="wink"
                 className="min-w-[180px]"
                 onClick={() => {
