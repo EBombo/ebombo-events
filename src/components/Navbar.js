@@ -8,6 +8,7 @@ import { Anchor, ButtonAnt, Switch } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import { Layout } from "./common/Layout";
+import { SharpButton } from "./common/SharpButton";
 import { Footer } from "./Footer";
 import { useTranslation } from "../hooks";
 import { Popover } from "antd";
@@ -56,6 +57,12 @@ export const Navbar = (props) => {
 
     return path.includes("/events/new");
   }, [router]);
+
+  const createEvent = () => {
+    if (authUser) return router.push("/library/events");
+
+    return router.push("/events/new");
+  };
 
   return (
     <>
@@ -132,7 +139,7 @@ export const Navbar = (props) => {
           </Desktop>
 
           <Desktop>
-            <div className="flex items-center justify-end gap-[5px]">
+            <div className="flex items-center justify-end gap-[18px]">
               {authUser ? (
                 <Anchor onClick={() => signOut()} variant="secondary" fontSize="18px">
                   {t("nav.logout")}
@@ -162,6 +169,7 @@ export const Navbar = (props) => {
                   )}
                 </>
               )}
+              <SharpButton prefixIcon="normal" onClick={() => createEvent()}>{t("landing.header.book-an-event")}</SharpButton>
             </div>
           </Desktop>
 
@@ -374,6 +382,6 @@ const NavContainer = styled.div`
 
   ${mediaQuery.afterTablet} {
     display: grid;
-    grid-template-columns: 75% 5% 20%;
+    grid-template-columns: 70% 5% 25%;
   }
 `;
