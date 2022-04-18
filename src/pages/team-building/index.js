@@ -39,7 +39,7 @@ export const TeamBuilding = (props) => {
             <h2 className="text-secondary text-3xl md:text-5xl font-bold uppercase break-words">
               {t(TeamBuildingLiterals.header.heading)}
             </h2>
-            <p className="text-secondary text-base md:text-xl">{t(TeamBuildingLiterals.header.description)}</p>
+            <p className="text-secondary text-base md:text-xl mb-10">{t(TeamBuildingLiterals.header.description)}</p>
             <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
               <SharpButton
                 size="big"
