@@ -4,14 +4,13 @@ import { Image } from "./common/Image";
 import { Icon } from "./common/Icons";
 import { config } from "../firebase";
 import { Desktop, mediaQuery, Tablet } from "../constants";
-import { Anchor, ButtonAnt, Switch } from "./form";
+import { Anchor, ButtonAnt } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import { Layout } from "./common/Layout";
 import { Footer } from "./Footer";
 import { useTranslation } from "../hooks";
 import { Popover } from "antd";
-import { darkTheme } from "../theme";
 
 const useCaseMenu = [
   { url: "/team-building", label: "nav.use-case.team-building" },
@@ -119,13 +118,13 @@ export const Navbar = (props) => {
           </div>
 
           <Desktop>
-            <StyledSwitch className="switch" onClick={() => inputRef.current.click()} key={locale}>
+            <StyledSwitch className="switch" onClick={() => inputRef.current.click()} >
               <input
                 ref={inputRef}
                 id="language-toggle"
                 className="check-toggle check-toggle-round-flat"
                 type="checkbox"
-                defaultChecked={locale[1]}
+                checked={locale === locales[1] ? true : false}
                 onChange={(event) => {
                   event.preventDefault();
                   setLocale(event.target.checked ? locales[1] : locales[0]);
@@ -178,6 +177,7 @@ export const Navbar = (props) => {
                   {featuresMenu.map((menuItem, i) => (
                     <li
                       className="nav-item"
+                      key={`features-menu-${i}`}
                       onClick={() => {
                         router.push(menuItem.url);
                         setActive(false);
@@ -190,6 +190,7 @@ export const Navbar = (props) => {
                   {useCaseMenu.map((menuItem, i) => (
                     <li
                       className="nav-item"
+                      key={`use-cases-menu-${i}`}
                       onClick={() => {
                         router.push(menuItem.url);
                         setActive(false);
@@ -213,23 +214,13 @@ export const Navbar = (props) => {
               )}
 
               <li className="nav-item">
-                <Switch
-                  margin="auto"
-                  onChange={(event) => setLocale(event ? locales[1] : locales[0])}
-                  defaultChecked={locale === locales[1]}
-                  checkedChildren={locales[1]}
-                  unCheckedChildren={locales[0]}
-                  inactiveBackgroundColor={darkTheme.basic.primary}
-                  activeBackgroundColor={darkTheme.basic.primary}
-                />
-
-                <StyledSwitch className="switch" onClick={() => inputRef.current.click()} key={locale}>
+                <StyledSwitch className="switch" onClick={() => inputRef.current.click()} >
                   <input
                     ref={inputRef}
                     id="language-toggle"
                     className="check-toggle check-toggle-round-flat"
                     type="checkbox"
-                    defaultChecked={locale[1]}
+                    checked={locale === locales[1] ? true : false}
                     onChange={(event) => {
                       event.preventDefault();
                       setLocale(event.target.checked ? locales[1] : locales[0]);
@@ -406,7 +397,7 @@ const StyledSwitch = styled.div`
   display: inline-block;
   width: 50px;
 
-  span {
+  .on, .off {
     position: absolute;
     top: 5px;
     pointer-events: none;
@@ -419,21 +410,23 @@ const StyledSwitch = styled.div`
     text-align: center;
   }
 
-  input.check-toggle-round-flat:checked ~ .off {
-    color: ${(props) => props.theme.basic.primary};
+  .check-toggle-round-flat:checked ~ {
+    .off {
+      color: ${(props) => props.theme.basic.primary};
+    }
+
+    .on {
+      color: ${(props) => props.theme.basic.white};
+    }
   }
 
-  input.check-toggle-round-flat:checked ~ .on {
-    color: ${(props) => props.theme.basic.white};
-  }
-
-  span.on {
+  .on {
     left: 0;
     padding-left: 2px;
     color: ${(props) => props.theme.basic.primary};
   }
 
-  span.off {
+  .off {
     right: 0;
     padding-right: 4px;
     color: ${(props) => props.theme.basic.white};
@@ -444,64 +437,52 @@ const StyledSwitch = styled.div`
     margin-left: -9999px;
     visibility: hidden;
   }
+
   .check-toggle + label {
     display: block;
     position: relative;
     cursor: pointer;
     outline: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
   }
 
-  input.check-toggle-round-flat + label {
+  .check-toggle-round-flat + label {
     padding: 2px;
     width: 50px;
     height: 25px;
     background-color: ${(props) => props.theme.basic.primary};
-    -webkit-border-radius: 60px;
-    -moz-border-radius: 60px;
-    -ms-border-radius: 60px;
-    -o-border-radius: 60px;
     border-radius: 60px;
-  }
-  input.check-toggle-round-flat + label:before,
-  input.check-toggle-round-flat + label:after {
-    display: block;
-    position: absolute;
-    content: "";
+
+    ::before,
+    ::after {
+      display: block;
+      position: absolute;
+      content: "";
+    }
+
+    ::before {
+      top: 2px;
+      left: 2px;
+      bottom: 2px;
+      right: 2px;
+      background-color: ${(props) => props.theme.basic.primary};
+      border-radius: 60px;
+    }
+
+    ::after {
+      top: 2px;
+      left: 2px;
+      bottom: 2px;
+      width: 25px;
+      background-color: ${(props) => props.theme.basic.white};
+      border-radius: 52px;
+    }
   }
 
-  input.check-toggle-round-flat + label:before {
-    top: 2px;
-    left: 2px;
-    bottom: 2px;
-    right: 2px;
-    background-color: ${(props) => props.theme.basic.primary};
-    -webkit-moz-border-radius: 60px;
-    -webkit-ms-border-radius: 60px;
-    -webkit-o-border-radius: 60px;
-    border-radius: 60px;
-  }
-  input.check-toggle-round-flat + label:after {
-    top: 2px;
-    left: 2px;
-    bottom: 2px;
-    width: 25px;
-    background-color: #fff;
-    -webkit-border-radius: 52px;
-    -moz-border-radius: 52px;
-    -ms-border-radius: 52px;
-    -o-border-radius: 52px;
-    border-radius: 52px;
-    -webkit-transition: margin 0.2s;
-    -moz-transition: margin 0.2s;
-    -o-transition: margin 0.2s;
-    transition: margin 0.2s;
+  .check-toggle-round-flat:checked + label:after {
+    margin-right: 20px;
   }
 
-  input.check-toggle-round-flat:checked + label:after {
+  .check-toggle-round-flat:checked + label:after {
     margin-left: 20px;
   }
 `;
