@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
 import { Anchor, ButtonAnt } from "../../components/form";
+import { SharpButton } from "../../components/common/SharpButton";
 import { LandingGames, TeamBuildingLiterals } from "../../components/common/DataList";
 import { Carousel } from "../../components/common/Carousel";
 import { Image as ImageV2 } from "ebombo-components";
@@ -40,21 +41,22 @@ export const TeamBuilding = (props) => {
             </h2>
             <p className="text-secondary text-base md:text-xl">{t(TeamBuildingLiterals.header.description)}</p>
             <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
-              <ButtonAnt
+              <SharpButton
                 size="big"
-                color="success"
+                prefixIcon="wink"
+                className="min-w-[180px]"
                 onClick={() => {
                   const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
                   router.push(url);
                 }}
               >
-                <span className="text-lg font-bold">{t("landing.team-building.sign-in-button-label")}</span>
-              </ButtonAnt>
-              <ButtonAnt size="big" color="primary">
+                <span className="text-lg font-bold align-middle">{t("landing.team-building.sign-in-button-label")}</span>
+              </SharpButton>
+              <SharpButton color="primary" prefixIcon="satisfied" className="min-w-[180px]">
                 <Anchor url="/contact">
-                  <span className="text-lg font-bold">{t("landing.team-building.contact-button-label")}</span>
+                  <span className="text-lg font-bold text-white align-middle">{t("landing.team-building.contact-button-label")}</span>
                 </Anchor>
-              </ButtonAnt>
+              </SharpButton>
             </div>
           </div>
 
@@ -99,7 +101,7 @@ export const TeamBuilding = (props) => {
 
       <section className="bg-tapiz-1 bg-white py-16">
         <div className="max-w-[1500px] mx-auto py-8 px-8 grid">
-          <div className="max-w-[1200px] mx-auto mb-6 text-secondary text-center font-bold text-3xl md:text-7xl self-center px-8 md:px-12">
+          <div className="max-w-[1200px] mx-auto mb-6 text-secondary text-center font-bold text-2xl md:text-5xl self-center px-8 md:px-12">
             {t(TeamBuildingLiterals.activities.title)}
           </div>
 
