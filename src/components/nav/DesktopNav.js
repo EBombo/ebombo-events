@@ -39,7 +39,7 @@ export const DesktopNav = (props) => {
 
       <div className="items-container">
         <Image
-          src={`${config.storageUrl}/resources/ebombo-white-logo.svg`}
+          src={`${config.storageUrl}/resources/ebombo-white.svg`}
           onClick={() =>
             userAcls.some((acl) => acl.includes("admin"))
               ? router.push("/admin")

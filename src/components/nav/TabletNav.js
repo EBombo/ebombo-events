@@ -27,7 +27,7 @@ export const TabletNav = (props) => {
     <TabletNavContainer>
       <div />
       <Image
-        src={`${config.storageUrl}/resources/ebombo-white-logo.svg`}
+        src={`${config.storageUrl}/resources/ebombo-white.svg`}
         onClick={() =>
           userAcls.some((acl) => acl.includes("admin"))
             ? router.push("/admin")
