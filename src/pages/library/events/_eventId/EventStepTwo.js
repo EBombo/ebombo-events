@@ -12,7 +12,7 @@ import { tableEventsColumns } from "../../../../components/common/DataList";
 export const EventStepTwo = (props) => {
   const [authUser] = useGlobal("user");
 
-  const { t } = useTranslation("pages.library.event.step-two");
+  const { t } = useTranslation("pages.library.event");
 
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -115,16 +115,16 @@ export const EventStepTwo = (props) => {
   return (
     <div>
       <div className="text-primary text-['Lato'] font-[700] text-[20px] leading-[24px] md:text-[44px] md:leading-[53px] tracking-[.03em]">
-        {t("title")}
+        {t("step-two.title")}
       </div>
 
       <div className="flex mt-8 gap-8 w-full flex-col md:flex-row">
         <div>
-          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">{t("subtitle-one")}</div>
+          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">{t("step-two.subtitle-one")}</div>
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-[5px]">
-              <div>{t("filter")}</div>
+              <div>{t("step-two.filter")}</div>
               <Select
                 showSearch
                 defaultValue={"email"}
@@ -138,7 +138,7 @@ export const EventStepTwo = (props) => {
               />
             </div>
             <div>
-              <Input type="search" placeholder={t("search-placeholder")} />
+              <Input type="search" placeholder={t("step-two.search-placeholder")} />
             </div>
           </div>
           <div className="my-4 w-full overflow-auto">
@@ -147,7 +147,7 @@ export const EventStepTwo = (props) => {
                 className="my-4 cursor-pointer text-['Lato'] text-[12px] text-blackDarken leading-[14px] underline md:text-[16px] md:leading-[19px]"
                 onClick={() => deleteSelectedUsers()}
               >
-                {t("delete")}
+                {t("step-two.delete")}
               </div>
             )}
             <div className="min-w-[500px]">
@@ -164,7 +164,7 @@ export const EventStepTwo = (props) => {
           </div>
         </div>
         <form className="w-full md:max-w-[400px]" onSubmit={handleSubmit(addVisitors)}>
-          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">{t("subtitle-two")}</div>
+          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">{t("step-two.subtitle-two")}</div>
           <div className="mt-4">
             <TextArea
               name="visitors"
@@ -173,16 +173,16 @@ export const EventStepTwo = (props) => {
               color="black"
               background={"#FAFAFA"}
               border={"1px solid #C4C4C4"}
-              placeholder={t("textarea-placeholder")}
+              placeholder={t("step-two.textarea-placeholder")}
               rows="10"
             />
           </div>
           <div className="flex items-center gap-[10px] my-4">
             <ButtonAnt color="default" htmlType="submit" loading={addingVisitors}>
-              {t("add")}
+              {t("step-two.add")}
             </ButtonAnt>
             <ButtonAnt color="default" onClick={() => inputRef.current.click()} loading={fileLoading}>
-              {t("import")}
+              {t("step-two.import")}
             </ButtonAnt>
             <input type="file" ref={inputRef} onChange={readExcel} hidden />
           </div>
@@ -191,10 +191,10 @@ export const EventStepTwo = (props) => {
 
       <div className="flex w-full items-center justify-between">
         <Anchor underlined variant="secondary" onClick={() => props.setCurrentStep(1)}>
-          {t("go-back")}
+          {t("step-two.go-back")}
         </Anchor>
         <ButtonAnt disabled={addingVisitors} onClick={() => props.setCurrentStep(3)}>
-          {t("next")}
+          {t("step-two.next")}
         </ButtonAnt>
       </div>
     </div>
