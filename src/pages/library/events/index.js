@@ -134,7 +134,9 @@ export const Events = (props) => {
                         )}
                       </>
                     ) : (
-                      `${event.startAt} - ${event.endAt}`
+                      `${moment(event.startAt.toDate()).format("hh:mm a")} - ${moment(event.endAt.toDate()).format(
+                        "hh:mm a"
+                      )}`
                     )}
                   </div>
                 </div>

@@ -8,6 +8,8 @@ import capitalize from "lodash/capitalize";
 import defaultTo from "lodash/defaultTo";
 import { Anchor, ButtonAnt } from "../../../../components/form";
 import { useRouter } from "next/router";
+import moment from "moment";
+import isEmpty from "lodash/isEmpty";
 
 export const EventStepFour = (props) => {
   const router = useRouter();
@@ -46,10 +48,21 @@ export const EventStepFour = (props) => {
 
     const adminGames = props.event?.adminGames;
 
+    const startDateFormatted = `${event.currentDate.month.format("DD/MM/YYYY")} ${event.currentDate.start.format(
+      "h:mm a"
+    )}`;
+    const endDateFormatted = `${event.currentDate.month.format("DD/MM/YYYY")} ${event.currentDate.end.format(
+      "h:mm a"
+    )}`;
+
+    const startAt = moment(startDateFormatted, "DD/MM/YYYY h:mm a").toDate();
+    const endAt = moment(endDateFormatted, "DD/MM/YYYY h:mm a").toDate();
+
     delete event.adminGames;
+    delete event.currentDate;
 
     if (!eventRef.exist) {
-      await eventRef.set({ ...event, createAt: new Date(), updateAt: new Date() });
+      await eventRef.set({ ...event, startAt, endAt, createAt: new Date(), updateAt: new Date() });
     }
 
     if (eventRef.exist) {
@@ -113,7 +126,7 @@ export const EventStepFour = (props) => {
   };
 
   return (
-    <div className="w-full flex flex-col items center bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 h-[calc(100vh-180px)] overflow-auto">
+    <div>
       <div className="text-primary text-['Lato'] font-[700] text-[20px] leading-[24px] md:text-[44px] md:leading-[53px] tracking-[.03em]">
         Resumen
       </div>
@@ -130,14 +143,20 @@ export const EventStepFour = (props) => {
             Fecha
           </div>
           <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px] md:text-[18px] md:leading-[22px]">
-            {`${props.event?.eventDate} ${props.event?.startAt?.toUpperCase()} ${props.event?.endAt?.toUpperCase()}`}
+            {`${moment(props.event?.currentDate?.month).format("D MMMM yyyy")} ${moment(
+              props.event?.currentDate?.start
+            ).format("hh:mm a")} - ${moment(props.event?.currentDate?.end).format("hh:mm a")}`}
           </div>
-          <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Link de la reunión
-          </div>
-          <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px] md:text-[18px] md:leading-[22px]">
-            {props.event?.link}
-          </div>
+          {!isEmpty(props.event?.link) && (
+            <>
+              <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
+                Link de la reunión
+              </div>
+              <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px] md:text-[18px] md:leading-[22px]">
+                {props.event?.link}
+              </div>
+            </>
+          )}
         </div>
         <div className="w-full overflow-auto">
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">

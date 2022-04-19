@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "reactn";
 import { FileUpload } from "../../../../components/common/FileUpload";
-import { DatePicker, TimePicker } from "antd";
-import { ButtonAnt, Input } from "../../../../components/form";
+import { TimePicker } from "antd";
+import { ButtonAnt, DatePicker, Input } from "../../../../components/form";
 import moment from "moment";
-import isEmpty from "lodash/isEmpty";
 
 export const EventStepOne = (props) => {
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [eventDate, setEventDate] = useState("");
-  const [startAt, setStartAt] = useState("");
-  const [endAt, setEndAt] = useState("");
+  const [currentDate, setCurrentDate] = useState({});
 
   const [errorEventDate, setErrorEventDate] = useState(false);
-
-  const dateFormat = "DD/MM/YYYY";
 
   useEffect(() => {
     if (!props.event) return;
@@ -23,13 +18,13 @@ export const EventStepOne = (props) => {
     setName(props.event.name ?? "");
     setLink(props.event.link ?? "");
     setImageUrl(props.event.imageUrl ?? "");
-    setEventDate(props.event.eventDate ?? "");
-    setStartAt(props.event.startAt ?? "");
-    setEndAt(props.event.endAt ?? "");
+    setCurrentDate(props.event.currentDate ?? "");
   }, [props.event]);
 
+  const disabledDate = (current) => current && current < moment().endOf("day");
+
   const saveStepOne = async () => {
-    if (!startAt || !endAt || !eventDate) {
+    if (!currentDate.month || !currentDate.start || !currentDate.end) {
       setErrorEventDate(true);
       return props.showNotification("Error", "Completa la fecha y las horas del evento");
     }
@@ -39,7 +34,9 @@ export const EventStepOne = (props) => {
     }
 
     const _event = props.event;
-    props.setEvent({ ..._event, imageUrl, eventDate, startAt, endAt, name, link });
+
+    props.setEvent({ ..._event, imageUrl, currentDate, name, link });
+
     props.setCurrentStep(2);
   };
 
@@ -93,12 +90,11 @@ export const EventStepOne = (props) => {
         <div className="flex flex-col gap-[5px] w-full md:w-fit">
           <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">Día del evento</div>
           <DatePicker
-            key={eventDate}
-            onChange={(value) => {
-              setEventDate(value.format(dateFormat));
-            }}
-            defaultValue={!isEmpty(eventDate) ? moment(eventDate, dateFormat) : ""}
-            format={dateFormat}
+            format="dddd DD MMMM"
+            value={currentDate?.month}
+            disabledDate={disabledDate}
+            onChange={(event) => setCurrentDate({ ...currentDate, month: event })}
+            margin="0"
             style={{
               border: "1px solid #C4C4C4",
               borderRadius: "4px",
@@ -106,7 +102,6 @@ export const EventStepOne = (props) => {
               width: "200px",
               background: "#FAFAFA",
             }}
-            placeholder="Fecha del evento"
           />
         </div>
         <div className="flex items-center gap-[10px] w-full md:w-fit">
@@ -114,11 +109,9 @@ export const EventStepOne = (props) => {
             <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">Inicio del evento</div>
 
             <TimePicker
-              key={startAt}
-              format="hh:mm"
-              placeholder="Hora de Inicio"
-              defaultValue={!isEmpty(startAt) ? moment(startAt, "HH:mm") : ""}
-              onChange={(value) => setStartAt(value.format("HH:mm"))}
+              format="h:mm a"
+              value={currentDate?.start}
+              onChange={(event) => setCurrentDate({ ...currentDate, start: event })}
               style={{
                 border: "1px solid #C4C4C4",
                 borderRadius: "4px",
@@ -131,11 +124,10 @@ export const EventStepOne = (props) => {
           <div className="flex flex-col gap-[5px]">
             <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">Fin del evento</div>
             <TimePicker
-              key={endAt}
-              format="hh:mm"
-              placeholder="Hora de fin"
-              defaultValue={!isEmpty(endAt) ? moment(endAt, "HH:mm") : ""}
-              onChange={(value) => setEndAt(value.format("HH:mm"))}
+              format="h:mm a"
+              className="w-full"
+              value={currentDate?.end}
+              onChange={(event) => setCurrentDate({ ...currentDate, end: event })}
               style={{
                 border: "1px solid #C4C4C4",
                 borderRadius: "4px",

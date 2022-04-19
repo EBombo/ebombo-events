@@ -1,11 +1,11 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useGlobal, useRef, useState } from "reactn";
 import { Anchor, ButtonAnt, Input, Select, TextArea } from "../../../../components/form";
 import { Table } from "antd";
 import isEmpty from "lodash/isEmpty";
 import { firestore } from "../../../../firebase";
-import { useRouter } from "next/router";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
+import * as XLSX from "xlsx";
 
 const filterOptions = [
   {
@@ -51,15 +51,14 @@ export const columns = [
 ];
 
 export const EventStepTwo = (props) => {
-  const router = useRouter();
-
-  const { eventId } = router.query;
-
   const [authUser] = useGlobal("user");
 
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [addingVisitors, setAddingVisitors] = useState(false);
+  const [fileLoading, setFileLoading] = useState(false);
+
+  const inputRef = useRef(null);
 
   const schema = object().shape({
     visitors: string().required(),
@@ -99,6 +98,42 @@ export const EventStepTwo = (props) => {
     await reset();
 
     setAddingVisitors(false);
+  };
+
+  const readExcel = async (e) => {
+    setFileLoading(true);
+    const [file] = e.target.files;
+    const reader = new FileReader();
+
+    reader.onload = async (evt) => {
+      const bstr = evt.target.result;
+      const wb = XLSX.read(bstr, { type: "binary" });
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
+
+      const newEmails = data.split("\n");
+
+      newEmails.shift();
+
+      newEmails.filter((email) => email !== "");
+
+      const _visitors = newEmails.map((email) => ({
+        email,
+        role: "visitor",
+        createAt: new Date(),
+        id: firestore.collection("companies").doc(authUser?.company.id).collection("members").doc().id,
+        searchName: [email.toUpperCase()],
+        status: "Active",
+        deleted: false,
+      }));
+
+      await props.setMembers(props.members.concat(_visitors));
+    };
+
+    reader.readAsBinaryString(file);
+
+    setFileLoading(false);
   };
 
   return (
@@ -168,9 +203,15 @@ export const EventStepTwo = (props) => {
               rows="10"
             />
           </div>
-          <ButtonAnt color="default" margin="1rem 0" htmlType="submit" loading={addingVisitors}>
-            Añadir
-          </ButtonAnt>
+          <div className="flex items-center gap-[10px] my-4">
+            <ButtonAnt color="default" htmlType="submit" loading={addingVisitors}>
+              Añadir
+            </ButtonAnt>
+            <ButtonAnt color="default" onClick={() => inputRef.current.click()} loading={fileLoading}>
+              Importar Excel
+            </ButtonAnt>
+            <input type="file" ref={inputRef} onChange={readExcel} hidden />
+          </div>
         </form>
       </div>
 
