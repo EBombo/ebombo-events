@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt } from "../../components/form";
+import { SharpButton } from "../../components/common/SharpButton";
 import { LandingGames, OnBoardingLiterals } from "../../components/common/DataList";
 import { Carousel } from "../../components/common/Carousel";
 import { Image as ImageV2 } from "ebombo-components";
@@ -19,6 +20,11 @@ export const OnBoarding = (props) => {
     router.prefetch("/events/[eventId]");
     router.prefetch("/library/events/[eventId]");
   }, []);
+
+  const createEvent = () => {
+    const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
+    router.push(url);
+  };
 
   const GameContentItem = ({ gameContent, className }) => (
     <div>
@@ -43,16 +49,13 @@ export const OnBoarding = (props) => {
             </h2>
             <p className="text-secondary text-base md:text-xl mb-8">{t("landing.on-boarding.intro-description")}</p>
             <div className="hidden lg:inline-grid lg:grid-cols-[min-content_min-content] gap-8">
-              <ButtonAnt
-                size="big"
-                color="success"
-                onClick={() => {
-                  const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
-                  router.push(url);
-                }}
+              <SharpButton
+                prefixIcon="wink"
+                className="min-w-[180px]"
+                onClick={() => createEvent()}
               >
                 <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
-              </ButtonAnt>
+              </SharpButton>
             </div>
           </div>
 
@@ -67,9 +70,13 @@ export const OnBoarding = (props) => {
           </div>
 
           <div className="lg:hidden inline-flex flex-wrap gap-4 py-8">
-            <ButtonAnt size="big" color="success">
+            <SharpButton
+                prefixIcon="wink"
+                className="min-w-[180px]"
+                onClick={() => createEvent()}
+            >
               <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
-            </ButtonAnt>
+            </SharpButton>
           </div>
         </div>
       </section>
@@ -96,7 +103,7 @@ export const OnBoarding = (props) => {
 
       <section className="bg-tapiz-1 bg-white py-16">
         <div className="max-w-[1500px] mx-auto py-8 px-8 grid">
-          <div className="max-w-[1200px] mx-auto mb-6 text-secondary text-center font-bold text-3xl md:text-7xl self-center px-8 md:px-12 uppercase">
+          <div className="max-w-[1200px] mx-auto mb-6 text-secondary text-center font-bold text-2xl md:text-5xl self-center px-8 md:px-12 uppercase">
             {t("landing.on-boarding.activities.title")}
           </div>
 
@@ -153,9 +160,9 @@ export const OnBoarding = (props) => {
                   src={item.img}
                   alt=""
                   placeholderUrl={item.placeholder}
-                  className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video rounded-lg self-center`}
+                  className={`${isOdd ? "md:order-2" : "md:order-1"} w-full order-1 aspect-video rounded-lg self-center`}
                 />,
-                <div key={`content-${i}`} className={`${isOdd ? "md:order-2" : "md:order-1"} order-2`}>
+                <div key={`content-${i}`} className={`${isOdd ? "md:order-1" : "md:order-2"} order-2`}>
                   <div className="mb-6 uppercase font-bold text-primary text-2xl md:text-3xl">{t(item.title)}</div>
                   <div className="text-base md:text-2xl">{t(item.description)}</div>
                 </div>,
