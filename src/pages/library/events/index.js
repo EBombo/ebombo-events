@@ -10,15 +10,18 @@ import capitalize from "lodash/capitalize";
 import { useRouter } from "next/router";
 import moment from "moment";
 import { useTranslation } from "../../../hooks";
+import { EditOutlined } from "@ant-design/icons";
 
 export const Events = (props) => {
   const router = useRouter();
 
+  const { t } = useTranslation("pages.library");
+
   const [events] = useGlobal("userEvents");
   const [adminGames] = useGlobal("adminGames");
-  const [adminGamesHash, setAdminGamesHash] = useState({});
 
-  const { t } = useTranslation("pages.library");
+  const [adminGamesHash, setAdminGamesHash] = useState({});
+  const [isVisibleModalEvents, setIsVisibleModalEvents] = useState(false);
 
   useEffect(() => {
     const _adminGamesHash = {};
@@ -27,7 +30,11 @@ export const Events = (props) => {
     setAdminGamesHash(_adminGamesHash);
   }, [adminGames]);
 
-  const [isVisibleModalEvents, setIsVisibleModalEvents] = useState(false);
+  useEffect(() => {
+    router.prefetch("/events/[eventId]");
+    router.prefetch("/library/events/[eventId]");
+  }, []);
+
 
   const deleteEvent = async (event) => await firestore.collection("events").doc(event.id).update({ deleted: true });
 
@@ -104,6 +111,15 @@ export const Events = (props) => {
                         />
                         {t("delete")}
                       </div>
+
+                      {!event.manageByUser && (
+                        <div
+                          className="flex items-center font-[normal] text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
+                          onClick={() => router.push(`/events/${event.id}`)}
+                        >
+                          <EditOutlined /> <div className="mx-4">{t("edit")}</div>
+                        </div>
+                      )}
                     </div>
                   }
                   color={darkTheme.basic.whiteLight}
