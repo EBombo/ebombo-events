@@ -50,5 +50,6 @@
     "last-name": "LastName",
     "email": "Email",
     "password": "Password",
-    "send": "Send"
+    "send": "Send",
+    "update": "Update"
 }
