@@ -1,7 +1,7 @@
 import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import moment from "moment";
 import { Table } from "antd";
-import { columns } from "../EventStepTwo";
+import { tableEventsColumns } from "../../../../../components/common/DataList";
 import defaultTo from "lodash/defaultTo";
 import { Image } from "../../../../../components/common/Image";
 import { config, firestore } from "../../../../../firebase";
@@ -10,9 +10,12 @@ import isEmpty from "lodash/isEmpty";
 import { useRouter } from "next/router";
 import { Anchor, ButtonAnt } from "../../../../../components/form";
 import { snapshotToArray } from "../../../../../utils";
+import { useTranslation } from "../../../../../hooks";
 
 export const EventView = (props) => {
   const router = useRouter();
+
+  const { t } = useTranslation("pages.library.event");
 
   const { eventId } = router.query;
 
@@ -104,7 +107,7 @@ export const EventView = (props) => {
         </div>
         <div className="hidden md:block">
           <ButtonAnt onClick={() => router.push(`/library/events/${event.id}?manageBy=user`)}>
-            <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">Editar</div>
+            <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">{t("edit")}</div>
           </ButtonAnt>
         </div>
       </div>
@@ -121,7 +124,7 @@ export const EventView = (props) => {
         {!isEmpty(event.link) && (
           <div>
             <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] my-2 md:my-4">
-              Link de la reunión
+              {t("step-four.link")}
             </div>
             <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px] no-wrap">
               {event?.link}
@@ -133,16 +136,16 @@ export const EventView = (props) => {
       <div className="flex flex-col gap-4 md:flex-row md:items-start md:overflow-x-auto md:overflow-y-hidden">
         <div className="max-w-[500px] w-full overflow-x-auto">
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Invitados
+            {t("step-two.title")}
           </div>
           <div className="min-w-[500px]">
-            <Table columns={columns} dataSource={members} className="rounded-[6px]" />
+            <Table columns={tableEventsColumns(t)} dataSource={members} className="rounded-[6px]" />
           </div>
         </div>
 
         <div>
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Juegos seleccionados
+            {t("step-three.subtitle-one")}
           </div>
           <div className="flex flex-col md:pr-[10px] md:h-[350px] md:overflow-auto md:overflow-x-hidden">
             {eventGames.map((game) => (
@@ -167,7 +170,7 @@ export const EventView = (props) => {
                   size="small"
                   onClick={() => router.push(`/library/games/${game.id}?adminGameId=${game.adminGame.id}`)}
                 >
-                  Editar
+                  {t("edit")}
                 </ButtonAnt>
               </div>
             ))}
@@ -176,7 +179,7 @@ export const EventView = (props) => {
 
         <div>
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Comunicados
+            {t("releases")}
           </div>
           <div className="flex flex-col md:h-[350px] md:overflow-auto md:overflow-x-hidden">
             {releases.map((release) => (
@@ -198,14 +201,14 @@ export const EventView = (props) => {
             ))}
           </div>
           <ButtonAnt onClick={() => router.push(`/library/events/${event.id}/releases/new`)} margin="1rem auto">
-            <div className="text-['Lato'] font-[500] text-[13px] leading-[15px]">Crear comunicado</div>
+            <div className="text-['Lato'] font-[500] text-[13px] leading-[15px]">{t("create-release")}</div>
           </ButtonAnt>
         </div>
       </div>
 
       <div className="block md:hidden w-full">
         <ButtonAnt onClick={() => router.push(`/library/events/${event.id}?manageBy=user`)} margin="1rem auto">
-          <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">Editar</div>
+          <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">{t("edit")}</div>
         </ButtonAnt>
       </div>
     </div>

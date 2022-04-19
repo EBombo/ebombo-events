@@ -426,6 +426,9 @@
         "visitor": "Visitante",
         "admin": "Administrador",
         "step-one": {
+          "releases": "Comunicados",
+          "create-release": "Create Release",
+          "edit": "Editar",
           "name": "Básico",
           "title": "Detalles básicos",
           "event-title": "Título de tu evento",

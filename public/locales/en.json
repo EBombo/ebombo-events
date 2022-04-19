@@ -417,6 +417,9 @@
       "create-event": "Create Event",
       "organizeBy": "Organized by the team",
       "event": {
+        "releases": "Releases",
+        "create-release": "Create Release",
+        "edit": "Edit",
         "email": "Email",
         "role": "Role",
         "status": "Status",
