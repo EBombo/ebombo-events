@@ -4,7 +4,7 @@ import { Image } from "./common/Image";
 import { Icon } from "./common/Icons";
 import { config } from "../firebase";
 import { Desktop, mediaQuery, Tablet } from "../constants";
-import { Anchor, ButtonAnt } from "./form";
+import { Anchor } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import { Layout } from "./common/Layout";
@@ -125,7 +125,7 @@ export const Navbar = (props) => {
           </div>
 
           <Desktop>
-            <StyledSwitch className="switch" onClick={() => inputRef.current.click()} >
+            <StyledSwitch className="switch" onClick={() => inputRef.current.click()}>
               <input
                 ref={inputRef}
                 id="language-toggle"
@@ -162,19 +162,11 @@ export const Navbar = (props) => {
                   >
                     {t("nav.login")}
                   </Anchor>
-                  {isEventPage ? null : (
-                    <ButtonAnt
-                      onClick={() => router.push("/contact")}
-                      color="success"
-                      variant="contained"
-                      fontSize="18px"
-                    >
-                      {t("nav.contact-us")}
-                    </ButtonAnt>
-                  )}
                 </>
               )}
-              <SharpButton prefixIcon="normal" onClick={() => createEvent()}>{t("landing.header.book-an-event")}</SharpButton>
+              <SharpButton prefixIcon="normal" onClick={() => createEvent()}>
+                {t("landing.header.book-an-event")}
+              </SharpButton>
             </div>
           </Desktop>
 
@@ -222,7 +214,7 @@ export const Navbar = (props) => {
               )}
 
               <li className="nav-item">
-                <StyledSwitch className="switch" onClick={() => inputRef.current.click()} >
+                <StyledSwitch className="switch" onClick={() => inputRef.current.click()}>
                   <input
                     ref={inputRef}
                     id="language-toggle"
@@ -242,17 +234,6 @@ export const Navbar = (props) => {
 
               {!authUser ? (
                 <>
-                  {isEventPage ? null : (
-                    <ButtonAnt
-                      margin="1.5rem auto"
-                      onClick={() => router.push("/contact")}
-                      color="success"
-                      variant="contained"
-                      fontSize="18px"
-                    >
-                      {t("nav.contact-us")}
-                    </ButtonAnt>
-                  )}
                   <li className="nav-item" onClick={() => router.push("/login")}>
                     {t("nav.login")}
                   </li>
@@ -405,7 +386,8 @@ const StyledSwitch = styled.div`
   display: inline-block;
   width: 50px;
 
-  .on, .off {
+  .on,
+  .off {
     position: absolute;
     top: 5px;
     pointer-events: none;
