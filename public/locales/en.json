@@ -414,6 +414,59 @@
       "created-ago": "Created ago",
       "edit": "Edit",
       "play": "Play",
+      "create-event": "Create Event",
+      "organizeBy": "Organized by the team",
+      "event": {
+        "step-one": {
+          "name": "Basic",
+          "title": "Basic Details",
+          "event-title": "Event Title",
+          "input-placeholder": "Write here....",
+          "date-title": "Event Date",
+          "link-title": "Meeting Link (Zoom, Cisco, Teams, Meets, etc)",
+          "link-description": "*You can add it after creating the event",
+          "dates": {
+            "day": "Event Day",
+            "start": "Start of the event",
+            "end": "End of event"
+          },
+          "next": "Next"
+        },
+        "step-two": {
+          "name": "Guests",
+          "title": "Guests",
+          "subtitle-one": "Select the guests of your event.",
+          "filter": "Filter by:",
+          "search-placeholder": "Search",
+          "email": "Email",
+          "role": "Role",
+          "status": "Status",
+          "active": "Active",
+          "inactive": "Inactive",
+          "member": "Member",
+          "visitor": "Visitor",
+          "admin": "Admin",
+          "subtitle-two": "Extra guests",
+          "textarea-placeholder": "Write\n every\n email\n in a single\n line",
+          "add": "Add",
+          "import": "Import Excel",
+          "delete": "Delete",
+          "go-back": "Go back",
+          "next": "Next"
+        },
+        "step-three": {
+          "name": "Activities",
+          "description": "Choose the virtual dynamics for your event. Once the event is scheduled, you can create the games in the window summary of your event.",
+          "subtitle-one": "Selected games"
+        },
+        "step-four": {
+          "name": "Resume",
+          "title": "Title",
+          "date": "Date",
+          "link": "Meeting Link",
+          "create": "Create"
+        }
+      },
       "bingo": {
         "card-title": "Card title",
         "event-name": "Event name",

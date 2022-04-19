@@ -6,52 +6,13 @@ import { firestore } from "../../../../firebase";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import * as XLSX from "xlsx";
-
-const filterOptions = [
-  {
-    key: "email",
-    name: "Correo",
-  },
-  {
-    key: "role",
-    name: "Rol",
-  },
-  {
-    key: "status",
-    name: "Estado",
-  },
-];
-
-export const columns = [
-  {
-    title: "Correo",
-    dataIndex: "email",
-    render: (text) => (
-      <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>
-    ),
-  },
-  {
-    title: "Rol",
-    dataIndex: "role",
-    render: (text) => (
-      <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">
-        {text === "member" ? "Miembro" : text === "visitor" ? "Visitante" : "Administrador"}
-      </div>
-    ),
-  },
-  {
-    title: "Estado",
-    dataIndex: "status",
-    render: (text) => (
-      <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">
-        {text === "Active" ? "Activo" : "Inactivo"}
-      </div>
-    ),
-  },
-];
+import { useTranslation } from "../../../../hooks";
+import { tableEventsColumns } from "../../../../components/common/DataList";
 
 export const EventStepTwo = (props) => {
   const [authUser] = useGlobal("user");
+
+  const { t } = useTranslation("pages.library.event.step-two");
 
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -136,21 +97,34 @@ export const EventStepTwo = (props) => {
     setFileLoading(false);
   };
 
+  const filterOptions = [
+    {
+      key: "email",
+      name: t("email"),
+    },
+    {
+      key: "role",
+      name: t("role"),
+    },
+    {
+      key: "status",
+      name: t("status"),
+    },
+  ];
+
   return (
     <div>
       <div className="text-primary text-['Lato'] font-[700] text-[20px] leading-[24px] md:text-[44px] md:leading-[53px] tracking-[.03em]">
-        Invitados
+        {t("title")}
       </div>
 
       <div className="flex mt-8 gap-8 w-full flex-col md:flex-row">
         <div>
-          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">
-            Selecciona a los invitados de tu evento.
-          </div>
+          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">{t("subtitle-one")}</div>
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-[5px]">
-              <div>Filtrar por:</div>
+              <div>{t("filter")}</div>
               <Select
                 showSearch
                 defaultValue={"email"}
@@ -164,7 +138,7 @@ export const EventStepTwo = (props) => {
               />
             </div>
             <div>
-              <Input type="search" placeholder="Buscar" />
+              <Input type="search" placeholder={t("search-placeholder")} />
             </div>
           </div>
           <div className="my-4 w-full overflow-auto">
@@ -173,7 +147,7 @@ export const EventStepTwo = (props) => {
                 className="my-4 cursor-pointer text-['Lato'] text-[12px] text-blackDarken leading-[14px] underline md:text-[16px] md:leading-[19px]"
                 onClick={() => deleteSelectedUsers()}
               >
-                Eliminar
+                {t("delete")}
               </div>
             )}
             <div className="min-w-[500px]">
@@ -183,14 +157,14 @@ export const EventStepTwo = (props) => {
                   type: "checkbox",
                   ...rowSelection,
                 }}
-                columns={columns}
+                columns={tableEventsColumns(t)}
                 dataSource={props.members}
               />
             </div>
           </div>
         </div>
         <form className="w-full md:max-w-[400px]" onSubmit={handleSubmit(addVisitors)}>
-          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">Invitados extras</div>
+          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">{t("subtitle-two")}</div>
           <div className="mt-4">
             <TextArea
               name="visitors"
@@ -199,16 +173,16 @@ export const EventStepTwo = (props) => {
               color="black"
               background={"#FAFAFA"}
               border={"1px solid #C4C4C4"}
-              placeholder={"Escribe\n" + "Cada\n" + "Correo\n" + "en una linea\n" + "unica"}
+              placeholder={t("textarea-placeholder")}
               rows="10"
             />
           </div>
           <div className="flex items-center gap-[10px] my-4">
             <ButtonAnt color="default" htmlType="submit" loading={addingVisitors}>
-              Añadir
+              {t("add")}
             </ButtonAnt>
             <ButtonAnt color="default" onClick={() => inputRef.current.click()} loading={fileLoading}>
-              Importar Excel
+              {t("import")}
             </ButtonAnt>
             <input type="file" ref={inputRef} onChange={readExcel} hidden />
           </div>
@@ -217,10 +191,10 @@ export const EventStepTwo = (props) => {
 
       <div className="flex w-full items-center justify-between">
         <Anchor underlined variant="secondary" onClick={() => props.setCurrentStep(1)}>
-          Volver
+          {t("go-back")}
         </Anchor>
         <ButtonAnt disabled={addingVisitors} onClick={() => props.setCurrentStep(3)}>
-          Siguiente
+          {t("next")}
         </ButtonAnt>
       </div>
     </div>

@@ -1274,3 +1274,33 @@ export const ContentLiterals = {
     ],
   },
 };
+
+export const tableEventsColumns = (t) => {
+  return [
+    {
+      title: t("email"),
+      dataIndex: "email",
+      render: (text) => (
+        <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">{text}</div>
+      ),
+    },
+    {
+      title: t("role"),
+      dataIndex: "role",
+      render: (text) => (
+        <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">
+          {text === "member" ? t("member") : text === "visitor" ? t("visitor") : t("admin")}
+        </div>
+      ),
+    },
+    {
+      title: t("status"),
+      dataIndex: "status",
+      render: (text) => (
+        <div className="text-['Lato'] text-blackDarken text-[12px] md:text-[16px] md:leading-[19px]">
+          {text === "Active" ? t("active") : t("inactive")}
+        </div>
+      ),
+    },
+  ];
+};

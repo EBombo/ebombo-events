@@ -3,6 +3,7 @@ import { FileUpload } from "../../../../components/common/FileUpload";
 import { TimePicker } from "antd";
 import { ButtonAnt, DatePicker, Input } from "../../../../components/form";
 import moment from "moment";
+import { useTranslation } from "../../../../hooks";
 
 export const EventStepOne = (props) => {
   const [name, setName] = useState("");
@@ -11,6 +12,8 @@ export const EventStepOne = (props) => {
   const [currentDate, setCurrentDate] = useState({});
 
   const [errorEventDate, setErrorEventDate] = useState(false);
+
+  const { t } = useTranslation("pages.library.event.step-one");
 
   useEffect(() => {
     if (!props.event) return;
@@ -43,7 +46,7 @@ export const EventStepOne = (props) => {
   return (
     <div>
       <div className="text-primary text-['Lato'] font-[700] text-[20px] leading-[24px] md:text-[44px] md:leading-[53px] tracking-[.03em]">
-        Detalles básicos
+        {t("title")}
       </div>
 
       <div className="flex flex-col gap-4 md:items-end md:flex-row">
@@ -63,7 +66,7 @@ export const EventStepOne = (props) => {
 
         <div className="flex flex-col gap-4 gap-[5px] w-full max-w-[630px]">
           <label htmlFor="name" className="text-secondary text-['Lato'] font-[400] text-[18px] leading-[22px]">
-            Título de tu evento
+            {t("event-title")}
           </label>
           <Input
             type="text"
@@ -75,12 +78,12 @@ export const EventStepOne = (props) => {
               e.preventDefault();
               setName(e.target.value);
             }}
-            placeholder="Escribe aquí...."
+            placeholder={t("input-placeholder")}
           />
         </div>
       </div>
 
-      <div className="my-4 text-['Lato'] font-[400] text-secondary text-[18px] leading-[22px]">Fecha del evento</div>
+      <div className="my-4 text-['Lato'] font-[400] text-secondary text-[18px] leading-[22px]">{t("date-title")}</div>
 
       <div
         className={`p-4 ${
@@ -88,7 +91,7 @@ export const EventStepOne = (props) => {
         } border-[2px] flex items-center gap-[10px] bg-white w-full md:w-fit rounded-[6px] flex-col md:flex-row`}
       >
         <div className="flex flex-col gap-[5px] w-full md:w-fit">
-          <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">Día del evento</div>
+          <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">{t("dates.day")}</div>
           <DatePicker
             format="dddd DD MMMM"
             value={currentDate?.month}
@@ -106,7 +109,7 @@ export const EventStepOne = (props) => {
         </div>
         <div className="flex items-center gap-[10px] w-full md:w-fit">
           <div className="flex flex-col gap-[5px]">
-            <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">Inicio del evento</div>
+            <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">{t("dates.start")}</div>
 
             <TimePicker
               format="h:mm a"
@@ -122,7 +125,7 @@ export const EventStepOne = (props) => {
             />
           </div>
           <div className="flex flex-col gap-[5px]">
-            <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">Fin del evento</div>
+            <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">{t("dates.end")}</div>
             <TimePicker
               format="h:mm a"
               className="w-full"
@@ -140,9 +143,7 @@ export const EventStepOne = (props) => {
         </div>
       </div>
 
-      <div className="my-4 text-['Lato'] font-[400] text-secondary text-[18px] leading-[22px]">
-        Link de la reunión (Zoom, Cisco, Teams, Meets, etc)
-      </div>
+      <div className="my-4 text-['Lato'] font-[400] text-secondary text-[18px] leading-[22px]">{t("link-title")}</div>
 
       <div className="w-full max-w-[500px]">
         <Input
@@ -155,15 +156,13 @@ export const EventStepOne = (props) => {
             e.preventDefault();
             setLink(e.target.value);
           }}
-          placeholder="Escribe aquí...."
+          placeholder={t("input-placeholder")}
         />
       </div>
-      <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] mt-[5px]">
-        *Puedes agregarlo después de crear el evento
-      </div>
+      <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] mt-[5px]">{t("link-description")}</div>
 
       <div className="flex w-full items-center justify-end">
-        <ButtonAnt onClick={() => saveStepOne()}>Siguiente</ButtonAnt>
+        <ButtonAnt onClick={() => saveStepOne()}>{t("next")}</ButtonAnt>
       </div>
     </div>
   );

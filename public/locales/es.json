@@ -414,6 +414,59 @@
       "created-ago": "Creado hace",
       "edit": "Editar",
       "play": "Jugar",
+      "create-event": "Crear Evento",
+      "organizeBy": "Organizado por el equipo de",
+      "event": {
+        "step-one": {
+          "name": "Básico",
+          "title": "Detalles básicos",
+          "event-title": "Título de tu evento",
+          "input-placeholder": "Escribe aquí....",
+          "date-title": "Fecha del evento",
+          "link-title": "Link de la reunión (Zoom, Cisco, Teams, Meets, etc)",
+          "link-description": "*Puedes agregarlo después de crear el evento",
+          "dates": {
+            "day": "Día del evento",
+            "start": "Inicio del evento",
+            "end": "Fin del evento"
+          },
+          "next": "Siguiente"
+        },
+        "step-two": {
+          "name": "Invitados",
+          "title": "Invitados",
+          "subtitle-one": "Selecciona a los invitados de tu evento.",
+          "filter": "Filtrar por:",
+          "search-placeholder": "Buscar",
+          "email": "Correo",
+          "role": "Rol",
+          "status": "Estado",
+          "active": "Activo",
+          "inactive": "Inactivo",
+          "member": "Miembro",
+          "visitor": "Visitante",
+          "admin": "Administrador",
+          "subtitle-two": "Invitados extras",
+          "textarea-placeholder": "Escribe \n Cada \n Corre \n en una linea \n unica",
+          "add": "Añadir",
+          "import": "Importar Excel",
+          "delete": "Eliminar",
+          "go-back": "Volver",
+          "next": "Siguiente"
+        },
+        "step-three": {
+          "name": "Actividades",
+          "description": "Elige las dinámicas virtuales para tu evento. Una vez agendado el evento, puedes crear los juegos en la ventana resumen de tu evento.",
+          "subtitle-one": "Juegos seleccionados"
+        },
+        "step-four": {
+          "name": "Resumen",
+          "title": "Título",
+          "date": "Fecha",
+          "link": "Link de la reunión",
+          "create": "Crear"
+        }
+      },
       "bingo": {
         "card-title": "Título de Cartilla",
         "event-name": "Nombre del Evento",

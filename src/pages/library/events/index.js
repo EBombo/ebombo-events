@@ -9,14 +9,16 @@ import { Desktop } from "../../../constants";
 import capitalize from "lodash/capitalize";
 import { useRouter } from "next/router";
 import moment from "moment";
+import { useTranslation } from "../../../hooks";
 
 export const Events = (props) => {
   const router = useRouter();
 
-  const [authUser] = useGlobal("user");
   const [events] = useGlobal("userEvents");
   const [adminGames] = useGlobal("adminGames");
   const [adminGamesHash, setAdminGamesHash] = useState({});
+
+  const { t } = useTranslation("pages.library");
 
   useEffect(() => {
     const _adminGamesHash = {};
@@ -39,7 +41,7 @@ export const Events = (props) => {
         />
       )}
 
-      <ButtonAnt onClick={() => setIsVisibleModalEvents(true)}>Crear</ButtonAnt>
+      <ButtonAnt onClick={() => setIsVisibleModalEvents(true)}>{t("create-event")}</ButtonAnt>
 
       <div className="my-4 md:my-8">
         {events.map((event) => (
@@ -90,7 +92,7 @@ export const Events = (props) => {
                   title={
                     <div className="flex flex-col">
                       <div
-                        className="flex items-center font-[normal] text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
+                        className="flex items-center text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
                         onClick={() => deleteEvent(event)}
                       >
                         <Image
@@ -100,7 +102,7 @@ export const Events = (props) => {
                           size={"contain"}
                           margin={"0 15px 0 0"}
                         />
-                        Eliminar
+                        {t("delete")}
                       </div>
                     </div>
                   }
@@ -168,7 +170,7 @@ export const Events = (props) => {
                   ) : (
                     <div className="flex items-center gap-[5px]">
                       <div className="text-black text-['Lato'] text-[13px] leading[16px]">
-                        Organizado por el equipo de
+                        {t("organizedBy")}
                       </div>
                       <Image
                         src={`${config.storageUrl}/resources/ebombo.svg`}

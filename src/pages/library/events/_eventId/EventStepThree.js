@@ -4,8 +4,11 @@ import { Anchor, ButtonAnt } from "../../../../components/form";
 import { config } from "../../../../firebase";
 import capitalize from "lodash/capitalize";
 import isEmpty from "lodash/isEmpty";
+import { useTranslation } from "../../../../hooks";
 
 export const EventStepThree = (props) => {
+  const { t } = useTranslation("pages.library.event");
+
   const [adminGames] = useGlobal("adminGames");
 
   const [selectedGames, setSelectedGames] = useState([]);
@@ -48,12 +51,11 @@ export const EventStepThree = (props) => {
   return (
     <div>
       <div className="text-primary text-['Lato'] font-[700] text-[20px] leading-[24px] md:text-[44px] md:leading-[53px] tracking-[.03em]">
-        Actividades
+        {t("step-three.name")}
       </div>
 
       <div className="my-4 md:my-8 max-w-[750px] text-['Lato'] font-[400] text-secondary text-[15px] leading-[18px] md:text-[18px] md:leading-[22px]">
-        Elige las dinámicas virtuales para tu evento. Una vez agendado el evento, puedes crear los juegos en la ventana
-        resumen de tu evento.
+        {t("step-three.description")}
       </div>
 
       <div className="grid gap-4 md:grid-cols-[auto_250px] max-w-[1200px] md:h-[400px]">
@@ -79,7 +81,9 @@ export const EventStepThree = (props) => {
         </div>
 
         <div className="flex flex-col gap-4 md:max-h-[350px] md:overflow-y-auto md:overflow-x-hidden">
-          <div className=" text-['Lato] font-[400] text-[18px] leading-[22px] text-secondary">Juegos seleccionados</div>
+          <div className=" text-['Lato] font-[400] text-[18px] leading-[22px] text-secondary">
+            {t("step-three.subtitle-one")}
+          </div>
           {selectedGames.map((game) => (
             <div
               className="bg-white rounded-[6px] flex items-center p-2 border-grayLighten border-[2px] w-[170px]"
@@ -104,9 +108,9 @@ export const EventStepThree = (props) => {
 
       <div className="flex w-full items-center justify-between">
         <Anchor underlined variant="secondary" onClick={() => props.setCurrentStep(2)}>
-          Volver
+          {t("step-two.go-back")}
         </Anchor>
-        <ButtonAnt onClick={() => validateStepThree()}>Siguiente</ButtonAnt>
+        <ButtonAnt onClick={() => validateStepThree()}>{t("step-two.next")}</ButtonAnt>
       </div>
     </div>
   );
