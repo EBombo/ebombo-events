@@ -2,6 +2,7 @@ import React, { useEffect, useGlobal } from "reactn";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { ButtonAnt } from "../../components/form";
+import { SharpButton } from "../../components/common/SharpButton";
 import { Image as ImageV2 } from "ebombo-components";
 import { useTranslation } from "../../hooks";
 
@@ -74,6 +75,7 @@ export const Activities = (props) => {
   useEffect(() => {
     router.prefetch("/events/[eventId]");
     router.prefetch("/library/events/[eventId]");
+    router.prefetch("/contact");
   }, []);
 
   const GameContentItem = ({ gameContent, className }) => (
@@ -117,19 +119,26 @@ export const Activities = (props) => {
             </p>
 
             <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
-              <ButtonAnt
+              <SharpButton
                 size="big"
-                color="success"
+                prefixIcon="wink"
+                className="min-w-[150px]"
                 onClick={() => {
                   const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
                   router.push(url);
                 }}
               >
-                <span className="text-lg font-bold">{t("landing.activities.sign-in-button-label")}</span>
-              </ButtonAnt>
-              <ButtonAnt size="big" color="primary">
-                <span className="text-lg font-bold">{t("landing.activities.contact-button-label")}</span>
-              </ButtonAnt>
+                <span className="font-bold align-middle">{t("landing.activities.sign-in-button-label")}</span>
+              </SharpButton>
+              <SharpButton
+                size="big"
+                color="primary"
+                prefixIcon="satisfied"
+                className="min-w-[180px]"
+                onClick={() => router.push("/contact" )}
+              >
+                <span className="text-lg font-bold align-middle">{t("landing.activities.contact-button-label")}</span>
+              </SharpButton>
             </div>
           </div>
 
@@ -144,12 +153,27 @@ export const Activities = (props) => {
           </div>
 
           <div className="md:hidden inline-flex flex-cols flex-wrap gap-4 px-8 py-8">
-            <ButtonAnt size="big" color="success">
-              <span className="text-lg font-bold">{t("landing.activities.sign-in-button-label")}</span>
-            </ButtonAnt>
-            <ButtonAnt size="big" color="primary">
-              <span className="text-lg font-bold">{t("landing.activities.contact-button-label")}</span>
-            </ButtonAnt>
+            <SharpButton
+              size="big"
+              color="success"
+              prefixIcon="satisfied"
+              className="min-w-[150px]"
+              onClick={() => {
+                const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
+                router.push(url);
+              }}
+            >
+              <span className="text-lg font-bold align-middle">{t("landing.activities.sign-in-button-label")}</span>
+            </SharpButton>
+            <SharpButton
+              size="big"
+              color="primary"
+              prefixIcon="satisfied"
+              className="min-w-[180px]"
+              onClick={() => router.push("/contact" )}
+            >
+              <span className="text-lg font-bold align-middle">{t("landing.activities.contact-button-label")}</span>
+            </SharpButton>
           </div>
         </div>
       </section>
