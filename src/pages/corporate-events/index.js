@@ -151,7 +151,7 @@ export const CorporateEvents = (props) => {
             {t(CorporateEventsLiterals.virtualEvents.title)}
           </div>
 
-          <div className="my-8">
+          <div className="my-8 max-w-[1200px] mx-auto lg:px-20 lg:py-12">
             {CorporateEventsLiterals.virtualEvents.items.reduce((acc, item, i) => {
               const isOdd = i % 2 !== 1;
 
@@ -164,13 +164,13 @@ export const CorporateEvents = (props) => {
                   className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video rounded-lg`}
                 />,
                 <div key={`content-${i}`} className={`${isOdd ? "md:order-2" : "md:order-1"} order-2`}>
-                  <div className="mb-6 uppercase font-bold text-primary text-2xl md:text-3xl">{t(item.title)}</div>
-                  <div className="text-base md:text-2xl">{t(item.description)}</div>
+                  <div className="mb-4 uppercase font-bold text-primary text-1xl md:text-2xl">{t(item.title)}</div>
+                  <div className="text-base md:text-xl">{t(item.description)}</div>
                 </div>,
               ];
 
               const wrapperEl = (
-                <div key={`wrapper-${i}`} className="grid md:grid-cols-[1fr_1fr] my-10 gap-10">
+                <div key={`wrapper-${i}`} className="grid md:items-center md:grid-cols-[1fr_1fr] my-10 gap-10">
                   {childItems}
                 </div>
               );
