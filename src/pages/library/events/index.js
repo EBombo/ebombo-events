@@ -9,6 +9,7 @@ import { Desktop } from "../../../constants";
 import capitalize from "lodash/capitalize";
 import { useRouter } from "next/router";
 import moment from "moment";
+import { EditOutlined } from "@ant-design/icons";
 
 export const Events = (props) => {
   const router = useRouter();
@@ -16,6 +17,7 @@ export const Events = (props) => {
   const [authUser] = useGlobal("user");
   const [events] = useGlobal("userEvents");
   const [adminGames] = useGlobal("adminGames");
+
   const [adminGamesHash, setAdminGamesHash] = useState({});
 
   useEffect(() => {
@@ -24,6 +26,11 @@ export const Events = (props) => {
 
     setAdminGamesHash(_adminGamesHash);
   }, [adminGames]);
+
+  useEffect(() => {
+    router.prefetch("/events/[eventId]");
+    router.prefetch("/library/events/[eventId]");
+  }, []);
 
   const [isVisibleModalEvents, setIsVisibleModalEvents] = useState(false);
 
@@ -102,6 +109,15 @@ export const Events = (props) => {
                         />
                         Eliminar
                       </div>
+
+                      {!event.manageByUser && (
+                        <div
+                          className="flex items-center font-[normal] text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
+                          onClick={() => router.push(`/events/${event.id}`)}
+                        >
+                          <EditOutlined /> <div className="mx-4">Editar</div>
+                        </div>
+                      )}
                     </div>
                   }
                   color={darkTheme.basic.whiteLight}

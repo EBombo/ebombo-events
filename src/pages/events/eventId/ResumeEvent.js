@@ -28,6 +28,7 @@ export const ResumeEvent = (props) => {
   });
 
   const router = useRouter();
+  const { eventId } = router.query;
 
   const { signUp } = useAuth();
 
@@ -87,9 +88,9 @@ export const ResumeEvent = (props) => {
       setIsLoading(true);
       const eventRef = firestore.collection("events");
 
-      const eventId = eventRef.doc().id;
+      const eventId_ = eventId === "new" ? eventRef.doc().id : eventId;
 
-      await eventRef.doc(eventId).set(
+      await eventRef.doc(eventId_).set(
         {
           ...event,
           ...event.dates[0],
@@ -98,7 +99,7 @@ export const ResumeEvent = (props) => {
           createAt: new Date(),
           updateAt: new Date(),
           deleted: false,
-          id: eventId,
+          id: eventId_,
         },
         { merge: true }
       );
@@ -276,7 +277,7 @@ export const ResumeEvent = (props) => {
             loading={isLoadingCreateUser || isLoading}
             disabled={isLoadingUser || isLoadingCreateUser || isLoading}
           >
-            {t("send")}
+            {eventId === "new" ? t("send") : t("update")}
           </ButtonAnt>
         </div>
       </form>
