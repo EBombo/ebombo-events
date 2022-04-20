@@ -11,6 +11,7 @@ import { SharpButton } from "../../components/common/SharpButton";
 import { interests } from "../../components/common/DataList";
 import isEmpty from "lodash/isEmpty";
 import { MailOutlined } from "@ant-design/icons";
+import { Image } from "../../components/common/Image";
 
 export const ContactForm = (props) => {
   const { Fetch } = useFetch();
@@ -36,7 +37,7 @@ export const ContactForm = (props) => {
   const sendEmail = async (data) => {
     if (isEmpty(currentInterests)) props.showNotification("Error", t("interests-selected"));
 
-      setLoadingSendingEmail(true);
+    setLoadingSendingEmail(true);
     try {
       const { error } = await Fetch(`${config.serverUrl}/api/contact`, "POST", {
         ...data,
@@ -70,10 +71,43 @@ export const ContactForm = (props) => {
           {t("description")}
         </div>
 
-        <form onSubmit={handleSubmit(sendEmail)} className="w-full bg-white rounded-[10px] p-4 md:p-8">
-          <div className="text-['Lato'] font-[800] text-[16px] leading-[19px] text-secondary mb-4">
-            {t("write-us")}
+        <div className="my-4 flex items-center justify-between">
+          <div
+            className="email text-white flex flex-col items-center"
+            onClick={() => window.open("mailto:events@ebombo.com.pe")}
+          >
+            <Image
+              src={`${config.storageUrl}/resources/email-white.svg`}
+              size="contain"
+              width="35px"
+              height="35px"
+              margin="5px 10px 0 0"
+            />
           </div>
+
+          <Image
+            cursor="pointer"
+            onClick={() => window.open("https://www.instagram.com/ebombo_/")}
+            src={`${config.storageUrl}/resources/instagram-white.svg`}
+            size="contain"
+            width="35px"
+            height="35px"
+            margin="0"
+          />
+
+          <Image
+            cursor="pointer"
+            onClick={() => window.open("https://www.linkedin.com/company/ebombo/?viewAsMember=true")}
+            src={`${config.storageUrl}/resources/linkedin-white.svg`}
+            size="contain"
+            width="35px"
+            height="35px"
+            margin="0 10px"
+          />
+        </div>
+
+        <form onSubmit={handleSubmit(sendEmail)} className="w-full bg-white rounded-[10px] p-4 md:p-8">
+          <div className="text-['Lato'] font-[800] text-[16px] leading-[19px] text-secondary mb-4">{t("write-us")}</div>
           <div className="grid md:gap-4 md:grid-cols-[1fr_1fr]">
             <div className="mb-4">
               <div className="mb-4">
