@@ -157,12 +157,12 @@ export const DetailsEvent = (props) => {
             >
               {t(goal.title)}
 
-              {currentGoals.includes(goal.key) ? (
+              {currentGoals.includes(goal.key) && (
                 <img
                   src={`${config.storageUrl}/resources/events/check.svg`}
                   className="absolute top-px right-px w-6 h-6"
                 />
-              ) : null}
+              )}
             </div>
           ))}
         </div>
