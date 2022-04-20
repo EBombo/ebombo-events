@@ -1,16 +1,20 @@
 import React, { useEffect, useGlobal, useState } from "reactn";
 import { Table } from "antd";
-import { columns } from "./EventStepTwo";
+import { gamesFirestore, tableEventsColumns } from "../../../../components/common/DataList";
 import { Image } from "../../../../components/common/Image";
 import { config, firestore } from "../../../../firebase";
-import { gamesFirestore } from "../../../../components/common/DataList";
 import capitalize from "lodash/capitalize";
 import defaultTo from "lodash/defaultTo";
 import { Anchor, ButtonAnt } from "../../../../components/form";
 import { useRouter } from "next/router";
+import moment from "moment";
+import isEmpty from "lodash/isEmpty";
+import { useTranslation } from "../../../../hooks";
 
 export const EventStepFour = (props) => {
   const router = useRouter();
+
+  const { t } = useTranslation("pages.library.event");
 
   const { eventId } = router.query;
 
@@ -46,10 +50,21 @@ export const EventStepFour = (props) => {
 
     const adminGames = props.event?.adminGames;
 
+    const startDateFormatted = `${event.currentDate.month.format("DD/MM/YYYY")} ${event.currentDate.start.format(
+      "h:mm a"
+    )}`;
+    const endDateFormatted = `${event.currentDate.month.format("DD/MM/YYYY")} ${event.currentDate.end.format(
+      "h:mm a"
+    )}`;
+
+    const startAt = moment(startDateFormatted, "DD/MM/YYYY h:mm a").toDate();
+    const endAt = moment(endDateFormatted, "DD/MM/YYYY h:mm a").toDate();
+
     delete event.adminGames;
+    delete event.currentDate;
 
     if (!eventRef.exist) {
-      await eventRef.set({ ...event, createAt: new Date(), updateAt: new Date() });
+      await eventRef.set({ ...event, startAt, endAt, createAt: new Date(), updateAt: new Date() });
     }
 
     if (eventRef.exist) {
@@ -78,7 +93,7 @@ export const EventStepFour = (props) => {
     const deletePromise = eventGames.map(async (game) => {
       let currentFirestore = gamesFirestore(game?.adminGame?.name);
 
-      await currentFirestore.collectio("games").doc(game.id).update({
+      await currentFirestore.collection("games").doc(game.id).update({
         deleted: true,
       });
     });
@@ -113,43 +128,49 @@ export const EventStepFour = (props) => {
   };
 
   return (
-    <div className="w-full flex flex-col items center bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 h-[calc(100vh-180px)] overflow-auto">
+    <div>
       <div className="text-primary text-['Lato'] font-[700] text-[20px] leading-[24px] md:text-[44px] md:leading-[53px] tracking-[.03em]">
-        Resumen
+        {t("step-four.name")}
       </div>
 
       <div className="grid max-w-[1200px] gap-4 items-start md:grid-cols-[400px_500px_auto]">
         <div className="w-full flex flex-col">
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Título
+            {t("step-four.title")}
           </div>
           <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px] md:text-[18px] md:leading-[22px]">
             {props.event?.name}
           </div>
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Fecha
+            {t("step-four.date")}
           </div>
           <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px] md:text-[18px] md:leading-[22px]">
-            {`${props.event?.eventDate} ${props.event?.startAt?.toUpperCase()} ${props.event?.endAt?.toUpperCase()}`}
+            {`${moment(props.event?.currentDate?.month).format("D MMMM yyyy")} ${moment(
+              props.event?.currentDate?.start
+            ).format("hh:mm a")} - ${moment(props.event?.currentDate?.end).format("hh:mm a")}`}
           </div>
-          <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Link de la reunión
-          </div>
-          <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px] md:text-[18px] md:leading-[22px]">
-            {props.event?.link}
-          </div>
+          {!isEmpty(props.event?.link) && (
+            <>
+              <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
+                {t("step-four.link")}
+              </div>
+              <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px] md:text-[18px] md:leading-[22px]">
+                {props.event?.link}
+              </div>
+            </>
+          )}
         </div>
         <div className="w-full overflow-auto">
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Invitados
+            {t("step-two.name")}
           </div>
           <div className="min-w-[500px]">
-            <Table columns={columns} dataSource={props.members} className="rounded-[6px]" />
+            <Table columns={tableEventsColumns(t)} dataSource={props.members} className="rounded-[6px]" />
           </div>
         </div>
         <div className="flex flex-col md:h-[350px] md:overflow-auto md:overflow-x-hidden">
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Juegos seleccionados
+            {t("step-three.subtitle-one")}
           </div>
           {defaultTo(props.event?.adminGames, []).map((game, index) => (
             <div
@@ -175,10 +196,12 @@ export const EventStepFour = (props) => {
 
       <div className="flex w-full items-center justify-between">
         <Anchor underlined variant="secondary" onClick={() => props.setCurrentStep(3)}>
-          Volver
+          {t("step-two.go-back")}
         </Anchor>
         <ButtonAnt color="success" onClick={() => createEvent()} loading={isLoading} disabled={isLoading}>
-          <div className="w-[120px] text-['Lato'] font-[700] text-[18px] leading-[20px] text-blackDarken">Crear</div>
+          <div className="w-[120px] text-['Lato'] font-[700] text-[18px] leading-[20px] text-blackDarken">
+            {t("step-four.create")}
+          </div>
         </ButtonAnt>
       </div>
     </div>

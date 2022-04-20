@@ -9,16 +9,19 @@ import { Desktop } from "../../../constants";
 import capitalize from "lodash/capitalize";
 import { useRouter } from "next/router";
 import moment from "moment";
+import { useTranslation } from "../../../hooks";
 import { EditOutlined } from "@ant-design/icons";
 
 export const Events = (props) => {
   const router = useRouter();
 
-  const [authUser] = useGlobal("user");
+  const { t } = useTranslation("pages.library");
+
   const [events] = useGlobal("userEvents");
   const [adminGames] = useGlobal("adminGames");
 
   const [adminGamesHash, setAdminGamesHash] = useState({});
+  const [isVisibleModalEvents, setIsVisibleModalEvents] = useState(false);
 
   useEffect(() => {
     const _adminGamesHash = {};
@@ -32,7 +35,6 @@ export const Events = (props) => {
     router.prefetch("/library/events/[eventId]");
   }, []);
 
-  const [isVisibleModalEvents, setIsVisibleModalEvents] = useState(false);
 
   const deleteEvent = async (event) => await firestore.collection("events").doc(event.id).update({ deleted: true });
 
@@ -46,7 +48,7 @@ export const Events = (props) => {
         />
       )}
 
-      <ButtonAnt onClick={() => setIsVisibleModalEvents(true)}>Crear</ButtonAnt>
+      <ButtonAnt onClick={() => setIsVisibleModalEvents(true)}>{t("create-event")}</ButtonAnt>
 
       <div className="my-4 md:my-8">
         {events.map((event) => (
@@ -97,7 +99,7 @@ export const Events = (props) => {
                   title={
                     <div className="flex flex-col">
                       <div
-                        className="flex items-center font-[normal] text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
+                        className="flex items-center text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
                         onClick={() => deleteEvent(event)}
                       >
                         <Image
@@ -107,7 +109,7 @@ export const Events = (props) => {
                           size={"contain"}
                           margin={"0 15px 0 0"}
                         />
-                        Eliminar
+                        {t("delete")}
                       </div>
 
                       {!event.manageByUser && (
@@ -115,7 +117,7 @@ export const Events = (props) => {
                           className="flex items-center font-[normal] text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
                           onClick={() => router.push(`/events/${event.id}`)}
                         >
-                          <EditOutlined /> <div className="mx-4">Editar</div>
+                          <EditOutlined /> <div className="mx-4">{t("edit")}</div>
                         </div>
                       )}
                     </div>
@@ -150,7 +152,9 @@ export const Events = (props) => {
                         )}
                       </>
                     ) : (
-                      `${event.startAt} - ${event.endAt}`
+                      `${moment(event.startAt.toDate()).format("hh:mm a")} - ${moment(event.endAt.toDate()).format(
+                        "hh:mm a"
+                      )}`
                     )}
                   </div>
                 </div>
@@ -182,7 +186,7 @@ export const Events = (props) => {
                   ) : (
                     <div className="flex items-center gap-[5px]">
                       <div className="text-black text-['Lato'] text-[13px] leading[16px]">
-                        Organizado por el equipo de
+                        {t("organizedBy")}
                       </div>
                       <Image
                         src={`${config.storageUrl}/resources/ebombo.svg`}

@@ -24,7 +24,7 @@ const DatePickerContainer = styled.div`
 
 const StyledDatePicker = styled(AntDatePicker)`
   width: 100%;
-  margin-bottom: 1rem !important;
+  margin-bottom: ${props => props.margin ?? "1rem !important"};
   ${(props) =>
     props.hasError &&
     `background-color: #fff;
