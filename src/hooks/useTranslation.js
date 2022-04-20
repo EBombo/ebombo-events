@@ -51,7 +51,7 @@ export const useTranslation = (path) => {
   const SwitchTranslation = useMemo(
     () => () =>
       (
-        <StyledSwitch onClick={() => inputRef.current.click()}>
+        <StyledSwitch onClick={() => inputRef?.current?.click()}>
           <input
             ref={inputRef}
             id="language-toggle"
