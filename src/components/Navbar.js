@@ -26,11 +26,10 @@ const featuresMenu = [
 
 export const Navbar = (props) => {
   const router = useRouter();
-  const inputRef = useRef(null);
 
   const { signOut } = useAuth();
 
-  const { t, locale, locales, setLocale } = useTranslation();
+  const { t, locale, SwitchTranslation } = useTranslation();
 
   const [authUser] = useGlobal("user");
 
@@ -125,22 +124,7 @@ export const Navbar = (props) => {
           </div>
 
           <Desktop>
-            <StyledSwitch className="switch" onClick={() => inputRef.current.click()} >
-              <input
-                ref={inputRef}
-                id="language-toggle"
-                className="check-toggle check-toggle-round-flat"
-                type="checkbox"
-                checked={locale === locales[1] ? true : false}
-                onChange={(event) => {
-                  event.preventDefault();
-                  setLocale(event.target.checked ? locales[1] : locales[0]);
-                }}
-              />
-              <label htmlFor="language-toggle" />
-              <span className="on">EN</span>
-              <span className="off">ES</span>
-            </StyledSwitch>
+            <SwitchTranslation/>
           </Desktop>
 
           <Desktop>
@@ -222,22 +206,9 @@ export const Navbar = (props) => {
               )}
 
               <li className="nav-item">
-                <StyledSwitch className="switch" onClick={() => inputRef.current.click()} >
-                  <input
-                    ref={inputRef}
-                    id="language-toggle"
-                    className="check-toggle check-toggle-round-flat"
-                    type="checkbox"
-                    checked={locale === locales[1] ? true : false}
-                    onChange={(event) => {
-                      event.preventDefault();
-                      setLocale(event.target.checked ? locales[1] : locales[0]);
-                    }}
-                  />
-                  <label htmlFor="language-toggle" />
-                  <span className="on">EN</span>
-                  <span className="off">ES</span>
-                </StyledSwitch>
+
+                <SwitchTranslation/>
+                
               </li>
 
               {!authUser ? (
