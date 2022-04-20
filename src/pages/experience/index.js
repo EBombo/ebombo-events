@@ -112,8 +112,8 @@ export const Experience = (props) => {
           <div className="hidden border-[1px] border-white bg-success w-[10px] h-[10px] rounded-[50%] lg:block" />
           <div className="text-['Lato'] font-[800] text-[24px] leading-[29px] flex gap-[5px] lg:text-[42px] lg:leading-[50px]">
             <p className="text-white text-center m-0">
-              {t("pages.experience.freeTrial").toUpperCase()}
-              <span className="text-secondary ml-[5px]">{t("pages.experience.freeTrial-time").toUpperCase()}</span>
+              {t("pages.experience.free-trial").toUpperCase()}
+              <span className="text-secondary ml-[5px]">{t("pages.experience.free-trial-time").toUpperCase()}</span>
             </p>
           </div>
         </div>
@@ -131,7 +131,7 @@ export const Experience = (props) => {
           <div>
             <div className="flex items-center gap-[10px] mt-8">
               <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-                {t("pages.experience.firstSection")}
+                {t("pages.experience.first-section")}
               </div>
             </div>
             <div className="">
@@ -160,7 +160,7 @@ export const Experience = (props) => {
           <div>
             <div className="flex items-center gap-[10px] mt-8">
               <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-                {t("pages.experience.secondSection")}
+                {t("pages.experience.second-section")}
               </div>
             </div>
             <div className="">
@@ -189,7 +189,7 @@ export const Experience = (props) => {
           <div>
             <div className="flex items-center gap-[10px] mt-8">
               <div className="text-['Lato'] font-[700] text-primary text-[30px] leading-[36px] lg:text-[44px] lg:leading-[53px]">
-                {t("pages.experience.thirdSection")}
+                {t("pages.experience.third-section")}
               </div>
             </div>
             <div>
