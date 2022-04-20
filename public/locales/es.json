@@ -580,7 +580,8 @@
     "experience": {
       "title": "LAS ACTIVIDADES MÁS DIVERTIDAS QUE TE PUEDAS ENCONTRAR",
       "subtitle": "Establecemos el estándar para el compromiso virtual y mejora la cultura de la oficina remota.",
-      "loginButton": "Iniciar sesión",
+      "sign-in-button": "Iniciar sesión",
+      "contact-button": "Contáctanos",
       "freeTrial": "OBTÉN UNA PRUEBA GRATUITA",
       "freeTrial-time": "POR 1 MES",
       "firstSection": "Más populares",

@@ -1,13 +1,12 @@
-import React, { useEffect } from "reactn";
+import React, { useEffect, useGlobal } from "reactn";
 import { Image as ImageV2 } from "ebombo-components";
-import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import styled from "styled-components";
 import { useTranslation } from "../../hooks";
-import { Image } from "../../components/common/Image";
 import { Carousel } from "../../components/common/Carousel";
 import { BetweenCompaniesGames, MostPopularGames, TeamBuildingGames } from "../../components/common/DataList";
+import { SharpButton } from "../../components/common/SharpButton";
 
 const firstColumn = ["trivia", "roulette", "rouletteQuestions", "hanged"];
 const secondColumn = ["triviaCrack", "bingo", "drawAndGuess", "scrabble"];
@@ -18,8 +17,11 @@ export const Experience = (props) => {
 
   const { t } = useTranslation();
 
+  const [authUser] = useGlobal("user");
+
   useEffect(() => {
     router.prefetch("/login");
+    router.prefetch("/contact");
   }, []);
 
   const CarouselContent = ({ gameContent, className }) => (
@@ -34,31 +36,6 @@ export const Experience = (props) => {
     </div>
   );
 
-  const content = (gameName, carousel = false) => (
-    <div
-      className={`flex flex-col items-center md:items-start ${!carousel && "w-[calc(100vw-2rem)] md:w-[370px]"}`}
-      key={gameName}
-    >
-      <Image
-        width="270px"
-        height="270px"
-        desktopHeight="370px"
-        desktopWidth="370px"
-        margin="0"
-        size="cover"
-        src={`${config.storageUrl}/resources/games/${gameName}.svg`}
-        borderRadius="10px"
-        className="aspect-square w-full"
-      />
-      <div className="text-['Lato'] text-blackDarken font-[900] text-[20px] leading-[24px] lg:text-[32px] lg:leading-[36px] my-2">
-        {t(`pages.experience.games[${gameName}]`)}
-      </div>
-      <div className="text-['Lato'] text-secondary font-[400] text-[16px] leading-[19px] lg:text-[20px] lg:leading-[24px] text-center md:text-left">
-        {t(`pages.experience[${gameName}]`)}
-      </div>
-    </div>
-  );
-
   return (
     <ExperienceContainer>
       <div className="w-full bg-cover bg-no-repeat bg-secondary bg-pattern grid gap-4 p-2 md:p-4 lg:overflow-hidden lg:grid-cols-[50%_1050px] lg:h-[800px]">
@@ -69,12 +46,15 @@ export const Experience = (props) => {
           <div className="w-full text-['Lato'] font-[400] text-white text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] my-4 text-center lg:text-left lg:text-[25px] lg:leading-[28px]">
             {t("pages.experience.subtitle")}
           </div>
-          <div className="w-full flex items-center justify-center lg:justify-start">
-            <ButtonAnt color="success" onClick={() => router.push("/login")} margin="0">
-              <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
-                {t("pages.experience.loginButton")}
-              </div>
-            </ButtonAnt>
+          <div className="w-full flex items-center justify-center gap-[5px] lg:justify-start">
+            {!authUser && (
+              <SharpButton prefixIcon="wink" onClick={() => router.push("/login")}>
+                {t("pages.experience.sign-in-button")}
+              </SharpButton>
+            )}
+            <SharpButton prefixIcon="satisfied" color="primary" onClick={() => router.push("/contact")}>
+              {t("pages.experience.contact-button")}
+            </SharpButton>
           </div>
         </div>
 
@@ -137,13 +117,13 @@ export const Experience = (props) => {
             </p>
           </div>
         </div>
-        <div className="flex justify-center mt-2 lg:mt-0 lg:ml-4 lg:justify-start">
-          <ButtonAnt color="success" onClick={() => router.push("/login")} margin="0">
-            <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
-              {t("pages.experience.loginButton")}
-            </div>
-          </ButtonAnt>
-        </div>
+        {!authUser && (
+          <div className="flex justify-center mt-2 lg:mt-0 lg:ml-4 lg:justify-start">
+            <SharpButton prefixIcon="wink" onClick={() => router.push("/login")}>
+              {t("pages.experience.sign-in-button")}
+            </SharpButton>
+          </div>
+        )}
       </div>
 
       <div className="w-full bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8">
@@ -241,11 +221,13 @@ export const Experience = (props) => {
         <div className="text-white mb-4 text-['Lato'] font-[900] text-[26px] leading-[31px] lg:text-[100px] lg:leading-[120px]">
           {t("pages.experience.lastTitle")}
         </div>
-        <ButtonAnt color="success" onClick={() => router.push("/login")}>
-          <div className="text-['Lato'] font-[700] text-blackDarken text-[16px] leading-[18px] md:text-[20px] md:leading-[25px] py-2 px-4">
-            {t("pages.experience.loginButton")}
+        {!authUser && (
+          <div className="flex justify-center mt-2 lg:mt-0 lg:ml-4 lg:justify-start">
+            <SharpButton prefixIcon="wink" onClick={() => router.push("/login")}>
+              {t("pages.experience.sign-in-button")}
+            </SharpButton>
           </div>
-        </ButtonAnt>
+        )}
       </StyledFooter>
     </ExperienceContainer>
   );

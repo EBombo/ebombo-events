@@ -580,7 +580,8 @@
     "experience": {
       "title": "THE MOST FUN ACTIVITIES YOU CAN FIND",
       "subtitle": "We set the standard for virtual engagement and enhance remote office culture.",
-      "loginButton": "Log in",
+      "sign-in-button": "Sign In",
+      "contact-button": "Contact us",
       "freeTrial": "GET A FREE TRIAL",
       "freeTrial-time": "FOR 1 MONTH",
       "firstSection": "More popular",
