@@ -49,11 +49,15 @@ export const TeamBuilding = (props) => {
                   router.push(url);
                 }}
               >
-                <span className="text-lg font-bold align-middle">{t("landing.team-building.sign-in-button-label")}</span>
+                <span className="text-lg font-bold align-middle">
+                  {t("landing.team-building.sign-in-button-label")}
+                </span>
               </SharpButton>
               <SharpButton color="primary" prefixIcon="satisfied" className="min-w-[180px]">
                 <Anchor url="/contact">
-                  <span className="text-lg font-bold text-white align-middle">{t("landing.team-building.contact-button-label")}</span>
+                  <span className="text-lg font-bold text-white align-middle">
+                    {t("landing.team-building.contact-button-label")}
+                  </span>
                 </Anchor>
               </SharpButton>
             </div>
@@ -157,7 +161,9 @@ export const TeamBuilding = (props) => {
                   src={item.img}
                   alt=""
                   placeholderUrl={item.placeholder}
-                  className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video rounded-lg self-center`}
+                  className={`${
+                    isOdd ? "md:order-1" : "md:order-2"
+                  } w-full order-1 aspect-video rounded-lg self-center`}
                 />,
                 <div key={`content-${i}`} className={`${isOdd ? "md:order-2" : "md:order-1"} order-2`}>
                   <div className="mb-6 uppercase font-bold text-primary text-2xl md:text-3xl">{t(item.title)}</div>
@@ -166,7 +172,10 @@ export const TeamBuilding = (props) => {
               ];
 
               const wrapperEl = (
-                <div key={`wrapper-${i}`} className={`grid ${isOdd ? "md:grid-cols-[4fr_3fr]" : "md:grid-cols-[3fr_4fr]"}  my-32 gap-32`}>
+                <div
+                  key={`wrapper-${i}`}
+                  className={`grid ${isOdd ? "md:grid-cols-[4fr_3fr]" : "md:grid-cols-[3fr_4fr]"}  my-32 gap-32`}
+                >
                   {childItems}
                 </div>
               );

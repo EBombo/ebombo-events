@@ -124,7 +124,7 @@ export const Navbar = (props) => {
           </div>
 
           <Desktop>
-            <SwitchTranslation/>
+            <SwitchTranslation />
           </Desktop>
 
           <Desktop>
@@ -198,7 +198,7 @@ export const Navbar = (props) => {
               )}
 
               <li className="nav-item">
-                <SwitchTranslation/>
+                <SwitchTranslation />
               </li>
 
               {!authUser ? (

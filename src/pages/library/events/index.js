@@ -35,7 +35,6 @@ export const Events = (props) => {
     router.prefetch("/library/events/[eventId]");
   }, []);
 
-
   const deleteEvent = async (event) => await firestore.collection("events").doc(event.id).update({ deleted: true });
 
   return (
@@ -185,9 +184,7 @@ export const Events = (props) => {
                     </>
                   ) : (
                     <div className="flex items-center gap-[5px]">
-                      <div className="text-black text-['Lato'] text-[13px] leading[16px]">
-                        {t("organizedBy")}
-                      </div>
+                      <div className="text-black text-['Lato'] text-[13px] leading[16px]">{t("organizedBy")}</div>
                       <Image
                         src={`${config.storageUrl}/resources/ebombo.svg`}
                         width="114px"
