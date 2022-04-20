@@ -1,7 +1,7 @@
 import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Tabs } from "antd";
-import { config } from "../../../firebase";
+import { config, firestore } from "../../../firebase";
 import { SizeEvent } from "./SizeEvent";
 import { BudgetEvent } from "./BudgetEvent";
 import { DetailsEvent } from "./DetailsEvent";
@@ -11,6 +11,7 @@ import { mediaQuery } from "../../../constants";
 import { useRouter } from "next/router";
 import { useTranslation } from "../../../hooks";
 import { Image } from "../../../components/common/Image";
+import moment from "moment";
 
 const { TabPane } = Tabs;
 
@@ -18,6 +19,7 @@ const defaultTab = "size";
 
 export const EventContainer = (props) => {
   const router = useRouter();
+  const { eventId } = router.query;
 
   const [authUser] = useGlobal("user");
 
@@ -34,6 +36,33 @@ export const EventContainer = (props) => {
   useEffect(() => {
     router.prefetch("/library");
   }, []);
+
+  useEffect(() => {
+    if (!eventId) return;
+    if (eventId === "new") return;
+
+    const fetchEvent = async () => {
+      const querySnapshotEvent = await firestore.collection("events").doc(eventId).get();
+      const event = querySnapshotEvent.data();
+
+      // Mapped event.
+      setSize(event.size);
+      setBudget(event.budget);
+      setDetails(event.details);
+
+      const datesFormatted = event.dates.map((date) => {
+        return {
+          end: moment(date.endAt.toDate()),
+          start: moment(date.startAt.toDate()),
+          month: moment(date.startAt.toDate()),
+          id: firestore.collection("event").doc().id,
+        };
+      });
+      setDates(datesFormatted);
+    };
+
+    fetchEvent();
+  }, [eventId]);
 
   const createEventSteps = useMemo(() => {
     return [

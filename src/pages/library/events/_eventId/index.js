@@ -34,7 +34,7 @@ export const Event = (props) => {
     const fetchCompanyMembers = () =>
       firestore
         .collection("companies")
-        .doc(authUser?.company.id)
+        .doc(authUser?.company?.id)
         .collection("members")
         .where("deleted", "==", false)
         .onSnapshot((membersSnapshot) => {

@@ -5,16 +5,20 @@ import { EventStepOne } from "./EventStepOne";
 import { EventStepTwo } from "./EventStepTwo";
 import { EventStepThree } from "./EventStepThree";
 import { EventStepFour } from "./EventStepFour";
+import { useTranslation } from "../../../../hooks";
 
-const steps = [
-  { name: "Básico", key: "basic" },
-  { name: "Invitados", key: "guests" },
-  { name: "Actividades", key: "activities" },
-  { name: "Resumen", key: "resume" },
-];
 
 export const UserCreateEvent = (props) => {
   const [currentStep, setCurrentStep] = useState(1);
+
+  const { t } = useTranslation("pages.library.event");
+
+  const steps = [
+    { name: t("step-one.name"), key: "basic" },
+    { name: t("step-two.name"), key: "guests" },
+    { name: t("step-three.name"), key: "activities" },
+    { name: t("step-four.name"), key: "resume" },
+  ];
 
   return (
     <div>

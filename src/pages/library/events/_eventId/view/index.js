@@ -1,17 +1,21 @@
 import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import moment from "moment";
 import { Table } from "antd";
-import { columns } from "../EventStepTwo";
+import { tableEventsColumns } from "../../../../../components/common/DataList";
 import defaultTo from "lodash/defaultTo";
 import { Image } from "../../../../../components/common/Image";
 import { config, firestore } from "../../../../../firebase";
 import capitalize from "lodash/capitalize";
+import isEmpty from "lodash/isEmpty";
 import { useRouter } from "next/router";
 import { Anchor, ButtonAnt } from "../../../../../components/form";
 import { snapshotToArray } from "../../../../../utils";
+import { useTranslation } from "../../../../../hooks";
 
 export const EventView = (props) => {
   const router = useRouter();
+
+  const { t } = useTranslation("pages.library.event");
 
   const { eventId } = router.query;
 
@@ -89,14 +93,21 @@ export const EventView = (props) => {
     <div className="w-full flex flex-col items center bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 h-[calc(100vh-50px)] overflow-auto">
       <div className="flex items-start justify-between">
         <div className="flex flex-col-reverse gap-[10px] md:flex-row md:items-end">
-          <Image src={event.imageUrl} width="290px" height="150px" size="cover" margin="0" borderRadius="8px" />
+          <Image
+            src={!isEmpty(event.imageUrl) ? event.imageUrl : `${config.storageUrl}/resources/empty-cover.svg`}
+            width="290px"
+            height="150px"
+            size="cover"
+            margin="0"
+            borderRadius="8px"
+          />
           <div className="text-primary text-['Lato'] font-[700] text-[20px] leading-[24px] md:text-[44px] md:leading-[53px] tracking-[.03em]">
             {event?.name}
           </div>
         </div>
         <div className="hidden md:block">
           <ButtonAnt onClick={() => router.push(`/library/events/${event.id}?manageBy=user`)}>
-            <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">Editar</div>
+            <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">{t("edit")}</div>
           </ButtonAnt>
         </div>
       </div>
@@ -105,34 +116,38 @@ export const EventView = (props) => {
         <div>
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px]  my-2 md:my-4">Fecha</div>
           <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px]">
-            {`${moment(event?.eventDate).format("LL")} ${event?.startAt?.toUpperCase()} ${event?.endAt?.toUpperCase()}`}
+            {`${moment(event?.startAt?.toDate()).format("DD/MM/YYYY h:mm a")} ${moment(event?.endAt?.toDate()).format(
+              "hh:mm a"
+            )}`}
           </div>
         </div>
-        <div>
-          <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] my-2 md:my-4">
-            Link de la reunión
+        {!isEmpty(event.link) && (
+          <div>
+            <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] my-2 md:my-4">
+              {t("step-four.link")}
+            </div>
+            <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px] no-wrap">
+              {event?.link}
+            </div>
           </div>
-          <div className="text-secondary text-['Lato'] font-[700] text-[16px] leading-[20px] no-wrap">
-            {event?.link}
-          </div>
-        </div>
+        )}
       </div>
 
       <div className="flex flex-col gap-4 md:flex-row md:items-start md:overflow-x-auto md:overflow-y-hidden">
         <div className="max-w-[500px] w-full overflow-x-auto">
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Invitados
+            {t("step-two.title")}
           </div>
           <div className="min-w-[500px]">
-            <Table columns={columns} dataSource={members} className="rounded-[6px]" />
+            <Table columns={tableEventsColumns(t)} dataSource={members} className="rounded-[6px]" />
           </div>
         </div>
 
         <div>
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Juegos seleccionados
+            {t("step-three.subtitle-one")}
           </div>
-          <div className="flex flex-col md:h-[350px] md:overflow-auto md:overflow-x-hidden">
+          <div className="flex flex-col md:pr-[10px] md:h-[350px] md:overflow-auto md:overflow-x-hidden">
             {eventGames.map((game) => (
               <div
                 className="bg-white rounded-[6px] grid items-center grid-cols-[auto_auto_60px] p-2 border-grayLighten border-[1px] w-[320px] my-2"
@@ -155,7 +170,7 @@ export const EventView = (props) => {
                   size="small"
                   onClick={() => router.push(`/library/games/${game.id}?adminGameId=${game.adminGame.id}`)}
                 >
-                  Editar
+                  {t("edit")}
                 </ButtonAnt>
               </div>
             ))}
@@ -164,7 +179,7 @@ export const EventView = (props) => {
 
         <div>
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-            Comunicados
+            {t("releases")}
           </div>
           <div className="flex flex-col md:h-[350px] md:overflow-auto md:overflow-x-hidden">
             {releases.map((release) => (
@@ -186,14 +201,14 @@ export const EventView = (props) => {
             ))}
           </div>
           <ButtonAnt onClick={() => router.push(`/library/events/${event.id}/releases/new`)} margin="1rem auto">
-            <div className="text-['Lato'] font-[500] text-[13px] leading-[15px]">Crear comunicado</div>
+            <div className="text-['Lato'] font-[500] text-[13px] leading-[15px]">{t("create-release")}</div>
           </ButtonAnt>
         </div>
       </div>
 
       <div className="block md:hidden w-full">
         <ButtonAnt onClick={() => router.push(`/library/events/${event.id}?manageBy=user`)} margin="1rem auto">
-          <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">Editar</div>
+          <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">{t("edit")}</div>
         </ButtonAnt>
       </div>
     </div>
