@@ -31,7 +31,7 @@ export const ListGameView = (props) => {
     const fetchResource = () =>
       firestore
         .collection("games")
-        .doc(props.game.adminGameId)
+        .doc(props.game.adminGame.id)
         .onSnapshot(async (resourceSnap) => {
           setResource(resourceSnap.data());
         });
