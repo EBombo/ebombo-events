@@ -31,7 +31,7 @@ export const ListGameView = (props) => {
     const fetchResource = () =>
       firestore
         .collection("games")
-        .doc(props.game.adminGameId)
+        .doc(props.game.adminGame.id)
         .onSnapshot(async (resourceSnap) => {
           setResource(resourceSnap.data());
         });
@@ -77,6 +77,9 @@ export const ListGameView = (props) => {
     newGames.splice(gameIndex, 1);
     setGames(newGames);
 
+    console.log({ resource });
+    console.log("game", props.game);
+    console.log({ authUser });
     try {
       await Fetch(`${resource.api}/games/${props.game.id}/users/${authUser.id}`, "DELETE");
     } catch (error) {
