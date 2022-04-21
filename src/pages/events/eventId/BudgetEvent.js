@@ -19,7 +19,7 @@ const options = {
 export const BudgetEvent = (props) => {
   const { t } = useTranslation("pages.events");
 
-  const [currentTab, setCurrentTab] = useState(props.budget.currentTab ?? Object.values(options)[0].key);
+  const [currentTab, setCurrentTab] = useState(props.budget?.currentTab ?? Object.values(options)[0].key);
 
   return (
     <div>
