@@ -74,7 +74,10 @@ export const ContactForm = (props) => {
         <div className="my-4 flex items-center justify-between">
           <div
             className="email text-white flex flex-col items-center"
-            onClick={() => window.open("mailto:events@ebombo.com.pe")}
+            onClick={() => {
+              if (typeof window === "undefined") return;
+              window.open("mailto:events@ebombo.com.pe");
+            }}
           >
             <Image
               src={`${config.storageUrl}/resources/email-white.svg`}
@@ -177,12 +180,11 @@ export const ContactForm = (props) => {
                 <div
                   key={interest.key}
                   onClick={() => {
-                    if (currentInterests.includes(interest.key)) {
-                      const currentGoalsUpdated = currentInterests.filter((interest_) => interest_ !== interest.key);
-                      return setCurrentInterests(currentGoalsUpdated);
-                    }
+                    if (!currentInterests.includes(interest.key))
+                      setCurrentInterests([...currentInterests, interest.key]);
 
-                    setCurrentInterests([...currentInterests, interest.key]);
+                    const currentGoalsUpdated = currentInterests.filter((interest_) => interest_ !== interest.key);
+                    return setCurrentInterests(currentGoalsUpdated);
                   }}
                   className={`text-xm text-center bg-white rounded-md border-2 py-2 px-1 cursor-pointer relative ${
                     currentInterests.includes(interest.key) ? "border-primary" : "border-grayLighten"
