@@ -1,6 +1,6 @@
 import get from "lodash/get";
 import styled from "styled-components";
-import { useCallback, useRef, useMemo } from "reactn";
+import { useCallback, useRef } from "reactn";
 import { useRouter } from "next/router";
 import en from "../../public/locales/en.json";
 import es from "../../public/locales/es.json";
@@ -48,10 +48,8 @@ export const useTranslation = (path) => {
     [TRANSLATIONS, locale, path]
   );
 
-  const SwitchTranslation = useMemo(
-    () => () =>
-      (
-        <StyledSwitch onClick={() => inputRef?.current?.click()}>
+  const SwitchTranslation = useCallback(() =>
+      (<StyledSwitch onClick={() => inputRef?.current?.click()}>
           <input
             ref={inputRef}
             id="language-toggle"
@@ -68,8 +66,7 @@ export const useTranslation = (path) => {
           <span className="off">ES</span>
         </StyledSwitch>
       ),
-    [locale]
-  );
+    [locale]);
 
   return { t, locales, locale, setLocale, SwitchTranslation };
 };
