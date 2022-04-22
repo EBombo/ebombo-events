@@ -7,7 +7,9 @@
       "ebombo-style": "Al estilo ebombo",
       "title": "Ayudamos a tu empresa a conectar con tus trabajadores para mejorar el ambiente de trabajo",
       "sub-title": "La forma en que tus trabajadores se reunen influye en el clima y cultura de tu empresa. Nuestra plataforma te permite tener experiencias en línea y eventos virtuales para promover la productividad, el compromiso y la diversión de tus trabajadores.",
-      "book-an-event": "Reservar evento"
+      "book-an-event": "Reservar evento",
+      "sign-in-button-label": "Iniciar sesión",
+      "contact-button-label": "Contáctanos"
     },
     "products": {
       "title": "UNA MANERA INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO",
@@ -535,19 +537,30 @@
     },
     "about-us": {
       "title": "¿Quiénes somos?",
-      "description-1": "ebombo es una empresa de tecnología de recursos humanos enfocada en el futuro del trabajo. Permitiendo que otras empresas conecten con sus empleados y mejoren su ambiente de trabajo. Todo esto es posible con las actividades virtuales que creamos. Estas actividades consisten en diferentes tipos de juegos, dinámicas de incorporación, capacitaciones y más, de una manera divertida y casual.",
-      "description-2": "Nuestra misión es impactar en la vida de millones de trabajadores con entretenimiento. Entendemos que muchos quieren trabajar de forma remota y que mantener a los trabajadores integrados en este esquema es díficil.",
-      "contact-us": {
-        "title": "¡Contáctanos!",
-        "description": "Deja tu consulta y el nuestro equipo de ventas se pondrá en contacto contigo.",
-        "send": "Enviar",
-        "name": "Nombre",
-        "lastName": "Apellido",
-        "email": "Correo electrónico",
-        "company": "Empresa",
-        "phone-number": "Número de teléfono",
-        "leave-us-your-query": "Déjanos tu consulta aquí"
-      }
+      "description-1": "Deja tu consulta y el nuestro equipo de ventas se pondrá en contacto contigo.",
+      "description-2": "Nuestra misión es impactar en la vida de millones de trabajadores con entretenimiento. Entendemos que muchos quieren trabajar de forma remota y que mantener a los trabajadores integrados en este esquema es díficil."
+    },
+    "contact-us": {
+      "title": "¡Estemos en contacto!",
+      "description": "Deja tu consulta y el nuestro equipo de ventas se pondrá en contacto contigo.",
+      "send": "Enviar",
+      "name": "Nombre",
+      "input-name-placeholder": "Tu nombre",
+      "email": "Correo",
+      "input-email-placeholder": "Tu correo",
+      "phone": "Celular",
+      "input-phone-placeholder": "Tu celular",
+      "service": "Servicio en el que estás interesad@",
+      "message": "Mensaje",
+      "textarea-placeholder": "Déjanos tu consulta aquí",
+      "virtual-event": "Evento virtual",
+      "corporative-gifts": "Regalos corporativos",
+      "face-to-face-event": "Evento presencial",
+      "hybrid-event": "Evento híbrido",
+      "platform": "Plataforma",
+      "other": "Otro",
+      "interests-selected": "Seleccione al menos un servicio",
+      "write-us": "Escríbenos aquí:"
     },
     "login": {
       "title": "Iniciar sesión",

@@ -1304,3 +1304,30 @@ export const tableEventsColumns = (t) => {
     },
   ];
 };
+
+export const interests = [
+  {
+    title: "virtual-event",
+    key: "virtual-event",
+  },
+  {
+    title: "corporative-gifts",
+    key: "corporative-gifts",
+  },
+  {
+    title: "face-to-face-event",
+    key: "face-to-face-event",
+  },
+  {
+    title: "hybrid-event",
+    key: "hybrid-event",
+  },
+  {
+    title: "platform",
+    key: "platform",
+  },
+  {
+    title: "other",
+    key: "other",
+  },
+];

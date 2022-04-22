@@ -7,7 +7,9 @@
       "ebombo-style": "Ebombo style",
       "title": "Our dynamic approach to connecting workers online will help your work environment",
       "sub-title": "The way your workers meet influences the climate and culture of your company. Our platform allows you to have online experiences and virtual events to promote the productivity, engagement and fun of your workers.",
-      "book-an-event": "Book an event"
+      "book-an-event": "Book an event",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us"
     },
     "products": {
       "title": "AN INCREDIBLE WAY TO CONNECT WITH YOUR TEAM",
@@ -536,18 +538,29 @@
     "about-us": {
       "title": "About us?",
       "description-1": "ebombo is an HR technology company focused on the future of work. Allowing other companies to connect with their employees and improve their work environment. All this is possible with the virtual activities that we create. These activities consist of different types of games, dynamics of incorporation, training and more, in a fun and casual way.",
-      "description-2": "Our mission is to impact the lives of millions of workers with entertainment. We understand that many they want to work remotely and that keeping workers integrated in this scheme is difficult.",
-      "contact-us": {
-        "title": "Contact us",
-        "description": "Leave your query and our sales team will contact you.",
-        "send": "Send",
-        "name": "Name",
-        "lastName": "LastName",
-        "email": "email",
-        "company": "Company",
-        "phone-number": "Phone number",
-        "leave-us-your-query": "Leave us your query here"
-      }
+      "description-2": "Our mission is to impact the lives of millions of workers with entertainment. We understand that many they want to work remotely and that keeping workers integrated in this scheme is difficult."
+    },
+    "contact-us": {
+      "title": "Let's stay in touch!",
+      "description": "Leave your query and our sales team will contact you.\n",
+      "send": "Send",
+      "name": "Name",
+      "input-name-placeholder": "Your name",
+      "email": "Email",
+      "input-email-placeholder": "Your email",
+      "phone": "Phone",
+      "input-phone-placeholder": "Your phone",
+      "service": "Service you are interested in",
+      "message": "Message",
+      "textarea-placeholder": "Leave us your query here",
+      "virtual-event": "Virtual event",
+      "corporative-gifts": "Corporative gifts",
+      "face-to-face-event": "Face to face event",
+      "hybrid-event": "Hybrid event",
+      "platform": "Platform",
+      "other": "Other",
+      "interests-selected": "Select at least one service",
+      "write-us": "Write us here:"
     },
     "login": {
       "title": "Log in",
