@@ -145,39 +145,28 @@ export const CorporateEvents = (props) => {
         </div>
       </section>
 
-      <section className="bg-tapiz-1 bg-white">
-        <div className="max-w-[1500px] mx-auto py-8 px-8 grid">
-          <div className="max-w-[1200px] mx-auto mb-6 uppercase text-secondary text-center font-bold text-3xl md:text-7xl self-center px-8 md:px-12">
+      <section className="bg-tapiz-1 bg-cover bg-no-repeat bg-white">
+        <div className="max-w-[1160px] mx-auto px-[25px] py-[60px] md:py-[160px]">
+          <h2 className="mb-[55px] text-center uppercase text-secondary font-[900] leading-[1.2] text-3xl md:text-7xl">
             {t(CorporateEventsLiterals.virtualEvents.title)}
-          </div>
+          </h2>
 
-          <div className="my-8 max-w-[1200px] mx-auto lg:px-20 lg:py-12">
-            {CorporateEventsLiterals.virtualEvents.items.reduce((acc, item, i) => {
-              const isOdd = i % 2 !== 1;
-
-              const childItems = [
-                <ImageV2
-                  key={`img-${i}`}
-                  src={item.img}
-                  alt=""
-                  placeholderUrl={item.placeholder}
-                  className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video rounded-lg`}
-                />,
-                <div key={`content-${i}`} className={`${isOdd ? "md:order-2" : "md:order-1"} order-2`}>
-                  <div className="mb-4 uppercase font-bold text-primary text-1xl md:text-2xl">{t(item.title)}</div>
-                  <div className="text-base md:text-xl">{t(item.description)}</div>
-                </div>,
-              ];
-
-              const wrapperEl = (
-                <div key={`wrapper-${i}`} className="grid md:items-center md:grid-cols-[1fr_1fr] my-10 gap-10">
-                  {childItems}
-                </div>
-              );
-
-              return [...acc, wrapperEl];
-            }, [])}
-          </div>
+          {CorporateEventsLiterals.virtualEvents.items.map((item, i) => (
+            <div
+              key={`wrapper-${i}`}
+              className={`flex items-center flex-col mb-[90px] box-border ${
+                i % 2 !== 1 ? "md:flex-row-reverse" : "md:flex-row"
+              }`}
+            >
+              <ImageV2 src={item.img} alt="" className="w-full md:w-[50%]" placeholderUrl={item.placeholder} />
+              <div className="w-full md:w-[50%] flex items-center justify-center p-[30px]">
+                <span className="block max-w-[400px] mx-auto">
+                  <h4 className="text-primary mb-[24px] text-['Lato'] text-[26px] font-[900]">{t(item.title)}</h4>
+                  <p className="text-base">{t(item.description)}</p>
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
