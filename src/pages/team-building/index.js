@@ -141,39 +141,28 @@ export const TeamBuilding = (props) => {
         </div>
       </section>
 
-      <section className="bg-tapiz-1 bg-white">
-        <div className="max-w-[1500px] mx-auto pb-8 pt-40 px-8 grid">
-          <div className="max-w-[1200px] mx-auto mb-6 uppercase text-secondary text-center font-bold text-2xl md:text-5xl self-center px-8 md:px-12">
+      <section className="bg-tapiz-1 bg-cover bg-no-repeat bg-white">
+        <div className="max-w-[1160px] mx-auto px-[25px] py-[60px] md:py-[160px]">
+          <h2 className="mb-[55px] text-center uppercase text-secondary font-[900] leading-[1.2] text-3xl md:text-7xl">
             {t(TeamBuildingLiterals.virtualEvents.title)}
-          </div>
+          </h2>
 
-          <div className="my-8">
-            {TeamBuildingLiterals.virtualEvents.items.reduce((acc, item, i) => {
-              const isOdd = i % 2 === 1;
-
-              const childItems = [
-                <ImageV2
-                  key={`img-${i}`}
-                  src={item.img}
-                  alt=""
-                  placeholderUrl={item.placeholder}
-                  className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video rounded-lg self-center`}
-                />,
-                <div key={`content-${i}`} className={`${isOdd ? "md:order-2" : "md:order-1"} order-2`}>
-                  <div className="mb-6 uppercase font-bold text-primary text-2xl md:text-3xl">{t(item.title)}</div>
-                  <div className="text-base md:text-2xl">{t(item.description)}</div>
-                </div>,
-              ];
-
-              const wrapperEl = (
-                <div key={`wrapper-${i}`} className={`grid ${isOdd ? "md:grid-cols-[4fr_3fr]" : "md:grid-cols-[3fr_4fr]"}  my-32 gap-32`}>
-                  {childItems}
-                </div>
-              );
-
-              return [...acc, wrapperEl];
-            }, [])}
-          </div>
+          {TeamBuildingLiterals.virtualEvents.items.map((item, i) => (
+            <div
+              key={`wrapper-${i}`}
+              className={`flex items-center flex-col mb-[90px] box-border ${
+                i % 2 !== 1 ? "md:flex-row-reverse" : "md:flex-row"
+              }`}
+            >
+              <ImageV2 src={item.img} alt="" className="w-full md:w-[50%]" placeholderUrl={item.placeholder} />
+              <div className="w-full md:w-[50%] flex items-center justify-center p-[30px]">
+                <span className="block max-w-[400px] mx-auto">
+                  <h4 className="text-primary mb-[24px] text-['Lato'] text-[26px] font-[900]">{t(item.title)}</h4>
+                  <p className="text-base">{t(item.description)}</p>
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
