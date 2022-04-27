@@ -53,7 +53,7 @@ export const DesktopLibraryGames = (props) => {
         <div className="tabs-search-container">
           <div className="tabs-container">
             <div className={`tab ${tab === "all" ? "active" : ""}`} onClick={() => setTab("all")}>
-              {t("my-games")}
+              {t("activities")}
             </div>
             <div className={`tab middle ${tab === "favorites" ? "active" : ""}`} onClick={() => setTab("favorites")}>
               {t("favorites")}
