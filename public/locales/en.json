@@ -397,6 +397,7 @@
   },
   "pages": {
     "library": {
+      "activities": "Activities",
       "my-games": "My games",
       "library": "Library",
       "folders": "Folders",

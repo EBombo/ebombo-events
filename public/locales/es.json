@@ -397,6 +397,7 @@
   },
   "pages": {
     "library": {
+      "activities": "Actividades",
       "my-games": "Mis juegos",
       "library": "Librería",
       "folders": "Carpetas",
