@@ -31,7 +31,7 @@ export const DesktopLeftMenu = (props) => {
           className="icon"
           margin="0 20px 0 0"
         />
-        <div className="name">{t("my-games")}</div>
+        <div className="name">{t("activities")}</div>
       </div>
 
       <div
