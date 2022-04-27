@@ -148,7 +148,7 @@ export const TabletLibrary = (props) => {
       {router.asPath.includes("/library/") && !router.asPath.includes("/events") && (
         <>
           <div className="subtitle">
-            {t("my-games")}
+            {t("activities")}
             <Tooltip
               placement="bottomLeft"
               trigger="click"
