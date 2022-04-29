@@ -533,7 +533,12 @@
         "true": "True",
         "question-type": "Question type",
         "time-limit": "Time limit",
-        "answer-options": "Answer options"
+        "answer-options": "Answer options",
+        "quiz": "Quiz",
+        "true-false": "True or false",
+        "short-answer": "Short answer",
+        "only-answer": "Only answer",
+        "multiple-answer": "Multiple answer"
       }
     },
     "about-us": {
