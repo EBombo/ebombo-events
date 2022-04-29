@@ -343,7 +343,7 @@ export const Trivia = (props) => {
               >
                 {triviaQuestionsTypes.map((type) => (
                   <option className="py-1" key={type.key} value={type.key}>
-                    {type.value}
+                    {t(type.value)}
                   </option>
                 ))}
               </select>
@@ -405,7 +405,7 @@ export const Trivia = (props) => {
               >
                 {triviaQuestionsOptions.map((option) => (
                   <option className="py-1" key={option.key} value={option.key}>
-                    {option.value}
+                    {t(option.value)}
                   </option>
                 ))}
               </select>
