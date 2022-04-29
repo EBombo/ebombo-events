@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React from "reactn";
 import dynamic from "next/dynamic";
 import { spinLoader } from "../../src/components/common/loader";
 import { PrivateRoutes } from "../../src/routes/PrivateRoutes";
@@ -9,15 +9,11 @@ const UserLayout = dynamic(() => import("../../src/components/UserLayout"), {
   loading: () => spinLoader(),
 });
 
-const Reports = (props) => {
-  const [users, setUsers] = useState([]);
-
-  return (
-    <PrivateRoutes>
-      <SEOMeta {...props} />
-      <UserLayout {...props}>report</UserLayout>
-    </PrivateRoutes>
-  );
-};
+const Reports = (props) => (
+  <PrivateRoutes>
+    <SEOMeta {...props} />
+    <UserLayout {...props}>report</UserLayout>
+  </PrivateRoutes>
+);
 
 export default Reports;
