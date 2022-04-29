@@ -69,9 +69,9 @@ export const TriviaQuestion = (props) => {
 
             <input
               type="text"
-              className={`px-4 h-[52px] text-right md:h-[102px] focus:outline-none ${
+              className={`px-4 h-[52px] text-right text-white md:h-[102px] focus:outline-none ${
                 !isEmpty(props.questions[props.questionIndex]?.options[0]) ? "bg-red" : "bg-white"
-              } focus:bg-red focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
+              } focus:bg-red text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
               placeholder={t("write-answer")}
               value={props.questions[props.questionIndex]?.options[0] ?? ""}
               onFocus={() => setOptionFocus(0)}
@@ -137,9 +137,9 @@ export const TriviaQuestion = (props) => {
             </div>
             <input
               type="text"
-              className={`px-4 h-[52px] text-right md:h-[102px] ${
+              className={`px-4 h-[52px] text-white text-right md:h-[102px] ${
                 !isEmpty(props.questions[props.questionIndex]?.options[1]) ? "bg-green" : "bg-white"
-              } focus:outline-none focus:bg-green focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
+              } focus:outline-none focus:bg-green text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
               placeholder={t("write-answer")}
               value={props.questions[props.questionIndex]?.options[1] ?? ""}
               onFocus={() => setOptionFocus(1)}
@@ -204,9 +204,9 @@ export const TriviaQuestion = (props) => {
             </div>
             <input
               type="text"
-              className={`px-4 h-[52px] text-right md:h-[102px] ${
+              className={`px-4 h-[52px] text-right text-white md:h-[102px] ${
                 !isEmpty(props.questions[props.questionIndex]?.options[2]) ? "bg-orange" : "bg-white"
-              } focus:outline-none focus:bg-orange focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
+              } focus:outline-none focus:bg-orange text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
               placeholder={t("write-answer")}
               value={props.questions[props.questionIndex]?.options[2] ?? ""}
               onFocus={() => setOptionFocus(2)}
@@ -271,9 +271,9 @@ export const TriviaQuestion = (props) => {
             </div>
             <input
               type="text"
-              className={`px-4 h-[52px] text-right md:h-[102px] ${
+              className={`px-4 h-[52px] text-right text-white md:h-[102px] ${
                 !isEmpty(props.questions[props.questionIndex]?.options[3]) ? "bg-blue" : "bg-white"
-              } focus:outline-none focus:bg-blue focus:text-white text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
+              } focus:outline-none focus:bg-blue text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
               placeholder={t("write-answer")}
               value={props.questions[props.questionIndex]?.options[3] ?? ""}
               onFocus={() => setOptionFocus(3)}

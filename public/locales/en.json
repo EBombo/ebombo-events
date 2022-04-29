@@ -7,7 +7,9 @@
       "ebombo-style": "Ebombo style",
       "title": "Our dynamic approach to connecting workers online will help your work environment",
       "sub-title": "The way your workers meet influences the climate and culture of your company. Our platform allows you to have online experiences and virtual events to promote the productivity, engagement and fun of your workers.",
-      "book-an-event": "Book an event"
+      "book-an-event": "Book an event",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us"
     },
     "products": {
       "title": "AN INCREDIBLE WAY TO CONNECT WITH YOUR TEAM",
@@ -415,6 +417,62 @@
       "created-ago": "Created ago",
       "edit": "Edit",
       "play": "Play",
+      "create-event": "Create Event",
+      "organizeBy": "Organized by the team",
+      "event": {
+        "releases": "Releases",
+        "create-release": "Create Release",
+        "edit": "Edit",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "active": "Active",
+        "inactive": "Inactive",
+        "member": "Member",
+        "visitor": "Visitor",
+        "admin": "Admin",
+        "step-one": {
+          "name": "Basic",
+          "title": "Basic Details",
+          "event-title": "Event Title",
+          "input-placeholder": "Write here....",
+          "date-title": "Event Date",
+          "link-title": "Meeting Link (Zoom, Cisco, Teams, Meets, etc)",
+          "link-description": "*You can add it after creating the event",
+          "dates": {
+            "day": "Event Day",
+            "start": "Start of the event",
+            "end": "End of event"
+          },
+          "next": "Next"
+        },
+        "step-two": {
+          "name": "Guests",
+          "title": "Guests",
+          "subtitle-one": "Select the guests of your event.",
+          "filter": "Filter by:",
+          "search-placeholder": "Search",
+          "subtitle-two": "Extra guests",
+          "textarea-placeholder": "Write\n every\n email\n in a single\n line",
+          "add": "Add",
+          "import": "Import Excel",
+          "delete": "Delete",
+          "go-back": "Go back",
+          "next": "Next"
+        },
+        "step-three": {
+          "name": "Activities",
+          "description": "Choose the virtual dynamics for your event. Once the event is scheduled, you can create the games in the window summary of your event.",
+          "subtitle-one": "Selected games"
+        },
+        "step-four": {
+          "name": "Resume",
+          "title": "Title",
+          "date": "Date",
+          "link": "Meeting Link",
+          "create": "Create"
+        }
+      },
       "bingo": {
         "card-title": "Card title",
         "event-name": "Event name",
@@ -486,18 +544,29 @@
     "about-us": {
       "title": "About us?",
       "description-1": "ebombo is an HR technology company focused on the future of work. Allowing other companies to connect with their employees and improve their work environment. All this is possible with the virtual activities that we create. These activities consist of different types of games, dynamics of incorporation, training and more, in a fun and casual way.",
-      "description-2": "Our mission is to impact the lives of millions of workers with entertainment. We understand that many they want to work remotely and that keeping workers integrated in this scheme is difficult.",
-      "contact-us": {
-        "title": "Contact us",
-        "description": "Leave your query and our sales team will contact you.",
-        "send": "Send",
-        "name": "Name",
-        "lastName": "LastName",
-        "email": "email",
-        "company": "Company",
-        "phone-number": "Phone number",
-        "leave-us-your-query": "Leave us your query here"
-      }
+      "description-2": "Our mission is to impact the lives of millions of workers with entertainment. We understand that many they want to work remotely and that keeping workers integrated in this scheme is difficult."
+    },
+    "contact-us": {
+      "title": "Let's stay in touch!",
+      "description": "Leave your query and our sales team will contact you.\n",
+      "send": "Send",
+      "name": "Name",
+      "input-name-placeholder": "Your name",
+      "email": "Email",
+      "input-email-placeholder": "Your email",
+      "phone": "Phone",
+      "input-phone-placeholder": "Your phone",
+      "service": "Service you are interested in",
+      "message": "Message",
+      "textarea-placeholder": "Leave us your query here",
+      "virtual-event": "Virtual event",
+      "corporative-gifts": "Corporative gifts",
+      "face-to-face-event": "Face to face event",
+      "hybrid-event": "Hybrid event",
+      "platform": "Platform",
+      "other": "Other",
+      "interests-selected": "Select at least one service",
+      "write-us": "Write us here:"
     },
     "login": {
       "title": "Log in",
@@ -530,12 +599,13 @@
     "experience": {
       "title": "THE MOST FUN ACTIVITIES YOU CAN FIND",
       "subtitle": "We set the standard for virtual engagement and enhance remote office culture.",
-      "loginButton": "Log in",
-      "freeTrial": "GET A FREE TRIAL",
-      "freeTrial-time": "FOR 1 MONTH",
-      "firstSection": "More popular",
-      "secondSection": "Between Companies",
-      "thirdSection": "Team Building",
+      "sign-in-button": "Sign In",
+      "contact-button": "Contact us",
+      "free-trial": "GET A FREE TRIAL",
+      "free-trial-time": "FOR 1 MONTH",
+      "first-section": "More popular",
+      "second-section": "Between Companies",
+      "third-section": "Team Building",
       "trivia": "Gather your team for quiz activities giving it the focus you want: movies, sports or even onboarding and training topics.",
       "bingo": "Virtually play an interactive Bingo with your collaborators. Use our platform so that your workers have their cards and play it from home or at work.",
       "roulette": "Haz sorteos en vivo o con una lista ya hecha de presentes que quisieras regalar a tus trabajadores por una fecha importante.",

@@ -70,11 +70,11 @@ export const DetailsEvent = (props) => {
 
   const { t } = useTranslation("pages.events");
 
-  const [currentInteraction, setCurrentCurrentInteraction] = useState(props.details?.Interaction ?? null);
-  const [currentGift, setCurrentCurrentGift] = useState(props.details?.Gift ?? null);
-  const [currentGoals, setCurrentCurrentGoals] = useState(props.details?.Goals ?? []);
-  const [currentGames, setCurrentGames] = useState(props.details?.Games ?? []);
-  const [additional, setAdditional] = useState(null);
+  const [currentInteraction, setCurrentCurrentInteraction] = useState(props.details?.interaction ?? null);
+  const [currentGift, setCurrentCurrentGift] = useState(props.details?.gift ?? null);
+  const [currentGoals, setCurrentCurrentGoals] = useState(props.details?.goals ?? []);
+  const [currentGames, setCurrentGames] = useState(props.details?.games ?? []);
+  const [additional, setAdditional] = useState(props.details?.additional ?? null);
 
   return (
     <div>
@@ -157,12 +157,12 @@ export const DetailsEvent = (props) => {
             >
               {t(goal.title)}
 
-              {currentGoals.includes(goal.key) ? (
+              {currentGoals.includes(goal.key) && (
                 <img
                   src={`${config.storageUrl}/resources/events/check.svg`}
                   className="absolute top-px right-px w-6 h-6"
                 />
-              ) : null}
+              )}
             </div>
           ))}
         </div>
@@ -199,7 +199,13 @@ export const DetailsEvent = (props) => {
         <div>
           <div className="text-secondary mb-4">{t("additional-comments")}</div>
 
-          <TextArea rows={7} variant="primary" color="black" onChange={(event) => setAdditional(event.target.value)} />
+          <TextArea
+            rows={7}
+            variant="primary"
+            color="black"
+            defaultValue={additional}
+            onChange={(event) => setAdditional(event.target.value)}
+          />
         </div>
       </div>
 

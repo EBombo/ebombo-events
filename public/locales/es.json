@@ -7,7 +7,9 @@
       "ebombo-style": "Al estilo ebombo",
       "title": "Ayudamos a tu empresa a conectar con tus trabajadores para mejorar el ambiente de trabajo",
       "sub-title": "La forma en que tus trabajadores se reunen influye en el clima y cultura de tu empresa. Nuestra plataforma te permite tener experiencias en línea y eventos virtuales para promover la productividad, el compromiso y la diversión de tus trabajadores.",
-      "book-an-event": "Reservar evento"
+      "book-an-event": "Reservar evento",
+      "sign-in-button-label": "Iniciar sesión",
+      "contact-button-label": "Contáctanos"
     },
     "products": {
       "title": "UNA MANERA INCREÍBLE EN LA FORMA EN CÓMO CONECTAS CON TU EQUIPO",
@@ -415,6 +417,62 @@
       "created-ago": "Creado hace",
       "edit": "Editar",
       "play": "Jugar",
+      "create-event": "Crear Evento",
+      "organizeBy": "Organizado por el equipo de",
+      "event": {
+        "email": "Correo",
+        "role": "Rol",
+        "status": "Estado",
+        "active": "Activo",
+        "inactive": "Inactivo",
+        "member": "Miembro",
+        "visitor": "Visitante",
+        "admin": "Administrador",
+        "step-one": {
+          "releases": "Comunicados",
+          "create-release": "Create Release",
+          "edit": "Editar",
+          "name": "Básico",
+          "title": "Detalles básicos",
+          "event-title": "Título de tu evento",
+          "input-placeholder": "Escribe aquí....",
+          "date-title": "Fecha del evento",
+          "link-title": "Link de la reunión (Zoom, Cisco, Teams, Meets, etc)",
+          "link-description": "*Puedes agregarlo después de crear el evento",
+          "dates": {
+            "day": "Día del evento",
+            "start": "Inicio del evento",
+            "end": "Fin del evento"
+          },
+          "next": "Siguiente"
+        },
+        "step-two": {
+          "name": "Invitados",
+          "title": "Invitados",
+          "subtitle-one": "Selecciona a los invitados de tu evento.",
+          "filter": "Filtrar por:",
+          "search-placeholder": "Buscar",
+          "subtitle-two": "Invitados extras",
+          "textarea-placeholder": "Escribe \n Cada \n Corre \n en una linea \n unica",
+          "add": "Añadir",
+          "import": "Importar Excel",
+          "delete": "Eliminar",
+          "go-back": "Volver",
+          "next": "Siguiente"
+        },
+        "step-three": {
+          "name": "Actividades",
+          "description": "Elige las dinámicas virtuales para tu evento. Una vez agendado el evento, puedes crear los juegos en la ventana resumen de tu evento.",
+          "subtitle-one": "Juegos seleccionados"
+        },
+        "step-four": {
+          "name": "Resumen",
+          "title": "Título",
+          "date": "Fecha",
+          "link": "Link de la reunión",
+          "create": "Crear"
+        }
+      },
       "bingo": {
         "card-title": "Título de Cartilla",
         "event-name": "Nombre del Evento",
@@ -485,19 +543,30 @@
     },
     "about-us": {
       "title": "¿Quiénes somos?",
-      "description-1": "ebombo es una empresa de tecnología de recursos humanos enfocada en el futuro del trabajo. Permitiendo que otras empresas conecten con sus empleados y mejoren su ambiente de trabajo. Todo esto es posible con las actividades virtuales que creamos. Estas actividades consisten en diferentes tipos de juegos, dinámicas de incorporación, capacitaciones y más, de una manera divertida y casual.",
-      "description-2": "Nuestra misión es impactar en la vida de millones de trabajadores con entretenimiento. Entendemos que muchos quieren trabajar de forma remota y que mantener a los trabajadores integrados en este esquema es díficil.",
-      "contact-us": {
-        "title": "¡Contáctanos!",
-        "description": "Deja tu consulta y el nuestro equipo de ventas se pondrá en contacto contigo.",
-        "send": "Enviar",
-        "name": "Nombre",
-        "lastName": "Apellido",
-        "email": "Correo electrónico",
-        "company": "Empresa",
-        "phone-number": "Número de teléfono",
-        "leave-us-your-query": "Déjanos tu consulta aquí"
-      }
+      "description-1": "Deja tu consulta y el nuestro equipo de ventas se pondrá en contacto contigo.",
+      "description-2": "Nuestra misión es impactar en la vida de millones de trabajadores con entretenimiento. Entendemos que muchos quieren trabajar de forma remota y que mantener a los trabajadores integrados en este esquema es díficil."
+    },
+    "contact-us": {
+      "title": "¡Estemos en contacto!",
+      "description": "Deja tu consulta y el nuestro equipo de ventas se pondrá en contacto contigo.",
+      "send": "Enviar",
+      "name": "Nombre",
+      "input-name-placeholder": "Tu nombre",
+      "email": "Correo",
+      "input-email-placeholder": "Tu correo",
+      "phone": "Celular",
+      "input-phone-placeholder": "Tu celular",
+      "service": "Servicio en el que estás interesad@",
+      "message": "Mensaje",
+      "textarea-placeholder": "Déjanos tu consulta aquí",
+      "virtual-event": "Evento virtual",
+      "corporative-gifts": "Regalos corporativos",
+      "face-to-face-event": "Evento presencial",
+      "hybrid-event": "Evento híbrido",
+      "platform": "Plataforma",
+      "other": "Otro",
+      "interests-selected": "Seleccione al menos un servicio",
+      "write-us": "Escríbenos aquí:"
     },
     "login": {
       "title": "Iniciar sesión",
@@ -530,12 +599,13 @@
     "experience": {
       "title": "LAS ACTIVIDADES MÁS DIVERTIDAS QUE TE PUEDAS ENCONTRAR",
       "subtitle": "Establecemos el estándar para el compromiso virtual y mejora la cultura de la oficina remota.",
-      "loginButton": "Iniciar sesión",
-      "freeTrial": "OBTÉN UNA PRUEBA GRATUITA",
-      "freeTrial-time": "POR 1 MES",
-      "firstSection": "Más populares",
-      "secondSection": "Entre Empresas",
-      "thirdSection": "Team Building",
+      "sign-in-button": "Iniciar sesión",
+      "contact-button": "Contáctanos",
+      "free-trial": "OBTÉN UNA PRUEBA GRATUITA",
+      "free-trial-time": "POR 1 MES",
+      "first-section": "Más populares",
+      "second-section": "Entre Empresas",
+      "third-section": "Team Building",
       "trivia": "Reúne a tu equipo para actividades de preguntas dándole el enfoque que tu quieras: películas, deportes o hasta temas onboarding y capacitaciones.",
       "bingo": "Juega de manera virtual un Bingo interactivo con tus colaborades. Usa nuestra plataforma para que tus trabajadores tengan sus cartillas y lo jueguen desde sus casas o en el trabajo.",
       "roulette": "Haz sorteos en vivo o con una lista ya hecha de presentes que quisieras regalar a tus trabajadores por una fecha importante.",

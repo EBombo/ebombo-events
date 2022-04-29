@@ -2,9 +2,9 @@ import React, { useEffect } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 import { config } from "../../firebase";
-import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { useTranslation } from "../../hooks";
+import { SharpButton } from "../../components/common/SharpButton";
 
 export const HeaderLanding = (props) => {
   const router = useRouter();
@@ -12,6 +12,7 @@ export const HeaderLanding = (props) => {
 
   useEffect(() => {
     router.prefetch("/register");
+    router.prefetch("/login");
   }, []);
 
   return (
@@ -27,9 +28,14 @@ export const HeaderLanding = (props) => {
           {t("sub-title")}
         </div>
 
-        <ButtonAnt color="success" fontSize="20px" margin="15px 0 0 0" onClick={() => props.createEvent()}>
-          {t("book-an-event")}
-        </ButtonAnt>
+        <div className="mx-auto md:ml-0 flex items-center gap-[10px]">
+          <SharpButton prefixIcon="wink" onClick={() => router.push("/login")}>
+            {t("sign-in-button-label")}
+          </SharpButton>
+          <SharpButton prefixIcon="satisfied" color="primary" onClick={() => router.push("/contact")}>
+            {t("contact-button-label")}
+          </SharpButton>
+        </div>
       </div>
 
       <div className="right-container" data-aos="fade-left">
@@ -120,22 +126,5 @@ const HeaderLandingContainer = styled.section`
       max-width: 600px;
     }
   }
-
-  @keyframes loop_carousel_tablet {
-    from {
-      background-position: 0 0;
-    }
-    to {
-      background-position: 485px 0;
-    }
-  }
-
-  @keyframes loop_carousel_mobile {
-    from {
-      background-position: 0 0;
-    }
-    to {
-      background-position: 210% 0;
-    }
   }
 `;

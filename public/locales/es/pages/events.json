@@ -50,5 +50,6 @@
     "last-name": "Apellidos",
     "email": "Correo",
     "password": "Contraseña",
-    "send": "Enviar"
+    "send": "Enviar",
+    "update": "Actualizar"
 }
