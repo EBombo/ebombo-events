@@ -37,7 +37,7 @@ export const Bingo = (props) => {
 
   const schema = object().shape({
     title: string().max(25),
-    name: string(),
+    name: string().required(),
   });
 
   const { handleSubmit, register, errors, watch } = useForm({
@@ -71,7 +71,7 @@ export const Bingo = (props) => {
       titleColor: data.titleColor,
       backgroundColor: data.backgroundColor,
       title: data.title,
-      name: data.name || "default bingo",
+      name: data.name,
       coverImgUrl,
       backgroundImg,
       ownBranding,
