@@ -4,7 +4,6 @@ import { sizes } from "../../constants";
 import { EyeInvisibleOutlined, EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
-import { Input as InputAnt } from "antd";
 
 export const Input = forwardRef((props, ref) => {
   const [hide, setHide] = useState(false);
@@ -96,7 +95,10 @@ const EyeInvisibleOutlinedCss = styled(EyeInvisibleOutlined)`
   }
 `;
 
-const StyledInput = styled(InputAnt)`
+/**
+ * Se debe usar input de html no de Antd por que parece no manejar el ref recibido.
+ **/
+const StyledInput = styled.input`
   width: 100%;
   height: ${(props) => (props.height ? props.height : "36px")};
   border: ${(props) => (props.border ? props.border : `1px solid ${props.theme.basic.grayLighten}`)};
@@ -104,12 +106,6 @@ const StyledInput = styled(InputAnt)`
   border-radius: 4px !important;
   background: ${(props) => (props.background ? props.background : props.theme.basic.whiteLight)};
   color: ${(props) => props.theme.basic.blackDarken};
-  display: flex;
-  gap: 5px;
-  
-  input{
-    background: transparent;
-  }
 
   &:focus {
     outline: none;

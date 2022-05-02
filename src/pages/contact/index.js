@@ -51,6 +51,7 @@ export const ContactForm = (props) => {
       });
 
       setCurrentInterests([]);
+      // TODO: Mostrar un mensaje de success.
     } catch (error) {
       sendError({ error, action: "sendEmail" });
     }
@@ -128,7 +129,14 @@ export const ContactForm = (props) => {
                   {t("name")}
                 </div>
                 <Input
-                  prefix={<Image className="inline-block" height="18px" width="18px" src={`${config.storageUrl}/resources/user-icon-gray.svg`} />}
+                  prefix={
+                    <Image
+                      className="inline-block"
+                      height="18px"
+                      width="18px"
+                      src={`${config.storageUrl}/resources/user-icon-gray.svg`}
+                    />
+                  }
                   error={errors.name}
                   type="text"
                   ref={register}
@@ -142,7 +150,14 @@ export const ContactForm = (props) => {
                   {t("email")}
                 </div>
                 <Input
-                  prefix={ <Image className="inline-block" height="18px" width="18px" src={`${config.storageUrl}/resources/email-icon-gray.svg`} />}
+                  prefix={
+                    <Image
+                      className="inline-block"
+                      height="18px"
+                      width="18px"
+                      src={`${config.storageUrl}/resources/email-icon-gray.svg`}
+                    />
+                  }
                   error={errors.email}
                   type="email"
                   ref={register}
@@ -156,7 +171,14 @@ export const ContactForm = (props) => {
                   {t("phone")}
                 </div>
                 <Input
-                  prefix={<Image className="inline-block" height="18px" width="18px" src={`${config.storageUrl}/resources/phone-icon-gray.svg`} />}
+                  prefix={
+                    <Image
+                      className="inline-block"
+                      height="18px"
+                      width="18px"
+                      src={`${config.storageUrl}/resources/phone-icon-gray.svg`}
+                    />
+                  }
                   error={errors.phoneNumber}
                   type="text"
                   ref={register}

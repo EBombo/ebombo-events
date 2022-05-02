@@ -18,8 +18,6 @@ import { useTranslation } from "../../../../hooks";
 export const Bingo = (props) => {
   const router = useRouter();
 
-  const { gameId } = router.query;
-
   const { t } = useTranslation("pages.library.bingo");
 
   const [isVisibleModalSettings, setIsVisibleModalSettings] = useState(false);
@@ -108,7 +106,7 @@ export const Bingo = (props) => {
           {...props}
         />
       )}
-      <form onSubmit={handleSubmit(saveGame)}>
+      <form onSubmit={handleSubmit(saveGame)} noValidate>
         <div className="w-full bg-primary py-2 px-4 flex items-center gap-[5px] md:gap-4">
           <Mobile>
             <LeftOutlined width="18px" height="25px" style={{ color: "white" }} onClick={() => router.back()} />
