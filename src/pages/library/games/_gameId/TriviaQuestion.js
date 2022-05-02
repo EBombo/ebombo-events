@@ -429,7 +429,7 @@ export const TriviaQuestion = (props) => {
                   className="absolute w-[15px] h-[15px] top-[-7px] right-[-7px] cursor-pointer flex items-center justify-center"
                   onClick={() => {
                     const _questions = [...props.questions];
-                    _questions[props.questionIndex].answer = props.questions[props.questionIndex].answer.filter(
+                    _questions[props.questionIndex].answer = props.questions[props.questionIndex]?.answer.filter(
                       (ans) => ans !== answer
                     );
                     props.setQuestions(_questions);
