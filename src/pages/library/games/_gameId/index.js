@@ -46,7 +46,7 @@ export const GameContainer = (props) => {
 
   useEffect(() => {
     router.prefetch("/library/games");
-  });
+  }, []);
 
   useEffect(() => {
     if (!folderId) return null;
@@ -126,7 +126,7 @@ export const GameContainer = (props) => {
   if (gameId !== "new" && !currentGame) return spinLoader();
 
   return (
-    <div className="w-full" key={adminGameId}>
+    <div className="w-full" key={adminGameId.toString()}>
       {currentAdminGame?.name === "bingo" && (
         <Bingo
           submitGame={submitGame}
