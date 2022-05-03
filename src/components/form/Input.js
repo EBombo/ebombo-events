@@ -28,6 +28,7 @@ export const Input = forwardRef((props, ref) => {
           type={inputType()}
           className={`ant-input ${props.className}`}
         />
+        {props.prefix && <div className="absolute left-[5px] top-[50%] translate-y-[-50%]">{props.prefix}</div>}
         {props.type === "password" && (
           <>
             {hide ? (
@@ -106,6 +107,7 @@ const StyledInput = styled.input`
   border-radius: 4px !important;
   background: ${(props) => (props.background ? props.background : props.theme.basic.whiteLight)};
   color: ${(props) => props.theme.basic.blackDarken};
+  ${(props) => props.prefix && "padding-left: 30px;"}
 
   &:focus {
     outline: none;
