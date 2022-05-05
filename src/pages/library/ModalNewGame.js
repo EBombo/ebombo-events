@@ -17,12 +17,7 @@ export const ModalNewGame = (props) => {
   const [limit, setLimit] = useState(defaultLimit);
 
   const createGame = (game) => {
-    if (game.isDisabled)
-      return props.showNotification(
-        "INFO",
-        "Por favor para jugar estos juegos ponte en contacto con ventas.",
-        "warning"
-      );
+    if (game.isDisabled) return props.showNotification("INFO", "Próximamente.", "warning");
 
     folderId
       ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
@@ -47,12 +42,8 @@ export const ModalNewGame = (props) => {
 
         <div className="games">
           {adminGames.slice(0, limit).map((game) => (
-            <div
-              className={`game ${game.isDisabled ? "is-disabled" : ""}`}
-              key={game.id}
-              onClick={() => createGame(game)}
-            >
-              {/*TODO: ConsiConsider refactoring, add order between <Desktop> and <Tablet>, now hard to understand order.*/}
+            <div className={`game ${game.isDisabled ? "-" : ""}`} key={game.id} onClick={() => createGame(game)}>
+              {/*TODO: Consider refactoring, add order between <Desktop> and <Tablet>, now hard to understand order.*/}
               <Desktop>
                 <GameImage src={get(game, "coverUrl", null)} />
               </Desktop>
