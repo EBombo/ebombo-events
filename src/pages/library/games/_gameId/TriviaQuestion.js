@@ -441,7 +441,7 @@ export const TriviaQuestion = (props) => {
                     height="15px"
                     size="contain"
                     cursor="pointer"
-                    filter="grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8)"
+                    filter="brightness(0%)"
                   />
                 </div>
               </div>
