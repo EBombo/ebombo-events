@@ -50,6 +50,7 @@ export const TriviaQuestion = (props) => {
     props.setQuestions(_questions);
   };
 
+  // TODO: Consider refactoring, the component is long.
   return (
     <>
       {props.questions[props.questionIndex]?.type === "quiz" && (

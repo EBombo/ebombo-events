@@ -3,6 +3,7 @@ import { Divider, List, Tooltip } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { FileUpload } from "../../../components/common/FileUpload";
 import get from "lodash/get";
+import orderBy from "lodash/orderBy";
 import styled from "styled-components";
 import { mediaQuery, sizes } from "../../../constants";
 import { useRouter } from "next/router";
@@ -28,7 +29,10 @@ export const GamesContainer = () => {
         .where("isGameToPlay", "==", true)
         .get();
 
-      setGames(snapshotToArray(gamesRef));
+      const games_ = snapshotToArray(gamesRef);
+      const sortGames = orderBy(games_, ["updateAt"], ["desc"]);
+
+      setGames(sortGames);
       setLoading(false);
     };
 

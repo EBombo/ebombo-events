@@ -39,7 +39,6 @@ export const ModalNewGame = (props) => {
     >
       <NewGameContainer>
         <div className="title">Crear un nuevo juego</div>
-
         <div className="games">
           {adminGames.slice(0, limit).map((game) => (
             <div className={`game ${game.isDisabled ? "-" : ""}`} key={game.id} onClick={() => createGame(game)}>
@@ -65,16 +64,18 @@ export const ModalNewGame = (props) => {
           ))}
         </div>
 
-        <Anchor
-          variant="primary"
-          margin="auto"
-          display="block"
-          fontSize="14px"
-          onClick={() => setLimit(limit + defaultLimit)}
-          underlined
-        >
-          Cargar más
-        </Anchor>
+        {limit < adminGames?.length && (
+          <Anchor
+            variant="primary"
+            margin="auto"
+            display="block"
+            fontSize="14px"
+            onClick={() => setLimit(limit + defaultLimit)}
+            underlined
+          >
+            Cargar más
+          </Anchor>
+        )}
 
         <ButtonAnt
           margin="20px auto auto auto"

@@ -13,7 +13,7 @@ export const AdminPage = () => {
       <div className="title">Bienvenido Administrador</div>
       <div className="list-subtitle">Lista de permisos otorgados</div>
       <ul>
-        {aclMenus({ menus: menus }).map((menu) => (
+        {aclMenus({ menus: menus.filter((menu) => menu.isAdmin) }).map((menu) => (
           <li key={menu.url}>
             <Link href={menu.url}>
               <span>{menu.name}</span>
