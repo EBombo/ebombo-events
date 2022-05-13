@@ -59,7 +59,11 @@ export const EventStepFour = (props) => {
       delete newEvent.adminGames;
       delete newEvent.currentDate;
 
-      const { error } = await Fetch(`${config.serverUrl}/api/events/${newEvent.id}`, "POST", newEvent);
+      const { error } = await Fetch(
+        eventId === "new" ? `${config.serverUrl}/api/events` : `${config.serverUrl}/api/events/${newEvent.id}`,
+        eventId === "new" ? "POST" : "PUT",
+        newEvent
+      );
 
       if (error) throw get(error, "message", "ha ocurrido un problema");
 
