@@ -2,7 +2,6 @@ import React from "reactn";
 import styled from "styled-components";
 import { PlansPrices } from "./common/PlansPrices";
 import { Switch } from "./form";
-import { darkTheme } from "../theme";
 import { useStripePlans } from "../hooks/useStripePlans";
 
 export const SubscriptionPlans = (props) => {
@@ -14,8 +13,7 @@ export const SubscriptionPlans = (props) => {
       <div className="flex justify-center gap-4 text-base font-bold text-black text-xl whitespace-nowrap">
         <span>Pago anual</span>
         <Switch
-          activeBackgroundColor={darkTheme.basic.successLight}
-          inactiveBackgroundColor={darkTheme.basic.successLight}
+          size="small"
           checked={props?.isMonthly}
           onChange={() => props?.setIsMonthly((oldValue) => !oldValue)}
         />

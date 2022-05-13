@@ -101,7 +101,14 @@ export const ModalSettings = (props) => {
               {/*</div>*/}
               <div className="label">
                 Permitir duplicar{" "}
-                <Switch defaultChecked onChange={() => props.setAllowDuplicate(!props.allowDuplicate)} />
+                <Switch
+                  size="medium"
+                  checked={allowDuplicate}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    props.setAllowDuplicate(!props.allowDuplicate)
+                  }}
+                />
               </div>
 
               <div className="label">Musica del lobby</div>
