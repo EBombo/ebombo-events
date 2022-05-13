@@ -179,6 +179,5 @@ const Switcher = styled.div`
   }
 
   .check-toggle-round-flat:checked + label:after {
-    margin-left: ${(props) => (props.size === "small" ? "23px" : "39px")};
-  }
+    margin-left: ${(props) => (props.size === "small" ? "23px" : props.size === "medium" ? "36px" : "39px")};}
 `;

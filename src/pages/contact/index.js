@@ -53,7 +53,7 @@ export const ContactForm = (props) => {
       setCurrentInterests([]);
       // TODO: Mostrar un mensaje de success.
     } catch (error) {
-      sendError({ error, action: "sendEmail" });
+      sendError(error, "sendEmail");
     }
     setLoadingSendingEmail(false);
   };
