@@ -81,7 +81,7 @@ export const EventStepFour = (props) => {
 
       router.push(`/library/events/${props.documentId}/view?manageBy=user`);
     } catch (error) {
-      await sendError(error);
+      await sendError(error, "createEvent");
     } finally {
       setIsLoading(false);
     }
