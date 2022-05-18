@@ -11,7 +11,9 @@ import { Layout } from "./common/Layout";
 import { SharpButton } from "./common/SharpButton";
 import { Footer } from "./Footer";
 import { useTranslation } from "../hooks";
-import { Popover } from "antd";
+import { Collapse, Popover } from "antd";
+
+const { Panel } = Collapse;
 
 const useCaseMenu = [
   { url: "/team-building", label: "nav.use-case.team-building" },
@@ -123,20 +125,18 @@ export const Navbar = (props) => {
             </Desktop>
           </div>
 
-          <Desktop>
-            <Switch
-              variant="switcher"
-              size="small"
-              type="checkbox"
-              label1="En"
-              label2="Es"
-              defaultChecked={locale === locales[1] }
-              onChange={(event) => {
-                event.preventDefault();
-                setLocale(event.target.checked ? locales[1] : locales[0]);
-              }}
-            />
-          </Desktop>
+          <Switch
+            variant="switcher"
+            size="small"
+            type="checkbox"
+            label1="En"
+            label2="Es"
+            defaultChecked={locale === locales[1]}
+            onChange={(event) => {
+              event.preventDefault();
+              setLocale(event.target.checked ? locales[1] : locales[0]);
+            }}
+          />
 
           <Desktop>
             <div className="flex items-center justify-end gap-[18px]">
@@ -166,37 +166,55 @@ export const Navbar = (props) => {
           </Desktop>
 
           <Tablet>
-            <ul className={`nav-menu ${active ? "active" : ""}`}>
+            <ul className={`nav-menu no-scrollbar ${active ? "active" : ""}`}>
               {isEventPage ? null : (
                 <>
-                  {featuresMenu.map((menuItem, i) => (
-                    <li
-                      className="nav-item"
-                      key={`features-menu-${i}`}
-                      onClick={() => {
-                        router.push(menuItem.url);
-                        setActive(false);
-                      }}
+                  <Collapse bordered={false} defaultActiveKey={["1"]}>
+                    <Panel
+                      className="text-blackDarken font-[800] text-[16px] leading-[24px]"
+                      header={t("nav.features.title")}
+                      key="1"
                     >
-                      {t(menuItem.label)}
-                    </li>
-                  ))}
+                      <div className="flex flex-col items-start gap-4">
+                        {featuresMenu.map((menuItem, i) => (
+                          <div
+                            className="ml-[24px]"
+                            key={`features-menu-${i}`}
+                            onClick={() => {
+                              router.push(menuItem.url);
+                              setActive(false);
+                            }}
+                          >
+                            {t(menuItem.label)}
+                          </div>
+                        ))}
+                      </div>
+                    </Panel>
+                    <Panel
+                      className="text-blackDarken font-[800] text-[16px] leading-[24px]"
+                      header={t("nav.use-case.title")}
+                      key="2"
+                    >
+                      <div className="flex flex-col items-start gap-4">
+                        {useCaseMenu.map((menuItem, i) => (
+                          <div
+                            className="ml-[24px]"
+                            key={`use-cases-menu-${i}`}
+                            onClick={() => {
+                              router.push(menuItem.url);
+                              setActive(false);
+                            }}
+                          >
+                            {t(menuItem.label)}
+                          </div>
+                        ))}
+                      </div>
+                    </Panel>
+                  </Collapse>
 
-                  {useCaseMenu.map((menuItem, i) => (
-                    <li
-                      className="nav-item"
-                      key={`use-cases-menu-${i}`}
-                      onClick={() => {
-                        router.push(menuItem.url);
-                        setActive(false);
-                      }}
-                    >
-                      {t(menuItem.label)}
-                    </li>
-                  ))}
                   {!authUser && (
                     <li
-                      className="nav-item"
+                      className=""
                       onClick={() => {
                         router.push("/contact");
                         setActive(false);
@@ -208,29 +226,20 @@ export const Navbar = (props) => {
                 </>
               )}
 
-              <li className="nav-item">
-                <Switch
-                  variant="switcher"
-                  size="small"
-                  type="checkbox"
-                  label1="En"
-                  label2="Es"
-                  defaultChecked={locale === locales[1] ? true : false}
-                  onChange={(event) => {
-                    event.preventDefault();
-                    setLocale(event.target.checked ? locales[1] : locales[0]);
-                  }}
-                />
-              </li>
-
               {!authUser ? (
                 <>
-                  <li className="nav-item" onClick={() => router.push("/login")}>
+                  <li
+                    className="text-blackDarken font-[800] text-[16px] leading-[24px] ml-[24px] px-[16px] py-[12px] leading-[1.57rem] cursor-pointer flex flex-start"
+                    onClick={() => router.push("/login")}
+                  >
                     {t("nav.login")}
                   </li>
                 </>
               ) : (
-                <li className="nav-item" onClick={() => signOut()}>
+                <li
+                  className="text-blackDarken font-[800] text-[16px] leading-[24px] ml-[24px] px-[16px] py-[12px] leading-[1.57rem] cursor-pointer flex flex-start"
+                  onClick={() => signOut()}
+                >
                   {t("nav.logout")}
                 </li>
               )}
@@ -320,45 +329,18 @@ const NavContainer = styled.div`
     z-index: 999;
     left: -100%;
     top: 100px;
+    height: calc(100vh - 100px);
     flex-direction: column;
     background-color: ${(props) => props.theme.basic.whiteLight};
     width: 100%;
     text-align: center;
     transition: 0.3s;
     box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    overflow: auto;
 
-    li {
-      cursor: pointer;
+    .ant-collapse-item {
+      border-bottom: 0 !important;
     }
-  }
-
-  .nav-menu.active {
-    left: 0;
-  }
-
-  .games-item {
-    padding: 1rem 0;
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    color: ${(props) => props.theme.basic.blackDarken};
-  }
-
-  .last {
-    border-bottom: 1px solid ${(props) => props.theme.basic.whiteDarken};
-  }
-
-  .nav-item {
-    padding: 1.5rem 0;
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-    color: ${(props) => props.theme.basic.secondary};
-    border-bottom: 1px solid ${(props) => props.theme.basic.whiteDarken};
   }
 
   .hamburger {

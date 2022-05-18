@@ -238,7 +238,7 @@ export const landingProducts = [
     tab: "ways-to-interact",
     content: [
       {
-        title: "Formas de interactuar",
+        title: "ways-to-interact",
         options: [
           "Happy Hours",
           "Ice breakers",
