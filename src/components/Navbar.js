@@ -4,7 +4,7 @@ import { Image } from "./common/Image";
 import { Icon } from "./common/Icons";
 import { config } from "../firebase";
 import { Desktop, mediaQuery, Tablet } from "../constants";
-import { Anchor, Switch } from "./form";
+import { Anchor } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import { Layout } from "./common/Layout";
