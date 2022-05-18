@@ -343,24 +343,6 @@ const NavContainer = styled.div`
     }
   }
 
-  .nav-menu.active {
-    left: 0;
-  }
-
-  .games-item {
-    padding: 1rem 0;
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    color: ${(props) => props.theme.basic.blackDarken};
-  }
-
-  .last {
-    border-bottom: 1px solid ${(props) => props.theme.basic.whiteDarken};
-  }
-
   .hamburger {
     display: block;
     cursor: pointer;
