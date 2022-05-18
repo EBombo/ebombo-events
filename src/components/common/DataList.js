@@ -91,15 +91,15 @@ export const landingHeaderMenu = [
 export const triviaQuestionsTypes = [
   {
     key: "quiz",
-    value: "Quiz",
+    value: "quiz",
   },
   {
     key: "trueFalse",
-    value: "Verdadero o Falso",
+    value: "true-false",
   },
   {
     key: "shortAnswer",
-    value: "Respuesta corta",
+    value: "short-answer",
   },
 ];
 
@@ -112,11 +112,11 @@ export const questionTypes = {
 export const triviaQuestionsOptions = [
   {
     key: "uniq",
-    value: "Única respuesta",
+    value: "only-answer",
   },
   {
     key: "multiple",
-    value: "Respuesta multiple",
+    value: "multiple-answer",
   },
 ];
 

@@ -397,6 +397,7 @@
   },
   "pages": {
     "library": {
+      "activities": "Actividades",
       "my-games": "Mis juegos",
       "library": "Librería",
       "folders": "Carpetas",
@@ -532,7 +533,12 @@
         "true": "Verdadero",
         "question-type": "Tipo de pregunta",
         "time-limit": "Límite de tiempo",
-        "answer-options": "Opciones de respuesta"
+        "answer-options": "Opciones de respuesta",
+        "quiz": "Quiz",
+        "true-false": "Verdadero o falso",
+        "short-answer": "Respuesta corta",
+        "only-answer": "Única respuesta",
+        "multiple-answer": "Respuesta multiple"
       }
     },
     "about-us": {

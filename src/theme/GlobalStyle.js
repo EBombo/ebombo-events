@@ -247,4 +247,11 @@ export const GlobalStyle = createGlobalStyle`
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+  
+  .ant-picker-header-view {
+    .ant-picker-month-btn, 
+    .ant-picker-year-btn{
+      font-size: 14px;
+    }
+  }
 `;

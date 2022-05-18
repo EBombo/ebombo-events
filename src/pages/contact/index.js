@@ -1,8 +1,7 @@
 import React, { useState } from "reactn";
 import { config } from "../../firebase";
 import { Input, TextArea } from "../../components/form";
-import styled from "styled-components";
-import { mediaQuery } from "../../constants";
+import { Image } from "ebombo-components";
 import { object, string } from "yup";
 import { useForm } from "react-hook-form";
 import { useFetch } from "../../hooks/useFetch";
@@ -10,8 +9,6 @@ import { useSendError, useTranslation } from "../../hooks";
 import { SharpButton } from "../../components/common/SharpButton";
 import { interests } from "../../components/common/DataList";
 import isEmpty from "lodash/isEmpty";
-import { MailOutlined } from "@ant-design/icons";
-import { Image } from "../../components/common/Image";
 
 export const ContactForm = (props) => {
   const { Fetch } = useFetch();
@@ -54,8 +51,9 @@ export const ContactForm = (props) => {
       });
 
       setCurrentInterests([]);
+      // TODO: Mostrar un mensaje de success.
     } catch (error) {
-      sendError({ error, action: "sendEmail" });
+      sendError(error, "sendEmail");
     }
     setLoadingSendingEmail(false);
   };
@@ -71,9 +69,9 @@ export const ContactForm = (props) => {
           {t("description")}
         </div>
 
-        <div className="my-4 flex items-center justify-between">
+        <div className="my-4 flex items-center flex-col md:flex-row md:justify-between">
           <div
-            className="email text-white flex flex-col items-center"
+            className="flex flex-row items-center gap-[5px] md:flex-col hover:bg-orangeLight w-full p-2 rounded-[10px] cursor-pointer md:w-[120px]"
             onClick={() => {
               if (typeof window === "undefined") return;
               window.open("mailto:events@ebombo.com.pe");
@@ -82,31 +80,44 @@ export const ContactForm = (props) => {
             <Image
               src={`${config.storageUrl}/resources/email-white.svg`}
               size="contain"
-              width="35px"
-              height="35px"
-              margin="5px 10px 0 0"
+              width="25px"
+              height="25px"
+              margin="0"
             />
+            <div className="w-full text-white font-['Lato'] text-[16px] leading-[19px] md:text-center no-wrap">
+              events@ebombo.com
+            </div>
           </div>
 
-          <Image
-            cursor="pointer"
-            onClick={() => window.open("https://www.instagram.com/ebombo_/")}
-            src={`${config.storageUrl}/resources/instagram-white.svg`}
-            size="contain"
-            width="35px"
-            height="35px"
-            margin="0"
-          />
+          <div className="flex flex-row items-center gap-[5px] md:flex-col hover:bg-orangeLight w-full p-2 rounded-[10px] cursor-pointer md:w-[120px]">
+            <Image
+              cursor="pointer"
+              onClick={() => window.open("https://www.instagram.com/ebombo_/")}
+              src={`${config.storageUrl}/resources/instagram-white.svg`}
+              size="contain"
+              width="25px"
+              height="25px"
+              margin="0"
+            />
+            <div className="w-full text-white font-['Lato'] text-[16px] leading-[19px] md:text-center no-wrap">
+              linkedin.com/company/ebombo
+            </div>
+          </div>
 
-          <Image
-            cursor="pointer"
-            onClick={() => window.open("https://www.linkedin.com/company/ebombo/?viewAsMember=true")}
-            src={`${config.storageUrl}/resources/linkedin-white.svg`}
-            size="contain"
-            width="35px"
-            height="35px"
-            margin="0 10px"
-          />
+          <div className="flex flex-row items-center gap-[5px] md:flex-col hover:bg-orangeLight w-full p-2 rounded-[10px] cursor-pointer md:w-[120px]">
+            <Image
+              cursor="pointer"
+              onClick={() => window.open("https://www.linkedin.com/company/ebombo/?viewAsMember=true")}
+              src={`${config.storageUrl}/resources/linkedin-white.svg`}
+              size="contain"
+              width="25px"
+              height="25px"
+              margin="0"
+            />
+            <div className="w-full text-white font-['Lato'] text-[16px] leading-[19px] md:text-center no-wrap">
+              ebombo_
+            </div>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit(sendEmail)} className="w-full bg-white rounded-[10px] p-4 md:p-8">
@@ -118,7 +129,14 @@ export const ContactForm = (props) => {
                   {t("name")}
                 </div>
                 <Input
-                  prefix={<MailOutlined />}
+                  prefix={
+                    <Image
+                      className="inline-block"
+                      height="18px"
+                      width="18px"
+                      src={`${config.storageUrl}/resources/user-icon-gray.svg`}
+                    />
+                  }
                   error={errors.name}
                   type="text"
                   ref={register}
@@ -132,6 +150,14 @@ export const ContactForm = (props) => {
                   {t("email")}
                 </div>
                 <Input
+                  prefix={
+                    <Image
+                      className="inline-block"
+                      height="18px"
+                      width="18px"
+                      src={`${config.storageUrl}/resources/email-icon-gray.svg`}
+                    />
+                  }
                   error={errors.email}
                   type="email"
                   ref={register}
@@ -145,6 +171,14 @@ export const ContactForm = (props) => {
                   {t("phone")}
                 </div>
                 <Input
+                  prefix={
+                    <Image
+                      className="inline-block"
+                      height="18px"
+                      width="18px"
+                      src={`${config.storageUrl}/resources/phone-icon-gray.svg`}
+                    />
+                  }
                   error={errors.phoneNumber}
                   type="text"
                   ref={register}
@@ -181,7 +215,7 @@ export const ContactForm = (props) => {
                   key={interest.key}
                   onClick={() => {
                     if (!currentInterests.includes(interest.key))
-                      setCurrentInterests([...currentInterests, interest.key]);
+                      return setCurrentInterests([...currentInterests, interest.key]);
 
                     const currentGoalsUpdated = currentInterests.filter((interest_) => interest_ !== interest.key);
                     return setCurrentInterests(currentGoalsUpdated);
@@ -211,96 +245,3 @@ export const ContactForm = (props) => {
     </div>
   );
 };
-
-const ContactFormSection = styled.section`
-  width: 100%;
-  display: grid;
-  position: relative;
-  grid-template-columns: 1fr;
-  background: ${(props) => props.theme.basic.white};
-
-  .title {
-    font-family: Lato, sans-serif;
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 26px;
-    color: ${(props) => props.theme.basic.secondary};
-    margin-bottom: 16px;
-    font-style: normal;
-  }
-
-  .description {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 100;
-    font-size: 18px;
-    line-height: 22px;
-    color: ${(props) => props.theme.basic.secondary};
-    margin-bottom: 24px;
-    font-style: normal;
-  }
-
-  .submit-container {
-    text-align: center;
-
-    button {
-      display: inline-block;
-    }
-
-    ${mediaQuery.afterTablet} {
-      text-align: left;
-    }
-  }
-
-  form {
-    max-width: 660px;
-
-    input,
-    textarea {
-      padding-left: 24px;
-      border-radius: 4px;
-      margin: 7px 0;
-      padding: 8px;
-    }
-
-    input {
-      background: ${(props) => props.theme.basic.whiteDark};
-      color: ${(props) => props.theme.basic.grayLight};
-    }
-
-    textarea {
-      margin-top: 0.5rem;
-      width: 100%;
-      background: ${(props) => props.theme.basic.whiteDark};
-      color: ${(props) => props.theme.basic.grayLight};
-      border-radius: 6px;
-      border: none;
-      padding: 1rem;
-      height: 100px;
-    }
-  }
-
-  .img-contact {
-    align-self: center;
-    height: 80%;
-    background-image: url(${`${config.storageUrl}/resources/event.svg`});
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-  }
-
-  ${mediaQuery.afterTablet} {
-    grid-template-columns: 1fr 1fr;
-
-    .title {
-      font-size: 34px;
-      line-height: 41px;
-    }
-
-    .info-contact {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-gap: 1rem;
-    }
-  }
-`;

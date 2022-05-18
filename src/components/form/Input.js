@@ -28,6 +28,7 @@ export const Input = forwardRef((props, ref) => {
           type={inputType()}
           className={`ant-input ${props.className}`}
         />
+        {props.prefix && <div className="absolute left-[5px] top-[50%] translate-y-[-50%]">{props.prefix}</div>}
         {props.type === "password" && (
           <>
             {hide ? (
@@ -95,6 +96,9 @@ const EyeInvisibleOutlinedCss = styled(EyeInvisibleOutlined)`
   }
 `;
 
+/**
+ * Se debe usar input de html no de Antd por que parece no manejar el ref recibido.
+ **/
 const StyledInput = styled.input`
   width: 100%;
   height: ${(props) => (props.height ? props.height : "36px")};
@@ -103,6 +107,7 @@ const StyledInput = styled.input`
   border-radius: 4px !important;
   background: ${(props) => (props.background ? props.background : props.theme.basic.whiteLight)};
   color: ${(props) => props.theme.basic.blackDarken};
+  ${(props) => props.prefix && "padding-left: 30px;"}
 
   &:focus {
     outline: none;

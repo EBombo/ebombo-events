@@ -50,6 +50,7 @@ export const TriviaQuestion = (props) => {
     props.setQuestions(_questions);
   };
 
+  // TODO: Consider refactoring, the component is long.
   return (
     <>
       {props.questions[props.questionIndex]?.type === "quiz" && (
@@ -69,7 +70,7 @@ export const TriviaQuestion = (props) => {
 
             <input
               type="text"
-              className={`px-4 h-[52px] text-right md:h-[102px] focus:outline-none ${
+              className={`px-4 h-[52px] text-right text-white md:h-[102px] focus:outline-none ${
                 !isEmpty(props.questions[props.questionIndex]?.options[0]) ? "bg-red" : "bg-white"
               } focus:bg-red text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
               placeholder={t("write-answer")}
@@ -137,7 +138,7 @@ export const TriviaQuestion = (props) => {
             </div>
             <input
               type="text"
-              className={`px-4 h-[52px] text-right md:h-[102px] ${
+              className={`px-4 h-[52px] text-white text-right md:h-[102px] ${
                 !isEmpty(props.questions[props.questionIndex]?.options[1]) ? "bg-green" : "bg-white"
               } focus:outline-none focus:bg-green text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
               placeholder={t("write-answer")}
@@ -204,7 +205,7 @@ export const TriviaQuestion = (props) => {
             </div>
             <input
               type="text"
-              className={`px-4 h-[52px] text-right md:h-[102px] ${
+              className={`px-4 h-[52px] text-right text-white md:h-[102px] ${
                 !isEmpty(props.questions[props.questionIndex]?.options[2]) ? "bg-orange" : "bg-white"
               } focus:outline-none focus:bg-orange text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
               placeholder={t("write-answer")}
@@ -271,7 +272,7 @@ export const TriviaQuestion = (props) => {
             </div>
             <input
               type="text"
-              className={`px-4 h-[52px] text-right md:h-[102px] ${
+              className={`px-4 h-[52px] text-right text-white md:h-[102px] ${
                 !isEmpty(props.questions[props.questionIndex]?.options[3]) ? "bg-blue" : "bg-white"
               } focus:outline-none focus:bg-blue text-['Lato'] font-[900] text-[15px] md:text-[20px] leading-[18px] md:leading-[23px]`}
               placeholder={t("write-answer")}
@@ -421,10 +422,29 @@ export const TriviaQuestion = (props) => {
           <div className="w-full flex flex-wrap gap-[10px]">
             {props.questions[props.questionIndex]?.answer.map((answer, idx) => (
               <div
-                className="bg-green px-4 py-2 text-['Lato'] text-white bold-[900] text-[22px] leading-[26px] rounded-[5px] flex items-center text-center"
+                className="bg-green px-4 py-2 text-['Lato'] text-white bold-[900] text-[22px] leading-[26px] rounded-[5px] flex items-center text-center relative"
                 key={`${answer}-${idx}`}
               >
                 {answer}
+                <div
+                  className="absolute w-[15px] h-[15px] top-[-7px] right-[-7px] cursor-pointer flex items-center justify-center"
+                  onClick={() => {
+                    const _questions = [...props.questions];
+                    _questions[props.questionIndex].answer = props.questions[props.questionIndex]?.answer.filter(
+                      (ans) => ans !== answer
+                    );
+                    props.setQuestions(_questions);
+                  }}
+                >
+                  <Image
+                    src={`${config.storageUrl}/resources/delete.svg`}
+                    width="15px"
+                    height="15px"
+                    size="contain"
+                    cursor="pointer"
+                    filter="brightness(0%)"
+                  />
+                </div>
               </div>
             ))}
           </div>

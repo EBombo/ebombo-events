@@ -114,7 +114,7 @@ export const TabletLibrary = (props) => {
                   className="icon"
                   margin="0 20px 0 0"
                 />
-                <div className="name">{t("my-games")}</div>
+                <div className="name">{t("activities")}</div>
               </div>
             </div>
             <div className="item favorites" onClick={() => router.push("/library/favorites")}>
@@ -148,7 +148,7 @@ export const TabletLibrary = (props) => {
       {router.asPath.includes("/library/") && !router.asPath.includes("/events") && (
         <>
           <div className="subtitle">
-            {t("my-games")}
+            {t("activities")}
             <Tooltip
               placement="bottomLeft"
               trigger="click"
