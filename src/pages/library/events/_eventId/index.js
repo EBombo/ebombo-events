@@ -1,7 +1,6 @@
 import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import { useRouter } from "next/router";
-import { config, firestore } from "../../../../firebase";
-import { Image } from "../../../../components/common/Image";
+import { firestore } from "../../../../firebase";
 import { UserCreateEvent } from "./UserCreateEvent";
 import { snapshotToArray } from "../../../../utils";
 
@@ -67,28 +66,13 @@ export const Event = (props) => {
   }, []);
 
   return (
-    <div className="w-full md:min-h-[100vh]">
-      <div className="w-full h-[80px] bg-white px-4 flex items-center justify-between">
-        <Image
-          src={`${config.storageUrl}/resources/ebombo.svg`}
-          cursor="pointer"
-          height="35px"
-          width="125px"
-          size="contain"
-          margin="0"
-        />
-        <div className="text-secondary text-['Lato'] font-[700] text-[18px] leading-[22px]">{`${authUser.name} ${authUser.lastName}`}</div>
-      </div>
-      {manageBy === "user" && (
-        <UserCreateEvent
-          documentId={documentId}
-          event={event}
-          setEvent={setEvent}
-          members={members}
-          setMembers={setMembers}
-          {...props}
-        />
-      )}
-    </div>
+    <UserCreateEvent
+      documentId={documentId}
+      event={event}
+      setEvent={setEvent}
+      members={members}
+      setMembers={setMembers}
+      {...props}
+    />
   );
 };
