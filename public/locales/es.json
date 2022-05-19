@@ -210,6 +210,41 @@
         "title": "El evento virtual que amarás"
       }
     },
+    "kick-off": {
+      "intro-subheading": "Plataforma única para",
+      "intro-title": "REUNIONES DE VENTAS",
+      "intro-description": "Combine sus presentaciones con el poder de las dinámicas y haga que sus reuniones de ventas virtuales sean una experiencia inmersiva e interactiva que aumente el compromiso y la retención.",
+      "register-button-label": "Registrar",
+      "sign-in-button-label": "Iniciar sesión",
+      "contact-button-label": "Contáctanos",
+      "why-ebombo-works": {
+        "title": "¿Por qué funciona ebombo?",
+        "description": "Sabemos que las reuniones de ventas son uno de los eventos más importantes. La gamificación de su inicio de ventas virtual aumenta la retención del aprendizaje, impulsa la participación, energiza a los colaboradores, construye relaciones y fomenta la vinculación.",
+        "description-paragraph-2": "Combinaremos nuestra creatividad y sus objetivos para personalizar su actividad y cumpla con sus objetivos."
+      },
+      "activities": {
+        "title": "TENEMOS LO QUE SE NECESITA PARA MEJORAR SU REUNIÓN VIRTUAL DE VENTAS",
+        "description": "Energice a sus equipos de ventas con reuniones virtuales que entusiasman a todos. Cree una reunión de ventas con su marca personalizada y diseñe todo su evento utilizando nuestro panel de administración de eventos. ¡Además, elija entre más de 20 actividades en nuestra biblioteca inigualable o pídanos algo personalizado!"
+      },
+      "virtual-events": {
+        "title": "TENEMOS LO QUE SE NECESITA PARA MEJORAR SU REUNIÓN VIRTUAL DE VENTAS",
+        "items-1": {
+          "title": "AUMENTAR LA COMPROMISO EN LAS REUNIONES VIRTUALES DE VENTAS",
+          "description": "Después de la presentación, todos pueden cambiar instantáneamente al modo de juego con actividades virtuales. Sabemos lo competitivos que pueden ser los equipos de ventas, así que pueden competir por puntos y premios. Incluso, en nuestra Trivia puede mostrar una tabla de clasificación para promocionar a la competencia y mostrar qué colaborador o la mayor cantidad de puntos."
+        },
+        "items-2": {
+          "title": "PERSONALIZA TU REUNIÓN VIRTUAL DE VENTAS",
+          "description": "Tenemos muchas ideas para reuniones virtuales de ventas  iniciales personalizables y así crear un evento que la gente recordará en los próximos años. Agregue preguntas de trivia sobre su presentación para ayudar al aprendizaje. ¿Buscas una experiencia de varios meses? Mantenga a su equipo comprometido aún más con nuestra modalidad de suscripción y disfruten."
+        },
+        "items-3": {
+          "title": "UN TIPO DIFERENTE DE REUNIONES DE VENTAS",
+          "description": "Pensamos en grande para hacer que su reunión de ventas virtual sea el tema del que hablan los empleados (y el que están celosos de haberse perdido). Es fácil incluir sorpresas como nuestra función de rifa para regalar premios durante todo el evento. Integre saludos pregrabados o en vivo y discursos exagerados de CEOS, mascotas de equipos deportivos o cualquier otra persona dentro o fuera de su empresa."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "El evento virtual que amarás"
+      }
+    },
     "on-boarding": {
       "intro-subheading": "Todo lo que necesitas para",
       "intro-title": "Experiencias de entrenamiento y onboarding",
@@ -367,7 +402,8 @@
       "title": "Uso",
       "team-building": "Team Building",
       "on-boarding": "On Boarding",
-      "corporate-events": "Eventos Corporativos"
+      "corporate-events": "Eventos Corporativos",
+      "kick-off": "Kick Off"
     },
     "features": {
       "title": "Características",
