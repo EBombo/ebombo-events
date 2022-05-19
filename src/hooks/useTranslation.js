@@ -56,7 +56,7 @@ export const useTranslation = (path) => {
           id="language-toggle"
           className="check-toggle check-toggle-round-flat"
           type="checkbox"
-          checked={locale === locales[1] ? true : false}
+          checked={locale === locales[1]}
           onChange={(event) => {
             event.preventDefault();
             setLocale(event.target.checked ? locales[1] : locales[0]);
