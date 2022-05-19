@@ -19,6 +19,7 @@ const useCaseMenu = [
   { url: "/team-building", label: "nav.use-case.team-building" },
   { url: "/on-boarding", label: "nav.use-case.on-boarding" },
   { url: "/corporate-events", label: "nav.use-case.corporate-events" },
+  { url: "/kick-off", label: "nav.use-case.kick-off" },
 ];
 
 const featuresMenu = [
@@ -204,15 +205,15 @@ export const Navbar = (props) => {
                   </Collapse>
 
                   {!authUser && (
-                    <li
-                      className=""
+                    <div
+                      className="text-blackDarken font-[800] text-[16px] leading-[24px] ml-[24px] px-[16px] py-[12px] leading-[1.57rem] cursor-pointer flex flex-start"
                       onClick={() => {
                         router.push("/contact");
                         setActive(false);
                       }}
                     >
                       {t("nav.contact")}
-                    </li>
+                    </div>
                   )}
                 </>
               )}
@@ -332,6 +333,10 @@ const NavContainer = styled.div`
     .ant-collapse-item {
       border-bottom: 0 !important;
     }
+  }
+
+  .nav-menu.active {
+    left: 0;
   }
 
   .hamburger {

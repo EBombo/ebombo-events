@@ -1250,6 +1250,31 @@ export const OnBoardingLiterals = {
   },
 };
 
+export const kickOffLiterals = {
+  virtualEvents: {
+    items: [
+      {
+        img: `${config.storageUrl}/resources/KICK-OFF-1.jpg`,
+        placeholder: `${config.storageUrl}/resources/KICK-OFF-1_12x12.webp`,
+        title: "landing.kick-off.virtual-events.items-1.title",
+        description: "landing.kick-off.virtual-events.items-1.description",
+      },
+      {
+        img: `${config.storageUrl}/resources/KICK-OFF-2.jpg`,
+        placeholder: `${config.storageUrl}/resources/KICK-OFF-2_12x12.webp`,
+        title: "landing.kick-off.virtual-events.items-2.title",
+        description: "landing.kick-off.virtual-events.items-2.description",
+      },
+      {
+        img: `${config.storageUrl}/resources/KICK-OFF-3.jpg`,
+        placeholder: `${config.storageUrl}/resources/KICK-OFF-3_12x12.webp`,
+        title: "landing.kick-off.virtual-events.items-3.title",
+        description: "landing.kick-off.virtual-events.items-3.description",
+      },
+    ],
+  },
+};
+
 export const ContentLiterals = {
   virtualEvents: {
     items: [

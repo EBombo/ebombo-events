@@ -210,6 +210,41 @@
         "title": "The virtual event you will love"
       }
     },
+    "kick-off": {
+      "intro-subheading": "Single platform for",
+      "intro-title": "SALES MEETINGS",
+      "intro-description": "Combine your presentations with the power of dynamics and make your virtual sales meetings an immersive and interactive experience that increases engagement and retention.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "We know that sales meetings are one of the most important events. Gamifying your virtual sales startup increases learning retention, drives engagement, energizes collaborators, builds relationships, and encourages bonding.",
+        "description-paragraph-2": "We will combine our creativity and your goals to personalize your activity and meet your goals."
+      },
+      "activities": {
+        "title": "WE HAVE WHAT IT TAKES TO IMPROVE YOUR VIRTUAL SALES MEETING",
+        "description": "Energize your sales teams with virtual meetings that get everyone excited. Create a custom branded sales meeting and design your entire event using our event management panel. Plus, choose from over 20 activities in our unrivaled library or ask us for something custom!"
+      },
+      "virtual-events": {
+        "title": "WE HAVE WHAT IT TAKES TO IMPROVE YOUR VIRTUAL SALES MEETING",
+        "items-1": {
+          "title": "INCREASE COMMITMENT AT MEETINGS\nSALES VIRTUALS",
+          "description": "After the presentation, everyone can instantly switch to gaming mode with virtual activities. We know how competitive sales teams can be, so you can compete for points and prizes. In our Trivia you can even display a leaderboard to promote the competition and show which contributor or the most points."
+        },
+        "items-2": {
+          "title": "CUSTOMIZE YOUR VIRTUAL SALES MEETING\n",
+          "description": "We have plenty of customizable virtual kick-off meeting ideas to create an event that people will remember for years to come. Add trivia questions to your presentation to help learning. Are you looking for an experience of several months? Keep your team engaged even more with our subscription mode and enjoy."
+        },
+        "items-3": {
+          "title": "A DIFFERENT KIND OF SALES MEETINGS",
+          "description": "We think big to make your virtual sales meeting the thing employees are talking about (and the one they're jealous they missed). It's easy to include surprises like our raffle feature to give away prizes throughout the event. Integrate pre-recorded or live greetings and exaggerated speeches from CEOs, sports team mascots, or anyone else inside or outside your company."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
+    },
     "on-boarding": {
       "intro-subheading": "Everything you need for",
       "intro-title": "Training and Onboarding Experiences",
@@ -367,7 +402,8 @@
       "title": "Use Case",
       "team-building": "Team Building",
       "on-boarding": "On Boarding",
-      "corporate-events": "Corporate Events"
+      "corporate-events": "Corporate Events",
+      "kick-off": "Kick Off"
     },
     "features": {
       "title": "Features",
