@@ -50,8 +50,8 @@ module.exports = {
         "gradient-black-to-secondary": "linear-gradient(270deg, #1D1138 0%, #331E6D 31.25%, #1E1239 100%)",
       }),
       boxShadow: {
-        'sharp': '-5px 3px 0px 1px #382079',
-        'sharp-sm': '-2px 2px 0px 1px #382079',
+        sharp: "-5px 3px 0px 1px #382079",
+        "sharp-sm": "-2px 2px 0px 1px #382079",
       },
     },
   },

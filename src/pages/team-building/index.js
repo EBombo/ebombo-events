@@ -49,11 +49,15 @@ export const TeamBuilding = (props) => {
                   router.push(url);
                 }}
               >
-                <span className="text-lg font-bold align-middle">{t("landing.team-building.sign-in-button-label")}</span>
+                <span className="text-lg font-bold align-middle">
+                  {t("landing.team-building.sign-in-button-label")}
+                </span>
               </SharpButton>
               <SharpButton color="primary" prefixIcon="satisfied" className="min-w-[180px]">
                 <Anchor url="/contact">
-                  <span className="text-lg font-bold text-white align-middle">{t("landing.team-building.contact-button-label")}</span>
+                  <span className="text-lg font-bold text-white align-middle">
+                    {t("landing.team-building.contact-button-label")}
+                  </span>
                 </Anchor>
               </SharpButton>
             </div>

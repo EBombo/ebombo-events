@@ -36,11 +36,7 @@ export const Content = (props) => {
             </h2>
             <p className="text-secondary text-base md:text-2xl mb-10">{t("landing.content.intro-description")}</p>
             <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
-              <SharpButton
-                prefixIcon="wink"
-                className="min-w-[180px]"
-                onClick={() => createEvent()}
-              >
+              <SharpButton prefixIcon="wink" className="min-w-[180px]" onClick={() => createEvent()}>
                 <span className="text-lg font-bold align-middle">{t("landing.content.sign-in-button-label")}</span>
               </SharpButton>
               <SharpButton
@@ -107,7 +103,9 @@ export const Content = (props) => {
                   src={item.img}
                   alt=""
                   placeholderUrl={item.placeholder}
-                  className={`${isOdd ? "md:order-1" : "md:order-2"} w-full order-1 aspect-video rounded-lg self-center`}
+                  className={`${
+                    isOdd ? "md:order-1" : "md:order-2"
+                  } w-full order-1 aspect-video rounded-lg self-center`}
                 />,
                 <div key={`content-${i}`} className={`${isOdd ? "md:order-2" : "md:order-1"} order-2`}>
                   <div className="mb-6 uppercase font-bold text-primary text-2xl md:text-3xl">{t(item.title)}</div>
@@ -116,7 +114,10 @@ export const Content = (props) => {
               ];
 
               const wrapperEl = (
-                <div key={`wrapper-${i}`} className={`grid ${isOdd ? "md:grid-cols-[4fr_3fr]" : "md:grid-cols-[3fr_4fr]"}  my-32 gap-32`}>
+                <div
+                  key={`wrapper-${i}`}
+                  className={`grid ${isOdd ? "md:grid-cols-[4fr_3fr]" : "md:grid-cols-[3fr_4fr]"}  my-32 gap-32`}
+                >
                   {childItems}
                 </div>
               );

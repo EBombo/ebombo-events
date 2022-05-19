@@ -120,7 +120,9 @@ export const EventStepTwo = (props) => {
 
       <div className="flex mt-8 gap-8 w-full flex-col md:flex-row">
         <div>
-          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">{t("step-two.subtitle-one")}</div>
+          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">
+            {t("step-two.subtitle-one")}
+          </div>
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-[5px]">
@@ -164,7 +166,9 @@ export const EventStepTwo = (props) => {
           </div>
         </div>
         <form className="w-full md:max-w-[400px]" onSubmit={handleSubmit(addVisitors)}>
-          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">{t("step-two.subtitle-two")}</div>
+          <div className="text-['Lato'] font-[400] text-[18px] leading-[22px] text-secondary">
+            {t("step-two.subtitle-two")}
+          </div>
           <div className="mt-4">
             <TextArea
               name="visitors"

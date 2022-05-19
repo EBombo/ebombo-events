@@ -109,13 +109,22 @@ export const Activities = (props) => {
               {t("landing.activities.intro-title")}
             </h2>
             <p className="text-base md:text-xl">
-              <span><ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`}/></span> {t("landing.activities.intro-bullet-1")}
+              <span>
+                <ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`} />
+              </span>{" "}
+              {t("landing.activities.intro-bullet-1")}
             </p>
             <p className="text-base md:text-xl">
-              <span><ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`}/></span> {t("landing.activities.intro-bullet-2")}
+              <span>
+                <ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`} />
+              </span>{" "}
+              {t("landing.activities.intro-bullet-2")}
             </p>
             <p className="text-base md:text-xl mb-8">
-              <span><ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`}/></span> {t("landing.activities.intro-bullet-3")}
+              <span>
+                <ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`} />
+              </span>{" "}
+              {t("landing.activities.intro-bullet-3")}
             </p>
 
             <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
@@ -135,7 +144,7 @@ export const Activities = (props) => {
                 color="primary"
                 prefixIcon="satisfied"
                 className="min-w-[180px]"
-                onClick={() => router.push("/contact" )}
+                onClick={() => router.push("/contact")}
               >
                 <span className="text-lg font-bold align-middle">{t("landing.activities.contact-button-label")}</span>
               </SharpButton>
@@ -170,7 +179,7 @@ export const Activities = (props) => {
               color="primary"
               prefixIcon="satisfied"
               className="min-w-[180px]"
-              onClick={() => router.push("/contact" )}
+              onClick={() => router.push("/contact")}
             >
               <span className="text-lg font-bold align-middle">{t("landing.activities.contact-button-label")}</span>
             </SharpButton>
@@ -181,7 +190,9 @@ export const Activities = (props) => {
       <section className="bg-gradient-primary-to-secondary relative">
         <div className="max-w-[1200px] md:mx-auto items-center mx-4 sm:mx-8">
           <div className="mx-auto pt-8 pb-32 px-8">
-            <div className="text-white font-bold text-xl md:text-3xl text-center py-16">{t("landing.activities.ebombo-style.title")}</div>
+            <div className="text-white font-bold text-xl md:text-3xl text-center py-16">
+              {t("landing.activities.ebombo-style.title")}
+            </div>
             <div className="grid grid-cols-[1fr] md:grid-cols-[1fr_1fr_1fr] gap-8">
               {EbomboStyleGames.map((_, index) => (
                 <GameContentItem

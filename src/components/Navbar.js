@@ -4,7 +4,7 @@ import { Image } from "./common/Image";
 import { Icon } from "./common/Icons";
 import { config } from "../firebase";
 import { Desktop, mediaQuery, Tablet } from "../constants";
-import { Anchor, Switch } from "./form";
+import { Anchor } from "./form";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import { Layout } from "./common/Layout";
@@ -31,7 +31,7 @@ export const Navbar = (props) => {
 
   const { signOut } = useAuth();
 
-  const { t, locale, locales, setLocale } = useTranslation();
+  const { t, locale, SwitchTranslation } = useTranslation();
 
   const [authUser] = useGlobal("user");
 
@@ -125,18 +125,9 @@ export const Navbar = (props) => {
             </Desktop>
           </div>
 
-          <Switch
-            variant="switcher"
-            size="small"
-            type="checkbox"
-            label1="En"
-            label2="Es"
-            defaultChecked={locale === locales[1]}
-            onChange={(event) => {
-              event.preventDefault();
-              setLocale(event.target.checked ? locales[1] : locales[0]);
-            }}
-          />
+          <Desktop>
+            <SwitchTranslation />
+          </Desktop>
 
           <Desktop>
             <div className="flex items-center justify-end gap-[18px]">
