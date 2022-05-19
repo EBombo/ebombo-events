@@ -12,9 +12,9 @@ import { useTranslation } from "../../hooks";
 export const KickOff = (props) => {
   const router = useRouter();
 
-  const [authUser] = useGlobal("user");
-
   const { t } = useTranslation();
+
+  const [authUser] = useGlobal("user");
 
   useEffect(() => {
     router.prefetch("/events/[eventId]");
