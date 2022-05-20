@@ -1,10 +1,10 @@
 import React, { useEffect, useGlobal } from "reactn";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
-import { ButtonAnt } from "../../components/form";
 import { SharpButton } from "../../components/common/SharpButton";
 import { Image as ImageV2 } from "ebombo-components";
 import { useTranslation } from "../../hooks";
+import { EbomboMessage } from "../../components/EbomboMessage";
 
 const EbomboStyleGames = [
   {
@@ -127,20 +127,17 @@ export const Activities = (props) => {
               {t("landing.activities.intro-bullet-3")}
             </p>
 
-            <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
+            <div className="hidden md:flex items-center gap-8">
               <SharpButton
-                size="big"
                 prefixIcon="wink"
-                className="min-w-[150px]"
                 onClick={() => {
                   const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
                   router.push(url);
                 }}
               >
-                <span className="font-bold align-middle">{t("landing.activities.sign-in-button-label")}</span>
+                {t("landing.activities.sign-in-button-label")}
               </SharpButton>
               <SharpButton
-                size="big"
                 color="primary"
                 prefixIcon="satisfied"
                 className="min-w-[180px]"
@@ -205,25 +202,7 @@ export const Activities = (props) => {
         </div>
       </section>
 
-      <section className="bg-gradient-black-to-secondary">
-        <div className="max-w-[1500px] mx-auto py-8 px-8">
-          <div className="text-white font-bold text-3xl md:text-7xl">
-            {t("landing.activities.virtual-event-you-love.title")}
-          </div>
-          <div className="py-8">
-            <ButtonAnt
-              size="big"
-              color="success"
-              onClick={() => {
-                const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
-                router.push(url);
-              }}
-            >
-              <span className="text-lg font-bold">{t("landing.activities.sign-in-button-label")}</span>
-            </ButtonAnt>
-          </div>
-        </div>
-      </section>
+      <EbomboMessage {...props} />
     </div>
   );
 };

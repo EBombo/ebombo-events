@@ -1,12 +1,12 @@
 import React, { useEffect } from "reactn";
 import styled from "styled-components";
-import { ButtonAnt } from "../../components/form";
 import { mediaQuery } from "../../constants";
 import { useRouter } from "next/router";
 import { CheckOutlined } from "@ant-design/icons";
 import { Image } from "../../components/common/Image";
 import { config } from "../../firebase";
 import { useTranslation } from "../../hooks";
+import { SharpButton } from "../../components/common/SharpButton";
 
 const options = ["opt1", "opt2", "opt3", "opt4"];
 
@@ -33,15 +33,9 @@ export const Options = (props) => {
           ))}
         </div>
 
-        <ButtonAnt
-          color="success"
-          variant="contained"
-          fontSize="15px"
-          margin="15px 0 0 0"
-          onClick={() => props.createEvent()}
-        >
+        <SharpButton prefixIcon="wink" onClick={() => props.createEvent()}>
           {t("book-an-event")}
-        </ButtonAnt>
+        </SharpButton>
 
         <div className="hr">
           <div className="sub-title">{t("sub-title")}</div>
