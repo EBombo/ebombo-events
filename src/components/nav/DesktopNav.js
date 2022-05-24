@@ -67,9 +67,23 @@ export const DesktopNav = (props) => {
                 />
                 {t("library")}
               </li>
+              <li
+                className={`${router.asPath.includes("reports") ? "active" : ""}`}
+                onClick={() => router.push("/reports")}
+              >
+                <Image
+                  src={`${config.storageUrl}/resources/reports-icon.svg`}
+                  width="auto"
+                  height="30px"
+                  className="icon"
+                  margin="0 5px 0 0"
+                />
+                {t("reports")}
+              </li>
             </ul>
           </div>
         )}
+
       </div>
       {!authUser && (
         <Anchor url="/login" variant="primary" fontSize={"1rem"}>

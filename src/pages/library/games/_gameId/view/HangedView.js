@@ -15,7 +15,7 @@ export const HangedView = (props) => {
   const { gameId } = router.query;
 
   const [lettersPressed, setLettersPressed] = useState({});
-  const [phrases, setPhrases] = useState([]);
+  const [phrases, setPhrases] = useState(["prueba", "Harry Potter"]);
   const [currentPhrase, setCurrentPhrase] = useState("");
   const [state, setState] = useState();
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,8 @@ export const HangedView = (props) => {
 
       const game = gameRef.data();
 
-      setPhrases(game.phrases);
+      if (game.phrases) setPhrases(game.phrases);
+
       setLoading(false);
     };
 

@@ -100,9 +100,9 @@ export const ListGameView = (props) => {
   const redirectToGameView = () => {
     get(props, "game.parentId", null)
       ? router.push(
-          `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
+          `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGame?.id}&folderId=${props.game.parentId}`
         )
-      : router.push(`/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}`);
+      : router.push(`/library/games/${props.game.id}/view?adminGameId=${props.game.adminGame?.id}`);
   };
 
   // Codigo es ilegible, considere refactorizar/dividir en pequeñas porciones
