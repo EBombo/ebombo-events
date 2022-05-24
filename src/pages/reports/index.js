@@ -12,9 +12,14 @@ import defaultTo from "lodash/defaultTo";
 import { spinLoader } from "../../components/common/loader";
 import orderBy from "lodash/orderBy";
 import { ModalWinners } from "./ModalWinners";
+import { darkTheme } from "../../theme";
+import { Tooltip } from "antd";
+import { useTranslation } from "../../hooks";
 
 export const Reports = (props) => {
   const router = useRouter();
+
+  const { t, locale, locales } = useTranslation("pages.reports");
 
   const { gameId } = router.query;
 
@@ -128,17 +133,17 @@ export const Reports = (props) => {
               }`}
               onClick={() => setTab(1)}
             >
-              Juegos
+              {t("games")}
             </div>
           </div>
           <table className="w-full rounded-br-[10px] rounded-bl-[10px] overflow-hidden">
             <thead className="w-full">
-              <tr className="w-full grid items-center grid-cols-[1.5fr_1.5fr_1fr_1fr_1fr] h-[60px] bg-whiteDark border-y-[1px] border-grayLighten px-4">
-                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">Nombre del evento</th>
-                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">Fecha</th>
-                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">Juego</th>
-                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">Duración</th>
-                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">Ganadores</th>
+              <tr className="w-full grid items-center grid-cols-[1.5fr_1.5fr_1fr_1fr_1fr_15px] h-[60px] bg-whiteDark border-y-[1px] border-grayLighten px-4">
+                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("event-name")}</th>
+                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("date")}</th>
+                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("game")}</th>
+                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("duration")}</th>
+                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("winners")}</th>
               </tr>
             </thead>
             <tbody className="">
@@ -147,11 +152,15 @@ export const Reports = (props) => {
                 : lobbies.map((lobby, index) => (
                     <tr
                       key={`lobby-${index}`}
-                      className="w-full grid items-center grid-cols-[1.5fr_1.5fr_1fr_1fr_1fr] h-[60px] bg-whiteLight border-b-[1px] border-whiteDark px-4"
+                      className="w-full grid items-center grid-cols-[1.5fr_1.5fr_1fr_1fr_1fr_15px] h-[60px] bg-whiteLight border-b-[1px] border-whiteDark px-4"
                     >
                       <td className="text-blackDarken font-[600] text-[16px] leading-[18px]">{lobby.game?.name}</td>
                       <td className="flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]">
-                        {capitalize(moment(lobby.startAt?.toDate()).locale("es").format("MMM Do YYYY, h:mm a"))}
+                        {capitalize(
+                          moment(lobby.startAt?.toDate())
+                            .locale(locale === locales[1] ? "es" : "en")
+                            .format("MMM Do YYYY, h:mm a")
+                        )}
                       </td>
                       <td>
                         <span className="bg-gray rounded-[6px] flex items-center p-2 w-[100px] mx-auto">
@@ -177,6 +186,9 @@ export const Reports = (props) => {
                       <td className="flex items-center justify-center">
                         <Anchor
                           underlined
+                          fontSize="16px"
+                          fontWeight="600"
+                          color="dark"
                           onClick={() => {
                             setCurrentLobby(lobby);
                             setIsVisibleModalWinners(true);
@@ -184,6 +196,51 @@ export const Reports = (props) => {
                         >
                           Ver
                         </Anchor>
+                      </td>
+                      <td className="cursor-pointer">
+                        <Tooltip
+                          placement="bottomRight"
+                          trigger="click"
+                          title={
+                            <div className="flex flex-col gap-[5px] w-[160px]">
+                              <div
+                                className="w-full bg-[#F1F0F0] p-2 flex items-center text-grayLight rounded-[4px] cursor-pointer gap-[10px]"
+                                onClick={() => router.push(`/reports/lobbies/${lobby.id}`)}
+                              >
+                                <Image
+                                  src={`${config.storageUrl}/resources/reports-icon.svg`}
+                                  width={"16px"}
+                                  height={"16px"}
+                                  size={"contain"}
+                                  margin="0"
+                                  filter="invert(33%) sepia(83%) saturate(4%) hue-rotate(326deg) brightness(93%) contrast(76%)"
+                                />
+                                {t("open")}
+                              </div>
+                              <div
+                                className="w-full bg-[#F1F0F0] p-2 flex items-center text-grayLight rounded-[4px] cursor-pointer gap-[10px]"
+                                onClick={() => router.push(`/reports/lobbies/${lobby.id}`)}
+                              >
+                                <Image
+                                  src={`${config.storageUrl}/resources/delete.svg`}
+                                  width={"16px"}
+                                  height={"16px"}
+                                  size={"contain"}
+                                  margin="0"
+                                  filter="invert(33%) sepia(83%) saturate(4%) hue-rotate(326deg) brightness(93%) contrast(76%)"
+                                />
+                                {t("delete")}
+                              </div>
+                            </div>
+                          }
+                          color={darkTheme.basic.whiteLight}
+                        >
+                          <div className="w-[10px] flex flex-col justify-between h-[20px]">
+                            <div className="w-[5px] h-[5px] rounded-[50%] bg-blackDarken" />
+                            <div className="w-[5px] h-[5px] rounded-[50%] bg-blackDarken" />
+                            <div className="w-[5px] h-[5px] rounded-[50%] bg-blackDarken" />
+                          </div>
+                        </Tooltip>
                       </td>
                     </tr>
                   ))}

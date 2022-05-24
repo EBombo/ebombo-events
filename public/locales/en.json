@@ -433,6 +433,16 @@
     "contact-support": "Contact support"
   },
   "pages": {
+    "reports": {
+      "open": "Open Report",
+      "delete": "Move to trash",
+      "event-name": "Event name",
+      "date": "Date",
+      "game": "Game",
+      "games": "Games",
+      "duration": "Duration",
+      "winners": "Winners"
+    },
     "library": {
       "activities": "Activities",
       "my-games": "My games",

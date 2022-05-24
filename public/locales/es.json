@@ -433,6 +433,16 @@
     "contact-support": "Contactar soporte"
   },
   "pages": {
+    "reports": {
+      "open": "Abrir informe",
+      "delete": "Mover a la papelera",
+      "event-name": "Nombre del evento",
+      "date": "Fecha",
+      "game": "Juego",
+      "games": "Juegos",
+      "duration": "Duración",
+      "winners": "Ganadores"
+    },
     "library": {
       "activities": "Actividades",
       "my-games": "Mis juegos",
