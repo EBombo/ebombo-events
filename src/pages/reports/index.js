@@ -5,12 +5,11 @@ import { Desktop } from "../../constants";
 import { useRouter } from "next/router";
 import moment from "moment";
 import { Image } from "../../components/common/Image";
-import { config, firestoreBingo, firestoreHanged, firestoreRoulette, firestoreTrivia } from "../../firebase";
+import { config, firestoreGames } from "../../firebase";
 import { snapshotToArray } from "../../utils";
 import capitalize from "lodash/capitalize";
 import defaultTo from "lodash/defaultTo";
 import { spinLoader } from "../../components/common/loader";
-import orderBy from "lodash/orderBy";
 import { ModalWinners } from "./ModalWinners";
 import { darkTheme } from "../../theme";
 import { Tooltip } from "antd";
@@ -37,60 +36,22 @@ export const Reports = (props) => {
   }, [authUser]);
 
   useEffect(() => {
-    fetchLobbies();
+    const fetchLobbies = () =>
+      firestoreGames
+        .collection("lobbies")
+        .where("isClosed", "==", true)
+        .onSnapshot((lobbiesSnapshot) => {
+          const _lobbies = snapshotToArray(lobbiesSnapshot);
+
+          const filterLobbies = _lobbies.filter((lobby) => defaultTo(lobby.game?.usersIds, []).includes(authUser.id));
+
+          setLobbies(filterLobbies);
+          setLoading(false);
+        });
+
+    const unSub = fetchLobbies();
+    return () => unSub();
   }, [gameId]);
-
-  const fetchLobbies = async () => {
-    const bingoLobbies = await fetchBingoLobbies();
-    const hangedLobbies = await fetchHangedLobbies();
-    const rouletteLobbies = await fetchRouletteLobbies();
-    const triviaLobbies = await fetchTriviaLobbies();
-
-    const allLobbies = bingoLobbies.concat(hangedLobbies).concat(rouletteLobbies).concat(triviaLobbies);
-
-    setLobbies(orderBy(allLobbies, ["startAt"], ["desc"]));
-    setLoading(false);
-  };
-
-  const fetchBingoLobbies = async () => {
-    const _lobbiesQuery = await firestoreBingo.collection("lobbies").where("isClosed", "==", true).get();
-
-    const _lobbies = snapshotToArray(_lobbiesQuery);
-
-    const filterLobbies = _lobbies.filter((lobby) => defaultTo(lobby.game?.usersIds, []).includes(authUser.id));
-
-    return filterLobbies;
-  };
-
-  const fetchHangedLobbies = async () => {
-    const _lobbiesQuery = await firestoreHanged.collection("lobbies").where("isClosed", "==", true).get();
-
-    const _lobbies = snapshotToArray(_lobbiesQuery);
-
-    const filterLobbies = _lobbies.filter((lobby) => defaultTo(lobby.game?.usersIds, []).includes(authUser.id));
-
-    return filterLobbies;
-  };
-
-  const fetchRouletteLobbies = async () => {
-    const _lobbiesQuery = await firestoreRoulette.collection("lobbies").where("isClosed", "==", true).get();
-
-    const _lobbies = snapshotToArray(_lobbiesQuery);
-
-    const filterLobbies = _lobbies.filter((lobby) => defaultTo(lobby.game?.usersIds, []).includes(authUser.id));
-
-    return filterLobbies;
-  };
-
-  const fetchTriviaLobbies = async () => {
-    const _lobbiesQuery = await firestoreTrivia.collection("lobbies").where("isClosed", "==", true).get();
-
-    const _lobbies = snapshotToArray(_lobbiesQuery);
-
-    const filterLobbies = _lobbies.filter((lobby) => defaultTo(lobby.game?.usersIds, []).includes(authUser.id));
-
-    return filterLobbies;
-  };
 
   const filterTable = (event) => {
     event.preventDefault();
@@ -138,11 +99,12 @@ export const Reports = (props) => {
           </div>
           <table className="w-full rounded-br-[10px] rounded-bl-[10px] overflow-hidden">
             <thead className="w-full">
-              <tr className="w-full grid items-center grid-cols-[1.5fr_1.5fr_1fr_1fr_1fr_15px] h-[60px] bg-whiteDark border-y-[1px] border-grayLighten px-4">
+              <tr className="w-full grid items-center grid-cols-[1.5fr_1.5fr_1fr_1fr_1fr_1fr_15px] h-[60px] bg-whiteDark border-y-[1px] border-grayLighten px-4">
                 <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("event-name")}</th>
                 <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("date")}</th>
                 <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("game")}</th>
                 <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("duration")}</th>
+                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("players-number")}</th>
                 <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("winners")}</th>
               </tr>
             </thead>
@@ -154,7 +116,9 @@ export const Reports = (props) => {
                       key={`lobby-${index}`}
                       className="w-full grid items-center grid-cols-[1.5fr_1.5fr_1fr_1fr_1fr_15px] h-[60px] bg-whiteLight border-b-[1px] border-whiteDark px-4"
                     >
-                      <td className="text-blackDarken font-[600] text-[16px] leading-[18px]">{lobby.game?.name}</td>
+                      <td className="text-blackDarken font-[600] text-[16px] leading-[18px] no-wrap">
+                        {lobby.game?.name}
+                      </td>
                       <td className="flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]">
                         {capitalize(
                           moment(lobby.startAt?.toDate())

@@ -32,6 +32,11 @@ if (DOMAIN?.includes("local") || DOMAIN?.includes("red") || DOMAIN?.includes("de
   hostNameBomboGames = "ebombo.io";
 }
 
+let analyticsGames;
+let firestoreGames;
+let storageGames;
+let authGames;
+
 let analyticsBingo;
 let firestoreBingo;
 let storageBingo;
@@ -138,6 +143,22 @@ if (isEmpty(firebase.apps)) {
   } catch (error) {
     console.error("error initializeApp", error);
   }
+
+  // Bombo games connection.
+  try {
+    firebase.initializeApp(config.firebaseGames, "games");
+    firestoreGames = firebase.app("games").firestore();
+    storageGames = firebase.app("games").storage();
+    authGames = firebase.app("games").auth();
+
+    if (typeof window !== "undefined") {
+      analyticsGames = firebase.app("games").analytics();
+    }
+
+    firestoreHanged.settings({ ignoreUndefinedProperties: true });
+  } catch (error) {
+    console.error("error initializeApp", error);
+  }
 }
 
 if (DOMAIN?.includes("localhost")) {
@@ -182,4 +203,8 @@ export {
   storageHanged,
   authHanged,
   analyticsHanged,
+  analyticsGames,
+  firestoreGames,
+  storageGames,
+  authGames,
 };
