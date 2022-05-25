@@ -114,7 +114,7 @@ export const Reports = (props) => {
                 : lobbies.map((lobby, index) => (
                     <tr
                       key={`lobby-${index}`}
-                      className="w-full grid items-center grid-cols-[1.5fr_1.5fr_1fr_1fr_1fr_15px] h-[60px] bg-whiteLight border-b-[1px] border-whiteDark px-4"
+                      className="w-full grid items-center grid-cols-[1.5fr_1.5fr_1fr_1fr_1fr_1fr_15px] h-[60px] bg-whiteLight border-b-[1px] border-whiteDark px-4"
                     >
                       <td className="text-blackDarken font-[600] text-[16px] leading-[18px] no-wrap">
                         {lobby.game?.name}
@@ -146,6 +146,9 @@ export const Reports = (props) => {
                         {moment(moment(lobby.startAt?.toDate())?.diff(moment(lobby.updateAt?.toDate()))).format(
                           "h[h] m[m]"
                         )}
+                      </td>
+                      <td className="flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]">
+                        {lobby.countPlayers || 0}
                       </td>
                       <td className="flex items-center justify-center">
                         <Anchor
