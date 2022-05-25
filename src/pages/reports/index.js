@@ -169,7 +169,7 @@ export const Reports = (props) => {
                           placement="bottomRight"
                           trigger="click"
                           title={
-                            <div className="flex flex-col gap-[5px] w-[160px]">
+                            <div className="flex flex-col gap-[5px] w-[180px]">
                               <div
                                 className="w-full bg-[#F1F0F0] p-2 flex items-center text-grayLight rounded-[4px] cursor-pointer gap-[10px]"
                                 onClick={() => router.push(`/reports/lobbies/${lobby.id}`)}
