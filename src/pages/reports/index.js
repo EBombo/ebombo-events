@@ -32,6 +32,10 @@ export const Reports = (props) => {
   const [isVisibleModalWinners, setIsVisibleModalWinners] = useState(false);
 
   useEffect(() => {
+    router.prefetch("/reports/lobbies/[lobbyId]");
+  }, []);
+
+  useEffect(() => {
     if (!authUser) router.push("/");
   }, [authUser]);
 

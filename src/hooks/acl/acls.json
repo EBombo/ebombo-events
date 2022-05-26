@@ -18,7 +18,8 @@
       "/library/events/[eventId]/releases/new": "Nuevo comunicado",
       "/library/events/[eventId]/releases/[releaseId]": "Editar comunicado",
       "/library/events/[eventId]/releases/[releaseId]/view": "Vista previa comunicado",
-      "/reports": "Formulario de Reportes"
+      "/reports": "Formulario de Reportes",
+      "/reports/lobbies/[lobbyId]": "Reporte del lobby"
     }
   },
   "adminUsers": {
