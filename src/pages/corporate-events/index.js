@@ -7,6 +7,7 @@ import { CorporateEventsLiterals, LandingGames } from "../../components/common/D
 import { Carousel } from "../../components/common/Carousel";
 import { Image as ImageV2 } from "ebombo-components";
 import { useTranslation } from "../../hooks";
+import { EbomboMessage } from "../../components/EbomboMessage";
 
 export const CorporateEvents = (props) => {
   const router = useRouter();
@@ -170,25 +171,7 @@ export const CorporateEvents = (props) => {
         </div>
       </section>
 
-      <section className="bg-gradient-black-to-secondary">
-        <div className="max-w-[1500px] mx-auto py-8 px-8">
-          <div className="text-white font-bold text-3xl md:text-7xl">
-            {t(CorporateEventsLiterals.virtualEventYouLove.title)}
-          </div>
-          <div className="py-8">
-            <ButtonAnt
-              size="big"
-              color="success"
-              onClick={() => {
-                const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
-                router.push(url);
-              }}
-            >
-              <span className="text-lg font-bold">{t("landing.corporate-events.sign-in-button-label")}</span>
-            </ButtonAnt>
-          </div>
-        </div>
-      </section>
+      <EbomboMessage {...props} />
     </div>
   );
 };

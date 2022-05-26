@@ -4,11 +4,11 @@ import { mediaQuery } from "../../constants";
 import { landingProducts } from "../../components/common/DataList";
 import chunk from "lodash/chunk";
 import { CheckOutlined } from "@ant-design/icons";
-import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { useTranslation } from "../../hooks";
 import { Image } from "../../components/common/Image";
+import { SharpButton } from "../../components/common/SharpButton";
 
 export const Products = (props) => {
   const router = useRouter();
@@ -70,15 +70,12 @@ export const Products = (props) => {
               ))}
             </div>
 
-            <ButtonAnt
-              color="success"
-              variant="contained"
-              fontSize="15px"
-              margin="25px 0 0 0"
+            <SharpButton
+              prefixIcon="wink"
               onClick={() => props.createEvent()}
             >
               {t("book-an-event")}
-            </ButtonAnt>
+            </SharpButton>
           </div>
         </div>
       ))}
