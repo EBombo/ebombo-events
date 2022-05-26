@@ -1,23 +1,14 @@
 import { useEffect } from "react";
-import { timeoutPromise } from "../src/utils/promised";
 import { useRouter } from "next/router";
 import { Image } from "../src/components/common/Image";
 import { config } from "../src/firebase";
-import { ButtonAnt } from "../src/components/form";
+import { SharpButton } from "../src/components/common/SharpButton";
 
 const ErrorPage = () => {
   const router = useRouter();
 
   useEffect(() => {
     router.prefetch("/");
-
-    const redirect = async () => {
-      await timeoutPromise(3000);
-
-      await router.push("/");
-    };
-
-    redirect();
   }, []);
 
   return (
@@ -28,14 +19,14 @@ const ErrorPage = () => {
           <div className="text-['Lato'] text-[30px] leading-[36px] font-[800] md:text-[50px] md:leading-[55px] text-white mb-4">
             Página no encontrada
           </div>
-          <p className="text-['Lato'] text-[20px] leading-[24px] md:text-[30px] md:leading-[36px] text-white">
+          <p className="text-['Lato'] text-[20px] leading-[24px] md:text-[30px] md:leading-[36px] text-white mb-4">
             Pero, no es culpa tuya
           </p>
-          <ButtonAnt color="primary" onClick={() => router.push("/")}>
-            <div className="text-['Lato'] text-[16px] leading-[20px] md:text-[20px] md:leading-[24px] text-white px-8">
+          <SharpButton color="primary" prefixIcon="wink" onClick={() => router.push("/")}>
+            <span className="text-['Lato'] text-[16px] leading-[20px] md:text-[20px] md:leading-[24px] text-white px-8">
               Volver al inicio
-            </div>
-          </ButtonAnt>
+            </span>
+          </SharpButton>
         </div>
       </div>
     </div>
