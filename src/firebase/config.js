@@ -75,7 +75,7 @@ if (isEmpty(firebase.apps)) {
       analytics = firebase.analytics();
     }
 
-    firestore.settings({ ignoreUndefinedProperties: true });
+    firestore.settings({ ignoreUndefinedProperties: true, merge: true });
   } catch (error) {
     console.error("error initializeApp", error);
   }
@@ -91,7 +91,7 @@ if (isEmpty(firebase.apps)) {
       analyticsBingo = firebase.app("bingo").analytics();
     }
 
-    firestoreBingo.settings({ ignoreUndefinedProperties: true });
+    firestoreBingo.settings({ ignoreUndefinedProperties: true, merge: true });
   } catch (error) {
     console.error("error initializeApp", error);
   }
@@ -107,7 +107,7 @@ if (isEmpty(firebase.apps)) {
       analyticsRoulette = firebase.app("roulette").analytics();
     }
 
-    firestoreRoulette.settings({ ignoreUndefinedProperties: true });
+    firestoreRoulette.settings({ ignoreUndefinedProperties: true, merge: true });
   } catch (error) {
     console.error("error initializeApp", error);
   }
@@ -123,7 +123,7 @@ if (isEmpty(firebase.apps)) {
       analyticsTrivia = firebase.app("trivia").analytics();
     }
 
-    firestoreTrivia.settings({ ignoreUndefinedProperties: true });
+    firestoreTrivia.settings({ ignoreUndefinedProperties: true, merge: true });
   } catch (error) {
     console.error("error initializeApp", error);
   }
@@ -139,7 +139,7 @@ if (isEmpty(firebase.apps)) {
       analyticsHanged = firebase.app("hanged").analytics();
     }
 
-    firestoreHanged.settings({ ignoreUndefinedProperties: true });
+    firestoreHanged.settings({ ignoreUndefinedProperties: true, merge: true });
   } catch (error) {
     console.error("error initializeApp", error);
   }
@@ -155,7 +155,7 @@ if (isEmpty(firebase.apps)) {
       analyticsGames = firebase.app("games").analytics();
     }
 
-    firestoreHanged.settings({ ignoreUndefinedProperties: true });
+    firestoreHanged.settings({ ignoreUndefinedProperties: true, merge: true });
   } catch (error) {
     console.error("error initializeApp", error);
   }

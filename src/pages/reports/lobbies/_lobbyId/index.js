@@ -1,34 +1,34 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useGlobal, useState } from "reactn";
-import { useTranslation } from "../../../../hooks";
+import React, { useEffect, useState } from "reactn";
 import { firestoreGames } from "../../../../firebase";
+import { spinLoader } from "../../../../components/common/loader";
+import { TriviaReport } from "./TriviaReport";
 
 export const LobbyReport = (props) => {
   const router = useRouter();
 
   const { lobbyId } = router.query;
 
-  const { t } = useTranslation("pages.reports");
-
   const [lobby, setLobby] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLobby = () =>
-      firestoreGames
-        .collection("lobbies")
-        .doc(lobbyId)
-        .onSnapshot((lobbiesSnapshot) => {
-          const _lobbies = snapshotToArray(lobbiesSnapshot);
-
-          const filterLobbies = _lobbies.filter((lobby) => defaultTo(lobby.game?.usersIds, []).includes(authUser.id));
-
-          setLobby(filterLobbies);
-          setLoading(false);
-        });
+      firestoreGames.doc(`lobbies/${lobbyId}`).onSnapshot((snapshot) => {
+        setLobby(snapshot.data());
+        setLoading(false);
+      });
 
     const unSub = fetchLobby();
     return () => unSub();
   }, [lobbyId]);
 
-  return <div>algo</div>;
+  if (loading) return spinLoader();
+
+  switch (lobby.game?.adminGame?.name) {
+    case "trivia":
+      return <TriviaReport {...props} lobby={lobby} />;
+    default:
+      return <TriviaReport {...props} lobby={lobby} />;
+  }
 };

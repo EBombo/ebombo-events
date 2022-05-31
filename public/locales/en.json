@@ -442,7 +442,26 @@
       "games": "Games",
       "duration": "Duration",
       "winners": "Winners",
-      "players-number": "N° of Players"
+      "players-number": "N° of Players",
+      "trivia": {
+        "title": "Report",
+        "live": "Live",
+        "organize-by": "Organize by",
+        "resume": "Resume",
+        "players": "Players",
+        "questions": "Questions",
+        "feedback": "Feedback",
+        "hit-percentage": "Hit Percentage",
+        "time": "Total time",
+        "see-podium": "See podium",
+        "hard-questions": "Hard Questions",
+        "need-help": "Need help",
+        "didn't-end": "Didn't end",
+        "hard-questions-empty-message": "Well done! No one found any question very difficult.",
+        "need-help-empty-message": "Well done! No one needs help.",
+        "didn't-end-empty-message": "Well done! Everyone finish the quiz.",
+        "next": "Next"
+      }
     },
     "library": {
       "activities": "Activities",

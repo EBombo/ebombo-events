@@ -442,7 +442,26 @@
       "games": "Juegos",
       "duration": "Duración",
       "winners": "Ganadores",
-      "players-number": "N° de jugadores"
+      "players-number": "N° de jugadores",
+      "trivia": {
+        "title": "Reporte",
+        "live": "En vivo",
+        "organize-by": "Organizado por",
+        "resume": "Resume",
+        "players": "Jugadores",
+        "questions": "Preguntas",
+        "feedback": "Feedback",
+        "hit-percentage": "Porcentaje de aciertos",
+        "time": "Tiempo total",
+        "see-podium": "Ver podio",
+        "hard-questions": "Preguntas difíciles",
+        "need-help": "Necesitan ayuda",
+        "didn't-end": "No terminaron",
+        "hard-questions-empty-message": "¡Bien hecho! Nadie encontró ninguna pregunta muy difícil.",
+        "need-help-empty-message": "¡Bien hecho! Nadie necesita ayuda.",
+        "didn't-end-empty-message": "¡Bien hecho! Todos terminaron.",
+        "next": "Siguiente"
+      }
     },
     "library": {
       "activities": "Actividades",
