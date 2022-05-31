@@ -1,6 +1,6 @@
 import React from "reactn";
-import { ModalContainer } from "../../components/common/ModalContainer";
-import { darkTheme } from "../../theme";
+import { ModalContainer } from "../../../../components/common/ModalContainer";
+import { darkTheme } from "../../../../theme";
 
 export const ModalWinners = (props) => {
   return (

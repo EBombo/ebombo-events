@@ -10,7 +10,6 @@ import { snapshotToArray } from "../../utils";
 import capitalize from "lodash/capitalize";
 import defaultTo from "lodash/defaultTo";
 import { spinLoader } from "../../components/common/loader";
-import { ModalWinners } from "./ModalWinners";
 import { darkTheme } from "../../theme";
 import { Tooltip } from "antd";
 import { useTranslation } from "../../hooks";
@@ -63,14 +62,6 @@ export const Reports = (props) => {
 
   return (
     <div className="w-full grid h-[calc(100vh-50px)] lg:grid-cols-[250px_auto]">
-      {isVisibleModalWinners && (
-        <ModalWinners
-          lobby={currentLobby}
-          isVisibleModalWinners={isVisibleModalWinners}
-          setIsVisibleModalWinners={setIsVisibleModalWinners}
-          {...props}
-        />
-      )}
       <Desktop>
         <DesktopLeftMenu />
       </Desktop>
@@ -109,7 +100,7 @@ export const Reports = (props) => {
                 <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("game")}</th>
                 <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("duration")}</th>
                 <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("players-number")}</th>
-                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken">{t("winners")}</th>
+                <th className="font-[900] text-[16px] leading-[18px] text-blackDarken"></th>
               </tr>
             </thead>
             <tbody className="">
@@ -120,17 +111,23 @@ export const Reports = (props) => {
                       key={`lobby-${index}`}
                       className="w-full grid items-center grid-cols-[1.5fr_1.5fr_1fr_1fr_1fr_1fr_15px] h-[60px] bg-whiteLight border-b-[1px] border-whiteDark px-4"
                     >
-                      <td className="text-blackDarken font-[600] text-[16px] leading-[18px] no-wrap">
+                      <td
+                        className="cursor-pointer text-blackDarken font-[600] text-[16px] leading-[18px] no-wrap"
+                        onClick={() => router.push(`/reports/lobbies/${lobby.id}`)}
+                      >
                         {lobby.game?.name}
                       </td>
-                      <td className="flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]">
+                      <td
+                        className="cursor-pointer flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]"
+                        onClick={() => router.push(`/reports/lobbies/${lobby.id}`)}
+                      >
                         {capitalize(
                           moment(lobby.startAt?.toDate())
                             .locale(locale === locales[1] ? "es" : "en")
                             .format("MMM Do YYYY, h:mm a")
                         )}
                       </td>
-                      <td>
+                      <td className="cursor-pointer " onClick={() => router.push(`/reports/lobbies/${lobby.id}`)}>
                         <span className="bg-gray rounded-[6px] flex items-center p-2 w-[100px] mx-auto">
                           <Image
                             src={`${config.storageUrl}/resources/games/${lobby.game?.adminGame?.name}-icon.svg`}
@@ -146,12 +143,18 @@ export const Reports = (props) => {
                           </p>
                         </span>
                       </td>
-                      <td className="flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]">
+                      <td
+                        className="cursor-pointer flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]"
+                        onClick={() => router.push(`/reports/lobbies/${lobby.id}`)}
+                      >
                         {moment(moment(lobby.startAt?.toDate())?.diff(moment(lobby.updateAt?.toDate()))).format(
                           "h[h] m[m]"
                         )}
                       </td>
-                      <td className="flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]">
+                      <td
+                        className="cursor-pointer flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]"
+                        onClick={() => router.push(`/reports/lobbies/${lobby.id}`)}
+                      >
                         {lobby.countPlayers || 0}
                       </td>
                       <td className="flex items-center justify-center">
@@ -160,10 +163,7 @@ export const Reports = (props) => {
                           fontSize="16px"
                           fontWeight="600"
                           color="dark"
-                          onClick={() => {
-                            setCurrentLobby(lobby);
-                            setIsVisibleModalWinners(true);
-                          }}
+                          onClick={() => router.push(`/reports/lobbies/${lobby.id}`)}
                         >
                           Ver
                         </Anchor>

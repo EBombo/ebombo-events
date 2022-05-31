@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "reactn";
 import { useTranslation } from "../../../../hooks";
-import { Progress } from "antd";
+import { Progress, Tooltip } from "antd";
 import { Image } from "../../../../components/common/Image";
 import { config } from "../../../../firebase";
 import moment from "moment";
@@ -10,6 +10,7 @@ import defaultTo from "lodash/defaultTo";
 import mapKeys from "lodash/mapKeys";
 import capitalize from "lodash/capitalize";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { ModalWinners } from "./ModalWinners";
 
 export const TriviaResume = (props) => {
   const { t } = useTranslation("pages.reports.trivia");
@@ -19,6 +20,7 @@ export const TriviaResume = (props) => {
   const [didNotEnd, setDidNotEnd] = useState([]);
   const [currentHardQuestion, setCurrentHardQuestion] = useState(0);
   const [hitPercentage, setHitPercentage] = useState(0);
+  const [isVisibleModalWinners, setIsVisibleModalWinners] = useState(false);
 
   useEffect(() => {
     calculateStats();
@@ -68,7 +70,15 @@ export const TriviaResume = (props) => {
   };
 
   return (
-    <div className="p-4 lg:p-8 grid lg:grid-cols-[2fr_1fr_1fr] gap-4 mx-auto max-w-[1000px]">
+    <div className="p-4 lg:p-8 grid lg:grid-cols-[2fr_1fr_1fr] gap-4 mx-auto max-w-[1300px]">
+      {isVisibleModalWinners && (
+        <ModalWinners
+          lobby={props.lobby}
+          isVisibleModalWinners={isVisibleModalWinners}
+          setIsVisibleModalWinners={setIsVisibleModalWinners}
+          {...props}
+        />
+      )}
       <div className="bg-whiteLight p-4 flex items-center justify-between rounded-[4px] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] h-[160px]">
         <div className="font-[900] text-[24px] leading-[29px] text-blackDarken">{t("hit-percentage")}</div>
         <div>
@@ -126,14 +136,14 @@ export const TriviaResume = (props) => {
 
       <div className="bg-whiteLight p-4 flex items-center justify-between rounded-[4px] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] h-[160px]">
         <Image src={`${config.storageUrl}/resources/trophy.svg`} width="49px" height="49px" size="contain" margin="0" />
-        <ButtonAnt color="secondary" onClick={() => console.log("podio")}>
+        <ButtonAnt color="secondary" onClick={() => setIsVisibleModalWinners(true)}>
           {t("see-podium")}
         </ButtonAnt>
       </div>
 
       <div className="bg-whiteLight rounded-[4px] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] h-[160px]">
         <div className="text-[18px] leading-[22px] font-[700] py-2 px-4 border-whiteDark border-b-[1px] w-full text-grayLight h-[40px]">
-          {t("hard-questions")}
+          {`${t("hard-questions")} (${hardQuestions.length})`}
         </div>
         {isEmpty(hardQuestions) ? (
           <div className="text-blackDarken text-[16px] leading-[19px] font-[400] h-[120px] min-w-[100%] flex items-center justify-center p-2 text-center">
@@ -183,8 +193,23 @@ export const TriviaResume = (props) => {
       </div>
 
       <div className="bg-whiteLight rounded-[4px] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] h-[160px]">
-        <div className="text-[18px] leading-[22px] font-[700] py-2 px-4 border-whiteDark border-b-[1px] w-full text-grayLight h-[40px]">
-          {t("need-help")}
+        <div className="flex items-center justify-between py-2 px-4 border-whiteDark border-b-[1px] w-full h-[40px]">
+          <div className="text-[18px] leading-[22px] font-[700]  text-grayLight ">
+            {`${t("need-help")} (${needHelp.length})`}
+          </div>
+          <Tooltip
+            placement="bottomRight"
+            title="Respondieron incorrectamente menos del 20% de preguntas."
+            color="#382079"
+          >
+            <Image
+              src={`${config.storageUrl}/resources/question2-icon.svg`}
+              width="19px"
+              height="19px"
+              size="contain"
+              margin="0"
+            />
+          </Tooltip>
         </div>
 
         {isEmpty(needHelp) ? (
@@ -219,8 +244,21 @@ export const TriviaResume = (props) => {
       </div>
 
       <div className="bg-whiteLight rounded-[4px] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] h-[160px]">
-        <div className="text-[18px] leading-[22px] font-[700] py-2 px-4 border-whiteDark border-b-[1px] w-full text-grayLight h-[40px]">
-          {t("didn't-end")}
+        <div className="flex items-center justify-between py-2 px-4 border-whiteDark border-b-[1px] w-full h-[40px]">
+          <div className="text-[18px] leading-[22px] font-[700]  text-grayLight ">{t("didn't-end")}</div>
+          <Tooltip
+            placement="bottomRight"
+            title="Se desconectaron antes de terminar. Se indica cuántas preguntas respondieron."
+            color="#382079"
+          >
+            <Image
+              src={`${config.storageUrl}/resources/question2-icon.svg`}
+              width="19px"
+              height="19px"
+              size="contain"
+              margin="0"
+            />
+          </Tooltip>
         </div>
         {isEmpty(didNotEnd) ? (
           <div className="text-blackDarken text-[16px] leading-[19px] font-[400] h-[120px] min-w-[100%] flex items-center justify-center p-2 text-center">
