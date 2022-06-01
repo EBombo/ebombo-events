@@ -10,6 +10,7 @@ import { snapshotToArray } from "../../../../utils";
 import { mediaQuery } from "../../../../constants";
 import { TriviaResume } from "./TriviaResume";
 import { TriviaUsers } from "./TriviaUsers";
+import { TriviaQuestions } from "./TriviaQuestions";
 
 export const TriviaReport = (props) => {
   const router = useRouter();
@@ -67,6 +68,8 @@ export const TriviaReport = (props) => {
         return <TriviaResume {...props} users={users} questions={questions} ranking={ranking} />;
       case 1:
         return <TriviaUsers {...props} users={users} questions={questions} ranking={ranking} />;
+      case 2:
+        return <TriviaQuestions {...props} users={users} questions={questions} ranking={ranking} />;
       default:
         return <TriviaResume {...props} users={users} questions={questions} ranking={ranking} />;
     }
