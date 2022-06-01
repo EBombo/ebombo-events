@@ -460,7 +460,14 @@
         "hard-questions-empty-message": "Well done! No one found any question very difficult.",
         "need-help-empty-message": "Well done! No one needs help.",
         "didn't-end-empty-message": "Well done! Everyone finish the quiz.",
-        "next": "Next"
+        "next": "Next",
+        "number": "Number",
+        "question": "Question",
+        "type": "Type",
+        "hits": "Hits",
+        "quiz": "Quiz",
+        "trueFalse": "True or false",
+        "shortAnswer": "Short answer"
       }
     },
     "library": {

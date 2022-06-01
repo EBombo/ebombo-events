@@ -460,7 +460,14 @@
         "hard-questions-empty-message": "¡Bien hecho! Nadie encontró ninguna pregunta muy difícil.",
         "need-help-empty-message": "¡Bien hecho! Nadie necesita ayuda.",
         "didn't-end-empty-message": "¡Bien hecho! Todos terminaron.",
-        "next": "Siguiente"
+        "next": "Siguiente",
+        "number": "Número",
+        "question": "Pregunta",
+        "type": "Tipo",
+        "hits": "Aciertos",
+        "quiz": "Quiz",
+        "trueFalse": "V/F",
+        "shortAnswer": "Tipear"
       }
     },
     "library": {

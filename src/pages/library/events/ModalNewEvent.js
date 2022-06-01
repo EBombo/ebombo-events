@@ -30,7 +30,7 @@ export const ModalNewEvent = (props) => {
       onCancel={() => props.setIsVisibleModalEvents(!props.isVisibleModalEvents)}
     >
       <div>
-        <div className="text-blackDarken text-['Lato'] font-[700] text-[25px] leading-[30px] p-2 box-shadow-[0_4px_4px_rgba(0,0,0,0.25)] border-b-[1px] border-primary md:py-4">
+        <div className="text-blackDarken text-['Lato'] font-[700] text-[25px] leading-[30px] p-2 shadow-[0_4px_4px_rgba(0,0,0,0.25)] border-b-[1px] border-primary md:py-4">
           {t("create-event")}
         </div>
 
