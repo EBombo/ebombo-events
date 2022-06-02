@@ -467,7 +467,11 @@
         "hits": "Aciertos",
         "quiz": "Quiz",
         "trueFalse": "V/F",
-        "shortAnswer": "Tipear"
+        "shortAnswer": "Tipear",
+        "name": "Nombre",
+        "email": "Correo",
+        "points": "Puntaje",
+        "answers": "Respuestas"
       }
     },
     "library": {

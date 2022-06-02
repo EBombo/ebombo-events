@@ -467,7 +467,11 @@
         "hits": "Hits",
         "quiz": "Quiz",
         "trueFalse": "True or false",
-        "shortAnswer": "Short answer"
+        "shortAnswer": "Short answer",
+        "name": "Name",
+        "email": "Email",
+        "points": "Score",
+        "answers": "Answers"
       }
     },
     "library": {
