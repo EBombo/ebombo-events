@@ -471,7 +471,8 @@
         "name": "Name",
         "email": "Email",
         "points": "Score",
-        "answers": "Answers"
+        "answers": "Answers",
+        "comments": "Comments"
       }
     },
     "library": {

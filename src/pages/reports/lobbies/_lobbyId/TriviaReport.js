@@ -11,6 +11,7 @@ import { mediaQuery } from "../../../../constants";
 import { TriviaResume } from "./TriviaResume";
 import { TriviaUsers } from "./TriviaUsers";
 import { TriviaQuestions } from "./TriviaQuestions";
+import { TriviaFeedbacks } from "./TriviaFeedbacks";
 
 export const TriviaReport = (props) => {
   const router = useRouter();
@@ -25,6 +26,7 @@ export const TriviaReport = (props) => {
   const [users, setUsers] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [ranking, setRanking] = useState([]);
+  const [feedbacks, setFeedbacks] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -51,12 +53,21 @@ export const TriviaReport = (props) => {
       await setRanking(_ranking);
     };
 
+    const fetchFeedbacks = async () => {
+      const feedbacksRef = await firestoreTrivia.collection("lobbies").doc(lobbyId).collection("feedbacks").get();
+
+      const _feedbacks = snapshotToArray(feedbacksRef);
+
+      await setFeedbacks(_feedbacks);
+    };
+
     const fetchLobbyData = async () => {
       const promiseUsers = fetchUsers();
       const promiseQuestions = fetchQuestions();
       const promiseRankings = fetchRanking();
+      const promiseFeedbacks = fetchFeedbacks();
 
-      await Promise.all([promiseUsers, promiseQuestions, promiseRankings]);
+      await Promise.all([promiseUsers, promiseQuestions, promiseRankings, promiseFeedbacks]);
     };
 
     fetchLobbyData();
@@ -65,13 +76,20 @@ export const TriviaReport = (props) => {
   const contentTab = () => {
     switch (tab) {
       case 0:
-        return <TriviaResume {...props} users={users} questions={questions} ranking={ranking} />;
+        return <TriviaResume {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />;
       case 1:
-        return <TriviaUsers {...props} users={users} questions={questions} ranking={ranking} />;
+        return <TriviaUsers {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />;
       case 2:
-        return <TriviaQuestions {...props} users={users} questions={questions} ranking={ranking} />;
+        return (
+          <TriviaQuestions {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />
+        );
+      case 3:
+        return (
+          <TriviaFeedbacks {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />
+        );
+
       default:
-        return <TriviaResume {...props} users={users} questions={questions} ranking={ranking} />;
+        return <TriviaResume {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />;
     }
   };
 

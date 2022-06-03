@@ -27,8 +27,6 @@ export const Reports = (props) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState(1);
   const [lobbies, setLobbies] = useState([]);
-  const [currentLobby, setCurrentLobby] = useState(null);
-  const [isVisibleModalWinners, setIsVisibleModalWinners] = useState(false);
 
   useEffect(() => {
     router.prefetch("/reports/lobbies/[lobbyId]");
