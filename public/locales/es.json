@@ -472,7 +472,10 @@
         "email": "Correo",
         "points": "Puntaje",
         "answers": "Respuestas",
-        "comments": "Comentarios"
+        "comments": "Comentarios",
+        "could-play": "¿Pudiste jugar sin problemas?",
+        "play-again": "¿Jugarías de nuevo?",
+        "have-fun": "¿Se divirtieron?"
       }
     },
     "library": {
