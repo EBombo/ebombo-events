@@ -69,10 +69,22 @@ export const TriviaFeedbacks = (props) => {
             <CircularProgressbar
               value={66}
               strokeWidth={50}
+              counterClockwise={true}
               styles={buildStyles({
-                strokeLinecap: "butt"
+                strokeLinecap: "butt",
+                pathColor: '#5AEEA2',
+                trailColor: '#956DFC',
+                rotation: 0.05
               })}
             />
+          </div>
+          <div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
           </div>
         </div>
       </div>
