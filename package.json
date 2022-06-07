@@ -24,6 +24,7 @@
   "dependencies": {
     "antd": "^4.14.1",
     "aos": "^2.3.4",
+    "chart.js": "^3.8.0",
     "country-list": "^2.2.0",
     "ebombo-components": "github:EBombo/ebombo-components#0.0.3",
     "firebase": "^8.3.1",
@@ -33,7 +34,7 @@
     "next-offline": "^4.0.6",
     "react": "^17.0.2",
     "react-animations": "^1.0.0",
-    "react-circular-progressbar": "^2.0.4",
+    "react-chartjs-2": "^4.1.0",
     "react-csv": "^2.0.3",
     "react-custom-roulette": "^1.1.8",
     "react-dom": "^17.0.2",

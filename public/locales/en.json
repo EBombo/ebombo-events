@@ -475,7 +475,12 @@
         "comments": "Comments",
         "could-play": "Were you able to play without problems?",
         "play-again": "Would you play again?",
-        "have-fun": "Did you have fun?"
+        "have-fun": "Did you have fun?",
+        "yes": "Yes",
+        "no": "No",
+        "maybe": "Maybe",
+        "see-answers": "See answers",
+        "empty-comments": "Users didn't leave any comments."
       }
     },
     "library": {

@@ -475,7 +475,12 @@
         "comments": "Comentarios",
         "could-play": "¿Pudiste jugar sin problemas?",
         "play-again": "¿Jugarías de nuevo?",
-        "have-fun": "¿Se divirtieron?"
+        "have-fun": "¿Se divirtieron?",
+        "yes": "Sí",
+        "no": "No",
+        "maybe": "Tal vez",
+        "see-answers": "Ver respuestas",
+        "empty-comments": "Los usuarios no dejaron ningún comentario."
       }
     },
     "library": {
