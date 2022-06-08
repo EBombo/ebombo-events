@@ -2,12 +2,13 @@ import React, { useEffect, useGlobal } from "reactn";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
-import { Anchor, ButtonAnt } from "../../components/form";
+import { Anchor } from "../../components/form";
 import { CorporateEventsLiterals, LandingGames } from "../../components/common/DataList";
 import { Carousel } from "../../components/common/Carousel";
 import { Image as ImageV2 } from "ebombo-components";
 import { useTranslation } from "../../hooks";
 import { EbomboMessage } from "../../components/EbomboMessage";
+import { SharpButton } from "../../components/common/SharpButton";
 
 export const CorporateEvents = (props) => {
   const router = useRouter();
@@ -46,21 +47,25 @@ export const CorporateEvents = (props) => {
             </h2>
             <p className="text-secondary text-base md:text-2xl">{t(CorporateEventsLiterals.header.description)}</p>
             <div className="hidden lg:inline-grid md:grid-cols-[min-content_min-content] gap-8">
-              <ButtonAnt
-                size="big"
-                color="success"
+              <SharpButton
+                prefixIcon="wink"
+                className="min-w-[180px]"
                 onClick={() => {
                   const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
                   router.push(url);
                 }}
               >
-                <span className="text-lg font-bold">{t("landing.corporate-events.sign-in-button-label")}</span>
-              </ButtonAnt>
-              <ButtonAnt size="big" color="primary">
+                <span className="text-lg font-bold align-middle">
+                  <span className="text-lg font-bold">{t("landing.corporate-events.sign-in-button-label")}</span>
+                </span>
+              </SharpButton>
+              <SharpButton color="primary" prefixIcon="satisfied" className="min-w-[180px]">
                 <Anchor url="/contact">
-                  <span className="text-lg font-bold">{t("landing.corporate-events.contact-button-label")}</span>
+                  <span className="text-lg font-bold text-white align-middle">
+                    <span className="text-lg font-bold">{t("landing.corporate-events.contact-button-label")}</span>
+                  </span>
                 </Anchor>
-              </ButtonAnt>
+              </SharpButton>
             </div>
           </div>
 
@@ -75,12 +80,24 @@ export const CorporateEvents = (props) => {
           </div>
 
           <div className="lg:hidden inline-flex flex-wrap gap-4 py-8">
-            <ButtonAnt size="big" color="success">
-              <span className="text-lg font-bold">{t("landing.corporate-events.sign-in-button-label")}</span>
-            </ButtonAnt>
-            <ButtonAnt size="big" color="primary">
-              <span className="text-lg font-bold">{t("landing.corporate-events.contact-button-label")}</span>
-            </ButtonAnt>
+            <SharpButton
+              prefixIcon="wink"
+              onClick={() => {
+                const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
+                router.push(url);
+              }}
+            >
+              <span className="text-lg font-bold align-middle">
+                <span className="text-lg font-bold">{t("landing.corporate-events.sign-in-button-label")}</span>
+              </span>
+            </SharpButton>
+            <SharpButton color="primary" prefixIcon="satisfied">
+              <Anchor url="/contact">
+                <span className="text-lg font-bold text-white align-middle">
+                  <span className="text-lg font-bold">{t("landing.corporate-events.contact-button-label")}</span>
+                </span>
+              </Anchor>
+            </SharpButton>
           </div>
         </div>
       </section>

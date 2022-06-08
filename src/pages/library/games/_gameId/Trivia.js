@@ -213,6 +213,7 @@ export const Trivia = (props) => {
             {t("cancel")}
           </ButtonAnt>
         </div>
+
         <div className="w-full h-[calc(100vh-50px)] overflow-auto grid md:grid-cols-[180px_auto_260px] shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
           <div className="w-full h-[115px] md:h-full overflow-auto grid md:grid-rows-[auto_100px] bg-white">
             <div className="w-full h-[full] flex items-center md:items-start md:flex-col overflow-auto">
@@ -289,13 +290,14 @@ export const Trivia = (props) => {
                 setQuestions(_questions);
               }}
             />
+
             <div className="mx-auto my-4 max-w-[786px]" key={questions[questionIndex]?.fileUrl ?? ""}>
               <FileUpload
                 file={questions[questionIndex]?.fileUrl ?? null}
                 fileName="questionImage"
                 filePath={`questions/${questions[questionIndex]?.id}`}
                 preview={true}
-                sizes="250x250"
+                sizes="550x550"
                 width="100%"
                 height="131px"
                 desktopHeight="260px"

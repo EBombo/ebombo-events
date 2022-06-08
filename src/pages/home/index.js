@@ -24,12 +24,6 @@ export const Home = (props) => {
     router.prefetch("/events/[eventId]");
   }, []);
 
-  useEffect(() => {
-    if (!authUser) return;
-
-    router.push("/");
-  }, [authUser]);
-
   const createEvent = () => {
     if (authUser) return router.push("/library/events");
 

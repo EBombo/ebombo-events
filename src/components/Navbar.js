@@ -126,9 +126,7 @@ export const Navbar = (props) => {
             </Desktop>
           </div>
 
-          <Desktop>
-            <SwitchTranslation />
-          </Desktop>
+          <SwitchTranslation />
 
           <Desktop>
             <div className="flex items-center justify-end gap-[18px]">
