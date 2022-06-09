@@ -38,9 +38,6 @@ export const Billing = (props) => {
     return getPlan();
   }, []);
 
-  // TODO: It is disabled, until all requirements for production are complete.
-  if (false) return null;
-
   return (
     <BillingContainer>
       <div className="inner-layout">
