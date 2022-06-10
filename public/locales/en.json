@@ -480,7 +480,9 @@
         "no": "No",
         "maybe": "Maybe",
         "see-answers": "See answers",
-        "empty-comments": "Users didn't leave any comments."
+        "empty-comments": "Users didn't leave any comments.",
+        "need-help-tooltip": "They answered less than 20% of the questions incorrectly.",
+        "didn't-end-tooltip": "They logged out before finishing. It indicates how many questions they answered."
       }
     },
     "library": {

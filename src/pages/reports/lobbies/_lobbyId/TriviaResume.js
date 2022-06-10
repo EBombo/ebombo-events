@@ -47,9 +47,7 @@ export const TriviaResume = (props) => {
         ? (_hitPercentage = user.correctPercentage)
         : (_hitPercentage = (_hitPercentage + user.correctPercentage) / 2);
 
-      if (user.correctPercentage <= 20) {
-        _needHelp.push(user);
-      }
+      if (user.correctPercentage <= 20) _needHelp.push(user);
     });
 
     setHitPercentage(_hitPercentage);
@@ -199,7 +197,7 @@ export const TriviaResume = (props) => {
           </div>
           <Tooltip
             placement="bottomRight"
-            title="Respondieron incorrectamente menos del 20% de preguntas."
+            title={t("need-help-tooltip")}
             color="#382079"
           >
             <Image
@@ -248,7 +246,7 @@ export const TriviaResume = (props) => {
           <div className="text-[18px] leading-[22px] font-[700]  text-grayLight ">{t("didn't-end")}</div>
           <Tooltip
             placement="bottomRight"
-            title="Se desconectaron antes de terminar. Se indica cuántas preguntas respondieron."
+            title={t("didn't-end-tooltip")}
             color="#382079"
           >
             <Image

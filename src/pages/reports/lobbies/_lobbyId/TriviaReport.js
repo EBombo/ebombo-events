@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import moment from "moment";
 import styled from "styled-components";
 import capitalize from "lodash/capitalize";
@@ -73,7 +73,7 @@ export const TriviaReport = (props) => {
     fetchLobbyData();
   }, [lobbyId]);
 
-  const contentTab = () => {
+  const contentTab = useMemo(() => {
     switch (tab) {
       case 0:
         return <TriviaResume {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />;
@@ -91,7 +91,7 @@ export const TriviaReport = (props) => {
       default:
         return <TriviaResume {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />;
     }
-  };
+  });
 
   return (
     <div>
@@ -169,7 +169,7 @@ export const TriviaReport = (props) => {
         </div>
       </div>
 
-      {contentTab()}
+      {contentTab}
     </div>
   );
 };
