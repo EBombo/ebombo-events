@@ -7,6 +7,7 @@ import { Image } from "../../../../components/common/Image";
 import { config, firestore, firestoreTrivia } from "../../../../firebase";
 import {
   questionTypes,
+  questionTypesToLiterals,
   triviaQuestionsOptions,
   triviaQuestionsTimes,
   triviaQuestionsTypes,
@@ -227,7 +228,7 @@ export const Trivia = (props) => {
                 >
                   <div>
                     <div className="text-['Lato'] font-bold text-[12px] leading-[14px] text-grayLight mb-[5px]">
-                      {idx + 1}. {questionTypes[question.type]}
+                      {idx + 1}. {t(questionTypesToLiterals[question.type])}
                     </div>
                     <Image
                       src={question.imageUrl ?? `${config.storageUrl}/resources/question-${question?.type}.svg`}
@@ -421,7 +422,7 @@ export const Trivia = (props) => {
                   </ButtonAnt>
                 </Tablet>
                 <ButtonAnt color="default" onClick={() => deleteQuestion()}>
-                  Borrar
+                  {t("delete")}
                 </ButtonAnt>
               </div>
             </div>
