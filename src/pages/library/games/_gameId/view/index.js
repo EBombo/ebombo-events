@@ -4,7 +4,7 @@ import get from "lodash/get";
 import { useRouter } from "next/router";
 import { config, firestoreBingo, firestoreHanged, firestoreRoulette, firestoreTrivia } from "../../../../../firebase";
 import { spinLoader } from "../../../../../components/common/loader";
-import { useSendError } from "../../../../../hooks";
+import { useSendError, useTranslation } from "../../../../../hooks";
 import { useFetch } from "../../../../../hooks/useFetch";
 import { BingoView } from "./BingoView";
 import { HangedView } from "./HangedView";
@@ -32,12 +32,6 @@ export const GameView = (props) => {
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
   const [isVisibleInscriptions, setIsVisibleInscriptions] = useState(false);
 
-  const localPrefixPath = useMemo(() => {
-    if (locale === "es") return "";
-
-    return `/${locale}`;
-  }, [locale]);
-
   const game = useMemo(() => {
     if (!gameId) return {};
     if (!games?.length) return {};
@@ -46,6 +40,21 @@ export const GameView = (props) => {
 
     return currentGame ?? {};
   }, [games, gameId]);
+
+  const localPrefixPath = useMemo(() => {
+    // TODO REMOVE gameName check when Roulette and Bingo English Translation
+    // are implemented.
+    const gameName = game?.adminGame?.name?.toLowerCase();
+    if (gameName === "roulette" || gameName === "bingo") return "";
+
+    if (locale === "es") return "";
+
+    return `/${locale}`;
+  }, [
+    locale,
+    // TODO Remove this dep when all games have translation implemented.
+    game
+  ]);
 
   useEffect(() => {
     if (isEmpty(adminGames)) return;

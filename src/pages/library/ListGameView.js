@@ -28,13 +28,19 @@ export const ListGameView = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const localPrefixPath = useMemo(() => {
-    const gameName = props.game.adminGame.name.toLowerCase();
+    // TODO REMOVE gameName check when Roulette and Bingo English Translation
+    // are implemented.
+    const gameName = props.game?.adminGame?.name?.toLowerCase();
     if (gameName === "roulette" || gameName === "bingo") return "";
 
     if (locale === "es") return "";
 
     return `/${locale}`;
-  }, [locale, props.game?.adminGame?.name]);
+  }, [
+    locale,
+    // TODO Remove this dep when all games have translation implemented.
+    props.game?.adminGame?.name,
+  ]);
 
   useEffect(() => {
     const fetchResource = () =>
