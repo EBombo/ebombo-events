@@ -210,6 +210,37 @@
         "title": "The virtual event you will love"
       }
     },
+    "meetings": {
+      "intro-subheading": "A perfect place for",
+      "intro-title": "MEETINGS, LECTURES AND INTEGRATIONS",
+      "intro-description": "Our platform will provide you with the tools that will give you the ability to create the kind of meetings that your employees will want to join.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "We know that bringing remote teams together is an investment of time and resources. Make sure important tasks get done while keeping employees engaged and interested. From a quick check-in, to an activity of up to 10,000 people."
+      },
+      "activities": {
+        "title": "DESIGNS VIRTUAL MEETINGS THAT MAKE AN IMPACT",
+        "description": "Keep your remote team engaged, our platform has everything to get your team involved and make a big impact. Access fun icebreakers, trivia or collaborative meetings that make a big impact."
+      },
+      "virtual-events": {
+        "title": "A VIRTUAL DYNAMICS PLATFORM THAT BALANCES WORK AND FUN",
+        "items-1": {
+          "title": "VIRTUAL ACTIVITIES THAT INNOVATE COMMON MEETINGS",
+          "description": "Make your meetings more fun. Easily alternate between work and play for a productive meeting with your team, it can also be an opportunity for fun and friendly competition. Organize your meeting yourself or let one of our professional hosts help you. They are experts at organizing team building events with intention, humor and even occasional costume changes."
+        },
+        "items-2": {
+          "title": "A RELIABLE PLATFORM FOR VIRTUAL DYNAMICS",
+          "description": "We understand, meetings can't just be formal, you need to have fun. Our reliable technology ensures that everyone can connect and have a great time. The activity manager can direct the flow and how everyone participates to keep things orderly. Plus, you can count on our support before and during your event to solve any problems or provide moral support."
+        },
+        "items-3": {
+          "title": "THE BEST VIRTUAL MEETING PLATFORM FOR GLOBALLY DISPERSED TEAMS",
+          "description": "Our virtual activity rooms are available in English and Spanish, with many more languages coming soon. Our team is spread around the world on two continents and even more time zones, so no matter when you want to organize a meeting, we can make it work."
+        }
+      }
+    },
     "kick-off": {
       "intro-subheading": "Single platform for",
       "intro-title": "SALES MEETINGS",
@@ -403,7 +434,8 @@
       "team-building": "Team Building",
       "on-boarding": "On Boarding",
       "corporate-events": "Corporate Events",
-      "kick-off": "Kick Off"
+      "kick-off": "Kick Off",
+      "meetings": "Meetings"
     },
     "features": {
       "title": "Features",
