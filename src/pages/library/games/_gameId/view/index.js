@@ -19,6 +19,8 @@ export const GameView = (props) => {
   const router = useRouter();
   const { gameId, adminGameId, folderId } = router.query;
 
+  const { locale } = useTranslation();
+
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
 
@@ -29,6 +31,12 @@ export const GameView = (props) => {
   const [resource, setResource] = useState(null);
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
   const [isVisibleInscriptions, setIsVisibleInscriptions] = useState(false);
+
+  const localPrefixPath = useMemo(() => {
+    if (locale === "es") return "";
+
+    return `/${locale}`;
+  }, [locale]);
 
   const game = useMemo(() => {
     if (!gameId) return {};
@@ -64,7 +72,7 @@ export const GameView = (props) => {
   const createTokenToPlay = async () => {
     try {
       const gameName = game.adminGame.name.toLowerCase();
-      const redirectUrl = `${config.bomboGamesUrl}/${gameName}/lobbies/new?gameId=${game.id}&userId=${authUser?.id}`;
+      const redirectUrl = `${config.bomboGamesUrl}${localPrefixPath}/${gameName}/lobbies/new?gameId=${game.id}&userId=${authUser?.id}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {

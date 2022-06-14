@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useState, useMemo } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
@@ -16,7 +16,7 @@ import { useFetch } from "../../hooks/useFetch";
 export const ListGameView = (props) => {
   const router = useRouter();
 
-  const { t } = useTranslation("pages.library");
+  const { t, locale } = useTranslation("pages.library");
 
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
@@ -26,6 +26,15 @@ export const ListGameView = (props) => {
 
   const [resource, setResource] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const localPrefixPath = useMemo(() => {
+    const gameName = props.game.adminGame.name.toLowerCase();
+    if (gameName === "roulette" || gameName === "bingo") return "";
+
+    if (locale === "es") return "";
+
+    return `/${locale}`;
+  }, [locale, props.game?.adminGame?.name]);
 
   useEffect(() => {
     const fetchResource = () =>
@@ -88,7 +97,7 @@ export const ListGameView = (props) => {
     setIsLoading(true);
     try {
       const gameName = props.game.adminGame.name.toLowerCase();
-      const redirectUrl = `${config.bomboGamesUrl}/${gameName}/lobbies/new?gameId=${props.game.id}&userId=${authUser?.id}`;
+      const redirectUrl = `${config.bomboGamesUrl}${localPrefixPath}/${gameName}/lobbies/new?gameId=${props.game.id}&userId=${authUser?.id}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {
