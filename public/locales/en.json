@@ -210,6 +210,36 @@
         "title": "The virtual event you will love"
       }
     },
+    "holidays-parties": {
+      "intro-title": "CELEBRATE THE HOLIDAYS",
+      "intro-description": "Our virtual activities to celebrate special dates are perfect for bringing the whole team together and improving camaraderie.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "It's important to bring remote teams together for a virtual party to keep morale high, show appreciation for a year of hard work and provide an opportunity to connect beyond work. Whether you're celebrating with 10 or 10,000 employees, we have the platform to help you plan all the fun of your holiday or year-end party. Remember, a strong company culture is the best gift."
+      },
+      "activities": {
+        "title": "VIRTUAL DYNAMICS TO BRING EVERYONE CLOSER TOGETHER",
+        "description": "Create a unique experience for your next special date. Choose from our library the perfect virtual dynamic for your event or ask us for something customized!"
+      },
+      "virtual-events": {
+        "title": "A PLATFORM THAT ENABLES REMOTE TEAMS TO CELEBRATE TOGETHER",
+        "items-1": {
+          "title": "AN EASY-TO-PLAN VIRTUAL PARTY",
+          "description": "Sometimes planning year-round celebrations can be complicated, so we make it easy. Simply book your activity quickly through our website. Of course, if you want to think outside the (gift) box, we can also help you customize your experience with personalized gifts or guest artists."
+        },
+        "items-2": {
+          "title": "VACATION TEAM BUILDING ACTIVITIES",
+          "description": "Compete in a series of challenges that will have you laughing all the way into the new year. Our virtual dynamics will help your team celebrate all the holidays. Gather for a happy hour full of virtual activities or a virtual party with performances by a live musician or DJ."
+        },
+        "items-3": {
+          "title": "VIRTUAL PARTY GAMES",
+          "description": "We have plenty of virtual quizzes that you can play with hot chocolate, beer or soda in hand. Test your knowledge with some trivia with questions on everything from classic Marvel movies to world history. We have games for everyone, no matter what holiday you celebrate and no matter if you've been good or bad."
+        }
+      }
+    },
     "meetings": {
       "intro-subheading": "A perfect place for",
       "intro-title": "MEETINGS, LECTURES AND INTEGRATIONS",
@@ -435,7 +465,8 @@
       "on-boarding": "On Boarding",
       "corporate-events": "Corporate Events",
       "kick-off": "Kick Off",
-      "meetings": "Meetings"
+      "meetings": "Meetings",
+      "holidays-parties": "Fiestas"
     },
     "features": {
       "title": "Features",

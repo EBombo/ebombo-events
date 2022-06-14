@@ -1,15 +1,15 @@
 import React from "reactn";
 import { SEOMeta } from "../../src/components/common/seo";
 import { Navbar } from "../../src/components/Navbar";
-import { Meetings } from "../../src/pages/meetings";
+import { HolidaysParties } from "../../src/pages/holidays-parties";
 
-const MeetingsContainer = (props) => (
+const HolidaysPartiesContainer = (props) => (
   <>
     <SEOMeta {...props} />
     <Navbar>
-      <Meetings {...props} />
+      <HolidaysParties {...props} />
     </Navbar>
   </>
 );
 
-export default MeetingsContainer;
+export default HolidaysPartiesContainer;

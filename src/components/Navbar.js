@@ -21,6 +21,7 @@ const useCaseMenu = [
   { url: "/corporate-events", label: "nav.use-case.corporate-events" },
   { url: "/kick-off", label: "nav.use-case.kick-off" },
   { url: "/meetings", label: "nav.use-case.meetings" },
+  { url: "/holidays-parties", label: "nav.use-case.holidays-parties" },
 ];
 
 const featuresMenu = [
