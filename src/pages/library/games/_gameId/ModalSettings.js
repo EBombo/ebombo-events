@@ -106,7 +106,7 @@ export const ModalSettings = (props) => {
                   checked={allowDuplicate}
                   onChange={(event) => {
                     event.preventDefault();
-                    props.setAllowDuplicate(!props.allowDuplicate)
+                    props.setAllowDuplicate(!props.allowDuplicate);
                   }}
                 />
               </div>
