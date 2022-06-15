@@ -10,6 +10,7 @@ import { useSendError, useTranslation } from "../../../hooks";
 import { useRouter } from "next/router";
 import moment from "moment";
 import { timeoutPromise } from "../../../utils/promised";
+import { gaEvent } from "../../../utils";
 
 const eventBy = {
   participants: "asistente",
@@ -103,6 +104,9 @@ export const ResumeEvent = (props) => {
         },
         { merge: true }
       );
+
+      /** Google event. **/
+      gaEvent("user", "create-event", "create-event-manage-by-ebombo");
     } catch (error) {
       sendError(error, "registerEvent");
     }

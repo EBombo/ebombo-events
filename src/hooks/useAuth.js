@@ -5,7 +5,7 @@ import { useUser } from "./useLocalStorageState";
 import acls from "../hooks/acl/acls.json";
 import styled from "styled-components";
 import { useFetch } from "./useFetch";
-import { dialCodes } from "../utils";
+import { dialCodes, gaEvent } from "../utils";
 import { notification } from "antd";
 import get from "lodash/get";
 
@@ -91,6 +91,9 @@ export const useAuth = () => {
       await setIsLoadingUser(true);
 
       await auth.signInWithEmailAndPassword(user.email.trim().toLowerCase(), user.password);
+
+      /** Google event. **/
+      gaEvent("user", "login", "login");
     } catch (error) {
       let errorMessage = authenticationErrors[error.code];
       setError(errorMessage || "Ha ocurrido un error, intenta nuevamente");
@@ -138,6 +141,9 @@ export const useAuth = () => {
       });
 
       if (error) throw get(error, "message", "ha ocurrido un problema");
+
+      /** Google event. **/
+      gaEvent("user", "register", "register");
     } catch (error) {
       await auth.currentUser.delete();
       setError(error);

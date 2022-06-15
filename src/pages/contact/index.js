@@ -9,6 +9,7 @@ import { useSendError, useTranslation } from "../../hooks";
 import { SharpButton } from "../../components/common/SharpButton";
 import { interests } from "../../components/common/DataList";
 import isEmpty from "lodash/isEmpty";
+import { gaEvent } from "../../utils";
 
 export const ContactForm = (props) => {
   const { Fetch } = useFetch();
@@ -51,7 +52,10 @@ export const ContactForm = (props) => {
       });
 
       setCurrentInterests([]);
-      // TODO: Mostrar un mensaje de success.
+      props.showNotification("Ok", "El mensaje fue recibido correctamente.", "success");
+
+      /** Google event. **/
+      gaEvent("user", "contact", "contact");
     } catch (error) {
       sendError(error, "sendEmail");
     }
