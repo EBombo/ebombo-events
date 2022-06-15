@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Image } from "./Image";
 import get from "lodash/get";
 import { ButtonAnt } from "../form";
-import { useResizeImage, useUploadToStorage } from "../../hooks";
+import { useResizeImage, useTranslation, useUploadToStorage } from "../../hooks";
 import { Icon } from "./Icons";
 import defaultTo from "lodash/defaultTo";
 import { config } from "../../firebase";
@@ -12,6 +12,8 @@ import { mediaQuery } from "../../constants";
 export const FileUpload = (props) => {
   const { resize } = useResizeImage();
   const { uploadToStorageAndGetURL } = useUploadToStorage();
+
+  const { t } = useTranslation("components.file-upload");
 
   const inputRef = useRef(null);
 
@@ -115,7 +117,7 @@ export const FileUpload = (props) => {
             />
           </ButtonAnt>
           <div className="text-['Lato'] text-[14px] leading-[15px] items-center text-grayLight">
-            Insertar Multimedia
+            {t("insert-multimedia-label", "Insertar Multimedia")}
           </div>
         </div>
       )}

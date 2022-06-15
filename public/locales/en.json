@@ -432,6 +432,11 @@
     "contact-sales": "Contact sales",
     "contact-support": "Contact support"
   },
+  "components": {
+    "file-upload": {
+      "insert-multimedia-label": "Insert a file"
+    }
+  },
   "pages": {
     "reports": {
       "open": "Open Report",
@@ -627,7 +632,8 @@
         "true-false": "True or false",
         "short-answer": "Short answer",
         "only-answer": "Only answer",
-        "multiple-answer": "Multiple answer"
+        "multiple-answer": "Multiple answer",
+        "delete": "Delete"
       }
     },
     "about-us": {

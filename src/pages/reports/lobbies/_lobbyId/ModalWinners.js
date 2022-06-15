@@ -26,7 +26,9 @@ export const ModalWinners = (props) => {
               className="w-full grid items-center grid-cols-[2fr_1fr] h-[60px] bg-whiteLight border-b-[1px] border-whiteDark px-4"
             >
               <td className="text-blackDarken font-[600] text-[16px] leading-[18px]">{winner.nickname}</td>
-              <td className="flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]">{winner.award?.name}</td>
+              <td className="flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]">
+                {winner.award?.name}
+              </td>
             </tr>
           ))}
         </tbody>

@@ -195,11 +195,7 @@ export const TriviaResume = (props) => {
           <div className="text-[18px] leading-[22px] font-[700]  text-grayLight ">
             {`${t("need-help")} (${needHelp.length})`}
           </div>
-          <Tooltip
-            placement="bottomRight"
-            title={t("need-help-tooltip")}
-            color="#382079"
-          >
+          <Tooltip placement="bottomRight" title={t("need-help-tooltip")} color="#382079">
             <Image
               src={`${config.storageUrl}/resources/question2-icon.svg`}
               width="19px"
@@ -244,11 +240,7 @@ export const TriviaResume = (props) => {
       <div className="bg-whiteLight rounded-[4px] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] h-[160px]">
         <div className="flex items-center justify-between py-2 px-4 border-whiteDark border-b-[1px] w-full h-[40px]">
           <div className="text-[18px] leading-[22px] font-[700]  text-grayLight ">{t("didn't-end")}</div>
-          <Tooltip
-            placement="bottomRight"
-            title={t("didn't-end-tooltip")}
-            color="#382079"
-          >
+          <Tooltip placement="bottomRight" title={t("didn't-end-tooltip")} color="#382079">
             <Image
               src={`${config.storageUrl}/resources/question2-icon.svg`}
               width="19px"
