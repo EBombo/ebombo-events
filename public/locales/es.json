@@ -205,9 +205,67 @@
           "title": "UNA PLATAFORMA DE TEAM BUILDING DIFERENTE",
           "description": "Utilice la actividad adecuada para cada ocasión. No importa el tamaño de la empresa, todos los colaboradores pueden participar de una manera divertida. Desde una happy hour, hasta una conferencia es fácil planificar. Estamos aquí para acercarlos virtualmente."
         }
+      }
+    },
+    "holidays-parties": {
+      "intro-title": "CELEBRA LOS DIAS FESTIVOS",
+      "intro-description": "Nuestras actividades virtuales para celebrar fechas especiales son perfectas para unir a todo el equipo y mejorar el compañerismo.",
+      "register-button-label": "Registrar",
+      "sign-in-button-label": "Iniciar sesión",
+      "contact-button-label": "Contáctanos",
+      "why-ebombo-works": {
+        "title": "¿Por qué funciona ebombo?",
+        "description": "Es importante reunir equipos remotos para una fiesta virtual y mantener la moral alta, mostrar agradecimiento por un año de arduo trabajo y brindar una oportunidad de conexión más allá de lo laboral.\nYa sea que esté celebrando con 10 o 10,000 colaboradores, tenemos la plataforma para ayudarlo a planificar toda la diversión de su fiesta navideña o fin de año. Recuerde, una cultura empresarial sólida es el mejor regalo."
       },
-      "virtual-event-you-love": {
-        "title": "El evento virtual que amarás"
+      "activities": {
+        "title": "DINÁMICAS VIRTUALES PARA ACERCAR A TODOS",
+        "description": "Cree una experiencia única para su próxima fecha especial ¡Elije de nuestra biblioteca la dinámica virtual perfecta para tu evento o pídenos algo personalizado!"
+      },
+      "virtual-events": {
+        "title": "UNA PLAFAFORMA QUE PERMITE A EQUIPOS REMOTOS CELEBRAR JUNTOS",
+        "items-1": {
+          "title": "UNA FIESTA VIRTUAL FÁCIL DE PLANIFICAR",
+          "description": "A veces, planificar las celebraciones año puede complicado, por lo que lo facilitamos. Simplemente reserva de manera rápida su actividad por nuestra página web. Por supuesto, si quieres pensar fuera de la caja (de regalo), también podemos ayudarlo a personalizar su experiencia con regalos personalizados o artistas invitados."
+        },
+        "items-2": {
+          "title": "ACTIVIDADES DE TEAM BUILDING EN VACACIONES",
+          "description": "Compite en una serie de desafíos que te harán reír hasta el año nuevo. Nuestras dinámicas virtuales ayudarán a tu equipo a celebrar todas las fechas festivas. Reúnanse para una happy hour llena de actividades virtuales o una fiesta virtual con actuaciones de un músico o DJ en vivo."
+        },
+        "items-3": {
+          "title": "JUEGOS PARA FIESTAS VIRTUALES",
+          "description": "Tenemos muchas dinámicas virtuales que se pueden jugar con chocolate caliente, cerveza o gaseosa en la mano. Pon a prueba tus conocimientos con algunas trivias con preguntas sobre todo, desde las películas clásicas de Marvel, hasta historia universal. Tenemos juegos para todos, sin importar qué festividad celebres y sin importar si has sido bueno o malo."
+        }
+      }
+    },
+    "meetings": {
+      "intro-subheading": "Un lugar perfecto para",
+      "intro-title": "REUNIONES, CHARLAS E INTEGRACIONES",
+      "intro-description": "Nuestra plataforma te brindará las herramientas que te darán la capacidad de crear el tipo de reuniones a las que tus sus colaboradores querrán unirse.",
+      "register-button-label": "Registrar",
+      "sign-in-button-label": "Iniciar sesión",
+      "contact-button-label": "Contáctanos",
+      "why-ebombo-works": {
+        "title": "¿Por qué funciona ebombo?",
+        "description": "Sabemos que reunir equipos remotos es una inversión de tiempo y recursos. Asegúrate que las tareas importantes se realicen mientras mantienes a los empleados involucrados e interesados. Desde un registro rápido, hasta una actividad de hasta 10,000 personas."
+      },
+      "activities": {
+        "title": "DISEÑA REUNIONES VIRTUALES QUE IMPACTAN",
+        "description": "Mantén a tu equipo remoto comprometido, nuestra plataforma tiene todo para que tu equipo esté involucrado y lograr un gran impacto.\nAccede a divertidos rompehielos, trivias o reuniones de colaboración que generen un gran impacto."
+      },
+      "virtual-events": {
+        "title": "UNA PLATAFORMA DE DINÁMICAS VIRTUALES QUE EQUILIBRA EL TRABAJO Y LA DIVERSIÓN",
+        "items-1": {
+          "title": "ACTIVIDADES VIRTUALES QUE INNOVAN LAS REUNIONES COMUNES",
+          "description": "Haga que sus reuniones sean más divertidas. Alterne fácilmente entre el trabajo y el juego para una reunión productiva con su equipo, también pueda ser una oportunidad para divertirse y competir amistosamente. Organice su reunión usted mismo o deje que uno de nuestros anfitriones profesionales lo ayude. Son expertos que organizan eventos de formación de equipos con intención, humor e incluso cambios de vestuario ocasionales."
+        },
+        "items-2": {
+          "title": "UNA PLATAFORMA CONFIABLE DE DINÁMICAS VIRTUALES",
+          "description": "Lo entendemos, la reuniones no pueden ser solo formales, necesita diversión. Nuestra tecnología confiable garantiza que pueda que todos puedan conectarse y pasar un gran momento. El administrador de la actividad puede dirigir el flujo y cómo todos participan para llevar un orden. Además, cuentas con nuestro apoyo antes y durante tu evento para solucionar cualquier problema o para brindarte apoyo moral."
+        },
+        "items-3": {
+          "title": "LA MEJOR PLATAFORMA DE REUNIONES VIRTUALES PARA EQUIPOS DISPERSOS A NIVEL MUNDIAL",
+          "description": "Nuestras salas de actividades virtuales se encuentran disponibles en inglés y español, próximamente en muchos más idiomas. Nuestro equipo está repartido por el mundo en dos continentes e incluso en más zonas horarias, por lo que no importa cuándo desees organizar una reunión, podemos hacer que funcione."
+        }
       }
     },
     "kick-off": {
@@ -240,9 +298,6 @@
           "title": "UN TIPO DIFERENTE DE REUNIONES DE VENTAS",
           "description": "Pensamos en grande para hacer que su reunión de ventas virtual sea el tema del que hablan los empleados (y el que están celosos de haberse perdido). Es fácil incluir sorpresas como nuestra función de rifa para regalar premios durante todo el evento. Integre saludos pregrabados o en vivo y discursos exagerados de CEOS, mascotas de equipos deportivos o cualquier otra persona dentro o fuera de su empresa."
         }
-      },
-      "virtual-event-you-love": {
-        "title": "El evento virtual que amarás"
       }
     },
     "on-boarding": {
@@ -403,7 +458,9 @@
       "team-building": "Team Building",
       "on-boarding": "On Boarding",
       "corporate-events": "Eventos Corporativos",
-      "kick-off": "Kick Off"
+      "kick-off": "Kick Off",
+      "meetings": "Reuniones",
+      "holidays-parties": "Holidays Parties"
     },
     "features": {
       "title": "Características",
