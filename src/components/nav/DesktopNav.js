@@ -83,7 +83,6 @@ export const DesktopNav = (props) => {
             </ul>
           </div>
         )}
-
       </div>
       {!authUser && (
         <Anchor url="/login" variant="primary" fontSize={"1rem"}>

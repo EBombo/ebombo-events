@@ -489,6 +489,11 @@
     "contact-sales": "Contactar ventas",
     "contact-support": "Contactar soporte"
   },
+  "components": {
+    "file-upload": {
+      "insert-multimedia-label": "Insertar Multimedia"
+    }
+  },
   "pages": {
     "reports": {
       "open": "Abrir informe",
@@ -684,7 +689,8 @@
         "true-false": "Verdadero o falso",
         "short-answer": "Respuesta corta",
         "only-answer": "Única respuesta",
-        "multiple-answer": "Respuesta multiple"
+        "multiple-answer": "Respuesta multiple",
+        "delete": "Borrar"
       }
     },
     "about-us": {

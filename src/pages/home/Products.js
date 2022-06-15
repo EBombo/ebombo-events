@@ -42,13 +42,7 @@ export const Products = (props) => {
       {landingProducts[currentTabIndex].content.map((product) => (
         <div className="product" data-aos="fade-right" key={product.title}>
           <div className="top-container">
-            <Image
-              src={product.image}
-              width="270px"
-              desktopWidth="470px"
-              borderRadius="10px"
-              size="contain"
-            />
+            <Image src={product.image} width="270px" desktopWidth="470px" borderRadius="10px" size="contain" />
           </div>
 
           <div className="bottom-container" data-aos="fade-right" data-aos-delay="500">
@@ -70,10 +64,7 @@ export const Products = (props) => {
               ))}
             </div>
 
-            <SharpButton
-              prefixIcon="wink"
-              onClick={() => props.createEvent()}
-            >
+            <SharpButton prefixIcon="wink" onClick={() => props.createEvent()}>
               {t("book-an-event")}
             </SharpButton>
           </div>
