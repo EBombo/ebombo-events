@@ -12,6 +12,7 @@ import isEmpty from "lodash/isEmpty";
 import { useSendError, useTranslation } from "../../../../hooks";
 import get from "lodash/get";
 import { useFetch } from "../../../../hooks/useFetch";
+import { gaEvent } from "../../../../utils";
 
 export const EventStepFour = (props) => {
   const router = useRouter();
@@ -82,6 +83,9 @@ export const EventStepFour = (props) => {
       );
 
       await Promise.all(membersPromise);
+
+      /** Google event. **/
+      gaEvent("user", "create-event", "create-event-manage-by-user");
 
       router.push(`/library/events/${props.documentId}/view?manageBy=user`);
     } catch (error) {

@@ -2,6 +2,7 @@ import React, { useEffect, useGlobal, useRef } from "reactn";
 import { auth, firestore } from "../firebase";
 import { useAuth } from "../hooks/useAuth";
 import { useUser } from "../hooks";
+import { gaEvent } from "../utils";
 
 export const WithAuthentication = (props) => {
   const { createAccount } = useAuth();
@@ -52,6 +53,9 @@ export const WithAuthentication = (props) => {
       if (!result.user || !result?.additionalUserInfo?.isNewUser) {
         await setIsLoadingUser(false);
         await setIsLoadingCreateUser(false);
+
+        /** Google event. **/
+        gaEvent("user", "login", "login");
         return;
       }
 
