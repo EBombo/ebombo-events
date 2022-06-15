@@ -42,8 +42,7 @@ export const GameView = (props) => {
   }, [games, gameId]);
 
   const localPrefixPath = useMemo(() => {
-    // TODO REMOVE gameName check when Roulette and Bingo English Translation
-    // are implemented.
+    // TODO: REMOVE gameName check when Roulette and Bingo English Translation are implemented.
     const gameName = game?.adminGame?.name?.toLowerCase();
     if (gameName === "roulette" || gameName === "bingo") return "";
 
@@ -52,7 +51,7 @@ export const GameView = (props) => {
     return `/${locale}`;
   }, [
     locale,
-    // TODO Remove this dep when all games have translation implemented.
+    // TODO: Remove this dep when all games have translation implemented.
     game
   ]);
 

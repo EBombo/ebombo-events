@@ -109,7 +109,7 @@ export const questionTypes = {
   shortAnswer: "Respuesta corta",
 };
 
-//TODO: Consider refactor type names on firestore so it is easy to get its locales
+//TODO: Consider refactor type names on firestore so it is easy to get its locales.
 export const questionTypesToLiterals = {
   quiz: "quiz",
   trueFalse: "true-false",
