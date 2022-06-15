@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import moment from "moment";
 import isEmpty from "lodash/isEmpty";
 import { useTranslation } from "../../../../hooks";
+import { gaEvent } from "../../../../utils";
 
 export const EventStepFour = (props) => {
   const router = useRouter();
@@ -84,6 +85,9 @@ export const EventStepFour = (props) => {
     );
 
     await Promise.all(membersPromise);
+
+    /** Google event. **/
+    gaEvent("user", "create-event", "create-event-manage-by-user");
 
     setIsLoading(false);
     router.push(`/library/events/${props.documentId}/view?manageBy=user`);

@@ -9,6 +9,7 @@ import { spinLoader } from "../../../../components/common/loader";
 import { Roulette } from "./Roulette";
 import { Trivia } from "./Trivia";
 import defaultTo from "lodash/defaultTo";
+import { gaEvent } from "../../../../utils";
 
 export const updateGameUrl = (adminGame, game, authUser) => `${adminGame.api}/games/${game.id}/users/${authUser.id}`;
 
@@ -80,8 +81,9 @@ export const GameContainer = (props) => {
   }, [adminGameId, adminGames]);
 
   const submitGame = async (game) => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
+
       let adminGame = currentAdminGame;
       delete adminGame.createAt;
       delete adminGame.updateAt;
@@ -108,7 +110,11 @@ export const GameContainer = (props) => {
       }
 
       props.fetchGames();
-      router.push("/library/games");
+
+      /** Google event. **/
+      gaEvent("user", "create-game", `create-game-${adminGame?.title}`);
+
+      await router.push("/library/games");
     } catch (error) {
       sendError(error, "createGame");
     }
