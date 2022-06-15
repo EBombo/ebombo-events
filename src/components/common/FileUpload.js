@@ -117,7 +117,7 @@ export const FileUpload = (props) => {
             />
           </ButtonAnt>
           <div className="text-['Lato'] text-[14px] leading-[15px] items-center text-grayLight">
-            {t("insert-multimedia-label") || "Insertar Multimedia"}
+            {t("insert-multimedia-label", "Insertar Multimedia")}
           </div>
         </div>
       )}
