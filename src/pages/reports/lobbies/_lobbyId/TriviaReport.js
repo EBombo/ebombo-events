@@ -53,13 +53,16 @@ export const TriviaReport = (props) => {
       await setRanking(_ranking);
     };
 
-    const fetchFeedbacks = async () => {
-      const feedbacksRef = await firestoreTrivia.collection("lobbies").doc(lobbyId).collection("feedbacks").get();
-
-      const _feedbacks = snapshotToArray(feedbacksRef);
-
-      await setFeedbacks(_feedbacks);
-    };
+    const fetchFeedbacks = () =>
+      firestoreTrivia
+        .collection("feedbacks")
+        .where("lobbyId", "==", lobbyId)
+        .onSnapshot((feedbacksSnapshot) => {
+          const _feedbacks = snapshotToArray(feedbacksSnapshot);
+          const mappedFeedbacks = _feedbacks.map((feedback) => ({ ...feedback, user: JSON.parse(feedback.user) }));
+          setFeedbacks(mappedFeedbacks);
+          console.log(mappedFeedbacks);
+        });
 
     const fetchLobbyData = async () => {
       const promiseUsers = fetchUsers();

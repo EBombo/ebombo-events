@@ -43,9 +43,9 @@ export const TriviaResume = (props) => {
         ((user.stats?.correct ? user.stats?.correct.length : 0) / props.questions.length) * 100
       );
 
-      index > 0
+      index === 0
         ? (_hitPercentage = user.correctPercentage)
-        : (_hitPercentage = (_hitPercentage + user.correctPercentage) / 2);
+        : (_hitPercentage = Math.round((_hitPercentage + user.correctPercentage) / 2));
 
       if (user.correctPercentage <= 20) _needHelp.push(user);
     });

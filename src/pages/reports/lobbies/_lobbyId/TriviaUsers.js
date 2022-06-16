@@ -6,7 +6,7 @@ export const TriviaUsers = (props) => {
   const { t } = useTranslation("pages.reports.trivia");
 
   const calculateHits = (user) => {
-    if (user.stats?.correct) return user.stats?.correct.length / props.questions?.length;
+    if (user.stats?.correct) return Math.round((user.stats?.correct.length / props.questions?.length) * 100);
 
     return 0;
   };
@@ -31,7 +31,9 @@ export const TriviaUsers = (props) => {
                 key={user.id}
               >
                 <td className="text-center text-blackDarken text-[14px] leading-[17px] font-[400]">{user.nickname}</td>
-                <td className="text-center text-blackDarken text-[14px] leading-[17px] font-[400]">{user.email}</td>
+                <td className="text-center text-blackDarken text-[14px] leading-[17px] font-[400]">
+                  {user.email ?? "No hay registro"}
+                </td>
                 <td className="text-blackDarken text-[14px] leading-[17px] font-[400] flex items-center justify-center gap-2">
                   <Progress
                     type="circle"
@@ -45,7 +47,7 @@ export const TriviaUsers = (props) => {
                   <span className="text-blackDarken text-[14px] leading-[17px] font-[800]">{calculateHits(user)}%</span>
                 </td>
                 <td className="text-blackDarken text-[14px] leading-[17px] font-[400] flex items-center justify-center gap-2">
-                  {user.score}
+                  {user.score.toFixed(2)}
                 </td>
               </tr>
             ))}
