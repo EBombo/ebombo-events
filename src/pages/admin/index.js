@@ -1,17 +1,39 @@
-import React from "reactn";
+import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
 import Link from "next/link";
 import { useAcl } from "../../hooks";
 import { menus } from "../../components/common/DataList";
 import { sizes } from "../../constants";
+import { firestore } from "../../firebase";
+
+const aclUserList = "/admin/users";
+const aclContactList = "/admin/contacts";
 
 export const AdminPage = () => {
-  const { aclMenus } = useAcl();
+  const { aclMenus, Acl } = useAcl();
+
+  const [analytics, setAnalytics] = useState(null);
+
+  useEffect(() => {
+    const fetchAnalytics = async () =>
+      firestore
+        .collection("settings")
+        .doc("analytics")
+        .onSnapshot((snapshotAnalytics) => {
+          const analytics_ = snapshotAnalytics.data();
+          setAnalytics(analytics_);
+        });
+
+    const sub = fetchAnalytics();
+    return () => sub && sub?.();
+  }, []);
 
   return (
     <WelcomeContainer>
       <div className="title">Bienvenido Administrador</div>
+
       <div className="list-subtitle">Lista de permisos otorgados</div>
+
       <ul>
         {aclMenus({ menus: menus.filter((menu) => menu.isAdmin) }).map((menu) => (
           <li key={menu.url}>
@@ -21,6 +43,22 @@ export const AdminPage = () => {
           </li>
         ))}
       </ul>
+
+      {analytics ? (
+        <>
+          <hr />
+
+          <Acl name={aclUserList}>
+            <div className="list-subtitle">Usuarios registrados: {analytics.totalUsers}</div>
+            <div className="list-subtitle">Usuarios registrados por Bdev: {analytics.totalUsersBdev}</div>
+          </Acl>
+
+          <Acl name={aclContactList}>
+            <div className="list-subtitle">Registro contactanos: {analytics.totalContacts}</div>
+            <div className="list-subtitle">Registro contactanos por Bdev: {analytics.totalContactsBdev}</div>
+          </Acl>
+        </>
+      ) : null}
     </WelcomeContainer>
   );
 };
