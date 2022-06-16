@@ -61,7 +61,6 @@ export const TriviaReport = (props) => {
           const _feedbacks = snapshotToArray(feedbacksSnapshot);
           const mappedFeedbacks = _feedbacks.map((feedback) => ({ ...feedback, user: JSON.parse(feedback.user) }));
           setFeedbacks(mappedFeedbacks);
-          console.log(mappedFeedbacks);
         });
 
     const fetchLobbyData = async () => {
