@@ -10,12 +10,14 @@ const aclUserList = "/admin/users";
 const aclContactList = "/admin/contacts";
 
 export const AdminPage = () => {
-  const { aclMenus, Acl } = useAcl();
+  const { aclMenus, Acl, userAcls } = useAcl();
 
   const [analytics, setAnalytics] = useState(null);
 
   useEffect(() => {
-    const fetchAnalytics = async () =>
+    if (!userAcls.includes(aclUserList) && !userAcls.includes(aclContactList)) return;
+
+    const fetchAnalytics = () =>
       firestore
         .collection("settings")
         .doc("analytics")
@@ -25,8 +27,8 @@ export const AdminPage = () => {
         });
 
     const sub = fetchAnalytics();
-    return () => sub && sub?.();
-  }, []);
+    return () => sub?.() && sub();
+  }, [userAcls]);
 
   return (
     <WelcomeContainer>
