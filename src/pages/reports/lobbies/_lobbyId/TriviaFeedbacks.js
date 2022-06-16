@@ -125,7 +125,7 @@ export const TriviaFeedbacks = (props) => {
           {commentsAmount > 0 &&
             props.feedbacks.map((feedback) =>
               feedback.comment ? (
-                <div className="p-4">
+                <div className="p-4" key={feedback.id}>
                   <div className="font-[700] text-[12px] leading-[14px] text-blackDarken mb-[5px] text-blackDarken">
                     {feedback.user?.nickname}
                   </div>
