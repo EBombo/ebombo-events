@@ -215,7 +215,7 @@ export const EventContainer = (props) => {
   return (
     <EventContainerStyled
       tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`}
-      className="w-full bg-white border-y-[1px] border-primaryLight"
+      className="w-full bg-white border-y-[1px] border-primaryLight md:h-[calc(100vh-80px)]"
     >
       <Tabs activeKey={currentTab}>
         {createEventSteps.map((step, position) => (
