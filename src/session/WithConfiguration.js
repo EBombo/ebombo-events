@@ -1,6 +1,14 @@
 import { useFetch } from "../hooks/useFetch";
 import React, { setGlobal, useEffect, useGlobal, useState } from "reactn";
-import { collectionToDate, useEnvironment, useLanguageCode, useLocation, useSettings, useUser } from "../hooks";
+import {
+  collectionToDate,
+  useEnvironment,
+  useIsBdev,
+  useLanguageCode,
+  useLocation,
+  useSettings,
+  useUser,
+} from "../hooks";
 import { config, firestore, version } from "../firebase";
 import get from "lodash/get";
 import orderBy from "lodash/orderBy";
@@ -24,12 +32,14 @@ export const WithConfiguration = (props) => {
 
   const { Fetch } = useFetch();
 
+  const [, setIsBdev] = useGlobal("isBdev");
   const [, setLocation] = useGlobal("location");
   const [, setAdminGames] = useGlobal("adminGames");
   const [settings, setSettings] = useGlobal("settings");
 
   const [authUserLS] = useUser();
   const [languageCode] = useLanguageCode();
+  const [isBdevLS, setIsBdevLS] = useIsBdev();
   const [environment, setEnvironment] = useEnvironment();
   const [location, setLocationLocalStorage] = useLocation();
   const [settingsLS, setSettingsLocalStorage] = useSettings();
@@ -53,6 +63,7 @@ export const WithConfiguration = (props) => {
         adminGames: [],
         languageCode,
         register: null,
+        isBdev: isBdevLS,
         loadingGames: true,
         isLoadingUser: true,
         isLoadingCreateUser: true,
@@ -127,6 +138,20 @@ export const WithConfiguration = (props) => {
 
     initializeReactGA(router.asPath);
   }, []);
+
+  useEffect(() => {
+    // If the isBdev is true.
+    if (isBdevLS) return;
+    // If the env is defined, is not neccesary update isBdev.
+    if (environment) return;
+    // If the router is not ready.
+    if (!router?.asPath) return;
+
+    const isBdev_ = router.asPath.includes("/bdev");
+
+    setIsBdev(isBdev_);
+    setIsBdevLS(isBdev_);
+  }, [router]);
 
   return version === get(settings, "version", version) ? (
     isLoadingConfig ? (

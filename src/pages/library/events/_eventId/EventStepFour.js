@@ -24,6 +24,7 @@ export const EventStepFour = (props) => {
   const { Fetch } = useFetch();
 
   const [authUser] = useGlobal("user");
+  const [isBdev] = useGlobal("isBdev");
   const [games] = useGlobal("userGames");
 
   const [isLoading, setIsLoading] = useState(false);
@@ -53,6 +54,7 @@ export const EventStepFour = (props) => {
         manageByUser: true,
         sendEmail,
         members: props.members,
+        isBdev,
       };
 
       const adminGames = newEvent?.adminGames;
@@ -87,7 +89,7 @@ export const EventStepFour = (props) => {
       /** Google event. **/
       gaEvent("user", "create-event", "create-event-manage-by-user");
 
-      router.push(`/library/events/${props.documentId}/view?manageBy=user`);
+      await router.push(`/library/events/${props.documentId}/view?manageBy=user`);
     } catch (error) {
       await sendError(error, "createEvent");
     } finally {

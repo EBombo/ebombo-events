@@ -7,6 +7,7 @@ import { gaEvent } from "../utils";
 export const WithAuthentication = (props) => {
   const { createAccount } = useAuth();
 
+  const [isBdev] = useGlobal("isBdev");
   const [, setAuthUser] = useGlobal("user");
 
   const [, setAuthUserLocalStorage] = useUser();
@@ -60,6 +61,7 @@ export const WithAuthentication = (props) => {
       }
 
       const mapRegister = (user) => ({
+        isBdev,
         id: user.uid,
         firstName: user.displayName.split(" ")[0],
         name: user.displayName.split(" ")[0],
