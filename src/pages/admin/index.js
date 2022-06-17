@@ -27,7 +27,7 @@ export const AdminPage = () => {
         });
 
     const sub = fetchAnalytics();
-    return () => sub?.() && sub();
+    return () => sub && sub();
   }, [userAcls]);
 
   return (
