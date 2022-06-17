@@ -572,6 +572,12 @@ export const menus = [
     isAdmin: true,
     src: `${config.storageUrl}/resources/footer/audio-icon.svg`,
   },
+  {
+    name: "Lista de contactos",
+    url: "/admin/contacts",
+    isAdmin: true,
+    src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
+  },
 ];
 
 export const emailTemplates = [

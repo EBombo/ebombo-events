@@ -51,8 +51,8 @@ export const AdminUsers = () => {
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Buscar por nombre, email, tlf"
           />
-          <Anchor onClick={() => findUser()} variant="primary">
-            Buscar
+          <Anchor onClick={() => findUser()} variant="primary" margin="10px auto" display="block">
+            BUSCAR
           </Anchor>
         </div>
         <div className="list">

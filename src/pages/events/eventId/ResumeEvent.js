@@ -40,6 +40,7 @@ export const ResumeEvent = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
+  const [isBdev] = useGlobal("isBdev");
   const [authUser] = useGlobal("user");
   const [games] = useGlobal("adminGames");
   const [isLoadingUser] = useGlobal("isLoadingUser");
@@ -47,6 +48,7 @@ export const ResumeEvent = (props) => {
 
   const signUpUser = async (user) => {
     const eventMapped = {
+      isBdev,
       size: props.size,
       budget: props.budget,
       details: props.details,
@@ -71,6 +73,7 @@ export const ResumeEvent = (props) => {
     // Create account and register event on backend side.
     await signUp({
       ...user,
+      isBdev,
       event: eventMapped,
     });
 

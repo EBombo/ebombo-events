@@ -62,5 +62,11 @@
       "/admin/audios/[audioId]#delete": "Editar audio de juegos",
       "/admin/audios/[audioId]#edit": "Editar audio de juegos"
     }
+  },
+  "adminContacts": {
+    "label": "Formulario de contactos",
+    "items": {
+      "/admin/contacts": "Lista de contactos"
+    }
   }
 }

@@ -25,6 +25,7 @@ export const Register = (props) => {
   const { signUp, ButtonsProviders } = useAuth();
   const { t } = useTranslation("pages.register");
 
+  const [isBdev] = useGlobal("isBdev");
   const [authUser] = useGlobal("user");
   const [isLoadingUser] = useGlobal("isLoadingUser");
   const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
@@ -45,6 +46,7 @@ export const Register = (props) => {
   const signUpUser = async (user) =>
     await signUp({
       ...user,
+      isBdev,
       birthDate,
     });
 
