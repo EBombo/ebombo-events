@@ -144,9 +144,9 @@ export const Events = (props) => {
                       <>
                         {event.dates.reduce(
                           (dates, date) =>
-                            `${dates} ${!!dates ? "/" : ""} ${moment(date.startAt.toDate()).format("HH:MM")} - ${moment(
+                            `${dates} ${!!dates ? "/" : ""} ${moment(date.startAt.toDate()).format("hh:mm")} - ${moment(
                               date.endAt.toDate()
-                            ).format("HH:MM")}`,
+                            ).format("hh:mm")}`,
                           ""
                         )}
                       </>

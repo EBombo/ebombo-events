@@ -67,6 +67,9 @@ export const ResumeEvent = (props) => {
     // Register event on firebase.
     if (authUser) {
       await registerEvent(eventMapped);
+
+      props.showNotification("OK", "Event was created!", "success");
+
       return router.push("/library/events");
     }
 
