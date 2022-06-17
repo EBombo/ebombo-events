@@ -43,6 +43,7 @@ export const TriviaView = (props) => {
       <div className="grid gap-4 m-2 p-2 bg-[#221545] rounded-[4px] bg-opacity-50 overflow-auto md:m-8 md:p-8">
         <div className="flex flex-col items-center justify-center overflow-auto md:justify-start md:items-start">
           <div className="text-['Lato'] font-bold text-[15px] leading-[18px] my-4 text-whiteDark">Preguntas</div>
+
           <Space direction="vertical" className="w-full">
             {questions.map((question, index) => (
               <Collapse className="w-full" key={`${question.id}-${index}`}>
@@ -77,9 +78,10 @@ export const TriviaView = (props) => {
                             ? `${config.storageUrl}/resources/empty-cover.svg`
                             : question.fileUrl
                         }
+                        className="min-h-full	"
                         width="100%"
                         height="100%"
-                        size="cover"
+                        size="contain"
                         margin="0"
                       />
                     </div>
