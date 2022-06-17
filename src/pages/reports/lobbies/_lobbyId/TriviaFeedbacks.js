@@ -242,7 +242,7 @@ export const TriviaFeedbacks = (props) => {
           <div className="text-[18px] leading-[22px] font-[700]  text-grayLight ">{t("have-fun")}</div>
         </div>
         <div className="w-full h-[120px] ">
-          <div className="flex items-center justify-between max-w-[90%] h-full mx-auto">
+          <div className="flex items-center justify-between max-w-[400px] h-full mx-auto">
             <Image
               src={`${config.storageUrl}/resources/score-icons/score-0.svg`}
               width="42px"
