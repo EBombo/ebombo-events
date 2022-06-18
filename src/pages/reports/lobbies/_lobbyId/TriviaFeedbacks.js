@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "../../../../hooks";
 import { isEmpty } from "lodash";
 import { Image } from "../../../../components/common/Image";
 import { config } from "../../../../firebase";
-import { Pie, Bar } from "react-chartjs-2";
+import { Bar, Pie } from "react-chartjs-2";
 import { ModalAnswers } from "./ModalAnswers";
-import { Chart as ChartJS } from "chart.js/auto";
+
+//WARNING: SI ELIMINAS ESTE IMPORT CAUSA UN UNDEFINED EN LA DEPENDENCIA react-chartjs-2
 
 export const TriviaFeedbacks = (props) => {
   const { t } = useTranslation("pages.reports.trivia");
@@ -115,7 +116,7 @@ export const TriviaFeedbacks = (props) => {
           </div>
         </div>
 
-        <div className="overflow-auto">
+        <div className="max-h-[280px] overflow-auto">
           {commentsAmount === 0 && (
             <div className="h-full text-blackDarken text-[16px] leading-[19px] font-[400] h-[120px] min-w-[100%] flex items-center justify-center p-2 text-center ">
               {t("empty-comments")}
@@ -124,8 +125,8 @@ export const TriviaFeedbacks = (props) => {
           {commentsAmount > 0 &&
             props.feedbacks.map((feedback) =>
               feedback.comment ? (
-                <div className="p-4">
-                  <div className="font-[700] text-[12px] leading-[14px] text-blackDarken mb-[5px]">
+                <div className="p-4" key={feedback.id}>
+                  <div className="font-[700] text-[12px] leading-[14px] text-blackDarken mb-[5px] text-blackDarken">
                     {feedback.user?.nickname}
                   </div>
                   <div
@@ -241,7 +242,7 @@ export const TriviaFeedbacks = (props) => {
           <div className="text-[18px] leading-[22px] font-[700]  text-grayLight ">{t("have-fun")}</div>
         </div>
         <div className="w-full h-[120px] ">
-          <div className="flex items-center justify-between max-w-[90%] h-full mx-auto">
+          <div className="flex items-center justify-between max-w-[400px] h-full mx-auto">
             <Image
               src={`${config.storageUrl}/resources/score-icons/score-0.svg`}
               width="42px"
