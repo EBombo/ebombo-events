@@ -73,6 +73,7 @@ export const AdminUsers = () => {
                     <div className="create-at">{moment(user.createAt.toDate()).format("LLLL")}</div>
                     {user.isBdev ? <div className="is-bdev">Registrado por BDEV</div> : null}
                   </div>
+
                   <div className="options">
                     <Anchor variant="primary" url={`/admin/users/${user.id}/acls`}>
                       PERMISOS
