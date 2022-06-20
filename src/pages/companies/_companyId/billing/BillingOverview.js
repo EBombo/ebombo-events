@@ -19,13 +19,15 @@ import { darkTheme } from "../../../../theme";
 import { formatAmount, goToPortalLink } from "../../../../stripe";
 import { firestore } from "../../../../firebase";
 import { snapshotToArray } from "../../../../utils";
-import { useSendError } from "../../../../hooks";
+import { useSendError, useTranslation } from "../../../../hooks";
 
 export const BillingOverview = (props) => {
   const { sendError } = useSendError();
 
   const router = useRouter();
   const { companyId, subscriptionId } = router.query;
+
+  const { t } = useTranslation("pages.billing");
 
   const [authUser] = useGlobal("user");
 
@@ -113,6 +115,7 @@ export const BillingOverview = (props) => {
       </ModalContainer>
 
       <div className="section">
+        <div className=""><Anchor variant="primary" onClick={() => router.back()}>{ t('go-back') }</Anchor></div>
         <h2 className="title">Suscripciones</h2>
         <div className="subscriptions-layout">
           <PanelBox className="plan" heading="Plan Anual Billing" elevated margin="0 0 1rem 0">

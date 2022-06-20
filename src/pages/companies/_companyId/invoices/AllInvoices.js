@@ -5,10 +5,13 @@ import { useRouter } from "next/router";
 import { Anchor } from "../../../../components/form";
 import { mediaQuery } from "../../../../constants";
 import { InvoiceTable } from "./InvoiceTable";
+import { useTranslation } from "../../../../hooks";
 
 export const AllInvoices = (props) => {
   const router = useRouter();
   const { companyId, subscriptionId } = router.query;
+
+  const { t } = useTranslation("pages.billing");
 
   const [authUser] = useGlobal("user");
 
@@ -27,6 +30,7 @@ export const AllInvoices = (props) => {
             </Anchor>
           </Breadcrumb.Item>
         </Breadcrumb>
+        <div><Anchor variant="primary" onClick={() => router.back()}>{ t('go-back') }</Anchor></div>
       </div>
       <div className="title">Facturas</div>
       <InvoiceTable {...props} userId={authUser?.id} />
