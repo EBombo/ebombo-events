@@ -793,6 +793,9 @@
         "emoji": "Emoji Language"
       },
       "lastTitle": "The virtual event you will love"
+    }, 
+    "billing": {
+      "go-back": "Back"
     }
   }
 }
