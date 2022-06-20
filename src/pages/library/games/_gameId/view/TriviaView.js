@@ -78,7 +78,7 @@ export const TriviaView = (props) => {
                             ? `${config.storageUrl}/resources/empty-cover.svg`
                             : question.fileUrl
                         }
-                        className="min-h-full	"
+                        className="min-h-full"
                         width="100%"
                         height="100%"
                         size="contain"
