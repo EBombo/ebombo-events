@@ -27,6 +27,7 @@ export const TriviaReport = (props) => {
   const [questions, setQuestions] = useState([]);
   const [ranking, setRanking] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
+  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -53,21 +54,34 @@ export const TriviaReport = (props) => {
       await setRanking(_ranking);
     };
 
-    const fetchFeedbacks = async () => {
-      const feedbacksRef = await firestoreTrivia.collection("lobbies").doc(lobbyId).collection("feedbacks").get();
+    const fetchFeedbacks = () =>
+      firestoreTrivia
+        .collection("feedbacks")
+        .where("lobbyId", "==", lobbyId)
+        .onSnapshot((feedbacksSnapshot) => {
+          const _feedbacks = snapshotToArray(feedbacksSnapshot);
+          const mappedFeedbacks = _feedbacks.map((feedback) => ({ ...feedback, user: JSON.parse(feedback.user) }));
+          setFeedbacks(mappedFeedbacks);
+        });
 
-      const _feedbacks = snapshotToArray(feedbacksRef);
-
-      await setFeedbacks(_feedbacks);
-    };
+    const fetchAnswers = () =>
+      firestoreTrivia
+        .collection("lobbies")
+        .doc(lobbyId)
+        .collection("answers")
+        .onSnapshot((answersSnapshot) => {
+          const _answers = snapshotToArray(answersSnapshot);
+          setAnswers(_answers);
+        });
 
     const fetchLobbyData = async () => {
       const promiseUsers = fetchUsers();
       const promiseQuestions = fetchQuestions();
       const promiseRankings = fetchRanking();
       const promiseFeedbacks = fetchFeedbacks();
+      const promiseAnswers = fetchAnswers();
 
-      await Promise.all([promiseUsers, promiseQuestions, promiseRankings, promiseFeedbacks]);
+      await Promise.all([promiseUsers, promiseQuestions, promiseRankings, promiseFeedbacks, promiseAnswers]);
     };
 
     fetchLobbyData();
@@ -76,20 +90,61 @@ export const TriviaReport = (props) => {
   const contentTab = useMemo(() => {
     switch (tab) {
       case 0:
-        return <TriviaResume {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />;
+        return (
+          <TriviaResume
+            {...props}
+            users={users}
+            questions={questions}
+            ranking={ranking}
+            feedbacks={feedbacks}
+            answers={answers}
+          />
+        );
       case 1:
-        return <TriviaUsers {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />;
+        return (
+          <TriviaUsers
+            {...props}
+            users={users}
+            questions={questions}
+            ranking={ranking}
+            feedbacks={feedbacks}
+            answers={answers}
+          />
+        );
       case 2:
         return (
-          <TriviaQuestions {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />
+          <TriviaQuestions
+            {...props}
+            users={users}
+            questions={questions}
+            ranking={ranking}
+            feedbacks={feedbacks}
+            answers={answers}
+          />
         );
       case 3:
         return (
-          <TriviaFeedbacks {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />
+          <TriviaFeedbacks
+            {...props}
+            users={users}
+            questions={questions}
+            ranking={ranking}
+            feedbacks={feedbacks}
+            answers={answers}
+          />
         );
 
       default:
-        return <TriviaResume {...props} users={users} questions={questions} ranking={ranking} feedbacks={feedbacks} />;
+        return (
+          <TriviaResume
+            {...props}
+            users={users}
+            questions={questions}
+            ranking={ranking}
+            feedbacks={feedbacks}
+            answers={answers}
+          />
+        );
     }
   });
 
@@ -107,7 +162,9 @@ export const TriviaReport = (props) => {
                 <div className="w-[5px] h-[5px] rounded-[50%] bg-blackDarken" />
               </div>
             </div>
-            <div className="text-[48px] leading-[58px] text-blackDarken font-[600]">{props.lobby?.game?.name}</div>
+            <div className="text-[36px] leading-[40px] lg:text-[48px] lg:leading-[58px] text-blackDarken font-[600]">
+              {props.lobby?.game?.name}
+            </div>
 
             <div className="flex items-center">
               <div

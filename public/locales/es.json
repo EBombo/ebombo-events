@@ -460,7 +460,7 @@
       "corporate-events": "Eventos Corporativos",
       "kick-off": "Kick Off",
       "meetings": "Reuniones",
-      "holidays-parties": "Holidays Parties"
+      "holidays-parties": "Fiestas"
     },
     "features": {
       "title": "Características",
@@ -544,7 +544,9 @@
         "see-answers": "Ver respuestas",
         "empty-comments": "Los usuarios no dejaron ningún comentario.",
         "need-help-tooltip": "Respondieron incorrectamente menos del 20% de preguntas.",
-        "didn't-end-tooltip": "Se desconectaron antes de terminar. Se indica cuántas preguntas respondieron."
+        "didn't-end-tooltip": "Se desconectaron antes de terminar. Se indica cuántas preguntas respondieron.",
+        "correct-answer": "¿Correcta?",
+        "answer": "Respuesta"
       }
     },
     "library": {

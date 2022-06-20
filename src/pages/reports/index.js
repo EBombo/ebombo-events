@@ -1,6 +1,6 @@
 import React, { useEffect, useGlobal, useState } from "reactn";
 import { DesktopLeftMenu } from "../../components/common/DesktopLeftMenu";
-import { Anchor, Input } from "../../components/form";
+import { Anchor, ButtonAnt, Input } from "../../components/form";
 import { Desktop } from "../../constants";
 import { useRouter } from "next/router";
 import moment from "moment";
@@ -13,6 +13,7 @@ import { spinLoader } from "../../components/common/loader";
 import { darkTheme } from "../../theme";
 import { Tooltip } from "antd";
 import { useTranslation } from "../../hooks";
+import { updateCollection } from "../../firebase/scripts";
 
 export const Reports = (props) => {
   const router = useRouter();
@@ -27,6 +28,7 @@ export const Reports = (props) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState(1);
   const [lobbies, setLobbies] = useState([]);
+  const [loadingUpdate, setLoadingUpdate] = useState(false);
 
   useEffect(() => {
     router.prefetch("/reports/lobbies/[lobbyId]");
@@ -58,6 +60,12 @@ export const Reports = (props) => {
     event.preventDefault();
   };
 
+  const updateUsers = async () => {
+    setLoadingUpdate(true);
+    await updateCollection("users");
+    setLoadingUpdate(false);
+  };
+
   return (
     <div className="w-full grid h-[calc(100vh-50px)] lg:grid-cols-[250px_auto]">
       <Desktop>
@@ -65,7 +73,14 @@ export const Reports = (props) => {
       </Desktop>
 
       <div className="p-8">
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-between">
+          {authUser?.isAdmin && (
+            <div>
+              <ButtonAnt loading={loadingUpdate} disabled={loadingUpdate} onClick={() => updateUsers()}>
+                Actualizar Usuarios
+              </ButtonAnt>
+            </div>
+          )}
           <div className="w-full max-w-[250px]">
             <Input type="search" placeholder="Search..." onChange={(e) => filterTable(e)} />
           </div>

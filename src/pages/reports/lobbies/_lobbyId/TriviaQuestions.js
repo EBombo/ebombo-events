@@ -12,7 +12,7 @@ export const TriviaQuestions = (props) => {
       if (user.stats?.correct && user.stats?.correct.includes(question.id)) count += 1;
     });
 
-    return count;
+    return Math.round((count / props.users?.length) * 100);
   };
 
   return (
