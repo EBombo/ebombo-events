@@ -4,6 +4,7 @@ import { freePlan } from "../components/common/DataList";
 import { snapshotToArray } from "../utils";
 
 export const useStripePlans = (props) => {
+  const [isLoadingPlans, setIsLoadingPlans] = useState(false);
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
@@ -39,10 +40,13 @@ export const useStripePlans = (props) => {
       const plans_ = await Promise.all(plansPromises);
 
       setPlans([freePlan, ...plans_]);
+
+      setIsLoadingPlans(false);
     };
 
+    setIsLoadingPlans(true);
     return fetchPlans();
   }, []);
 
-  return { plans };
+  return { plans, isLoadingPlans };
 };
