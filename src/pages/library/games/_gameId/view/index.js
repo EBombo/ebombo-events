@@ -52,7 +52,7 @@ export const GameView = (props) => {
   }, [
     locale,
     // TODO: Remove this dep when all games have translation implemented.
-    game
+    game,
   ]);
 
   useEffect(() => {

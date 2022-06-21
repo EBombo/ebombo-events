@@ -47,7 +47,9 @@ export const HolidaysParties = (props) => {
             <h2 className="text-secondary text-3xl md:text-5xl font-bold uppercase break-words">
               {t("landing.holidays-parties.intro-title")}
             </h2>
-            <p className="text-secondary text-base md:text-xl mb-8">{t("landing.holidays-parties.intro-description")}</p>
+            <p className="text-secondary text-base md:text-xl mb-8">
+              {t("landing.holidays-parties.intro-description")}
+            </p>
             <div className="hidden lg:inline-grid md:grid-cols-[min-content_min-content] gap-8">
               <SharpButton
                 prefixIcon="wink"
