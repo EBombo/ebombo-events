@@ -67,7 +67,11 @@ export const InvoiceDetail = (props) => {
             </Anchor>
           </Breadcrumb.Item>
         </Breadcrumb>
-        <div><Anchor variant="primary" onClick={() => router.back()}>{ t('go-back') }</Anchor></div>
+        <div>
+          <Anchor variant="primary" onClick={() => router.back()}>
+            {t("go-back")}
+          </Anchor>
+        </div>
       </div>
       <div className="actions-container">
         {/* TODO: print invoice format from design
