@@ -12,11 +12,7 @@ export const SubscriptionPlans = (props) => {
       <div className="title">{props.title}</div>
       <div className="flex justify-center gap-4 text-base font-bold text-black text-xl whitespace-nowrap">
         <span>Pago anual</span>
-        <Switch
-          size="small"
-          checked={props?.isMonthly}
-          onChange={() => props?.setIsMonthly(!props?.isMonthly)}
-        />
+        <Switch size="small" checked={props?.isMonthly} onChange={() => props?.setIsMonthly(!props?.isMonthly)} />
         <span>Pago mensual</span>
       </div>
 
