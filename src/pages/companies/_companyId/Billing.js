@@ -41,9 +41,9 @@ export const Billing = (props) => {
   return (
     <BillingContainer>
       <div className="inner-layout">
-        <PanelBox elevated heading="Vision General">
-          <div>Plan: {activePlan?.name}</div>
-          {subscription && (
+        {subscription ? (
+          <PanelBox elevated heading="Vision General">
+            <div>Plan: {activePlan?.name}</div>
             <>
               <div>
                 <Anchor
@@ -65,8 +65,10 @@ export const Billing = (props) => {
               </div>
               <div>Ciclo de pago: {PlanIntervals[subscription?.items?.[0]?.plan?.interval]} </div>
             </>
-          )}
-        </PanelBox>
+          </PanelBox>
+        ) : (
+          <div />
+        )}
         <CurrentPlanCard className="plan-card" activePlan={activePlan} subscription={subscription} {...props} />
       </div>
     </BillingContainer>
