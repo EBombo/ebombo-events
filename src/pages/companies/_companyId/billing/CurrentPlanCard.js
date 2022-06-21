@@ -2,6 +2,7 @@ import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { ButtonAnt } from "../../../../components/form";
+import { StripeCustomerPortalLink } from "../../../../components/StripeCustomerPortalLink";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { darkTheme } from "../../../../theme";
 import { sendToCheckout } from "../../../../stripe";
@@ -20,7 +21,7 @@ export const CurrentPlanCard = (props) => {
   const [isMonthly, setIsMonthly] = useState(false);
 
   return (
-    <PlanCardStyled>
+    <PlanCardStyled className="relative">
       <ModalContainer
         background={darkTheme.basic.gray}
         footer={null}
@@ -74,6 +75,13 @@ export const CurrentPlanCard = (props) => {
           </ButtonAnt>
         </>
       )}
+
+      <StripeCustomerPortalLink
+        anchorWrapperClassName="absolute bottom-0 left-0 right-0 py-2 px-4 rounded-b-lg bg-secondary text-white"
+        anchorClassName="text-white underline"
+      >
+        Cambiar los detalles de pago
+      </StripeCustomerPortalLink>
     </PlanCardStyled>
   );
 };
@@ -81,7 +89,7 @@ export const CurrentPlanCard = (props) => {
 const PlanCardStyled = styled.div`
   background: ${(props) => props.theme.basic.primary};
   border-radius: 5px;
-  padding: 1rem;
+  padding: 1rem 1rem 3rem 1rem;
   margin: 1rem 0;
 
   .status-label {

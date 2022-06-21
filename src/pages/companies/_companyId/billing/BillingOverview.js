@@ -10,20 +10,17 @@ import {
   getTypePaymentPrice,
   stripeDateFormat,
 } from "../../../../components/common/DataList";
-import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { Image } from "../../../../components/common/Image";
-import { Anchor, ButtonAnt } from "../../../../components/form";
-import { spinLoader, spinLoaderMin } from "../../../../components/common/loader";
+import { Anchor } from "../../../../components/form";
+import { spinLoader } from "../../../../components/common/loader";
+import { StripeCustomerPortalLink } from "../../../../components/StripeCustomerPortalLink";
 import { InvoiceTable } from "../invoices/InvoiceTable";
-import { darkTheme } from "../../../../theme";
-import { formatAmount, goToPortalLink } from "../../../../stripe";
+import { formatAmount } from "../../../../stripe";
 import { firestore } from "../../../../firebase";
 import { snapshotToArray } from "../../../../utils";
-import { useSendError, useTranslation } from "../../../../hooks";
+import { useTranslation } from "../../../../hooks";
 
 export const BillingOverview = (props) => {
-  const { sendError } = useSendError();
-
   const router = useRouter();
   const { companyId, subscriptionId } = router.query;
 
@@ -31,7 +28,6 @@ export const BillingOverview = (props) => {
 
   const [authUser] = useGlobal("user");
 
-  const [isLodingPortalLink, setIsLoadingPortalLink] = useState(false);
   const [subscription, setSubscription] = useState();
   const [invoice, setInvoice] = useState();
   const [paymentInformation, setPaymentInformation] = useState();
@@ -81,41 +77,16 @@ export const BillingOverview = (props) => {
     return getInvoice();
   }, []);
 
-  const goToCustomerPortal = async () => {
-    setIsLoadingPortalLink(true);
-    try {
-      // redirects to Stripe Customer Portal
-      await goToPortalLink();
-    } catch (err) {
-      setIsLoadingPortalLink(false);
-      sendError(err);
-      props.showNotification("Error", "Algo salió mal, intente dentro de unos momentos", "error");
-    }
-  };
-
   if (!subscription) return spinLoader();
 
   return (
     <BillingDetailContainer>
-      <ModalContainer
-        background={darkTheme.basic.whiteLight}
-        visible={isLodingPortalLink}
-        footer={null}
-        closable
-        padding={"1rem"}
-        onCancel={() => setIsLoadingPortalLink(false)}
-      >
-        <LoadingPortalLinkStyled>
-          <div>Se está redireccionando a la gestión de su plan</div>
-          <div>{spinLoaderMin()}</div>
-          <div className="table">
-            <ButtonAnt onClick={() => setIsLoadingPortalLink(false)}>Aceptar</ButtonAnt>
-          </div>
-        </LoadingPortalLinkStyled>
-      </ModalContainer>
-
       <div className="section">
-        <div className=""><Anchor variant="primary" onClick={() => router.back()}>{ t('go-back') }</Anchor></div>
+        <div className="">
+          <Anchor variant="primary" onClick={() => router.back()}>
+            {t("go-back")}
+          </Anchor>
+        </div>
         <h2 className="title">Suscripciones</h2>
         <div className="subscriptions-layout">
           <PanelBox className="plan" heading="Plan Anual Billing" elevated margin="0 0 1rem 0">
@@ -169,9 +140,13 @@ export const BillingOverview = (props) => {
               </div>
             </div>
             <div className="right">
-              <Anchor variant="primary" onClick={() => goToCustomerPortal()}>
+              <StripeCustomerPortalLink
+                anchorWrapperClassName="absolute bottom-0 left-0 right-0 py-2 px-4 rounded-b-lg bg-secondary text-white"
+                anchorClassName="text-white underline"
+                variant="primary"
+              >
                 Cancelar suscripción
-              </Anchor>
+              </StripeCustomerPortalLink>
             </div>
           </PanelBox>
 
@@ -225,11 +200,6 @@ export const BillingOverview = (props) => {
     </BillingDetailContainer>
   );
 };
-
-const LoadingPortalLinkStyled = styled.div`
-  color: ${(props) => props.theme.basic.black};
-  font-size: 1rem;
-`;
 
 const BillingDetailContainer = styled.div`
   .brand-logo {
