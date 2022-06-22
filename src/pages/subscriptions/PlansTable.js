@@ -13,10 +13,10 @@ import { spinLoaderMin } from "../../components/common/loader";
 
 const specsOrder = ["users", "live_chat", "reporting", "progress_tracking", "players_identity"];
 
+const advancedPlan = "Avanzado";
+
 export const PlansTable = (props) => {
   const { plans, isLoadingPlans } = useStripePlans();
-
-  const [currentPlan] = useState("Avanzado");
 
   const [isMonthly_, setIsMonthly_] = useState(false);
 
@@ -30,7 +30,7 @@ export const PlansTable = (props) => {
 
   const planIndex = useMemo(
     () => plans.findIndex((plan) => plan.name === props.currentPlan?.name),
-    [props.currentPlan]
+    [props.currentPlan, plans]
   );
 
   const anualPhrase = (price) => (
@@ -70,18 +70,21 @@ export const PlansTable = (props) => {
           </td>
         );
 
-      return (
-        <td>
-          <ButtonAnt
-            loading={props.isLoadingCheckoutPlan}
-            onClick={() => {
-              props.onSelectedPlan?.(plan, isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan));
-            }}
-          >
-            Adquirir plan
-          </ButtonAnt>
-        </td>
-      );
+      if (!plan?.name?.toLowerCase().includes("gratis") && !plan?.name?.toLowerCase().includes("exclusivo"))
+        return (
+          <td>
+            <ButtonAnt
+              loading={props.isLoadingCheckoutPlan}
+              onClick={() => {
+                props.onSelectedPlan?.(plan, isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan));
+              }}
+            >
+              Adquirir plan
+            </ButtonAnt>
+          </td>
+        );
+
+      return <td/>;
     },
     [props.showcalltoactionsection, hasPlan, planIndex]
   );
@@ -145,7 +148,7 @@ export const PlansTable = (props) => {
 
                   <div
                     className={`description mb-4 ${
-                      currentPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""
+                      advancedPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""
                     }`}
                   >
                     {plan.name === "Exclusivo" ? (
