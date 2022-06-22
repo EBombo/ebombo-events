@@ -327,7 +327,7 @@ export const plans = [
     games: "Todos",
     color: "#D2A137",
     background: "linear-gradient(90.24deg, #D2A137 -3.57%, #EECA5A 23.9%, #D2A137 99.85%)",
-    description: "Contacta al área de ventas",
+    description: "contact-sales-department",
     specs: ["501+", <CheckOutlined />, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />],
   },
 ];
