@@ -791,5 +791,9 @@
     "billing": {
       "go-back": "Volver"
     }
+  },
+  "errors": {
+    "general-message": "Algo salió mal, intente dentro de unos momentos",
+    "general-title": "Error"
   }
 }

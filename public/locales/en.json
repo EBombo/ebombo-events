@@ -797,5 +797,9 @@
     "billing": {
       "go-back": "Back"
     }
+  },
+  "errors": {
+    "general-message": "Something went wrong, please try later",
+    "general-title": "Error"
   }
 }
