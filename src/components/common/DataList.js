@@ -284,7 +284,7 @@ export const plans = [
     name: "Gratis",
     price: 0,
     users: 10,
-    games: 1,
+    games: "all",
     color: "#956DFC",
     background: "#956DFC",
     description: "Free",
