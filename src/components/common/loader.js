@@ -6,6 +6,7 @@ import { config } from "../../firebase";
 import { darkTheme } from "../../theme";
 import { Spin } from "antd";
 import { Overlay } from "./Overlay";
+import { Image } from "./Image";
 
 const CustomLoaderIcon = (props) => <LoadingOutlined className="spin-version-icon" style={{color: props.color}} />;
 
@@ -23,7 +24,7 @@ export const spinLoaderMin = (props = { color: darkTheme.basic.primary }) => (
 
 export const PageLoader = () => (
   <Overlay>
-    {spinLoaderMin({color: "#FFF"})}
+    <Image src={`${config.storageUrl}/resources/ebombo-loader-w-transparency.gif`} width="120px" />
   </Overlay>
 );
 
