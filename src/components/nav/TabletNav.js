@@ -22,7 +22,7 @@ export const TabletNav = (props) => {
   }, []);
 
   return (
-    <div className="h-[50px] fixed top-0 left-0 right-0 bg-secondary flex items-center gap-[10px] justify-end z-[99] px-4">
+    <div className="h-[50px] fixed top-0 left-0 right-0 bg-secondary flex items-center gap-[10px] justify-end z-30 px-4">
       <div className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%] ">
         <Image
           src={`${config.storageUrl}/resources/ebombo-white.svg`}
