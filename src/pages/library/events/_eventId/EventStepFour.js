@@ -60,7 +60,6 @@ export const EventStepFour = (props) => {
       const adminGames = newEvent?.adminGames;
 
       delete newEvent.adminGames;
-      delete newEvent.currentDate;
 
       const { error } = await Fetch(
         eventId === "new" ? `${config.serverUrl}/api/events` : `${config.serverUrl}/api/events/${newEvent.id}`,
@@ -181,8 +180,8 @@ export const EventStepFour = (props) => {
                 variant="switcher"
                 size="medium"
                 type="checkbox"
-                label1="ON"
-                label2="OFF"
+                label1="OFF"
+                label2="ON"
                 defaultChecked={sendEmail}
                 onChange={(event) => {
                   event.preventDefault();
