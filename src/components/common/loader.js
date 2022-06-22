@@ -24,7 +24,7 @@ export const spinLoaderMin = (props = { color: darkTheme.basic.primary }) => (
 
 export const PageLoader = () => (
   <Overlay>
-    <Image src={`${config.storageUrl}/resources/ebombo-loader-w-transparency.gif`} width="120px" />
+    <Image src={`${config.storageUrl}/resources/ebombo-loader.gif`} width="120px" />
   </Overlay>
 );
 
