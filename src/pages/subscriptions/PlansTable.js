@@ -10,13 +10,16 @@ import { darkTheme } from "../../theme";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { useStripePlans } from "../../hooks/useStripePlans";
 import { spinLoaderMin } from "../../components/common/loader";
+import { useTranslation } from "../../hooks";
 
-const specsOrder = ["users", "live_chat", "reporting", "progress_tracking", "players_identity"];
+const specsOrder = ["users", "games", "reporting", "progress_tracking", "players_identity"];
 
 const advancedPlan = "Avanzado";
 
 export const PlansTable = (props) => {
   const { plans, isLoadingPlans } = useStripePlans();
+
+  const { t } = useTranslation("components.plans-table");
 
   const [isMonthly_, setIsMonthly_] = useState(false);
 
@@ -35,12 +38,12 @@ export const PlansTable = (props) => {
 
   const anualPhrase = (price) => (
     <p>
-      por admin al año (<span className="whitespace-nowrap">{price}</span> mensualmente)
+      {t("per-admin-anually")} (<span className="whitespace-nowrap">{price}</span> {t("monthly")})
     </p>
   );
   const monthlyPhrase = (price) => (
     <p>
-      por admin al mes (<span className="whitespace-nowrap">{price}</span> anualmente)
+      {t("per-admin-monthly")} (<span className="whitespace-nowrap">{price}</span> {t("annual")})
     </p>
   );
 
@@ -49,7 +52,7 @@ export const PlansTable = (props) => {
 
   const CallToActionContentSection = React.memo(
     ({ plan, index_ }) => {
-      if (!props.showcalltoactionsection) return <td />;
+      if (!props.showCallToActionSection) return <td />;
 
       if (hasPlan)
         return (
@@ -57,14 +60,14 @@ export const PlansTable = (props) => {
             <StripeCustomerPortalLink>
               {planIndex > index_ ? (
                 <ButtonAnt variant="outlined" color="dark">
-                  Degradar plan
+                  {t("downgrade-plan")}
                 </ButtonAnt>
               ) : planIndex === index_ ? (
                 <ButtonAnt variant="outlined" color="dark">
-                  Cancelar plan
+                  {t("cancel-plan")}
                 </ButtonAnt>
               ) : (
-                <ButtonAnt>Mejorar plan</ButtonAnt>
+                <ButtonAnt>{t("upgrade-plan")}</ButtonAnt>
               )}
             </StripeCustomerPortalLink>
           </td>
@@ -79,46 +82,48 @@ export const PlansTable = (props) => {
                 props.onSelectedPlan?.(plan, isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan));
               }}
             >
-              Adquirir plan
+              {t("get-plan")}
             </ButtonAnt>
           </td>
         );
 
       return <td/>;
     },
-    [props.showcalltoactionsection, hasPlan, planIndex]
+    [props.showCallToActionSection, hasPlan, planIndex]
   );
 
   if (isLoadingPlans) return <div className="bg-white">{spinLoaderMin()}</div>;
 
   return (
-    <TableContainer hasPlan={hasPlan}>
+    <TableContainer hasPlan={hasPlan} {...props}>
       <table border="0">
         <tbody>
           <tr>
             <td>
               <div>
-                <div className="pb-8 table-title">Comparar planes</div>
+                <div className="pb-8 table-title">{t("compare-plans")}</div>
               </div>
             </td>
 
             {props.showCallToActionSection && hasPlan && <td className="max-h-[30px]" />}
+
             <td>
-              <span className="w-full text-base text-black">
-                Pago
+              <span className="w-full text-sm text-black">
+                {t("payment")}
                 <br />
-                <span className="align-top pr-2">anual</span>
+                <span className="align-top pr-1">{t("annual")}</span>
                 <span className="inline-block">
                   <Switch checked={isMonthly} onChange={() => setIsMonthly()} />
                 </span>
-                <span className="align-top pl-2">mensual</span>
+                <span className="align-top pl-1">{t("monthly")}</span>
               </span>
             </td>
-            <td style={{ borderRadius: "15px 0 0 0" }}>Personas por juego</td>
-            <td>Chat vivo</td>
-            <td>Reporte</td>
-            <td>Trackear progreso</td>
-            <td>Identificar participantes</td>
+            {specsOrder.map((specLabel, index) => index === 0
+              ? (<td key={`spec-key-${index}`} style={{ borderRadius: "15px 0 0 0" }}>{t(specLabel)}</td>)
+              : (specsOrder.length - 1) === index
+              ? (<td key={`spec-key-${index}`} style={{ borderRadius: "0 0 0 15px" }}>{t(specLabel)}</td>)
+              : (<td key={`spec-key-${index}`}>{t(specLabel, specLabel)}</td>)
+            )}
           </tr>
 
           {plans.map((plan, index_) => (
@@ -128,9 +133,9 @@ export const PlansTable = (props) => {
                   <div className="name mb-4">{plan.name}</div>
                   {plan.name === "Exclusivo" ? (
                     <button className="btn-contact mb-4">
-                      Contactar
+                      {t("contact")}
                       <br />
-                      ventas
+                      {t("sales")}
                     </button>
                   ) : isMonthly ? (
                     <div className="price text-center mb-4">
@@ -154,11 +159,11 @@ export const PlansTable = (props) => {
                     {plan.name === "Exclusivo" ? (
                       <Anchor url="/#contact">
                         <span className="font-bold text-base text-black underline underline-offset-2">
-                          {plan.description}
+                          {t(plan.description, plan.description)}
                         </span>
                       </Anchor>
                     ) : plan.description ? (
-                      plan.description
+                      t(plan.description, plan.description)
                     ) : isMonthly ? (
                       monthlyPhrase(
                         `${getCurrencySymbol[getMonthlyPrice(plan)?.currency]} ${(
@@ -178,7 +183,7 @@ export const PlansTable = (props) => {
 
               {props.showCallToActionSection && hasPlan && (
                 <td className="text-center max-h-[30px]">
-                  {planIndex === index_ && <span className="text-black font-bold text-base">Plan actual</span>}
+                  {planIndex === index_ && <span className="text-black font-bold text-base">{t("current-plan")}</span>}
                 </td>
               )}
 
@@ -198,13 +203,13 @@ export const PlansTable = (props) => {
                 >
                   {plan.metadata[keySpec] === "yes" || plan.metadata[keySpec] === "no"
                     ? getYesNoIcon(plan.metadata[keySpec])
-                    : plan.metadata[keySpec]}
+                    : t(plan.metadata[keySpec], plan.metadata[keySpec])}
                 </td>
               ))}
 
-              {plan.metadata.recommended === "true" && <div className="selected" />}
+              {plan.metadata.recommended === "true" && <span className="selected" />}
               {props.showMostPopularBadge && plan.metadata.recommended === "true" && (
-                <Star backgroundImg={`${config.storageUrl}/resources/plan-star.png`}>Más popular</Star>
+                <Star backgroundImg={`${config.storageUrl}/resources/plan-star.png`}>{t("most-popular")}</Star>
               )}
             </tr>
           ))}
@@ -237,7 +242,7 @@ const TableContainer = styled.div`
     tr {
       display: table-cell;
       position: relative;
-      width: 190px;
+      width: 200px;
 
       td {
         border: 1px solid ${(props) => props.theme.basic.grayLighten};
@@ -252,7 +257,7 @@ const TableContainer = styled.div`
         letter-spacing: 0.03em;
         color: #666666;
         height: 65px;
-        padding: 0.5rem;
+        padding: 0.2rem;
         background: ${(props) => props.theme.basic.whiteLight};
       }
 
@@ -261,7 +266,9 @@ const TableContainer = styled.div`
       }
 
       td:first-child,
-      td:nth-child(2) ${(props) => (props.hasPlan ? ", td:nth-child(3)" : "")} {
+      td:nth-child(2)
+      ${(props) => ((props.showCallToActionSection && props.hasPlan) ? ", td:nth-child(3)" : "")}
+      {
         border: none;
         background: transparent;
       }
