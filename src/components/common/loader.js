@@ -3,20 +3,28 @@ import styled from "styled-components";
 import { LoadingOutlined } from "@ant-design/icons";
 import { mediaQuery } from "../../constants";
 import { config } from "../../firebase";
+import { darkTheme } from "../../theme";
 import { Spin } from "antd";
+import { Overlay } from "./Overlay";
 
-const antIcon = <LoadingOutlined className="spin-version-icon" />;
+const CustomLoaderIcon = (props) => <LoadingOutlined className="spin-version-icon" style={{color: props.color}} />;
 
-export const spinLoader = () => (
+export const spinLoader = (props) => (
   <SpinLoader>
-    <Spin indicator={antIcon} spinning={true} className="spin-version" />
+    <Spin indicator={<CustomLoaderIcon {...props} />} spinning={true} className="spin-version" />
   </SpinLoader>
 );
 
-export const spinLoaderMin = () => (
+export const spinLoaderMin = (props = { color: darkTheme.basic.primary }) => (
   <SpinLoaderMin>
-    <Spin indicator={antIcon} spinning={true} className="spin-version" />
+    <Spin indicator={<CustomLoaderIcon {...props} />} spinning={true} className="spin-version" />
   </SpinLoaderMin>
+);
+
+export const PageLoader = () => (
+  <Overlay>
+    {spinLoaderMin({color: "#FFF"})}
+  </Overlay>
 );
 
 export const LogoSpin = () => (
