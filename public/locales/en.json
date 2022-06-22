@@ -498,6 +498,14 @@
   "components": {
     "file-upload": {
       "insert-multimedia-label": "Insert a file"
+    },
+    "plans-table": {
+      "users": "Players per game",
+      "reporting": "Report",
+      "progress_tracking": "Tracking of progress",
+      "players_identity": "Identity players",
+      "games": "Games available",
+      "all": "All"
     }
   },
   "pages": {

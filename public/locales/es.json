@@ -492,6 +492,14 @@
   "components": {
     "file-upload": {
       "insert-multimedia-label": "Insertar Multimedia"
+    },
+    "plans-table": {
+      "users": "Personas por juego",
+      "reporting": "Reporte",
+      "progress_tracking": "Tracking de progreso",
+      "players_identity": "Identificar personajes",
+      "games": "Juegos disponibles",
+      "all": "Todos"
     }
   },
   "pages": {
