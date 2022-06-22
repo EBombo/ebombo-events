@@ -72,7 +72,7 @@ export const Billing = (props) => {
           </div>
           <PlansTable
             {...props}
-            showcalltoactionsection
+            showCallToActionSection
             currentPlan={activePlan}
             onSelectedPlan={onSelectedPlan}
             isLoadingCheckoutPlan={isLoadingCheckoutPlan}
