@@ -24,7 +24,7 @@ export const Billing = (props) => {
 
   const [activePlan, setActivePlan] = useState();
   const [subscription, setSubscription] = useState();
-  const [isSubscriptionStatusView, setIsSubscriptionStatusView] = useState(true);
+  const [isSubscriptionStatusEnabled, setIsSubscriptionStatusEnabled] = useState(false);
   const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
 
   useEffect(() => {
@@ -63,10 +63,10 @@ export const Billing = (props) => {
 
   return (
     <BillingContainer>
-      {isSubscriptionStatusView ? (
+      {isSubscriptionStatusEnabled ? (
         <>
           <div>
-            <Anchor variant="primary" onClick={() => setIsSubscriptionStatusView(!isSubscriptionStatusView)}>
+            <Anchor variant="primary" onClick={() => setIsSubscriptionStatusEnabled(!isSubscriptionStatusEnabled)}>
               {t("pages.billing.go-back")}
             </Anchor>
           </div>
@@ -94,7 +94,7 @@ export const Billing = (props) => {
                   </Anchor>
                 </div>
                 <div>
-                  <Anchor underlined className="link" onClick={() => setIsSubscriptionStatusView(true)}>
+                  <Anchor underlined className="link" onClick={() => setIsSubscriptionStatusEnabled(true)}>
                     Administrar suscripción
                   </Anchor>
                 </div>
@@ -108,7 +108,7 @@ export const Billing = (props) => {
             className="plan-card"
             activePlan={activePlan}
             subscription={subscription}
-            setIsSubscriptionStatusView={setIsSubscriptionStatusView}
+            setIsSubscriptionStatusView={setIsSubscriptionStatusEnabled}
             {...props}
           />
         </div>
