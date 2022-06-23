@@ -23,7 +23,7 @@ import { spinLoader } from "../../../../components/common/loader";
 import orderBy from "lodash/orderBy";
 import { LeftOutlined } from "@ant-design/icons";
 import { useTranslation } from "../../../../hooks";
-import { WarningIconTooltip } from "./WarningTooltip";
+import { WarningIconTooltip } from "./WarningIconTooltip";
 
 export const Trivia = (props) => {
   const router = useRouter();
