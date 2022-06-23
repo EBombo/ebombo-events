@@ -498,6 +498,29 @@
   "components": {
     "file-upload": {
       "insert-multimedia-label": "Insert a file"
+    },
+    "plans-table": {
+      "payment": "Pay",
+      "compare-plans": "Compare plans",
+      "monthly": "monthly",
+      "annual": "annual",
+      "get-plan": "Get plan",
+      "upgrade-plan": "Upgrade plan",
+      "downgrade-plan": "Downgrade plan",
+      "cancel-plan": "Cancel plan",
+      "contact": "Contact",
+      "sales": "sales",
+      "contact-sales-department": "Contact to sales",
+      "most-popular": "Most popular",
+      "current-plan": "Current plan",
+      "per-admin-anually": "per admin anually",
+      "per-admin-monthly": "per admin monthly",
+      "users": "Players per game",
+      "reporting": "Report",
+      "progress_tracking": "Tracking of progress",
+      "players_identity": "Identity players",
+      "games": "Games available",
+      "all": "All"
     }
   },
   "pages": {
@@ -793,6 +816,13 @@
         "emoji": "Emoji Language"
       },
       "lastTitle": "The virtual event you will love"
+    },
+    "billing": {
+      "go-back": "Back"
     }
+  },
+  "errors": {
+    "general-message": "Something went wrong, please try later",
+    "general-title": "Error"
   }
 }

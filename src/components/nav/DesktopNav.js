@@ -125,7 +125,7 @@ export const DesktopNav = (props) => {
 const DesktopNavContainer = styled.div`
   width: 100%;
   position: fixed;
-  z-index: 99;
+  z-index: 30;
   top: 0;
   left: 0;
   right: 0;
