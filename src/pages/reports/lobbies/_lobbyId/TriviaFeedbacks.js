@@ -6,9 +6,10 @@ import { config } from "../../../../firebase";
 import { Bar, Pie } from "react-chartjs-2";
 import { ModalAnswers } from "./ModalAnswers";
 
-//WARNING: SI ELIMINAS ESTE IMPORT CAUSA UN UNDEFINED EN LA DEPENDENCIA react-chartjs-2
+//WARNING: SI ELIMINAS ESTE IMPORT CAUSA UN UNDEFINED EN LA DEPENDENCIA react-chartjs-2.
+import { Chart as ChartJS } from "chart.js/auto";
 
-export const TriviaFeedbacks = (props) => {
+const TriviaFeedbacks = (props) => {
   const { t } = useTranslation("pages.reports.trivia");
 
   const [commentsAmount, setCommentsAmount] = useState([]);
@@ -294,3 +295,5 @@ export const TriviaFeedbacks = (props) => {
     </div>
   );
 };
+
+export default TriviaFeedbacks;

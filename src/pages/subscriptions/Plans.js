@@ -49,7 +49,7 @@ export const Plans = (props) => {
       {tab === "games" && (
         <section id="plans-table">
           <TableContainer>
-            <PlansTable {...props} isMonthly={isMonthly} setIsMonthly={setIsMonthly} />
+            <PlansTable {...props} showMostPopularBadge isMonthly={isMonthly} setIsMonthly={setIsMonthly} />
           </TableContainer>
         </section>
       )}

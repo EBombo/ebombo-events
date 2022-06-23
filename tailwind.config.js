@@ -53,6 +53,15 @@ module.exports = {
         sharp: "-5px 3px 0px 1px #382079",
         "sharp-sm": "-2px 2px 0px 1px #382079",
       },
+      keyframes: {
+        "fade-in": {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in .2s ease-in forwards',
+      },
     },
   },
   plugins: [],

@@ -11,7 +11,7 @@ import { mediaQuery } from "../../../../constants";
 import { TriviaResume } from "./TriviaResume";
 import { TriviaUsers } from "./TriviaUsers";
 import { TriviaQuestions } from "./TriviaQuestions";
-import { TriviaFeedbacks } from "./TriviaFeedbacks";
+import TriviaFeedbacks from "./TriviaFeedbacks";
 import { Anchor } from "../../../../components/form";
 import { Icon } from "../../../../components/common/Icons";
 

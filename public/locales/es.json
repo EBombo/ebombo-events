@@ -492,6 +492,29 @@
   "components": {
     "file-upload": {
       "insert-multimedia-label": "Insertar Multimedia"
+    },
+    "plans-table": {
+      "payment": "Pago",
+      "compare-plans": "Comparar planes",
+      "monthly": "mensual",
+      "annual": "anual",
+      "get-plan": "Adquirir plan",
+      "upgrade-plan": "Mejorar plan",
+      "downgrade-plan": "Degradar plan",
+      "cancel-plan": "Cancelar plan",
+      "contact": "Contact",
+      "sales": "sales",
+      "contact-sales-department": "Contacta al área de ventas",
+      "most-popular": "Más popular",
+      "current-plan": "Plan actual",
+      "per-admin-anually": "por admin al año",
+      "per-admin-monthly": "por admin al mes",
+      "users": "Personas por juego",
+      "reporting": "Reporte",
+      "progress_tracking": "Tracking de progreso",
+      "players_identity": "Identificar personajes",
+      "games": "Juegos disponibles",
+      "all": "Todos"
     }
   },
   "pages": {
@@ -792,6 +815,13 @@
         "emoji": "Lenguaje Emoji"
       },
       "lastTitle": "El evento virtual que amarás"
+    },
+    "billing": {
+      "go-back": "Volver"
     }
+  },
+  "errors": {
+    "general-message": "Algo salió mal, intente dentro de unos momentos",
+    "general-title": "Error"
   }
 }
