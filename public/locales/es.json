@@ -550,7 +550,8 @@
         "ranking": "Clasificación",
         "unanswered": "Sin respuesta",
         "dropped-out": "Abandonaron",
-        "all": "Todos"
+        "all": "Todos",
+        "play-again-btn": "Jugar nuevamente"
       }
     },
     "library": {

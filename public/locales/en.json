@@ -556,7 +556,8 @@
         "ranking": "Ranking",
         "unanswered": "Unanswered",
         "dropped-out": "Dropped Out",
-        "all": "All"
+        "all": "All",
+        "play-again-btn": "Play Again"
       }
     },
     "library": {
