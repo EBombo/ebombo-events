@@ -10,7 +10,7 @@ import defaultTo from "lodash/defaultTo";
 import mapKeys from "lodash/mapKeys";
 import capitalize from "lodash/capitalize";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { ModalWinners } from "./ModalWinners";
+import { ModalRanking } from "./ModalRanking";
 import { useRouter } from "next/router";
 
 export const TriviaResume = (props) => {
@@ -79,7 +79,7 @@ export const TriviaResume = (props) => {
   return (
     <div className="p-4 lg:p-8 grid lg:grid-cols-[2fr_1fr_1fr] gap-4 mx-auto max-w-[1300px]">
       {isVisibleModalWinners && (
-        <ModalWinners
+        <ModalRanking
           lobby={props.lobby}
           isVisibleModalWinners={isVisibleModalWinners}
           setIsVisibleModalWinners={setIsVisibleModalWinners}
