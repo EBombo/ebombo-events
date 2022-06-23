@@ -18,6 +18,8 @@ export const ModalUserAnswers = (props) => {
       (answer) => answer.questionId === question.id && answer.userId === props.user.id
     );
 
+    if(answer.length === 0) return "-"
+
     return answer[0]?.answer;
   };
 

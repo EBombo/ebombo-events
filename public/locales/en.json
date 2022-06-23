@@ -552,7 +552,11 @@
         "need-help-tooltip": "They answered less than 20% of the questions incorrectly.",
         "didn't-end-tooltip": "They logged out before finishing. It indicates how many questions they answered.",
         "correct-answer": "Correct?",
-        "answer": "Answer"
+        "answer": "Answer",
+        "ranking": "Ranking",
+        "unanswered": "Unanswered",
+        "dropped-out": "Dropped Out",
+        "all": "All"
       }
     },
     "library": {

@@ -181,7 +181,7 @@ export const TriviaReport = (props) => {
                 }`}
                 onClick={() => setTab(1)}
               >
-                {t("players")}
+                {`${t("players")} (${users?.length})`}
               </div>
               <div
                 className={`cursor-pointer font-[900] p-2 md:py-2 md:px-4 text-[16px] leading-[18px] lg:text-[18px] lg:leading-[22px] ${
@@ -189,7 +189,7 @@ export const TriviaReport = (props) => {
                 }`}
                 onClick={() => setTab(2)}
               >
-                {t("questions")}
+                {`${t("questions")} (${questions?.length})`}
               </div>
               <div
                 className={`cursor-pointer font-[900] p-2 md:py-2 md:px-4 text-[16px] leading-[18px] lg:text-[18px] lg:leading-[22px] ${
