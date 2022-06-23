@@ -58,9 +58,15 @@ module.exports = {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
+        "bounce-in": {
+          '0%': { transform: 'scale(0)' },
+          '75%': { transform: 'scale(1.2)' },
+          '100%': { transform: 'scale(1)' },
+        },
       },
       animation: {
         'fade-in': 'fade-in .2s ease-in forwards',
+        'bounce-in': 'bounce-in .2s ease-in forwards',
       },
     },
   },
