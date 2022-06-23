@@ -77,10 +77,10 @@ const MyApp = ({ Component, pageProps }) => {
       if (folderId) games_ = games_.filter((game) => game.parentId === folderId);
 
       await setGames(games_);
-      await setLoadingGames(false);
     } catch (error) {
       console.error(error);
     }
+    await setLoadingGames(false);
   };
 
   useEffect(() => {

@@ -238,7 +238,7 @@ export const Roulette = (props) => {
               }`}
               name="amountWinners"
               error={errors.amountWinners}
-              defaultValue={1}
+              defaultValue={props.game?.amountWinners ?? 1}
               ref={register}
               type="number"
               min={0}
