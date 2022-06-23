@@ -715,7 +715,8 @@
         "short-answer": "Respuesta corta",
         "only-answer": "Única respuesta",
         "multiple-answer": "Respuesta multiple",
-        "delete": "Borrar"
+        "delete": "Borrar",
+        "error-incomplete-form-question": "La pregunta está incompleta"
       }
     },
     "about-us": {
