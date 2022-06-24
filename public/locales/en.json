@@ -678,7 +678,8 @@
         "phrases": "Phrases for the game",
         "description-area": "Write the sentences and separate them with “ENTER” (Max. 50 characters per word or sentence). Only letters, question and exclamation marks (?!), space, and comma (,) are accepted.",
         "phrases-to-guess": "Phrases to guess",
-        "save": "Save"
+        "save": "Save",
+        "default-phrase": "Write each word here"
       },
       "roulette": {
         "event-name": "Event name",

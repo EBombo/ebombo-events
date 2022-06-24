@@ -118,6 +118,7 @@ export const GameContainer = (props) => {
     } catch (error) {
       sendError(error, "createGame");
     }
+
     setIsLoading(false);
   };
 

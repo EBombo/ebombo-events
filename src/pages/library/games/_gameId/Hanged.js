@@ -171,7 +171,7 @@ export const Hanged = (props) => {
               }
             }}
             id="phrases"
-            defaultValue={props.game?.phrases?.join("\n") ?? "Escribe\n" + "Cada\n" + "Palabara\n" + "Acá"}
+            defaultValue={props.game?.phrases?.join("\n") ?? t("default-phrase").replace(/ /g, "\n")}
             error={errors.phrases}
             name="phrases"
             ref={register}
