@@ -122,7 +122,6 @@ export const Trivia = (props) => {
 
       if (!valid) {
         setQuestionErrors({ [i]: { message: "error-incomplete-form-question" }});
-
         break;
       };
     }
