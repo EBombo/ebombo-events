@@ -7,10 +7,10 @@ export const WarningIconTooltip = ({ outline = true, ...props}) => {
   const [isVisible, setIsVisible] = useState(props.visible);
 
   useEffect(() => {
-    setIsVisible(props.visible);
-
     if (!props.visible) return;
     if (!props.duration) return;
+
+    setIsVisible(props.visible);
 
     setTimeout(() => {
       setIsVisible(false);
