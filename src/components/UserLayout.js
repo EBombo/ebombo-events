@@ -16,7 +16,6 @@ const WspIcon = dynamic(() => import("./common/wspIcon"));
 const FooterBar = dynamic(() => import("./FooterBar"));
 
 const UserLayout = (props) => {
-
   const [screenLoader] = useGlobal("screenLoader");
 
   return (

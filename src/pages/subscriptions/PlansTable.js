@@ -87,7 +87,7 @@ export const PlansTable = (props) => {
           </td>
         );
 
-      return <td/>;
+      return <td />;
     },
     [props.showCallToActionSection, hasPlan, planIndex]
   );
@@ -118,11 +118,18 @@ export const PlansTable = (props) => {
                 <span className="align-top pl-1">{t("monthly")}</span>
               </span>
             </td>
-            {specsOrder.map((specLabel, index) => index === 0
-              ? (<td key={`spec-key-${index}`} style={{ borderRadius: "15px 0 0 0" }}>{t(specLabel)}</td>)
-              : (specsOrder.length - 1) === index
-              ? (<td key={`spec-key-${index}`} style={{ borderRadius: "0 0 0 15px" }}>{t(specLabel)}</td>)
-              : (<td key={`spec-key-${index}`}>{t(specLabel, specLabel)}</td>)
+            {specsOrder.map((specLabel, index) =>
+              index === 0 ? (
+                <td key={`spec-key-${index}`} style={{ borderRadius: "15px 0 0 0" }}>
+                  {t(specLabel)}
+                </td>
+              ) : specsOrder.length - 1 === index ? (
+                <td key={`spec-key-${index}`} style={{ borderRadius: "0 0 0 15px" }}>
+                  {t(specLabel)}
+                </td>
+              ) : (
+                <td key={`spec-key-${index}`}>{t(specLabel, specLabel)}</td>
+              )
             )}
           </tr>
 
@@ -266,9 +273,7 @@ const TableContainer = styled.div`
       }
 
       td:first-child,
-      td:nth-child(2)
-      ${(props) => ((props.showCallToActionSection && props.hasPlan) ? ", td:nth-child(3)" : "")}
-      {
+      td:nth-child(2) ${(props) => (props.showCallToActionSection && props.hasPlan ? ", td:nth-child(3)" : "")} {
         border: none;
         background: transparent;
       }

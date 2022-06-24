@@ -121,9 +121,9 @@ export const Trivia = (props) => {
       if (question.type === "shortAnswer") valid = validateShortAnswer(question);
 
       if (!valid) {
-        setQuestionErrors({ [i]: { message: "error-incomplete-form-question" }});
+        setQuestionErrors({ [i]: { message: "error-incomplete-form-question" } });
         break;
-      };
+      }
     }
 
     if (!valid) return props.showNotification("ERROR", "Verificar que todas las preguntas esten completas.", "error");
