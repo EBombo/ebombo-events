@@ -3,7 +3,7 @@ import moment from "moment";
 import styled from "styled-components";
 import capitalize from "lodash/capitalize";
 import { useTranslation } from "../../../../hooks";
-import { config, firestoreTrivia } from "../../../../firebase";
+import { config, firestoreGames, firestoreTrivia } from "../../../../firebase";
 import { Image } from "../../../../components/common/Image";
 import { useRouter } from "next/router";
 import { snapshotToArray } from "../../../../utils";
@@ -14,6 +14,8 @@ import { TriviaQuestions } from "./TriviaQuestions";
 import TriviaFeedbacks from "./TriviaFeedbacks";
 import { Anchor } from "../../../../components/form";
 import { Icon } from "../../../../components/common/Icons";
+import { Tooltip } from "antd";
+import { darkTheme } from "../../../../theme";
 
 export const TriviaReport = (props) => {
   const router = useRouter();
@@ -154,6 +156,10 @@ export const TriviaReport = (props) => {
     }
   });
 
+  const deleteLobby = async () => {
+    await firestoreGames.collection("lobbies").doc(lobbyId).set({ deleted: true }, { merge: true });
+  };
+
   return (
     <div>
       <div className="grid lg:gap-8 lg:grid-cols-[3fr_1fr]">
@@ -166,11 +172,35 @@ export const TriviaReport = (props) => {
             <div className="flex items-center justify-between">
               <div className="text-blackDarken text-[18px] leading-[22px] font-[600]">{t("title")}</div>
 
-              <div className="h-[18px] flex flex-col justify-between lg:mr-[20px] cursor-pointer">
-                <div className="w-[5px] h-[5px] rounded-[50%] bg-blackDarken" />
-                <div className="w-[5px] h-[5px] rounded-[50%] bg-blackDarken" />
-                <div className="w-[5px] h-[5px] rounded-[50%] bg-blackDarken" />
-              </div>
+              <Tooltip
+                placement="bottomRight"
+                trigger="click"
+                title={
+                  <div className="flex flex-col gap-[5px] w-[180px]">
+                    <div
+                      className="w-full bg-[#F1F0F0] p-2 flex items-center text-grayLight rounded-[4px] cursor-pointer gap-[10px]"
+                      onClick={() => deleteLobby()}
+                    >
+                      <Image
+                        src={`${config.storageUrl}/resources/delete.svg`}
+                        width={"16px"}
+                        height={"16px"}
+                        size={"contain"}
+                        margin="0"
+                        filter="invert(33%) sepia(83%) saturate(4%) hue-rotate(326deg) brightness(93%) contrast(76%)"
+                      />
+                      {t("delete")}
+                    </div>
+                  </div>
+                }
+                color={darkTheme.basic.whiteLight}
+              >
+                <div className="h-[18px] flex flex-col justify-between md:mr-[50px] cursor-pointer">
+                  <div className="w-[5px] h-[5px] rounded-[50%] bg-blackDarken" />
+                  <div className="w-[5px] h-[5px] rounded-[50%] bg-blackDarken" />
+                  <div className="w-[5px] h-[5px] rounded-[50%] bg-blackDarken" />
+                </div>
+              </Tooltip>
             </div>
             <div className="text-[36px] leading-[40px] lg:text-[48px] lg:leading-[58px] text-blackDarken font-[600]">
               {props.lobby?.game?.name}

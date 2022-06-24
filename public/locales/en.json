@@ -580,7 +580,8 @@
         "unanswered": "Unanswered",
         "dropped-out": "Dropped Out",
         "all": "All",
-        "play-again-btn": "Play Again"
+        "play-again-btn": "Play Again",
+        "delete": "Move to trash"
       }
     },
     "library": {

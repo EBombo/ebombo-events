@@ -21,7 +21,7 @@ export const TriviaResume = (props) => {
   const [hardQuestions, setHardQuestion] = useState([]);
   const [needHelp, setNeedHelp] = useState([]);
   const [droppedOut, setDroppedOut] = useState([]);
-  const [creatingGame, setCreatingGame] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [currentHardQuestion, setCurrentHardQuestion] = useState(0);
   const [hitPercentage, setHitPercentage] = useState(0);
   const [isVisibleModalWinners, setIsVisibleModalWinners] = useState(false);
@@ -76,6 +76,26 @@ export const TriviaResume = (props) => {
     setNeedHelp(_needHelp);
   };
 
+  const calculateDurationTime = (startAt, endAt) => {
+    const startTime = moment(startAt.toDate(), "DD-MM-YYYY hh:mm:ss");
+    const endTime = moment(endAt.toDate(), "DD-MM-YYYY hh:mm:ss");
+
+    const hoursDiff = endTime.diff(startTime, "hours");
+
+    const minutesDiff = endTime.diff(startTime, "minutes");
+
+    const secondsDiff = endTime.diff(startTime, "seconds");
+
+    if (hoursDiff <= 0)
+      return `${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${
+        secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
+      } minutes`;
+
+    return `${hoursDiff}:${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${
+      secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
+    } hours`;
+  };
+
   return (
     <div className="p-4 lg:p-8 grid lg:grid-cols-[2fr_1fr_1fr] gap-4 mx-auto max-w-[1300px]">
       {isVisibleModalWinners && (
@@ -90,11 +110,13 @@ export const TriviaResume = (props) => {
         <div>
           <div className="font-[900] text-[24px] leading-[29px] text-blackDarken mb-4">{t("hit-percentage")}</div>
           <ButtonAnt
-            onClick={() =>
-              router.push(`/library/games/${props.lobby.game.id}/view?adminGameId=${props.lobby?.game?.adminGame?.id}`)
-            }
-            loading={creatingGame}
-            disabled={creatingGame}
+            onClick={async () => {
+              setLoading(true);
+              await router.push(`/library/games/${props.lobby.game.id}/view?adminGameId=${props.lobby?.game?.adminGame?.id}`);
+              setLoading(false);
+            }}
+            loading={loading}
+            disabled={loading}
           >
             {t("play-again-btn")}
           </ButtonAnt>
@@ -145,9 +167,7 @@ export const TriviaResume = (props) => {
             <div className="text-blackDarken text-[16px] leading-[19px] font-[400]">{t("time")}</div>
           </div>
           <div className="text-blackDarken text-[16px] leading-[19px] font-[700]">
-            {moment(moment(props.lobby.startAt?.toDate())?.diff(moment(props.lobby.updateAt?.toDate()))).format(
-              "h[h] m[m]"
-            )}
+            {calculateDurationTime(props.lobby.startAt, props.lobby.updateAt)}
           </div>
         </div>
       </div>

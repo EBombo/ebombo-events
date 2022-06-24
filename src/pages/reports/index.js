@@ -4,6 +4,7 @@ import { Anchor, ButtonAnt, Input } from "../../components/form";
 import { Desktop } from "../../constants";
 import { useRouter } from "next/router";
 import moment from "moment";
+import orderBy from "lodash/orderBy";
 import { Image } from "../../components/common/Image";
 import { config, firestoreGames } from "../../firebase";
 import { snapshotToArray } from "../../utils";
@@ -46,9 +47,11 @@ export const Reports = (props) => {
         .onSnapshot((lobbiesSnapshot) => {
           const _lobbies = snapshotToArray(lobbiesSnapshot);
 
-          const filterLobbies = _lobbies.filter((lobby) => defaultTo(lobby.game?.usersIds, []).includes(authUser.id));
+          const filterLobbies = _lobbies.filter(
+            (lobby) => defaultTo(lobby.game?.usersIds, []).includes(authUser.id) && !lobby.deleted
+          );
 
-          setLobbies(filterLobbies);
+          setLobbies(orderBy(filterLobbies, ["createAt"], ["desc"]));
           setLoading(false);
         });
 
@@ -64,6 +67,30 @@ export const Reports = (props) => {
     setLoadingUpdate(true);
     await updateCollection("users");
     setLoadingUpdate(false);
+  };
+
+  const calculateDurationTime = (startAt, endAt) => {
+    const startTime = moment(startAt.toDate(), "DD-MM-YYYY hh:mm:ss");
+    const endTime = moment(endAt.toDate(), "DD-MM-YYYY hh:mm:ss");
+
+    const hoursDiff = endTime.diff(startTime, "hours");
+
+    const minutesDiff = endTime.diff(startTime, "minutes");
+
+    const secondsDiff = endTime.diff(startTime, "seconds");
+
+    if (hoursDiff <= 0)
+      return `${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${
+        secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
+      } minutes`;
+
+    return `${hoursDiff}:${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${
+      secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
+    } hours`;
+  };
+
+  const deleteLobby = async (lobby) => {
+    await firestoreGames.collection("lobbies").doc(lobby.id).set({ deleted: true }, { merge: true });
   };
 
   return (
@@ -160,9 +187,7 @@ export const Reports = (props) => {
                         className="cursor-pointer flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]"
                         onClick={() => router.push(`/reports/lobbies/${lobby.id}`)}
                       >
-                        {moment(moment(lobby.startAt?.toDate())?.diff(moment(lobby.updateAt?.toDate()))).format(
-                          "h[h] m[m]"
-                        )}
+                        {calculateDurationTime(lobby.startAt, lobby.updateAt)}
                       </td>
                       <td
                         className="cursor-pointer flex items-center justify-center text-blackDarken font-[600] text-[16px] leading-[18px]"
@@ -203,7 +228,7 @@ export const Reports = (props) => {
                               </div>
                               <div
                                 className="w-full bg-[#F1F0F0] p-2 flex items-center text-grayLight rounded-[4px] cursor-pointer gap-[10px]"
-                                onClick={() => router.push(`/reports/lobbies/${lobby.id}`)}
+                                onClick={() => deleteLobby(lobby)}
                               >
                                 <Image
                                   src={`${config.storageUrl}/resources/delete.svg`}

@@ -574,7 +574,8 @@
         "unanswered": "Sin respuesta",
         "dropped-out": "Abandonaron",
         "all": "Todos",
-        "play-again-btn": "Jugar nuevamente"
+        "play-again-btn": "Jugar nuevamente",
+        "delete": "Mover a la papelera"
       }
     },
     "library": {
