@@ -8,7 +8,7 @@ export const StripeCustomerPortalLink = ({ anchorWrapperClassName, anchorClassNa
 
   const { t } = useTranslation();
 
-  const [,setScreenLoader] = useGlobal("screenLoader");
+  const [, setScreenLoader] = useGlobal("screenLoader");
 
   const goToCustomerPortal = async () => {
     setScreenLoader(true);
@@ -17,7 +17,7 @@ export const StripeCustomerPortalLink = ({ anchorWrapperClassName, anchorClassNa
       await goToPortalLink();
     } catch (error) {
       sendError(error);
-      props.showNotification?.(t("errors.general-title"),t("errors.general-message"), "error");
+      props.showNotification?.(t("errors.general-title"), t("errors.general-message"), "error");
     }
     setScreenLoader(false);
   };

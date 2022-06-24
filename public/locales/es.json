@@ -672,7 +672,8 @@
         "phrases": "Frases para el juego",
         "description-area": "Escribe las frases y sepáralas con “ENTER” (Máx. 50 caracteres por palabra o frase). Solo se aceptan letras, signos de interrogación y exclamación (¿?¡!), espacio y comma (,).",
         "phrases-to-guess": "Frases a advinar",
-        "save": "Guardar"
+        "save": "Guardar",
+        "default-phrase": "Escribe Cada Palabra Acá"
       },
       "roulette": {
         "event-name": "Nombre del Evento",
@@ -715,7 +716,8 @@
         "short-answer": "Respuesta corta",
         "only-answer": "Única respuesta",
         "multiple-answer": "Respuesta multiple",
-        "delete": "Borrar"
+        "delete": "Borrar",
+        "error-incomplete-form-question": "La pregunta está incompleta"
       }
     },
     "about-us": {

@@ -23,6 +23,7 @@ import { spinLoader } from "../../../../components/common/loader";
 import orderBy from "lodash/orderBy";
 import { LeftOutlined } from "@ant-design/icons";
 import { useTranslation } from "../../../../hooks";
+import { WarningIconTooltip } from "./WarningIconTooltip";
 
 export const Trivia = (props) => {
   const router = useRouter();
@@ -49,6 +50,7 @@ export const Trivia = (props) => {
   const [visibility, setVisibility] = useState(props.game ? props.game.visibility : true);
   const [audio, setAudio] = useState(props.game ? props.game.audio : null);
   const [loading, setLoading] = useState(false);
+  const [questionErrors, setQuestionErrors] = useState({});
 
   useEffect(() => {
     if (!props.game) return;
@@ -95,6 +97,8 @@ export const Trivia = (props) => {
   };
 
   const saveGame = async (data) => {
+    setQuestionErrors({});
+
     const _game = {
       ...data,
       id: newId,
@@ -116,7 +120,10 @@ export const Trivia = (props) => {
       if (question.type === "trueFalse") valid = validateTrueFalse(question);
       if (question.type === "shortAnswer") valid = validateShortAnswer(question);
 
-      if (!valid) break;
+      if (!valid) {
+        setQuestionErrors({ [i]: { message: "error-incomplete-form-question" } });
+        break;
+      }
     }
 
     if (!valid) return props.showNotification("ERROR", "Verificar que todas las preguntas esten completas.", "error");
@@ -226,7 +233,7 @@ export const Trivia = (props) => {
                   onClick={() => setQuestionIndex(idx)}
                   key={question.id}
                 >
-                  <div>
+                  <div className="relative">
                     <div className="text-['Lato'] font-bold text-[12px] leading-[14px] text-grayLight mb-[5px]">
                       {idx + 1}. {t(questionTypesToLiterals[question.type])}
                     </div>
@@ -238,6 +245,13 @@ export const Trivia = (props) => {
                       desktopHeight="75px"
                       desktopWidth="128px"
                     />
+                    <div className="absolute top-2/4 -right-2">
+                      <WarningIconTooltip
+                        visible={idx in questionErrors}
+                        message={t(questionErrors[idx]?.message)}
+                        duration={3000}
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
