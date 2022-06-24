@@ -177,6 +177,7 @@ const ProductsContainer = styled.div`
     .options-contain {
       display: flex;
       grid-gap: 10px;
+      margin: 0 0 1rem 0;
 
       .options {
         .option {
