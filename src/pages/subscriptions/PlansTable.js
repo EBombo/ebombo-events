@@ -303,6 +303,7 @@ const TableContainer = styled.div`
     box-sizing: border-box;
     z-index: 99;
     border-radius: 13px 13px 0px 0px;
+    pointer-events:none;
   }
 
   .plan {
