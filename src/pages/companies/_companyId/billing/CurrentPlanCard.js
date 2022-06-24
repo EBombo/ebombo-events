@@ -4,7 +4,6 @@ import { ButtonAnt } from "../../../../components/form";
 import { StripeCustomerPortalLink } from "../../../../components/StripeCustomerPortalLink";
 
 export const CurrentPlanCard = (props) => {
-
   return (
     <PlanCardStyled className="relative">
       <div className="status-label">
