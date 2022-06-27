@@ -281,7 +281,7 @@ export const landingProducts = [
 
 export const plans = [
   {
-    name: "Gratis",
+    name: "Free",
     price: 0,
     users: 10,
     games: "all",

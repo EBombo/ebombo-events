@@ -50,7 +50,7 @@ export const Billing = (props) => {
   const onSelectedPlan = async (plan, price) => {
     try {
       if (plan.name.includes("Gratis")) return;
-      if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
+      if (plan.name.includes("Exclusivo")) return router.push(`/contact`);
 
       setIsLoadingCheckoutPlan(true);
       await sendToCheckout(authUser?.id, price?.id);

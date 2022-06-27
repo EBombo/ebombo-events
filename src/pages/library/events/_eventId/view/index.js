@@ -147,7 +147,10 @@ export const EventView = (props) => {
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
             {t("step-three.subtitle-one")}
           </div>
-          <div className="flex flex-col md:pr-[10px] md:h-[350px] md:overflow-auto md:overflow-x-hidden" key={eventGames.length}>
+          <div
+            className="flex flex-col md:pr-[10px] md:h-[350px] md:overflow-auto md:overflow-x-hidden"
+            key={eventGames.length}
+          >
             {eventGames.map((game) => (
               <div
                 className="bg-white rounded-[6px] grid items-center grid-cols-[auto_auto_60px] p-2 border-grayLighten border-[1px] w-[320px] my-2"

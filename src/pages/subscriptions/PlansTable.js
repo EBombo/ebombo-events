@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 import { getMonthlyPrice, getYearlyPrice } from "../../stripe";
-import { getCurrencySymbol } from "../../components/common/DataList";
+import { getCurrencySymbol, freePlan } from "../../components/common/DataList";
 import { config } from "../../firebase";
 import { Anchor, ButtonAnt, Switch } from "../../components/form";
 import { StripeCustomerPortalLink } from "../../components/StripeCustomerPortalLink";
@@ -11,15 +11,22 @@ import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { useStripePlans } from "../../hooks/useStripePlans";
 import { spinLoaderMin } from "../../components/common/loader";
 import { useTranslation } from "../../hooks";
+import { useRouter } from "next/router";
 
 const specsOrder = ["users", "games", "reporting", "progress_tracking", "players_identity"];
 
-const advancedPlan = "Avanzado";
+const EXCLUSIVE_PLAN_NAME = "Exclusive";
+const FREE_PLAN_NAME = freePlan.name;
+const YES_VALUE = "yes";
+const NO_VALUE = "no";
+const TRUE_VALUE = "true";
 
 export const PlansTable = (props) => {
+  const router = useRouter();
+
   const { plans, isLoadingPlans } = useStripePlans();
 
-  const { t } = useTranslation("components.plans-table");
+  const { t, locale } = useTranslation("components.plans-table");
 
   const [isMonthly_, setIsMonthly_] = useState(false);
 
@@ -48,11 +55,13 @@ export const PlansTable = (props) => {
   );
 
   const getYesNoIcon = (value) =>
-    value === "yes" ? <CheckOutlined style={{ color: darkTheme.basic.primary }} /> : <CloseOutlined />;
+    value === YES_VALUE ? <CheckOutlined style={{ color: darkTheme.basic.primary }} /> : <CloseOutlined />;
 
   const CallToActionContentSection = React.memo(
     ({ plan, index_ }) => {
       if (!props.showCallToActionSection) return <td />;
+
+      if (plan?.name?.includes(FREE_PLAN_NAME) || plan?.name?.includes(EXCLUSIVE_PLAN_NAME)) return <td />;
 
       if (hasPlan)
         return (
@@ -73,21 +82,18 @@ export const PlansTable = (props) => {
           </td>
         );
 
-      if (!plan?.name?.toLowerCase().includes("gratis") && !plan?.name?.toLowerCase().includes("exclusivo"))
-        return (
-          <td>
-            <ButtonAnt
-              loading={props.isLoadingCheckoutPlan}
-              onClick={() => {
-                props.onSelectedPlan?.(plan, isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan));
-              }}
-            >
-              {t("get-plan")}
-            </ButtonAnt>
-          </td>
-        );
-
-      return <td />;
+      return (
+        <td>
+          <ButtonAnt
+            loading={props.isLoadingCheckoutPlan}
+            onClick={() => {
+              props.onSelectedPlan?.(plan, isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan));
+            }}
+          >
+            {t("get-plan")}
+          </ButtonAnt>
+        </td>
+      );
     },
     [props.showCallToActionSection, hasPlan, planIndex]
   );
@@ -138,8 +144,13 @@ export const PlansTable = (props) => {
               <td>
                 <div className={`plan  text-center ${plan.name.toLowerCase()}`}>
                   <div className="name mb-4">{plan.name}</div>
-                  {plan.name === "Exclusivo" ? (
-                    <button className="btn-contact mb-4">
+                  {plan.name === EXCLUSIVE_PLAN_NAME ? (
+                    <button
+                      className="btn-contact mb-4"
+                      onClick={() => {
+                        router.push("/contact");
+                      }}
+                    >
                       {t("contact")}
                       <br />
                       {t("sales")}
@@ -158,13 +169,9 @@ export const PlansTable = (props) => {
 
                   <div className="divider" />
 
-                  <div
-                    className={`description mb-4 ${
-                      advancedPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""
-                    }`}
-                  >
-                    {plan.name === "Exclusivo" ? (
-                      <Anchor url="/#contact">
+                  <div className="description mb-4">
+                    {plan.name === EXCLUSIVE_PLAN_NAME ? (
+                      <Anchor url="/contact" key={locale}>
                         <span className="font-bold text-base text-black underline underline-offset-2">
                           {t(plan.description, plan.description)}
                         </span>
@@ -208,14 +215,14 @@ export const PlansTable = (props) => {
                       : {}
                   }
                 >
-                  {plan.metadata[keySpec] === "yes" || plan.metadata[keySpec] === "no"
+                  {plan.metadata[keySpec] === YES_VALUE || plan.metadata[keySpec] === NO_VALUE
                     ? getYesNoIcon(plan.metadata[keySpec])
                     : t(plan.metadata[keySpec], plan.metadata[keySpec])}
                 </td>
               ))}
 
-              {plan.metadata.recommended === "true" && <span className="selected" />}
-              {props.showMostPopularBadge && plan.metadata.recommended === "true" && (
+              {plan.metadata.recommended === TRUE_VALUE && <span className="selected" />}
+              {props.showMostPopularBadge && plan.metadata.recommended === TRUE_VALUE && (
                 <Star backgroundImg={`${config.storageUrl}/resources/plan-star.png`}>{t("most-popular")}</Star>
               )}
             </tr>
@@ -303,6 +310,7 @@ const TableContainer = styled.div`
     box-sizing: border-box;
     z-index: 99;
     border-radius: 13px 13px 0px 0px;
+    pointer-events: none;
   }
 
   .plan {
