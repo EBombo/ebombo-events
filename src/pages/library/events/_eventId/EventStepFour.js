@@ -117,7 +117,7 @@ export const EventStepFour = (props) => {
         .doc(newId)
         .set(
           {
-            name: `Juego ${adminGame.title} sin nombre`,
+            name: "Editar juego",
             deleted: false,
             user: authUser,
             usersIds: [authUser?.id],
@@ -167,15 +167,11 @@ export const EventStepFour = (props) => {
                 </div>
               </>
             )}
-          </div>
-          <div className="w-full overflow-auto">
-            <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
-              {t("step-two.name")}
+
+            <div className="text-blackDarken text-['Lato'] font-[700] text-[14px] leading-[16px] md:text-[16px] md:leading-[18px] my-2 md:my-4">
+              {t("step-four.email-label")}
             </div>
-            <div className="min-w-[500px]">
-              <Table columns={tableEventsColumns(t)} dataSource={props.members} className="rounded-[6px]" />
-            </div>
-            <div className="">
+            <div>
               <Switch
                 variant="switcher"
                 size="medium"
@@ -185,9 +181,17 @@ export const EventStepFour = (props) => {
                 defaultChecked={sendEmail}
                 onChange={(event) => {
                   event.preventDefault();
-                  setSendEmail((val) => !val);
+                  setSendEmail(!sendEmail);
                 }}
               />
+            </div>
+          </div>
+          <div className="w-full overflow-auto">
+            <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
+              {t("step-two.name")}
+            </div>
+            <div className="min-w-[500px]">
+              <Table columns={tableEventsColumns(t)} dataSource={props.members} className="rounded-[6px]" />
             </div>
           </div>
           <div className="flex flex-col md:h-[350px] md:overflow-auto md:overflow-x-hidden">

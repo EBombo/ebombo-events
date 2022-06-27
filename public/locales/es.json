@@ -610,10 +610,10 @@
         "member": "Miembro",
         "visitor": "Visitante",
         "admin": "Administrador",
-        "step-one": {
-          "releases": "Comunicados",
-          "create-release": "Create Release",
-          "edit": "Editar",
+        "releases": "Comunicados",
+        "create-release": "Crear comunicado",
+        "edit": "Editar",
+        "step-one": {  
           "name": "Básico",
           "title": "Detalles básicos",
           "event-title": "Título de tu evento",
@@ -652,7 +652,8 @@
           "title": "Título",
           "date": "Fecha",
           "link": "Link de la reunión",
-          "create": "Crear"
+          "create": "Crear",
+          "email-label": "Mandar correo a participantes"
         }
       },
       "bingo": {
