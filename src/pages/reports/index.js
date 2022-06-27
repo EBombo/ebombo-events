@@ -44,12 +44,10 @@ export const Reports = (props) => {
       firestoreGames
         .collection("lobbies")
         .where("isClosed", "==", true)
+        .where("deleted", "==", false)
+        .where("game.usersIds", "array-contains", authUser.id)
         .onSnapshot((lobbiesSnapshot) => {
           const _lobbies = snapshotToArray(lobbiesSnapshot);
-
-          const filterLobbies = _lobbies.filter(
-            (lobby) => defaultTo(lobby.game?.usersIds, []).includes(authUser.id) && !lobby.deleted
-          );
 
           setLobbies(orderBy(filterLobbies, ["createAt"], ["desc"]));
           setLoading(false);
