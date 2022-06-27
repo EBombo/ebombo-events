@@ -1,6 +1,6 @@
 import React, { useEffect, useGlobal, useState } from "reactn";
 import { DesktopLeftMenu } from "../../components/common/DesktopLeftMenu";
-import { Anchor, ButtonAnt, Input } from "../../components/form";
+import { Anchor, Input } from "../../components/form";
 import { Desktop } from "../../constants";
 import { useRouter } from "next/router";
 import moment from "moment";
@@ -14,7 +14,6 @@ import { spinLoader } from "../../components/common/loader";
 import { darkTheme } from "../../theme";
 import { Tooltip } from "antd";
 import { useTranslation } from "../../hooks";
-import { updateCollection } from "../../firebase/scripts";
 
 export const Reports = (props) => {
   const router = useRouter();
@@ -49,7 +48,7 @@ export const Reports = (props) => {
         .onSnapshot((lobbiesSnapshot) => {
           const _lobbies = snapshotToArray(lobbiesSnapshot);
 
-          setLobbies(orderBy(filterLobbies, ["createAt"], ["desc"]));
+          setLobbies(orderBy(_lobbies, ["createAt"], ["desc"]));
           setLoading(false);
         });
 
@@ -59,12 +58,6 @@ export const Reports = (props) => {
 
   const filterTable = (event) => {
     event.preventDefault();
-  };
-
-  const updateUsers = async () => {
-    setLoadingUpdate(true);
-    await updateCollection("users");
-    setLoadingUpdate(false);
   };
 
   const calculateDurationTime = (startAt, endAt) => {
@@ -99,13 +92,6 @@ export const Reports = (props) => {
 
       <div className="p-8">
         <div className="flex items-center justify-between">
-          {authUser?.isAdmin && (
-            <div>
-              <ButtonAnt loading={loadingUpdate} disabled={loadingUpdate} onClick={() => updateUsers()}>
-                Actualizar Usuarios
-              </ButtonAnt>
-            </div>
-          )}
           <div className="w-full max-w-[250px]">
             <Input type="search" placeholder="Search..." onChange={(e) => filterTable(e)} />
           </div>
