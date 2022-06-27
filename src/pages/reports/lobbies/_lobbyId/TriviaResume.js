@@ -112,7 +112,9 @@ export const TriviaResume = (props) => {
           <ButtonAnt
             onClick={async () => {
               setLoading(true);
-              await router.push(`/library/games/${props.lobby.game.id}/view?adminGameId=${props.lobby?.game?.adminGame?.id}`);
+              await router.push(
+                `/library/games/${props.lobby.game.id}/view?adminGameId=${props.lobby?.game?.adminGame?.id}`
+              );
               setLoading(false);
             }}
             loading={loading}

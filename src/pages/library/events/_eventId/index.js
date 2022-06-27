@@ -15,9 +15,7 @@ export const Event = (props) => {
 
   const [event, setEvent] = useState({});
 
-  const documentId = useMemo(() => {
-    return eventId === "new" ? firestore.collection("events").doc().id : eventId;
-  }, [props.event]);
+  const documentId = eventId === "new" ? firestore.collection("events").doc().id : eventId;
 
   useEffect(() => {
     if (eventId === "new") return;

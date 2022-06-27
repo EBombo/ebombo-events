@@ -56,7 +56,7 @@ export const Events = (props) => {
             key={event.id}
           >
             <Image
-              src={event.imageUrl ? event.imageUrl : `${config.storageUrl}/resources/default-background.svg`}
+              src={event.imageUrl ? event.imageUrl : `${config.storageUrl}/resources/event-default.svg`}
               width="100%"
               height="100%"
               size="cover"
