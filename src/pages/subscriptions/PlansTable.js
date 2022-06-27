@@ -11,12 +11,15 @@ import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { useStripePlans } from "../../hooks/useStripePlans";
 import { spinLoaderMin } from "../../components/common/loader";
 import { useTranslation } from "../../hooks";
+import { useRouter } from "next/router";
 
 const specsOrder = ["users", "games", "reporting", "progress_tracking", "players_identity"];
 
 const advancedPlan = "Avanzado";
 
 export const PlansTable = (props) => {
+  const router = useRouter();
+
   const { plans, isLoadingPlans } = useStripePlans();
 
   const { t } = useTranslation("components.plans-table");
@@ -139,7 +142,11 @@ export const PlansTable = (props) => {
                 <div className={`plan  text-center ${plan.name.toLowerCase()}`}>
                   <div className="name mb-4">{plan.name}</div>
                   {plan.name === "Exclusivo" ? (
-                    <button className="btn-contact mb-4">
+                    <button className="btn-contact mb-4" 
+                      onClick={() => {
+                        router.push("/contact");
+                      }}
+                    >
                       {t("contact")}
                       <br />
                       {t("sales")}
@@ -164,7 +171,7 @@ export const PlansTable = (props) => {
                     }`}
                   >
                     {plan.name === "Exclusivo" ? (
-                      <Anchor url="/#contact">
+                      <Anchor url="/contact">
                         <span className="font-bold text-base text-black underline underline-offset-2">
                           {t(plan.description, plan.description)}
                         </span>
