@@ -31,10 +31,10 @@ export const EventStepTwo = (props) => {
   });
 
   const deleteSelectedUsers = () => {
-    const selectedUsersIds = selectedUsers.map(user => user.id);
-    const newMembers = props.members.filter(member => !selectedUsersIds.includes(member.id));
+    const selectedUsersIds = selectedUsers.map((user) => user.id);
+    const newMembers = props.members.filter((member) => !selectedUsersIds.includes(member.id));
 
-    props.setMembers(newMembers)
+    props.setMembers(newMembers);
   };
 
   const rowSelection = {
@@ -52,7 +52,7 @@ export const EventStepTwo = (props) => {
     const _visitors = _filterVisitors.map((visitor) => {
       const newId = firestore.collection("companies").doc(authUser?.company.id).collection("members").doc().id;
 
-      return ({
+      return {
         email: visitor,
         role: "visitor",
         createAt: new Date(),
@@ -61,7 +61,7 @@ export const EventStepTwo = (props) => {
         searchName: [visitor.toUpperCase()],
         status: "Active",
         deleted: false,
-      })
+      };
     });
 
     await props.setMembers(props.members.concat(_visitors));
@@ -90,9 +90,9 @@ export const EventStepTwo = (props) => {
       newEmails.filter((email) => email !== "");
 
       const _visitors = newEmails.map((email) => {
-        const newId = firestore.collection("companies").doc(authUser?.company.id).collection("members").doc().id 
+        const newId = firestore.collection("companies").doc(authUser?.company.id).collection("members").doc().id;
 
-        return ({
+        return {
           email,
           role: "visitor",
           createAt: new Date(),
@@ -100,8 +100,8 @@ export const EventStepTwo = (props) => {
           searchName: [email.toUpperCase()],
           status: "Active",
           deleted: false,
-          key: newId
-        })
+          key: newId,
+        };
       });
 
       await props.setMembers(props.members.concat(_visitors));

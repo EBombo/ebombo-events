@@ -614,7 +614,7 @@
         "releases": "Comunicados",
         "create-release": "Crear comunicado",
         "edit": "Editar",
-        "step-one": {  
+        "step-one": {
           "name": "Básico",
           "title": "Detalles básicos",
           "event-title": "Título de tu evento",

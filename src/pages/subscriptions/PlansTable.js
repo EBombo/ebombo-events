@@ -145,7 +145,8 @@ export const PlansTable = (props) => {
                 <div className={`plan  text-center ${plan.name.toLowerCase()}`}>
                   <div className="name mb-4">{plan.name}</div>
                   {plan.name === EXCLUSIVE_PLAN_NAME ? (
-                    <button className="btn-contact mb-4" 
+                    <button
+                      className="btn-contact mb-4"
                       onClick={() => {
                         router.push("/contact");
                       }}
@@ -168,9 +169,7 @@ export const PlansTable = (props) => {
 
                   <div className="divider" />
 
-                  <div
-                    className="description mb-4"
-                  >
+                  <div className="description mb-4">
                     {plan.name === EXCLUSIVE_PLAN_NAME ? (
                       <Anchor url="/contact" key={locale}>
                         <span className="font-bold text-base text-black underline underline-offset-2">
@@ -311,7 +310,7 @@ const TableContainer = styled.div`
     box-sizing: border-box;
     z-index: 99;
     border-radius: 13px 13px 0px 0px;
-    pointer-events:none;
+    pointer-events: none;
   }
 
   .plan {
