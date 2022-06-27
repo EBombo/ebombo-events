@@ -15,6 +15,8 @@ import { useRouter } from "next/router";
 
 const specsOrder = ["users", "games", "reporting", "progress_tracking", "players_identity"];
 
+const EXCLUSIVE_PLAN_NAME = "Exclusivo";
+
 export const PlansTable = (props) => {
   const router = useRouter();
 
@@ -55,6 +57,8 @@ export const PlansTable = (props) => {
     ({ plan, index_ }) => {
       if (!props.showCallToActionSection) return <td />;
 
+      if (plan?.name?.toLowerCase().includes("gratis") || plan?.name?.includes(EXCLUSIVE_PLAN_NAME)) return <td />;
+
       if (hasPlan)
         return (
           <td>
@@ -74,21 +78,18 @@ export const PlansTable = (props) => {
           </td>
         );
 
-      if (!plan?.name?.toLowerCase().includes("gratis") && !plan?.name?.toLowerCase().includes("exclusivo"))
-        return (
-          <td>
-            <ButtonAnt
-              loading={props.isLoadingCheckoutPlan}
-              onClick={() => {
-                props.onSelectedPlan?.(plan, isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan));
-              }}
-            >
-              {t("get-plan")}
-            </ButtonAnt>
-          </td>
-        );
-
-      return <td />;
+      return (
+        <td>
+          <ButtonAnt
+            loading={props.isLoadingCheckoutPlan}
+            onClick={() => {
+              props.onSelectedPlan?.(plan, isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan));
+            }}
+          >
+            {t("get-plan")}
+          </ButtonAnt>
+        </td>
+      );
     },
     [props.showCallToActionSection, hasPlan, planIndex]
   );
@@ -139,7 +140,7 @@ export const PlansTable = (props) => {
               <td>
                 <div className={`plan  text-center ${plan.name.toLowerCase()}`}>
                   <div className="name mb-4">{plan.name}</div>
-                  {plan.name === "Exclusivo" ? (
+                  {plan.name === EXCLUSIVE_PLAN_NAME ? (
                     <button className="btn-contact mb-4" 
                       onClick={() => {
                         router.push("/contact");
@@ -166,7 +167,7 @@ export const PlansTable = (props) => {
                   <div
                     className="description mb-4"
                   >
-                    {plan.name === "Exclusivo" ? (
+                    {plan.name === EXCLUSIVE_PLAN_NAME? (
                       <Anchor url="/contact">
                         <span className="font-bold text-base text-black underline underline-offset-2">
                           {t(plan.description, plan.description)}
