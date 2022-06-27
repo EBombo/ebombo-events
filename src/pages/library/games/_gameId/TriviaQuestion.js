@@ -50,6 +50,7 @@ export const TriviaQuestion = (props) => {
     props.setQuestions(_questions);
   };
 
+  // TODO: Consider refactoring, the component is long.
   return (
     <>
       {props.questions[props.questionIndex]?.type === "quiz" && (
@@ -421,10 +422,29 @@ export const TriviaQuestion = (props) => {
           <div className="w-full flex flex-wrap gap-[10px]">
             {props.questions[props.questionIndex]?.answer.map((answer, idx) => (
               <div
-                className="bg-green px-4 py-2 text-['Lato'] text-white bold-[900] text-[22px] leading-[26px] rounded-[5px] flex items-center text-center"
+                className="bg-green px-4 py-2 text-['Lato'] text-white bold-[900] text-[22px] leading-[26px] rounded-[5px] flex items-center text-center relative"
                 key={`${answer}-${idx}`}
               >
                 {answer}
+                <div
+                  className="absolute w-[15px] h-[15px] top-[-7px] right-[-7px] cursor-pointer flex items-center justify-center"
+                  onClick={() => {
+                    const _questions = [...props.questions];
+                    _questions[props.questionIndex].answer = props.questions[props.questionIndex]?.answer.filter(
+                      (ans) => ans !== answer
+                    );
+                    props.setQuestions(_questions);
+                  }}
+                >
+                  <Image
+                    src={`${config.storageUrl}/resources/delete.svg`}
+                    width="15px"
+                    height="15px"
+                    size="contain"
+                    cursor="pointer"
+                    filter="brightness(0%)"
+                  />
+                </div>
               </div>
             ))}
           </div>

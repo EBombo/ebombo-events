@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useMemo, useRef, useState } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "./common/Image";
 import { Icon } from "./common/Icons";
@@ -11,12 +11,17 @@ import { Layout } from "./common/Layout";
 import { SharpButton } from "./common/SharpButton";
 import { Footer } from "./Footer";
 import { useTranslation } from "../hooks";
-import { Popover } from "antd";
+import { Collapse, Popover } from "antd";
+
+const { Panel } = Collapse;
 
 const useCaseMenu = [
   { url: "/team-building", label: "nav.use-case.team-building" },
   { url: "/on-boarding", label: "nav.use-case.on-boarding" },
   { url: "/corporate-events", label: "nav.use-case.corporate-events" },
+  { url: "/kick-off", label: "nav.use-case.kick-off" },
+  { url: "/meetings", label: "nav.use-case.meetings" },
+  { url: "/holidays-parties", label: "nav.use-case.holidays-parties" },
 ];
 
 const featuresMenu = [
@@ -26,11 +31,10 @@ const featuresMenu = [
 
 export const Navbar = (props) => {
   const router = useRouter();
-  const inputRef = useRef(null);
 
   const { signOut } = useAuth();
 
-  const { t, locale, locales, setLocale } = useTranslation();
+  const { t, locale, SwitchTranslation } = useTranslation();
 
   const [authUser] = useGlobal("user");
 
@@ -124,24 +128,7 @@ export const Navbar = (props) => {
             </Desktop>
           </div>
 
-          <Desktop>
-            <StyledSwitch className="switch" onClick={() => inputRef.current.click()}>
-              <input
-                ref={inputRef}
-                id="language-toggle"
-                className="check-toggle check-toggle-round-flat"
-                type="checkbox"
-                checked={locale === locales[1] ? true : false}
-                onChange={(event) => {
-                  event.preventDefault();
-                  setLocale(event.target.checked ? locales[1] : locales[0]);
-                }}
-              />
-              <label htmlFor="language-toggle" />
-              <span className="on">EN</span>
-              <span className="off">ES</span>
-            </StyledSwitch>
-          </Desktop>
+          <SwitchTranslation />
 
           <Desktop>
             <div className="flex items-center justify-end gap-[18px]">
@@ -171,75 +158,80 @@ export const Navbar = (props) => {
           </Desktop>
 
           <Tablet>
-            <ul className={`nav-menu ${active ? "active" : ""}`}>
+            <ul className={`nav-menu no-scrollbar ${active ? "active" : ""}`}>
               {isEventPage ? null : (
                 <>
-                  {featuresMenu.map((menuItem, i) => (
-                    <li
-                      className="nav-item"
-                      key={`features-menu-${i}`}
-                      onClick={() => {
-                        router.push(menuItem.url);
-                        setActive(false);
-                      }}
+                  <Collapse bordered={false} defaultActiveKey={["1"]}>
+                    <Panel
+                      className="text-blackDarken font-[800] text-[16px] leading-[24px]"
+                      header={t("nav.features.title")}
+                      key="1"
                     >
-                      {t(menuItem.label)}
-                    </li>
-                  ))}
+                      <div className="flex flex-col items-start gap-4">
+                        {featuresMenu.map((menuItem, i) => (
+                          <div
+                            className="ml-[24px]"
+                            key={`features-menu-${i}`}
+                            onClick={() => {
+                              router.push(menuItem.url);
+                              setActive(false);
+                            }}
+                          >
+                            {t(menuItem.label)}
+                          </div>
+                        ))}
+                      </div>
+                    </Panel>
+                    <Panel
+                      className="text-blackDarken font-[800] text-[16px] leading-[24px]"
+                      header={t("nav.use-case.title")}
+                      key="2"
+                    >
+                      <div className="flex flex-col items-start gap-4">
+                        {useCaseMenu.map((menuItem, i) => (
+                          <div
+                            className="ml-[24px]"
+                            key={`use-cases-menu-${i}`}
+                            onClick={() => {
+                              router.push(menuItem.url);
+                              setActive(false);
+                            }}
+                          >
+                            {t(menuItem.label)}
+                          </div>
+                        ))}
+                      </div>
+                    </Panel>
+                  </Collapse>
 
-                  {useCaseMenu.map((menuItem, i) => (
-                    <li
-                      className="nav-item"
-                      key={`use-cases-menu-${i}`}
-                      onClick={() => {
-                        router.push(menuItem.url);
-                        setActive(false);
-                      }}
-                    >
-                      {t(menuItem.label)}
-                    </li>
-                  ))}
                   {!authUser && (
-                    <li
-                      className="nav-item"
+                    <div
+                      className="text-blackDarken font-[800] text-[16px] leading-[24px] ml-[24px] px-[16px] py-[12px] leading-[1.57rem] cursor-pointer flex flex-start"
                       onClick={() => {
                         router.push("/contact");
                         setActive(false);
                       }}
                     >
                       {t("nav.contact")}
-                    </li>
+                    </div>
                   )}
                 </>
               )}
 
-              <li className="nav-item">
-                <StyledSwitch className="switch" onClick={() => inputRef.current.click()}>
-                  <input
-                    ref={inputRef}
-                    id="language-toggle"
-                    className="check-toggle check-toggle-round-flat"
-                    type="checkbox"
-                    checked={locale === locales[1] ? true : false}
-                    onChange={(event) => {
-                      event.preventDefault();
-                      setLocale(event.target.checked ? locales[1] : locales[0]);
-                    }}
-                  />
-                  <label htmlFor="language-toggle" />
-                  <span className="on">EN</span>
-                  <span className="off">ES</span>
-                </StyledSwitch>
-              </li>
-
               {!authUser ? (
                 <>
-                  <li className="nav-item" onClick={() => router.push("/login")}>
+                  <li
+                    className="text-blackDarken font-[800] text-[16px] leading-[24px] ml-[24px] px-[16px] py-[12px] leading-[1.57rem] cursor-pointer flex flex-start"
+                    onClick={() => router.push("/login")}
+                  >
                     {t("nav.login")}
                   </li>
                 </>
               ) : (
-                <li className="nav-item" onClick={() => signOut()}>
+                <li
+                  className="text-blackDarken font-[800] text-[16px] leading-[24px] ml-[24px] px-[16px] py-[12px] leading-[1.57rem] cursor-pointer flex flex-start"
+                  onClick={() => signOut()}
+                >
                   {t("nav.logout")}
                 </li>
               )}
@@ -329,45 +321,22 @@ const NavContainer = styled.div`
     z-index: 999;
     left: -100%;
     top: 100px;
+    height: calc(100vh - 100px);
     flex-direction: column;
     background-color: ${(props) => props.theme.basic.whiteLight};
     width: 100%;
     text-align: center;
     transition: 0.3s;
     box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    overflow: auto;
 
-    li {
-      cursor: pointer;
+    .ant-collapse-item {
+      border-bottom: 0 !important;
     }
   }
 
   .nav-menu.active {
     left: 0;
-  }
-
-  .games-item {
-    padding: 1rem 0;
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    color: ${(props) => props.theme.basic.blackDarken};
-  }
-
-  .last {
-    border-bottom: 1px solid ${(props) => props.theme.basic.whiteDarken};
-  }
-
-  .nav-item {
-    padding: 1.5rem 0;
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-    color: ${(props) => props.theme.basic.secondary};
-    border-bottom: 1px solid ${(props) => props.theme.basic.whiteDarken};
   }
 
   .hamburger {
@@ -377,102 +346,6 @@ const NavContainer = styled.div`
 
   ${mediaQuery.afterTablet} {
     display: grid;
-    grid-template-columns: 70% 5% 25%;
-  }
-`;
-
-const StyledSwitch = styled.div`
-  position: relative;
-  display: inline-block;
-  width: 50px;
-
-  .on,
-  .off {
-    position: absolute;
-    top: 5px;
-    pointer-events: none;
-    font-family: Lato;
-    font-weight: bold;
-    font-size: 12px;
-    text-transform: uppercase;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
-    width: 50%;
-    text-align: center;
-  }
-
-  .check-toggle-round-flat:checked ~ {
-    .off {
-      color: ${(props) => props.theme.basic.primary};
-    }
-
-    .on {
-      color: ${(props) => props.theme.basic.white};
-    }
-  }
-
-  .on {
-    left: 0;
-    padding-left: 2px;
-    color: ${(props) => props.theme.basic.primary};
-  }
-
-  .off {
-    right: 0;
-    padding-right: 4px;
-    color: ${(props) => props.theme.basic.white};
-  }
-
-  .check-toggle {
-    position: absolute;
-    margin-left: -9999px;
-    visibility: hidden;
-  }
-
-  .check-toggle + label {
-    display: block;
-    position: relative;
-    cursor: pointer;
-    outline: none;
-  }
-
-  .check-toggle-round-flat + label {
-    padding: 2px;
-    width: 50px;
-    height: 25px;
-    background-color: ${(props) => props.theme.basic.primary};
-    border-radius: 60px;
-
-    ::before,
-    ::after {
-      display: block;
-      position: absolute;
-      content: "";
-    }
-
-    ::before {
-      top: 2px;
-      left: 2px;
-      bottom: 2px;
-      right: 2px;
-      background-color: ${(props) => props.theme.basic.primary};
-      border-radius: 60px;
-    }
-
-    ::after {
-      top: 2px;
-      left: 2px;
-      bottom: 2px;
-      width: 25px;
-      background-color: ${(props) => props.theme.basic.white};
-      border-radius: 52px;
-    }
-  }
-
-  .check-toggle-round-flat:checked + label:after {
-    margin-right: 20px;
-  }
-
-  .check-toggle-round-flat:checked + label:after {
-    margin-left: 20px;
+    grid-template-columns: 60% 55px calc(40% - 55px);
   }
 `;

@@ -4,6 +4,8 @@ import { TimePicker } from "antd";
 import { ButtonAnt, DatePicker, Input } from "../../../../components/form";
 import moment from "moment";
 import { useTranslation } from "../../../../hooks";
+import { config } from "../../../../firebase";
+import isEmpty from "lodash/isEmpty";
 
 export const EventStepOne = (props) => {
   const [name, setName] = useState("");
@@ -38,7 +40,13 @@ export const EventStepOne = (props) => {
 
     const _event = props.event;
 
-    props.setEvent({ ..._event, imageUrl, currentDate, name, link });
+    props.setEvent({
+      ..._event,
+      imageUrl: isEmpty(imageUrl) ? `${config.storageUrl}/resources/default-background.svg` : imageUrl,
+      currentDate,
+      name,
+      link,
+    });
 
     props.setCurrentStep(2);
   };

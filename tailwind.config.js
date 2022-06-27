@@ -50,8 +50,23 @@ module.exports = {
         "gradient-black-to-secondary": "linear-gradient(270deg, #1D1138 0%, #331E6D 31.25%, #1E1239 100%)",
       }),
       boxShadow: {
-        'sharp': '-5px 3px 0px 1px #382079',
-        'sharp-sm': '-2px 2px 0px 1px #382079',
+        sharp: "-5px 3px 0px 1px #382079",
+        "sharp-sm": "-2px 2px 0px 1px #382079",
+      },
+      keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        "bounce-in": {
+          "0%": { transform: "scale(0)" },
+          "75%": { transform: "scale(1.2)" },
+          "100%": { transform: "scale(1)" },
+        },
+      },
+      animation: {
+        "fade-in": "fade-in .2s ease-in forwards",
+        "bounce-in": "bounce-in .2s ease-in forwards",
       },
     },
   },

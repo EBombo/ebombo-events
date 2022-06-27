@@ -1,5 +1,5 @@
 import get from "lodash/get";
-import { useCallback } from "reactn";
+import { useCallback, useRef } from "reactn";
 import { useRouter } from "next/router";
 import en from "../../public/locales/en.json";
 import es from "../../public/locales/es.json";
@@ -9,6 +9,7 @@ import eventsEn from "../../public/locales/en/pages/events.json";
 import eventsEs from "../../public/locales/es/pages/events.json";
 import drawerEn from "../../public/locales/en/drawer.json";
 import drawerEs from "../../public/locales/es/drawer.json";
+import { Switch } from "../components/form";
 
 // TODO: Consider chunk the json files.
 const TRANSLATIONS = {
@@ -19,6 +20,9 @@ const TRANSLATIONS = {
 // TODO: Support capitalize.
 export const useTranslation = (path) => {
   const router = useRouter();
+
+  const inputRef = useRef(null);
+
   const { locale, asPath } = router;
 
   // Current languages.
@@ -44,7 +48,24 @@ export const useTranslation = (path) => {
     [TRANSLATIONS, locale, path]
   );
 
-  return { t, locales, locale, setLocale };
+  const SwitchTranslation = useCallback(
+    () => (
+      <Switch
+        size="small"
+        variant="switcher"
+        label1="En"
+        label2="Es"
+        defaultChecked={locale === locales[1]}
+        onChange={(event) => {
+          event.preventDefault();
+          setLocale(event.target.checked ? locales[1] : locales[0]);
+        }}
+      />
+    ),
+    [locale]
+  );
+
+  return { t, locales, locale, setLocale, SwitchTranslation };
 };
 
 // References:

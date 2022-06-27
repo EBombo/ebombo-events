@@ -2,12 +2,13 @@ import React, { useEffect, useGlobal } from "reactn";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
-import { ButtonAnt } from "../../components/form";
 import { SharpButton } from "../../components/common/SharpButton";
 import { LandingGames, OnBoardingLiterals } from "../../components/common/DataList";
 import { Carousel } from "../../components/common/Carousel";
 import { Image as ImageV2 } from "ebombo-components";
 import { useTranslation } from "../../hooks";
+import { EbomboMessage } from "../../components/EbomboMessage";
+import { Anchor } from "../../components/form";
 
 export const OnBoarding = (props) => {
   const router = useRouter();
@@ -48,9 +49,26 @@ export const OnBoarding = (props) => {
               {t("landing.on-boarding.intro-title")}
             </h2>
             <p className="text-secondary text-base md:text-xl mb-8">{t("landing.on-boarding.intro-description")}</p>
-            <div className="hidden lg:inline-grid lg:grid-cols-[min-content_min-content] gap-8">
-              <SharpButton prefixIcon="wink" className="min-w-[180px]" onClick={() => createEvent()}>
-                <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
+
+            <div className="hidden lg:inline-grid md:grid-cols-[min-content_min-content] gap-8">
+              <SharpButton
+                prefixIcon="wink"
+                className="min-w-[180px]"
+                onClick={() => {
+                  const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
+                  router.push(url);
+                }}
+              >
+                <span className="text-lg font-bold align-middle">
+                  <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
+                </span>
+              </SharpButton>
+              <SharpButton color="primary" prefixIcon="satisfied" className="min-w-[180px]">
+                <Anchor url="/contact">
+                  <span className="text-lg font-bold text-white align-middle">
+                    {t("landing.team-building.contact-button-label")}
+                  </span>
+                </Anchor>
               </SharpButton>
             </div>
           </div>
@@ -66,8 +84,23 @@ export const OnBoarding = (props) => {
           </div>
 
           <div className="lg:hidden inline-flex flex-wrap gap-4 py-8">
-            <SharpButton prefixIcon="wink" className="min-w-[180px]" onClick={() => createEvent()}>
-              <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
+            <SharpButton
+              prefixIcon="wink"
+              onClick={() => {
+                const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
+                router.push(url);
+              }}
+            >
+              <span className="text-lg font-bold align-middle">
+                <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
+              </span>
+            </SharpButton>
+            <SharpButton color="primary" prefixIcon="satisfied">
+              <Anchor url="/contact">
+                <span className="text-lg font-bold text-white align-middle">
+                  {t("landing.team-building.contact-button-label")}
+                </span>
+              </Anchor>
             </SharpButton>
           </div>
         </div>
@@ -161,25 +194,7 @@ export const OnBoarding = (props) => {
         </div>
       </section>
 
-      <section className="bg-gradient-black-to-secondary">
-        <div className="max-w-[1500px] mx-auto py-8 px-8">
-          <div className="text-white font-bold text-3xl md:text-7xl">
-            {t("landing.on-boarding.virtual-event-you-love.title")}
-          </div>
-          <div className="py-8">
-            <ButtonAnt
-              size="big"
-              color="success"
-              onClick={() => {
-                const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
-                router.push(url);
-              }}
-            >
-              <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
-            </ButtonAnt>
-          </div>
-        </div>
-      </section>
+      <EbomboMessage {...props} />
     </div>
   );
 };

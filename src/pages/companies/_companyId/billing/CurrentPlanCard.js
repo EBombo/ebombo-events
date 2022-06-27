@@ -1,57 +1,11 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 import { ButtonAnt } from "../../../../components/form";
-import { ModalContainer } from "../../../../components/common/ModalContainer";
-import { darkTheme } from "../../../../theme";
-import { sendToCheckout } from "../../../../stripe";
-import { SubscriptionPlans } from "./../../../../components/SubscriptionPlans";
-import { useSendError } from "../../../../hooks";
+import { StripeCustomerPortalLink } from "../../../../components/StripeCustomerPortalLink";
 
 export const CurrentPlanCard = (props) => {
-  const router = useRouter();
-
-  const { sendError } = useSendError();
-
-  const [authUser] = useGlobal("user");
-
-  const [isVisibleSeePlans, setIsVisibleSeePlans] = useState(false);
-  const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
-  const [isMonthly, setIsMonthly] = useState(false);
-
   return (
-    <PlanCardStyled>
-      <ModalContainer
-        background={darkTheme.basic.gray}
-        footer={null}
-        visible={isVisibleSeePlans}
-        closable={true}
-        onCancel={() => setIsVisibleSeePlans(false)}
-        width="100%"
-      >
-        <SubscriptionPlans
-          title="Conoce nuestros planes"
-          isLoadingCheckoutPlan={isLoadingCheckoutPlan}
-          setIsLoadingCheckoutPlan={setIsLoadingCheckoutPlan}
-          isMonthly={isMonthly}
-          setIsMonthly={setIsMonthly}
-          onSelectedPlan={async (plan, price) => {
-            try {
-              if (plan.name.includes("Gratis")) return;
-              if (plan.name.includes("Exclusivo")) return router.push(`/#contact`);
-
-              setIsLoadingCheckoutPlan(true);
-              await sendToCheckout(authUser?.id, price?.id);
-            } catch (err) {
-              props.showNotification("Error", err?.message, "error");
-              setIsLoadingCheckoutPlan(false);
-              sendError(err);
-            }
-          }}
-          {...props}
-        />
-      </ModalContainer>
-
+    <PlanCardStyled className="relative">
       <div className="status-label">
         <span className="dot">&bull; </span>
         {props.subscription?.status ?? "Free"}
@@ -59,7 +13,7 @@ export const CurrentPlanCard = (props) => {
       <div className="subheading">Plan Actual</div>
       <div className="heading">{props.activePlan ? props.activePlan.name : "Free"}</div>
 
-      {(!props.activePlan || props.subscription?.canceled_at) && (
+      {!props.activePlan || props.subscription?.canceled_at ? (
         <>
           <div className="no-plan-label">¿Aún no tienes un plan?</div>
           <ButtonAnt
@@ -67,12 +21,19 @@ export const CurrentPlanCard = (props) => {
             color="secondary"
             className="button-see-plans"
             onClick={() => {
-              setIsVisibleSeePlans(true);
+              props.setIsSubscriptionStatusView?.(true);
             }}
           >
             Ver planes
           </ButtonAnt>
         </>
+      ) : (
+        <StripeCustomerPortalLink
+          anchorWrapperClassName="absolute bottom-0 left-0 right-0 py-2 px-4 rounded-b-lg bg-secondary text-white"
+          anchorClassName="text-white underline"
+        >
+          Cambiar los detalles de pago
+        </StripeCustomerPortalLink>
       )}
     </PlanCardStyled>
   );
@@ -81,7 +42,7 @@ export const CurrentPlanCard = (props) => {
 const PlanCardStyled = styled.div`
   background: ${(props) => props.theme.basic.primary};
   border-radius: 5px;
-  padding: 1rem;
+  padding: 1rem 1rem 3rem 1rem;
   margin: 1rem 0;
 
   .status-label {

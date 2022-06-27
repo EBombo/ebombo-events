@@ -109,6 +109,13 @@ export const questionTypes = {
   shortAnswer: "Respuesta corta",
 };
 
+//TODO: Consider refactor type names on firestore so it is easy to get its locales.
+export const questionTypesToLiterals = {
+  quiz: "quiz",
+  trueFalse: "true-false",
+  shortAnswer: "short-answer",
+};
+
 export const triviaQuestionsOptions = [
   {
     key: "uniq",
@@ -238,7 +245,7 @@ export const landingProducts = [
     tab: "ways-to-interact",
     content: [
       {
-        title: "Formas de interactuar",
+        title: "ways-to-interact",
         options: [
           "Happy Hours",
           "Ice breakers",
@@ -277,7 +284,7 @@ export const plans = [
     name: "Gratis",
     price: 0,
     users: 10,
-    games: 1,
+    games: "all",
     color: "#956DFC",
     background: "#956DFC",
     description: "Free",
@@ -320,7 +327,7 @@ export const plans = [
     games: "Todos",
     color: "#D2A137",
     background: "linear-gradient(90.24deg, #D2A137 -3.57%, #EECA5A 23.9%, #D2A137 99.85%)",
-    description: "Contacta al área de ventas",
+    description: "contact-sales-department",
     specs: ["501+", <CheckOutlined />, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />],
   },
 ];
@@ -564,6 +571,12 @@ export const menus = [
     url: "/admin/audios",
     isAdmin: true,
     src: `${config.storageUrl}/resources/footer/audio-icon.svg`,
+  },
+  {
+    name: "Lista de contactos",
+    url: "/admin/contacts",
+    isAdmin: true,
+    src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
 ];
 
@@ -1245,6 +1258,31 @@ export const OnBoardingLiterals = {
         placeholder: `${config.storageUrl}/resources/ON-BOARDING-3_12x12.webp`,
         title: "landing.on-boarding.virtual-events.items-3.title",
         description: "landing.on-boarding.virtual-events.items-3.description",
+      },
+    ],
+  },
+};
+
+export const kickOffLiterals = {
+  virtualEvents: {
+    items: [
+      {
+        img: `${config.storageUrl}/resources/KICK-OFF-1.jpg`,
+        placeholder: `${config.storageUrl}/resources/KICK-OFF-1_12x12.webp`,
+        title: "landing.kick-off.virtual-events.items-1.title",
+        description: "landing.kick-off.virtual-events.items-1.description",
+      },
+      {
+        img: `${config.storageUrl}/resources/KICK-OFF-2.jpg`,
+        placeholder: `${config.storageUrl}/resources/KICK-OFF-2_12x12.webp`,
+        title: "landing.kick-off.virtual-events.items-2.title",
+        description: "landing.kick-off.virtual-events.items-2.description",
+      },
+      {
+        img: `${config.storageUrl}/resources/KICK-OFF-3.jpg`,
+        placeholder: `${config.storageUrl}/resources/KICK-OFF-3_12x12.webp`,
+        title: "landing.kick-off.virtual-events.items-3.title",
+        description: "landing.kick-off.virtual-events.items-3.description",
       },
     ],
   },

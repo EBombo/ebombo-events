@@ -102,7 +102,14 @@ export const EditCompany = (props) => {
 
             <div className="flex-container">
               <div className="label">Identicación del jugador</div>
-              <Switch checked={userIdentification} onChange={() => setUserIdentification(!userIdentification)} />
+              <Switch
+                size="medium"
+                checked={userIdentification}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setUserIdentification(!userIdentification);
+                }}
+              />
             </div>
 
             <div className="description padding-bottom">

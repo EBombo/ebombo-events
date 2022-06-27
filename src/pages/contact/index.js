@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import { config } from "../../firebase";
 import { Input, TextArea } from "../../components/form";
 import { Image } from "ebombo-components";
@@ -16,6 +16,8 @@ export const ContactForm = (props) => {
   const { sendError } = useSendError();
 
   const { t } = useTranslation("pages.contact-us");
+
+  const [isBdev] = useGlobal("isBdev");
 
   const [loadingSendingEmail, setLoadingSendingEmail] = useState(false);
   const [currentInterests, setCurrentInterests] = useState([]);
@@ -39,6 +41,7 @@ export const ContactForm = (props) => {
     try {
       const { error } = await Fetch(`${config.serverUrl}/api/contact`, "POST", {
         ...data,
+        isBdev,
         interests: currentInterests,
       });
 

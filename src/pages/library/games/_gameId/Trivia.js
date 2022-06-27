@@ -7,6 +7,7 @@ import { Image } from "../../../../components/common/Image";
 import { config, firestore, firestoreTrivia } from "../../../../firebase";
 import {
   questionTypes,
+  questionTypesToLiterals,
   triviaQuestionsOptions,
   triviaQuestionsTimes,
   triviaQuestionsTypes,
@@ -22,6 +23,7 @@ import { spinLoader } from "../../../../components/common/loader";
 import orderBy from "lodash/orderBy";
 import { LeftOutlined } from "@ant-design/icons";
 import { useTranslation } from "../../../../hooks";
+import { WarningIconTooltip } from "./WarningIconTooltip";
 
 export const Trivia = (props) => {
   const router = useRouter();
@@ -48,6 +50,7 @@ export const Trivia = (props) => {
   const [visibility, setVisibility] = useState(props.game ? props.game.visibility : true);
   const [audio, setAudio] = useState(props.game ? props.game.audio : null);
   const [loading, setLoading] = useState(false);
+  const [questionErrors, setQuestionErrors] = useState({});
 
   useEffect(() => {
     if (!props.game) return;
@@ -94,6 +97,8 @@ export const Trivia = (props) => {
   };
 
   const saveGame = async (data) => {
+    setQuestionErrors({});
+
     const _game = {
       ...data,
       id: newId,
@@ -115,7 +120,10 @@ export const Trivia = (props) => {
       if (question.type === "trueFalse") valid = validateTrueFalse(question);
       if (question.type === "shortAnswer") valid = validateShortAnswer(question);
 
-      if (!valid) break;
+      if (!valid) {
+        setQuestionErrors({ [i]: { message: "error-incomplete-form-question" } });
+        break;
+      }
     }
 
     if (!valid) return props.showNotification("ERROR", "Verificar que todas las preguntas esten completas.", "error");
@@ -213,6 +221,7 @@ export const Trivia = (props) => {
             {t("cancel")}
           </ButtonAnt>
         </div>
+
         <div className="w-full h-[calc(100vh-50px)] overflow-auto grid md:grid-cols-[180px_auto_260px] shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
           <div className="w-full h-[115px] md:h-full overflow-auto grid md:grid-rows-[auto_100px] bg-white">
             <div className="w-full h-[full] flex items-center md:items-start md:flex-col overflow-auto">
@@ -224,9 +233,9 @@ export const Trivia = (props) => {
                   onClick={() => setQuestionIndex(idx)}
                   key={question.id}
                 >
-                  <div>
+                  <div className="relative">
                     <div className="text-['Lato'] font-bold text-[12px] leading-[14px] text-grayLight mb-[5px]">
-                      {idx + 1}. {questionTypes[question.type]}
+                      {idx + 1}. {t(questionTypesToLiterals[question.type])}
                     </div>
                     <Image
                       src={question.imageUrl ?? `${config.storageUrl}/resources/question-${question?.type}.svg`}
@@ -236,6 +245,13 @@ export const Trivia = (props) => {
                       desktopHeight="75px"
                       desktopWidth="128px"
                     />
+                    <div className="absolute top-2/4 -right-2">
+                      <WarningIconTooltip
+                        visible={idx in questionErrors}
+                        message={t(questionErrors[idx]?.message)}
+                        duration={3000}
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
@@ -289,13 +305,14 @@ export const Trivia = (props) => {
                 setQuestions(_questions);
               }}
             />
+
             <div className="mx-auto my-4 max-w-[786px]" key={questions[questionIndex]?.fileUrl ?? ""}>
               <FileUpload
                 file={questions[questionIndex]?.fileUrl ?? null}
                 fileName="questionImage"
                 filePath={`questions/${questions[questionIndex]?.id}`}
                 preview={true}
-                sizes="250x250"
+                sizes="550x550"
                 width="100%"
                 height="131px"
                 desktopHeight="260px"
@@ -419,7 +436,7 @@ export const Trivia = (props) => {
                   </ButtonAnt>
                 </Tablet>
                 <ButtonAnt color="default" onClick={() => deleteQuestion()}>
-                  Borrar
+                  {t("delete")}
                 </ButtonAnt>
               </div>
             </div>

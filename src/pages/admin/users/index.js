@@ -42,7 +42,7 @@ export const AdminUsers = () => {
   return (
     <AdminUsersCss>
       <div className="container">
-        <div className="title">lista de usuarios</div>
+        <div className="title">Lista de usuarios</div>
         <div className="body">
           <Input
             label="Buscar usuario"
@@ -51,8 +51,8 @@ export const AdminUsers = () => {
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Buscar por nombre, email, tlf"
           />
-          <Anchor onClick={() => findUser()} variant="primary">
-            Buscar
+          <Anchor onClick={() => findUser()} variant="primary" margin="15px auto" display="block">
+            BUSCAR
           </Anchor>
         </div>
         <div className="list">
@@ -71,6 +71,7 @@ export const AdminUsers = () => {
                     Verificado: {user.isVerified ? "SI" : "NO"}
                     <br />
                     <div className="create-at">{moment(user.createAt.toDate()).format("LLLL")}</div>
+                    {user.isBdev ? <div className="is-bdev">Registrado por BDEV</div> : null}
                   </div>
                   <div className="options">
                     <Anchor variant="primary" url={`/admin/users/${user.id}/acls`}>
@@ -136,6 +137,16 @@ const AdminUsersCss = styled.div`
             color: ${(props) => props.theme.basic.primary};
             cursor: pointer;
           }
+        }
+
+        .is-bdev {
+          margin: 5px;
+          padding: 8px;
+          font-size: 10px;
+          width: max-content;
+          border-radius: 5px;
+          color: ${(props) => props.theme.basic.white};
+          background: ${(props) => props.theme.basic.primary};
         }
       }
 

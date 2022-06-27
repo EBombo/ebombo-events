@@ -1,50 +1,136 @@
-import React, { useState } from "reactn";
+import React, { useState, useMemo } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 import { getMonthlyPrice, getYearlyPrice } from "../../stripe";
 import { getCurrencySymbol } from "../../components/common/DataList";
 import { config } from "../../firebase";
-import { Anchor } from "../../components/form";
+import { Anchor, ButtonAnt, Switch } from "../../components/form";
+import { StripeCustomerPortalLink } from "../../components/StripeCustomerPortalLink";
 import { darkTheme } from "../../theme";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { useStripePlans } from "../../hooks/useStripePlans";
+import { spinLoaderMin } from "../../components/common/loader";
+import { useTranslation } from "../../hooks";
 
-const specsOrder = ["users", "live_chat", "reporting", "progress_tracking", "players_identity"];
+const specsOrder = ["users", "games", "reporting", "progress_tracking", "players_identity"];
+
+const advancedPlan = "Avanzado";
 
 export const PlansTable = (props) => {
-  const [currentPlan] = useState("Avanzado");
+  const { plans, isLoadingPlans } = useStripePlans();
 
-  const { plans } = useStripePlans();
+  const { t } = useTranslation("components.plans-table");
+
+  const [isMonthly_, setIsMonthly_] = useState(false);
+
+  const isMonthly = useMemo(() => props?.isMonthly ?? isMonthly_, [props.isMonthly, isMonthly_]);
+
+  const setIsMonthly = () => {
+    (props.setIsMonthly ?? setIsMonthly_)?.(!isMonthly);
+  };
+
+  const hasPlan = useMemo(() => !!props.currentPlan, [props.currentPlan]);
+
+  const planIndex = useMemo(
+    () => plans.findIndex((plan) => plan.name === props.currentPlan?.name),
+    [props.currentPlan, plans]
+  );
 
   const anualPhrase = (price) => (
     <p>
-      por admin al año (<span className="whitespace-nowrap">{price}</span> mensualmente)
+      {t("per-admin-anually")} (<span className="whitespace-nowrap">{price}</span> {t("monthly")})
     </p>
   );
   const monthlyPhrase = (price) => (
     <p>
-      por admin al mes (<span className="whitespace-nowrap">{price}</span> anualmente)
+      {t("per-admin-monthly")} (<span className="whitespace-nowrap">{price}</span> {t("annual")})
     </p>
   );
 
   const getYesNoIcon = (value) =>
     value === "yes" ? <CheckOutlined style={{ color: darkTheme.basic.primary }} /> : <CloseOutlined />;
 
+  const CallToActionContentSection = React.memo(
+    ({ plan, index_ }) => {
+      if (!props.showCallToActionSection) return <td />;
+
+      if (hasPlan)
+        return (
+          <td>
+            <StripeCustomerPortalLink>
+              {planIndex > index_ ? (
+                <ButtonAnt variant="outlined" color="dark">
+                  {t("downgrade-plan")}
+                </ButtonAnt>
+              ) : planIndex === index_ ? (
+                <ButtonAnt variant="outlined" color="dark">
+                  {t("cancel-plan")}
+                </ButtonAnt>
+              ) : (
+                <ButtonAnt>{t("upgrade-plan")}</ButtonAnt>
+              )}
+            </StripeCustomerPortalLink>
+          </td>
+        );
+
+      if (!plan?.name?.toLowerCase().includes("gratis") && !plan?.name?.toLowerCase().includes("exclusivo"))
+        return (
+          <td>
+            <ButtonAnt
+              loading={props.isLoadingCheckoutPlan}
+              onClick={() => {
+                props.onSelectedPlan?.(plan, isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan));
+              }}
+            >
+              {t("get-plan")}
+            </ButtonAnt>
+          </td>
+        );
+
+      return <td />;
+    },
+    [props.showCallToActionSection, hasPlan, planIndex]
+  );
+
+  if (isLoadingPlans) return <div className="bg-white">{spinLoaderMin()}</div>;
+
   return (
-    <TableContainer>
+    <TableContainer hasPlan={hasPlan} {...props}>
       <table border="0">
         <tbody>
           <tr>
             <td>
               <div>
-                <div className="pb-8 table-title">Comparar planes</div>
+                <div className="pb-8 table-title">{t("compare-plans")}</div>
               </div>
             </td>
-            <td style={{ borderRadius: "15px 0 0 0" }}>Personas por juego</td>
-            <td>Chat vivo</td>
-            <td>Reporte</td>
-            <td>Trackear progreso</td>
-            <td>Identificar participantes</td>
+
+            {props.showCallToActionSection && hasPlan && <td className="max-h-[30px]" />}
+
+            <td>
+              <span className="w-full text-sm text-black">
+                {t("payment")}
+                <br />
+                <span className="align-top pr-1">{t("annual")}</span>
+                <span className="inline-block">
+                  <Switch checked={isMonthly} onChange={() => setIsMonthly()} />
+                </span>
+                <span className="align-top pl-1">{t("monthly")}</span>
+              </span>
+            </td>
+            {specsOrder.map((specLabel, index) =>
+              index === 0 ? (
+                <td key={`spec-key-${index}`} style={{ borderRadius: "15px 0 0 0" }}>
+                  {t(specLabel)}
+                </td>
+              ) : specsOrder.length - 1 === index ? (
+                <td key={`spec-key-${index}`} style={{ borderRadius: "0 0 0 15px" }}>
+                  {t(specLabel)}
+                </td>
+              ) : (
+                <td key={`spec-key-${index}`}>{t(specLabel, specLabel)}</td>
+              )
+            )}
           </tr>
 
           {plans.map((plan, index_) => (
@@ -54,11 +140,11 @@ export const PlansTable = (props) => {
                   <div className="name mb-4">{plan.name}</div>
                   {plan.name === "Exclusivo" ? (
                     <button className="btn-contact mb-4">
-                      Contactar
+                      {t("contact")}
                       <br />
-                      ventas
+                      {t("sales")}
                     </button>
-                  ) : props?.isMonthly ? (
+                  ) : isMonthly ? (
                     <div className="price text-center mb-4">
                       <span className="text-2xl align-super">{getCurrencySymbol[getMonthlyPrice(plan)?.currency]}</span>{" "}
                       {getMonthlyPrice(plan)?.amount}
@@ -74,18 +160,18 @@ export const PlansTable = (props) => {
 
                   <div
                     className={`description mb-4 ${
-                      currentPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""
+                      advancedPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""
                     }`}
                   >
                     {plan.name === "Exclusivo" ? (
                       <Anchor url="/#contact">
                         <span className="font-bold text-base text-black underline underline-offset-2">
-                          {plan.description}
+                          {t(plan.description, plan.description)}
                         </span>
                       </Anchor>
                     ) : plan.description ? (
-                      plan.description
-                    ) : props?.isMonthly ? (
+                      t(plan.description, plan.description)
+                    ) : isMonthly ? (
                       monthlyPhrase(
                         `${getCurrencySymbol[getMonthlyPrice(plan)?.currency]} ${(
                           getMonthlyPrice(plan)?.amount * 12
@@ -102,6 +188,14 @@ export const PlansTable = (props) => {
                 </div>
               </td>
 
+              {props.showCallToActionSection && hasPlan && (
+                <td className="text-center max-h-[30px]">
+                  {planIndex === index_ && <span className="text-black font-bold text-base">{t("current-plan")}</span>}
+                </td>
+              )}
+
+              <CallToActionContentSection key={`cta-${index_}`} plan={plan} index_={index_} />
+
               {specsOrder.map((keySpec, index) => (
                 <td
                   key={index}
@@ -116,13 +210,13 @@ export const PlansTable = (props) => {
                 >
                   {plan.metadata[keySpec] === "yes" || plan.metadata[keySpec] === "no"
                     ? getYesNoIcon(plan.metadata[keySpec])
-                    : plan.metadata[keySpec]}
+                    : t(plan.metadata[keySpec], plan.metadata[keySpec])}
                 </td>
               ))}
 
-              {plan.metadata.recommended === "true" && <div className="selected" />}
-              {plan.metadata.recommended === "true" && (
-                <Star backgroundImg={`${config.storageUrl}/resources/plan-star.png`}>Más popular</Star>
+              {plan.metadata.recommended === "true" && <span className="selected" />}
+              {props.showMostPopularBadge && plan.metadata.recommended === "true" && (
+                <Star backgroundImg={`${config.storageUrl}/resources/plan-star.png`}>{t("most-popular")}</Star>
               )}
             </tr>
           ))}
@@ -155,7 +249,7 @@ const TableContainer = styled.div`
     tr {
       display: table-cell;
       position: relative;
-      width: 190px;
+      width: 200px;
 
       td {
         border: 1px solid ${(props) => props.theme.basic.grayLighten};
@@ -170,12 +264,16 @@ const TableContainer = styled.div`
         letter-spacing: 0.03em;
         color: #666666;
         height: 65px;
-        padding: 0.5rem;
+        padding: 0.2rem;
         background: ${(props) => props.theme.basic.whiteLight};
       }
 
       td:first-child {
-        height: 250px;
+        height: 180px;
+      }
+
+      td:first-child,
+      td:nth-child(2) ${(props) => (props.showCallToActionSection && props.hasPlan ? ", td:nth-child(3)" : "")} {
         border: none;
         background: transparent;
       }

@@ -213,7 +213,10 @@ export const EventContainer = (props) => {
   }, [size, setSize, budget, setBudget, details, setDetails, dates, setDates, resume, setResume]);
 
   return (
-    <EventContainerStyled tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`} className="w-full bg-white">
+    <EventContainerStyled
+      tapiz={`${config.storageUrl}/resources/tapiz-v2.svg`}
+      className="w-full bg-white border-y-[1px] border-primaryLight md:min-h-[calc(100vh-80px)]"
+    >
       <Tabs activeKey={currentTab}>
         {createEventSteps.map((step, position) => (
           <TabPane key={step.key} tab={step.tab}>

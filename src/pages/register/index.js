@@ -2,11 +2,9 @@ import React, { useEffect, useGlobal, useState } from "reactn";
 import { ButtonAnt, Input, Select } from "../../components/form";
 import { Controller, useForm } from "react-hook-form";
 import { useAuth } from "../../hooks/useAuth";
-import { dialCodes } from "../../utils";
 import { useRouter } from "next/router";
 import { getData } from "country-list";
 import { object, ref, string } from "yup";
-import get from "lodash/get";
 import { DatePicker } from "antd";
 import { useTranslation } from "../../hooks";
 
@@ -27,6 +25,7 @@ export const Register = (props) => {
   const { signUp, ButtonsProviders } = useAuth();
   const { t } = useTranslation("pages.register");
 
+  const [isBdev] = useGlobal("isBdev");
   const [authUser] = useGlobal("user");
   const [isLoadingUser] = useGlobal("isLoadingUser");
   const [isLoadingCreateUser] = useGlobal("isLoadingCreateUser");
@@ -44,15 +43,10 @@ export const Register = (props) => {
     if (authUser) return router.push("/library");
   }, [authUser]);
 
-  const dialCode = (countryCode) => {
-    const country = dialCodes.find((country) => country.code === countryCode);
-
-    return get(country, "dialCode", null);
-  };
-
   const signUpUser = async (user) =>
     await signUp({
       ...user,
+      isBdev,
       birthDate,
     });
 

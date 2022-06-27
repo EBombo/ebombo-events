@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useState, useMemo } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
@@ -16,7 +16,7 @@ import { useFetch } from "../../hooks/useFetch";
 export const ListGameView = (props) => {
   const router = useRouter();
 
-  const { t } = useTranslation("pages.library");
+  const { t, locale } = useTranslation("pages.library");
 
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
@@ -27,11 +27,25 @@ export const ListGameView = (props) => {
   const [resource, setResource] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const localPrefixPath = useMemo(() => {
+    // TODO: REMOVE gameName when Roulette and Bingo English Translation are implemented.
+    const gameName = props.game?.adminGame?.name?.toLowerCase();
+    if (gameName === "roulette" || gameName === "bingo") return "";
+
+    if (locale === "es") return "";
+
+    return `/${locale}`;
+  }, [
+    locale,
+    // TODO: Remove this dep when all games have translation implemented.
+    props.game?.adminGame?.name,
+  ]);
+
   useEffect(() => {
     const fetchResource = () =>
       firestore
         .collection("games")
-        .doc(props.game.adminGame.id)
+        .doc(props.game?.adminGame?.id)
         .onSnapshot(async (resourceSnap) => {
           setResource(resourceSnap.data());
         });
@@ -88,7 +102,7 @@ export const ListGameView = (props) => {
     setIsLoading(true);
     try {
       const gameName = props.game.adminGame.name.toLowerCase();
-      const redirectUrl = `${config.bomboGamesUrl}/${gameName}/lobbies/new?gameId=${props.game.id}&userId=${authUser?.id}`;
+      const redirectUrl = `${config.bomboGamesUrl}${localPrefixPath}/${gameName}/lobbies/new?gameId=${props.game.id}&userId=${authUser?.id}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {
@@ -100,9 +114,9 @@ export const ListGameView = (props) => {
   const redirectToGameView = () => {
     get(props, "game.parentId", null)
       ? router.push(
-          `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
+          `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGame?.id}&folderId=${props.game.parentId}`
         )
-      : router.push(`/library/games/${props.game.id}/view?adminGameId=${props.game.adminGameId}`);
+      : router.push(`/library/games/${props.game.id}/view?adminGameId=${props.game.adminGame?.id}`);
   };
 
   // Codigo es ilegible, considere refactorizar/dividir en pequeñas porciones

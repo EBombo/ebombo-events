@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "reactn";
 import styled from "styled-components";
-import { Desktop, mediaQuery, Tablet } from "../../constants";
+import { mediaQuery } from "../../constants";
 import { landingProducts } from "../../components/common/DataList";
 import chunk from "lodash/chunk";
 import { CheckOutlined } from "@ant-design/icons";
-import { ButtonAnt } from "../../components/form";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { useTranslation } from "../../hooks";
+import { Image } from "../../components/common/Image";
+import { SharpButton } from "../../components/common/SharpButton";
 
 export const Products = (props) => {
   const router = useRouter();
@@ -41,12 +42,7 @@ export const Products = (props) => {
       {landingProducts[currentTabIndex].content.map((product) => (
         <div className="product" data-aos="fade-right" key={product.title}>
           <div className="top-container">
-            <Desktop>
-              <img src={product.image} height="360px" width="470px" className="rounded-md" />
-            </Desktop>
-            <Tablet>
-              <img src={product.image} height="160px" width="270px" className="rounded-md" />
-            </Tablet>
+            <Image src={product.image} width="270px" desktopWidth="470px" borderRadius="10px" size="contain" />
           </div>
 
           <div className="bottom-container" data-aos="fade-right" data-aos-delay="500">
@@ -68,15 +64,9 @@ export const Products = (props) => {
               ))}
             </div>
 
-            <ButtonAnt
-              color="success"
-              variant="contained"
-              fontSize="15px"
-              margin="25px 0 0 0"
-              onClick={() => props.createEvent()}
-            >
+            <SharpButton prefixIcon="wink" onClick={() => props.createEvent()}>
               {t("book-an-event")}
-            </ButtonAnt>
+            </SharpButton>
           </div>
         </div>
       ))}
@@ -155,7 +145,8 @@ const ProductsContainer = styled.div`
 
   .product {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    gap: 2rem;
 
     .top-container {
       margin: 0 auto;
@@ -165,7 +156,7 @@ const ProductsContainer = styled.div`
     .subtitle {
       font-family: Lato;
       font-style: normal;
-      font-weight: 500;
+      font-weight: 800;
       font-size: 24px;
       line-height: 28px;
       color: ${(props) => props.theme.basic.primary};
@@ -186,6 +177,7 @@ const ProductsContainer = styled.div`
     .options-contain {
       display: flex;
       grid-gap: 10px;
+      margin: 0 0 1rem 0;
 
       .options {
         .option {
@@ -195,14 +187,6 @@ const ProductsContainer = styled.div`
             color: ${(props) => props.theme.basic.primary};
           }
         }
-      }
-    }
-
-    .link {
-      margin: 1rem 0;
-
-      a {
-        font-weight: bold;
       }
     }
   }

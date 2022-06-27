@@ -7,7 +7,6 @@ import { EventStepThree } from "./EventStepThree";
 import { EventStepFour } from "./EventStepFour";
 import { useTranslation } from "../../../../hooks";
 
-
 export const UserCreateEvent = (props) => {
   const [currentStep, setCurrentStep] = useState(1);
 

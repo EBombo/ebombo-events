@@ -18,7 +18,8 @@
       "/library/events/[eventId]/releases/new": "Nuevo comunicado",
       "/library/events/[eventId]/releases/[releaseId]": "Editar comunicado",
       "/library/events/[eventId]/releases/[releaseId]/view": "Vista previa comunicado",
-      "/reports": "Formulario de Reportes"
+      "/reports": "Formulario de Reportes",
+      "/reports/lobbies/[lobbyId]": "Reporte del lobby"
     }
   },
   "adminUsers": {
@@ -60,6 +61,12 @@
       "/admin/audios/[audioId]": "Editar audio de juegos",
       "/admin/audios/[audioId]#delete": "Editar audio de juegos",
       "/admin/audios/[audioId]#edit": "Editar audio de juegos"
+    }
+  },
+  "adminContacts": {
+    "label": "Formulario de contactos",
+    "items": {
+      "/admin/contacts": "Lista de contactos"
     }
   }
 }

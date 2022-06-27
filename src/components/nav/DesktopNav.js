@@ -7,7 +7,6 @@ import { Image } from "../common/Image";
 import { Anchor, ButtonAnt, Switch } from "../form";
 import { sizes } from "../../constants";
 import { ModalNewGame } from "../../pages/library/ModalNewGame";
-import { darkTheme } from "../../theme";
 
 export const DesktopNav = (props) => {
   const router = useRouter();
@@ -68,6 +67,19 @@ export const DesktopNav = (props) => {
                 />
                 {t("library")}
               </li>
+              <li
+                className={`${router.asPath.includes("reports") ? "active" : ""}`}
+                onClick={() => router.push("/reports")}
+              >
+                <Image
+                  src={`${config.storageUrl}/resources/reports-icon.svg`}
+                  width="auto"
+                  height="30px"
+                  className="icon"
+                  margin="0 5px 0 0"
+                />
+                {t("reports")}
+              </li>
             </ul>
           </div>
         )}
@@ -80,13 +92,16 @@ export const DesktopNav = (props) => {
       {authUser && (
         <div className="menu-profile">
           <Switch
-            margin="auto 15px"
-            onChange={(event) => setLocale(event ? locales[1] : locales[0])}
+            variant="switcher"
+            size="small"
+            type="checkbox"
+            label1="En"
+            label2="Es"
             defaultChecked={locale === locales[1]}
-            checkedChildren={locales[1]}
-            unCheckedChildren={locales[0]}
-            inactiveBackgroundColor={darkTheme.basic.primary}
-            activeBackgroundColor={darkTheme.basic.primary}
+            onChange={(event) => {
+              event.preventDefault();
+              setLocale(event.target.checked ? locales[1] : locales[0]);
+            }}
           />
           <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
             {t("create")}
@@ -110,7 +125,7 @@ export const DesktopNav = (props) => {
 const DesktopNavContainer = styled.div`
   width: 100%;
   position: fixed;
-  z-index: 99;
+  z-index: 30;
   top: 0;
   left: 0;
   right: 0;
@@ -164,6 +179,7 @@ const DesktopNavContainer = styled.div`
   .menu-profile {
     display: flex;
     align-items: center;
+    gap: 10px;
 
     .premium-btn {
       background: transparent;
@@ -184,7 +200,7 @@ const DesktopNavContainer = styled.div`
     .hamburger {
       display: block;
       cursor: pointer;
-      margin: 0 1rem;
+      margin: 0;
     }
   }
 `;

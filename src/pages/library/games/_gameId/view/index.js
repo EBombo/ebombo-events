@@ -4,7 +4,7 @@ import get from "lodash/get";
 import { useRouter } from "next/router";
 import { config, firestoreBingo, firestoreHanged, firestoreRoulette, firestoreTrivia } from "../../../../../firebase";
 import { spinLoader } from "../../../../../components/common/loader";
-import { useSendError } from "../../../../../hooks";
+import { useSendError, useTranslation } from "../../../../../hooks";
 import { useFetch } from "../../../../../hooks/useFetch";
 import { BingoView } from "./BingoView";
 import { HangedView } from "./HangedView";
@@ -18,6 +18,8 @@ import { ModalMove } from "../../../../../components/common/ModalMove";
 export const GameView = (props) => {
   const router = useRouter();
   const { gameId, adminGameId, folderId } = router.query;
+
+  const { locale } = useTranslation();
 
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
@@ -38,6 +40,20 @@ export const GameView = (props) => {
 
     return currentGame ?? {};
   }, [games, gameId]);
+
+  const localPrefixPath = useMemo(() => {
+    // TODO: REMOVE gameName check when Roulette and Bingo English Translation are implemented.
+    const gameName = game?.adminGame?.name?.toLowerCase();
+    if (gameName === "roulette" || gameName === "bingo") return "";
+
+    if (locale === "es") return "";
+
+    return `/${locale}`;
+  }, [
+    locale,
+    // TODO: Remove this dep when all games have translation implemented.
+    game,
+  ]);
 
   useEffect(() => {
     if (isEmpty(adminGames)) return;
@@ -64,7 +80,7 @@ export const GameView = (props) => {
   const createTokenToPlay = async () => {
     try {
       const gameName = game.adminGame.name.toLowerCase();
-      const redirectUrl = `${config.bomboGamesUrl}/${gameName}/lobbies/new?gameId=${game.id}&userId=${authUser?.id}`;
+      const redirectUrl = `${config.bomboGamesUrl}${localPrefixPath}/${gameName}/lobbies/new?gameId=${game.id}&userId=${authUser?.id}`;
 
       window.open(redirectUrl, "blank");
     } catch (error) {

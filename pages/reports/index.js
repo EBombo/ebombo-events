@@ -3,17 +3,20 @@ import dynamic from "next/dynamic";
 import { spinLoader } from "../../src/components/common/loader";
 import { PrivateRoutes } from "../../src/routes/PrivateRoutes";
 import { SEOMeta } from "../../src/components/common/seo";
+import { Reports } from "../../src/pages/reports";
 
 const UserLayout = dynamic(() => import("../../src/components/UserLayout"), {
   ssr: false,
   loading: () => spinLoader(),
 });
 
-const Reports = (props) => (
+const ReportsContainer = (props) => (
   <PrivateRoutes>
     <SEOMeta {...props} />
-    <UserLayout {...props}>report</UserLayout>
+    <UserLayout {...props}>
+      <Reports {...props} />
+    </UserLayout>
   </PrivateRoutes>
 );
 
-export default Reports;
+export default ReportsContainer;

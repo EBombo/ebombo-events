@@ -7,7 +7,7 @@ import { EventsInformation } from "./EventsInformation";
 import { EbomboStyle } from "./EbomboStyled";
 import { Options } from "./Options";
 import { Companies } from "./Companies";
-import { BannerEbombo } from "./BannerEbombo";
+import { EbomboMessage } from "../../components/EbomboMessage";
 import { Comments } from "./Comments";
 import { ModalNewEvent } from "../library/events/ModalNewEvent";
 
@@ -23,12 +23,6 @@ export const Home = (props) => {
     router.prefetch("/library/events");
     router.prefetch("/events/[eventId]");
   }, []);
-
-  useEffect(() => {
-    if (!authUser) return;
-
-    router.push("/");
-  }, [authUser]);
 
   const createEvent = () => {
     if (authUser) return router.push("/library/events");
@@ -64,7 +58,7 @@ export const Home = (props) => {
 
       <Comments {...props} />
 
-      <BannerEbombo {...props} createEvent={createEvent} btnContact />
+      <EbomboMessage {...props} />
     </LandingContainer>
   );
 };
