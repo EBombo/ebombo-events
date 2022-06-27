@@ -68,8 +68,6 @@ const EbomboStyleGames = [
 export const Activities = (props) => {
   const router = useRouter();
 
-  const [authUser] = useGlobal("user");
-
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -77,6 +75,10 @@ export const Activities = (props) => {
     router.prefetch("/library/events/[eventId]");
     router.prefetch("/contact");
   }, []);
+
+  const onClickSignInButton = () => {
+    router.push("/login");
+  };
 
   const GameContentItem = ({ gameContent, className }) => (
     <div>
@@ -130,10 +132,7 @@ export const Activities = (props) => {
             <div className="hidden md:flex items-center gap-8">
               <SharpButton
                 prefixIcon="wink"
-                onClick={() => {
-                  const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
-                  router.push(url);
-                }}
+                onClick={() => { onClickSignInButton(); }}
               >
                 {t("landing.activities.sign-in-button-label")}
               </SharpButton>
@@ -164,10 +163,7 @@ export const Activities = (props) => {
               color="success"
               prefixIcon="satisfied"
               className="min-w-[150px]"
-              onClick={() => {
-                const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
-                router.push(url);
-              }}
+              onClick={() => { onClickSignInButton(); }}
             >
               <span className="text-lg font-bold align-middle">{t("landing.activities.sign-in-button-label")}</span>
             </SharpButton>
