@@ -22,7 +22,8 @@
         "contents": {
           "titles": {
             "virtual-activities": "Virtual activities",
-            "plans": "Plans"
+            "plans": "Plans",
+            "ways-to-interact": "Ways to interact"
           },
           "descriptions": {
             "virtual-activities": "Ebombo has more than 20 virtual activities so you can connect with your workers. We have integration dynamics, entertainment, onboarding, training for new workers, games, anniversaries, awards, ceremonies and much more.",
@@ -209,6 +210,102 @@
         "title": "The virtual event you will love"
       }
     },
+    "holidays-parties": {
+      "intro-title": "CELEBRATE THE HOLIDAYS",
+      "intro-description": "Our virtual activities to celebrate special dates are perfect for bringing the whole team together and improving camaraderie.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "It's important to bring remote teams together for a virtual party to keep morale high, show appreciation for a year of hard work and provide an opportunity to connect beyond work. Whether you're celebrating with 10 or 10,000 employees, we have the platform to help you plan all the fun of your holiday or year-end party. Remember, a strong company culture is the best gift."
+      },
+      "activities": {
+        "title": "VIRTUAL DYNAMICS TO BRING EVERYONE CLOSER TOGETHER",
+        "description": "Create a unique experience for your next special date. Choose from our library the perfect virtual dynamic for your event or ask us for something customized!"
+      },
+      "virtual-events": {
+        "title": "A PLATFORM THAT ENABLES REMOTE TEAMS TO CELEBRATE TOGETHER",
+        "items-1": {
+          "title": "AN EASY-TO-PLAN VIRTUAL PARTY",
+          "description": "Sometimes planning year-round celebrations can be complicated, so we make it easy. Simply book your activity quickly through our website. Of course, if you want to think outside the (gift) box, we can also help you customize your experience with personalized gifts or guest artists."
+        },
+        "items-2": {
+          "title": "VACATION TEAM BUILDING ACTIVITIES",
+          "description": "Compete in a series of challenges that will have you laughing all the way into the new year. Our virtual dynamics will help your team celebrate all the holidays. Gather for a happy hour full of virtual activities or a virtual party with performances by a live musician or DJ."
+        },
+        "items-3": {
+          "title": "VIRTUAL PARTY GAMES",
+          "description": "We have plenty of virtual quizzes that you can play with hot chocolate, beer or soda in hand. Test your knowledge with some trivia with questions on everything from classic Marvel movies to world history. We have games for everyone, no matter what holiday you celebrate and no matter if you've been good or bad."
+        }
+      }
+    },
+    "meetings": {
+      "intro-subheading": "A perfect place for",
+      "intro-title": "MEETINGS, LECTURES AND INTEGRATIONS",
+      "intro-description": "Our platform will provide you with the tools that will give you the ability to create the kind of meetings that your employees will want to join.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "We know that bringing remote teams together is an investment of time and resources. Make sure important tasks get done while keeping employees engaged and interested. From a quick check-in, to an activity of up to 10,000 people."
+      },
+      "activities": {
+        "title": "DESIGNS VIRTUAL MEETINGS THAT MAKE AN IMPACT",
+        "description": "Keep your remote team engaged, our platform has everything to get your team involved and make a big impact. Access fun icebreakers, trivia or collaborative meetings that make a big impact."
+      },
+      "virtual-events": {
+        "title": "A VIRTUAL DYNAMICS PLATFORM THAT BALANCES WORK AND FUN",
+        "items-1": {
+          "title": "VIRTUAL ACTIVITIES THAT INNOVATE COMMON MEETINGS",
+          "description": "Make your meetings more fun. Easily alternate between work and play for a productive meeting with your team, it can also be an opportunity for fun and friendly competition. Organize your meeting yourself or let one of our professional hosts help you. They are experts at organizing team building events with intention, humor and even occasional costume changes."
+        },
+        "items-2": {
+          "title": "A RELIABLE PLATFORM FOR VIRTUAL DYNAMICS",
+          "description": "We understand, meetings can't just be formal, you need to have fun. Our reliable technology ensures that everyone can connect and have a great time. The activity manager can direct the flow and how everyone participates to keep things orderly. Plus, you can count on our support before and during your event to solve any problems or provide moral support."
+        },
+        "items-3": {
+          "title": "THE BEST VIRTUAL MEETING PLATFORM FOR GLOBALLY DISPERSED TEAMS",
+          "description": "Our virtual activity rooms are available in English and Spanish, with many more languages coming soon. Our team is spread around the world on two continents and even more time zones, so no matter when you want to organize a meeting, we can make it work."
+        }
+      }
+    },
+    "kick-off": {
+      "intro-subheading": "Single platform for",
+      "intro-title": "SALES MEETINGS",
+      "intro-description": "Combine your presentations with the power of dynamics and make your virtual sales meetings an immersive and interactive experience that increases engagement and retention.",
+      "register-button-label": "Register",
+      "sign-in-button-label": "Sign in",
+      "contact-button-label": "Contact us",
+      "why-ebombo-works": {
+        "title": "Why does ebombo work?",
+        "description": "We know that sales meetings are one of the most important events. Gamifying your virtual sales startup increases learning retention, drives engagement, energizes collaborators, builds relationships, and encourages bonding.",
+        "description-paragraph-2": "We will combine our creativity and your goals to personalize your activity and meet your goals."
+      },
+      "activities": {
+        "title": "WE HAVE WHAT IT TAKES TO IMPROVE YOUR VIRTUAL SALES MEETING",
+        "description": "Energize your sales teams with virtual meetings that get everyone excited. Create a custom branded sales meeting and design your entire event using our event management panel. Plus, choose from over 20 activities in our unrivaled library or ask us for something custom!"
+      },
+      "virtual-events": {
+        "title": "WE HAVE WHAT IT TAKES TO IMPROVE YOUR VIRTUAL SALES MEETING",
+        "items-1": {
+          "title": "INCREASE COMMITMENT AT MEETINGS\nSALES VIRTUALS",
+          "description": "After the presentation, everyone can instantly switch to gaming mode with virtual activities. We know how competitive sales teams can be, so you can compete for points and prizes. In our Trivia you can even display a leaderboard to promote the competition and show which contributor or the most points."
+        },
+        "items-2": {
+          "title": "CUSTOMIZE YOUR VIRTUAL SALES MEETING\n",
+          "description": "We have plenty of customizable virtual kick-off meeting ideas to create an event that people will remember for years to come. Add trivia questions to your presentation to help learning. Are you looking for an experience of several months? Keep your team engaged even more with our subscription mode and enjoy."
+        },
+        "items-3": {
+          "title": "A DIFFERENT KIND OF SALES MEETINGS",
+          "description": "We think big to make your virtual sales meeting the thing employees are talking about (and the one they're jealous they missed). It's easy to include surprises like our raffle feature to give away prizes throughout the event. Integrate pre-recorded or live greetings and exaggerated speeches from CEOs, sports team mascots, or anyone else inside or outside your company."
+        }
+      },
+      "virtual-event-you-love": {
+        "title": "The virtual event you will love"
+      }
+    },
     "on-boarding": {
       "intro-subheading": "Everything you need for",
       "intro-title": "Training and Onboarding Experiences",
@@ -366,7 +463,10 @@
       "title": "Use Case",
       "team-building": "Team Building",
       "on-boarding": "On Boarding",
-      "corporate-events": "Corporate Events"
+      "corporate-events": "Corporate Events",
+      "kick-off": "Kick Off",
+      "meetings": "Meetings",
+      "holidays-parties": "Holidays Parties"
     },
     "features": {
       "title": "Features",
@@ -395,7 +495,89 @@
     "contact-sales": "Contact sales",
     "contact-support": "Contact support"
   },
+  "components": {
+    "file-upload": {
+      "insert-multimedia-label": "Insert a file"
+    },
+    "plans-table": {
+      "payment": "Pay",
+      "compare-plans": "Compare plans",
+      "monthly": "monthly",
+      "annual": "annual",
+      "get-plan": "Get plan",
+      "upgrade-plan": "Upgrade plan",
+      "downgrade-plan": "Downgrade plan",
+      "cancel-plan": "Cancel plan",
+      "contact": "Contact",
+      "sales": "sales",
+      "contact-sales-department": "Contact to sales",
+      "most-popular": "Most popular",
+      "current-plan": "Current plan",
+      "per-admin-anually": "per admin anually",
+      "per-admin-monthly": "per admin monthly",
+      "users": "Players per game",
+      "reporting": "Report",
+      "progress_tracking": "Tracking of progress",
+      "players_identity": "Identity players",
+      "games": "Games available",
+      "all": "All"
+    }
+  },
   "pages": {
+    "reports": {
+      "open": "Open Report",
+      "delete": "Move to trash",
+      "event-name": "Event name",
+      "date": "Date",
+      "game": "Game",
+      "games": "Games",
+      "duration": "Duration",
+      "winners": "Winners",
+      "players-number": "N° of Players",
+      "trivia": {
+        "title": "Report",
+        "live": "Live",
+        "organize-by": "Organize by",
+        "resume": "Resume",
+        "players": "Players",
+        "questions": "Questions",
+        "feedback": "Feedback",
+        "hit-percentage": "Hit Percentage",
+        "time": "Total time",
+        "see-podium": "See podium",
+        "hard-questions": "Hard Questions",
+        "need-help": "Need help",
+        "didn't-end": "Didn't end",
+        "hard-questions-empty-message": "Well done! No one found any question very difficult.",
+        "need-help-empty-message": "Well done! No one needs help.",
+        "didn't-end-empty-message": "Well done! Everyone finish the quiz.",
+        "next": "Next",
+        "number": "Number",
+        "question": "Question",
+        "type": "Type",
+        "hits": "Hits",
+        "quiz": "Quiz",
+        "trueFalse": "True or false",
+        "shortAnswer": "Short answer",
+        "name": "Name",
+        "email": "Email",
+        "points": "Score",
+        "answers": "Answers",
+        "comments": "Comments",
+        "could-play": "Were you able to play without problems?",
+        "play-again": "Would you play again?",
+        "have-fun": "Did you have fun?",
+        "yes": "Yes",
+        "no": "No",
+        "maybe": "Maybe",
+        "see-answers": "See answers",
+        "empty-comments": "Users didn't leave any comments.",
+        "need-help-tooltip": "They answered less than 20% of the questions incorrectly.",
+        "didn't-end-tooltip": "They logged out before finishing. It indicates how many questions they answered.",
+        "correct-answer": "Correct?",
+        "answer": "Answer"
+      }
+    },
     "library": {
       "activities": "Activities",
       "my-games": "My games",
@@ -496,7 +678,8 @@
         "phrases": "Phrases for the game",
         "description-area": "Write the sentences and separate them with “ENTER” (Max. 50 characters per word or sentence). Only letters, question and exclamation marks (?!), space, and comma (,) are accepted.",
         "phrases-to-guess": "Phrases to guess",
-        "save": "Save"
+        "save": "Save",
+        "default-phrase": "Write each word here"
       },
       "roulette": {
         "event-name": "Event name",
@@ -538,7 +721,9 @@
         "true-false": "True or false",
         "short-answer": "Short answer",
         "only-answer": "Only answer",
-        "multiple-answer": "Multiple answer"
+        "multiple-answer": "Multiple answer",
+        "delete": "Delete",
+        "error-incomplete-form-question": "The question is incomplete"
       }
     },
     "about-us": {
@@ -633,6 +818,13 @@
         "emoji": "Emoji Language"
       },
       "lastTitle": "The virtual event you will love"
+    },
+    "billing": {
+      "go-back": "Back"
     }
+  },
+  "errors": {
+    "general-message": "Something went wrong, please try later",
+    "general-title": "Error"
   }
 }

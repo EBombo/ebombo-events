@@ -7,6 +7,7 @@ import { useTranslation } from "../../hooks";
 import { Carousel } from "../../components/common/Carousel";
 import { BetweenCompaniesGames, MostPopularGames, TeamBuildingGames } from "../../components/common/DataList";
 import { SharpButton } from "../../components/common/SharpButton";
+import { EbomboMessage } from "../../components/EbomboMessage";
 
 const firstColumn = ["trivia", "roulette", "rouletteQuestions", "hanged"];
 const secondColumn = ["triviaCrack", "bingo", "drawAndGuess", "scrabble"];
@@ -217,25 +218,10 @@ export const Experience = (props) => {
         </div>
       </div>
 
-      <StyledFooter className="p-4 lg:p-8">
-        <div className="text-white mb-4 text-['Lato'] font-[900] text-[26px] leading-[31px] lg:text-[100px] lg:leading-[120px]">
-          {t("pages.experience.lastTitle")}
-        </div>
-        {!authUser && (
-          <div className="flex justify-center mt-2 lg:mt-0 lg:ml-4 lg:justify-start">
-            <SharpButton prefixIcon="wink" onClick={() => router.push("/login")}>
-              {t("pages.experience.sign-in-button")}
-            </SharpButton>
-          </div>
-        )}
-      </StyledFooter>
+      <EbomboMessage {...props} />
     </ExperienceContainer>
   );
 };
-
-const StyledFooter = styled.div`
-  background: linear-gradient(270deg, #1d1138 0%, #331e6d 31.25%, #1e1239 100%);
-`;
 
 const ExperienceContainer = styled.div`
   width: 100vw;

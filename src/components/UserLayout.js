@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { Layout } from "./index";
 import { Desktop, mediaQuery, Tablet } from "../constants";
@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { TabletNav } from "./nav/TabletNav";
 import { DesktopNav } from "./nav/DesktopNav";
 import { Footer } from "./Footer";
+import { PageLoader } from "./common/loader";
 
 const PWA = dynamic(() => import("./common/pwa"), { ssr: false });
 
@@ -15,8 +16,12 @@ const WspIcon = dynamic(() => import("./common/wspIcon"));
 const FooterBar = dynamic(() => import("./FooterBar"));
 
 const UserLayout = (props) => {
+  const [screenLoader] = useGlobal("screenLoader");
+
   return (
     <>
+      {screenLoader && <PageLoader />}
+
       <RightDrawer />
       <Layout>
         <Desktop>

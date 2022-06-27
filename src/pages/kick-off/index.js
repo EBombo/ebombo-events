@@ -3,19 +3,19 @@ import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { Image } from "../../components/common/Image";
 import { SharpButton } from "../../components/common/SharpButton";
-import { LandingGames, OnBoardingLiterals } from "../../components/common/DataList";
+import { kickOffLiterals, LandingGames } from "../../components/common/DataList";
 import { Carousel } from "../../components/common/Carousel";
 import { Image as ImageV2 } from "ebombo-components";
 import { useTranslation } from "../../hooks";
 import { EbomboMessage } from "../../components/EbomboMessage";
 import { Anchor } from "../../components/form";
 
-export const OnBoarding = (props) => {
+export const KickOff = (props) => {
   const router = useRouter();
 
-  const [authUser] = useGlobal("user");
-
   const { t } = useTranslation();
+
+  const [authUser] = useGlobal("user");
 
   useEffect(() => {
     router.prefetch("/events/[eventId]");
@@ -44,12 +44,11 @@ export const OnBoarding = (props) => {
       <section className="bg-tapiz-1 bg-white flex flex-col justify-center p-4 lg:p-8 lg:min-h-[calc(100vh-100px)]">
         <div className="w-full lg:grid lg:grid-cols-[3fr_4fr] gap-8 max-w-[1500px] mx-auto">
           <div className="w-full">
-            <h3 className="text-primary font-bold text-2xl md:text-4xl">{t("landing.on-boarding.intro-subheading")}</h3>
+            <h3 className="text-primary font-bold text-2xl md:text-4xl">{t("landing.kick-off.intro-subheading")}</h3>
             <h2 className="text-secondary text-3xl md:text-5xl font-bold uppercase break-words">
-              {t("landing.on-boarding.intro-title")}
+              {t("landing.kick-off.intro-title")}
             </h2>
-            <p className="text-secondary text-base md:text-xl mb-8">{t("landing.on-boarding.intro-description")}</p>
-
+            <p className="text-secondary text-base md:text-xl mb-8">{t("landing.kick-off.intro-description")}</p>
             <div className="hidden lg:inline-grid md:grid-cols-[min-content_min-content] gap-8">
               <SharpButton
                 prefixIcon="wink"
@@ -60,13 +59,13 @@ export const OnBoarding = (props) => {
                 }}
               >
                 <span className="text-lg font-bold align-middle">
-                  <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
+                  <span className="text-lg font-bold">{t("landing.kick-off.sign-in-button-label")}</span>
                 </span>
               </SharpButton>
               <SharpButton color="primary" prefixIcon="satisfied" className="min-w-[180px]">
                 <Anchor url="/contact">
                   <span className="text-lg font-bold text-white align-middle">
-                    {t("landing.team-building.contact-button-label")}
+                    <span className="text-lg font-bold">{t("landing.corporate-events.contact-button-label")}</span>
                   </span>
                 </Anchor>
               </SharpButton>
@@ -75,8 +74,8 @@ export const OnBoarding = (props) => {
 
           <div className="lg:h-full lg:flex lg:items-center px-8">
             <ImageV2
-              placeholderUrl={`${config.storageUrl}/resources/on-boarding-video-snapshot.jpg`}
-              src={`${config.storageUrl}/resources/on-boarding-video.gif`}
+              placeholderUrl={`${config.storageUrl}/resources/videos-landing/video-1.gif`}
+              src={`${config.storageUrl}/resources/videos-landing/video-1.gif`}
               className="w-full aspect-video rounded-2xl mx-auto"
               width="100%"
               aspectRatio="16 / 9"
@@ -92,13 +91,13 @@ export const OnBoarding = (props) => {
               }}
             >
               <span className="text-lg font-bold align-middle">
-                <span className="text-lg font-bold">{t("landing.on-boarding.sign-in-button-label")}</span>
+                <span className="text-lg font-bold">{t("landing.kick-off.sign-in-button-label")}</span>
               </span>
             </SharpButton>
             <SharpButton color="primary" prefixIcon="satisfied">
               <Anchor url="/contact">
                 <span className="text-lg font-bold text-white align-middle">
-                  {t("landing.team-building.contact-button-label")}
+                  <span className="text-lg font-bold">{t("landing.corporate-events.contact-button-label")}</span>
                 </span>
               </Anchor>
             </SharpButton>
@@ -111,16 +110,16 @@ export const OnBoarding = (props) => {
           <div className="grid grid-cols-[15px_auto] mb-8 mt-0 md:mt-8">
             <div className="bg-successLight" />
             <div className="text-white font-bold text-3xl md:text-7xl self-center px-8 md:px-12">
-              {t("landing.on-boarding.why-ebombo-works.title")}
+              {t("landing.kick-off.why-ebombo-works.title")}
             </div>
           </div>
 
           <div>
             <div className="mb-6 text-white text-base md:text-2xl">
-              {t("landing.on-boarding.why-ebombo-works.description")}
+              {t("landing.kick-off.why-ebombo-works.description")}
             </div>
             <div className="text-white text-base md:text-2xl">
-              {t("landing.on-boarding.why-ebombo-works.description-paragraph-2")}
+              {t("landing.kick-off.why-ebombo-works.description-paragraph-2")}
             </div>
           </div>
         </div>
@@ -129,11 +128,11 @@ export const OnBoarding = (props) => {
       <section className="bg-tapiz-1 bg-white py-16">
         <div className="max-w-[1500px] mx-auto py-8 px-8 grid">
           <div className="max-w-[1200px] mx-auto mb-6 text-secondary text-center font-bold text-2xl md:text-5xl self-center px-8 md:px-12 uppercase">
-            {t("landing.on-boarding.activities.title")}
+            {t("landing.kick-off.activities.title")}
           </div>
 
           <div className="text-secondary text-base md:text-2xl text-center">
-            {t("landing.on-boarding.activities.description")}
+            {t("landing.kick-off.activities.description")}
           </div>
         </div>
       </section>
@@ -172,14 +171,14 @@ export const OnBoarding = (props) => {
       <section className="bg-tapiz-1 bg-cover bg-no-repeat bg-white">
         <div className="max-w-[1160px] mx-auto px-[25px] py-[60px] md:py-[160px]">
           <h2 className="mb-[55px] text-center uppercase text-secondary font-[900] leading-[1.2] text-3xl md:text-7xl">
-            {t("landing.on-boarding.virtual-events.title")}
+            {t("landing.kick-off.virtual-events.title")}
           </h2>
 
-          {OnBoardingLiterals.virtualEvents.items.map((item, i) => (
+          {kickOffLiterals.virtualEvents.items.map((item, i) => (
             <div
               key={`wrapper-${i}`}
               className={`flex items-center flex-col mb-[90px] box-border ${
-                i % 2 !== 1 ? "md:flex-row-reverse" : "md:flex-row"
+                i % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
               }`}
             >
               <ImageV2 src={item.img} alt="" className="w-full md:w-[50%]" placeholderUrl={item.placeholder} />

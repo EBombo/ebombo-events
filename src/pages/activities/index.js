@@ -1,10 +1,10 @@
-import React, { useEffect, useGlobal } from "reactn";
+import React, { useEffect } from "reactn";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
-import { ButtonAnt } from "../../components/form";
 import { SharpButton } from "../../components/common/SharpButton";
 import { Image as ImageV2 } from "ebombo-components";
 import { useTranslation } from "../../hooks";
+import { EbomboMessage } from "../../components/EbomboMessage";
 
 const EbomboStyleGames = [
   {
@@ -68,8 +68,6 @@ const EbomboStyleGames = [
 export const Activities = (props) => {
   const router = useRouter();
 
-  const [authUser] = useGlobal("user");
-
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -77,6 +75,10 @@ export const Activities = (props) => {
     router.prefetch("/library/events/[eventId]");
     router.prefetch("/contact");
   }, []);
+
+  const onClickSignInButton = () => {
+    router.push("/login");
+  };
 
   const GameContentItem = ({ gameContent, className }) => (
     <div>
@@ -109,33 +111,36 @@ export const Activities = (props) => {
               {t("landing.activities.intro-title")}
             </h2>
             <p className="text-base md:text-xl">
-              <span><ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`}/></span> {t("landing.activities.intro-bullet-1")}
+              <span>
+                <ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`} />
+              </span>{" "}
+              {t("landing.activities.intro-bullet-1")}
             </p>
             <p className="text-base md:text-xl">
-              <span><ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`}/></span> {t("landing.activities.intro-bullet-2")}
+              <span>
+                <ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`} />
+              </span>{" "}
+              {t("landing.activities.intro-bullet-2")}
             </p>
             <p className="text-base md:text-xl mb-8">
-              <span><ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`}/></span> {t("landing.activities.intro-bullet-3")}
+              <span>
+                <ImageV2 className="inline-block mr-1" src={`${config.storageUrl}/resources/check-primary.svg`} />
+              </span>{" "}
+              {t("landing.activities.intro-bullet-3")}
             </p>
 
-            <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
+            <div className="hidden md:flex items-center gap-8">
               <SharpButton
-                size="big"
                 prefixIcon="wink"
-                className="min-w-[150px]"
-                onClick={() => {
-                  const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
-                  router.push(url);
-                }}
+                onClick={() => { onClickSignInButton(); }}
               >
-                <span className="font-bold align-middle">{t("landing.activities.sign-in-button-label")}</span>
+                {t("landing.activities.sign-in-button-label")}
               </SharpButton>
               <SharpButton
-                size="big"
                 color="primary"
                 prefixIcon="satisfied"
                 className="min-w-[180px]"
-                onClick={() => router.push("/contact" )}
+                onClick={() => router.push("/contact")}
               >
                 <span className="text-lg font-bold align-middle">{t("landing.activities.contact-button-label")}</span>
               </SharpButton>
@@ -158,10 +163,7 @@ export const Activities = (props) => {
               color="success"
               prefixIcon="satisfied"
               className="min-w-[150px]"
-              onClick={() => {
-                const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
-                router.push(url);
-              }}
+              onClick={() => { onClickSignInButton(); }}
             >
               <span className="text-lg font-bold align-middle">{t("landing.activities.sign-in-button-label")}</span>
             </SharpButton>
@@ -170,7 +172,7 @@ export const Activities = (props) => {
               color="primary"
               prefixIcon="satisfied"
               className="min-w-[180px]"
-              onClick={() => router.push("/contact" )}
+              onClick={() => router.push("/contact")}
             >
               <span className="text-lg font-bold align-middle">{t("landing.activities.contact-button-label")}</span>
             </SharpButton>
@@ -181,7 +183,9 @@ export const Activities = (props) => {
       <section className="bg-gradient-primary-to-secondary relative">
         <div className="max-w-[1200px] md:mx-auto items-center mx-4 sm:mx-8">
           <div className="mx-auto pt-8 pb-32 px-8">
-            <div className="text-white font-bold text-xl md:text-3xl text-center py-16">{t("landing.activities.ebombo-style.title")}</div>
+            <div className="text-white font-bold text-xl md:text-3xl text-center py-16">
+              {t("landing.activities.ebombo-style.title")}
+            </div>
             <div className="grid grid-cols-[1fr] md:grid-cols-[1fr_1fr_1fr] gap-8">
               {EbomboStyleGames.map((_, index) => (
                 <GameContentItem
@@ -194,25 +198,7 @@ export const Activities = (props) => {
         </div>
       </section>
 
-      <section className="bg-gradient-black-to-secondary">
-        <div className="max-w-[1500px] mx-auto py-8 px-8">
-          <div className="text-white font-bold text-3xl md:text-7xl">
-            {t("landing.activities.virtual-event-you-love.title")}
-          </div>
-          <div className="py-8">
-            <ButtonAnt
-              size="big"
-              color="success"
-              onClick={() => {
-                const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
-                router.push(url);
-              }}
-            >
-              <span className="text-lg font-bold">{t("landing.activities.sign-in-button-label")}</span>
-            </ButtonAnt>
-          </div>
-        </div>
-      </section>
+      <EbomboMessage {...props} />
     </div>
   );
 };
