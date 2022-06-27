@@ -74,7 +74,7 @@ export const Reports = (props) => {
 
       <div className="p-8">
         <div className="flex items-center justify-between">
-          {authUser?.isAdmin && (
+          {authUser?.email?.includes("tech@ebombo.com") && (
             <div>
               <ButtonAnt loading={loadingUpdate} disabled={loadingUpdate} onClick={() => updateUsers()}>
                 Actualizar Usuarios
