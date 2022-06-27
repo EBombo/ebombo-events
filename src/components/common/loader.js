@@ -8,7 +8,7 @@ import { Spin } from "antd";
 import { Overlay } from "./Overlay";
 import { Image } from "./Image";
 
-const CustomLoaderIcon = (props) => <LoadingOutlined className="spin-version-icon" style={{color: props.color}} />;
+const CustomLoaderIcon = (props) => <LoadingOutlined className="spin-version-icon" style={{ color: props.color }} />;
 
 export const spinLoader = (props) => (
   <SpinLoader>
