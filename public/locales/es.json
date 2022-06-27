@@ -569,7 +569,13 @@
         "need-help-tooltip": "Respondieron incorrectamente menos del 20% de preguntas.",
         "didn't-end-tooltip": "Se desconectaron antes de terminar. Se indica cuántas preguntas respondieron.",
         "correct-answer": "¿Correcta?",
-        "answer": "Respuesta"
+        "answer": "Respuesta",
+        "ranking": "Clasificación",
+        "unanswered": "Sin respuesta",
+        "dropped-out": "Abandonaron",
+        "all": "Todos",
+        "play-again-btn": "Jugar nuevamente",
+        "delete": "Mover a la papelera"
       }
     },
     "library": {
