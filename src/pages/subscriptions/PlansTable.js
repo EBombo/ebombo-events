@@ -15,8 +15,6 @@ import { useRouter } from "next/router";
 
 const specsOrder = ["users", "games", "reporting", "progress_tracking", "players_identity"];
 
-const advancedPlan = "Avanzado";
-
 export const PlansTable = (props) => {
   const router = useRouter();
 
@@ -166,9 +164,7 @@ export const PlansTable = (props) => {
                   <div className="divider" />
 
                   <div
-                    className={`description mb-4 ${
-                      advancedPlan === plan.name || plan.name === "Exclusivo" ? "select" : ""
-                    }`}
+                    className="description mb-4"
                   >
                     {plan.name === "Exclusivo" ? (
                       <Anchor url="/contact">
