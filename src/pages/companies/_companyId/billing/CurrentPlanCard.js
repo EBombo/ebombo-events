@@ -12,9 +12,10 @@ export const CurrentPlanCard = (props) => {
         <span className="dot">&bull; </span>
         {props.subscription?.status ?? "Free"}
       </div>
-      {props.isLoadingPlan
-        ? (spinLoaderMin({color: darkTheme.basic.white}))
-        : (<>
+      {props.isLoadingPlan ? (
+        spinLoaderMin({ color: darkTheme.basic.white })
+      ) : (
+        <>
           <div className="subheading">Plan Actual</div>
           <div className="heading">{props.activePlan ? props.activePlan.name : "Free"}</div>
 
@@ -40,7 +41,8 @@ export const CurrentPlanCard = (props) => {
               Cambiar los detalles de pago
             </StripeCustomerPortalLink>
           )}
-        </>)}
+        </>
+      )}
     </PlanCardStyled>
   );
 };
