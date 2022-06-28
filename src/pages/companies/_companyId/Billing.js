@@ -2,6 +2,7 @@ import React, { useEffect, useGlobal, useState } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../constants";
 import { PanelBox } from "../../../components/common/PanelBox";
+import { spinLoaderMin } from "../../../components/common/loader";
 import { PlanIntervals } from "../../../components/common/DataList";
 import { Anchor } from "../../../components/form";
 import { useRouter } from "next/router";
@@ -22,13 +23,16 @@ export const Billing = (props) => {
 
   const [authUser] = useGlobal("user");
 
-  const [activePlan, setActivePlan] = useState();
+  const [activePlan, setActivePlan] = useState(null);
   const [subscription, setSubscription] = useState();
+  const [isLoadingPlan, setIsLoadingPlan] = useState(false);
   const [isSubscriptionStatusEnabled, setIsSubscriptionStatusEnabled] = useState(false);
   const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
 
   useEffect(() => {
     const getPlan = async () => {
+      setIsLoadingPlan(true);
+
       const activeSubscriptionsQuery = await firestore
         .collection(`customers/${authUser.id}/subscriptions`)
         .where("status", "==", "active")
@@ -37,11 +41,12 @@ export const Billing = (props) => {
 
       const activeSubscriptions = snapshotToArray(activeSubscriptionsQuery);
 
-      if (!activeSubscriptions.length) return setActivePlan(null);
+      if (!activeSubscriptions.length) return setIsLoadingPlan(false);
 
       setSubscription(activeSubscriptions[0]);
 
-      return setActivePlan((await activeSubscriptions[0].product.get()).data());
+      setActivePlan((await activeSubscriptions[0].product.get()).data());
+      return setIsLoadingPlan(false);
     };
 
     return getPlan();
@@ -106,6 +111,7 @@ export const Billing = (props) => {
           )}
           <CurrentPlanCard
             className="plan-card"
+            isLoadingPlan={isLoadingPlan}
             activePlan={activePlan}
             subscription={subscription}
             setIsSubscriptionStatusView={setIsSubscriptionStatusEnabled}
