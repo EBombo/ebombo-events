@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import moment from "moment";
 import { timeoutPromise } from "../../../utils/promised";
 import { gaEvent } from "../../../utils";
+import { gamesToEvent } from "./dataList";
 
 const eventBy = {
   participants: "asistente",
@@ -200,8 +201,9 @@ export const ResumeEvent = (props) => {
 
       <div className="text-secondary mb-4 text-base mt-4">{t("chosen-dynamics")}</div>
 
-      <div className="grid md:flex gap-3">
+      <div className="grid md:grid-cols-[auto_auto_auto_auto] ms:grid-cols-[auto]">
         {games
+          .concat(gamesToEvent)
           .filter((game) => props.details.games.includes(game.id))
           .map((game) => (
             <div
@@ -209,11 +211,11 @@ export const ResumeEvent = (props) => {
               className="w-full md:w-[300px] text-base bg-white rounded-md border-2 border-grayLighten py-2 px-1 mb-4 grid grid-cols-[1fr_3fr]"
             >
               <img
-                src={`${config.storageUrl}/resources/games/${get(game, "name", "")}-icon.svg`}
+                src={game?.icon ?? `${config.storageUrl}/resources/games/${get(game, "name", "")}-icon.svg`}
                 className=" w-6 h-6 mx-3"
               />
 
-              {game.name}
+              {t(`games-for-events.${game.name}`, game.name)}
             </div>
           ))}
       </div>
