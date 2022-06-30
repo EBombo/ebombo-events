@@ -829,7 +829,14 @@
       "lastTitle": "The virtual event you will love"
     },
     "billing": {
-      "go-back": "Back"
+      "go-back": "Back",
+      "general-vision": "General Vision",
+      "manage-invoices": "Manage invoices",
+      "payment-cycle": "Payment cycle",
+      "current-plan": "Current Plan",
+      "ask-not-having-plan": "Don't have a plan yet?",
+      "see-plans": "See plans",
+      "change-detail-payment": "Change payment details"
     }
   },
   "errors": {

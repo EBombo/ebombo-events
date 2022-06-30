@@ -1,39 +1,51 @@
-import React, { useGlobal, useState } from "reactn";
+import React from "reactn";
 import styled from "styled-components";
 import { ButtonAnt } from "../../../../components/form";
 import { StripeCustomerPortalLink } from "../../../../components/StripeCustomerPortalLink";
+import { spinLoaderMin } from "../../../../components/common/loader";
+import { darkTheme } from "../../../../theme";
+import { useTranslation } from "../../../../hooks";
 
 export const CurrentPlanCard = (props) => {
+  const { t, locale } = useTranslation("pages.billing");
+
   return (
     <PlanCardStyled className="relative">
       <div className="status-label">
         <span className="dot">&bull; </span>
         {props.subscription?.status ?? "Free"}
       </div>
-      <div className="subheading">Plan Actual</div>
-      <div className="heading">{props.activePlan ? props.activePlan.name : "Free"}</div>
-
-      {!props.activePlan || props.subscription?.canceled_at ? (
-        <>
-          <div className="no-plan-label">¿Aún no tienes un plan?</div>
-          <ButtonAnt
-            block
-            color="secondary"
-            className="button-see-plans"
-            onClick={() => {
-              props.setIsSubscriptionStatusView?.(true);
-            }}
-          >
-            Ver planes
-          </ButtonAnt>
-        </>
+      {props.isLoadingPlan ? (
+        spinLoaderMin({ color: darkTheme.basic.white })
       ) : (
-        <StripeCustomerPortalLink
-          anchorWrapperClassName="absolute bottom-0 left-0 right-0 py-2 px-4 rounded-b-lg bg-secondary text-white"
-          anchorClassName="text-white underline"
-        >
-          Cambiar los detalles de pago
-        </StripeCustomerPortalLink>
+        <>
+          <div className="subheading">{t("current-plan")}</div>
+          <div className="heading">{props.activePlan ? props.activePlan.name : "Free"}</div>
+
+          {!props.activePlan || props.subscription?.canceled_at ? (
+            <>
+              <div className="no-plan-label">{t("ask-not-having-plan")}</div>
+              <ButtonAnt
+                block
+                color="secondary"
+                className="button-see-plans"
+                onClick={() => {
+                  props.onClickSeePlans?.();
+                }}
+              >
+                {t("see-plans")}
+              </ButtonAnt>
+            </>
+          ) : (
+            <StripeCustomerPortalLink
+              anchorWrapperClassName="absolute bottom-0 left-0 right-0 py-2 px-4 rounded-b-lg bg-secondary text-white"
+              anchorClassName="text-white underline"
+              key={locale}
+            >
+              {t("change-detail-payment")}
+            </StripeCustomerPortalLink>
+          )}
+        </>
       )}
     </PlanCardStyled>
   );
