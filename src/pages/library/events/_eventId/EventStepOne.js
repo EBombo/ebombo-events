@@ -42,7 +42,7 @@ export const EventStepOne = (props) => {
 
     props.setEvent({
       ..._event,
-      imageUrl: isEmpty(imageUrl) ? `${config.storageUrl}/resources/default-background.svg` : imageUrl,
+      imageUrl: isEmpty(imageUrl) ? `${config.storageUrl}/resources/event-default.svg` : imageUrl,
       currentDate,
       name,
       link,

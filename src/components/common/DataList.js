@@ -103,6 +103,8 @@ export const triviaQuestionsTypes = [
   },
 ];
 
+export const triviaShortAnswerType = triviaQuestionsTypes[2].key;
+
 export const questionTypes = {
   quiz: "Quiz",
   trueFalse: "Verdadero o Falso",
@@ -281,7 +283,7 @@ export const landingProducts = [
 
 export const plans = [
   {
-    name: "Gratis",
+    name: "Free",
     price: 0,
     users: 10,
     games: "all",

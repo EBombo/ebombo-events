@@ -94,7 +94,7 @@ export const EventView = (props) => {
       <div className="flex items-start justify-between">
         <div className="flex flex-col-reverse gap-[10px] md:flex-row md:items-end">
           <Image
-            src={!isEmpty(event.imageUrl) ? event.imageUrl : `${config.storageUrl}/resources/empty-cover.svg`}
+            src={!isEmpty(event.imageUrl) ? event.imageUrl : `${config.storageUrl}/resources/event-default.svg`}
             width="290px"
             height="150px"
             size="cover"
@@ -143,11 +143,14 @@ export const EventView = (props) => {
           </div>
         </div>
 
-        <div>
+        <div className="min-w-[250px]">
           <div className="text-secondary text-['Lato'] font-[400] text-[14px] leading-[17px] md:text-[16px] md:leading-[19px] my-2 md:my-4">
             {t("step-three.subtitle-one")}
           </div>
-          <div className="flex flex-col md:pr-[10px] md:h-[350px] md:overflow-auto md:overflow-x-hidden">
+          <div
+            className="flex flex-col md:pr-[10px] md:h-[350px] md:overflow-auto md:overflow-x-hidden"
+            key={eventGames.length}
+          >
             {eventGames.map((game) => (
               <div
                 className="bg-white rounded-[6px] grid items-center grid-cols-[auto_auto_60px] p-2 border-grayLighten border-[1px] w-[320px] my-2"

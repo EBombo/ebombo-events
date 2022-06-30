@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "reactn";
+import React, { useEffect, useMemo, useState } from "reactn";
 import { useTranslation } from "../../../../hooks";
 import { Progress, Tooltip } from "antd";
 import { Image } from "../../../../components/common/Image";
@@ -10,20 +10,29 @@ import defaultTo from "lodash/defaultTo";
 import mapKeys from "lodash/mapKeys";
 import capitalize from "lodash/capitalize";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { ModalWinners } from "./ModalWinners";
+import { ModalRanking } from "./ModalRanking";
+import { useRouter } from "next/router";
 
 export const TriviaResume = (props) => {
   const { t } = useTranslation("pages.reports.trivia");
 
+  const router = useRouter();
+
   const [hardQuestions, setHardQuestion] = useState([]);
   const [needHelp, setNeedHelp] = useState([]);
-  const [didNotEnd, setDidNotEnd] = useState([]);
+  const [droppedOut, setDroppedOut] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [currentHardQuestion, setCurrentHardQuestion] = useState(0);
   const [hitPercentage, setHitPercentage] = useState(0);
   const [isVisibleModalWinners, setIsVisibleModalWinners] = useState(false);
 
   useEffect(() => {
+    router.prefetch("/library/games/:gameId/view");
+  }, []);
+
+  useEffect(() => {
     calculateStats();
+    setDroppedOut(props.users.filter((user) => user.hasExited));
   }, [props.users, props.questions]);
 
   const calculateStats = () => {
@@ -67,10 +76,30 @@ export const TriviaResume = (props) => {
     setNeedHelp(_needHelp);
   };
 
+  const calculateDurationTime = (startAt, endAt) => {
+    const startTime = moment(startAt.toDate(), "DD-MM-YYYY hh:mm:ss");
+    const endTime = moment(endAt.toDate(), "DD-MM-YYYY hh:mm:ss");
+
+    const hoursDiff = endTime.diff(startTime, "hours");
+
+    const minutesDiff = endTime.diff(startTime, "minutes");
+
+    const secondsDiff = endTime.diff(startTime, "seconds");
+
+    if (hoursDiff <= 0)
+      return `${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${
+        secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
+      } minutes`;
+
+    return `${hoursDiff}:${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${
+      secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
+    } hours`;
+  };
+
   return (
     <div className="p-4 lg:p-8 grid lg:grid-cols-[2fr_1fr_1fr] gap-4 mx-auto max-w-[1300px]">
       {isVisibleModalWinners && (
-        <ModalWinners
+        <ModalRanking
           lobby={props.lobby}
           isVisibleModalWinners={isVisibleModalWinners}
           setIsVisibleModalWinners={setIsVisibleModalWinners}
@@ -78,7 +107,22 @@ export const TriviaResume = (props) => {
         />
       )}
       <div className="bg-whiteLight p-4 flex items-center justify-between rounded-[4px] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] h-[160px]">
-        <div className="font-[900] text-[24px] leading-[29px] text-blackDarken">{t("hit-percentage")}</div>
+        <div>
+          <div className="font-[900] text-[24px] leading-[29px] text-blackDarken mb-4">{t("hit-percentage")}</div>
+          <ButtonAnt
+            onClick={async () => {
+              setLoading(true);
+              await router.push(
+                `/library/games/${props.lobby.game.id}/view?adminGameId=${props.lobby?.game?.adminGame?.id}`
+              );
+              setLoading(false);
+            }}
+            loading={loading}
+            disabled={loading}
+          >
+            {t("play-again-btn")}
+          </ButtonAnt>
+        </div>
         <div>
           <Progress type="circle" percent={hitPercentage} strokeWidth={12} strokeColor="#56EEA5" />
         </div>
@@ -125,9 +169,7 @@ export const TriviaResume = (props) => {
             <div className="text-blackDarken text-[16px] leading-[19px] font-[400]">{t("time")}</div>
           </div>
           <div className="text-blackDarken text-[16px] leading-[19px] font-[700]">
-            {moment(moment(props.lobby.startAt?.toDate())?.diff(moment(props.lobby.updateAt?.toDate()))).format(
-              "h[h] m[m]"
-            )}
+            {calculateDurationTime(props.lobby.startAt, props.lobby.updateAt)}
           </div>
         </div>
       </div>
@@ -250,12 +292,34 @@ export const TriviaResume = (props) => {
             />
           </Tooltip>
         </div>
-        {isEmpty(didNotEnd) ? (
+        {isEmpty(droppedOut) ? (
           <div className="text-blackDarken text-[16px] leading-[19px] font-[400] h-[120px] min-w-[100%] flex items-center justify-center p-2 text-center">
             {t("didn't-end-empty-message")}
           </div>
         ) : (
-          <div></div>
+          <div className="h-[120px] overflow-auto p-2 flex flex-col gap-[10px]">
+            {droppedOut.map((user, index) => (
+              <div className="flex items-center justify-between" key={`${user.id}-${index}`}>
+                <div className="text-blackDarken text-[14px] leading-[16px] font-[400]">
+                  {capitalize(user.nickname)}
+                </div>
+                <div className="flex items-center gap-2">
+                  <Progress
+                    type="circle"
+                    showInfo={false}
+                    percent={user.correctPercentage}
+                    width={20}
+                    strokeWidth={20}
+                    strokeColor="#56EEA5"
+                    trailColor="#FB4646"
+                  />
+                  <div className="text-blackDarken text-[14px] leading-[17px] font-[800]">
+                    {user.correctPercentage}%
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>
