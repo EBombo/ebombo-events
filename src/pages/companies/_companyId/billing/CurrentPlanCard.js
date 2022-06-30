@@ -7,7 +7,6 @@ import { darkTheme } from "../../../../theme";
 import { useTranslation } from "../../../../hooks";
 
 export const CurrentPlanCard = (props) => {
-
   const { t, locale } = useTranslation("pages.billing");
 
   return (
@@ -31,7 +30,7 @@ export const CurrentPlanCard = (props) => {
                 color="secondary"
                 className="button-see-plans"
                 onClick={() => {
-                  props.setIsSubscriptionStatusView?.(true);
+                  props.onClickSeePlans?.();
                 }}
               >
                 {t("see-plans")}

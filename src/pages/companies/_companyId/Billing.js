@@ -1,8 +1,7 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useState, useRef } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../constants";
 import { PanelBox } from "../../../components/common/PanelBox";
-import { spinLoaderMin } from "../../../components/common/loader";
 import { PlanIntervals } from "../../../components/common/DataList";
 import { Anchor } from "../../../components/form";
 import { useRouter } from "next/router";
@@ -19,6 +18,8 @@ export const Billing = (props) => {
 
   const { t, locale } = useTranslation("pages.billing");
 
+  const plansTableEl = useRef(null);
+
   const { sendError } = useSendError();
 
   const [authUser] = useGlobal("user");
@@ -26,7 +27,6 @@ export const Billing = (props) => {
   const [activePlan, setActivePlan] = useState(null);
   const [subscription, setSubscription] = useState();
   const [isLoadingPlan, setIsLoadingPlan] = useState(false);
-  const [setIsSubscriptionStatusEnabled] = useState(false);
   const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
 
   useEffect(() => {
@@ -83,7 +83,9 @@ export const Billing = (props) => {
                   {t("manage-invoices")}
                 </Anchor>
               </div>
-              <div>{t("payment-cycle")}: {PlanIntervals[subscription?.items?.[0]?.plan?.interval]} </div>
+              <div>
+                {t("payment-cycle")}: {PlanIntervals[subscription?.items?.[0]?.plan?.interval]}{" "}
+              </div>
             </>
           </PanelBox>
         ) : (
@@ -94,10 +96,16 @@ export const Billing = (props) => {
           isLoadingPlan={isLoadingPlan}
           activePlan={activePlan}
           subscription={subscription}
-          setIsSubscriptionStatusView={setIsSubscriptionStatusEnabled}
+          onClickSeePlans={() => {
+            if (typeof window === "undefined") return;
+
+            plansTableEl.current.scrollIntoView({
+              behavior: "smooth",
+            });
+          }}
           {...props}
         />
-        <div className="col-start-1 col-end-3">
+        <div className="col-start-1 col-end-3" ref={plansTableEl}>
           <PlansTable
             {...props}
             showCallToActionSection
