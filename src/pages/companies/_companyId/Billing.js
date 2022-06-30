@@ -1,8 +1,7 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal, useState, useRef } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../constants";
 import { PanelBox } from "../../../components/common/PanelBox";
-import { spinLoaderMin } from "../../../components/common/loader";
 import { PlanIntervals } from "../../../components/common/DataList";
 import { Anchor } from "../../../components/form";
 import { useRouter } from "next/router";
@@ -17,7 +16,9 @@ export const Billing = (props) => {
   const router = useRouter();
   const { companyId } = router.query;
 
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation("pages.billing");
+
+  const plansTableEl = useRef(null);
 
   const { sendError } = useSendError();
 
@@ -26,7 +27,6 @@ export const Billing = (props) => {
   const [activePlan, setActivePlan] = useState(null);
   const [subscription, setSubscription] = useState();
   const [isLoadingPlan, setIsLoadingPlan] = useState(false);
-  const [isSubscriptionStatusEnabled, setIsSubscriptionStatusEnabled] = useState(false);
   const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
 
   useEffect(() => {
@@ -68,13 +68,44 @@ export const Billing = (props) => {
 
   return (
     <BillingContainer>
-      {isSubscriptionStatusEnabled ? (
-        <>
-          <div>
-            <Anchor variant="primary" onClick={() => setIsSubscriptionStatusEnabled(!isSubscriptionStatusEnabled)}>
-              {t("pages.billing.go-back")}
-            </Anchor>
-          </div>
+      <div className="inner-layout">
+        {subscription ? (
+          <PanelBox elevated heading={t("general-vision")}>
+            <div>Plan: {activePlan?.name}</div>
+            <>
+              <div className="mb-5">
+                <Anchor
+                  key={locale}
+                  underlined
+                  className="link"
+                  url={`/companies/${companyId}/billing?subscriptionId=${subscription?.id}`}
+                >
+                  {t("manage-invoices")}
+                </Anchor>
+              </div>
+              <div>
+                {t("payment-cycle")}: {PlanIntervals[subscription?.items?.[0]?.plan?.interval]}{" "}
+              </div>
+            </>
+          </PanelBox>
+        ) : (
+          <div />
+        )}
+        <CurrentPlanCard
+          className="plan-card"
+          isLoadingPlan={isLoadingPlan}
+          activePlan={activePlan}
+          subscription={subscription}
+          onClickSeePlans={() => {
+            if (typeof window === "undefined") return;
+
+            plansTableEl.current.scrollIntoView({
+              behavior: "smooth",
+            });
+          }}
+          {...props}
+        />
+        <div className="col-start-1 col-end-3" ref={plansTableEl}>
           <PlansTable
             {...props}
             showCallToActionSection
@@ -82,43 +113,8 @@ export const Billing = (props) => {
             onSelectedPlan={onSelectedPlan}
             isLoadingCheckoutPlan={isLoadingCheckoutPlan}
           />
-        </>
-      ) : (
-        <div className="inner-layout">
-          {subscription ? (
-            <PanelBox elevated heading="Vision General">
-              <div>Plan: {activePlan?.name}</div>
-              <>
-                <div>
-                  <Anchor
-                    underlined
-                    className="link"
-                    url={`/companies/${companyId}/billing?subscriptionId=${subscription?.id}`}
-                  >
-                    Gestionar Facturas
-                  </Anchor>
-                </div>
-                <div>
-                  <Anchor underlined className="link" onClick={() => setIsSubscriptionStatusEnabled(true)}>
-                    Administrar suscripción
-                  </Anchor>
-                </div>
-                <div>Ciclo de pago: {PlanIntervals[subscription?.items?.[0]?.plan?.interval]} </div>
-              </>
-            </PanelBox>
-          ) : (
-            <div />
-          )}
-          <CurrentPlanCard
-            className="plan-card"
-            isLoadingPlan={isLoadingPlan}
-            activePlan={activePlan}
-            subscription={subscription}
-            setIsSubscriptionStatusView={setIsSubscriptionStatusEnabled}
-            {...props}
-          />
         </div>
-      )}
+      </div>
     </BillingContainer>
   );
 };
@@ -138,7 +134,7 @@ const BillingContainer = styled.div`
     ${mediaQuery.afterTablet} {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
+      grid-template-rows: auto 1fr;
       gap: 1rem;
     }
   }
