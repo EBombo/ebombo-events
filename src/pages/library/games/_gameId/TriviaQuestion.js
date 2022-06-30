@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ButtonAnt } from "../../../../components/form";
 import { Image } from "../../../../components/common/Image";
 import { config } from "../../../../firebase";
@@ -7,12 +7,30 @@ import styled from "styled-components";
 import isEmpty from "lodash/isEmpty";
 import defaultTo from "lodash/defaultTo";
 import { useTranslation } from "../../../../hooks";
+import { triviaShortAnswerType } from "../../../../components/common/DataList";
+
+const accentCharacters = /(á|é|í|ó|ú|Á|É|Í|Ó|Ú)/g;
+
+const specialCharacters = /(\[|\]|\{|\}|\(|\)|\^|\$|\.|\||\?|\*|\+)/g;
 
 export const TriviaQuestion = (props) => {
   const { t } = useTranslation("pages.library.trivia");
 
   const [optionFocus, setOptionFocus] = useState(-1);
   const [correctAns, setCorrectAns] = useState("");
+
+  useEffect(() => {
+    // Initialize answerPattern.
+    const _questions = [...props.questions];
+
+    if (_questions[props.questionIndex]?.type !== triviaShortAnswerType) return;
+
+    if (_questions[props.questionIndex].answerPattern) return;
+
+    _questions[props.questionIndex].answerPattern = _questions[props.questionIndex].answer.map((answer) => answer);
+
+    props.setQuestions(_questions);
+  }, [props.questions, props.questionIndex]);
 
   const updateInputQuiz = (number, e) => {
     const _option = e.target.value;
@@ -47,6 +65,55 @@ export const TriviaQuestion = (props) => {
 
     const _questions = [...props.questions];
     _questions[props.questionIndex].answer = ans;
+    props.setQuestions(_questions);
+  };
+
+  const onAddAnswer = () => {
+    if (isEmpty(correctAns)) return;
+
+    const correctAnsTrimmed = correctAns?.trim();
+
+    let correctAnsFormatted = correctAnsTrimmed;
+
+    correctAnsFormatted = correctAnsFormatted.replace(specialCharacters, (match) => `\\\\${match}`);
+
+    correctAnsFormatted = correctAnsFormatted.replace(accentCharacters, (match) => {
+      if (match === "á" || match === "Á") return `[a|A|á|Á]`;
+      if (match === "é" || match === "É") return `[e|E|é|É]`;
+      if (match === "í" || match === "Í") return `[i|I|í|Í]`;
+      if (match === "ó" || match === "Ó") return `[o|O|ó|Ó]`;
+      if (match === "ú" || match === "Ú") return `[u|U|ú|Ú]`;
+
+      return match;
+    });
+
+    correctAnsFormatted = `^${correctAnsFormatted}$`;
+
+    const _questions = [...props.questions];
+    _questions[props.questionIndex].answer = [...props.questions[props.questionIndex].answer, correctAnsTrimmed];
+
+    _questions[props.questionIndex].answerPattern = [
+      ...(props.questions[props.questionIndex].answerPattern ?? []),
+      correctAnsFormatted,
+    ];
+
+    props.setQuestions(_questions);
+    setCorrectAns("");
+  };
+
+  const onRemoveShortAnswer = (answer, idx) => {
+    const _questions = [...props.questions];
+
+    const indexToDelete = props.questions[props.questionIndex]?.answer.findIndex((ans) => ans === answer);
+
+    _questions[props.questionIndex].answer = props.questions[props.questionIndex]?.answer.filter(
+      (_, index) => index !== indexToDelete
+    );
+
+    _questions[props.questionIndex].answerPattern = (props.questions[props.questionIndex]?.answerPattern ?? []).filter(
+      (_, index) => index !== indexToDelete
+    );
+
     props.setQuestions(_questions);
   };
 
@@ -393,7 +460,7 @@ export const TriviaQuestion = (props) => {
         </div>
       )}
 
-      {props.questions[props.questionIndex]?.type === "shortAnswer" && (
+      {props.questions[props.questionIndex]?.type === triviaShortAnswerType && (
         <div className="grid max-w-[786px] mx-auto my-4 gap-4">
           <div className="w-full h-[55px] md:h-[85px] p-4 bg-whiteLight rounded-[4px] grid grid-cols-[auto_144px]">
             <input
@@ -405,18 +472,10 @@ export const TriviaQuestion = (props) => {
             />
             <ButtonAnt
               onClick={() => {
-                if (isEmpty(correctAns)) return;
-
-                const _questions = [...props.questions];
-                _questions[props.questionIndex].answer = [
-                  ...props.questions[props.questionIndex].answer,
-                  correctAns?.trim(),
-                ];
-                props.setQuestions(_questions);
-                setCorrectAns("");
+                onAddAnswer();
               }}
             >
-              {t("add-question")}
+              {t("add-answer")}
             </ButtonAnt>
           </div>
           <div className="w-full flex flex-wrap gap-[10px]">
@@ -425,15 +484,11 @@ export const TriviaQuestion = (props) => {
                 className="bg-green px-4 py-2 text-['Lato'] text-white bold-[900] text-[22px] leading-[26px] rounded-[5px] flex items-center text-center relative"
                 key={`${answer}-${idx}`}
               >
-                {answer}
+                {props.questions[props.questionIndex]?.answer?.[idx]}
                 <div
                   className="absolute w-[15px] h-[15px] top-[-7px] right-[-7px] cursor-pointer flex items-center justify-center"
                   onClick={() => {
-                    const _questions = [...props.questions];
-                    _questions[props.questionIndex].answer = props.questions[props.questionIndex]?.answer.filter(
-                      (ans) => ans !== answer
-                    );
-                    props.setQuestions(_questions);
+                    onRemoveShortAnswer(answer, idx);
                   }}
                 >
                   <Image

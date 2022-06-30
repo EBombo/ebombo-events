@@ -103,6 +103,8 @@ export const triviaQuestionsTypes = [
   },
 ];
 
+export const triviaShortAnswerType = triviaQuestionsTypes[2].key;
+
 export const questionTypes = {
   quiz: "Quiz",
   trueFalse: "Verdadero o Falso",
