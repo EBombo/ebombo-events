@@ -50,7 +50,7 @@ export const Contacts = (props) => {
           {contacts.map((contact) => (
             <div className="contact-item" key={contact.id}>
               <div>
-                <b>Creado</b>: {moment(contact.createAt).format("LLL")}
+                <b>Creado</b>: {moment(contact.createAt.toDate()).format("LLL")}
               </div>
               <div>
                 <b>Email</b>: {contact.email}

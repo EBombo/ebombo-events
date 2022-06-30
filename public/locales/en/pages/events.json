@@ -18,7 +18,7 @@
   "want-add-gifts": "Do you want to add gifts, prize or any physical element?",
   "sit-and-enjoy": "Sit back and enjoy",
   "lot-interaction": "lots of interaction",
-  "yes-of-course": "!Yes of course¡",
+  "yes-of-course": "¡Yes of course!",
   "no-thanks": "No, thanks",
   "event-objectives": "What are the objectives of your event?",
   "have-fun": "Have fun",
@@ -51,5 +51,22 @@
   "email": "Email",
   "password": "Password",
   "send": "Send",
-  "update": "Update"
+  "update": "Update",
+  "games-for-events": {
+    "tutti": "Tutti Frutti",
+    "find-the-prize": "Find the prize",
+    "sing-and-win": "Sing and win",
+    "who-brings-me": "Who brings me",
+    "onboarding-trivia": "Onboarding trivia",
+    "crack-trivia": "Crack Trivia",
+    "pint-hits": "Pint hits",
+    "home-movie": "Home movie",
+    "emoji-language": "Emoji language",
+    "guess-the-song": "Guess the song",
+    "charades": "Charades",
+    "scrambled-letters": "Scrambled letters",
+    "guess-the-movie": "Guess the movie",
+    "zoom-to-image": "Zoom to image",
+    "truth-and-lies": "Truth and lies"
+  }
 }
