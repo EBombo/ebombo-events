@@ -93,6 +93,8 @@ export const GamesContainer = () => {
                     {game.title.toUpperCase()}
                   </div>
 
+                  <span>{game?.typeGame?.name}</span>
+
                   <div
                     className="content-uploads"
                     style={{

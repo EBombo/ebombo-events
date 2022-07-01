@@ -1,4 +1,4 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../components/common/ModalContainer";
 import { Anchor, ButtonAnt } from "../../components/form";
@@ -6,6 +6,7 @@ import { darkTheme } from "../../theme";
 import { Desktop, mediaQuery, sizes, Tablet } from "../../constants";
 import { useRouter } from "next/router";
 import get from "lodash/get";
+import groupBy from "lodash/groupBy";
 
 const defaultLimit = 6;
 
@@ -15,6 +16,10 @@ export const ModalNewGame = (props) => {
 
   const [adminGames] = useGlobal("adminGames");
   const [limit, setLimit] = useState(defaultLimit);
+
+  const gamesByGroup = useMemo(() => {
+    return groupBy(adminGames, "typeGame.id");
+  }, [adminGames]);
 
   const createGame = (game) => {
     if (game.isDisabled) return props.showNotification("INFO", "Próximamente.", "warning");
@@ -39,30 +44,37 @@ export const ModalNewGame = (props) => {
     >
       <NewGameContainer>
         <div className="title">Crear un nuevo juego</div>
-        <div className="games">
-          {adminGames.slice(0, limit).map((game) => (
-            <div className={`game ${game.isDisabled ? "-" : ""}`} key={game.id} onClick={() => createGame(game)}>
-              {/*TODO: Consider refactoring, add order between <Desktop> and <Tablet>, now hard to understand order.*/}
-              <Desktop>
-                <GameImage src={get(game, "coverUrl", null)} />
-              </Desktop>
 
-              <Tablet>
-                <div className="title-game">{game.title}</div>
-              </Tablet>
+        {Object.keys(gamesByGroup).map((typeGameid) => {
+          const games = gamesByGroup[typeGameid];
 
-              <Tablet>
-                <ButtonAnt margin="5px auto">Crear</ButtonAnt>
-              </Tablet>
+          return (
+            <div key={typeGameid}>
+              <div className="group-label">{games[0]?.typeGame?.name}</div>
 
-              <Desktop>
-                <ButtonAnt variant="text" margin="5px auto" color="light">
-                  {game.title}
-                </ButtonAnt>
-              </Desktop>
+              <div className="games">
+                {games.slice(0, limit).map((game) => (
+                  <div className={`game ${game.isDisabled ? "-" : ""}`} key={game.id} onClick={() => createGame(game)}>
+                    <Desktop>
+                      <GameImage src={get(game, "coverUrl", null)} />
+                    </Desktop>
+
+                    <Tablet>
+                      <div className="title-game">{game.title}</div>
+                      <ButtonAnt margin="5px auto">Crear</ButtonAnt>
+                    </Tablet>
+
+                    <Desktop>
+                      <ButtonAnt variant="text" margin="5px auto" color="light">
+                        {game.title}
+                      </ButtonAnt>
+                    </Desktop>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
 
         {limit < adminGames?.length && (
           <Anchor
@@ -97,6 +109,16 @@ const NewGameContainer = styled.div`
     font-weight: bold;
     font-size: ${sizes.font.normal};
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    color: ${(props) => props.theme.basic.black};
+
+    ${mediaQuery.afterTablet} {
+      font-size: ${sizes.font.large};
+    }
+  }
+
+  .group-label {
+    font-weight: bold;
+    padding: 10px 20px;
     color: ${(props) => props.theme.basic.black};
   }
 
