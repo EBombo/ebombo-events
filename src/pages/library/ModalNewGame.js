@@ -117,6 +117,7 @@ const NewGameContainer = styled.div`
   }
 
   .group-label {
+    font-weight: bold;
     padding: 10px 20px;
     color: ${(props) => props.theme.basic.black};
   }
