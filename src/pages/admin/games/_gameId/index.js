@@ -65,7 +65,6 @@ export const GameContainer = (props) => {
 
     delete currentTypeGame.deleted;
     delete currentTypeGame.createAt;
-    delete currentTypeGame.updateAt;
 
     return currentTypeGame;
   };
