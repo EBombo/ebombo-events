@@ -29,7 +29,7 @@ const SelectContainer = styled.div`
   }
 
   .ant-select-arrow {
-    margin-right: 0px;
+    margin-right: 0;
   }
 `;
 
