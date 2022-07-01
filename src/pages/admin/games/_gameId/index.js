@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { Controller, useForm } from "react-hook-form";
 import { object, string } from "yup";
-import { ButtonAnt, Checkbox, Input } from "../../../../components/form";
+import { ButtonAnt, Checkbox, Input, Select } from "../../../../components/form";
 import { firestore } from "../../../../firebase";
 import { useSendError } from "../../../../hooks";
 import isEmpty from "lodash/isEmpty";
 import Title from "antd/lib/typography/Title";
 import { spinLoaderMin } from "../../../../components/common/loader";
+import { snapshotToArray } from "../../../../utils";
 
 export const GameContainer = (props) => {
   const router = useRouter();
@@ -18,28 +19,38 @@ export const GameContainer = (props) => {
   const isNew = gameId === "new";
 
   const [game, setGame] = useState({});
+  const [typeGames, setTypeGames] = useState([]);
   const [loading, setLoading] = useState(!isNew);
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (isNew) return;
 
-    const fetchGame = async () => {
+    const initialize = async () => {
+      /** Fetch games. **/
       const gameRef = await firestore.collection("games").doc(gameId).get();
 
       if (!gameRef.exists) return router.back();
 
       setGame(gameRef.data());
+
+      /** Fetch type games. **/
+      const typeGamesRef = await firestore.collection("typeGames").where("deleted", "==", false).get();
+
+      setTypeGames(snapshotToArray(typeGamesRef));
+
+      /** Done. **/
       setLoading(false);
     };
 
-    fetchGame();
+    initialize();
   }, []);
 
   const schema = object().shape({
     title: string().required(),
     name: string().required(),
     domain: string().required(),
+    typeGameId: string(),
   });
 
   const { handleSubmit, register, errors, control } = useForm({
@@ -47,21 +58,35 @@ export const GameContainer = (props) => {
     reValidateMode: "onSubmit",
   });
 
+  const findTypeGame = (typeGameId) => {
+    let currentTypeGame = typeGames.find((typeGame) => typeGame.id === typeGameId);
+
+    if (!currentTypeGame) return null;
+
+    delete currentTypeGame.deleted;
+    delete currentTypeGame.createAt;
+
+    return currentTypeGame;
+  };
+
   const saveGame = async (data) => {
     try {
       setIsSaving(true);
-      const gamesRef = firestore.collection("games");
 
+      const currentTypeGame = data.typeGameId ? findTypeGame(data.typeGameId) : null;
+
+      const gamesRef = firestore.collection("games");
       const gameId_ = isNew ? gamesRef.doc().id : gameId;
 
       await gamesRef.doc(gameId_).set(
         {
           ...data,
           id: gameId_,
-          createAt: isNew ? new Date() : game.createAt.toDate(),
-          updateAt: new Date(),
           deleted: false,
           isGameToPlay: true,
+          updateAt: new Date(),
+          typeGame: currentTypeGame,
+          createAt: isNew ? new Date() : game.createAt.toDate(),
         },
         { merge: true }
       );
@@ -72,7 +97,8 @@ export const GameContainer = (props) => {
       sendError(error, "saveGame");
       props.showNotification("Error", "Algo salio mal");
     }
-    router.push("/admin/games");
+
+    await router.push("/admin/games");
     setIsSaving(false);
   };
 
@@ -122,6 +148,27 @@ export const GameContainer = (props) => {
           placeholder="API"
           error={errors.api}
         />
+        {typeGames?.length ? (
+          <Controller
+            name="typeGameId"
+            control={control}
+            defaultValue={game?.typeGame?.id}
+            onChange={([typeGameId]) => typeGameId}
+            as={
+              <Select
+                showSearch
+                virtual={false}
+                placeholder="tipo de juego"
+                optionFilterProp="children"
+                optionsdom={typeGames.map((type) => ({
+                  key: type.id,
+                  code: type.id,
+                  name: type.name,
+                }))}
+              />
+            }
+          />
+        ) : null}
         <Controller
           name="isDisabled"
           control={control}
