@@ -7,6 +7,7 @@ import { Desktop, mediaQuery, sizes, Tablet } from "../../constants";
 import { useRouter } from "next/router";
 import get from "lodash/get";
 import groupBy from "lodash/groupBy";
+import orderBy from "lodash/orderBy";
 
 const defaultLimit = 6;
 
@@ -18,7 +19,8 @@ export const ModalNewGame = (props) => {
   const [limit, setLimit] = useState(defaultLimit);
 
   const gamesByGroup = useMemo(() => {
-    return groupBy(adminGames, "typeGame.id");
+    const games = groupBy(adminGames, "typeGame.id");
+    return orderBy(games, ["typeGame.updateAt"], ["desc"]);
   }, [adminGames]);
 
   const createGame = (game) => {
