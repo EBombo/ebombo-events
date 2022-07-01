@@ -171,13 +171,13 @@ const ProductsContainer = styled.div`
       line-height: 20px;
       letter-spacing: 0.03em;
       color: ${(props) => props.theme.basic.blackDarken};
-      margin: 1rem 0;
+      margin: 1rem 0 0 0;
     }
 
     .options-contain {
       display: flex;
       grid-gap: 10px;
-      margin: 0 0 1rem 0;
+      margin: 0 0 1.5rem 0;
 
       .options {
         .option {
