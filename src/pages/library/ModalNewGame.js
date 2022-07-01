@@ -39,19 +39,16 @@ export const ModalNewGame = (props) => {
     >
       <NewGameContainer>
         <div className="title">Crear un nuevo juego</div>
+
         <div className="games">
           {adminGames.slice(0, limit).map((game) => (
             <div className={`game ${game.isDisabled ? "-" : ""}`} key={game.id} onClick={() => createGame(game)}>
-              {/*TODO: Consider refactoring, add order between <Desktop> and <Tablet>, now hard to understand order.*/}
               <Desktop>
                 <GameImage src={get(game, "coverUrl", null)} />
               </Desktop>
 
               <Tablet>
                 <div className="title-game">{game.title}</div>
-              </Tablet>
-
-              <Tablet>
                 <ButtonAnt margin="5px auto">Crear</ButtonAnt>
               </Tablet>
 
