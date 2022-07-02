@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "reactn";
 import { firestoreGames } from "../../../../firebase";
 import { spinLoader } from "../../../../components/common/loader";
 import { TriviaReport } from "./TriviaReport";
+import { BingoReport } from "./BingoReport";
 
 export const LobbyReport = (props) => {
   const router = useRouter();
@@ -28,6 +29,8 @@ export const LobbyReport = (props) => {
   switch (lobby.game?.adminGame?.name) {
     case "trivia":
       return <TriviaReport {...props} lobby={lobby} />;
+    case "bingo":
+      return <BingoReport {...props} lobby={lobby} />;
     default:
       return <TriviaReport {...props} lobby={lobby} />;
   }

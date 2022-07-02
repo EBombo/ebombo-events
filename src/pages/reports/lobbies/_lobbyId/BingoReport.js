@@ -3,35 +3,31 @@ import moment from "moment";
 import styled from "styled-components";
 import capitalize from "lodash/capitalize";
 import { useTranslation } from "../../../../hooks";
-import { config, firestoreGames, firestoreTrivia } from "../../../../firebase";
+import { config, firestoreGames, firestoreBingo } from "../../../../firebase";
 import { Image } from "../../../../components/common/Image";
 import { useRouter } from "next/router";
 import { snapshotToArray } from "../../../../utils";
 import { mediaQuery } from "../../../../constants";
-import { TriviaResume } from "./TriviaResume";
-import { TriviaUsers } from "./TriviaUsers";
-import { TriviaQuestions } from "./TriviaQuestions";
+import { BingoResume } from "./BingoResume";
+import { BingoUsers } from "./BingoUsers";
 import LobbyFeedbacks from "./LobbyFeedbacks";
 import { Anchor } from "../../../../components/form";
 import { Icon } from "../../../../components/common/Icons";
 import { Tooltip } from "antd";
 import { darkTheme } from "../../../../theme";
 
-export const TriviaReport = (props) => {
+export const BingoReport = (props) => {
   const router = useRouter();
 
   const { lobbyId } = router.query;
 
-  const { t } = useTranslation("pages.reports.trivia");
+  const { t } = useTranslation("pages.reports.bingo");
 
   const [authUser] = useGlobal("user");
 
   const [tab, setTab] = useState(0);
   const [users, setUsers] = useState([]);
-  const [questions, setQuestions] = useState([]);
-  const [ranking, setRanking] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
-  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     router.prefetch("/reports");
@@ -39,31 +35,15 @@ export const TriviaReport = (props) => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const usersRef = await firestoreTrivia.collection("lobbies").doc(lobbyId).collection("users").get();
+      const usersRef = await firestoreBingo.collection("lobbies").doc(lobbyId).collection("users").get();
 
       const _users = snapshotToArray(usersRef);
 
       await setUsers(_users);
     };
 
-    const fetchQuestions = async () => {
-      const questionsRef = await firestoreTrivia.collection("lobbies").doc(lobbyId).collection("gameQuestions").get();
-
-      const _questions = snapshotToArray(questionsRef);
-
-      await setQuestions(_questions);
-    };
-
-    const fetchRanking = async () => {
-      const rankingRef = await firestoreTrivia.collection("lobbies").doc(lobbyId).collection("ranking").get();
-
-      const _ranking = snapshotToArray(rankingRef);
-
-      await setRanking(_ranking);
-    };
-
     const fetchFeedbacks = () =>
-      firestoreTrivia
+      firestoreBingo
         .collection("feedbacks")
         .where("lobbyId", "==", lobbyId)
         .onSnapshot((feedbacksSnapshot) => {
@@ -72,24 +52,12 @@ export const TriviaReport = (props) => {
           setFeedbacks(mappedFeedbacks);
         });
 
-    const fetchAnswers = () =>
-      firestoreTrivia
-        .collection("lobbies")
-        .doc(lobbyId)
-        .collection("answers")
-        .onSnapshot((answersSnapshot) => {
-          const _answers = snapshotToArray(answersSnapshot);
-          setAnswers(_answers);
-        });
 
     const fetchLobbyData = async () => {
       const promiseUsers = fetchUsers();
-      const promiseQuestions = fetchQuestions();
-      const promiseRankings = fetchRanking();
       const promiseFeedbacks = fetchFeedbacks();
-      const promiseAnswers = fetchAnswers();
 
-      await Promise.all([promiseUsers, promiseQuestions, promiseRankings, promiseFeedbacks, promiseAnswers]);
+      await Promise.all([promiseUsers, promiseFeedbacks]);
     };
 
     fetchLobbyData();
@@ -99,58 +67,35 @@ export const TriviaReport = (props) => {
     switch (tab) {
       case 0:
         return (
-          <TriviaResume
+          <BingoResume
             {...props}
             users={users}
-            questions={questions}
-            ranking={ranking}
             feedbacks={feedbacks}
-            answers={answers}
           />
         );
       case 1:
         return (
-          <TriviaUsers
+          <BingoUsers
             {...props}
             users={users}
-            questions={questions}
-            ranking={ranking}
             feedbacks={feedbacks}
-            answers={answers}
           />
         );
       case 2:
         return (
-          <TriviaQuestions
-            {...props}
-            users={users}
-            questions={questions}
-            ranking={ranking}
-            feedbacks={feedbacks}
-            answers={answers}
-          />
-        );
-      case 3:
-        return (
           <LobbyFeedbacks
             {...props}
             users={users}
-            questions={questions}
-            ranking={ranking}
             feedbacks={feedbacks}
-            answers={answers}
           />
         );
 
       default:
         return (
-          <TriviaResume
+          <BingoResume
             {...props}
             users={users}
-            questions={questions}
-            ranking={ranking}
             feedbacks={feedbacks}
-            answers={answers}
           />
         );
     }
@@ -228,14 +173,6 @@ export const TriviaReport = (props) => {
                   tab === 2 ? "text-secondary border-b-[2px] border-secondary" : "text-grayLight"
                 }`}
                 onClick={() => setTab(2)}
-              >
-                {`${t("questions")} (${questions?.length})`}
-              </div>
-              <div
-                className={`cursor-pointer font-[900] p-2 md:py-2 md:px-4 text-[16px] leading-[18px] lg:text-[18px] lg:leading-[22px] ${
-                  tab === 3 ? "text-secondary border-b-[2px] border-secondary" : "text-grayLight"
-                }`}
-                onClick={() => setTab(3)}
               >
                 {t("feedback")}
               </div>
