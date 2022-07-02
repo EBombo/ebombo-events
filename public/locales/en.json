@@ -557,7 +557,10 @@
         "play-again-btn": "Play Again",
         "patterns": "Pattern",
         "see-podium": "See podium",
-        "next": "Next"
+        "next": "Next",
+        "called-balls": "Called balls",
+        "duration": "Duration",
+        "time": "Time"
       },
       "trivia": {
         "title": "Report",

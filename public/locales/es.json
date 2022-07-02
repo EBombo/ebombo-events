@@ -548,7 +548,10 @@
         "play-again-btn": "Jugar nuevamente",
         "patterns": "Patrones",
         "see-podium": "Ver podio",
-        "next": "Siguiente"
+        "next": "Siguiente",
+        "called-balls": "Bolillas llamadas",
+        "duration": "Duración",
+        "time": "Tiempo"
       },
       "trivia": {
         "title": "Reporte",
