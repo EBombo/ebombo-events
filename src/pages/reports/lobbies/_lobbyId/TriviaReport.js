@@ -165,7 +165,7 @@ export const TriviaReport = (props) => {
       <div className="grid lg:gap-8 lg:grid-cols-[3fr_1fr]">
         <div className="relative h-[170px]">
           <div className="absolute top-0 left-0 right-0 bottom-0 z-10 px-4 pt-4 lg:pt-6 lg:px-8 flex flex-col justify-between">
-            <Anchor className="flex items-center gap-2" variant="primary" onClick={() => router.back()}>
+            <Anchor className="flex items-center gap-2 w-fit" variant="primary" onClick={() => router.back()}>
               <Icon type="arrow-left" onClick={() => router.push("/reports")} />
               Volver
             </Anchor>
