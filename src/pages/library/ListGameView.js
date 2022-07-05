@@ -30,7 +30,7 @@ export const ListGameView = (props) => {
   const localPrefixPath = useMemo(() => {
     // TODO: REMOVE gameName when Roulette and Bingo English Translation are implemented.
     const gameName = props.game?.adminGame?.name?.toLowerCase();
-    if (gameName === "roulette" || gameName === "bingo") return "";
+    if (gameName === "bingo") return "";
 
     if (locale === "es") return "";
 
