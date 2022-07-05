@@ -69,6 +69,21 @@ export const Billing = (props) => {
   return (
     <BillingContainer>
       <div className="inner-layout">
+        <CurrentPlanCard
+          className="plan-card"
+          isLoadingPlan={isLoadingPlan}
+          activePlan={activePlan}
+          subscription={subscription}
+          onClickSeePlans={() => {
+            if (typeof window === "undefined") return;
+
+            plansTableEl.current.scrollIntoView({
+              behavior: "smooth",
+            });
+          }}
+          {...props}
+        />
+
         {subscription ? (
           <PanelBox elevated heading={t("general-vision")}>
             <div>Plan: {activePlan?.name}</div>
@@ -91,20 +106,6 @@ export const Billing = (props) => {
         ) : (
           <div />
         )}
-        <CurrentPlanCard
-          className="plan-card"
-          isLoadingPlan={isLoadingPlan}
-          activePlan={activePlan}
-          subscription={subscription}
-          onClickSeePlans={() => {
-            if (typeof window === "undefined") return;
-
-            plansTableEl.current.scrollIntoView({
-              behavior: "smooth",
-            });
-          }}
-          {...props}
-        />
         <div className="col-start-1 col-end-3" ref={plansTableEl}>
           <PlansTable
             {...props}
