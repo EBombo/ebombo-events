@@ -48,7 +48,7 @@ export const BingoUsers = (props) => {
             }`}
             onClick={() => setTab(1)}
           >
-            {`${t("need-help")} (${needHelp.length})`}
+            {`${t("empty-cards")} (${needHelp.length})`}
           </div>
           <div
             className={`px-8 h-full flex items-center text-center font-[700] text-[14px] leading-[17px] cursor-pointer ${

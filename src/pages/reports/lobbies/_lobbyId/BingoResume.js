@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "reactn";
+import React, { useEffect, useState } from "reactn";
 import { useTranslation } from "../../../../hooks";
 import { Progress, Tooltip } from "antd";
 import { Image } from "../../../../components/common/Image";
@@ -7,21 +7,40 @@ import moment from "moment";
 import { ButtonAnt } from "../../../../components/form";
 import isEmpty from "lodash/isEmpty";
 import defaultTo from "lodash/defaultTo";
-import mapKeys from "lodash/mapKeys";
 import capitalize from "lodash/capitalize";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { ModalRanking } from "./ModalRanking";
 import { useRouter } from "next/router";
 
 export const BingoResume = (props) => {
-  const { t } = useTranslation("pages.reports.bingo");
-
   const router = useRouter();
+
+  const { lobbyId } = router.query;
+
+  const { t } = useTranslation("pages.reports.bingo");
 
   const [loading, setLoading] = useState(false);
   const [isVisibleModalWinners, setIsVisibleModalWinners] = useState(false);
   const [droppedOut, setDroppedOut] = useState([]);
+  const [usersWithEmptyCard, setUsersWithEmptyCard] = useState([]);
   const [patternIndex, setPatternIndex] = useState(0);
+
+  useEffect(() => {
+    const mapUsers = () => {
+      const _droppedOut = [];
+      const _markedCard = [];
+
+      props.users.map((user) => {
+        if (user.hasExited) _droppedOut.push(user);
+
+        if (user.markedCard) _usersWithEmptyCard.push(user);
+      });
+
+      setDroppedOut(_droppedOut);
+    };
+
+    mapUsers();
+  }, [lobbyId, props.users]);
 
   const calculateDurationTime = (startAt, endAt) => {
     const startTime = moment(startAt.toDate(), "DD-MM-YYYY hh:mm:ss");
@@ -107,9 +126,9 @@ export const BingoResume = (props) => {
               size="contain"
               margin="0"
             />
-            <div className="text-blackDarken text-[16px] leading-[19px] font-[400]">{t("questions")}</div>
+            <div className="text-blackDarken text-[16px] leading-[19px] font-[400]">{t("times-played")}</div>
           </div>
-          <div className="text-blackDarken text-[16px] leading-[19px] font-[700]">0</div>
+          <div className="text-blackDarken text-[16px] leading-[19px] font-[700]">{props.lobby?.winners?.length}</div>
         </div>
 
         <div className="flex items-center justify-between p-2 border-whiteDark border-b-[1px] w-full h-[33%]">
@@ -193,7 +212,9 @@ export const BingoResume = (props) => {
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col gap-[5px]">
                     <div className="text-[12px] leading-[14px] font-[700] text-blackDarken">{t("called-balls")}:</div>
-                    <div className="text-[12px] leading-[14px] font-[400] text-blackDarken">{winner.lastPlays?.length}/75</div>
+                    <div className="text-[12px] leading-[14px] font-[400] text-blackDarken">
+                      {winner.lastPlays?.length}/75
+                    </div>
                   </div>
 
                   <div className="flex items-center gap-4">
@@ -241,7 +262,7 @@ export const BingoResume = (props) => {
           </Tooltip>
         </div>
 
-        {isEmpty([]) ? (
+        {isEmpty(usersWithEmptyCard) ? (
           <div className="text-blackDarken text-[16px] leading-[19px] font-[400] h-[160px] min-w-[100%] flex items-center justify-center p-2 text-center">
             {t("empty-card-message")}
           </div>
