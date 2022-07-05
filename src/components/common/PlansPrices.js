@@ -59,7 +59,7 @@ export const PlansPrices = (props) => (
           <ButtonAnt
             className="btn-register"
             disabled={props.isLoading}
-            onClick={() => props.onSelectedPlan?.(plan, props.isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan))}
+            onClick={() => props.onSelectedPlan?.(plan, props.isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan))}
           >
             {props.selectPlanLabel ?? "Registrarme"}
           </ButtonAnt>

@@ -63,22 +63,41 @@ export const PlansTable = (props) => {
 
       if (plan?.name?.includes(FREE_PLAN_NAME) || plan?.name?.includes(EXCLUSIVE_PLAN_NAME)) return <td />;
 
-      if (hasPlan)
+
+      if (hasPlan && planIndex === index_)
         return (
           <td>
-            <StripeCustomerPortalLink>
-              {planIndex > index_ ? (
-                <ButtonAnt variant="outlined" color="dark">
-                  {t("downgrade-plan")}
-                </ButtonAnt>
-              ) : planIndex === index_ ? (
-                <ButtonAnt variant="outlined" color="dark">
-                  {t("cancel-plan")}
-                </ButtonAnt>
-              ) : (
-                <ButtonAnt>{t("upgrade-plan")}</ButtonAnt>
-              )}
-            </StripeCustomerPortalLink>
+          <StripeCustomerPortalLink>
+            <ButtonAnt variant="outlined" color="dark">
+              {t("cancel-plan")}
+            </ButtonAnt>
+          </StripeCustomerPortalLink>
+          </td>
+        );
+
+      if (hasPlan && planIndex < index_)
+        return (
+          <td>
+            <ButtonAnt
+              loading={props.isLoadingCheckoutPlan}
+              onClick={() => {
+                props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
+              }}
+            >{t("upgrade-plan")}</ButtonAnt>
+          </td>
+        );
+
+      if (hasPlan && planIndex > index_)
+        return (
+          <td>
+            <ButtonAnt variant="outlined" color="dark"
+            loading={props.isLoadingCheckoutPlan}
+            onClick={() => {
+              props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
+            }}
+          >
+                {t("downgrade-plan")}
+              </ButtonAnt>
           </td>
         );
 
@@ -87,7 +106,7 @@ export const PlansTable = (props) => {
           <ButtonAnt
             loading={props.isLoadingCheckoutPlan}
             onClick={() => {
-              props.onSelectedPlan?.(plan, isMonthly ? getYearlyPrice(plan) : getMonthlyPrice(plan));
+              props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
             }}
           >
             {t("get-plan")}

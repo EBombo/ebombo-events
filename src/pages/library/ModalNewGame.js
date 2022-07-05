@@ -1,4 +1,4 @@
-import React, { useGlobal, useMemo, useState } from "reactn";
+import React, { useGlobal, useMemo, useState, useEffect } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../components/common/ModalContainer";
 import { Anchor, ButtonAnt } from "../../components/form";
@@ -23,8 +23,12 @@ export const ModalNewGame = (props) => {
     return orderBy(games, ["typeGame.updateAt"], ["desc"]);
   }, [adminGames]);
 
+  useEffect(() => {
+    router.prefetch("/contact");
+  }, []);
+
   const createGame = (game) => {
-    if (game.isDisabled) return props.showNotification("INFO", "Próximamente.", "warning");
+    if (game.isDisabled) return router.push("/contact");
 
     folderId
       ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
