@@ -1,4 +1,4 @@
-import React, { useGlobal, useMemo, useState } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../components/common/ModalContainer";
 import { Anchor, ButtonAnt } from "../../components/form";
