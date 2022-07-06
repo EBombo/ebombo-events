@@ -1,4 +1,4 @@
-import React, { useGlobal, useMemo, useState, useEffect } from "reactn";
+import React, { useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { ModalContainer } from "../../components/common/ModalContainer";
 import { Anchor, ButtonAnt } from "../../components/form";
@@ -28,7 +28,10 @@ export const ModalNewGame = (props) => {
   }, []);
 
   const createGame = (game) => {
-    if (game.isDisabled) return router.push("/contact");
+    if (game.isDisabled) {
+      props.showNotification("INFO", "Comunícate con nuestro equipo de ventas.", "warning");
+      return router.push("/contact");
+    }
 
     folderId
       ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
