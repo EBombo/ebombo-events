@@ -23,8 +23,15 @@ export const ModalNewGame = (props) => {
     return orderBy(games, ["typeGame.updateAt"], ["desc"]);
   }, [adminGames]);
 
+  useEffect(() => {
+    router.prefetch("/contact");
+  }, []);
+
   const createGame = (game) => {
-    if (game.isDisabled) return props.showNotification("INFO", "Comunícate con nuestro equipo de ventas.", "warning");
+    if (game.isDisabled) {
+      props.showNotification("INFO", "Comunícate con nuestro equipo de ventas.", "warning");
+      return router.push("/contact");
+    }
 
     folderId
       ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)

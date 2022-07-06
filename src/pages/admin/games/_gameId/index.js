@@ -24,22 +24,27 @@ export const GameContainer = (props) => {
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
-    if (isNew) return;
-
-    const initialize = async () => {
-      /** Fetch games. **/
+    const fetchGame = async () => {
+      if (isNew) return;
       const gameRef = await firestore.collection("games").doc(gameId).get();
 
       if (!gameRef.exists) return router.back();
 
       setGame(gameRef.data());
+    };
 
-      /** Fetch type games. **/
+    const fetchTypeGames = async () => {
       const typeGamesRef = await firestore.collection("typeGames").where("deleted", "==", false).get();
 
       setTypeGames(snapshotToArray(typeGamesRef));
+    };
 
-      /** Done. **/
+    const initialize = async () => {
+      const promiseGame = fetchGame();
+      const promiseTypeGames = fetchTypeGames();
+
+      await Promise.all([promiseGame, promiseTypeGames]);
+
       setLoading(false);
     };
 

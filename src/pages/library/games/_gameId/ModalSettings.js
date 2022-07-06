@@ -103,7 +103,7 @@ export const ModalSettings = (props) => {
                 Permitir duplicar{" "}
                 <Switch
                   size="medium"
-                  checked={allowDuplicate}
+                  checked={props.allowDuplicate}
                   onChange={(event) => {
                     event.preventDefault();
                     props.setAllowDuplicate(!props.allowDuplicate);
