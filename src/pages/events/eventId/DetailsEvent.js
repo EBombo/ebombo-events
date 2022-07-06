@@ -3,6 +3,7 @@ import { Anchor, ButtonAnt, TextArea } from "../../../components/form";
 import { Image } from "../../../components/common/Image";
 import { config } from "../../../firebase";
 import { useTranslation } from "../../../hooks";
+import { gamesToEvent } from "./dataList";
 
 export const interactions = [
   {
@@ -174,6 +175,7 @@ export const DetailsEvent = (props) => {
 
           <div className="grid grid-cols-4 gap-2">
             {games
+              .concat(gamesToEvent)
               .filter((game) => !game.isDisabled)
               .map((game) => (
                 <div
@@ -190,7 +192,7 @@ export const DetailsEvent = (props) => {
                 >
                   <Image src={game.coverUrl} width="100%" height="4rem" cursor="pointer" borderRadius="10px 10px 0 0" />
 
-                  <div>{game.name}</div>
+                  <div>{t(`games-for-events.${game.name}`, game.name)}</div>
                 </div>
               ))}
           </div>

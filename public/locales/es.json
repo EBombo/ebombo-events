@@ -738,6 +738,7 @@
         "cancel": "Cancelar",
         "save": "Guardar",
         "add-question": "Añadir Pregunta",
+        "add-answer": "Añadir Respuesta",
         "write-question": "Escribe tu pregunta",
         "write-answer": "Escribir respuesta",
         "false": "Falso",
@@ -848,7 +849,14 @@
       "lastTitle": "El evento virtual que amarás"
     },
     "billing": {
-      "go-back": "Volver"
+      "go-back": "Volver",
+      "general-vision": "Vision General",
+      "manage-invoices": "Gestionar Facturas",
+      "payment-cycle": "Ciclo de pago",
+      "current-plan": "Plan Actual",
+      "not-having-plan": "¿Aún no tienes un plan?",
+      "see-plans": "Ver planes",
+      "change-detail-payment": "Cambiar los detalles de pago"
     }
   },
   "errors": {

@@ -416,6 +416,7 @@ export const Trivia = (props) => {
                   const _questions = [...questions];
                   _questions[questionIndex].answerOption = value;
                   _questions[questionIndex].answer = [];
+                  _questions[questionIndex].answerPattern = [];
                   setQuestions(_questions);
                 }}
                 value={questions[questionIndex]?.answerOption}

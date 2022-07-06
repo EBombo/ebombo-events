@@ -51,13 +51,13 @@ export const AdminPage = () => {
           <hr />
 
           <Acl name={aclUserList}>
-            <div className="list-subtitle">Usuarios registrados: {analytics.totalUsers}</div>
-            <div className="list-subtitle">Usuarios registrados por Bdev: {analytics.totalUsersBdev}</div>
+            <div className="list-subtitle">Usuarios registrados: {analytics.totalUsers ?? 0}</div>
+            <div className="list-subtitle">Usuarios registrados por Bdev: {analytics.totalUsersBdev ?? 0}</div>
           </Acl>
 
           <Acl name={aclContactList}>
-            <div className="list-subtitle">Registro contactanos: {analytics.totalContacts}</div>
-            <div className="list-subtitle">Registro contactanos por Bdev: {analytics.totalContactsBdev}</div>
+            <div className="list-subtitle">Registro contactanos: {analytics.totalContacts ?? 0}</div>
+            <div className="list-subtitle">Registro contactanos por Bdev: {analytics.totalContactsBdev ?? 0}</div>
           </Acl>
         </>
       ) : null}
