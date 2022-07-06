@@ -24,7 +24,7 @@ export const ModalNewGame = (props) => {
   }, [adminGames]);
 
   const createGame = (game) => {
-    if (game.isDisabled) return props.showNotification("INFO", "Próximamente.", "warning");
+    if (game.isDisabled) return props.showNotification("INFO", "Comunícate con nuestro equipo de ventas.", "warning");
 
     folderId
       ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
