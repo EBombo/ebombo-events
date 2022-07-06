@@ -28,7 +28,7 @@ export const BingoResume = (props) => {
   useEffect(() => {
     const mapUsers = () => {
       const _droppedOut = [];
-      const _markedCard = [];
+      const _usersWithEmptyCard = [];
 
       props.users.map((user) => {
         if (user.hasExited) _droppedOut.push(user);
@@ -37,6 +37,7 @@ export const BingoResume = (props) => {
       });
 
       setDroppedOut(_droppedOut);
+      setUsersWithEmptyCard(_usersWithEmptyCard)
     };
 
     mapUsers();

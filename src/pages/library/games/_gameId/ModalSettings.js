@@ -16,7 +16,9 @@ import { useRouter } from "next/router";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
+
   const { adminGameId } = router.query;
+
   const [audios, setAudios] = useState([]);
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
 
@@ -76,19 +78,19 @@ export const ModalSettings = (props) => {
         <form onSubmit={handleSubmit(saveChanges)}>
           <div className="main-container">
             <div className="left-side">
-              <div className="label">Guardar en</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Guardar en</div>
               <div className="path">
                 {get(props, "parent.name", "Mis Juegos")}
                 <ButtonAnt className="btn-move" onClick={() => setIsVisibleModalMove(true)}>
                   Cambiar
                 </ButtonAnt>
               </div>
-              {/*<div className="label">Branding</div>*/}
+              {/*<div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Branding</div>*/}
               {/*<div className="branding">*/}
               {/*  Usar branding propio*/}
               {/*  <Switch defaultChecked={props.ownBranding} onChange={() => props.setOwnBranding(!props.ownBranding)} />*/}
               {/*</div>*/}
-              {/*<div className="label">Video del Lobby</div>*/}
+              {/*<div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Video del Lobby</div>*/}
               {/*<div className="input-container">*/}
               {/*  <Input*/}
               {/*    type="url"*/}
@@ -99,11 +101,13 @@ export const ModalSettings = (props) => {
               {/*    error={errors.video}*/}
               {/*  />*/}
               {/*</div>*/}
-              <div className="label">
-                Permitir duplicar{" "}
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4">
+                <div className="text-[15px] leading-[18px] font-[700] text-blackDarken">
+                  Permitir duplicar
+                </div>
                 <Switch
                   size="medium"
-                  checked={allowDuplicate}
+                  checked={props.allowDuplicate}
                   onChange={(event) => {
                     event.preventDefault();
                     props.setAllowDuplicate(!props.allowDuplicate);
@@ -111,7 +115,7 @@ export const ModalSettings = (props) => {
                 />
               </div>
 
-              <div className="label">Musica del lobby</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Musica del lobby</div>
               <div className="input-container">
                 <Controller
                   name="audioId"
@@ -133,7 +137,7 @@ export const ModalSettings = (props) => {
                   }
                 />
               </div>
-              <div className="label">Visibilidad</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Visibilidad</div>
               <Radio.Group onChange={() => props.setVisibility(!props.visibility)} value={props.visibility}>
                 <Radio value={true}>Organización</Radio>
                 <Radio value={false}>Nadie</Radio>
@@ -141,7 +145,7 @@ export const ModalSettings = (props) => {
             </div>
 
             <div className="right-side">
-              <div className="label mb-2">Imagen de portada</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 mb-2 text-[15px] leading-[18px] font-[700] text-blackDarken">Imagen de portada</div>
               <FileUpload
                 file={props.coverImgUrl}
                 preview={true}
@@ -191,20 +195,6 @@ const SettingsContainer = styled.div`
     line-height: 18px;
     color: ${(props) => props.theme.basic.blackDarken};
     text-align: center;
-  }
-
-  .label {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 18px;
-    color: ${(props) => props.theme.basic.blackDarken};
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
   }
 
   .branding,
