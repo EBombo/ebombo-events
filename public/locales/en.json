@@ -560,7 +560,9 @@
         "next": "Next",
         "called-balls": "Called balls",
         "duration": "Duration",
-        "time": "Time"
+        "time": "Time",
+        "card-percentage": "Card %",
+        "game": "Game"
       },
       "trivia": {
         "title": "Report",

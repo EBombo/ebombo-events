@@ -9,7 +9,7 @@ import isEmpty from "lodash/isEmpty";
 import defaultTo from "lodash/defaultTo";
 import capitalize from "lodash/capitalize";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { ModalRanking } from "./ModalRanking";
+import { ModalBingoRounds } from "./ModalBingoRounds";
 import { useRouter } from "next/router";
 
 export const BingoResume = (props) => {
@@ -20,7 +20,7 @@ export const BingoResume = (props) => {
   const { t } = useTranslation("pages.reports.bingo");
 
   const [loading, setLoading] = useState(false);
-  const [isVisibleModalWinners, setIsVisibleModalWinners] = useState(false);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [droppedOut, setDroppedOut] = useState([]);
   const [usersWithEmptyCard, setUsersWithEmptyCard] = useState([]);
   const [patternIndex, setPatternIndex] = useState(0);
@@ -65,11 +65,11 @@ export const BingoResume = (props) => {
 
   return (
     <div className="p-4 lg:p-8 grid lg:grid-cols-[2fr_1fr_1fr] gap-4 mx-auto max-w-[1300px]">
-      {isVisibleModalWinners && (
-        <ModalRanking
+      {isVisibleModal && (
+        <ModalBingoRounds
           lobby={props.lobby}
-          isVisibleModalWinners={isVisibleModalWinners}
-          setIsVisibleModalWinners={setIsVisibleModalWinners}
+          isVisibleModal={isVisibleModal}
+          setIsVisibleModal={setIsVisibleModal}
           {...props}
         />
       )}
@@ -151,7 +151,7 @@ export const BingoResume = (props) => {
 
       <div className="bg-whiteLight p-4 flex items-center justify-between rounded-[4px] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] h-[160px]">
         <Image src={`${config.storageUrl}/resources/trophy.svg`} width="49px" height="49px" size="contain" margin="0" />
-        <ButtonAnt color="secondary" onClick={() => setIsVisibleModalWinners(true)}>
+        <ButtonAnt color="secondary" onClick={() => setIsVisibleModal(true)}>
           {t("see-podium")}
         </ButtonAnt>
       </div>
@@ -221,12 +221,12 @@ export const BingoResume = (props) => {
                   <div className="flex items-center gap-4">
                     <div className="flex flex-col gap-[5px]">
                       <div className="text-[12px] leading-[14px] font-[700] text-blackDarken">{t("duration")}:</div>
-                      <div className="text-[12px] leading-[14px] font-[400] text-blackDarken">RESPUESTA</div>
+                      <div className="text-[12px] leading-[14px] font-[400] text-blackDarken">-</div>
                     </div>
 
                     <div className="flex flex-col gap-[5px]">
                       <div className="text-[12px] leading-[14px] font-[700] text-blackDarken">{t("time")}:</div>
-                      <div className="text-[12px] leading-[14px] font-[400] text-blackDarken">RESPUESTA</div>
+                      <div className="text-[12px] leading-[14px] font-[400] text-blackDarken">-</div>
                     </div>
                   </div>
                 </div>

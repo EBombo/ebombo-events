@@ -551,7 +551,9 @@
         "next": "Siguiente",
         "called-balls": "Bolillas llamadas",
         "duration": "Duración",
-        "time": "Tiempo"
+        "time": "Tiempo",
+        "card-percentage": "% de Cartilla",
+        "game": "Juego"
       },
       "trivia": {
         "title": "Reporte",
