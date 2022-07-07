@@ -529,11 +529,37 @@
       "duration": "Duración",
       "winners": "Ganadores",
       "players-number": "N° de jugadores",
+      "bingo":{
+        "title": "Bingo",
+        "resume": "Resumen",
+        "players": "Jugadores",
+        "feedback": "Feedback",
+        "all": "Todos",
+        "empty-cards": "No marcaron su cartilla",
+        "empty-card-message": "¡Bien hecho! Todos marcaron su cartilla.",
+        "dropped-out": "No terminaron",
+        "name": "Nombre",
+        "email": "Correo",
+        "times-played": "Veces jugadas",
+        "victories": "Victorias",
+        "cards": "Cartillas",
+        "see-cards": "Ver cartillas",
+        "participants": "Participantes",
+        "play-again-btn": "Jugar nuevamente",
+        "patterns": "Patrones",
+        "see-podium": "Ver podio",
+        "next": "Siguiente",
+        "called-balls": "Bolillas llamadas",
+        "duration": "Duración",
+        "time": "Tiempo",
+        "card-percentage": "% de Cartilla",
+        "game": "Juego"
+      },
       "trivia": {
         "title": "Reporte",
         "live": "En vivo",
         "organize-by": "Organizado por",
-        "resume": "Resume",
+        "resume": "Resumen",
         "players": "Jugadores",
         "questions": "Preguntas",
         "feedback": "Feedback",
@@ -836,5 +862,18 @@
   "errors": {
     "general-message": "Algo salió mal, intente dentro de unos momentos",
     "general-title": "Error"
+  },
+  "modal-settings": {
+    "save": "Guardar en",
+    "change": "Cambiar",
+    "allow-duplicate": "Permitir duplicar",
+    "lobby-music": "Musica del lobby",
+    "visibility": "Visibilidad",
+    "organization": "Organización",
+    "nobody": "Nadie",
+    "cover-image": "Imagen de portada",
+    "close": "Cerrar",
+    "ready": "Listo",
+    "my-games": "Mis Juesgos"
   }
 }
