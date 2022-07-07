@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "reactn";
 import { useTranslation } from "../../../../hooks";
-import { Progress, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import { Image } from "../../../../components/common/Image";
 import { config } from "../../../../firebase";
 import moment from "moment";
@@ -37,7 +37,7 @@ export const BingoResume = (props) => {
       });
 
       setDroppedOut(_droppedOut);
-      setUsersWithEmptyCard(_usersWithEmptyCard)
+      setUsersWithEmptyCard(_usersWithEmptyCard);
     };
 
     mapUsers();
@@ -269,24 +269,10 @@ export const BingoResume = (props) => {
           </div>
         ) : (
           <div className="h-[120px] overflow-auto p-2 flex flex-col gap-[10px]">
-            {[].map((user, index) => (
+            {usersWithEmptyCard.map((user, index) => (
               <div className="flex items-center justify-between" key={`${user.id}-${index}`}>
                 <div className="text-blackDarken text-[14px] leading-[16px] font-[400]">
                   {capitalize(user.nickname)}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Progress
-                    type="circle"
-                    showInfo={false}
-                    percent={user.correctPercentage}
-                    width={20}
-                    strokeWidth={20}
-                    strokeColor="#56EEA5"
-                    trailColor="#FB4646"
-                  />
-                  <div className="text-blackDarken text-[14px] leading-[17px] font-[800]">
-                    {user.correctPercentage}%
-                  </div>
                 </div>
               </div>
             ))}
@@ -317,20 +303,6 @@ export const BingoResume = (props) => {
               <div className="flex items-center justify-between" key={`${user.id}-${index}`}>
                 <div className="text-blackDarken text-[14px] leading-[16px] font-[400]">
                   {capitalize(user.nickname)}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Progress
-                    type="circle"
-                    showInfo={false}
-                    percent={user.correctPercentage}
-                    width={20}
-                    strokeWidth={20}
-                    strokeColor="#56EEA5"
-                    trailColor="#FB4646"
-                  />
-                  <div className="text-blackDarken text-[14px] leading-[17px] font-[800]">
-                    {user.correctPercentage}%
-                  </div>
                 </div>
               </div>
             ))}
