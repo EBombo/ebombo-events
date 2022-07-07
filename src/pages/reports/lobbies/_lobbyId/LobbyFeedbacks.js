@@ -9,7 +9,7 @@ import { ModalAnswers } from "./ModalAnswers";
 //WARNING: SI ELIMINAS ESTE IMPORT CAUSA UN UNDEFINED EN LA DEPENDENCIA react-chartjs-2.
 import { Chart as ChartJS } from "chart.js/auto";
 
-const TriviaFeedbacks = (props) => {
+const LobbyFeedbacks = (props) => {
   const { t } = useTranslation("pages.reports.trivia");
 
   const [commentsAmount, setCommentsAmount] = useState([]);
@@ -296,4 +296,4 @@ const TriviaFeedbacks = (props) => {
   );
 };
 
-export default TriviaFeedbacks;
+export default LobbyFeedbacks;

@@ -535,6 +535,35 @@
       "duration": "Duration",
       "winners": "Winners",
       "players-number": "N° of Players",
+      "bingo":{
+        "title": "Bingo",
+        "resume": "Resume",
+        "players": "Players",
+        "feedback": "Feedback",
+        "all": "All",
+        "empty-cards": "Didn't mark his card",
+        "empty-card-message": "Well done! They all marked their card.",
+        "empty-card-tooltip": "They didn't mark their card in all rounds.",
+        "dropped-out": "Dropped Out",
+        "dropped-out-message": "Well done! Everyone finish the quiz.",
+        "dropped-out-tooltip": "They logged out before finishing. It indicates how many questions they answered.",
+        "name": "Name",
+        "email": "Email",
+        "times-played": "Times played",
+        "victories": "Victories",
+        "cards": "Cards",
+        "see-cards": "See cards",
+        "participants": "Participants",
+        "play-again-btn": "Play Again",
+        "patterns": "Pattern",
+        "see-podium": "See podium",
+        "next": "Next",
+        "called-balls": "Called balls",
+        "duration": "Duration",
+        "time": "Time",
+        "card-percentage": "Card %",
+        "game": "Game"
+      },
       "trivia": {
         "title": "Report",
         "live": "Live",
@@ -842,5 +871,18 @@
   "errors": {
     "general-message": "Something went wrong, please try later",
     "general-title": "Error"
+  },
+  "modal-settings": {
+    "save": "Keep in",
+    "change": "Cambiar",
+    "allow-duplicate": "Allow duplicate",
+    "lobby-music": "Lobby music",
+    "visibility": "Visibility",
+    "organization": "Organization",
+    "nobody": "Nobody",
+    "cover-image": "Cover image",
+    "close": "Close",
+    "ready": "Ready",
+    "my-games": "My games"
   }
 }
