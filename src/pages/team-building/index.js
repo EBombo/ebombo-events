@@ -45,7 +45,8 @@ export const TeamBuilding = (props) => {
               <SharpButton
                 prefixIcon="wink"
                 className="min-w-[180px]"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
                   router.push(url);
                 }}
@@ -78,7 +79,8 @@ export const TeamBuilding = (props) => {
             <SharpButton
               prefixIcon="wink"
               className="min-w-[180px]"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
                 router.push(url);
               }}

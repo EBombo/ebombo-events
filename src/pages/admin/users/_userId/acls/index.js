@@ -100,7 +100,13 @@ export const AclsContainer = (props) => {
         </ul>
       ))}
       <div className="btns">
-        <ButtonAnt onClick={() => router.push(`/admin/users`)} disabled={loadingUpdateUser}>
+        <ButtonAnt
+          onClick={(e) => {
+            e.preventDefault();
+            router.push(`/admin/users`);
+          }}
+          disabled={loadingUpdateUser}
+        >
           CANCELAR
         </ButtonAnt>
         <ButtonAnt htmlType="submit" loading={loadingUpdateUser} disabled={loadingUpdateUser}>

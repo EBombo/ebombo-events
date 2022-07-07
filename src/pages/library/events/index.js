@@ -62,8 +62,11 @@ export const Events = (props) => {
               size="cover"
               margin="0"
               cursor="pointer"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+
                 if (!event.manageByUser) return;
+
                 router.push(`/library/events/${event.id}/view`);
               }}
             />
@@ -72,8 +75,11 @@ export const Events = (props) => {
                 <div>
                   <div
                     className="text-['Lato'] font-[700] text-[16px] leading-[18px] md:text-[20px] md:leading-[22px]"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
+
                       if (!event.manageByUser) return;
+
                       router.push(`/library/events/${event.id}/view`);
                     }}
                   >
@@ -114,7 +120,10 @@ export const Events = (props) => {
                       {!event.manageByUser && (
                         <div
                           className="flex items-center font-[normal] text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
-                          onClick={() => router.push(`/events/${event.id}`)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            router.push(`/events/${event.id}`);
+                          }}
                         >
                           <EditOutlined /> <div className="mx-4">{t("edit")}</div>
                         </div>
@@ -178,7 +187,13 @@ export const Events = (props) => {
                           </div>
                         ))}
                       </Desktop>
-                      <ButtonAnt color="secondary" onClick={() => router.push(`/library/events/${event.id}`)}>
+                      <ButtonAnt
+                        color="secondary"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          router.push(`/library/events/${event.id}`);
+                        }}
+                      >
                         Editar
                       </ButtonAnt>
                     </>

@@ -49,7 +49,14 @@ export const GamesContainer = () => {
     <GamesContainerCss>
       <div>
         <div className="title">Juegos</div>
-        <ButtonAnt onClick={() => router.push("/admin/games/new")}>CREAR JUEGO</ButtonAnt>
+        <ButtonAnt
+          onClick={(e) => {
+            e.preventDefault();
+            router.push("/admin/games/new");
+          }}
+        >
+          CREAR JUEGO
+        </ButtonAnt>
 
         <Divider />
         <List
@@ -74,7 +81,10 @@ export const GamesContainer = () => {
                 >
                   <Tooltip title={"Editar juego"}>
                     <EditOutlined
-                      onClick={() => router.push(`/admin/games/${game.id}`)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        router.push(`/admin/games/${game.id}`);
+                      }}
                       style={{ color: "gray", fontSize: "24px" }}
                     />
                   </Tooltip>
@@ -89,7 +99,14 @@ export const GamesContainer = () => {
             >
               {
                 <div style={{ width: "100%" }}>
-                  <div className="game" key={game.id} onClick={() => router.push(`/admin/games/${game.id}`)}>
+                  <div
+                    className="game"
+                    key={game.id}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      router.push(`/admin/games/${game.id}`);
+                    }}
+                  >
                     {game.title.toUpperCase()}
                   </div>
 

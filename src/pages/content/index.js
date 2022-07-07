@@ -36,7 +36,14 @@ export const Content = (props) => {
             </h2>
             <p className="text-secondary text-base md:text-2xl mb-10">{t("landing.content.intro-description")}</p>
             <div className="hidden md:inline-grid md:grid-cols-[min-content_min-content] gap-8">
-              <SharpButton prefixIcon="wink" className="min-w-[180px]" onClick={() => createEvent()}>
+              <SharpButton
+                prefixIcon="wink"
+                className="min-w-[180px]"
+                onClick={(e) => {
+                  e.preventDefault();
+                  createEvent();
+                }}
+              >
                 <span className="text-lg font-bold align-middle">{t("landing.content.sign-in-button-label")}</span>
               </SharpButton>
               <SharpButton
@@ -44,7 +51,10 @@ export const Content = (props) => {
                 prefixIcon="satisfied"
                 color="primary"
                 className="min-w-[180px]"
-                onClick={() => router.push("/contact")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/contact");
+                }}
               >
                 <span className="text-lg font-bold align-middle">{t("landing.content.contact-button-label")}</span>
               </SharpButton>
@@ -62,10 +72,23 @@ export const Content = (props) => {
           </div>
 
           <div className="md:hidden inline-flex flex-cols flex-wrap gap-4 px-8 py-8">
-            <SharpButton prefixIcon="wink" onClick={() => createEvent()}>
+            <SharpButton
+              prefixIcon="wink"
+              onClick={(e) => {
+                e.preventDefault();
+                createEvent();
+              }}
+            >
               <span className="text-lg font-bold align-middle">{t("landing.content.sign-in-button-label")}</span>
             </SharpButton>
-            <SharpButton color="primary" prefixIcon="satisfied" onClick={() => router.push("/contact")}>
+            <SharpButton
+              color="primary"
+              prefixIcon="satisfied"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/contact");
+              }}
+            >
               <span className="text-lg font-bold align-middle">{t("landing.content.contact-button-label")}</span>
             </SharpButton>
           </div>

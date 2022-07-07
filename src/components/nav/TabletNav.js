@@ -26,13 +26,14 @@ export const TabletNav = (props) => {
       <div className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%] ">
         <Image
           src={`${config.storageUrl}/resources/ebombo-white.svg`}
-          onClick={() =>
+          onClick={(e) => {
+            e.preventDefault();
             userAcls.some((acl) => acl.includes("admin"))
               ? router.push("/admin")
               : authUser
               ? router.push("/library/games")
-              : router.push("/")
-          }
+              : router.push("/");
+          }}
           height="23px"
           width="88px"
           size="contain"
