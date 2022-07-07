@@ -355,9 +355,9 @@ export const freePlan = {
     games: plans[0].games,
     recommended: true,
     live_chat: "yes",
-    progress_tracking: "yes",
-    players_identity: "yes",
-    reporting: "yes",
+    progress_tracking: "no",
+    players_identity: "no",
+    reporting: "no",
   },
   currentPrice: {
     amount: plans[0].price,
