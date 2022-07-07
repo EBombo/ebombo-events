@@ -871,5 +871,18 @@
   "errors": {
     "general-message": "Something went wrong, please try later",
     "general-title": "Error"
+  },
+  "modal-settings": {
+    "save": "Keep in",
+    "change": "Cambiar",
+    "allow-duplicate": "Allow duplicate",
+    "lobby-music": "Lobby music",
+    "visibility": "Visibility",
+    "organization": "Organization",
+    "nobody": "Nobody",
+    "cover-image": "Cover image",
+    "close": "Close",
+    "ready": "Ready",
+    "my-games": "My games"
   }
 }

@@ -13,11 +13,14 @@ import { snapshotToArray } from "../../../../utils";
 import { FileUpload } from "../../../../components/common/FileUpload";
 import { ModalMove } from "../../../../components/common/ModalMove";
 import { useRouter } from "next/router";
+import { useTranslation } from "../../../../hooks";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
 
   const { adminGameId } = router.query;
+
+  const {t} = useTranslation("modal-settings")
 
   const [audios, setAudios] = useState([]);
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
@@ -78,11 +81,11 @@ export const ModalSettings = (props) => {
         <form onSubmit={handleSubmit(saveChanges)}>
           <div className="main-container">
             <div className="left-side">
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Guardar en</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">{t("save")}</div>
               <div className="path">
-                {get(props, "parent.name", "Mis Juegos")}
+                {get(props, "parent.name", t("my-games"))}
                 <ButtonAnt className="btn-move" onClick={() => setIsVisibleModalMove(true)}>
-                  Cambiar
+                  {t("change")}
                 </ButtonAnt>
               </div>
               {/*<div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Branding</div>*/}
@@ -103,7 +106,7 @@ export const ModalSettings = (props) => {
               {/*</div>*/}
               <div className="w-[100%] flex items-center mt-4 justify-between mt-4">
                 <div className="text-[15px] leading-[18px] font-[700] text-blackDarken">
-                  Permitir duplicar
+                  {t("allow-duplicate")}
                 </div>
                 <Switch
                   size="medium"
@@ -115,7 +118,7 @@ export const ModalSettings = (props) => {
                 />
               </div>
 
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Musica del lobby</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">{t("lobby-music")}</div>
               <div className="input-container">
                 <Controller
                   name="audioId"
@@ -137,15 +140,15 @@ export const ModalSettings = (props) => {
                   }
                 />
               </div>
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Visibilidad</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">{t("visibility")}</div>
               <Radio.Group onChange={() => props.setVisibility(!props.visibility)} value={props.visibility}>
-                <Radio value={true}>Organización</Radio>
-                <Radio value={false}>Nadie</Radio>
+                <Radio value={true}>{t("organization")}</Radio>
+                <Radio value={false}>{t("nobody")}</Radio>
               </Radio.Group>
             </div>
 
             <div className="right-side">
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 mb-2 text-[15px] leading-[18px] font-[700] text-blackDarken">Imagen de portada</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 mb-2 text-[15px] leading-[18px] font-[700] text-blackDarken">{t("cover-image")}</div>
               <FileUpload
                 file={props.coverImgUrl}
                 preview={true}
@@ -164,10 +167,10 @@ export const ModalSettings = (props) => {
               className="btn"
               onClick={() => props.setIsVisibleModalSettings(false)}
             >
-              Cerrar
+              {t("close")}
             </ButtonAnt>
             <ButtonAnt variant={"contained"} color={"secondary"} htmlType="submit" className="btn">
-              Listo
+              {t("ready")}
             </ButtonAnt>
           </div>
         </form>

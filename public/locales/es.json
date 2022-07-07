@@ -862,5 +862,18 @@
   "errors": {
     "general-message": "Algo salió mal, intente dentro de unos momentos",
     "general-title": "Error"
+  },
+  "modal-settings": {
+    "save": "Guardar en",
+    "change": "Cambiar",
+    "allow-duplicate": "Permitir duplicar",
+    "lobby-music": "Musica del lobby",
+    "visibility": "Visibilidad",
+    "organization": "Organización",
+    "nobody": "Nadie",
+    "cover-image": "Imagen de portada",
+    "close": "Cerrar",
+    "ready": "Listo",
+    "my-games": "Mis Juesgos"
   }
 }
