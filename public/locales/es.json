@@ -529,7 +529,7 @@
       "duration": "Duración",
       "winners": "Ganadores",
       "players-number": "N° de jugadores",
-      "bingo":{
+      "bingo": {
         "title": "Bingo",
         "resume": "Resumen",
         "players": "Jugadores",
@@ -847,6 +847,12 @@
         "emoji": "Lenguaje Emoji"
       },
       "lastTitle": "El evento virtual que amarás"
+    },
+    "companies": {
+      "company-management": "Adm. de la empresa",
+      "users-management": "Adm. de usuarios",
+      "invoicing": "Facturación",
+      "usage-report": "Informe de uso"
     },
     "billing": {
       "go-back": "Volver",
