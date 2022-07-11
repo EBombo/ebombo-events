@@ -1,7 +1,20 @@
 import React, { useEffect, useState } from "reactn";
 import { firestore } from "../firebase";
-import { freePlan } from "../components/common/DataList";
+import { freePlan, plansInOrder } from "../components/common/DataList";
 import { snapshotToArray } from "../utils";
+import map from "lodash/map";
+
+const sortPlans = (plans) => {
+  // Order plans based on plansInOrder from DataList.
+  let orderedPlans = map(plansInOrder, (orderPlanName) =>
+    plans.filter((p) => p.name?.toLowerCase().includes(orderPlanName?.toLowerCase()))?.[0]
+  );
+
+  // This filter removes possible undefined items on orderedPlans list.
+  orderedPlans = orderedPlans.filter((plan) => !!plan);
+
+  return orderedPlans;
+};
 
 export const useStripePlans = (props) => {
   const [isLoadingPlans, setIsLoadingPlans] = useState(false);
@@ -39,7 +52,9 @@ export const useStripePlans = (props) => {
 
       const plans_ = await Promise.all(plansPromises);
 
-      setPlans([freePlan, ...plans_]);
+      const sortedPlans = sortPlans([freePlan, ...plans_]);
+
+      setPlans(sortedPlans);
 
       setIsLoadingPlans(false);
     };

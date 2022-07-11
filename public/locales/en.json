@@ -535,7 +535,7 @@
       "duration": "Duration",
       "winners": "Winners",
       "players-number": "N° of Players",
-      "bingo":{
+      "bingo": {
         "title": "Bingo",
         "resume": "Resume",
         "players": "Players",
@@ -866,6 +866,12 @@
       "ask-not-having-plan": "Don't have a plan yet?",
       "see-plans": "See plans",
       "change-detail-payment": "Change payment details"
+    },
+    "companies": {
+      "company-management": "Company management",
+      "users-management": "Users management",
+      "invoicing": "Invoicing",
+      "usage-report": "Usage report"
     }
   },
   "errors": {

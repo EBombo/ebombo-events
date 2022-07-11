@@ -55,7 +55,7 @@ export const PlansTable = (props) => {
   );
 
   const getYesNoIcon = (value) =>
-    value === YES_VALUE ? <CheckOutlined style={{ color: darkTheme.basic.primary }} /> : <CloseOutlined />;
+    value === YES_VALUE ? <CheckOutlined style={{ color: darkTheme.basic.primary }} /> : <CloseOutlined style={{ color: darkTheme.basic.danger }} />;
 
   const CallToActionContentSection = React.memo(
     ({ plan, index_ }) => {

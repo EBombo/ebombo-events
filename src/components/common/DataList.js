@@ -294,44 +294,26 @@ export const plans = [
   },
   {
     name: "Básico",
-    price: 9,
-    users: 20,
-    games: 1,
-    color: "#956DFC",
-    background: "#956DFC",
-    description: "por admin al mes\n" + "($108 anualmente)",
-    specs: [20, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />],
   },
   {
     name: "Avanzado",
-    price: 29,
-    users: 50,
-    games: 2,
-    color: "#242424",
-    background: "#242424",
-    description: "por admin al mes\n" + "($348 anualmente)",
-    specs: [50, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />],
   },
   {
     name: "Pro",
-    price: 39,
-    users: 500,
-    games: 2,
-    color: "#956DFC",
-    background: "#956DFC",
-    description: "por admin al mes\n" + "($468 anualmente)",
-    specs: [500, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />],
   },
   {
     name: "Exclusivo",
-    price: "Contáctanos",
-    users: "500+",
-    games: "Todos",
-    color: "#D2A137",
-    background: "linear-gradient(90.24deg, #D2A137 -3.57%, #EECA5A 23.9%, #D2A137 99.85%)",
-    description: "contact-sales-department",
-    specs: ["501+", <CheckOutlined />, <CheckOutlined />, <CheckOutlined />, <CheckOutlined />],
   },
+];
+
+// This list sets the order (from left to right) when displaying plans.
+export const plansInOrder = [
+  plans[0].name, // Free plan.
+  "Basic",
+  "Advanced",
+  "Pro",
+  "Platinum",
+  "Exclusive",
 ];
 
 export const freePlan = {
@@ -355,9 +337,9 @@ export const freePlan = {
     games: plans[0].games,
     recommended: true,
     live_chat: "yes",
-    progress_tracking: "yes",
-    players_identity: "yes",
-    reporting: "yes",
+    progress_tracking: "no",
+    players_identity: "no",
+    reporting: "no",
   },
   currentPrice: {
     amount: plans[0].price,
