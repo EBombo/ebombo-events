@@ -9,7 +9,7 @@ import defaultTo from "lodash/defaultTo";
 import { useTranslation } from "../../../../hooks";
 import { triviaShortAnswerType } from "../../../../components/common/DataList";
 
-const accentCharacters = /(á|é|í|ó|ú|Á|É|Í|Ó|Ú)/g;
+const vowelsAndAccentsCharacters = /(a|e|i|o|u|A|E|I|O|U|á|é|í|ó|ú|Á|É|Í|Ó|Ú)/g;
 
 const specialCharacters = /(\[|\]|\{|\}|\(|\)|\^|\$|\.|\||\?|\*|\+)/g;
 
@@ -77,7 +77,13 @@ export const TriviaQuestion = (props) => {
 
     correctAnsFormatted = correctAnsFormatted.replace(specialCharacters, (match) => `\\\\${match}`);
 
-    correctAnsFormatted = correctAnsFormatted.replace(accentCharacters, (match) => {
+    correctAnsFormatted = correctAnsFormatted.replace(vowelsAndAccentsCharacters, (match) => {
+      if (match === "a" || match === "A") return `[a|A|á|Á]`;
+      if (match === "e" || match === "E") return `[e|E|é|É]`;
+      if (match === "i" || match === "I") return `[i|I|í|Í]`;
+      if (match === "o" || match === "O") return `[o|O|ó|Ó]`;
+      if (match === "u" || match === "U") return `[u|U|ú|Ú]`;
+
       if (match === "á" || match === "Á") return `[a|A|á|Á]`;
       if (match === "é" || match === "É") return `[e|E|é|É]`;
       if (match === "í" || match === "Í") return `[i|I|í|Í]`;
