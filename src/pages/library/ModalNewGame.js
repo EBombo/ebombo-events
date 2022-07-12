@@ -63,7 +63,14 @@ export const ModalNewGame = (props) => {
 
               <div className="games">
                 {games.slice(0, limit).map((game) => (
-                  <div className={`game ${game.isDisabled ? "-" : ""}`} key={game.id} onClick={() => createGame(game)}>
+                  <div
+                    className={`game ${game.isDisabled ? "-" : ""}`}
+                    key={game.id}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      createGame(game);
+                    }}
+                  >
                     <Desktop>
                       <GameImage src={get(game, "coverUrl", null)} />
                     </Desktop>

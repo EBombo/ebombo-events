@@ -105,7 +105,13 @@ export const TabletLibrary = (props) => {
           <div className="main-content">
             <div className="recents">{t("recent")}</div>
             <div className="most-recent" />
-            <div className="item games" onClick={() => router.push("/library/games")}>
+            <div
+              className="item games"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/library/games");
+              }}
+            >
               <div className="left">
                 <Image
                   src={`${config.storageUrl}/resources/purple-puzzle.svg`}
@@ -117,7 +123,13 @@ export const TabletLibrary = (props) => {
                 <div className="name">{t("activities")}</div>
               </div>
             </div>
-            <div className="item favorites" onClick={() => router.push("/library/favorites")}>
+            <div
+              className="item favorites"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/library/favorites");
+              }}
+            >
               <div className="left">
                 <Image
                   src={`${config.storageUrl}/resources/purple-star.svg`}
@@ -129,7 +141,13 @@ export const TabletLibrary = (props) => {
                 <div className="name">{t("favorites")}</div>
               </div>
             </div>
-            <div className="item favorites" onClick={() => router.push("/library/events")}>
+            <div
+              className="item favorites"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/library/events");
+              }}
+            >
               <div className="left">
                 <Image
                   src={`${config.storageUrl}/resources/calendar-purple-icon.svg`}
@@ -202,7 +220,13 @@ export const TabletLibrary = (props) => {
             ) : (
               props.folders.map((folder) => (
                 <div key={folder.id} className="item games folder">
-                  <div className="left" onClick={() => router.push(`/library/folders/${folder.id}`)}>
+                  <div
+                    className="left"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      router.push(`/library/folders/${folder.id}`);
+                    }}
+                  >
                     <Image
                       src={`${config.storageUrl}/resources/purple-folder.svg`}
                       width="20px"

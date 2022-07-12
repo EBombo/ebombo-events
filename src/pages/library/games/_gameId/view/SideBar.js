@@ -35,7 +35,9 @@ export const SideBar = (props) => {
           <div className="flex items-center">
             <ButtonAnt
               color="secondary"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+
                 get(props, "game.parentId", null)
                   ? router.push(`/library/games/${props.game.id}?adminGameId=${adminGameId}&folderId=${folderId}`)
                   : router.push(`/library/games/${props.game.id}?adminGameId=${adminGameId}`);

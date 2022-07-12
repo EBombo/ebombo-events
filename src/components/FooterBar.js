@@ -28,13 +28,15 @@ const FooterBar = (props) => {
           <div
             className={isSelected(userLink.url)}
             key={`key-menu-user-link-${userLink.url}`}
-            onClick={() =>
+            onClick={(e) => {
+              e.preventDefault();
+
               authUser
                 ? userLink.onClick
                   ? userLink.onClick(setIsVisibleModalGame)
                   : router.push(userLink.url)
-                : setIsVisibleLoginModal(true)
-            }
+                : setIsVisibleLoginModal(true);
+            }}
           >
             <Image src={userLink.src} width="auto" height="30px" className="icon" />
             <span className="label">{userLink.name}</span>
