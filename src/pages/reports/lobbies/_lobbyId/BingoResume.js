@@ -71,7 +71,6 @@ export const BingoResume = (props) => {
     <div className="p-4 lg:p-8 grid lg:grid-cols-[2fr_1fr_1fr] gap-4 mx-auto max-w-[1300px]">
       {isVisibleModal && (
         <ModalBingoRounds
-          lobby={props.lobby}
           isVisibleModal={isVisibleModal}
           setIsVisibleModal={setIsVisibleModal}
           {...props}
