@@ -43,9 +43,13 @@ export const Billing = (props) => {
 
       if (!activeSubscriptions.length) return setIsLoadingPlan(false);
 
-      setSubscription(activeSubscriptions[0]);
+      const subscription_ = activeSubscriptions[0];
 
-      setActivePlan((await activeSubscriptions[0].product.get()).data());
+      const product = (await subscription_.product.get()).data();
+
+      setSubscription(subscription_);
+
+      setActivePlan(product);
       return setIsLoadingPlan(false);
     };
 
@@ -111,6 +115,7 @@ export const Billing = (props) => {
             {...props}
             showCallToActionSection
             currentPlan={activePlan}
+            currentSubscription={subscription}
             onSelectedPlan={onSelectedPlan}
             isLoadingCheckoutPlan={isLoadingCheckoutPlan}
           />
