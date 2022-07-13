@@ -82,7 +82,10 @@ export const Navbar = (props) => {
                 margin="0"
                 cursor="pointer"
                 alt=""
-                onClick={() => router.push(authUser ? "/library" : "/")}
+                onClick={() => {
+                  console.log("click aki",authUser);
+                  router.push(authUser ? "/library" : "/");
+                }}
               />
             </div>
             <Desktop>
