@@ -18,6 +18,7 @@ module.exports = withBundleAnalyzer({
       })
     );
 
+    /**
     if (isProd)
       config.optimization = {
         sideEffects: true,
@@ -31,6 +32,7 @@ module.exports = withBundleAnalyzer({
           maxSize: 250000,
         },
       };
+    **/
 
     return config;
   },
