@@ -33,7 +33,8 @@ export const Menu = (props) => {
       <MenuTabs defaultActiveKey="1">
         <TabPane tab={<b>{t("my-account")}</b>} key="1">
           <MenuItem
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               setOpenRightDrawer(false);
               router.push(`/users/${authUser.id}`);
             }}
@@ -41,16 +42,19 @@ export const Menu = (props) => {
             <span className="item">{t("profile-settings")}</span>
           </MenuItem>
           <MenuItem
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               setOpenRightDrawer(false);
-              return router.push(`/companies/${companyId}`);
+              router.push(`/companies/${companyId}`);
             }}
           >
             <span className="item">{t("company-settings")}</span>
           </MenuItem>
           <MenuItem
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               setOpenRightDrawer(false);
+
               if (!authUser?.companyId) return router.push(`/companies/${companyId}`);
 
               return router.push(`/companies/${companyId}?currentTab=billing`);
@@ -60,7 +64,8 @@ export const Menu = (props) => {
           </MenuItem>
           <MenuItem
             logout
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               setOpenRightDrawer(false);
               router.push(`/`);
             }}

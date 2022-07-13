@@ -54,7 +54,8 @@ export const OnBoarding = (props) => {
               <SharpButton
                 prefixIcon="wink"
                 className="min-w-[180px]"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
                   router.push(url);
                 }}
@@ -86,7 +87,8 @@ export const OnBoarding = (props) => {
           <div className="lg:hidden inline-flex flex-wrap gap-4 py-8">
             <SharpButton
               prefixIcon="wink"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
                 router.push(url);
               }}

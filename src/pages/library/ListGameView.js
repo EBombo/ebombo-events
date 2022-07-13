@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState, useMemo } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
@@ -142,7 +142,13 @@ export const ListGameView = (props) => {
 
           <div className="main-content">
             <div className="description">
-              <div className="name" onClick={() => redirectToGameView()}>
+              <div
+                className="name"
+                onClick={(e) => {
+                  e.preventDefault();
+                  redirectToGameView();
+                }}
+              >
                 {props.game.name}
               </div>
 
@@ -234,8 +240,9 @@ export const ListGameView = (props) => {
                       color="secondary"
                       margin="0 1rem"
                       loading={isLoading}
-                      onClick={() => {
+                      onClick={(e) => {
                         try {
+                          e.preventDefault();
                           setIsLoading(true);
 
                           const adminGameId = props.game.adminGameId ?? props.game.adminGame.id;
@@ -281,7 +288,9 @@ export const ListGameView = (props) => {
               variant="contained"
               color="secondary"
               margin="0 1rem"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+
                 get(props, "game.parentId", null)
                   ? router.push(
                       `/library/games/new?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`

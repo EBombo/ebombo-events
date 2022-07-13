@@ -11,7 +11,13 @@ export const HeldEvents = (props) => {
   const router = useRouter();
 
   const carouselContent = (event, index) => (
-    <EventContent key={index} onClick={() => router.push(`/held-events/${event.id}`)}>
+    <EventContent
+      key={index}
+      onClick={(e) => {
+        e.preventDefault();
+        router.push(`/held-events/${event.id}`);
+      }}
+    >
       <Image src={event.imageUrl} height="162px" width="100%" borderRadius="8px 8px 0 0" margin="0" size="cover" />
 
       <div className="bottom-section">

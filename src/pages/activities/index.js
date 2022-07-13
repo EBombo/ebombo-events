@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal } from "reactn";
+import React, { useEffect } from "reactn";
 import { useRouter } from "next/router";
 import { config } from "../../firebase";
 import { SharpButton } from "../../components/common/SharpButton";
@@ -132,7 +132,8 @@ export const Activities = (props) => {
             <div className="hidden md:flex items-center gap-8">
               <SharpButton
                 prefixIcon="wink"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   onClickSignInButton();
                 }}
               >
@@ -142,7 +143,10 @@ export const Activities = (props) => {
                 color="primary"
                 prefixIcon="satisfied"
                 className="min-w-[180px]"
-                onClick={() => router.push("/contact")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/contact");
+                }}
               >
                 <span className="text-lg font-bold align-middle">{t("landing.activities.contact-button-label")}</span>
               </SharpButton>
@@ -176,7 +180,10 @@ export const Activities = (props) => {
               color="primary"
               prefixIcon="satisfied"
               className="min-w-[180px]"
-              onClick={() => router.push("/contact")}
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/contact");
+              }}
             >
               <span className="text-lg font-bold align-middle">{t("landing.activities.contact-button-label")}</span>
             </SharpButton>

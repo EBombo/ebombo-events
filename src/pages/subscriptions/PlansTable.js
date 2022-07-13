@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from "reactn";
+import React, { useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 import { getMonthlyPrice, getYearlyPrice } from "../../stripe";
-import { getCurrencySymbol, freePlan } from "../../components/common/DataList";
+import { freePlan, getCurrencySymbol } from "../../components/common/DataList";
 import { config } from "../../firebase";
 import { Anchor, ButtonAnt, Switch } from "../../components/form";
 import { StripeCustomerPortalLink } from "../../components/StripeCustomerPortalLink";
@@ -12,6 +12,7 @@ import { useStripePlans } from "../../hooks/useStripePlans";
 import { spinLoaderMin } from "../../components/common/loader";
 import { useTranslation } from "../../hooks";
 import { useRouter } from "next/router";
+import get from "lodash/get";
 
 const specsOrder = ["users", "games", "reporting", "progress_tracking", "players_identity"];
 
@@ -43,6 +44,13 @@ export const PlansTable = (props) => {
     [props.currentPlan, plans]
   );
 
+  // CurrentPriceId es el ID del precio (el anual o el mensual) que el usuario
+  // ha pagado. se usa para distinguir si pago el mensual o el anual
+  const currentPriceId  = useMemo(
+    () =>  get(props.currentSubscription, "price.id", ""),
+    [props.currentSubscription]
+  );
+
   const anualPhrase = (price) => (
     <p>
       {t("per-admin-anually")} (<span className="whitespace-nowrap">{price}</span> {t("monthly")})
@@ -57,19 +65,33 @@ export const PlansTable = (props) => {
   const getYesNoIcon = (value) =>
     value === YES_VALUE ? <CheckOutlined style={{ color: darkTheme.basic.primary }} /> : <CloseOutlined style={{ color: darkTheme.basic.danger }} />;
 
+  const getCurrentPricePlan = (plan) => isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan);
+
   const CallToActionContentSection = React.memo(
     ({ plan, index_ }) => {
       if (!props.showCallToActionSection) return <td />;
 
       if (plan?.name?.includes(FREE_PLAN_NAME) || plan?.name?.includes(EXCLUSIVE_PLAN_NAME)) return <td />;
 
+      const planPrice = getCurrentPricePlan(plan);
 
-      if (hasPlan && planIndex === index_)
+      if (hasPlan && planIndex === index_ && currentPriceId === planPrice?.id)
+        return (
+          <td>
+            <StripeCustomerPortalLink>
+              <ButtonAnt variant="outlined" color="dark">
+                {t("cancel-plan")}
+              </ButtonAnt>
+            </StripeCustomerPortalLink>
+          </td>
+        );
+
+      if (hasPlan && planIndex === index_ && currentPriceId !== planPrice?.id)
         return (
           <td>
           <StripeCustomerPortalLink>
             <ButtonAnt variant="outlined" color="dark">
-              {t("cancel-plan")}
+              {t("change-plan")}
             </ButtonAnt>
           </StripeCustomerPortalLink>
           </td>
@@ -83,21 +105,25 @@ export const PlansTable = (props) => {
               onClick={() => {
                 props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
               }}
-            >{t("upgrade-plan")}</ButtonAnt>
+            >
+              {t("upgrade-plan")}
+            </ButtonAnt>
           </td>
         );
 
       if (hasPlan && planIndex > index_)
         return (
           <td>
-            <ButtonAnt variant="outlined" color="dark"
-            loading={props.isLoadingCheckoutPlan}
-            onClick={() => {
-              props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
-            }}
-          >
-                {t("downgrade-plan")}
-              </ButtonAnt>
+            <ButtonAnt
+              variant="outlined"
+              color="dark"
+              loading={props.isLoadingCheckoutPlan}
+              onClick={() => {
+                props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
+              }}
+            >
+              {t("downgrade-plan")}
+            </ButtonAnt>
           </td>
         );
 
@@ -161,12 +187,13 @@ export const PlansTable = (props) => {
           {plans.map((plan, index_) => (
             <tr key={`${plan.name}-index`}>
               <td>
-                <div className={`plan  text-center ${plan.name.toLowerCase()}`}>
+                <div className={`plan text-center ${plan.name.toLowerCase()}`}>
                   <div className="name mb-4">{plan.name}</div>
                   {plan.name === EXCLUSIVE_PLAN_NAME ? (
                     <button
                       className="btn-contact mb-4"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         router.push("/contact");
                       }}
                     >
@@ -216,7 +243,7 @@ export const PlansTable = (props) => {
 
               {props.showCallToActionSection && hasPlan && (
                 <td className="text-center max-h-[30px]">
-                  {planIndex === index_ && <span className="text-black font-bold text-base">{t("current-plan")}</span>}
+                  {getCurrentPricePlan(plan)?.id === currentPriceId && <span className="text-black font-bold text-base">{t("current-plan")}</span>}
                 </td>
               )}
 
@@ -392,6 +419,17 @@ const TableContainer = styled.div`
 
     .price {
       color: ${(props) => props.theme.basic.primary};
+    }
+  }
+
+  .platinum {
+    .name, 
+    .price {
+      background: linear-gradient(180deg, #616161 0%, #8C8C8C 0.01%, #3F3F3F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
     }
   }
 

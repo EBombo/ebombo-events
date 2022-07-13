@@ -22,7 +22,10 @@ export const DesktopLeftMenu = (props) => {
       <div className="subtitle">{t("library")}</div>
       <div
         className={`item games ${get(router, "asPath", "") === "/library/games" ? "active" : ""}`}
-        onClick={() => router.push("/library/games")}
+        onClick={(e) => {
+          e.preventDefault();
+          router.push("/library/games");
+        }}
       >
         <Image
           src={`${config.storageUrl}/resources/purple-puzzle.svg`}
@@ -36,7 +39,10 @@ export const DesktopLeftMenu = (props) => {
 
       <div
         className={`item favorites ${get(router, "asPath", "").includes("/library/folders") ? "active" : ""}`}
-        onClick={() => router.push("/library/folders")}
+        onClick={(e) => {
+          e.preventDefault();
+          router.push("/library/folders");
+        }}
       >
         <Image
           src={`${config.storageUrl}/resources/purple-folder.svg`}
@@ -50,7 +56,10 @@ export const DesktopLeftMenu = (props) => {
 
       <div
         className={`item favorites ${get(router, "asPath", "").includes("/library/events") ? "active" : ""}`}
-        onClick={() => router.push("/library/events")}
+        onClick={(e) => {
+          e.preventDefault();
+          router.push("/library/events");
+        }}
       >
         <Image
           src={`${config.storageUrl}/resources/calendar-purple-icon.svg`}
