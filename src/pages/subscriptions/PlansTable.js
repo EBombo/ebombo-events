@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from "reactn";
+import React, { useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 import { getMonthlyPrice, getYearlyPrice } from "../../stripe";
-import { getCurrencySymbol, freePlan } from "../../components/common/DataList";
+import { freePlan, getCurrencySymbol } from "../../components/common/DataList";
 import { config } from "../../firebase";
 import { Anchor, ButtonAnt, Switch } from "../../components/form";
 import { StripeCustomerPortalLink } from "../../components/StripeCustomerPortalLink";
@@ -78,11 +78,11 @@ export const PlansTable = (props) => {
       if (hasPlan && planIndex === index_ && currentPriceId === planPrice?.id)
         return (
           <td>
-          <StripeCustomerPortalLink>
-            <ButtonAnt variant="outlined" color="dark">
-              {t("cancel-plan")}
-            </ButtonAnt>
-          </StripeCustomerPortalLink>
+            <StripeCustomerPortalLink>
+              <ButtonAnt variant="outlined" color="dark">
+                {t("cancel-plan")}
+              </ButtonAnt>
+            </StripeCustomerPortalLink>
           </td>
         );
 
@@ -105,21 +105,25 @@ export const PlansTable = (props) => {
               onClick={() => {
                 props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
               }}
-            >{t("upgrade-plan")}</ButtonAnt>
+            >
+              {t("upgrade-plan")}
+            </ButtonAnt>
           </td>
         );
 
       if (hasPlan && planIndex > index_)
         return (
           <td>
-            <ButtonAnt variant="outlined" color="dark"
-            loading={props.isLoadingCheckoutPlan}
-            onClick={() => {
-              props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
-            }}
-          >
-                {t("downgrade-plan")}
-              </ButtonAnt>
+            <ButtonAnt
+              variant="outlined"
+              color="dark"
+              loading={props.isLoadingCheckoutPlan}
+              onClick={() => {
+                props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
+              }}
+            >
+              {t("downgrade-plan")}
+            </ButtonAnt>
           </td>
         );
 
@@ -188,7 +192,8 @@ export const PlansTable = (props) => {
                   {plan.name === EXCLUSIVE_PLAN_NAME ? (
                     <button
                       className="btn-contact mb-4"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         router.push("/contact");
                       }}
                     >
