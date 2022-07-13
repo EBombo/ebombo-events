@@ -113,7 +113,13 @@ export const DesktopLibraryFolders = (props) => {
         ) : (
           props.folders.map((folder) => (
             <div key={folder.id} className="folder">
-              <div className="left" onClick={() => router.push(`/library/folders/${folder.id}`)}>
+              <div
+                className="left"
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push(`/library/folders/${folder.id}`);
+                }}
+              >
                 <Image
                   src={`${config.storageUrl}/resources/folder-black.svg`}
                   width="20px"

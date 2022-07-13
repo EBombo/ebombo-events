@@ -27,7 +27,13 @@ export const EbomboMessage = (props) => {
         {t("title")}
       </div>
 
-      <SharpButton prefixIcon="wink" onClick={() => createEvent()}>
+      <SharpButton
+        prefixIcon="wink"
+        onClick={(e) => {
+          e.preventDefault();
+          createEvent();
+        }}
+      >
         {t("book-an-event")}
       </SharpButton>
     </div>

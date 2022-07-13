@@ -39,13 +39,15 @@ export const DesktopNav = (props) => {
       <div className="items-container">
         <Image
           src={`${config.storageUrl}/resources/ebombo-white.svg`}
-          onClick={() =>
+          onClick={(e) => {
+            e.preventDefault();
+
             userAcls.some((acl) => acl.includes("admin"))
               ? router.push("/admin")
               : authUser
               ? router.push("/library/games")
-              : router.push("/")
-          }
+              : router.push("/");
+          }}
           cursor="pointer"
           height="23px"
           width="88px"
@@ -56,7 +58,10 @@ export const DesktopNav = (props) => {
             <ul>
               <li
                 className={`${router.asPath.includes("library") ? "active" : ""}`}
-                onClick={() => router.push("/library/games")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/library/games");
+                }}
               >
                 <Image
                   src={`${config.storageUrl}/resources/library-icon.svg`}
@@ -69,7 +74,10 @@ export const DesktopNav = (props) => {
               </li>
               <li
                 className={`${router.asPath.includes("reports") ? "active" : ""}`}
-                onClick={() => router.push("/reports")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/reports");
+                }}
               >
                 <Image
                   src={`${config.storageUrl}/resources/reports-icon.svg`}

@@ -106,7 +106,12 @@ export const EventView = (props) => {
           </div>
         </div>
         <div className="hidden md:block">
-          <ButtonAnt onClick={() => router.push(`/library/events/${event.id}?manageBy=user`)}>
+          <ButtonAnt
+            onClick={(e) => {
+              e.preventDefault();
+              router.push(`/library/events/${event.id}?manageBy=user`);
+            }}
+          >
             <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">{t("edit")}</div>
           </ButtonAnt>
         </div>
@@ -171,7 +176,10 @@ export const EventView = (props) => {
 
                 <ButtonAnt
                   size="small"
-                  onClick={() => router.push(`/library/games/${game.id}?adminGameId=${game.adminGame.id}`)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push(`/library/games/${game.id}?adminGameId=${game.adminGame.id}`);
+                  }}
                 >
                   {t("edit")}
                 </ButtonAnt>
@@ -196,21 +204,36 @@ export const EventView = (props) => {
                 <Anchor
                   underlined
                   variant="secondary"
-                  onClick={() => router.push(`/library/events/${eventId}/releases/${release.id}`)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push(`/library/events/${eventId}/releases/${release.id}`);
+                  }}
                 >
                   Ver
                 </Anchor>
               </div>
             ))}
           </div>
-          <ButtonAnt onClick={() => router.push(`/library/events/${event.id}/releases/new`)} margin="1rem auto">
+          <ButtonAnt
+            onClick={(e) => {
+              e.preventDefault();
+              router.push(`/library/events/${event.id}/releases/new`);
+            }}
+            margin="1rem auto"
+          >
             <div className="text-['Lato'] font-[500] text-[13px] leading-[15px]">{t("create-release")}</div>
           </ButtonAnt>
         </div>
       </div>
 
       <div className="block md:hidden w-full">
-        <ButtonAnt onClick={() => router.push(`/library/events/${event.id}?manageBy=user`)} margin="1rem auto">
+        <ButtonAnt
+          onClick={(e) => {
+            e.preventDefault();
+            router.push(`/library/events/${event.id}?manageBy=user`);
+          }}
+          margin="1rem auto"
+        >
           <div className="text-['Lato'] font-[500] text-[18px] leading-[22px] px-8">{t("edit")}</div>
         </ButtonAnt>
       </div>
