@@ -6,7 +6,6 @@ import { config } from "../../../../firebase";
 import moment from "moment";
 import { ButtonAnt } from "../../../../components/form";
 import isEmpty from "lodash/isEmpty";
-import defaultTo from "lodash/defaultTo";
 import capitalize from "lodash/capitalize";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { ModalBingoRounds } from "./ModalBingoRounds";
@@ -33,7 +32,12 @@ export const BingoResume = (props) => {
       props.users.map((user) => {
         if (user.hasExited) _droppedOut.push(user);
 
-        if (user.markedCard) _usersWithEmptyCard.push(user);
+        let roundIsEmpty = false;
+        user.rounds.map((round) => {
+          if (isEmpty(round.myWinningCard)) roundIsEmpty = true;
+        });
+
+        if (roundIsEmpty) _usersWithEmptyCard.push(user);
       });
 
       setDroppedOut(_droppedOut);
@@ -162,8 +166,8 @@ export const BingoResume = (props) => {
           <div className="text-[18px] leading-[22px] font-[700] text-grayLight">({props.lobby?.winners?.length})</div>
         </div>
         <div className="w-full h-[150px] p-2 md:p-4 relative">
-          {props.lobby?.winners?.map((winner, index) => (
-            <div className={`w-full ${index === patternIndex ? "block" : "hidden"}`} key={winner.id}>
+          {props.rounds.map((round, index) => (
+            <div className={`w-full ${index === patternIndex ? "block" : "hidden"}`} key={round.id}>
               <div className="flex items-center gap-4">
                 <table className="p-2 w-[100px] bg-secondary border-separate border-spacing-[5px] rounded-[5px]">
                   <thead>
@@ -186,7 +190,7 @@ export const BingoResume = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {JSON.parse(defaultTo(winner.pattern, "[]")).map((element, index) => (
+                    {JSON.parse(round.pattern).map((element, index) => (
                       <tr key={index}>
                         {element.map((value, idx) => (
                           <td
@@ -214,19 +218,24 @@ export const BingoResume = (props) => {
                   <div className="flex flex-col gap-[5px]">
                     <div className="text-[12px] leading-[14px] font-[700] text-blackDarken">{t("called-balls")}:</div>
                     <div className="text-[12px] leading-[14px] font-[400] text-blackDarken">
-                      {winner.lastPlays?.length}/75
+                      {round.lastPlays.length}/75
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4">
                     <div className="flex flex-col gap-[5px]">
                       <div className="text-[12px] leading-[14px] font-[700] text-blackDarken">{t("duration")}:</div>
-                      <div className="text-[12px] leading-[14px] font-[400] text-blackDarken">-</div>
+                      <div className="text-[12px] leading-[14px] font-[400] text-blackDarken">
+                        {moment(round.startGame.toDate()).format("hh:mm a")}-
+                        {moment(round.endGame.toDate()).format("hh:mm a")}
+                      </div>
                     </div>
 
                     <div className="flex flex-col gap-[5px]">
                       <div className="text-[12px] leading-[14px] font-[700] text-blackDarken">{t("time")}:</div>
-                      <div className="text-[12px] leading-[14px] font-[400] text-blackDarken">-</div>
+                      <div className="text-[12px] leading-[14px] font-[400] text-blackDarken">
+                        {calculateDurationTime(round.startGame, round.endGame)}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -252,7 +261,7 @@ export const BingoResume = (props) => {
       <div className="bg-whiteLight rounded-[4px] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] h-[190px]">
         <div className="flex items-center justify-between py-2 px-4 border-whiteDark border-b-[1px] w-full h-[40px]">
           <div className="text-[18px] leading-[22px] font-[700]  text-grayLight ">{`${t("empty-cards")} `}</div>
-          <Tooltip placement="bottomRight" title={t("need-help-tooltip")} color="#382079">
+          <Tooltip placement="bottomRight" title={t("empty-cards-tooltip")} color="#382079">
             <Image
               src={`${config.storageUrl}/resources/question2-icon.svg`}
               width="19px"
@@ -265,7 +274,7 @@ export const BingoResume = (props) => {
 
         {isEmpty(usersWithEmptyCard) ? (
           <div className="text-blackDarken text-[16px] leading-[19px] font-[400] h-[160px] min-w-[100%] flex items-center justify-center p-2 text-center">
-            {t("empty-card-message")}
+            {t("empty-cards-message")}
           </div>
         ) : (
           <div className="h-[120px] overflow-auto p-2 flex flex-col gap-[10px]">

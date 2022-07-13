@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "reactn";
-import { Progress } from "antd";
+import React, { useEffect, useState } from "reactn";
 import { useTranslation } from "../../../../hooks";
 import { ModalUserAnswers } from "./ModalUserAnswers";
-import defaultTo from "lodash/defaultTo";
-import mapKeys from "lodash/mapKeys";
+import isEmpty from "lodash/isEmpty";
 
 export const BingoUsers = (props) => {
   const { t } = useTranslation("pages.reports.bingo");
@@ -11,16 +9,31 @@ export const BingoUsers = (props) => {
   const [tab, setTab] = useState(0);
   const [currentUser, setCurrentUser] = useState(null);
   const [isVisibleModalAnswers, setIsVisibleModalAnswers] = useState(false);
-  const [needHelp, setNeedHelp] = useState([]);
+  const [usersWithEmptyCard, setUsersWithEmptyCard] = useState([]);
   const [droppedOut, setDroppedOut] = useState([]);
 
   useEffect(() => {
-    setDroppedOut(props.users.filter((user) => user.hasExited));
+    const mapUsers = () => {
+      const _droppedOut = [];
+      const _usersWithEmptyCard = [];
 
-    const _needHelp = [];
+      props.users.map((user) => {
+        if (user.hasExited) _droppedOut.push(user);
 
-    setNeedHelp(_needHelp);
-  }, []);
+        let roundIsEmpty = false;
+        user.rounds.map((round) => {
+          if (isEmpty(round.myWinningCard)) roundIsEmpty = true;
+        });
+
+        if (roundIsEmpty) _usersWithEmptyCard.push(user);
+      });
+
+      setDroppedOut(_droppedOut);
+      setUsersWithEmptyCard(_usersWithEmptyCard);
+    };
+
+    mapUsers();
+  }, [props.users]);
 
   return (
     <div className="max-w-[95vw] overflow-auto mx-auto no-scrollbar">
@@ -48,7 +61,7 @@ export const BingoUsers = (props) => {
             }`}
             onClick={() => setTab(1)}
           >
-            {`${t("empty-cards")} (${needHelp.length})`}
+            {`${t("empty-cards")} (${usersWithEmptyCard.length})`}
           </div>
           <div
             className={`px-8 h-full flex items-center text-center font-[700] text-[14px] leading-[17px] cursor-pointer ${
@@ -70,7 +83,7 @@ export const BingoUsers = (props) => {
             </tr>
           </thead>
           <tbody>
-            {(tab === 0 ? props.users : tab === 1 ? needHelp : droppedOut).map((user, index) => (
+            {(tab === 0 ? props.users : tab === 1 ? usersWithEmptyCard : droppedOut).map((user, index) => (
               <tr
                 className="w-full bg-whiteLight grid items-center grid-cols-[1fr_2fr_1fr_1fr_1fr] h-[60px] px-4"
                 key={user.id}
@@ -80,7 +93,7 @@ export const BingoUsers = (props) => {
                   {user.email ?? "-"}
                 </td>
                 <td className="text-center text-blackDarken text-[14px] leading-[17px] font-[400]">
-                  {user.rounds}
+                  {user.rounds?.length}
                 </td>
                 <td className="text-center text-blackDarken text-[14px] leading-[17px] font-[400]">
                   {props.lobby?.winners?.includes(user.id)}

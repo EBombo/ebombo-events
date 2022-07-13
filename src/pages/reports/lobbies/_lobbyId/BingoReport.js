@@ -3,7 +3,7 @@ import moment from "moment";
 import styled from "styled-components";
 import capitalize from "lodash/capitalize";
 import { useTranslation } from "../../../../hooks";
-import { config, firestoreGames, firestoreBingo } from "../../../../firebase";
+import { config, firestoreBingo, firestoreGames } from "../../../../firebase";
 import { Image } from "../../../../components/common/Image";
 import { useRouter } from "next/router";
 import { snapshotToArray } from "../../../../utils";
@@ -28,6 +28,7 @@ export const BingoReport = (props) => {
   const [tab, setTab] = useState(0);
   const [users, setUsers] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
+  const [rounds, setRounds] = useState([]);
 
   useEffect(() => {
     router.prefetch("/reports");
@@ -52,10 +53,18 @@ export const BingoReport = (props) => {
           setFeedbacks(mappedFeedbacks);
         });
 
+    const fetchRounds = async () => {
+      const roundsRef = await firestoreBingo.collection("lobbies").doc(lobbyId).collection("rounds").get();
+
+      const _rounds = snapshotToArray(roundsRef);
+
+      await setRounds(_rounds);
+    };
 
     const fetchLobbyData = async () => {
       const promiseUsers = fetchUsers();
       const promiseFeedbacks = fetchFeedbacks();
+      const promiseRounds = fetchRounds();
 
       await Promise.all([promiseUsers, promiseFeedbacks]);
     };
@@ -66,38 +75,13 @@ export const BingoReport = (props) => {
   const contentTab = useMemo(() => {
     switch (tab) {
       case 0:
-        return (
-          <BingoResume
-            {...props}
-            users={users}
-            feedbacks={feedbacks}
-          />
-        );
+        return <BingoResume {...props} users={users} feedbacks={feedbacks} rounds={rounds} />;
       case 1:
-        return (
-          <BingoUsers
-            {...props}
-            users={users}
-            feedbacks={feedbacks}
-          />
-        );
+        return <BingoUsers {...props} users={users} feedbacks={feedbacks} rounds={rounds} />;
       case 2:
-        return (
-          <LobbyFeedbacks
-            {...props}
-            users={users}
-            feedbacks={feedbacks}
-          />
-        );
-
+        return <LobbyFeedbacks {...props} users={users} feedbacks={feedbacks} rounds={rounds} />;
       default:
-        return (
-          <BingoResume
-            {...props}
-            users={users}
-            feedbacks={feedbacks}
-          />
-        );
+        return <BingoResume {...props} users={users} feedbacks={feedbacks} rounds={rounds} />;
     }
   });
 
