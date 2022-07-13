@@ -126,7 +126,7 @@ export const Trivia = (props) => {
       }
     }
 
-    if (!valid) return props.showNotification("ERROR", "Verificar que todas las preguntas esten completas.", "error");
+    if (!valid) return;
 
     await props.submitGame(_game);
   };
