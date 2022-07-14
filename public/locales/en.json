@@ -543,8 +543,8 @@
         "feedback": "Feedback",
         "all": "All",
         "empty-cards": "Didn't mark his card",
-        "empty-card-message": "Well done! They all marked their card.",
-        "empty-card-tooltip": "They didn't mark their card in all rounds.",
+        "empty-cards-message": "Well done! They all marked their card.",
+        "empty-cards-tooltip": "They didn't mark their card in all rounds.",
         "dropped-out": "Dropped Out",
         "dropped-out-message": "Well done! Everyone finish the quiz.",
         "dropped-out-tooltip": "They logged out before finishing. It indicates how many questions they answered.",
@@ -563,7 +563,11 @@
         "duration": "Duration",
         "time": "Time",
         "card-percentage": "Card %",
-        "game": "Game"
+        "game": "Game",
+        "delete": "Move to trash",
+        "modal-cards": {
+          "cards": "Cards"
+        }
       },
       "trivia": {
         "title": "Report",
