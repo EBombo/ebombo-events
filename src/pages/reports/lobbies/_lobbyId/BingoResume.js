@@ -32,6 +32,8 @@ export const BingoResume = (props) => {
       props.users.map((user) => {
         if (user.hasExited) _droppedOut.push(user);
 
+        if (props.lobby?.settings?.cardAutofill) return;
+
         if (user.rounds.some((round) => isEmpty(round.myWinningCard))) _usersWithEmptyCard.push(user);
       });
 
