@@ -116,13 +116,15 @@ export const Trivia = (props) => {
     for (let i = 0; i < questions.length; i++) {
       const question = questions[i];
 
-      if (question.type === "quiz") valid = validateQuiz(question);
-      if (question.type === "trueFalse") valid = validateTrueFalse(question);
-      if (question.type === "shortAnswer") valid = validateShortAnswer(question);
+      let valid_ = true;
 
-      if (!valid) {
-        setQuestionErrors({ [i]: { message: "error-incomplete-form-question" } });
-        break;
+      if (question.type === "quiz") valid_ = validateQuiz(question);
+      if (question.type === "trueFalse") valid_ = validateTrueFalse(question);
+      if (question.type === "shortAnswer") valid_ = validateShortAnswer(question);
+
+      if (!valid_) {
+        valid = valid_;
+        setQuestionErrors((oldValue) => ({ ...oldValue, [i]: { message: "error-incomplete-form-question" } }));
       }
     }
 
