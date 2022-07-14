@@ -32,12 +32,7 @@ export const BingoResume = (props) => {
       props.users.map((user) => {
         if (user.hasExited) _droppedOut.push(user);
 
-        let roundIsEmpty = false;
-        user.rounds.map((round) => {
-          if (isEmpty(round.myWinningCard)) roundIsEmpty = true;
-        });
-
-        if (roundIsEmpty) _usersWithEmptyCard.push(user);
+        if (user.rounds.some((round) => isEmpty(round.myWinningCard))) _usersWithEmptyCard.push(user);
       });
 
       setDroppedOut(_droppedOut);
@@ -70,11 +65,7 @@ export const BingoResume = (props) => {
   return (
     <div className="p-4 lg:p-8 grid lg:grid-cols-[2fr_1fr_1fr] gap-4 mx-auto max-w-[1300px]">
       {isVisibleModal && (
-        <ModalBingoRounds
-          isVisibleModal={isVisibleModal}
-          setIsVisibleModal={setIsVisibleModal}
-          {...props}
-        />
+        <ModalBingoRounds isVisibleModal={isVisibleModal} setIsVisibleModal={setIsVisibleModal} {...props} />
       )}
       <div className="bg-whiteLight p-4 md:p-8 flex items-center justify-start gap-8 rounded-[4px] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] h-[160px]">
         <Image
