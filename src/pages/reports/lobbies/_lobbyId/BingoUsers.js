@@ -102,7 +102,7 @@ export const BingoUsers = (props) => {
                   className="text-secondary text-[14px] leading-[17px] font-[400] flex items-center justify-center gap-2 underline cursor-pointer"
                   onClick={() => {
                     setCurrentUser(user);
-                    setIsVisibleModalAnswers(true);
+                    setIsVisibleModalCards(true);
                   }}
                 >
                   {t("see-cards")}

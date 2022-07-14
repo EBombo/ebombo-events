@@ -3,10 +3,9 @@ import { darkTheme } from "../../../../theme";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { useTranslation } from "../../../../hooks";
 import styled from "styled-components";
-import { mediaQuery } from "../../../../constants";
 
 export const ModalUserCards = (props) => {
-  const { t } = useTranslation("reports.bingo.modal-cards");
+  const { t } = useTranslation("pages.reports.bingo.modal-cards");
 
   return (
     <ModalContainer
@@ -21,6 +20,9 @@ export const ModalUserCards = (props) => {
       <div className="h-[60px] p-4 border-b-[1px] border-whiteDark font-[700] text-[24px] leading-[29px] text-grayLight">
         {t("cards")}
       </div>
+      <div className="my-4 text-blackDarken text-[14px] leading-[17px] px-4 md:text-[20px] md:leading-[24px]">
+        {props.user.nickname}
+      </div>
       <div className="p-4 gap-4 flex flex-wrap">
         {props.user?.rounds?.map((round) => (
           <CardContainer
@@ -30,7 +32,7 @@ export const ModalUserCards = (props) => {
             blocksColor={props.lobby.game.blocksColor}
             numberColor={props.lobby.game.numberColor}
           >
-            <div className="card-title">{props.lobby.game.title}</div>
+            <div className="card-title no-wrap">{props.lobby.game.title}</div>
             <table>
               <thead className="thead">
                 <tr>
@@ -42,12 +44,12 @@ export const ModalUserCards = (props) => {
                 </tr>
               </thead>
 
-              <tbody className="tbody" key={matrix}>
+              <tbody className="tbody">
                 {JSON.parse(round.card).map((arrNums, row) => (
                   <tr key={`key-${row}`}>
                     {arrNums.map((num, col) => (
-                      <td key={`key-${num}-${col}-${matrix}`}>
-                        <div className={`${matrix[row][col] ? "active" : ""} number`}>{num}</div>
+                      <td key={`key-${num}-${col}`}>
+                        <div className={`${round.myWinningCard.includes(num) && "active"} number`}>{num}</div>
                       </td>
                     ))}
                   </tr>
@@ -84,8 +86,8 @@ const CardContainer = styled.div`
     font-weight: bold;
     color: ${(props) => (props.titleColor ? props.titleColor : props.theme.basic.secondary)};
     text-align: center;
-    font-size: 32px;
-    line-height: 36px;
+    font-size: 26px;
+    line-height: 29px;
   }
 
   table {
@@ -102,8 +104,8 @@ const CardContainer = styled.div`
           text-align: center;
           font-family: Lato;
           font-weight: 700;
-          font-size: 32px;
-          line-height: 36px;
+          font-size: 26px;
+          line-height: 29px;
           font-style: normal;
           color: ${(props) => (props.titleColor ? props.titleColor : props.theme.basic.secondary)};
         }
@@ -118,9 +120,9 @@ const CardContainer = styled.div`
           margin-right: 5px;
           text-align: center;
           font-family: Lato;
-          font-weight: 700;
-          font-size: 32px;
-          line-height: 36px;
+          font-weight: 400;
+          font-size: 20px;
+          line-height: 24px;
           font-style: normal;
           color: ${(props) => (props.numberColor ? props.numberColor : props.theme.basic.white)};
           background: ${(props) => (props.blocksColor ? props.blocksColor : props.theme.basic.secondary)};
@@ -145,18 +147,9 @@ const CardContainer = styled.div`
             justify-content: center;
             margin: auto;
             text-align: center;
-            font-size: 32px;
-
-            ${mediaQuery.afterTablet} {
-              font-size: 28px;
-            }
           }
         }
       }
     }
-  }
-
-  ${mediaQuery.afterTablet} {
-    padding: 0.5rem 1rem;
   }
 `;

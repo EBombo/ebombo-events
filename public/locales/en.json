@@ -564,7 +564,10 @@
         "time": "Time",
         "card-percentage": "Card %",
         "game": "Game",
-        "delete": "Move to trash"
+        "delete": "Move to trash",
+        "modal-cards": {
+          "cards": "Cards"
+        }
       },
       "trivia": {
         "title": "Report",

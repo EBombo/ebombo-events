@@ -555,7 +555,10 @@
         "time": "Tiempo",
         "card-percentage": "% de Cartilla",
         "game": "Juego",
-        "delete": "Mover a la papelera"
+        "delete": "Mover a la papelera",
+        "modal-cards": {
+          "cards": "Cartillas"
+        }
       },
       "trivia": {
         "title": "Reporte",
