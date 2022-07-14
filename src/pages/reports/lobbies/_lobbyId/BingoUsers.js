@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "reactn";
 import { useTranslation } from "../../../../hooks";
-import { ModalUserAnswers } from "./ModalUserAnswers";
 import isEmpty from "lodash/isEmpty";
+import { ModalUserCards } from "./ModalUserCards";
 
 export const BingoUsers = (props) => {
   const { t } = useTranslation("pages.reports.bingo");
 
   const [tab, setTab] = useState(0);
   const [currentUser, setCurrentUser] = useState(null);
-  const [isVisibleModalAnswers, setIsVisibleModalAnswers] = useState(false);
+  const [isVisibleModalCards, setIsVisibleModalCards] = useState(false);
   const [usersWithEmptyCard, setUsersWithEmptyCard] = useState([]);
   const [droppedOut, setDroppedOut] = useState([]);
 
@@ -37,12 +37,12 @@ export const BingoUsers = (props) => {
 
   return (
     <div className="max-w-[95vw] overflow-auto mx-auto no-scrollbar">
-      {isVisibleModalAnswers && (
-        <ModalUserAnswers
-          user={currentUser}
-          isVisibleModalAnswers={isVisibleModalAnswers}
-          setIsVisibleModalAnswers={setIsVisibleModalAnswers}
+      {isVisibleModalCards && (
+        <ModalUserCards
           {...props}
+          user={currentUser}
+          isVisibleModalCards={isVisibleModalCards}
+          setIsVisibleModalCards={setIsVisibleModalCards}
         />
       )}
       <div className="py-4 lg:py-8 gap-4 mx-auto min-w-[700px] w-full">
