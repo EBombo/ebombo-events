@@ -136,6 +136,9 @@ export const Trivia = (props) => {
   const validateQuiz = (question) => {
     let valid = true;
     // Check all options are filled.
+
+    if (isEmpty(question.question)) valid = false;
+
     question.options.forEach((option) => {
       if (isEmpty(option)) valid = false;
     });
@@ -149,10 +152,14 @@ export const Trivia = (props) => {
   };
 
   const validateTrueFalse = (question) => {
+    if (isEmpty(question.question)) return false;
+
     return question.answer === true || question.answer === false;
   };
 
   const validateShortAnswer = (question) => {
+    if (isEmpty(question.question)) return false;
+
     return question.answer.length > 0;
   };
 
