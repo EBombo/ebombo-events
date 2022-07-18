@@ -68,5 +68,14 @@
     "items": {
       "/admin/contacts": "Lista de contactos"
     }
+  },
+  "adminDefaultGames": {
+    "label": "Formulario de juegos predeterminados",
+    "items": {
+      "/admin/default/games": "Lista de juegos predeterminados",
+      "/admin/adminGameIds/:adminGameId/games/new": "Formulario de creacion de juego predeterminado",
+      "/admin/adminGameIds/:adminGameId/games/#edit": "Permiso para edicion de juego predeterminado",
+      "/admin/adminGameIds/:adminGameId/games/:gameId": "Formulario de edicion de juego predeterminado"
+    }
   }
 }

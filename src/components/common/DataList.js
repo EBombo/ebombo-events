@@ -1,7 +1,7 @@
 import { darkTheme } from "../../theme";
 import { config, firestoreBingo, firestoreHanged, firestoreRoulette, firestoreTrivia } from "../../firebase";
 import React from "react";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 
 export const gamesFirestore = (name) => {
   switch (name) {
@@ -559,6 +559,12 @@ export const menus = [
   {
     name: "Lista de contactos",
     url: "/admin/contacts",
+    isAdmin: true,
+    src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
+  },
+  {
+    name: "Lista de juegos predeterminados",
+    url: "/admin/default/games", // TODO: PENSAR BIEN LA RUTA
     isAdmin: true,
     src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
