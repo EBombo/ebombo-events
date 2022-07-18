@@ -624,6 +624,7 @@
       "rename": "Cambiar Nombre",
       "duplicate": "Duplicar",
       "mover": "Mover",
+      "move": "Mover",
       "delete": "Borrar",
       "create-game": "Crear juego",
       "favorites": "Favoritos",
