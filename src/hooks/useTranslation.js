@@ -10,6 +10,8 @@ import eventsEs from "../../public/locales/es/pages/events.json";
 import drawerEn from "../../public/locales/en/drawer.json";
 import drawerEs from "../../public/locales/es/drawer.json";
 import { Switch } from "../components/form";
+import { useLanguageCode } from "./useLocalStorageState";
+import { cookieUtils } from "../utils";
 
 // TODO: Consider chunk the json files.
 const TRANSLATIONS = {
@@ -25,12 +27,16 @@ export const useTranslation = (path) => {
 
   const { locale, asPath } = router;
 
+  const [, setLanguageCode] = useLanguageCode();
+
   // Current languages.
   const locales = Object.keys(TRANSLATIONS);
 
   // Update language and redirect.
   const setLocale = useCallback(
     (locale) => {
+      setLanguageCode(locale);
+      cookieUtils.setCookie("NEXT_LOCALE", locale, 365);
       router.push(asPath, asPath, { locale });
     },
     [asPath, router, locale]
