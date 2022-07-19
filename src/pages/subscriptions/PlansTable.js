@@ -354,7 +354,7 @@ const TableContainer = styled.div`
     background: rgba(196, 173, 255, 0.2);
     border: 3px solid #956dfc;
     box-sizing: border-box;
-    z-index: 99;
+    z-index: 20;
     border-radius: 13px 13px 0px 0px;
     pointer-events: none;
   }
@@ -441,7 +441,7 @@ const TableContainer = styled.div`
 
 const Star = styled.div`
   position: absolute;
-  z-index: 99;
+  z-index: 20;
   right: 0;
   top: 0;
   transform: translate(50%, -50%);
