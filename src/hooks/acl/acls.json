@@ -74,8 +74,8 @@
     "items": {
       "/admin/games/[adminGameId]/templates": "Lista de juegos predeterminados",
       "/admin/games/[adminGameId]/templates/new": "Formulario de creacion de juego predeterminado",
-      "/admin/games/[adminGameId]/templates/[templateId]": "Formulario de edicion de juego predeterminado",
-      "/admin/games/[adminGameId]/templates/[templateId]#edit": "Permiso para edicion de juego predeterminado"
+      "/admin/games/[adminGameId]/templates/[gameId]": "Formulario de edicion de juego predeterminado",
+      "/admin/games/[adminGameId]/templates/[gameId]#edit": "Permiso para edicion de juego predeterminado"
     }
   }
 }

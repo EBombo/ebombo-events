@@ -8,34 +8,35 @@ import { useFetch } from "../../../../../../hooks/useFetch";
 
 export const TemplateGame = (props) => {
   const router = useRouter();
-  const { adminGameId, templateId } = router.query;
+  const { adminGameId, gameId } = router.query;
 
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
 
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingSubmit, setIsLoadingSubmit] = useState(true);
-  const [game, setGame] = useState(null);
+  const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
+  const [adminGame, setAdminGame] = useState(null);
+
   const [parent, setParent] = useState(null);
 
   const [template, setTemplate] = useState(null);
 
   useEffect(() => {
     if (!adminGameId) return setIsLoading(false);
-    if (!templateId) return setIsLoading(false);
+    if (!gameId) return setIsLoading(false);
 
     const initialize = async () => {
       const fetchAdminGame = async () => {
         const querySnapshotAdminGame = await firestore.collection("games").doc(adminGameId).get();
 
         const adminGame = querySnapshotAdminGame.data();
-        setGame(adminGame);
+        setAdminGame(adminGame);
       };
 
       const fetchTemplate = async () => {
-        if (templateId === "new") return;
+        if (gameId === "new") return;
 
-        const querySnapshotTemplate = await firestore.collection("templates").doc(templateId).get();
+        const querySnapshotTemplate = await firestore.collection("templates").doc(gameId).get();
 
         const template_ = querySnapshotTemplate.data();
         setTemplate(template_);
@@ -50,21 +51,22 @@ export const TemplateGame = (props) => {
     initialize();
   }, [adminGameId]);
 
-  const submitGame = async () => {
+  const submitGame = async (dataGame) => {
     try {
       setIsLoadingSubmit(true);
 
-      const method = template ? "POST" : "PUT";
+      const method = template ? "PUT" : "POST";
 
       const body = {
-        deleted: false,
+        ...dataGame,
         adminGameId: adminGameId,
-        updateAt: new Date(),
         createAt: template ? template.createAt.toDate() : new Date(),
-        adminGame: { ...game, createAt: game.createAt.toDate(), updateAt: game.updateAt.toDate() },
+        adminGame: { ...adminGame, createAt: adminGame.createAt.toDate(), updateAt: adminGame.updateAt.toDate() },
       };
 
-      const { error } = await Fetch(`${config.serverUrl}/api/templates/${templateId}`, method, body);
+      //http://localhost:8080
+      //${config.serverUrl}
+      const { error } = await Fetch(`http://localhost:8080/api/templates/${gameId}`, method, body);
 
       if (error) {
         throw Error(error);
@@ -78,6 +80,7 @@ export const TemplateGame = (props) => {
       sendError(error, "submitGame temaplte");
       props.showNotification("Error", error.message ?? "Algo salio mal");
     }
+
     setIsLoadingSubmit(false);
   };
 
@@ -85,11 +88,11 @@ export const TemplateGame = (props) => {
 
   return (
     <div>
-      {game?.name === "trivia" && (
+      {adminGame?.name === "trivia" && (
         <Trivia
           submitGame={submitGame}
-          isLoading={isLoading}
-          game={game}
+          isLoading={isLoadingSubmit}
+          game={template}
           parent={parent}
           setParent={setParent}
           {...props}

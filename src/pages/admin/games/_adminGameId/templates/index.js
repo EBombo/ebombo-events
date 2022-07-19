@@ -19,7 +19,7 @@ export const TemplatesGames = (props) => {
     const fetchTemplates = async () => {
       const querySnapshotTemplates = await firestore
         .collection("templates")
-        .where("game.id", "==", adminGameId)
+        .where("adminGame.id", "==", adminGameId)
         .where("deleted", "==", false)
         .get();
 
@@ -41,14 +41,14 @@ export const TemplatesGames = (props) => {
         <a>CREAR PLANTILLA</a>
       </Anchor>
 
-      <div>
+      <div className="block m-auto w-[300px]">
         {templates?.length ? (
           templates.map((template) => {
             return (
-              <div key={template.id}>
-                <div>{template.game.name}</div>
-                <div>{moment(template.createAt.toDate()).format("LLL")}</div>
-                <Anchor href={`/admin/games/${adminGameId}/templates/${template.id}`}>
+              <div key={template.id} className="border border-primary p-2 rounded">
+                <div>Nombre de juego: {template.adminGame.name.toUpperCase()}</div>
+                <div>Creado: {moment(template.createAt.toDate()).format("LLL")}</div>
+                <Anchor href={`/admin/games/${adminGameId}/templates/${template.id}`} display="block" margin="auto">
                   <a>EDITAR PLANTILLA</a>
                 </Anchor>
               </div>

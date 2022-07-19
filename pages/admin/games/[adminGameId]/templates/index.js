@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { PrivateRoutes } from "../../../../../src/routes/PrivateRoutes";
 import { spinLoader } from "../../../../../src/components/common/loader";
-import { TemplatesGames } from "../../../../../src/pages/admin/games/_gameId/templates";
+import { TemplatesGames } from "../../../../../src/pages/admin/games/_adminGameId/templates";
 
 const UserLayout = dynamic(() => import("../../../../../src/components/UserLayout"), {
   ssr: false,
