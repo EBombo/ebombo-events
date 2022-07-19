@@ -626,6 +626,7 @@
       "folders": "Folders",
       "folder": "Folder",
       "events": "Events",
+      "activities": "Activities",
       "search": "Search",
       "folder-empty": "You don't have folders",
       "games-empty": "You don't have games",
@@ -641,6 +642,7 @@
       "edit": "Edit",
       "play": "Play",
       "create-event": "Create Event",
+      "create-activity": "Create Activity",
       "organizeBy": "Organized by the team",
       "event": {
         "releases": "Releases",
@@ -658,14 +660,15 @@
           "name": "Basic",
           "title": "Basic Details",
           "event-title": "Event Title",
+          "activity-title": "Activity Title",
           "input-placeholder": "Write here....",
-          "date-title": "Event Date",
+          "date-title": "Activity Date",
           "link-title": "Meeting Link (Zoom, Cisco, Teams, Meets, etc)",
           "link-description": "*You can add it after creating the event",
           "dates": {
-            "day": "Event Day",
-            "start": "Start of the event",
-            "end": "End of event"
+            "day": "Activity Day",
+            "start": "Start of the Activity",
+            "end": "End of Activity"
           },
           "next": "Next"
         },

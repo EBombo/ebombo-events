@@ -617,12 +617,14 @@
       "folders": "Carpetas",
       "folder": "Carpeta",
       "events": "Eventos",
+      "activities": "Actividades",
       "search": "Buscar",
       "folder-empty": "No cuentas con folders",
       "games-empty": "No cuentas con juegos",
       "rename": "Cambiar Nombre",
       "duplicate": "Duplicar",
       "mover": "Mover",
+      "move": "Mover",
       "delete": "Borrar",
       "create-game": "Crear juego",
       "favorites": "Favoritos",
@@ -632,6 +634,7 @@
       "edit": "Editar",
       "play": "Jugar",
       "create-event": "Crear Evento",
+      "create-activity": "Crear Actividad",
       "organizeBy": "Organizado por el equipo de",
       "event": {
         "email": "Correo",
@@ -649,14 +652,15 @@
           "name": "Básico",
           "title": "Detalles básicos",
           "event-title": "Título de tu evento",
+          "activity-title": "Titulo de tu actividad",
           "input-placeholder": "Escribe aquí....",
-          "date-title": "Fecha del evento",
+          "date-title": "Fecha de la actividad",
           "link-title": "Link de la reunión (Zoom, Cisco, Teams, Meets, etc)",
           "link-description": "*Puedes agregarlo después de crear el evento",
           "dates": {
-            "day": "Día del evento",
-            "start": "Inicio del evento",
-            "end": "Fin del evento"
+            "day": "Día de la actividad",
+            "start": "Inicio de la actividad",
+            "end": "Fin de la actividad"
           },
           "next": "Siguiente"
         },

@@ -74,7 +74,7 @@ export const EventStepOne = (props) => {
 
         <div className="flex flex-col gap-4 gap-[5px] w-full max-w-[630px]">
           <label htmlFor="name" className="text-secondary text-['Lato'] font-[400] text-[18px] leading-[22px]">
-            {t("event-title")}
+            {t("activity-title")}
           </label>
           <Input
             type="text"

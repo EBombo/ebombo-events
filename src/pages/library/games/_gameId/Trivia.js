@@ -116,13 +116,15 @@ export const Trivia = (props) => {
     for (let i = 0; i < questions.length; i++) {
       const question = questions[i];
 
-      if (question.type === "quiz") valid = validateQuiz(question);
-      if (question.type === "trueFalse") valid = validateTrueFalse(question);
-      if (question.type === "shortAnswer") valid = validateShortAnswer(question);
+      let isValidQuestion = true;
 
-      if (!valid) {
-        setQuestionErrors({ [i]: { message: "error-incomplete-form-question" } });
-        break;
+      if (question.type === "quiz") isValidQuestion = validateQuiz(question);
+      if (question.type === "trueFalse") isValidQuestion = validateTrueFalse(question);
+      if (question.type === "shortAnswer") isValidQuestion = validateShortAnswer(question);
+
+      if (!isValidQuestion) {
+        valid = isValidQuestion;
+        setQuestionErrors((oldValue) => ({ ...oldValue, [i]: { message: "error-incomplete-form-question" } }));
       }
     }
 
@@ -133,12 +135,15 @@ export const Trivia = (props) => {
 
   const validateQuiz = (question) => {
     let valid = true;
-    // check all options are filled
+    // Check all options are filled.
+
+    if (isEmpty(question.question)) valid = false;
+
     question.options.forEach((option) => {
       if (isEmpty(option)) valid = false;
     });
 
-    // check correct answer is set
+    // Check correct answer is set.
     if (!question.answer) valid = false;
 
     if (Array.isArray(question.answer) && question.answer.length === 0) valid = false;
@@ -147,10 +152,14 @@ export const Trivia = (props) => {
   };
 
   const validateTrueFalse = (question) => {
+    if (isEmpty(question.question)) return false;
+
     return question.answer === true || question.answer === false;
   };
 
   const validateShortAnswer = (question) => {
+    if (isEmpty(question.question)) return false;
+
     return question.answer.length > 0;
   };
 
