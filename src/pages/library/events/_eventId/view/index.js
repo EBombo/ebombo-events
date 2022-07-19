@@ -15,9 +15,9 @@ import { useTranslation } from "../../../../../hooks";
 export const EventView = (props) => {
   const router = useRouter();
 
-  const { t } = useTranslation("pages.library.event");
-
   const { eventId } = router.query;
+
+  const { t } = useTranslation("pages.library.event");
 
   const [events] = useGlobal("userEvents");
   const [games] = useGlobal("userGames");
