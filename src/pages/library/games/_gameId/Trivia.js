@@ -6,7 +6,6 @@ import get from "lodash/get";
 import { Image } from "../../../../components/common/Image";
 import { config, firestore, firestoreTrivia } from "../../../../firebase";
 import {
-  questionTypes,
   questionTypesToLiterals,
   triviaQuestionsOptions,
   triviaQuestionsTimes,
@@ -57,9 +56,12 @@ export const Trivia = (props) => {
 
     setLoading(true);
 
-    const fetchQuestions = () =>
-      firestoreTrivia
-        .collection("games")
+    const fetchQuestions = async () => {
+      /** Determinar si es una plantilla o un juego **/
+      const isTemplate = router.asPath?.includes("templates");
+      const firebaseRef = isTemplate ? firestore.collection("templates") : firestoreTrivia.collection("games");
+
+      await firebaseRef
         .doc(gameId)
         .collection("questions")
         .onSnapshot((questionsSnapshot) => {
@@ -68,6 +70,7 @@ export const Trivia = (props) => {
           setQuestions(orderBy(questions, "questionNumber"));
           setLoading(false);
         });
+    };
 
     fetchQuestions();
   }, [props.game]);
