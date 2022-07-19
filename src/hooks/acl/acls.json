@@ -72,10 +72,10 @@
   "adminDefaultGames": {
     "label": "Formulario de juegos predeterminados",
     "items": {
-      "/admin/default/games": "Lista de juegos predeterminados",
-      "/admin/default/games/new": "Formulario de creacion de juego predeterminado",
-      "/admin/default/games/[gameId]": "Formulario de edicion de juego predeterminado",
-      "/admin/default/games/[gameId]#edit": "Permiso para edicion de juego predeterminado"
+      "/admin/games/[gameId]/templates": "Lista de juegos predeterminados",
+      "/admin/games/[gameId]/templates/new": "Formulario de creacion de juego predeterminado",
+      "/admin/games/[gameId]/templates/[templateId]": "Formulario de edicion de juego predeterminado",
+      "/admin/games/[gameId]/templates/[templateId]#edit": "Permiso para edicion de juego predeterminado"
     }
   }
 }

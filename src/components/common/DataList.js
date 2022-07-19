@@ -562,12 +562,6 @@ export const menus = [
     isAdmin: true,
     src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
-  {
-    name: "Lista de juegos predeterminados",
-    url: "/admin/default/games",
-    isAdmin: true,
-    src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
-  },
 ];
 
 export const emailTemplates = [
