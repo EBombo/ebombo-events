@@ -564,7 +564,7 @@ export const menus = [
   },
   {
     name: "Lista de juegos predeterminados",
-    url: "/admin/default/games", // TODO: PENSAR BIEN LA RUTA
+    url: "/admin/default/games",
     isAdmin: true,
     src: `${config.storageUrl}/resources/footer/reports-icon.svg`,
   },
