@@ -104,7 +104,7 @@ export const Events = (props) => {
                   title={
                     <div className="flex flex-col text-['Lato']">
                       <div
-                        className="flex items-center cursor-pointer text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
+                        className="flex items-center cursor-pointer p-2 text-[16px] leading-[19px] text-blackDarken"
                         onClick={() => deleteEvent(event)}
                       >
                         <Image
@@ -119,7 +119,7 @@ export const Events = (props) => {
 
                       {!event.manageByUser && (
                         <div
-                          className="flex items-center cursor-pointer text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
+                          className="flex items-center cursor-pointer p-2 text-[16px] leading-[19px] text-blackDarken"
                           onClick={(e) => {
                             e.preventDefault();
                             router.push(`/events/${event.id}`);
