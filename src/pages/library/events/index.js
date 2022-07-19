@@ -47,7 +47,7 @@ export const Events = (props) => {
         />
       )}
 
-      <ButtonAnt onClick={() => setIsVisibleModalEvents(true)}>{t("create-event")}</ButtonAnt>
+      <ButtonAnt onClick={() => setIsVisibleModalEvents(true)}>{t("create-activity")}</ButtonAnt>
 
       <div className="my-4 md:my-8">
         {events.map((event) => (
