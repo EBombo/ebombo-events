@@ -24,15 +24,15 @@ export const EventStepOne = (props) => {
     setLink(props.event.link ?? "");
     setImageUrl(props.event.imageUrl ?? "");
 
-    const month = moment(moment(props.event?.startAt?.toDate()).format('dddd DD MMMM'));
-    const start = moment(moment(props.event?.startAt?.toDate()).format('h:mm a'), "h:mm a");
-    const end = moment(moment(props.event?.endAt?.toDate()).format('h:mm a'), "h:mm a");
+    const month = moment(moment(props.event?.startAt?.toDate()).format("dddd DD MMMM"));
+    const start = moment(moment(props.event?.startAt?.toDate()).format("h:mm a"), "h:mm a");
+    const end = moment(moment(props.event?.endAt?.toDate()).format("h:mm a"), "h:mm a");
 
     const _currentDate = {
       month,
       start,
-      end
-    }
+      end,
+    };
 
     setCurrentDate(_currentDate);
   }, [props.event]);
@@ -105,8 +105,9 @@ export const EventStepOne = (props) => {
       <div className="my-4 text-['Lato'] font-[400] text-secondary text-[18px] leading-[22px]">{t("date-title")}</div>
 
       <div
-        className={`p-4 ${errorEventDate ? "border-danger" : "border-grayLighten"
-          } border-[2px] flex items-center gap-[10px] bg-white w-full md:w-fit rounded-[6px] flex-col md:flex-row`}
+        className={`p-4 ${
+          errorEventDate ? "border-danger" : "border-grayLighten"
+        } border-[2px] flex items-center gap-[10px] bg-white w-full md:w-fit rounded-[6px] flex-col md:flex-row`}
       >
         <div className="flex flex-col gap-[5px] w-full md:w-fit">
           <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">{t("dates.day")}</div>

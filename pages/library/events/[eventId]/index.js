@@ -16,8 +16,8 @@ const Game = (props) => {
   const [authUser] = useGlobal("user");
 
   useEffect(() => {
-    router.prefetch("/library/events")
-  }, [])
+    router.prefetch("/library/events");
+  }, []);
 
   return (
     <PrivateRoutes>

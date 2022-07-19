@@ -6,8 +6,9 @@ import map from "lodash/map";
 
 const sortPlans = (plans) => {
   // Order plans based on plansInOrder from DataList.
-  let orderedPlans = map(plansInOrder, (orderPlanName) =>
-    plans.filter((p) => p.name?.toLowerCase().includes(orderPlanName?.toLowerCase()))?.[0]
+  let orderedPlans = map(
+    plansInOrder,
+    (orderPlanName) => plans.filter((p) => p.name?.toLowerCase().includes(orderPlanName?.toLowerCase()))?.[0]
   );
 
   // This filter removes possible undefined items on orderedPlans list.

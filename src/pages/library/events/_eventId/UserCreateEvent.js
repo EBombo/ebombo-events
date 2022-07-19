@@ -24,9 +24,11 @@ export const UserCreateEvent = (props) => {
       <div className="border-y-[1px] border-primaryLight h-[60px] md:h-[100px] px-2 bg-white flex items-end md:px-8">
         {steps.map((step, index) => (
           <div
-            className={`py-2 px-2 md:px-4 flex items-center text-['Lato'] text-[14px] leading-[17px] md:text-[18px] md:leading-[22px] font-[500] ${index + 1 > currentStep && "text-primaryLight"
-              } ${index + 1 < currentStep && "text-[#1CF68D]"} ${currentStep === index + 1 && "text-secondary border-b-[2px] border-secondary"
-              }`}
+            className={`py-2 px-2 md:px-4 flex items-center text-['Lato'] text-[14px] leading-[17px] md:text-[18px] md:leading-[22px] font-[500] ${
+              index + 1 > currentStep && "text-primaryLight"
+            } ${index + 1 < currentStep && "text-[#1CF68D]"} ${
+              currentStep === index + 1 && "text-secondary border-b-[2px] border-secondary"
+            }`}
             key={step.key}
           >
             {index + 1 < currentStep && (

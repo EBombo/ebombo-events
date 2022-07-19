@@ -688,6 +688,7 @@
           "date": "Fecha",
           "link": "Link de la reunión",
           "create": "Crear",
+          "save-changes": "Guardar cambios",
           "email-label": "Mandar correo a participantes"
         }
       },

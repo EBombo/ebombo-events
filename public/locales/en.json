@@ -697,6 +697,7 @@
           "date": "Date",
           "link": "Meeting Link",
           "create": "Create",
+          "save-changes": "Save changes",
           "email-label": "Send email to participants"
         }
       },

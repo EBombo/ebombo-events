@@ -90,7 +90,7 @@ export const EventView = (props) => {
   }, [eventId, games]);
 
   return (
-    <div className="w-full flex flex-col items center bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 h-[calc(100vh-50px)] overflow-auto">
+    <div className="w-full flex flex-col items center bg-cover bg-no-repeat bg-white bg-pattern-gray p-4 md:p-8 min-h-[calc(100vh-50px)] overflow-auto">
       <div className="flex items-start justify-between">
         <div className="flex flex-col-reverse gap-[10px] md:flex-row md:items-end">
           <Image
