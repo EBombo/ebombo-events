@@ -48,7 +48,7 @@
     "label": "Formulario de juegos",
     "items": {
       "/admin/games": "Lista de juegos",
-      "/admin/games/[gameId]": "Formulario de edicion de juego",
+      "/admin/games/[adminGameId]": "Formulario de edicion de juego",
       "/admin/games/new": "Permitir crear juego",
       "/admin/games/#edit": "Permitir editar juego"
     }
@@ -72,10 +72,10 @@
   "adminDefaultGames": {
     "label": "Formulario de juegos predeterminados",
     "items": {
-      "/admin/games/[gameId]/templates": "Lista de juegos predeterminados",
-      "/admin/games/[gameId]/templates/new": "Formulario de creacion de juego predeterminado",
-      "/admin/games/[gameId]/templates/[templateId]": "Formulario de edicion de juego predeterminado",
-      "/admin/games/[gameId]/templates/[templateId]#edit": "Permiso para edicion de juego predeterminado"
+      "/admin/games/[adminGameId]/templates": "Lista de juegos predeterminados",
+      "/admin/games/[adminGameId]/templates/new": "Formulario de creacion de juego predeterminado",
+      "/admin/games/[adminGameId]/templates/[templateId]": "Formulario de edicion de juego predeterminado",
+      "/admin/games/[adminGameId]/templates/[templateId]#edit": "Permiso para edicion de juego predeterminado"
     }
   }
 }

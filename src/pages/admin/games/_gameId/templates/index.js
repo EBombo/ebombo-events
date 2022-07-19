@@ -8,18 +8,18 @@ import { Anchor } from "../../../../../components/form";
 
 export const TemplatesGames = (props) => {
   const router = useRouter();
-  const { gameId } = router.query;
+  const { adminGameId } = router.query;
 
   const [isLoading, setIsLoading] = useState(true);
   const [templates, setTemplates] = useState([]);
 
   useEffect(() => {
-    if (!gameId) return setIsLoading(false);
+    if (!adminGameId) return setIsLoading(false);
 
     const fetchTemplates = async () => {
       const querySnapshotTemplates = await firestore
         .collection("templates")
-        .where("game.id", "==", gameId)
+        .where("game.id", "==", adminGameId)
         .where("deleted", "==", false)
         .get();
 
@@ -29,7 +29,7 @@ export const TemplatesGames = (props) => {
     };
 
     fetchTemplates();
-  }, [gameId]);
+  }, [adminGameId]);
 
   if (isLoading) return spinLoader();
 
@@ -37,7 +37,7 @@ export const TemplatesGames = (props) => {
     <div>
       <div className="my-4 text-bold text-lg text-center">Lista de juegos predeterminados</div>
 
-      <Anchor href={`/admin/games/${gameId}/templates/new`} margin="20px auto" display="block">
+      <Anchor href={`/admin/games/${adminGameId}/templates/new`} margin="20px auto" display="block">
         <a>CREAR PLANTILLA</a>
       </Anchor>
 
@@ -48,7 +48,7 @@ export const TemplatesGames = (props) => {
               <div key={template.id}>
                 <div>{template.game.name}</div>
                 <div>{moment(template.createAt.toDate()).format("LLL")}</div>
-                <Anchor href={`/admin/games/${gameId}/templates/${template.id}`}>
+                <Anchor href={`/admin/games/${adminGameId}/templates/${template.id}`}>
                   <a>EDITAR PLANTILLA</a>
                 </Anchor>
               </div>
