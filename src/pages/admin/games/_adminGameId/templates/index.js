@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { firestore } from "../../../../../firebase";
 import { snapshotToArray } from "../../../../../utils";
 import moment from "moment";
+import orderBy from "lodash/orderBy";
 import { spinLoader } from "../../../../../components/common/loader";
 import { Anchor } from "../../../../../components/form";
 import { Image } from "../../../../../components/common/Image";
@@ -25,7 +26,7 @@ export const TemplatesGames = (props) => {
         .get();
 
       const templates_ = snapshotToArray(querySnapshotTemplates);
-      setTemplates(templates_);
+      setTemplates(orderBy(templates_, ["createAt"], ["desc"]));
       setIsLoading(false);
     };
 
