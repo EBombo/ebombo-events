@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "reactn";
 import { useRouter } from "next/router";
-import { firestore } from "../../../../../../firebase";
+import { config, firestore } from "../../../../../../firebase";
 import { spinLoader } from "../../../../../../components/common/loader";
 import { Trivia } from "../../../../../library/games/_gameId/Trivia";
 import { useSendError } from "../../../../../../hooks";
@@ -22,8 +22,8 @@ export const TemplateGame = (props) => {
   const [template, setTemplate] = useState(null);
 
   useEffect(() => {
-    if (!adminGameId) return setIsLoading(false);
     if (!gameId) return setIsLoading(false);
+    if (!adminGameId) return setIsLoading(false);
 
     const initialize = async () => {
       const fetchAdminGame = async () => {
@@ -74,8 +74,8 @@ export const TemplateGame = (props) => {
       router.back();
     } catch (error) {
       console.error(error);
-      sendError(error, "submitGame temaplte");
-      props.showNotification("Error", error.message ?? "Algo salio mal");
+      sendError(error, "submitGame-template");
+      props.showNotification("Error", error.message ?? "Algo salió mal");
     }
 
     setIsLoadingSubmit(false);
@@ -95,6 +95,8 @@ export const TemplateGame = (props) => {
           {...props}
         />
       )}
+
+      {adminGame?.name !== "trivia" ? "PROXIMAMENTE" : null}
     </div>
   );
 };

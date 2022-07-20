@@ -5,6 +5,7 @@ import { snapshotToArray } from "../../../../../utils";
 import moment from "moment";
 import { spinLoader } from "../../../../../components/common/loader";
 import { Anchor } from "../../../../../components/form";
+import { Image } from "../../../../../components/common/Image";
 
 export const TemplatesGames = (props) => {
   const router = useRouter();
@@ -45,7 +46,10 @@ export const TemplatesGames = (props) => {
         {templates?.length ? (
           templates.map((template) => {
             return (
-              <div key={template.id} className="border border-primary p-2 rounded">
+              <div key={template.id} className="border border-primary p-2 rounded text-center">
+                {template.coverImgUrl ? (
+                  <Image src={template.coverImgUrl} height="auto" width="125px" size="contain" margin="10px auto" />
+                ) : null}
                 <div>Nombre de juego: {template.adminGame.name.toUpperCase()}</div>
                 <div>Creado: {moment(template.createAt.toDate()).format("LLL")}</div>
                 <Anchor href={`/admin/games/${adminGameId}/templates/${template.id}`} display="block" margin="auto">
@@ -61,14 +65,3 @@ export const TemplatesGames = (props) => {
     </div>
   );
 };
-
-// TODO: plantilla crear pagina con tailwind
-// TODO: plantilla const [isLoading, setIsLoading] = useState(true);
-/** TODO: plantilla:
- {
- templates
- .map((template) => {
-          return <div key={template.id}></div>;
- })
-}
-  **/
