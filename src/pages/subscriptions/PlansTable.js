@@ -10,6 +10,7 @@ import { darkTheme } from "../../theme";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { useStripePlans } from "../../hooks/useStripePlans";
 import { spinLoaderMin } from "../../components/common/loader";
+import { ModalContainer } from "../../components/common/ModalContainer";
 import { useTranslation } from "../../hooks";
 import { useRouter } from "next/router";
 import get from "lodash/get";
@@ -28,6 +29,8 @@ export const PlansTable = (props) => {
   const { plans, isLoadingPlans } = useStripePlans();
 
   const { t, locale } = useTranslation("components.plans-table");
+
+  const [isVisibleUpdateSubscriptionModal, setIsVisibleUpdateSubscriptionModal] = useState(false);
 
   const [isMonthly_, setIsMonthly_] = useState(false);
 
@@ -148,6 +151,40 @@ export const PlansTable = (props) => {
 
   return (
     <TableContainer hasPlan={hasPlan} {...props}>
+      <ModalContainer
+        footer={null}
+        closable={false}
+        visible={props.isVisibleModalGame}
+        padding={"0 0 1rem 0"}
+        top="10%"
+        width="fit-content"
+        background={darkTheme.basic.whiteLight}
+        visible={isVisibleUpdateSubscriptionModal}
+      >
+        <div className="text-xl text-blackDarken text-center">{t("update-subscription-modal-title")}</div>
+        <ButtonAnt
+          margin="20px auto auto auto"
+          variant="contained"
+          color="default"
+          size="big"
+          onClick={() => {}}
+        >
+          {t("confirm")}
+        </ButtonAnt>
+
+        <ButtonAnt
+          margin="20px auto auto auto"
+          variant="contained"
+          color="default"
+          size="big"
+          onClick={() => setIsVisibleUpdateSubscriptionModal(false)}
+        >
+          {t("cancel")}
+        </ButtonAnt>
+      </ModalContainer>
+      <div>
+
+      </div>
       <table border="0">
         <tbody>
           <tr>

@@ -516,6 +516,9 @@
       "progress_tracking": "Tracking de progreso",
       "players_identity": "Identificar personajes",
       "games": "Juegos disponibles",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "update-subscription-modal-title": "Confirmación el cambio de plan",
       "all": "Todos"
     }
   },
