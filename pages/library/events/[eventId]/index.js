@@ -1,4 +1,4 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useEffect } from "reactn";
 import { SEOMeta } from "../../../../src/components/common/seo";
 import { PrivateRoutes } from "../../../../src/routes/PrivateRoutes";
 import { Event } from "../../../../src/pages/library/events/_eventId";
@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { EventContainer } from "../../../../src/pages/events/eventId";
 import { Image } from "../../../../src/components/common/Image";
 import { config } from "../../../../src/firebase";
-import { useEffect } from "react";
 
 const Game = (props) => {
   const router = useRouter();
@@ -32,7 +31,10 @@ const Game = (props) => {
             width="125px"
             size="contain"
             margin="0"
-            onClick={() => router.push("/library/events")}
+            onClick={(e) => {
+              e.preventDefault();
+              router.push("/library/events");
+            }}
           />
           <div className="text-secondary text-['Lato'] font-[700] text-[18px] leading-[22px]">{`${authUser?.name} ${authUser?.lastName}`}</div>
         </div>

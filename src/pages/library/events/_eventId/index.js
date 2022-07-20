@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import { useRouter } from "next/router";
 import { firestore } from "../../../../firebase";
 import { UserCreateEvent } from "./UserCreateEvent";
