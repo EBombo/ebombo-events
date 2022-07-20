@@ -34,7 +34,7 @@ export const BingoResume = (props) => {
 
         if (props.lobby?.settings?.cardAutofill) return;
 
-        if (user.rounds.some((round) => isEmpty(round.myWinningCard))) _usersWithEmptyCard.push(user);
+        if (defaultTo(user.rounds, []).some((round) => isEmpty(round.myWinningCard))) _usersWithEmptyCard.push(user);
       });
 
       setDroppedOut(_droppedOut);
@@ -55,13 +55,11 @@ export const BingoResume = (props) => {
     const secondsDiff = endTime.diff(startTime, "seconds");
 
     if (hoursDiff <= 0)
-      return `${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${
-        secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
-      } minutes`;
+      return `${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
+        } minutes`;
 
-    return `${hoursDiff}:${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${
-      secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
-    } hours`;
+    return `${hoursDiff}:${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
+      } hours`;
   };
 
   return (
@@ -195,9 +193,8 @@ export const BingoResume = (props) => {
                           >
                             <div className="aspect-square flex items-center justify-center bg-secondaryDark">
                               <div
-                                className={`${
-                                  value && "w-[60%] aspect-square bg-whiteDark flex justify-center rounded-[50%]"
-                                }`}
+                                className={`${value && "w-[60%] aspect-square bg-whiteDark flex justify-center rounded-[50%]"
+                                  }`}
                               />
                             </div>
                           </td>
