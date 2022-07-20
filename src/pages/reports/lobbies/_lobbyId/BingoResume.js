@@ -45,6 +45,8 @@ export const BingoResume = (props) => {
     mapUsers();
   }, [lobbyId, props.users]);
 
+  const zeroPad = (num, places) => String(num).padStart(places, "0");
+
   const calculateDurationTime = (startAt, endAt) => {
     const startTime = moment(startAt.toDate(), "DD-MM-YYYY hh:mm:ss");
     const endTime = moment(endAt.toDate(), "DD-MM-YYYY hh:mm:ss");
@@ -55,12 +57,9 @@ export const BingoResume = (props) => {
 
     const secondsDiff = endTime.diff(startTime, "seconds");
 
-    if (hoursDiff <= 0)
-      return `${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
-        } minutes`;
+    if (hoursDiff <= 0) return `${zeroPad(minutesDiff, 2)}:${zeroPad(secondsDiff, 2)} minutes`;
 
-    return `${hoursDiff}:${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
-      } hours`;
+    return `${hoursDiff}:${zeroPad(minutesDiff, 2)}:${zeroPad(secondsDiff, 2)} hours`;
   };
 
   return (
@@ -194,8 +193,9 @@ export const BingoResume = (props) => {
                           >
                             <div className="aspect-square flex items-center justify-center bg-secondaryDark">
                               <div
-                                className={`${value && "w-[60%] aspect-square bg-whiteDark flex justify-center rounded-[50%]"
-                                  }`}
+                                className={`${
+                                  value && "w-[60%] aspect-square bg-whiteDark flex justify-center rounded-[50%]"
+                                }`}
                               />
                             </div>
                           </td>
