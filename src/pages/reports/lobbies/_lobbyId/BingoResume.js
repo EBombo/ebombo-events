@@ -6,6 +6,7 @@ import { config } from "../../../../firebase";
 import moment from "moment";
 import { ButtonAnt } from "../../../../components/form";
 import isEmpty from "lodash/isEmpty";
+import defaultTo from "lodash/defaultTo";
 import capitalize from "lodash/capitalize";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { ModalBingoRounds } from "./ModalBingoRounds";
