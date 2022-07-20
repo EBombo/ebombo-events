@@ -60,19 +60,16 @@ export const TemplateGame = (props) => {
       const body = {
         ...dataGame,
         adminGameId: adminGameId,
-        createAt: template ? template.createAt.toDate() : new Date(),
         adminGame: { ...adminGame, createAt: adminGame.createAt.toDate(), updateAt: adminGame.updateAt.toDate() },
       };
 
-      //http://localhost:8080
-      //${config.serverUrl}
-      const { error } = await Fetch(`http://localhost:8080/api/templates/${gameId}`, method, body);
+      const { error } = await Fetch(`${config.serverUrl}/api/templates/${gameId}`, method, body);
 
       if (error) {
         throw Error(error);
       }
 
-      props.showNotification("OK", "Creado con exito", "Success");
+      props.showNotification("OK", "la operacion fue exitosa", "success");
 
       router.back();
     } catch (error) {
