@@ -1,4 +1,4 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useEffect } from "reactn";
 import { SEOMeta } from "../../../../src/components/common/seo";
 import { PrivateRoutes } from "../../../../src/routes/PrivateRoutes";
 import { Event } from "../../../../src/pages/library/events/_eventId";
@@ -9,9 +9,14 @@ import { config } from "../../../../src/firebase";
 
 const Game = (props) => {
   const router = useRouter();
+
   const { manageBy } = router.query;
 
   const [authUser] = useGlobal("user");
+
+  useEffect(() => {
+    router.prefetch("/library/events");
+  }, []);
 
   return (
     <PrivateRoutes>
@@ -26,6 +31,10 @@ const Game = (props) => {
             width="125px"
             size="contain"
             margin="0"
+            onClick={(e) => {
+              e.preventDefault();
+              router.push("/library/events");
+            }}
           />
           <div className="text-secondary text-['Lato'] font-[700] text-[18px] leading-[22px]">{`${authUser?.name} ${authUser?.lastName}`}</div>
         </div>

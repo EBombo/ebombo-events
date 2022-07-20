@@ -60,24 +60,26 @@ export const EventStepThree = (props) => {
 
       <div className="grid gap-4 md:grid-cols-[auto_250px] max-w-[1200px] md:h-[400px]">
         <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(150px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(230px,240px))] md:max-h-[400px] md:overflow-auto">
-          {adminGames.map((game) => (
-            <div
-              className="h-[135px] w-full flex flex-col rounded-[6px] overflow-hidden cursor-pointer"
-              onClick={() => addGame(game)}
-              key={game.id}
-            >
-              <Image src={game.coverUrl} height="100px" width="100%" size="cover" margin="0" cursor="pointer" />
+          {adminGames
+            .filter((game) => !game.isDisabled)
+            .map((game) => (
               <div
-                className={`w-full ${
-                  selectedGames.map((game) => game.id).includes(game.id)
-                    ? "bg-primary text-white"
-                    : "bg-white text-secondary"
-                } text-['Lato] font-[700] text-[15px] leading-[18px] p-2 text-center`}
+                className="h-[135px] w-full flex flex-col rounded-[6px] overflow-hidden cursor-pointer"
+                onClick={() => addGame(game)}
+                key={game.id}
               >
-                {game.title}
+                <Image src={game.coverUrl} height="100px" width="100%" size="cover" margin="0" cursor="pointer" />
+                <div
+                  className={`w-full ${
+                    selectedGames.map((game) => game.id).includes(game.id)
+                      ? "bg-primary text-white"
+                      : "bg-white text-secondary"
+                  } text-['Lato] font-[700] text-[15px] leading-[18px] p-2 text-center`}
+                >
+                  {game.title}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
 
         <div className="flex flex-col gap-4 md:max-h-[350px] md:overflow-y-auto md:overflow-x-hidden">

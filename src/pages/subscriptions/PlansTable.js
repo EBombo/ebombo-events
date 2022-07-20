@@ -46,10 +46,7 @@ export const PlansTable = (props) => {
 
   // CurrentPriceId es el ID del precio (el anual o el mensual) que el usuario
   // ha pagado. se usa para distinguir si pago el mensual o el anual
-  const currentPriceId  = useMemo(
-    () =>  get(props.currentSubscription, "price.id", ""),
-    [props.currentSubscription]
-  );
+  const currentPriceId = useMemo(() => get(props.currentSubscription, "price.id", ""), [props.currentSubscription]);
 
   const anualPhrase = (price) => (
     <p>
@@ -63,9 +60,13 @@ export const PlansTable = (props) => {
   );
 
   const getYesNoIcon = (value) =>
-    value === YES_VALUE ? <CheckOutlined style={{ color: darkTheme.basic.primary }} /> : <CloseOutlined style={{ color: darkTheme.basic.danger }} />;
+    value === YES_VALUE ? (
+      <CheckOutlined style={{ color: darkTheme.basic.primary }} />
+    ) : (
+      <CloseOutlined style={{ color: darkTheme.basic.danger }} />
+    );
 
-  const getCurrentPricePlan = (plan) => isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan);
+  const getCurrentPricePlan = (plan) => (isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
 
   const CallToActionContentSection = React.memo(
     ({ plan, index_ }) => {
@@ -89,11 +90,11 @@ export const PlansTable = (props) => {
       if (hasPlan && planIndex === index_ && currentPriceId !== planPrice?.id)
         return (
           <td>
-          <StripeCustomerPortalLink>
-            <ButtonAnt variant="outlined" color="dark">
-              {t("change-plan")}
-            </ButtonAnt>
-          </StripeCustomerPortalLink>
+            <StripeCustomerPortalLink>
+              <ButtonAnt variant="outlined" color="dark">
+                {t("change-plan")}
+              </ButtonAnt>
+            </StripeCustomerPortalLink>
           </td>
         );
 
@@ -243,7 +244,9 @@ export const PlansTable = (props) => {
 
               {props.showCallToActionSection && hasPlan && (
                 <td className="text-center max-h-[30px]">
-                  {getCurrentPricePlan(plan)?.id === currentPriceId && <span className="text-black font-bold text-base">{t("current-plan")}</span>}
+                  {getCurrentPricePlan(plan)?.id === currentPriceId && (
+                    <span className="text-black font-bold text-base">{t("current-plan")}</span>
+                  )}
                 </td>
               )}
 
@@ -354,7 +357,7 @@ const TableContainer = styled.div`
     background: rgba(196, 173, 255, 0.2);
     border: 3px solid #956dfc;
     box-sizing: border-box;
-    z-index: 99;
+    z-index: 20;
     border-radius: 13px 13px 0px 0px;
     pointer-events: none;
   }
@@ -423,9 +426,9 @@ const TableContainer = styled.div`
   }
 
   .platinum {
-    .name, 
+    .name,
     .price {
-      background: linear-gradient(180deg, #616161 0%, #8C8C8C 0.01%, #3F3F3F 100%);
+      background: linear-gradient(180deg, #616161 0%, #8c8c8c 0.01%, #3f3f3f 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -441,7 +444,7 @@ const TableContainer = styled.div`
 
 const Star = styled.div`
   position: absolute;
-  z-index: 99;
+  z-index: 20;
   right: 0;
   top: 0;
   transform: translate(50%, -50%);

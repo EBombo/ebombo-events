@@ -18,12 +18,23 @@ export const EventStepOne = (props) => {
   const { t } = useTranslation("pages.library.event.step-one");
 
   useEffect(() => {
-    if (!props.event) return;
+    if (isEmpty(props.event) || !props.event) return;
 
     setName(props.event.name ?? "");
     setLink(props.event.link ?? "");
     setImageUrl(props.event.imageUrl ?? "");
-    setCurrentDate(props.event.currentDate ?? "");
+
+    const month = moment(moment(props.event?.startAt?.toDate()).format("dddd DD MMMM"));
+    const start = moment(moment(props.event?.startAt?.toDate()).format("h:mm a"), "h:mm a");
+    const end = moment(moment(props.event?.endAt?.toDate()).format("h:mm a"), "h:mm a");
+
+    const _currentDate = {
+      month,
+      start,
+      end,
+    };
+
+    setCurrentDate(_currentDate);
   }, [props.event]);
 
   const disabledDate = (current) => current && current < moment().endOf("day");
@@ -102,9 +113,9 @@ export const EventStepOne = (props) => {
           <div className="text-['Lato'] font-[400] text-secondary text-[16px] leading-[18px]">{t("dates.day")}</div>
           <DatePicker
             format="dddd DD MMMM"
-            value={currentDate?.month}
+            value={currentDate?.month ?? ""}
             disabledDate={disabledDate}
-            onChange={(event) => setCurrentDate({ ...currentDate, month: event })}
+            onChange={(date, dateString) => setCurrentDate({ ...currentDate, month: dateString })}
             margin="0"
             style={{
               border: "1px solid #C4C4C4",
@@ -121,8 +132,8 @@ export const EventStepOne = (props) => {
 
             <TimePicker
               format="h:mm a"
-              value={currentDate?.start}
-              onChange={(event) => setCurrentDate({ ...currentDate, start: event })}
+              value={currentDate?.start ?? ""}
+              onChange={(hour) => setCurrentDate({ ...currentDate, start: hour })}
               style={{
                 border: "1px solid #C4C4C4",
                 borderRadius: "4px",
@@ -137,8 +148,8 @@ export const EventStepOne = (props) => {
             <TimePicker
               format="h:mm a"
               className="w-full"
-              value={currentDate?.end}
-              onChange={(event) => setCurrentDate({ ...currentDate, end: event })}
+              value={currentDate?.end ?? ""}
+              onChange={(hour) => setCurrentDate({ ...currentDate, end: hour })}
               style={{
                 border: "1px solid #C4C4C4",
                 borderRadius: "4px",
