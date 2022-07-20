@@ -116,7 +116,7 @@ export const Company = (props) => {
   );
 
   return (
-    <div className="w-full lg:grid lg:grid-cols-[auto] lg:h-[calc(100vh-50px)]">
+    <div className="w-full lg:grid lg:grid-cols-[auto] lg:min-h-[calc(100vh-50px)]">
       <div className="bg-whiteLight min-h-[calc(100vh-50px)] overflow-auto lg:p-8 lg:bg-whiteDark lg:h-full lg:overflow-auto">
         <div
           className={`flex items-center justify-between bg-whiteLight h-[45px] w-full lg:px-4 border-b-[3px] border-b-grayLighten
