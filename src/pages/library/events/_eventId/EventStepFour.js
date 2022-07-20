@@ -73,6 +73,8 @@ export const EventStepFour = (props) => {
 
       await createEventGames(newEvent, adminGames);
 
+      props.fetchGames();
+
       const membersPromise = props.members.map(
         async (member) =>
           await firestore
@@ -97,8 +99,15 @@ export const EventStepFour = (props) => {
   };
 
   const createEventGames = async (event, adminGames) => {
+    const adminGamesIds = adminGames.map((adminGame) => adminGame.id);
+
+    let newAdminGames = [...adminGames];
+
     const deletePromise = eventGames.map(async (game) => {
       let currentFirestore = gamesFirestore(game?.adminGame?.name);
+
+      if (adminGamesIds.includes(game.adminGame?.id))
+        return (newAdminGames = newAdminGames.filter((adminGame) => adminGame.id !== game.adminGame?.id));
 
       await currentFirestore.collection("games").doc(game.id).update({
         deleted: true,
@@ -107,7 +116,7 @@ export const EventStepFour = (props) => {
 
     await Promise.all(deletePromise);
 
-    const gamesPromises = adminGames.map(async (adminGame) => {
+    const gamesPromises = newAdminGames.map(async (adminGame) => {
       const currentFirebase = gamesFirestore(adminGame.name);
 
       const newId = currentFirebase.collection("games").doc().id;
@@ -117,7 +126,7 @@ export const EventStepFour = (props) => {
         .doc(newId)
         .set(
           {
-            name: "Editar juego",
+            name: props.event?.name,
             deleted: false,
             user: authUser,
             usersIds: [authUser?.id],
@@ -226,7 +235,7 @@ export const EventStepFour = (props) => {
         </Anchor>
         <ButtonAnt color="success" onClick={() => createEvent()} loading={isLoading} disabled={isLoading}>
           <div className="w-[120px] text-['Lato'] font-[700] text-[18px] leading-[20px] text-blackDarken">
-            {t("step-four.create")}
+            {eventId === "new" ? t("step-four.create") : t("step-four.save-changes")}
           </div>
         </ButtonAnt>
       </div>

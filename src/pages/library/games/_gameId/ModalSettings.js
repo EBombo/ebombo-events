@@ -20,7 +20,7 @@ export const ModalSettings = (props) => {
 
   const { adminGameId } = router.query;
 
-  const {t} = useTranslation("modal-settings")
+  const { t } = useTranslation("modal-settings");
 
   const [audios, setAudios] = useState([]);
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
@@ -81,7 +81,9 @@ export const ModalSettings = (props) => {
         <form onSubmit={handleSubmit(saveChanges)}>
           <div className="main-container">
             <div className="left-side">
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">{t("save")}</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">
+                {t("save")}
+              </div>
               <div className="path">
                 {get(props, "parent.name", t("my-games"))}
                 <ButtonAnt className="btn-move" onClick={() => setIsVisibleModalMove(true)}>
@@ -105,9 +107,7 @@ export const ModalSettings = (props) => {
               {/*  />*/}
               {/*</div>*/}
               <div className="w-[100%] flex items-center mt-4 justify-between mt-4">
-                <div className="text-[15px] leading-[18px] font-[700] text-blackDarken">
-                  {t("allow-duplicate")}
-                </div>
+                <div className="text-[15px] leading-[18px] font-[700] text-blackDarken">{t("allow-duplicate")}</div>
                 <Switch
                   size="medium"
                   checked={props.allowDuplicate}
@@ -118,7 +118,9 @@ export const ModalSettings = (props) => {
                 />
               </div>
 
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">{t("lobby-music")}</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">
+                {t("lobby-music")}
+              </div>
               <div className="input-container">
                 <Controller
                   name="audioId"
@@ -140,7 +142,9 @@ export const ModalSettings = (props) => {
                   }
                 />
               </div>
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">{t("visibility")}</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">
+                {t("visibility")}
+              </div>
               <Radio.Group onChange={() => props.setVisibility(!props.visibility)} value={props.visibility}>
                 <Radio value={true}>{t("organization")}</Radio>
                 <Radio value={false}>{t("nobody")}</Radio>
@@ -148,7 +152,9 @@ export const ModalSettings = (props) => {
             </div>
 
             <div className="right-side">
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 mb-2 text-[15px] leading-[18px] font-[700] text-blackDarken">{t("cover-image")}</div>
+              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 mb-2 text-[15px] leading-[18px] font-[700] text-blackDarken">
+                {t("cover-image")}
+              </div>
               <FileUpload
                 file={props.coverImgUrl}
                 preview={true}
