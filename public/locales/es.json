@@ -518,7 +518,8 @@
       "games": "Juegos disponibles",
       "confirm": "Confirmar",
       "cancel": "Cancelar",
-      "update-subscription-modal-title": "Confirmación el cambio de plan",
+      "update-subscription-modal-title": "Confirmación de cambio de plan",
+      "update-subscription-modal-description": "Al confirmar se realizará el cambio de plan al seleccionado.",
       "all": "Todos"
     }
   },

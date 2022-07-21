@@ -525,6 +525,7 @@
       "confirm": "Confirm",
       "cancel": "Cancel",
       "update-subscription-modal-title": "Confirm the change of plan",
+      "update-subscription-modal-description": "When confirming, the change of plan to the selected one will be made.",
       "all": "All"
     }
   },
