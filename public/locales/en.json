@@ -883,6 +883,7 @@
       "amount-due": "Amount due",
       "update-subscription-modal-title": "Confirm your new plan",
       "update-subscription-modal-changing-to": "Changing to",
+      "update-subscription-ok-success": "Successful Operation. Wait for the platform restarts...",
       "loading-preview-data-of-operation": "Loading preview data of operation...",
       "change-detail-payment": "Change payment details"
     },
