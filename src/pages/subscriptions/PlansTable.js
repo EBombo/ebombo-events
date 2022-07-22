@@ -91,10 +91,14 @@ export const PlansTable = (props) => {
       if (hasPlan && planIndex === index_ && currentPriceId !== planPrice?.id)
         return (
           <td>
-            <ButtonAnt variant="outlined" color="dark" onClick={(e) => {
-              e.preventDefault();
-              props.onInitSubscriptionUpdate?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
-            }}>
+            <ButtonAnt
+              variant="outlined"
+              color="dark"
+              onClick={(e) => {
+                e.preventDefault();
+                props.onInitSubscriptionUpdate?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
+              }}
+            >
               {t("change-plan")}
             </ButtonAnt>
           </td>
