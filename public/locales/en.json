@@ -524,8 +524,6 @@
       "games": "Games available",
       "confirm": "Confirm",
       "cancel": "Cancel",
-      "update-subscription-modal-title": "Confirm the change of plan",
-      "update-subscription-modal-description": "When confirming, the change of plan to the selected one will be made.",
       "all": "All"
     }
   },
@@ -878,6 +876,12 @@
       "current-plan": "Current Plan",
       "ask-not-having-plan": "Don't have a plan yet?",
       "see-plans": "See plans",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "update-subscription-modal-title": "Confirm your new plan",
+      "update-subscription-modal-changing-to": "Changing to",
       "change-detail-payment": "Change payment details"
     },
     "companies": {

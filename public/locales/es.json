@@ -518,8 +518,6 @@
       "games": "Juegos disponibles",
       "confirm": "Confirmar",
       "cancel": "Cancelar",
-      "update-subscription-modal-title": "Confirmación de cambio de plan",
-      "update-subscription-modal-description": "Al confirmar se realizará el cambio de plan al seleccionado.",
       "all": "Todos"
     }
   },
@@ -876,6 +874,12 @@
       "current-plan": "Plan Actual",
       "not-having-plan": "¿Aún no tienes un plan?",
       "see-plans": "Ver planes",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "update-subscription-modal-title": "Confirmar cambio a tu nuevo plan",
+      "update-subscription-modal-changing-to": "Cambiando a",
       "change-detail-payment": "Cambiar los detalles de pago"
     }
   },
