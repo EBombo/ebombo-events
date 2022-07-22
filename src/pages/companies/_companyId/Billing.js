@@ -2,18 +2,16 @@ import React, { useEffect, useGlobal, useState, useRef, useMemo } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../constants";
 import { PanelBox } from "../../../components/common/PanelBox";
-import { getCurrencySymbol, PlanIntervals } from "../../../components/common/DataList";
-import { Anchor, ButtonAnt } from "../../../components/form";
+import { PlanIntervals } from "../../../components/common/DataList";
+import { Anchor } from "../../../components/form";
 import { useRouter } from "next/router";
 import { snapshotToArray } from "../../../utils";
-import { config, firestore } from "../../../firebase";
+import { firestore } from "../../../firebase";
 import { CurrentPlanCard } from "./billing/CurrentPlanCard";
 import { PlansTable } from "../../../pages/subscriptions/PlansTable";
 import { useSendError, useTranslation } from "../../../hooks";
-import { formatAmount, sendToCheckout } from "../../../stripe";
-import { useFetch } from "../../../hooks/useFetch";
-import { ModalContainer } from "../../../components/common/ModalContainer";
-import { darkTheme } from "../../../theme";
+import { sendToCheckout } from "../../../stripe";
+import { UpdateSubscriptionModal } from "./billing/UpdateSubscriptionModal";
 
 export const Billing = (props) => {
   const router = useRouter();
@@ -25,8 +23,6 @@ export const Billing = (props) => {
 
   const { sendError } = useSendError();
 
-  const { Fetch } = useFetch();
-
   const [authUser] = useGlobal("user");
 
   const [activePlan, setActivePlan] = useState(null);
@@ -35,8 +31,7 @@ export const Billing = (props) => {
   const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
 
   const [updateSubscriptionData, setUpdateSubscriptionData] = useState(null);
-  const [previewSubscriptionUpdateResponse, setPreviewSubscriptionUpdateResponse] = useState(null);
-  const [isLoadingUpdateSubscription, setIsLoadingUpdateSubscription] = useState(false);
+
   const [isVisibleUpdateSubscriptionModal, setIsVisibleUpdateSubscriptionModal] = useState(false);
 
   useEffect(() => {
@@ -80,153 +75,24 @@ export const Billing = (props) => {
     }
   };
 
-  const previewSubscriptionUpdate = async (plan, price) => {
-    try {
-      setIsLoadingUpdateSubscription(true);
-
-      const customerQuery = await firestore
-        .doc(`customers/${authUser.id}`)
-        .get();
-
-      const customer = customerQuery.data();
-
-      const { response, error } = await Fetch(`${config.serverUrl}/api/subscriptions/${subscription.id}/review`, "POST", {
-        priceId: price.id,
-        customerId: customer?.stripeId,
-      });
-
-      if (error) throw error;
-
-      setPreviewSubscriptionUpdateResponse(response);
-
-    } catch (err) {
-      props.showNotification("Error", err?.message || err?.error, "error");
-      sendError(err);
-    }
-
-    setIsLoadingUpdateSubscription(false);
-  };
-
-  const updateSubscription = async (plan, price) => {
-    try {
-      setIsLoadingUpdateSubscription(true);
-
-      await Fetch(`${config.serverUrl}/api/subscriptions/${plan.id}`, "PUT", {
-        priceId: price.id,
-      });
-
-      setIsLoadingUpdateSubscription(false);
-    } catch (err) {
-      props.showNotification("Error", err?.message, "error");
-      setIsLoadingUpdateSubscription(false);
-      sendError(err);
-    }
-  };
-
   const onInitSubscriptionUpdate = async (plan, price) => {
-    try {
-      setIsVisibleUpdateSubscriptionModal(true);
-      setUpdateSubscriptionData({
-        plan: plan,
-        price: price,
-      });
-
-      // Previews the proration when updating subscription.
-      await previewSubscriptionUpdate(plan, price);
-
-
-    } catch (err) {
-
-      sendError(err);
-    }
-  };
-
-  const confirmUpdateSubscriptionButton = useMemo(() => {
-    if (!previewSubscriptionUpdateResponse) return;
-
-    return (<ButtonAnt
-      margin="20px auto auto auto"
-      variant="contained"
-      color="primary"
-      size="big"
-      onClick={() => { updateSubscription() }}
-    >
-      {t("confirm")}
-    </ButtonAnt>);
-  }, [previewSubscriptionUpdateResponse]);
-
-  const onCancelSubscriptionUpdate = () => {
-    setIsVisibleUpdateSubscriptionModal(false)
-
-    setUpdateSubscriptionData(null);
-    setPreviewSubscriptionUpdateResponse(null);
+    setUpdateSubscriptionData({
+      plan: plan,
+      price: price,
+    });
+    setIsVisibleUpdateSubscriptionModal(true);
   };
 
   return (
     <>
-      <ModalContainer
-        footer={null}
-        closable={false}
-        padding={"1rem"}
-        top="10%"
-        background={darkTheme.basic.whiteLight}
-        visible={isVisibleUpdateSubscriptionModal}
-      >
-        <div className="text-blackDarken">
-          <div className="text-xl  text-center">{t("update-subscription-modal-title")}</div>
-          
-          <div className="text-blackDarken text-center">{t("update-subscription-modal-changing-to")}</div>
-
-          {updateSubscriptionData && (<>
-            <div>{updateSubscriptionData.plan.name}</div>
-
-            <div>{getCurrencySymbol[updateSubscriptionData.price.currency]} {updateSubscriptionData.price.amount}</div>
-          </>)}
-
-          {previewSubscriptionUpdateResponse && (<>
-
-            <div className="mb-4">
-              {previewSubscriptionUpdateResponse.invoice.lines.data.map((lineData, index) => (
-                <div key={`line-${index}`}>
-                  {lineData.description} 
-                  <div className="float-right">
-                    {formatAmount(lineData.amount)} {getCurrencySymbol[lineData.currency]}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div>
-              {t("subtotal")}
-              <div className="float-right">
-                {getCurrencySymbol[previewSubscriptionUpdateResponse.invoice.currency]} {formatAmount(previewSubscriptionUpdateResponse.invoice.subtotal)}
-              </div>
-            </div>
-
-            <div className="">
-              {t("total")} 
-              <div className="float-right">
-                {getCurrencySymbol[previewSubscriptionUpdateResponse.invoice.currency]} {formatAmount(previewSubscriptionUpdateResponse.invoice.total)}
-              </div>
-            </div>
-
-          </>)}
-
-          <div className="flex flex-wrap">
-            <ButtonAnt
-              margin="20px auto auto auto"
-              variant="contained"
-              color="default"
-              size="big"
-              onClick={() => onCancelSubscriptionUpdate()}
-            >
-              {t("cancel")}
-            </ButtonAnt>
-
-            {confirmUpdateSubscriptionButton}
-          </div>
-        </div>
-      </ModalContainer>
+      <UpdateSubscriptionModal
+        subscription={subscription}
+        updateSubscriptionData={updateSubscriptionData}
+        isVisibleUpdateSubscriptionModal={isVisibleUpdateSubscriptionModal}
+        setIsVisibleUpdateSubscriptionModal={setIsVisibleUpdateSubscriptionModal}
+        setUpdateSubscriptionData={setUpdateSubscriptionData}
+        {...props}
+      />
 
       <BillingContainer>
         <div className="inner-layout">
