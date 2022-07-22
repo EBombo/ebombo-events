@@ -30,8 +30,6 @@ export const PlansTable = (props) => {
 
   const { t, locale } = useTranslation("components.plans-table");
 
-  const [isVisibleUpdateSubscriptionModal, setIsVisibleUpdateSubscriptionModal] = useState(false);
-
   const [isMonthly_, setIsMonthly_] = useState(false);
 
   const isMonthly = useMemo(() => props?.isMonthly ?? isMonthly_, [props.isMonthly, isMonthly_]);
@@ -93,11 +91,11 @@ export const PlansTable = (props) => {
       if (hasPlan && planIndex === index_ && currentPriceId !== planPrice?.id)
         return (
           <td>
-            <StripeCustomerPortalLink>
-              <ButtonAnt variant="outlined" color="dark">
-                {t("change-plan")}
-              </ButtonAnt>
-            </StripeCustomerPortalLink>
+            <ButtonAnt variant="outlined" color="dark" onClick={() => {
+              props.onInitSubscriptionUpdate?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
+            }}>
+              {t("change-plan")}
+            </ButtonAnt>
           </td>
         );
 
@@ -107,7 +105,7 @@ export const PlansTable = (props) => {
             <ButtonAnt
               loading={props.isLoadingCheckoutPlan}
               onClick={() => {
-                props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
+                props.onInitSubscriptionUpdate?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
               }}
             >
               {t("upgrade-plan")}
@@ -123,7 +121,7 @@ export const PlansTable = (props) => {
               color="dark"
               loading={props.isLoadingCheckoutPlan}
               onClick={() => {
-                props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
+                props.onInitSubscriptionUpdate?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
               }}
             >
               {t("downgrade-plan")}
@@ -151,40 +149,6 @@ export const PlansTable = (props) => {
 
   return (
     <TableContainer hasPlan={hasPlan} {...props}>
-      <ModalContainer
-        footer={null}
-        closable={false}
-        visible={props.isVisibleModalGame}
-        padding={"0 0 1rem 0"}
-        top="10%"
-        width="fit-content"
-        background={darkTheme.basic.whiteLight}
-        visible={isVisibleUpdateSubscriptionModal}
-      >
-        <div className="text-xl text-blackDarken text-center">{t("update-subscription-modal-title")}</div>
-        <ButtonAnt
-          margin="20px auto auto auto"
-          variant="contained"
-          color="default"
-          size="big"
-          onClick={() => {}}
-        >
-          {t("confirm")}
-        </ButtonAnt>
-
-        <ButtonAnt
-          margin="20px auto auto auto"
-          variant="contained"
-          color="default"
-          size="big"
-          onClick={() => setIsVisibleUpdateSubscriptionModal(false)}
-        >
-          {t("cancel")}
-        </ButtonAnt>
-      </ModalContainer>
-      <div>
-
-      </div>
       <table border="0">
         <tbody>
           <tr>
