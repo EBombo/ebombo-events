@@ -878,13 +878,17 @@
       "confirm": "Confirmar",
       "subtotal": "Subtotal",
       "total": "Total",
+      "amount-due": "Monto adeudado al día",
       "update-subscription-modal-title": "Confirmar cambio a tu nuevo plan",
       "update-subscription-modal-changing-to": "Cambiando a",
+      "loading-preview-data-of-operation": "Cargando la previsualización de la operación...",
       "change-detail-payment": "Cambiar los detalles de pago"
     }
   },
   "errors": {
     "general-message": "Algo salió mal, intente dentro de unos momentos",
+    "subscription-not-found": "Subscripción no encontrada.",
+    "plan-not-found": "Plan no encontrado.",
     "general-title": "Error"
   },
   "modal-settings": {

@@ -880,8 +880,10 @@
       "confirm": "Confirm",
       "subtotal": "Subtotal",
       "total": "Total",
+      "amount-due": "Amount due",
       "update-subscription-modal-title": "Confirm your new plan",
       "update-subscription-modal-changing-to": "Changing to",
+      "loading-preview-data-of-operation": "Loading preview data of operation...",
       "change-detail-payment": "Change payment details"
     },
     "companies": {
@@ -893,6 +895,8 @@
   },
   "errors": {
     "general-message": "Something went wrong, please try later",
+    "subscription-not-found": "Subscription not found.",
+    "plan-not-found": "Plan not found.",
     "general-title": "Error"
   },
   "modal-settings": {
