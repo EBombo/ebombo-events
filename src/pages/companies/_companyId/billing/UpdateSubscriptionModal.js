@@ -1,14 +1,16 @@
-import React, { useEffect, useGlobal, useState, useMemo } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import { ButtonAnt } from "../../../../components/form";
 import { darkTheme } from "../../../../theme";
 import { config, firestore } from "../../../../firebase";
 import { useSendError, useTranslation } from "../../../../hooks";
-import { amountToString, formatAmount, sendToCheckout } from "../../../../stripe";
+import { amountToString, formatAmount } from "../../../../stripe";
 import { useFetch } from "../../../../hooks/useFetch";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { Image } from "../../../../components/common/Image";
+import { timeoutPromise } from "../../../../utils/promised";
 import { getCurrencySymbol, stripeDateFormat } from "../../../../components/common/DataList";
 import moment from "moment";
+import { useRouter } from "next/router";
 
 export const UpdateSubscriptionModal = ({
   subscription,
@@ -18,6 +20,7 @@ export const UpdateSubscriptionModal = ({
   setUpdateSubscriptionData,
   ...props}) => {
 
+  const router = useRouter();
   const { t } = useTranslation("pages.billing");
   const { t : tError } = useTranslation("errors");
 
@@ -29,8 +32,10 @@ export const UpdateSubscriptionModal = ({
 
   const [previewSubscriptionUpdateResponse, setPreviewSubscriptionUpdateResponse] = useState(null);
   const [previewSubscriptionUpdateError, setPreviewSubscriptionUpdateError] = useState(null);
+  const [subscriptionUpdateError, setSubscriptionUpdateError] = useState(null);
+  const [didSubscriptionUpdate, setDidSubscriptionUpdate] = useState(false);
 
-  const [, setIsLoadingUpdateSubscription] = useState(false);
+  const [isLoadingUpdateSubscription, setIsLoadingUpdateSubscription] = useState(false);
   // Hide detailed balance of preview in Update Subscription.
   const [showInvoiceLineItems] = useState(false);
 
@@ -42,23 +47,6 @@ export const UpdateSubscriptionModal = ({
 
 
   const getErrorMessage = (err) => (err?.message || err?.error || err);
-
-  const updateSubscription = async () => {
-    try {
-      setIsLoadingUpdateSubscription(true);
-
-      await Fetch(`${config.serverUrl}/api/subscriptions/${subscription.id}`, "PUT", {
-        priceId: updateSubscriptionData.price.id,
-      });
-
-      setIsLoadingUpdateSubscription(false);
-    } catch (err) {
-      props.showNotification("Error", err?.message || err?.error || err, "error");
-      setIsLoadingUpdateSubscription(false);
-      sendError(err);
-    }
-  };
-
 
   const fetchPreviewSubscriptionUpdate = async () => {
     try {
@@ -85,32 +73,42 @@ export const UpdateSubscriptionModal = ({
     }
   };
 
+  const updateSubscription = async () => {
+    try {
+      setIsLoadingUpdateSubscription(true);
+      setSubscriptionUpdateError(null);
+
+      const error = { error: "Test Failed"};
+      // const error = null;
+      await timeoutPromise(3000)
+      // const { error } = await Fetch(`${config.serverUrl}/api/subscriptions/${subscription.id}`, "PUT", {
+      //   priceId: updateSubscriptionData.price.id,
+      // });
+
+      if (error) throw error;
+
+      // After Successful Update Subscription.
+      setDidSubscriptionUpdate(true);
+      // Refresh page.
+      await timeoutPromise(2000);
+      router.reload();
+    } catch (err) {
+      props.showNotification("Error", err?.message || err?.error || err, "error");
+      setSubscriptionUpdateError(err);
+      sendError(err);
+    }
+    setIsLoadingUpdateSubscription(false);
+  };
+
   const onCancelSubscriptionUpdate = () => {
     setIsVisibleUpdateSubscriptionModal(false)
+    setDidSubscriptionUpdate(false);
 
     setUpdateSubscriptionData(null);
     setPreviewSubscriptionUpdateResponse(null);
     setPreviewSubscriptionUpdateError(null);
+    setSubscriptionUpdateError(null);
   };
-
-  const confirmUpdateSubscriptionButton = useMemo(() => {
-    return (<ButtonAnt
-      margin="20px auto auto auto"
-      variant="contained"
-      color="primary"
-      size="big"
-      fontSize="14px"
-      fontWeight="bold"
-      width="150px"
-      disabled={!previewSubscriptionUpdateResponse}
-      onClick={(e) => {
-        e.preventDefault();
-        updateSubscription();
-      }}
-    >
-      {t("confirm")}
-    </ButtonAnt>);
-  }, [previewSubscriptionUpdateResponse]);
 
   if (!subscription || !updateSubscriptionData) return (
     <ModalContainer 
@@ -148,7 +146,7 @@ export const UpdateSubscriptionModal = ({
       </div>
 
       <div className={`text-blackDarken px-8 pb-4
-        overflow-hidden transition-height duration-300 ease-in-out ${(previewSubscriptionUpdateResponse || previewSubscriptionUpdateError) ? "max-h-[500px]" : "max-h-[200px]"}`
+        overflow-hidden transition-height duration-300 ease-in-out ${(previewSubscriptionUpdateResponse || previewSubscriptionUpdateError) ? "max-h-[600px]" : "max-h-[200px]"}`
       }>
         <div className="font-bold uppercase mb-4">{t("update-subscription-modal-changing-to")}</div>
         {updateSubscriptionData && (<>
@@ -188,6 +186,19 @@ export const UpdateSubscriptionModal = ({
             </div>
           </>)}
 
+        {subscriptionUpdateError && (
+          <div className="text-base text-danger">
+            <div>{getErrorMessage(subscriptionUpdateError)}</div>
+            <div>{tError("general-message")}</div>
+          </div>
+        )}
+
+        {didSubscriptionUpdate && !subscriptionUpdateError && (
+          <div className="text-lg font-bold text-success">
+            <div>{t("update-subscription-ok-success")}</div>
+          </div>
+        )}
+
         <div className="flex flex-wrap">
           <ButtonAnt
             margin="20px auto auto auto"
@@ -205,7 +216,23 @@ export const UpdateSubscriptionModal = ({
             {t("cancel")}
           </ButtonAnt>
 
-          {confirmUpdateSubscriptionButton}
+          <ButtonAnt
+                margin="20px auto auto auto"
+                variant="contained"
+                color="primary"
+                size="big"
+                fontSize="14px"
+                fontWeight="bold"
+                width="150px"
+                disabled={!previewSubscriptionUpdateResponse || didSubscriptionUpdate}
+                loading={isLoadingUpdateSubscription}
+                onClick={(e) => {
+                  e.preventDefault();
+                  updateSubscription();
+                }}
+              >
+                {t("confirm")}
+          </ButtonAnt>
         </div>
       </div>
     </ModalContainer>
