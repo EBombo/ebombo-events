@@ -519,6 +519,19 @@
       "confirm": "Confirmar",
       "cancel": "Cancelar",
       "all": "Todos"
+    },
+    "update-subscription-modal": {
+      "go-back": "Volver",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "amount-due": "Monto adeudado al día",
+      "update-subscription-modal-title": "Confirmar cambio a tu nuevo plan",
+      "update-subscription-modal-changing-to": "Cambiando a",
+      "update-subscription-ok-success": "Operación exitosa. Espera a que refresquemos la plataforma...",
+      "loading-preview-data-of-operation": "Cargando la previsualización de la operación...",
+      "change-detail-payment": "Cambiar los detalles de pago"
     }
   },
   "pages": {
@@ -878,11 +891,6 @@
       "confirm": "Confirmar",
       "subtotal": "Subtotal",
       "total": "Total",
-      "amount-due": "Monto adeudado al día",
-      "update-subscription-modal-title": "Confirmar cambio a tu nuevo plan",
-      "update-subscription-modal-changing-to": "Cambiando a",
-      "update-subscription-ok-success": "Operación exitosa. Espera a que refresquemos la plataforma...",
-      "loading-preview-data-of-operation": "Cargando la previsualización de la operación...",
       "change-detail-payment": "Cambiar los detalles de pago"
     }
   },

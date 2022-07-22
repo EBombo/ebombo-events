@@ -21,7 +21,8 @@ export const UpdateSubscriptionModal = ({
   ...props}) => {
 
   const router = useRouter();
-  const { t } = useTranslation("pages.billing");
+
+  const { t } = useTranslation("components.update-subscription-modal");
   const { t : tError } = useTranslation("errors");
 
   const { sendError } = useSendError();
@@ -78,19 +79,19 @@ export const UpdateSubscriptionModal = ({
       setIsLoadingUpdateSubscription(true);
       setSubscriptionUpdateError(null);
 
-      const error = { error: "Test Failed"};
+      // const error = { error: "Test Failed"};
       // const error = null;
-      await timeoutPromise(3000)
-      // const { error } = await Fetch(`${config.serverUrl}/api/subscriptions/${subscription.id}`, "PUT", {
-      //   priceId: updateSubscriptionData.price.id,
-      // });
+      // await timeoutPromise(3000)
+      const { error } = await Fetch(`${config.serverUrl}/api/subscriptions/${subscription.id}`, "PUT", {
+        priceId: updateSubscriptionData.price.id,
+      });
 
       if (error) throw error;
 
       // After Successful Update Subscription.
       setDidSubscriptionUpdate(true);
       // Refresh page.
-      await timeoutPromise(2000);
+      await timeoutPromise(3000);
       router.reload();
     } catch (err) {
       props.showNotification("Error", err?.message || err?.error || err, "error");
