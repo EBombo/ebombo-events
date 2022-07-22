@@ -524,6 +524,7 @@
       "games": "Games available",
       "confirm": "Confirm",
       "cancel": "Cancel",
+      "switch-free-plan-disclaimer": "To switch to Free Plan, you have to first cancel your current plan. Once your current plan expires, your account will have the Free plan",
       "all": "All"
     },
     "update-subscription-modal": {

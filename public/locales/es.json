@@ -518,6 +518,7 @@
       "games": "Juegos disponibles",
       "confirm": "Confirmar",
       "cancel": "Cancelar",
+      "switch-free-plan-disclaimer": "Para cambiarse al plan Free, se debe cancelar el plan actual. Luego de que el plan actual expire, obtendrá el plan Free",
       "all": "Todos"
     },
     "update-subscription-modal": {
