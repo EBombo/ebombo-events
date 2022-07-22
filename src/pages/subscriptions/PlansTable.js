@@ -91,7 +91,8 @@ export const PlansTable = (props) => {
       if (hasPlan && planIndex === index_ && currentPriceId !== planPrice?.id)
         return (
           <td>
-            <ButtonAnt variant="outlined" color="dark" onClick={() => {
+            <ButtonAnt variant="outlined" color="dark" onClick={(e) => {
+              e.preventDefault();
               props.onInitSubscriptionUpdate?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
             }}>
               {t("change-plan")}
@@ -104,7 +105,8 @@ export const PlansTable = (props) => {
           <td>
             <ButtonAnt
               loading={props.isLoadingCheckoutPlan}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 props.onInitSubscriptionUpdate?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
               }}
             >
@@ -120,7 +122,8 @@ export const PlansTable = (props) => {
               variant="outlined"
               color="dark"
               loading={props.isLoadingCheckoutPlan}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 props.onInitSubscriptionUpdate?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
               }}
             >
@@ -133,7 +136,8 @@ export const PlansTable = (props) => {
         <td>
           <ButtonAnt
             loading={props.isLoadingCheckoutPlan}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
             }}
           >
