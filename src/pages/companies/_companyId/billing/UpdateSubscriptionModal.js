@@ -7,10 +7,12 @@ import { amountToString, formatAmount } from "../../../../stripe";
 import { useFetch } from "../../../../hooks/useFetch";
 import { ModalContainer } from "../../../../components/common/ModalContainer";
 import { Image } from "../../../../components/common/Image";
+import { Icon } from "../../../../components/common/Icons";
 import { timeoutPromise } from "../../../../utils/promised";
 import { getCurrencySymbol, stripeDateFormat } from "../../../../components/common/DataList";
 import moment from "moment";
 import { useRouter } from "next/router";
+import { Tooltip } from "antd";
 
 export const UpdateSubscriptionModal = ({
   subscription,
@@ -80,9 +82,6 @@ export const UpdateSubscriptionModal = ({
       setIsLoadingUpdateSubscription(true);
       setSubscriptionUpdateError(null);
 
-      // const error = { error: "Test Failed"};
-      // const error = null;
-      // await timeoutPromise(3000)
       const { error } = await Fetch(`${config.serverUrl}/api/subscriptions/${subscription.id}`, "PUT", {
         priceId: updateSubscriptionData.price.id,
       });
@@ -189,9 +188,14 @@ export const UpdateSubscriptionModal = ({
 
             <div className="border-b-[1px] border-gray mb-8" />
 
-            <div className=" text-base mb-12">
+            <div className="text-base">
               {t("amount-due")}{" "}
               {moment.unix(previewSubscriptionUpdateResponse.invoice.created).format(stripeDateFormat)}
+              <Tooltip title={t("proration-estimated-numbers-disclaimer")}>
+                <span className="relative mx-2 bottom-1">
+                  <Icon className="align-text-bottom" type="info-circle" />
+                </span>
+              </Tooltip>
               <div className="float-right font-bold">
                 {getCurrencySymbol[previewSubscriptionUpdateResponse.invoice.currency]}{" "}
                 {amountToString(formatAmount(previewSubscriptionUpdateResponse.invoice.amount_due))}
