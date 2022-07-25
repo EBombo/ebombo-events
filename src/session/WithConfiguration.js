@@ -130,6 +130,13 @@ export const WithConfiguration = (props) => {
   }, []);
 
   useEffect(() => {
+    if (!languageCode) return;
+
+    moment.locale(languageCode);
+    setLocale(yup[languageCode]);
+  }, [languageCode]);
+
+  useEffect(() => {
     register("/sw.js", { scope: "/" });
   }, []);
 
