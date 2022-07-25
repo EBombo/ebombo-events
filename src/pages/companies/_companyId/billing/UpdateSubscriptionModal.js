@@ -73,7 +73,7 @@ export const UpdateSubscriptionModal = ({
     } catch (err) {
       props.showNotification("Error", err?.message || err?.error || err, "error");
       setPreviewSubscriptionUpdateError(err);
-      sendError(err);
+      sendError(err, "fetchPreviewSubscriptionUpdate");
     }
   };
 
@@ -96,7 +96,7 @@ export const UpdateSubscriptionModal = ({
     } catch (err) {
       props.showNotification("Error", err?.message || err?.error || err, "error");
       setSubscriptionUpdateError(err);
-      sendError(err);
+      sendError(err, "updateSubscription");
     }
     setIsLoadingUpdateSubscription(false);
   };
