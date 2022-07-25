@@ -60,6 +60,7 @@ export const TemplateGame = (props) => {
       const body = {
         ...dataGame,
         adminGameId: adminGameId,
+        isDynamic: !!template?.isDynamic,
         adminGame: { ...adminGame, createAt: adminGame.createAt.toDate(), updateAt: adminGame.updateAt.toDate() },
       };
 
