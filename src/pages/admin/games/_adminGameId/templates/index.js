@@ -5,14 +5,19 @@ import { snapshotToArray } from "../../../../../utils";
 import moment from "moment";
 import orderBy from "lodash/orderBy";
 import { spinLoader } from "../../../../../components/common/loader";
-import { Anchor } from "../../../../../components/form";
+import { Anchor, RadioGroup } from "../../../../../components/form";
 import { Image } from "../../../../../components/common/Image";
+import { useSendError } from "../../../../../hooks";
+import { Radio } from "antd";
 
 export const TemplatesGames = (props) => {
   const router = useRouter();
   const { adminGameId } = router.query;
 
+  const { sendError } = useSendError();
+
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
   const [templates, setTemplates] = useState([]);
 
   useEffect(() => {
@@ -32,6 +37,21 @@ export const TemplatesGames = (props) => {
 
     fetchTemplates();
   }, [adminGameId]);
+
+  const updateTemplate = async (gameId, isDynamic) => {
+    try {
+      setIsLoadingUpdate(true);
+
+      await firestore.collection("templates").doc(gameId).update({ isDynamic });
+
+      props.showNotification("Ok", "Success", "success");
+    } catch (error) {
+      console.error(error);
+      sendError(error, "updateTemplate");
+      props.showNotification("Ok", "Something was wrong");
+    }
+    setIsLoadingUpdate(false);
+  };
 
   if (isLoading) return spinLoader();
 
@@ -54,9 +74,23 @@ export const TemplatesGames = (props) => {
                 <div>Nombre del template: {template.name.toUpperCase()}</div>
                 <div>Nombre de juego: {template.adminGame.name.toUpperCase()}</div>
                 <div>Creado: {moment(template.createAt.toDate()).format("LLL")}</div>
+
                 <Anchor href={`/admin/games/${adminGameId}/templates/${template.id}`} display="block" margin="auto">
                   <a>EDITAR PLANTILLA</a>
                 </Anchor>
+
+                <RadioGroup
+                  loading={isLoadingUpdate}
+                  disabled={isLoadingUpdate}
+                  defaultValue={!!template.isDynamic}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    updateTemplate(template.id, e.target.value);
+                  }}
+                >
+                  <Radio value={false}>Ebombo</Radio>
+                  <Radio value={true}>Dinamica</Radio>
+                </RadioGroup>
               </div>
             );
           })

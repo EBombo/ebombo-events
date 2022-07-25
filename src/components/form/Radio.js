@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { sizes } from "../../constants";
 import { Radio as AntRadio } from "antd";
 
-export const Radio = forwardRef((props, ref) => (
+export const RadioGroup = forwardRef((props, ref) => (
   <Fragment>
     {props.label && <Label required={props.required}>{props.label}</Label>}
     <RadioContainer>
