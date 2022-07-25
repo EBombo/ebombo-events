@@ -6,6 +6,7 @@ import { config } from "../../../../firebase";
 import moment from "moment";
 import { ButtonAnt } from "../../../../components/form";
 import isEmpty from "lodash/isEmpty";
+import defaultTo from "lodash/defaultTo";
 import capitalize from "lodash/capitalize";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { ModalBingoRounds } from "./ModalBingoRounds";
@@ -34,7 +35,7 @@ export const BingoResume = (props) => {
 
         if (props.lobby?.settings?.cardAutofill) return;
 
-        if (user.rounds.some((round) => isEmpty(round.myWinningCard))) _usersWithEmptyCard.push(user);
+        if (defaultTo(user.rounds, []).some((round) => isEmpty(round.myWinningCard))) _usersWithEmptyCard.push(user);
       });
 
       setDroppedOut(_droppedOut);
@@ -43,6 +44,8 @@ export const BingoResume = (props) => {
 
     mapUsers();
   }, [lobbyId, props.users]);
+
+  const zeroPad = (num, places) => String(num).padStart(places, "0");
 
   const calculateDurationTime = (startAt, endAt) => {
     const startTime = moment(startAt.toDate(), "DD-MM-YYYY hh:mm:ss");
@@ -54,14 +57,9 @@ export const BingoResume = (props) => {
 
     const secondsDiff = endTime.diff(startTime, "seconds");
 
-    if (hoursDiff <= 0)
-      return `${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${
-        secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
-      } minutes`;
+    if (hoursDiff <= 0) return `${zeroPad(minutesDiff, 2)}:${zeroPad(secondsDiff, 2)} minutes`;
 
-    return `${hoursDiff}:${minutesDiff < 10 ? `0${minutesDiff}` : minutesDiff}:${
-      secondsDiff % 60 < 10 ? `0${secondsDiff % 60}` : secondsDiff % 60
-    } hours`;
+    return `${hoursDiff}:${zeroPad(minutesDiff, 2)}:${zeroPad(secondsDiff, 2)} hours`;
   };
 
   return (

@@ -10,7 +10,7 @@ import capitalize from "lodash/capitalize";
 import { useRouter } from "next/router";
 import moment from "moment";
 import { useTranslation } from "../../../hooks";
-import { EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 export const Events = (props) => {
   const router = useRouter();
@@ -107,14 +107,8 @@ export const Events = (props) => {
                         className="flex items-center cursor-pointer p-2 text-[16px] leading-[19px] text-blackDarken"
                         onClick={() => deleteEvent(event)}
                       >
-                        <Image
-                          src={`${config.storageUrl}/resources/delete.svg`}
-                          width={"16px"}
-                          height={"16px"}
-                          size={"contain"}
-                          margin={"0 15px 0 0"}
-                        />
-                        {t("delete")}
+                        <DeleteOutlined />
+                        <div className="mx-4">{t("delete")}</div>
                       </div>
 
                       {!event.manageByUser && (
