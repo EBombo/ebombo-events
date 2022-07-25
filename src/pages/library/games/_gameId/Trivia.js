@@ -6,7 +6,6 @@ import get from "lodash/get";
 import { Image } from "../../../../components/common/Image";
 import { config, firestore, firestoreTrivia } from "../../../../firebase";
 import {
-  questionTypesToLiterals,
   triviaQuestionsOptions,
   triviaQuestionsTimes,
   triviaQuestionsTypes,
@@ -234,6 +233,7 @@ export const Trivia = (props) => {
           </ButtonAnt>
         </div>
 
+        {/** Left column. **/}
         <div className="w-full h-[calc(100vh-50px)] overflow-auto grid md:grid-cols-[180px_auto_260px] shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
           <div className="w-full h-[115px] md:h-full overflow-auto grid md:grid-rows-[auto_100px] bg-white">
             <div className="w-full h-[full] flex items-center md:items-start md:flex-col overflow-auto">
@@ -247,7 +247,7 @@ export const Trivia = (props) => {
                 >
                   <div className="relative">
                     <div className="text-['Lato'] font-bold text-[12px] leading-[14px] text-grayLight mb-[5px]">
-                      {idx + 1}. {t(questionTypesToLiterals[question.type])}
+                      {idx + 1}. {t(triviaQuestionsTypes[question.type].value)}
                     </div>
                     <Image
                       src={question.imageUrl ?? `${config.storageUrl}/resources/question-${question?.type}.svg`}
@@ -305,6 +305,7 @@ export const Trivia = (props) => {
             </Desktop>
           </div>
 
+          {/** Center column. **/}
           <div className="w-full h-full p-4 md:p-8 md:overflow-auto">
             <input
               type="text"
@@ -344,6 +345,7 @@ export const Trivia = (props) => {
             />
           </div>
 
+          {/** Right column. **/}
           <div className="h-full shadow-[2px_0_4px_2px_rgba(0,0,0,0.25)] bg-whiteLight">
             <div className="p-4  border-gray border-b-[1px]">
               <div className="flex items-center justify-start mb-[5px]">
@@ -370,13 +372,14 @@ export const Trivia = (props) => {
                 }}
                 value={questions[questionIndex]?.type}
               >
-                {triviaQuestionsTypes.map((type) => (
+                {Object.values(triviaQuestionsTypes).map((type) => (
                   <option className="py-1" key={type.key} value={type.key}>
                     {t(type.value)}
                   </option>
                 ))}
               </select>
             </div>
+
             <div className="p-4 border-gray border-b-[1px]">
               <div className="flex items-center justify-start mb-[5px]">
                 <Image
@@ -406,6 +409,7 @@ export const Trivia = (props) => {
                   </option>
                 ))}
               </select>
+
               <div className="flex items-center justify-start mb-[5px]">
                 <Image
                   src={`${config.storageUrl}/resources/options-icon.svg`}
@@ -418,11 +422,16 @@ export const Trivia = (props) => {
                   {t("answer-options")}
                 </div>
               </div>
+
               <select
                 className="w-full border border-grayLighten border-[1px] bg-white rounded px-3 py-2 outline-none"
-                disabled={
-                  questions[questionIndex]?.type === "shortAnswer" || questions[questionIndex]?.type === "trueFalse"
-                }
+                disabled={[
+                  triviaQuestionsTypes.shortAnswer.key,
+                  triviaQuestionsTypes.trueFalse.key,
+                  triviaQuestionsTypes.brainstorm.key,
+                  triviaQuestionsTypes.survey.key,
+                  triviaQuestionsTypes.slide.key,
+                ].includes(questions[questionIndex]?.type)}
                 onChange={(event) => {
                   const value = event.target.value;
                   const _questions = [...questions];
@@ -445,7 +454,7 @@ export const Trivia = (props) => {
               <div className="flex items-center justify-end">
                 <Tablet>
                   <ButtonAnt htmlType="submit" margin="0 10px 0 0" disabled={props.isLoading} loading={props.isLoading}>
-                    Guardar
+                    {t("save")}
                   </ButtonAnt>
                 </Tablet>
                 <ButtonAnt color="default" onClick={() => deleteQuestion()}>

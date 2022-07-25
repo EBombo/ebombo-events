@@ -617,7 +617,6 @@
       "folders": "Carpetas",
       "folder": "Carpeta",
       "events": "Eventos",
-      "activities": "Actividades",
       "search": "Buscar",
       "folder-empty": "No cuentas con folders",
       "games-empty": "No cuentas con juegos",
@@ -762,6 +761,9 @@
         "only-answer": "Única respuesta",
         "multiple-answer": "Respuesta multiple",
         "delete": "Borrar",
+        "survey": "Encuesta",
+        "brainstorm": "Lluvia de ideas",
+        "slide": "Slide",
         "error-incomplete-form-question": "La pregunta está incompleta"
       }
     },
