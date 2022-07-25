@@ -96,8 +96,13 @@ export const GamesContainer = () => {
                     />
                   </Tooltip>
 
+                  {/* TODO: En el futuro se habilitará para todos los juegos. */}
                   <Tooltip title={"Eliminar juego"}>
-                    <Anchor href={`/admin/games/${game.id}/templates`} margin="auto 10px">
+                    <Anchor
+                      href={`/admin/games/${game.id}/templates`}
+                      margin="auto 10px"
+                      disabled={game.name !== "trivia"}
+                    >
                       <a>Plantillas</a>
                     </Anchor>
                   </Tooltip>
