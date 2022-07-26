@@ -476,7 +476,8 @@
     "about-us": "About us",
     "contact-us": "Contact us",
     "contact": "Contact",
-    "experience": "Experience"
+    "experience": "Experience",
+    "pricing": "Pricing"
   },
   "userLayout": {
     "library": "Library",
@@ -542,6 +543,34 @@
     }
   },
   "pages": {
+    "pricing": {
+      "title": "The way to improve your team's morale",
+      "description": "We have the most impactful and fun activities that will make the typical virtual meetings much better. Don't hesitate to schedule an event with us so we can make sure you have a great time together. And when you feel it's time, you can do it without our help.",
+      "pro-hosted": "PRO HOSTED",
+      "pro-subtitle": "More than 20 dynamics that you can perform in activities with the ebombo team",
+      "auto-hosted": "AUTO HOSTED",
+      "auto-subtitle": "More than 20 dynamics that you can perform on your own for your team",
+      "onboarding": "Onboarding Trivia",
+      "ideas": "Brainstorming",
+      "survey": "Take a survey before your event!",
+      "opinion": "Get feedback on your event",
+      "sales-training": "Sales training",
+      "dynamize-events": "Trivia to dynamize events",
+      "virtual-training": "Virtual training",
+      "introduce-yourself": "Introduce yourself!",
+      "standards-training": "Standards training",
+      "get-feedback": "Get feedback",
+      "presentation": "A great presentation!",
+      "trivia": "Trivia",
+      "bingo": "Bingo",
+      "roulette": "Roulette",
+      "questions-roulette": "Icebreaker Roulette",
+      "hanged": "Hnaged",
+      "image-zoom": "Zoom to image",
+      "training": "Training",
+      "whoever-brings-me": "Whoever brings me!",
+      "guess-movie": "Guess the movie"
+    },
     "reports": {
       "open": "Open Report",
       "delete": "Move to trash",

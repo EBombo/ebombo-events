@@ -470,7 +470,8 @@
     "about-us": "Sobre nosotros",
     "contact-us": "Contáctanos",
     "contact": "Contacto",
-    "experience": "Experiencia"
+    "experience": "Experiencia",
+    "pricing": "Precio"
   },
   "userLayout": {
     "library": "Librería",
@@ -536,6 +537,34 @@
     }
   },
   "pages": {
+    "pricing": {
+      "title": "El camino para mejorar la moral de tu equipo",
+      "description": "Tenemos las más impactantes y divertidas actividades, que harán mucho mejores las típicas reuniones virtuales. No dudes en agendar un evento con nosotros para que nos encarguemos de que pasen un gran rato juntos. Y cuando sientas que sea el momento, podrás hacerlo sin nuestra ayuda.",
+      "pro-hosted": "PRO HOSTED",
+      "pro-subtitle": "Más de 20 dinámicas que podrás realizar en actividades con el equipo de ebombo",
+      "auto-hosted": "AUTO HOSTED",
+      "auto-subtitle": "Más de 20 dinámicas que podrás realizar tú mismo para tu equipo",
+      "onboarding": "Trivia de Onboarding",
+      "ideas": "Lluvia de ideas",
+      "survey": "¡Encuesta antes de tu evento!",
+      "opinion": "Obtén opiniones de tu evento",
+      "sales-training": "Capacitación de ventas",
+      "dynamize-events": "Trivia para dinamizar eventos",
+      "virtual-training": "Capacitación virtual",
+      "introduce-yourself": "¡Preséntate!",
+      "standards-training": "Capacitación de normas",
+      "get-feedback": "Obtén opiniones",
+      "presentation": "¡Una gran presentación!",
+      "trivia": "Trivia",
+      "bingo": "Bingo",
+      "roulette": "Ruleta",
+      "questions-roulette": "Ruleta rompehielo",
+      "hanged": "Ahorcado",
+      "image-zoom": "Zoom a la imagen",
+      "training": "Capacitación",
+      "whoever-brings-me": "¡A quién me traiga!",
+      "guess-movie": "Adivina la película"
+    },
     "reports": {
       "open": "Abrir informe",
       "delete": "Mover a la papelera",
