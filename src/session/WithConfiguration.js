@@ -35,6 +35,7 @@ export const WithConfiguration = (props) => {
   const [, setIsBdev] = useGlobal("isBdev");
   const [, setLocation] = useGlobal("location");
   const [, setAdminGames] = useGlobal("adminGames");
+  const [, setAdminTemplates] = useGlobal("adminTemplates");
   const [settings, setSettings] = useGlobal("settings");
 
   const [authUserLS] = useUser();
@@ -61,6 +62,7 @@ export const WithConfiguration = (props) => {
         userGames: [],
         userEvents: [],
         adminGames: [],
+        adminTemplates: [],
         languageCode,
         register: null,
         isBdev: isBdevLS,
@@ -81,6 +83,8 @@ export const WithConfiguration = (props) => {
 
     const fetchCountryCode = async () => {
       try {
+        if (location?.country_code) return;
+
         const { response, error } = await Fetch("https://ipapi.co/json", "GET");
         if (error) return;
 
@@ -119,14 +123,21 @@ export const WithConfiguration = (props) => {
       await setAdminGames(orderBy(adminGames_, ["updateAt"], ["desc"]));
     };
 
+    const fetchTemplates = async () => {
+      const templatesQuery = await firestore.collection("templates").where("deleted", "==", false).get();
+      const adminTemplates_ = snapshotToArray(templatesQuery);
+      await setAdminTemplates(orderBy(adminTemplates_, ["updateAt"], ["desc"]));
+    };
+
     initializeConfig();
-    const unsubscribeVersion = fetchVersion();
-    !get(location, "country_code") && fetchCountryCode();
     fetchGame();
+    fetchTemplates();
+    fetchCountryCode();
+    const subscription = fetchVersion();
 
     setIsLoadingConfig(false);
 
-    return () => unsubscribeVersion();
+    return () => subscription();
   }, []);
 
   useEffect(() => {

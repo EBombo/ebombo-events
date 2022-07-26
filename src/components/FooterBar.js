@@ -43,6 +43,7 @@ const FooterBar = (props) => {
           </div>
         ))}
       </div>
+
       {isVisibleModalGame && (
         <ModalNewGame
           {...props}
