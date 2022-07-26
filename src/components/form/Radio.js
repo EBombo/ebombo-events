@@ -15,7 +15,6 @@ export const RadioGroup = forwardRef((props, ref) => (
 
 const RadioContainer = styled.div`
   position: relative;
-  display: flex;
   flex-direction: row;
   align-items: center;
 `;

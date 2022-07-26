@@ -13,13 +13,11 @@ export const TemplateGame = (props) => {
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
-  const [adminGame, setAdminGame] = useState(null);
-
   const [parent, setParent] = useState(null);
-
   const [template, setTemplate] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [adminGame, setAdminGame] = useState(null);
+  const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
 
   useEffect(() => {
     if (!gameId) return setIsLoading(false);

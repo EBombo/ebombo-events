@@ -75,22 +75,28 @@ export const TemplatesGames = (props) => {
                 <div>Nombre de juego: {template.adminGame.name.toUpperCase()}</div>
                 <div>Creado: {moment(template.createAt.toDate()).format("LLL")}</div>
 
-                <Anchor href={`/admin/games/${adminGameId}/templates/${template.id}`} display="block" margin="auto">
+                <Anchor
+                  href={`/admin/games/${adminGameId}/templates/${template.id}`}
+                  display="block"
+                  margin="10px auto"
+                >
                   <a>EDITAR PLANTILLA</a>
                 </Anchor>
 
-                <RadioGroup
-                  loading={isLoadingUpdate}
-                  disabled={isLoadingUpdate}
-                  defaultValue={!!template.isDynamic}
-                  onChange={(e) => {
-                    e.preventDefault();
-                    updateTemplate(template.id, e.target.value);
-                  }}
-                >
-                  <Radio value={false}>Ebombo</Radio>
-                  <Radio value={true}>Dinamica</Radio>
-                </RadioGroup>
+                <div className="mx-auto my-4">
+                  <RadioGroup
+                    loading={isLoadingUpdate}
+                    disabled={isLoadingUpdate}
+                    defaultValue={!!template.isDynamic}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      updateTemplate(template.id, e.target.value);
+                    }}
+                  >
+                    <Radio value={false}>Ebombo</Radio>
+                    <Radio value={true}>Dinamica</Radio>
+                  </RadioGroup>
+                </div>
               </div>
             );
           })
