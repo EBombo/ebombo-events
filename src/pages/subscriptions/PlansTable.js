@@ -10,9 +10,12 @@ import { darkTheme } from "../../theme";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { useStripePlans } from "../../hooks/useStripePlans";
 import { spinLoaderMin } from "../../components/common/loader";
+import { Icon } from "../../components/common/Icons";
+import { ModalContainer } from "../../components/common/ModalContainer";
 import { useTranslation } from "../../hooks";
 import { useRouter } from "next/router";
 import get from "lodash/get";
+import { Tooltip } from "antd";
 
 const specsOrder = ["users", "games", "reporting", "progress_tracking", "players_identity"];
 
@@ -72,7 +75,22 @@ export const PlansTable = (props) => {
     ({ plan, index_ }) => {
       if (!props.showCallToActionSection) return <td />;
 
-      if (plan?.name?.includes(FREE_PLAN_NAME) || plan?.name?.includes(EXCLUSIVE_PLAN_NAME)) return <td />;
+      if (plan?.name?.includes(EXCLUSIVE_PLAN_NAME)) return <td />;
+
+      if (plan?.name?.includes(FREE_PLAN_NAME) && !hasPlan) return <td />;
+
+      if (plan?.name?.includes(FREE_PLAN_NAME) && hasPlan)
+        return (
+          <td>
+            <StripeCustomerPortalLink>
+              <Tooltip title={t("switch-free-plan-disclaimer")}>
+                <ButtonAnt variant="outlined" color="dark">
+                  {t("downgrade-plan")} <Icon type="info-circle"/>
+                </ButtonAnt>
+              </Tooltip>
+            </StripeCustomerPortalLink>
+          </td>
+        );
 
       const planPrice = getCurrentPricePlan(plan);
 
@@ -90,11 +108,16 @@ export const PlansTable = (props) => {
       if (hasPlan && planIndex === index_ && currentPriceId !== planPrice?.id)
         return (
           <td>
-            <StripeCustomerPortalLink>
-              <ButtonAnt variant="outlined" color="dark">
-                {t("change-plan")}
-              </ButtonAnt>
-            </StripeCustomerPortalLink>
+            <ButtonAnt
+              variant="outlined"
+              color="dark"
+              onClick={(e) => {
+                e.preventDefault();
+                props.onInitSubscriptionUpdate?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
+              }}
+            >
+              {t("change-plan")}
+            </ButtonAnt>
           </td>
         );
 
@@ -103,8 +126,9 @@ export const PlansTable = (props) => {
           <td>
             <ButtonAnt
               loading={props.isLoadingCheckoutPlan}
-              onClick={() => {
-                props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
+              onClick={(e) => {
+                e.preventDefault();
+                props.onInitSubscriptionUpdate?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
               }}
             >
               {t("upgrade-plan")}
@@ -119,8 +143,9 @@ export const PlansTable = (props) => {
               variant="outlined"
               color="dark"
               loading={props.isLoadingCheckoutPlan}
-              onClick={() => {
-                props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
+              onClick={(e) => {
+                e.preventDefault();
+                props.onInitSubscriptionUpdate?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
               }}
             >
               {t("downgrade-plan")}
@@ -132,7 +157,8 @@ export const PlansTable = (props) => {
         <td>
           <ButtonAnt
             loading={props.isLoadingCheckoutPlan}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               props.onSelectedPlan?.(plan, isMonthly ? getMonthlyPrice(plan) : getYearlyPrice(plan));
             }}
           >

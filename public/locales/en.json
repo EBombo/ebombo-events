@@ -522,7 +522,23 @@
       "progress_tracking": "Tracking of progress",
       "players_identity": "Identity players",
       "games": "Games available",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "switch-free-plan-disclaimer": "To switch to Free Plan, you have to first cancel your current plan. Once your current plan expires, your account will have the Free plan",
       "all": "All"
+    },
+    "update-subscription-modal": {
+      "go-back": "Back",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "amount-due": "Amount due",
+      "update-subscription-modal-title": "Confirm your new plan",
+      "update-subscription-modal-changing-to": "Changing to",
+      "update-subscription-ok-success": "Successful Operation. Wait for the platform restarts...",
+      "loading-preview-data-of-operation": "Loading preview data of operation...",
+      "proration-estimated-numbers-disclaimer": "This is an estimated proration of amount due at this moment. The actual amount may change if you confirm switching plan in a moment later."
     }
   },
   "pages": {
@@ -877,6 +893,10 @@
       "current-plan": "Current Plan",
       "ask-not-having-plan": "Don't have a plan yet?",
       "see-plans": "See plans",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "subtotal": "Subtotal",
+      "total": "Total",
       "change-detail-payment": "Change payment details"
     },
     "companies": {
@@ -888,6 +908,8 @@
   },
   "errors": {
     "general-message": "Something went wrong, please try later",
+    "subscription-not-found": "Subscription not found.",
+    "plan-not-found": "Plan not found.",
     "general-title": "Error"
   },
   "modal-settings": {

@@ -516,7 +516,23 @@
       "progress_tracking": "Tracking de progreso",
       "players_identity": "Identificar personajes",
       "games": "Juegos disponibles",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "switch-free-plan-disclaimer": "Para cambiarse al plan Free, se debe cancelar el plan actual. Luego de que el plan actual expire, obtendrá el plan Free",
       "all": "Todos"
+    },
+    "update-subscription-modal": {
+      "go-back": "Volver",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "amount-due": "Monto adeudado al día",
+      "update-subscription-modal-title": "Confirmar cambio a tu nuevo plan",
+      "update-subscription-modal-changing-to": "Cambiando a",
+      "update-subscription-ok-success": "Operación exitosa. Espera a que refresquemos la plataforma...",
+      "loading-preview-data-of-operation": "Cargando la previsualización de la operación...",
+      "proration-estimated-numbers-disclaimer": "El cálculo del prorrateo es un estimado a este momento, en el que solicitó cambiar de plan. Una vez confirmado el cambio, el monto final a pagar puede variar."
     }
   },
   "pages": {
@@ -875,11 +891,17 @@
       "current-plan": "Plan Actual",
       "not-having-plan": "¿Aún no tienes un plan?",
       "see-plans": "Ver planes",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "subtotal": "Subtotal",
+      "total": "Total",
       "change-detail-payment": "Cambiar los detalles de pago"
     }
   },
   "errors": {
     "general-message": "Algo salió mal, intente dentro de unos momentos",
+    "subscription-not-found": "Subscripción no encontrada.",
+    "plan-not-found": "Plan no encontrado.",
     "general-title": "Error"
   },
   "modal-settings": {
