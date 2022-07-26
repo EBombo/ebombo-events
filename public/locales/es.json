@@ -894,6 +894,10 @@
       "total": "Total",
       "change-detail-payment": "Cambiar los detalles de pago",
       "subscription-status-active": "Activo",
+      "subscription-status-incomplete": "Incompleto",
+      "subscription-status-past_due": "Cuota Vencida",
+      "subscription-status-canceled": "Cancelado",
+      "subscription-status-unpaid": "No pagado",
       "subscription-status-trialing": "Free Trial"
     }
   },
