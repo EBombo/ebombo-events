@@ -636,6 +636,7 @@
       }
     },
     "library": {
+      "reproductions": "reproductions",
       "activities": "Activities",
       "my-games": "My games",
       "library": "Library",

@@ -630,6 +630,7 @@
       }
     },
     "library": {
+      "reproductions": "reproducciones",
       "activities": "Actividades",
       "my-games": "Mis juegos",
       "library": "Librería",
