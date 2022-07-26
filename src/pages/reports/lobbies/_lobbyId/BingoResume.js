@@ -55,9 +55,9 @@ export const BingoResume = (props) => {
 
     const minutesDiff = endTime.diff(startTime, "minutes");
 
-    const secondsDiff = endTime.diff(startTime, "seconds");
+    const secondsDiff = endTime.diff(startTime, "seconds") % 60;
 
-    if (hoursDiff <= 0) return `${zeroPad(minutesDiff, 2)}:${zeroPad(secondsDiff, 2)} minutes`;
+    if (hoursDiff <= 0) return `${minutesDiff}:${zeroPad(secondsDiff, 2)} minutes`;
 
     return `${hoursDiff}:${zeroPad(minutesDiff, 2)}:${zeroPad(secondsDiff, 2)} hours`;
   };
@@ -153,7 +153,7 @@ export const BingoResume = (props) => {
       <div className="bg-whiteLight rounded-[4px] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] h-[190px]">
         <div className="flex items-center justify-between py-2 px-4 h-[40px] border-b-[1px] border-whiteDark w-full">
           <div className="text-[18px] leading-[22px] font-[700] text-grayLight">{t("patterns")}</div>
-          <div className="text-[18px] leading-[22px] font-[700] text-grayLight">({props.lobby?.winners?.length})</div>
+          <div className="text-[18px] leading-[22px] font-[700] text-grayLight">({patternIndex + 1} /{props.rounds.length})</div>
         </div>
         <div className="w-full h-[150px] p-2 md:p-4 relative">
           {props.rounds.map((round, index) => (
@@ -193,9 +193,8 @@ export const BingoResume = (props) => {
                           >
                             <div className="aspect-square flex items-center justify-center bg-secondaryDark">
                               <div
-                                className={`${
-                                  value && "w-[60%] aspect-square bg-whiteDark flex justify-center rounded-[50%]"
-                                }`}
+                                className={`${value && "w-[60%] aspect-square bg-whiteDark flex justify-center rounded-[50%]"
+                                  }`}
                               />
                             </div>
                           </td>
@@ -232,19 +231,22 @@ export const BingoResume = (props) => {
               </div>
             </div>
           ))}
-
-          <div
-            className="cursor-pointer text-grayLight text-[12px] leading-[14px] absolute bottom-[10px] right-[10px] flex items-center"
-            onClick={() =>
-              setPatternIndex((value) => {
-                if (value + 1 > props.lobby?.winners?.length - 1) return 0;
-                return value + 1;
-              })
-            }
-          >
-            {t("next")}
-            <ArrowRightOutlined color="#666666" fontSize="12px" />
-          </div>
+          {
+            props.rounds.length > 1 && (
+              <div
+                className="cursor-pointer text-grayLight text-[12px] leading-[14px] absolute bottom-[10px] right-[10px] flex items-center"
+                onClick={() =>
+                  setPatternIndex((value) => {
+                    if (value + 1 > props.lobby?.winners?.length - 1) return 0;
+                    return value + 1;
+                  })
+                }
+              >
+                {t("next")}
+                <ArrowRightOutlined color="#666666" fontSize="12px" />
+              </div>
+            )
+          }
         </div>
       </div>
 
