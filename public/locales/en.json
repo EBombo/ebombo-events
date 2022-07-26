@@ -894,7 +894,9 @@
       "confirm": "Confirm",
       "subtotal": "Subtotal",
       "total": "Total",
-      "change-detail-payment": "Change payment details"
+      "change-detail-payment": "Change payment details",
+      "subscription-status-active": "Active",
+      "subscription-status-trialing": "Free Trial"
     },
     "companies": {
       "company-management": "Company management",

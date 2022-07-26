@@ -892,7 +892,9 @@
       "confirm": "Confirmar",
       "subtotal": "Subtotal",
       "total": "Total",
-      "change-detail-payment": "Cambiar los detalles de pago"
+      "change-detail-payment": "Cambiar los detalles de pago",
+      "subscription-status-active": "Activo",
+      "subscription-status-trialing": "Free Trial"
     }
   },
   "errors": {
