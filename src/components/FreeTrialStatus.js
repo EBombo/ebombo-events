@@ -4,15 +4,24 @@ import { snapshotToArray } from "../utils";
 import { ButtonAnt } from "./form";
 import { Image } from "./common/Image";
 import useCountdown from "../hooks/useCountdown";
+import { useTranslation } from "../hooks/useTranslation";
+import { useRouter } from "next/router";
 
 export const FreeTrialStatus = () => {
+  const router = useRouter();
 
   const [authUser] = useGlobal("user");
+
+  const { t } = useTranslation("components.free-trial-status");
 
   const [userHasSubscription, setUserHasSubscription] = useState(null);
   const [hasFreeTrial, setHasFreeTrial] = useState(false);
 
   const { countdownDate: deadline, setCountdownDate, timer: [days, hours, minutes, seconds] } = useCountdown();
+
+  const companyId = useMemo(() => {
+    return authUser?.companyId ? authUser.companyId : firestore.collection("companies").doc().id;
+  }, [authUser]);
 
   useEffect(() => {
     const fetchSubscriptionData = async () => {
@@ -44,10 +53,10 @@ export const FreeTrialStatus = () => {
     fetchSubscriptionData();
   }, []);
 
-  const DisplayNumber = React.memo(({ value, label, scale }) => (
+  const DisplayNumber = React.memo(({ value, label }) => (
     <span className={`mx-0`}>
       <div
-        className={`text-md font-bold text-center text-orange`}
+        className={`text-md font-bold text-center`}
       >
         {value} {label}
       </div>
@@ -68,10 +77,9 @@ export const FreeTrialStatus = () => {
     );
   }, [days, hours, minutes, seconds]);
 
-
   if (userHasSubscription && hasFreeTrial)
-    return (<div className="text-white font-bold text-left">
-      <div className="text-xs text-orange">Free Trial</div>
+    return (<div className="font-bold text-left text-orangeLight">
+      <div className="text-xs">Free Trial</div>
       {displayTimer}
     </div>);
 
@@ -82,7 +90,7 @@ export const FreeTrialStatus = () => {
           fontWeight="bold"
           onClick={(e) => {
             e.preventDefault();
-            router.push();
+            return router.push(`/companies/${companyId}?currentTab=billing`);
           }}>
           <span>
             <Image
@@ -91,7 +99,7 @@ export const FreeTrialStatus = () => {
               width="23px"
             />
           </span>
-          <div className="hidden lg:inline-block font-bold ml-1 mr-2">Activar Premium</div>
+          <div className="hidden lg:inline-block font-bold ml-1 mr-2">{t("activate-premium")}</div>
         </ButtonAnt>);
 
     return null;

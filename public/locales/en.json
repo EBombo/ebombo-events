@@ -539,6 +539,9 @@
       "update-subscription-ok-success": "Successful Operation. Wait for the platform restarts...",
       "loading-preview-data-of-operation": "Loading preview data of operation...",
       "proration-estimated-numbers-disclaimer": "This is an estimated proration of amount due at this moment. The actual amount may change if you confirm switching plan in a moment later."
+    },
+    "free-trial-status": {
+      "activate-premium": "Activate Premium"
     }
   },
   "pages": {
