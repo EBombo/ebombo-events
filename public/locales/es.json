@@ -533,6 +533,9 @@
       "update-subscription-ok-success": "Operación exitosa. Espera a que refresquemos la plataforma...",
       "loading-preview-data-of-operation": "Cargando la previsualización de la operación...",
       "proration-estimated-numbers-disclaimer": "El cálculo del prorrateo es un estimado a este momento, en el que solicitó cambiar de plan. Una vez confirmado el cambio, el monto final a pagar puede variar."
+    },
+    "free-trial-status": {
+      "activate-premium": "Activar Premium"
     }
   },
   "pages": {
@@ -896,7 +899,13 @@
       "confirm": "Confirmar",
       "subtotal": "Subtotal",
       "total": "Total",
-      "change-detail-payment": "Cambiar los detalles de pago"
+      "change-detail-payment": "Cambiar los detalles de pago",
+      "subscription-status-active": "Activo",
+      "subscription-status-incomplete": "Incompleto",
+      "subscription-status-past_due": "Cuota Vencida",
+      "subscription-status-canceled": "Cancelado",
+      "subscription-status-unpaid": "No pagado",
+      "subscription-status-trialing": "Free Trial"
     }
   },
   "errors": {

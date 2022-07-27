@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import { useAcl, useTranslation } from "../../hooks";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
-import { Anchor, ButtonAnt, Switch } from "../form";
+import { Anchor, ButtonAnt } from "../form";
+import { FreeTrialStatus } from "../FreeTrialStatus";
 import { sizes } from "../../constants";
 import { ModalNewGame } from "../../pages/library/ModalNewGame";
 
@@ -13,7 +14,7 @@ export const DesktopNav = (props) => {
 
   const { userAcls } = useAcl();
 
-  const { t, locale, locales, setLocale } = useTranslation("userLayout");
+  const { t } = useTranslation("userLayout");
 
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
@@ -99,18 +100,7 @@ export const DesktopNav = (props) => {
       )}
       {authUser && (
         <div className="menu-profile">
-          <Switch
-            variant="switcher"
-            size="small"
-            type="checkbox"
-            label1="En"
-            label2="Es"
-            defaultChecked={locale === locales[1]}
-            onChange={(event) => {
-              event.preventDefault();
-              setLocale(event.target.checked ? locales[1] : locales[0]);
-            }}
-          />
+          <FreeTrialStatus />
           <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
             {t("create")}
           </ButtonAnt>

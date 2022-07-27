@@ -15,7 +15,7 @@ export const Menu = (props) => {
 
   const { signOut } = useAuth();
 
-  const { t } = useTranslation("drawer");
+  const { t, SwitchTranslation } = useTranslation("drawer");
 
   const [authUser] = useGlobal("user");
   const [, setOpenRightDrawer] = useGlobal("openRightDrawer");
@@ -74,6 +74,9 @@ export const Menu = (props) => {
               {t("logout")}
             </span>
           </MenuItem>
+          <div className="px-4 h-[40px] text-left flex items-center border-solid border-b border-b-gray">
+            <SwitchTranslation />
+          </div>
         </TabPane>
       </MenuTabs>
     </MenuContainer>
