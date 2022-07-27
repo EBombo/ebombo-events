@@ -21,7 +21,7 @@ const FooterBar = (props) => {
     <ContainerFooter authUser={authUser}>
       <div className="footer-items">
         <PopTypeGame>
-          <div className={isSelected("/library/games/new")}>
+          <div>
             <Image
               width="auto"
               height="30px"
@@ -33,13 +33,13 @@ const FooterBar = (props) => {
         </PopTypeGame>
 
         <div
-          className={isSelected("/library/games/new")}
+          className={isSelected("/library")}
           onClick={(e) => {
             e.preventDefault();
 
             if (!authUser) setIsVisibleLoginModal(true);
 
-            router.push("/library/games/new");
+            router.push("/library");
           }}
         >
           <Image
