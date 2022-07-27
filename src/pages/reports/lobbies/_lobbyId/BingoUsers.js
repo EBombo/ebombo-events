@@ -35,6 +35,15 @@ export const BingoUsers = (props) => {
     mapUsers();
   }, [props.users]);
 
+  const timesWon = (user) => {
+    let count = 0;
+
+    props.lobby.winners.map(winner => {
+      if (winner.id === user.id) count += 1;
+    })
+    return count;
+  }
+
   return (
     <div className="max-w-[95vw] overflow-auto mx-auto no-scrollbar">
       {isVisibleModalCards && (
@@ -48,25 +57,22 @@ export const BingoUsers = (props) => {
       <div className="py-4 lg:py-8 gap-4 mx-auto min-w-[700px] w-full">
         <div className="h-[50px] rounded-t-[6px] flex items-center bg-whiteLight">
           <div
-            className={`px-8 h-full flex items-center text-center font-[700] text-[14px] leading-[17px] cursor-pointer ${
-              tab === 0 ? "text-secondary border-secondary border-b-[2px]" : "text-blackDarken"
-            }`}
+            className={`px-8 h-full flex items-center text-center font-[700] text-[14px] leading-[17px] cursor-pointer ${tab === 0 ? "text-secondary border-secondary border-b-[2px]" : "text-blackDarken"
+              }`}
             onClick={() => setTab(0)}
           >
             {`${t("all")} (${props.users.length})`}
           </div>
           <div
-            className={`px-8 h-full flex items-center text-center font-[700] text-[14px] leading-[17px] cursor-pointer ${
-              tab === 1 ? "text-secondary border-secondary border-b-[2px]" : "text-blackDarken"
-            }`}
+            className={`px-8 h-full flex items-center text-center font-[700] text-[14px] leading-[17px] cursor-pointer ${tab === 1 ? "text-secondary border-secondary border-b-[2px]" : "text-blackDarken"
+              }`}
             onClick={() => setTab(1)}
           >
             {`${t("empty-cards")} (${usersWithEmptyCard.length})`}
           </div>
           <div
-            className={`px-8 h-full flex items-center text-center font-[700] text-[14px] leading-[17px] cursor-pointer ${
-              tab === 2 ? "text-secondary border-secondary border-b-[2px]" : "text-blackDarken"
-            }`}
+            className={`px-8 h-full flex items-center text-center font-[700] text-[14px] leading-[17px] cursor-pointer ${tab === 2 ? "text-secondary border-secondary border-b-[2px]" : "text-blackDarken"
+              }`}
             onClick={() => setTab(2)}
           >
             {`${t("dropped-out")} (${droppedOut.length})`}
@@ -96,7 +102,7 @@ export const BingoUsers = (props) => {
                   {user.rounds?.length}
                 </td>
                 <td className="text-center text-blackDarken text-[14px] leading-[17px] font-[400]">
-                  {props.lobby?.winners?.includes(user.id)}
+                  {timesWon(user)}
                 </td>
                 <td
                   className="text-secondary text-[14px] leading-[17px] font-[400] flex items-center justify-center gap-2 underline cursor-pointer"
