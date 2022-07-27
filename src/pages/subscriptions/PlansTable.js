@@ -85,7 +85,7 @@ export const PlansTable = (props) => {
             <StripeCustomerPortalLink>
               <Tooltip title={t("switch-free-plan-disclaimer")}>
                 <ButtonAnt variant="outlined" color="dark">
-                  {t("downgrade-plan")} <Icon type="info-circle"/>
+                  {t("downgrade-plan")} <Icon type="info-circle" />
                 </ButtonAnt>
               </Tooltip>
             </StripeCustomerPortalLink>

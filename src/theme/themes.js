@@ -28,6 +28,8 @@ export const darkTheme = {
     grayLight: "#666666",
     grayLighten: "#C4C4C4",
     gray: "#E4E4E4",
+    orange: "#FF7059",
+    orangeDark: "#DF4F38",
   },
 };
 

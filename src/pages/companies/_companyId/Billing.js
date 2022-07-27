@@ -27,6 +27,9 @@ export const Billing = (props) => {
 
   const [activePlan, setActivePlan] = useState(null);
   const [subscription, setSubscription] = useState();
+
+  const [userHasSubscription, setUserHasSubscription] = useState(false);
+
   const [isLoadingPlan, setIsLoadingPlan] = useState(false);
   const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
 
@@ -38,9 +41,13 @@ export const Billing = (props) => {
     const getPlan = async () => {
       setIsLoadingPlan(true);
 
+      const allSubscriptionsQuery = await firestore.collection(`customers/${authUser.id}/subscriptions`).get();
+
+      setUserHasSubscription(!allSubscriptionsQuery.empty);
+
       const activeSubscriptionsQuery = await firestore
         .collection(`customers/${authUser.id}/subscriptions`)
-        .where("status", "==", "active")
+        .where("status", "in", ["active", "trialing"])
         .orderBy("created", "desc")
         .get();
 
@@ -67,7 +74,7 @@ export const Billing = (props) => {
       if (plan.name.includes("Exclusivo")) return router.push(`/contact`);
 
       setIsLoadingCheckoutPlan(true);
-      await sendToCheckout(authUser?.id, price?.id);
+      await sendToCheckout(authUser?.id, price?.id, !userHasSubscription);
     } catch (err) {
       props.showNotification("Error", err?.message, "error");
       setIsLoadingCheckoutPlan(false);

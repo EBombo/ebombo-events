@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import { useAcl, useTranslation } from "../../hooks";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
-import { Anchor, ButtonAnt, Switch } from "../form";
+import { Anchor, ButtonAnt } from "../form";
+import { FreeTrialStatus } from "../FreeTrialStatus";
 import { sizes } from "../../constants";
 import { PopTypeGame } from "../createGame/PopTypeGame";
 
@@ -13,7 +14,7 @@ export const DesktopNav = (props) => {
 
   const { userAcls } = useAcl();
 
-  const { t, locale, locales, setLocale } = useTranslation("userLayout");
+  const { t } = useTranslation("userLayout");
 
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
@@ -89,25 +90,12 @@ export const DesktopNav = (props) => {
       )}
       {authUser && (
         <div className="menu-profile">
-          <Switch
-            variant="switcher"
-            size="small"
-            type="checkbox"
-            label1="En"
-            label2="Es"
-            defaultChecked={locale === locales[1]}
-            onChange={(event) => {
-              event.preventDefault();
-              setLocale(event.target.checked ? locales[1] : locales[0]);
-            }}
-          />
-
+          <FreeTrialStatus />
           <PopTypeGame>
             <ButtonAnt variant="contained" width="140px">
               {t("create")}
             </ButtonAnt>
           </PopTypeGame>
-
           <div className="hamburger" onClick={() => setOpenRightDrawer(!openRightDrawer)}>
             <Image
               src={`${config.storageUrl}/resources/user-profile.svg`}

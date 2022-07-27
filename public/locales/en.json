@@ -544,6 +544,9 @@
       "update-subscription-ok-success": "Successful Operation. Wait for the platform restarts...",
       "loading-preview-data-of-operation": "Loading preview data of operation...",
       "proration-estimated-numbers-disclaimer": "This is an estimated proration of amount due at this moment. The actual amount may change if you confirm switching plan in a moment later."
+    },
+    "free-trial-status": {
+      "activate-premium": "Activate Premium"
     }
   },
   "pages": {
@@ -905,7 +908,13 @@
       "confirm": "Confirm",
       "subtotal": "Subtotal",
       "total": "Total",
-      "change-detail-payment": "Change payment details"
+      "change-detail-payment": "Change payment details",
+      "subscription-status-active": "Active",
+      "subscription-status-incomplete": "Incomplete",
+      "subscription-status-past_due": "Past Due",
+      "subscription-status-canceled": "Canceled",
+      "subscription-status-unpaid": "Unpaid",
+      "subscription-status-trialing": "Free Trial"
     },
     "companies": {
       "company-management": "Company management",
