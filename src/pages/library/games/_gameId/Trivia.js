@@ -25,7 +25,7 @@ import { WarningIconTooltip } from "./WarningIconTooltip";
 
 export const Trivia = (props) => {
   const router = useRouter();
-  const { gameId } = router.query;
+  const { gameId, templateId } = router.query;
 
   const { t } = useTranslation("pages.library.trivia");
 
@@ -51,12 +51,30 @@ export const Trivia = (props) => {
   const [questionErrors, setQuestionErrors] = useState({});
 
   useEffect(() => {
+    if (!templateId) return;
+
+    const fetchQuestionTemplate = async () => {
+      const querySnapshotQuestionTemplate = await firestore
+        .collection("templates")
+        .doc(templateId)
+        .collection("questions")
+        .get();
+
+      const questionTemplate = snapshotToArray(querySnapshotQuestionTemplate);
+      setQuestions(orderBy(questionTemplate, "questionNumber"));
+      setLoading(false);
+    };
+
+    fetchQuestionTemplate();
+  }, [templateId]);
+
+  useEffect(() => {
     if (!props.game) return;
 
     setLoading(true);
 
     const fetchQuestions = async () => {
-      /** Determinar si es una plantilla o un juego **/
+      /** Determinar si es una plantilla o un juego. **/
       const isTemplate = router.asPath?.includes("templates");
       const firebaseRef = isTemplate ? firestore.collection("templates") : firestoreTrivia.collection("games");
 
