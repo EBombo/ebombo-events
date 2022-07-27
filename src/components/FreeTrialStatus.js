@@ -3,6 +3,7 @@ import { firestore, config } from "../firebase";
 import { snapshotToArray } from "../utils";
 import { ButtonAnt } from "./form";
 import { Image } from "./common/Image";
+import { DisplayNumber } from "./common/DisplayNumber";
 import useCountdown from "../hooks/useCountdown";
 import { useTranslation } from "../hooks/useTranslation";
 import { useRouter } from "next/router";
@@ -55,16 +56,9 @@ export const FreeTrialStatus = () => {
     fetchSubscriptionData();
   }, []);
 
-  const DisplayNumber = React.memo(({ value, label }) => (
-    <span className={`mx-0`}>
-      <div className={`text-md font-bold text-center`}>
-        {value} {label}
-      </div>
-    </span>
-  ));
-
   const displayTimer = useMemo(() => {
-    if (deadline === null || days + hours + minutes + seconds <= 0) return null;
+    if (deadline === null) return null;
+    if (days + hours + minutes + seconds <= 0) return null;
 
     return (
       <div className="flex items-center justify-center gap-1">
