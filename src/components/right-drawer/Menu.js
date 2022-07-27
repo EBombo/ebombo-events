@@ -75,9 +75,8 @@ export const Menu = (props) => {
             </span>
           </MenuItem>
           <div className="px-4 h-[40px] text-left flex items-center border-solid border-b border-b-gray">
-            <SwitchTranslation/>
+            <SwitchTranslation />
           </div>
-
         </TabPane>
       </MenuTabs>
     </MenuContainer>

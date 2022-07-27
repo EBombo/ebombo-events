@@ -26,9 +26,8 @@ const useCountdown = () => {
   return {
     countdownDate,
     setCountdownDate,
-    timer: [days, hours, minutes, seconds]
+    timer: [days, hours, minutes, seconds],
   };
 };
 
 export default useCountdown;
-

@@ -65,14 +65,14 @@ export const ListGameView = (props) => {
       return newTime.days() > 0
         ? `Creado hace ${newTime.days()} día${newTime.days() > 1 ? "s" : ""}`
         : newTime.hours() > 0
-          ? `Creado hace ${newTime.hours()} hora${newTime.hours() > 1 ? "s" : ""}`
-          : `Creado hace ${newTime.minutes()} minutos`;
+        ? `Creado hace ${newTime.hours()} hora${newTime.hours() > 1 ? "s" : ""}`
+        : `Creado hace ${newTime.minutes()} minutos`;
 
     return newTime.days() > 0
       ? `Created ${newTime.days()} day${newTime.days() > 1 ? "s" : ""} ago`
       : newTime.hours() > 0
-        ? `Created ${newTime.hours()} hour${newTime.hours() > 1 ? "s" : ""} ago`
-        : `Created ${newTime.minutes()} ${t("minutes")} ago`;
+      ? `Created ${newTime.hours()} hour${newTime.hours() > 1 ? "s" : ""} ago`
+      : `Created ${newTime.minutes()} ${t("minutes")} ago`;
   };
 
   const toggleFavorite = async () => {
@@ -121,8 +121,8 @@ export const ListGameView = (props) => {
   const redirectToGameView = () => {
     get(props, "game.parentId", null)
       ? router.push(
-        `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGame?.id}&folderId=${props.game.parentId}`
-      )
+          `/library/games/${props.game.id}/view?adminGameId=${props.game.adminGame?.id}&folderId=${props.game.parentId}`
+        )
       : router.push(`/library/games/${props.game.id}/view?adminGameId=${props.game.adminGame?.id}`);
   };
 
@@ -238,7 +238,9 @@ export const ListGameView = (props) => {
                 {getTimeCreation()}{" "}
                 <div className="ml-[10px] flex items-center">
                   <div className="w-[5px] h-[5px] bg-grayLight rounded-[50%] mr-[10px]" />
-                  <div className="font-bold">{props?.game?.countPlays ?? 0} {t("reproductions")}</div>
+                  <div className="font-bold">
+                    {props?.game?.countPlays ?? 0} {t("reproductions")}
+                  </div>
                 </div>
                 <Desktop>
                   <div className="flex items-center justify-around">
@@ -300,8 +302,8 @@ export const ListGameView = (props) => {
 
                 get(props, "game.parentId", null)
                   ? router.push(
-                    `/library/games/new?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
-                  )
+                      `/library/games/new?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`
+                    )
                   : router.push(`/library/games/${props.game.id}?adminGameId=${props.game.adminGameId}`);
               }}
             >

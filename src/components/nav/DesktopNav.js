@@ -100,7 +100,7 @@ export const DesktopNav = (props) => {
       )}
       {authUser && (
         <div className="menu-profile">
-          <FreeTrialStatus/>
+          <FreeTrialStatus />
           <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
             {t("create")}
           </ButtonAnt>

@@ -40,7 +40,7 @@ export const TabletNav = (props) => {
           size="contain"
         />
       </div>
-      <FreeTrialStatus/>
+      <FreeTrialStatus />
       {!authUser && (
         <Anchor url="/login" variant="primary" fontSize={"1rem"}>
           {t("login")}

@@ -1,6 +1,6 @@
 import { firestore, functions } from "../firebase";
 
-export const sendToCheckout = async (userId, priceId, enableFreeTrial=false) => {
+export const sendToCheckout = async (userId, priceId, enableFreeTrial = false) => {
   const docRef = await firestore.collection("customers").doc(userId).collection("checkout_sessions").add({
     price: priceId,
     success_url: window.location.href,

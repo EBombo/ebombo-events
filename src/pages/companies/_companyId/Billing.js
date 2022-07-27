@@ -41,9 +41,7 @@ export const Billing = (props) => {
     const getPlan = async () => {
       setIsLoadingPlan(true);
 
-      const allSubscriptionsQuery = await firestore
-        .collection(`customers/${authUser.id}/subscriptions`)
-        .get();
+      const allSubscriptionsQuery = await firestore.collection(`customers/${authUser.id}/subscriptions`).get();
 
       setUserHasSubscription(!allSubscriptionsQuery.empty);
 
