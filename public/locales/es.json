@@ -554,7 +554,10 @@
         "all": "Todos",
         "empty-cards": "No marcaron su cartilla",
         "empty-card-message": "¡Bien hecho! Todos marcaron su cartilla.",
+        "empty-cards-tooltip": "Dejaron su cartilla en blanco al menos 1 vez",
         "dropped-out": "No terminaron",
+        "dropped-out-message": "¡Bien hecho! Todos terminen el juego.",
+        "dropped-out-tooltip": "Se desconectaron antes de terminar. Indica cuántas preguntas respondieron.",
         "name": "Nombre",
         "email": "Correo",
         "times-played": "Veces jugadas",
@@ -627,6 +630,7 @@
       }
     },
     "library": {
+      "reproductions": "reproducciones",
       "activities": "Actividades",
       "my-games": "Mis juegos",
       "library": "Librería",
