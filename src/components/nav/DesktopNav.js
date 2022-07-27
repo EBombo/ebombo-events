@@ -91,11 +91,13 @@ export const DesktopNav = (props) => {
       {authUser && (
         <div className="menu-profile">
           <FreeTrialStatus />
+
           <PopTypeGame>
             <ButtonAnt variant="contained" width="140px">
               {t("create")}
             </ButtonAnt>
           </PopTypeGame>
+
           <div className="hamburger" onClick={() => setOpenRightDrawer(!openRightDrawer)}>
             <Image
               src={`${config.storageUrl}/resources/user-profile.svg`}
