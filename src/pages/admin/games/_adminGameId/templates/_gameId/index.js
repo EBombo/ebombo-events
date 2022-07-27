@@ -27,8 +27,7 @@ export const TemplateGame = (props) => {
       const fetchAdminGame = async () => {
         const querySnapshotAdminGame = await firestore.collection("games").doc(adminGameId).get();
 
-        const adminGame = querySnapshotAdminGame.data();
-        setAdminGame(adminGame);
+        setAdminGame(querySnapshotAdminGame.data());
       };
 
       const fetchTemplate = async () => {
@@ -36,8 +35,7 @@ export const TemplateGame = (props) => {
 
         const querySnapshotTemplate = await firestore.collection("templates").doc(gameId).get();
 
-        const template_ = querySnapshotTemplate.data();
-        setTemplate(template_);
+        setTemplate(querySnapshotTemplate.data());
       };
 
       await fetchAdminGame();
