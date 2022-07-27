@@ -37,7 +37,9 @@ const FooterBar = (props) => {
           onClick={(e) => {
             e.preventDefault();
 
-            if (!authUser) setIsVisibleLoginModal(true);
+            if (!authUser) {
+              return router.push("/login");
+            }
 
             router.push("/library");
           }}
