@@ -68,6 +68,8 @@ export const WithConfiguration = (props) => {
         isBdev: isBdevLS,
         loadingGames: true,
         isLoadingUser: true,
+        isVisibleModalGame: false,
+        isVisibleModalDynamics: false,
         isLoadingCreateUser: true,
         isVisibleModalConfirm: false,
         openRightDrawer: false,

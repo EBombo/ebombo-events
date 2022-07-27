@@ -83,7 +83,7 @@ export const TemplateGame = (props) => {
   if (isLoading) return spinLoader();
 
   return (
-    <div>
+    <div key={`${adminGameId}-${gameId}`}>
       {adminGame?.name === "trivia" && (
         <Trivia
           submitGame={submitGame}

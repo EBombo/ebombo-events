@@ -482,7 +482,12 @@
     "library": "Library",
     "reports": "Reports",
     "login": "Log in",
-    "create": "Create"
+    "create": "Create",
+    "dynamics": "Dynamics",
+    "create-new-game": "Create new game",
+    "load-more": "Load more",
+    "close": "Close",
+    "create-from-scratch": "Create from scratch"
   },
   "footer": {
     "us": "Us",
@@ -652,6 +657,8 @@
       "move": "Move",
       "delete": "Delete",
       "create-game": "Create game",
+      "create-folder": "Create folder",
+      "create": "Create",
       "favorites": "Favorites",
       "recent": "Recent",
       "games": "Games",

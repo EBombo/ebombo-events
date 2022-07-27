@@ -1,56 +1,56 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useGlobal } from "reactn";
 import styled from "styled-components";
 import { mediaQuery, sizes } from "../constants";
 import { useRouter } from "next/router";
-import { useAcl } from "../hooks";
-import { menus } from "./common/DataList";
+import { useTranslation } from "../hooks";
 import { Image } from "./common/Image";
-import { ModalNewGame } from "../pages/library/ModalNewGame";
+import { config } from "../firebase";
+import { PopTypeGame } from "./createGame/PopTypeGame";
 
 const FooterBar = (props) => {
   const router = useRouter();
 
-  const { aclMenus } = useAcl();
+  const { t } = useTranslation("userLayout");
 
   const [authUser] = useGlobal("user");
   const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
 
-  const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
-
-  const getCurrentMenu = () => aclMenus({ menus: menus.filter((menu) => !menu.isAdmin) });
-
   const isSelected = (path) => (path === window.location.pathname ? "item item-selected" : "item");
 
   return (
-    <ContainerFooter authUser={authUser} itemLenght={getCurrentMenu().length}>
+    <ContainerFooter authUser={authUser}>
       <div className="footer-items">
-        {getCurrentMenu().map((userLink) => (
-          <div
-            className={isSelected(userLink.url)}
-            key={`key-menu-user-link-${userLink.url}`}
-            onClick={(e) => {
-              e.preventDefault();
-
-              authUser
-                ? userLink.onClick
-                  ? userLink.onClick(setIsVisibleModalGame)
-                  : router.push(userLink.url)
-                : setIsVisibleLoginModal(true);
-            }}
-          >
-            <Image src={userLink.src} width="auto" height="30px" className="icon" />
-            <span className="label">{userLink.name}</span>
+        <PopTypeGame>
+          <div className={isSelected("/library/games/new")}>
+            <Image
+              width="auto"
+              height="30px"
+              className="icon"
+              src={`${config.storageUrl}/resources/footer/create-icon.svg`}
+            />
+            <span className="label">{t("create")}</span>
           </div>
-        ))}
-      </div>
+        </PopTypeGame>
 
-      {isVisibleModalGame && (
-        <ModalNewGame
-          {...props}
-          isVisibleModalGame={isVisibleModalGame}
-          setIsVisibleModalGame={setIsVisibleModalGame}
-        />
-      )}
+        <div
+          className={isSelected("/library/games/new")}
+          onClick={(e) => {
+            e.preventDefault();
+
+            if (!authUser) setIsVisibleLoginModal(true);
+
+            router.push("/library/games/new");
+          }}
+        >
+          <Image
+            width="auto"
+            height="30px"
+            className="icon"
+            src={`${config.storageUrl}/resources/footer/library-icon.svg`}
+          />
+          <span className="label">{t("library")}</span>
+        </div>
+      </div>
     </ContainerFooter>
   );
 };
@@ -72,8 +72,7 @@ const ContainerFooter = styled.section`
     display: grid;
     width: 100%;
     background: ${(props) => props.theme.basic.secondary};
-    direction: rtl;
-    grid-template-columns: repeat(${(props) => (props.authUser ? props.itemLenght : props.itemLenght - 1)}, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 
     .item {
       position: relative;

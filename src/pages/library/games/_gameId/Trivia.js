@@ -187,7 +187,7 @@ export const Trivia = (props) => {
           setAllowDuplicate={setAllowDuplicate}
           allowDuplicate={allowDuplicate}
           newId={newId}
-          path={`/games/trivia/${props.newId}`}
+          path={`/games/trivia/${newId}`}
           {...props}
         />
       )}
