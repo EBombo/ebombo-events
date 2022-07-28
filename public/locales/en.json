@@ -483,7 +483,12 @@
     "library": "Library",
     "reports": "Reports",
     "login": "Log in",
-    "create": "Create"
+    "create": "Create",
+    "dynamics": "Dynamics",
+    "create-new-game": "Create new game",
+    "load-more": "Load more",
+    "close": "Close",
+    "create-from-scratch": "Create from scratch"
   },
   "footer": {
     "us": "Us",
@@ -716,6 +721,8 @@
       "move": "Move",
       "delete": "Delete",
       "create-game": "Create game",
+      "create-folder": "Create folder",
+      "create": "Create",
       "favorites": "Favorites",
       "recent": "Recent",
       "games": "Games",
@@ -848,6 +855,9 @@
         "quiz": "Quiz",
         "true-false": "True or false",
         "short-answer": "Short answer",
+        "survey": "Survey",
+        "brainstorm": "Brainstorm",
+        "slide": "Slide",
         "only-answer": "Only answer",
         "multiple-answer": "Multiple answer",
         "delete": "Delete",

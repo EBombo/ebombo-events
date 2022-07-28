@@ -1,7 +1,7 @@
 import { darkTheme } from "../../theme";
 import { config, firestoreBingo, firestoreHanged, firestoreRoulette, firestoreTrivia } from "../../firebase";
 import React from "react";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 
 export const gamesFirestore = (name) => {
   switch (name) {
@@ -88,22 +88,34 @@ export const landingHeaderMenu = [
   },
 ];
 
-export const triviaQuestionsTypes = [
-  {
+export const triviaQuestionsTypes = {
+  quiz: {
     key: "quiz",
     value: "quiz",
   },
-  {
+  trueFalse: {
     key: "trueFalse",
     value: "true-false",
   },
-  {
+  shortAnswer: {
     key: "shortAnswer",
     value: "short-answer",
   },
-];
+  survey: {
+    key: "survey",
+    value: "survey",
+  },
+  brainstorm: {
+    key: "brainstorm",
+    value: "brainstorm",
+  },
+  slide: {
+    key: "slide",
+    value: "slide",
+  },
+};
 
-export const triviaShortAnswerType = triviaQuestionsTypes[2].key;
+export const triviaShortAnswerType = triviaQuestionsTypes.shortAnswer.key;
 
 export const questionTypes = {
   quiz: "Quiz",

@@ -1,4 +1,6 @@
 import { ErrorFallback } from "../src/components/error-fallback/ErrorFallback";
+import { ModalNewDynamic } from "../src/components/createGame/ModalNewDynamic";
+import { ModalNewGame } from "../src/components/createGame/ModalNewGame";
 import { WithAuthentication } from "../src/session/WithAuthentication";
 import { WithConfiguration } from "../src/session/WithConfiguration";
 import { darkTheme, GlobalStyle, lightTheme } from "../src/theme";
@@ -32,6 +34,8 @@ const MyApp = ({ Component, pageProps }) => {
   const [games, setGames] = useGlobal("userGames");
   const [events, setEvents] = useGlobal("userEvents");
   const [, setLoadingGames] = useGlobal("loadingGames");
+  const [isVisibleModalGame, setIsVisibleModalGame] = useGlobal("isVisibleModalGame");
+  const [isVisibleModalDynamics, setIsVisibleModalDynamics] = useGlobal("isVisibleModalDynamics");
 
   const [parent, setParent] = useState(null);
   const [folders, setFolders] = useState([]);
@@ -209,6 +213,24 @@ const MyApp = ({ Component, pageProps }) => {
               fetchEvents={fetchEvents}
               showNotification={showNotificationAnt}
             />
+
+            {isVisibleModalGame ? (
+              <ModalNewGame
+                {...pageProps}
+                showNotification={showNotificationAnt}
+                isVisibleModal={isVisibleModalGame}
+                setIsVisibleModal={setIsVisibleModalGame}
+              />
+            ) : null}
+
+            {isVisibleModalDynamics ? (
+              <ModalNewDynamic
+                {...pageProps}
+                showNotification={showNotificationAnt}
+                isVisibleModal={isVisibleModalDynamics}
+                setIsVisibleModal={setIsVisibleModalDynamics}
+              />
+            ) : null}
           </WithAuthentication>
         </WithConfiguration>
       </ErrorBoundary>

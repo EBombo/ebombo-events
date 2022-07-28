@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal } from "reactn";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useAcl, useTranslation } from "../../hooks";
@@ -7,7 +7,7 @@ import { Image } from "../common/Image";
 import { Anchor, ButtonAnt } from "../form";
 import { FreeTrialStatus } from "../FreeTrialStatus";
 import { sizes } from "../../constants";
-import { ModalNewGame } from "../../pages/library/ModalNewGame";
+import { PopTypeGame } from "../createGame/PopTypeGame";
 
 export const DesktopNav = (props) => {
   const router = useRouter();
@@ -19,8 +19,6 @@ export const DesktopNav = (props) => {
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
 
-  const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
-
   useEffect(() => {
     router.prefetch("/");
     router.prefetch("/admin");
@@ -29,14 +27,6 @@ export const DesktopNav = (props) => {
 
   return (
     <DesktopNavContainer>
-      {isVisibleModalGame && (
-        <ModalNewGame
-          {...props}
-          isVisibleModalGame={isVisibleModalGame}
-          setIsVisibleModalGame={setIsVisibleModalGame}
-        />
-      )}
-
       <div className="items-container">
         <Image
           src={`${config.storageUrl}/resources/ebombo-white.svg`}
@@ -101,9 +91,13 @@ export const DesktopNav = (props) => {
       {authUser && (
         <div className="menu-profile">
           <FreeTrialStatus />
-          <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
-            {t("create")}
-          </ButtonAnt>
+
+          <PopTypeGame>
+            <ButtonAnt variant="contained" width="140px">
+              {t("create")}
+            </ButtonAnt>
+          </PopTypeGame>
+
           <div className="hamburger" onClick={() => setOpenRightDrawer(!openRightDrawer)}>
             <Image
               src={`${config.storageUrl}/resources/user-profile.svg`}

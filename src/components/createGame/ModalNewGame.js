@@ -1,13 +1,13 @@
 import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
-import { ModalContainer } from "../../components/common/ModalContainer";
-import { Anchor, ButtonAnt } from "../../components/form";
+import { ModalContainer } from "../common/ModalContainer";
+import { Anchor, ButtonAnt } from "../form";
 import { darkTheme } from "../../theme";
 import { Desktop, mediaQuery, sizes, Tablet } from "../../constants";
 import { useRouter } from "next/router";
-import get from "lodash/get";
 import groupBy from "lodash/groupBy";
 import orderBy from "lodash/orderBy";
+import { useTranslation } from "../../hooks";
 
 const defaultLimit = 6;
 
@@ -15,13 +15,24 @@ export const ModalNewGame = (props) => {
   const router = useRouter();
   const { folderId } = router.query;
 
+  const { t } = useTranslation("userLayout");
+
   const [adminGames] = useGlobal("adminGames");
+  const [adminTemplates] = useGlobal("adminTemplates");
+
   const [limit, setLimit] = useState(defaultLimit);
 
+  const templates = useMemo(() => {
+    return adminTemplates.filter((template) => !template.isDynamic);
+  }, [adminTemplates]);
+
   const gamesByGroup = useMemo(() => {
-    const games = groupBy(adminGames, "typeGame.id");
+    const mergeGames = adminGames.concat(templates);
+
+    const games = groupBy(mergeGames, "typeGame.id");
+
     return orderBy(games, ["typeGame.updateAt"], ["desc"]);
-  }, [adminGames]);
+  }, [adminGames, templates]);
 
   useEffect(() => {
     router.prefetch("/contact");
@@ -33,26 +44,36 @@ export const ModalNewGame = (props) => {
       return router.push("/contact");
     }
 
-    folderId
-      ? router.push(`/library/games/new?adminGameId=${game.id}&folderId=${folderId}`)
-      : router.push(`/library/games/new?adminGameId=${game.id}`);
+    const isTemplate = !!game.adminGame;
 
-    props.setIsVisibleModalGame(!props.isVisibleModalGame);
+    let urlRedirect = `/library/games/new?adminGameId=${isTemplate ? game.adminGame?.id : game.id}`;
+
+    if (folderId) {
+      urlRedirect = `${urlRedirect}&folderId=${folderId}`;
+    }
+
+    if (isTemplate) {
+      urlRedirect = `${urlRedirect}&templateId=${game.id}`;
+    }
+
+    router.push(urlRedirect);
+
+    props.setIsVisibleModal(!props.isVisibleModal);
   };
 
   return (
     <ModalContainer
+      top="10%"
       footer={null}
       closable={false}
-      visible={props.isVisibleModalGame}
-      padding={"0 0 1rem 0"}
-      top="10%"
       width="fit-content"
+      padding={"0 0 1rem 0"}
+      visible={props.isVisibleModal}
       background={darkTheme.basic.whiteLight}
-      onCancel={() => props.setIsVisibleModalGame(!props.isVisibleModalGame)}
+      onCancel={() => props.setIsVisibleModal(!props.isVisibleModal)}
     >
       <NewGameContainer>
-        <div className="title">Crear un nuevo juego</div>
+        <div className="title">{t("create-new-game")}</div>
 
         {Object.keys(gamesByGroup).map((typeGameid) => {
           const games = gamesByGroup[typeGameid];
@@ -72,17 +93,19 @@ export const ModalNewGame = (props) => {
                     }}
                   >
                     <Desktop>
-                      <GameImage src={get(game, "coverUrl", null)} />
+                      {/*TODO: AdminGame | game | template must use coverImgUrl.*/}
+                      <GameImage src={game?.coverUrl ?? game?.coverImgUrl} />
                     </Desktop>
 
                     <Tablet>
                       <div className="title-game">{game.title}</div>
-                      <ButtonAnt margin="5px auto">Crear</ButtonAnt>
+                      <ButtonAnt margin="5px auto">{t("create")}</ButtonAnt>
                     </Tablet>
 
                     <Desktop>
                       <ButtonAnt variant="text" margin="5px auto" color="light">
-                        {game.title}
+                        {/*TODO: AdminGame | game | template must use name.*/}
+                        {game.name ?? game.title}
                       </ButtonAnt>
                     </Desktop>
                   </div>
@@ -101,7 +124,7 @@ export const ModalNewGame = (props) => {
             onClick={() => setLimit(limit + defaultLimit)}
             underlined
           >
-            Cargar más
+            {t("load-more")}
           </Anchor>
         )}
 
@@ -110,9 +133,9 @@ export const ModalNewGame = (props) => {
           variant="contained"
           color="default"
           size="big"
-          onClick={() => props.setIsVisibleModalGame(false)}
+          onClick={() => props.setIsVisibleModal(false)}
         >
-          Cerrar
+          {t("close")}
         </ButtonAnt>
       </NewGameContainer>
     </ModalContainer>
