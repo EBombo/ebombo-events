@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState, useMemo } from "reactn";
+import React, { useEffect, useGlobal, useMemo, useState } from "reactn";
 import styled from "styled-components";
 import { Image } from "../../components/common/Image";
 import { ButtonAnt, Checkbox } from "../../components/form";
@@ -16,7 +16,7 @@ import { useFetch } from "../../hooks/useFetch";
 export const ListGameView = (props) => {
   const router = useRouter();
 
-  const { t, locale } = useTranslation("pages.library");
+  const { t, locale, locales } = useTranslation("pages.library");
 
   const { Fetch } = useFetch();
   const { sendError } = useSendError();
@@ -61,11 +61,18 @@ export const ListGameView = (props) => {
 
     const newTime = moment.duration(time);
 
+    if (locale === locales[1])
+      return newTime.days() > 0
+        ? `Creado hace ${newTime.days()} día${newTime.days() > 1 ? "s" : ""}`
+        : newTime.hours() > 0
+        ? `Creado hace ${newTime.hours()} hora${newTime.hours() > 1 ? "s" : ""}`
+        : `Creado hace ${newTime.minutes()} minutos`;
+
     return newTime.days() > 0
-      ? `${t("created-ago")} ${newTime.days()} día${newTime.days() > 1 ? "s" : ""}`
+      ? `Created ${newTime.days()} day${newTime.days() > 1 ? "s" : ""} ago`
       : newTime.hours() > 0
-      ? `${t("created-ago")} ${newTime.hours()} hora${newTime.hours() > 1 ? "s" : ""}`
-      : `${t("created-ago")} ${newTime.minutes()} minutos`;
+      ? `Created ${newTime.hours()} hour${newTime.hours() > 1 ? "s" : ""} ago`
+      : `Created ${newTime.minutes()} ${t("minutes")} ago`;
   };
 
   const toggleFavorite = async () => {
@@ -142,7 +149,13 @@ export const ListGameView = (props) => {
 
           <div className="main-content">
             <div className="description">
-              <div className="name" onClick={() => redirectToGameView()}>
+              <div
+                className="name"
+                onClick={(e) => {
+                  e.preventDefault();
+                  redirectToGameView();
+                }}
+              >
                 {props.game.name}
               </div>
 
@@ -225,7 +238,9 @@ export const ListGameView = (props) => {
                 {getTimeCreation()}{" "}
                 <div className="ml-[10px] flex items-center">
                   <div className="w-[5px] h-[5px] bg-grayLight rounded-[50%] mr-[10px]" />
-                  <div className="font-bold">{props?.game?.countPlays ?? 0} reproducciones</div>
+                  <div className="font-bold">
+                    {props?.game?.countPlays ?? 0} {t("reproductions")}
+                  </div>
                 </div>
                 <Desktop>
                   <div className="flex items-center justify-around">
@@ -234,8 +249,9 @@ export const ListGameView = (props) => {
                       color="secondary"
                       margin="0 1rem"
                       loading={isLoading}
-                      onClick={() => {
+                      onClick={(e) => {
                         try {
+                          e.preventDefault();
                           setIsLoading(true);
 
                           const adminGameId = props.game.adminGameId ?? props.game.adminGame.id;
@@ -281,7 +297,9 @@ export const ListGameView = (props) => {
               variant="contained"
               color="secondary"
               margin="0 1rem"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+
                 get(props, "game.parentId", null)
                   ? router.push(
                       `/library/games/new?adminGameId=${props.game.adminGameId}&folderId=${props.game.parentId}`

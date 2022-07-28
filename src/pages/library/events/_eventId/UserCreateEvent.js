@@ -8,9 +8,9 @@ import { EventStepFour } from "./EventStepFour";
 import { useTranslation } from "../../../../hooks";
 
 export const UserCreateEvent = (props) => {
-  const [currentStep, setCurrentStep] = useState(1);
-
   const { t } = useTranslation("pages.library.event");
+
+  const [currentStep, setCurrentStep] = useState(1);
 
   const steps = [
     { name: t("step-one.name"), key: "basic" },

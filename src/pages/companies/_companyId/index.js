@@ -10,10 +10,13 @@ import { AdminCompanyUsers } from "./AdminCompanyUsers";
 import { snapshotToArray } from "../../../utils";
 import { CompanyReport } from "./CompanyReport";
 import { Billing } from "./Billing";
+import { useTranslation } from "../../../hooks";
 
 export const Company = (props) => {
   const router = useRouter();
   const { companyId, currentTab } = router.query;
+
+  const { t } = useTranslation("pages.companies");
 
   const [authUser] = useGlobal("user");
 
@@ -92,29 +95,53 @@ export const Company = (props) => {
 
   if (loadingCompany || loadingUsers || loadingUsersAdmin) return spinLoader();
 
+  const Tab = (props) => (
+    <div
+      className={`
+    relative text-center flex items-center text-md text-blackLighen h-full px-2
+    lg:py-2 lg:px-4 lg:font-bold lg:text-base lg:cursor-pointer
+    lg:border-y-[2px] lg:border-y-grayLighten lg:border-l-[2px] lg:border-l-grayLighten
+    ${props.left && "rounded-l-[4px]"}
+    ${props.middle && ""}
+    ${props.right && "lg:border-r-[2px] lg:border-r-grayLighten rounded-r-[4px]"}
+    ${
+      props.active &&
+      "text-primary lg:bg-whiteLight after:content-[''] after:absolute after:h-[3px] lg:after:h-0 after:w-full after:bottom-[-3px] after:bg-primary"
+    }
+  `}
+      {...props}
+    >
+      {props.children}
+    </div>
+  );
+
   return (
-    <CompanyContainer>
-      <Desktop>
-        <DesktopLeftMenu {...props} />
-      </Desktop>
-      <div className="main-container">
-        <div className="tabs-container">
-          <div className={`tab left ${tab === "information" && "active"}`} onClick={() => setTab("information")}>
-            Adm. de la empresa
-          </div>
+    <div className="w-full lg:grid lg:grid-cols-[auto] lg:min-h-[calc(100vh-50px)]">
+      <div className="bg-whiteLight min-h-[calc(100vh-50px)] overflow-auto lg:p-8 lg:bg-whiteDark lg:h-full lg:overflow-auto">
+        <div
+          className={`flex items-center justify-between bg-whiteLight h-[45px] w-full lg:px-4 border-b-[3px] border-b-grayLighten
+          lg:justify-start lg:p-0 lg:my-4 lg:border-none lg:bg-transparent
+        `}
+        >
+          <Tab active={tab === "information"} left onClick={() => setTab("information")}>
+            {t("company-management")}
+          </Tab>
+
           {!isNewCompany && (
-            <div className={`tab middle ${tab === "users" && "active"}`} onClick={() => setTab("users")}>
-              Adm. de usuarios
-            </div>
+            <Tab middle active={tab === "users"} onClick={() => setTab("users")}>
+              {t("users-management")}
+            </Tab>
           )}
+
           {hasBillingPermissions && (
-            <div className={`tab  middle ${tab === "billing" && "active"}`} onClick={() => setTab("billing")}>
-              Facturación
-            </div>
+            <Tab middle active={tab === "billing"} onClick={() => setTab("billing")}>
+              {t("invoicing")}
+            </Tab>
           )}
-          <div className={`tab  right ${tab === "report" && "active"}`} onClick={() => setTab("report")}>
-            Informe de uso
-          </div>
+
+          <Tab right active={tab === "report"} onClick={() => setTab("report")}>
+            {t("usage-report")}
+          </Tab>
         </div>
 
         {tab === "information" && <EditCompany company={company} {...props} />}
@@ -125,118 +152,6 @@ export const Company = (props) => {
 
         {tab === "billing" && <Billing user={company} {...props} />}
       </div>
-    </CompanyContainer>
+    </div>
   );
 };
-
-const CompanyContainer = styled.div`
-  width: 100%;
-
-  .tabs-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: ${(props) => props.theme.basic.whiteLight};
-    border-bottom: 3px solid ${(props) => props.theme.basic.grayLighten};
-    height: 45px;
-    width: 100%;
-    padding: 0 1rem;
-
-    .tab {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Lato;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 13px;
-      line-height: 16px;
-      color: ${(props) => props.theme.basic.blackLighten};
-      height: 100%;
-      position: relative;
-    }
-
-    .active {
-      color: ${(props) => props.theme.basic.primary};
-    }
-
-    .active::after {
-      content: "";
-      position: absolute;
-      height: 3px;
-      width: 100%;
-      bottom: -3px;
-      background: ${(props) => props.theme.basic.primary};
-    }
-  }
-
-  .main-container {
-    background: ${(props) => props.theme.basic.whiteLight};
-    min-height: calc(100vh - 50px);
-    overflow: auto;
-  }
-
-  ${mediaQuery.afterTablet} {
-    display: grid;
-    grid-template-columns: 250px auto;
-    height: calc(100vh - 50px);
-
-    .main-container {
-      padding: 2rem;
-      background: ${(props) => props.theme.basic.whiteDark};
-      height: 100%;
-      overflow: auto;
-    }
-
-    .tabs-container {
-      display: flex;
-      grid-template-columns: auto auto auto;
-      justify-content: flex-start;
-      background: transparent;
-      padding: 0;
-      margin: 1rem 0;
-      border-bottom: none;
-
-      .tab {
-        padding: 0.5rem 1rem;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 15px;
-        line-height: 18px;
-        cursor: pointer;
-      }
-
-      .left,
-      .middle,
-      .right {
-        border-top: 2px solid ${(props) => props.theme.basic.grayLighten};
-        border-bottom: 2px solid ${(props) => props.theme.basic.grayLighten};
-      }
-
-      .left {
-        border-left: 2px solid ${(props) => props.theme.basic.grayLighten};
-        border-radius: 4px 0 0 4px;
-      }
-
-      .middle,
-      .right {
-        border-left: 2px solid ${(props) => props.theme.basic.grayLighten};
-      }
-
-      .right {
-        border-right: 2px solid ${(props) => props.theme.basic.grayLighten};
-        border-radius: 0 4px 4px 0;
-      }
-
-      .active {
-        background: ${(props) => props.theme.basic.whiteLight};
-        color: ${(props) => props.theme.basic.primary};
-      }
-
-      .active::after {
-        height: 0;
-      }
-    }
-  }
-`;

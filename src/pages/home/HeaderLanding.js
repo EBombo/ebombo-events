@@ -1,19 +1,13 @@
-import React, { useEffect } from "reactn";
+import React from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../constants";
 import { config } from "../../firebase";
-import { useRouter } from "next/router";
 import { useTranslation } from "../../hooks";
 import { SharpButton } from "../../components/common/SharpButton";
+import Link from "next/link";
 
 export const HeaderLanding = (props) => {
-  const router = useRouter();
   const { t } = useTranslation("landing.header");
-
-  useEffect(() => {
-    router.prefetch("/register");
-    router.prefetch("/login");
-  }, []);
 
   return (
     <HeaderLandingContainer>
@@ -29,12 +23,14 @@ export const HeaderLanding = (props) => {
         </div>
 
         <div className="mx-auto md:ml-0 flex items-center gap-[10px]">
-          <SharpButton prefixIcon="wink" onClick={() => router.push("/login")}>
-            {t("sign-in-button-label")}
-          </SharpButton>
-          <SharpButton prefixIcon="satisfied" color="primary" onClick={() => router.push("/contact")}>
-            {t("contact-button-label")}
-          </SharpButton>
+          <Link href={"/login"}>
+            <SharpButton prefixIcon="wink">{t("sign-in-button-label")}</SharpButton>
+          </Link>
+          <Link href={"/contact"}>
+            <SharpButton prefixIcon="satisfied" color="primary">
+              {t("contact-button-label")}
+            </SharpButton>
+          </Link>
         </div>
       </div>
 

@@ -44,7 +44,8 @@ export const ModalNewEvent = (props) => {
           ) : (
             <div
               className="flex flex-col rounded-[6px] overflow-hidden cursor-pointer border-solid border border-gray mx-auto"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 const url = !!authUser ? "/library/events/new?manageBy=user" : "/events/new";
                 router.push(url);
               }}
@@ -64,7 +65,8 @@ export const ModalNewEvent = (props) => {
           )}
           <div
             className="flex flex-col rounded-[6px] overflow-hidden cursor-pointer border-solid border border-gray mx-auto"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               const url = !!authUser ? "/library/events/new?manageBy=ebombo" : "/events/new";
               router.push(url);
             }}

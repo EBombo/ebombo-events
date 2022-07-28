@@ -91,7 +91,10 @@ export const TriviaView = (props) => {
                   {question.type === "quiz" ? (
                     <div>
                       {question.options.map((option, index) => (
-                        <div className="flex items-center justify-between h-[48px] px-4 py-2 border-whiteDark border-b-[1px]">
+                        <div
+                          key={`question-option-${index}`}
+                          className="flex items-center justify-between h-[48px] px-4 py-2 border-whiteDark border-b-[1px]"
+                        >
                           <div className="flex items-center">
                             <Image
                               src={`${config.storageUrl}/resources/trivia/${(index + 1) % 4}.svg`}
@@ -117,7 +120,10 @@ export const TriviaView = (props) => {
                   ) : question.type === "shortAnswer" ? (
                     <div>
                       {question.answer.map((option, index) => (
-                        <div className="flex items-center justify-between h-[48px] px-4 py-2 border-whiteDark border-b-[1px]">
+                        <div
+                          key={`question-option-${index}`}
+                          className="flex items-center justify-between h-[48px] px-4 py-2 border-whiteDark border-b-[1px]"
+                        >
                           <div className="flex items-center">
                             <Image
                               src={`${config.storageUrl}/resources/trivia/${(index + 1) % 4}.svg`}

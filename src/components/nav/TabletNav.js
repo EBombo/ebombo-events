@@ -1,7 +1,8 @@
-import React, { useEffect, useGlobal } from "reactn";
+import React, { useEffect, useGlobal, useState } from "reactn";
 import { Image } from "../common/Image";
+import { FreeTrialStatus } from "../FreeTrialStatus";
 import { config } from "../../firebase";
-import { Anchor, Switch } from "../form";
+import { Anchor } from "../form";
 import { useRouter } from "next/router";
 import { useAcl, useTranslation } from "../../hooks";
 
@@ -10,7 +11,7 @@ export const TabletNav = (props) => {
 
   const { userAcls } = useAcl();
 
-  const { t, locale, locales, setLocale } = useTranslation("userLayout");
+  const { t } = useTranslation("userLayout");
 
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
@@ -23,33 +24,23 @@ export const TabletNav = (props) => {
 
   return (
     <div className="h-[50px] fixed top-0 left-0 right-0 bg-secondary flex items-center gap-[10px] justify-end z-30 px-4">
-      <div className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%] ">
+      <div className="absolute left-2 top-[50%] translate-y-[-50%]">
         <Image
           src={`${config.storageUrl}/resources/ebombo-white.svg`}
-          onClick={() =>
+          onClick={(e) => {
+            e.preventDefault();
             userAcls.some((acl) => acl.includes("admin"))
               ? router.push("/admin")
               : authUser
               ? router.push("/library/games")
-              : router.push("/")
-          }
+              : router.push("/");
+          }}
           height="23px"
           width="88px"
           size="contain"
         />
       </div>
-      <Switch
-        variant="switcher"
-        size="small"
-        type="checkbox"
-        label1="En"
-        label2="Es"
-        defaultChecked={locale === locales[1] ? true : false}
-        onChange={(event) => {
-          event.preventDefault();
-          setLocale(event.target.checked ? locales[1] : locales[0]);
-        }}
-      />
+      <FreeTrialStatus />
       {!authUser && (
         <Anchor url="/login" variant="primary" fontSize={"1rem"}>
           {t("login")}

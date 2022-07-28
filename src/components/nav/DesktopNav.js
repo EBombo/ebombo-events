@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import { useAcl, useTranslation } from "../../hooks";
 import { config } from "../../firebase";
 import { Image } from "../common/Image";
-import { Anchor, ButtonAnt, Switch } from "../form";
+import { Anchor, ButtonAnt } from "../form";
+import { FreeTrialStatus } from "../FreeTrialStatus";
 import { sizes } from "../../constants";
 import { ModalNewGame } from "../../pages/library/ModalNewGame";
 
@@ -13,7 +14,7 @@ export const DesktopNav = (props) => {
 
   const { userAcls } = useAcl();
 
-  const { t, locale, locales, setLocale } = useTranslation("userLayout");
+  const { t } = useTranslation("userLayout");
 
   const [authUser] = useGlobal("user");
   const [openRightDrawer, setOpenRightDrawer] = useGlobal("openRightDrawer");
@@ -39,13 +40,15 @@ export const DesktopNav = (props) => {
       <div className="items-container">
         <Image
           src={`${config.storageUrl}/resources/ebombo-white.svg`}
-          onClick={() =>
+          onClick={(e) => {
+            e.preventDefault();
+
             userAcls.some((acl) => acl.includes("admin"))
               ? router.push("/admin")
               : authUser
               ? router.push("/library/games")
-              : router.push("/")
-          }
+              : router.push("/");
+          }}
           cursor="pointer"
           height="23px"
           width="88px"
@@ -56,7 +59,10 @@ export const DesktopNav = (props) => {
             <ul>
               <li
                 className={`${router.asPath.includes("library") ? "active" : ""}`}
-                onClick={() => router.push("/library/games")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/library/games");
+                }}
               >
                 <Image
                   src={`${config.storageUrl}/resources/library-icon.svg`}
@@ -69,7 +75,10 @@ export const DesktopNav = (props) => {
               </li>
               <li
                 className={`${router.asPath.includes("reports") ? "active" : ""}`}
-                onClick={() => router.push("/reports")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/reports");
+                }}
               >
                 <Image
                   src={`${config.storageUrl}/resources/reports-icon.svg`}
@@ -91,18 +100,7 @@ export const DesktopNav = (props) => {
       )}
       {authUser && (
         <div className="menu-profile">
-          <Switch
-            variant="switcher"
-            size="small"
-            type="checkbox"
-            label1="En"
-            label2="Es"
-            defaultChecked={locale === locales[1]}
-            onChange={(event) => {
-              event.preventDefault();
-              setLocale(event.target.checked ? locales[1] : locales[0]);
-            }}
-          />
+          <FreeTrialStatus />
           <ButtonAnt variant="contained" width="140px" onClick={() => setIsVisibleModalGame(true)}>
             {t("create")}
           </ButtonAnt>

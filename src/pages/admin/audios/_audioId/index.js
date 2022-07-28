@@ -85,7 +85,10 @@ export const Audio = (props) => {
           <ButtonAnt
             variant={"outlined"}
             color={"default"}
-            onClick={() => router.push("/admin/audios")}
+            onClick={(e) => {
+              e.preventDefault();
+              router.push("/admin/audios");
+            }}
             disabled={loading}
           >
             Cancelar

@@ -10,7 +10,7 @@ import capitalize from "lodash/capitalize";
 import { useRouter } from "next/router";
 import moment from "moment";
 import { useTranslation } from "../../../hooks";
-import { EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 export const Events = (props) => {
   const router = useRouter();
@@ -47,7 +47,7 @@ export const Events = (props) => {
         />
       )}
 
-      <ButtonAnt onClick={() => setIsVisibleModalEvents(true)}>{t("create-event")}</ButtonAnt>
+      <ButtonAnt onClick={() => setIsVisibleModalEvents(true)}>{t("create-activity")}</ButtonAnt>
 
       <div className="my-4 md:my-8">
         {events.map((event) => (
@@ -62,8 +62,11 @@ export const Events = (props) => {
               size="cover"
               margin="0"
               cursor="pointer"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+
                 if (!event.manageByUser) return;
+
                 router.push(`/library/events/${event.id}/view`);
               }}
             />
@@ -72,8 +75,11 @@ export const Events = (props) => {
                 <div>
                   <div
                     className="text-['Lato'] font-[700] text-[16px] leading-[18px] md:text-[20px] md:leading-[22px]"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
+
                       if (!event.manageByUser) return;
+
                       router.push(`/library/events/${event.id}/view`);
                     }}
                   >
@@ -96,25 +102,22 @@ export const Events = (props) => {
                   placement="bottomRight"
                   trigger="click"
                   title={
-                    <div className="flex flex-col">
+                    <div className="flex flex-col text-['Lato']">
                       <div
-                        className="flex items-center text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
+                        className="flex items-center cursor-pointer p-2 text-[16px] leading-[19px] text-blackDarken"
                         onClick={() => deleteEvent(event)}
                       >
-                        <Image
-                          src={`${config.storageUrl}/resources/delete.svg`}
-                          width={"16px"}
-                          height={"16px"}
-                          size={"contain"}
-                          margin={"0 15px 0 0"}
-                        />
-                        {t("delete")}
+                        <DeleteOutlined />
+                        <div className="mx-4">{t("delete")}</div>
                       </div>
 
                       {!event.manageByUser && (
                         <div
-                          className="flex items-center font-[normal] text-['Lato'] p-2 text-[16px] leading-[19px] text-blackDarken"
-                          onClick={() => router.push(`/events/${event.id}`)}
+                          className="flex items-center cursor-pointer p-2 text-[16px] leading-[19px] text-blackDarken"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            router.push(`/events/${event.id}`);
+                          }}
                         >
                           <EditOutlined /> <div className="mx-4">{t("edit")}</div>
                         </div>
@@ -178,8 +181,14 @@ export const Events = (props) => {
                           </div>
                         ))}
                       </Desktop>
-                      <ButtonAnt color="secondary" onClick={() => router.push(`/library/events/${event.id}`)}>
-                        Editar
+                      <ButtonAnt
+                        color="secondary"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          router.push(`/library/events/${event.id}`);
+                        }}
+                      >
+                        {t("edit")}
                       </ButtonAnt>
                     </>
                   ) : (

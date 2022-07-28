@@ -7,7 +7,12 @@ export const HeldEvent = (props) => {
   const router = useRouter();
 
   return (
-    <HelpEventStyled onClick={() => router.push(`/held-events/${props.heldEvent.id}`)}>
+    <HelpEventStyled
+      onClick={(e) => {
+        e.preventDefault();
+        router.push(`/held-events/${props.heldEvent.id}`);
+      }}
+    >
       <div className="image-wrapper">
         <Image src={props.heldEvent.imageUrl} />
       </div>

@@ -12,6 +12,7 @@ import { SharpButton } from "./common/SharpButton";
 import { Footer } from "./Footer";
 import { useTranslation } from "../hooks";
 import { Collapse, Popover } from "antd";
+import Link from "next/link";
 
 const { Panel } = Collapse;
 
@@ -48,6 +49,7 @@ export const Navbar = (props) => {
     router.prefetch("/about-us");
     router.prefetch("/subscriptions");
     router.prefetch("/experience");
+    router.prefetch("/pricing");
   }, []);
 
   const isNavWithBorder = useMemo(() => {
@@ -82,7 +84,10 @@ export const Navbar = (props) => {
                 margin="0"
                 cursor="pointer"
                 alt=""
-                onClick={() => router.push(authUser ? "/library" : "/")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push(authUser ? "/library" : "/");
+                }}
               />
             </div>
             <Desktop>
@@ -123,6 +128,10 @@ export const Navbar = (props) => {
                   <Anchor url="/experience" className="link">
                     {t("nav.experience")}
                   </Anchor>
+
+                  <Anchor url="/pricing" className="link">
+                    {t("nav.pricing")}
+                  </Anchor>
                 </>
               )}
             </Desktop>
@@ -137,21 +146,25 @@ export const Navbar = (props) => {
                   {t("nav.logout")}
                 </Anchor>
               ) : (
-                <>
-                  <Anchor
-                    url="/login"
-                    variant="secondary"
-                    fontSize="18px"
-                    lineHeight="22px"
-                    fontWeight="500"
-                    margin="auto 8px"
-                    className="anchor"
-                  >
-                    {t("nav.login")}
-                  </Anchor>
-                </>
+                <Anchor
+                  url="/login"
+                  variant="secondary"
+                  fontSize="18px"
+                  lineHeight="22px"
+                  fontWeight="500"
+                  margin="auto 8px"
+                  className="anchor"
+                >
+                  {t("nav.login")}
+                </Anchor>
               )}
-              <SharpButton prefixIcon="normal" onClick={() => createEvent()}>
+              <SharpButton
+                prefixIcon="normal"
+                onClick={(e) => {
+                  e.preventDefault();
+                  createEvent();
+                }}
+              >
                 {t("landing.header.book-an-event")}
               </SharpButton>
             </div>
@@ -170,9 +183,10 @@ export const Navbar = (props) => {
                       <div className="flex flex-col items-start gap-4">
                         {featuresMenu.map((menuItem, i) => (
                           <div
-                            className="ml-[24px]"
+                            className="ml-[24px] cursor-pointer"
                             key={`features-menu-${i}`}
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.preventDefault();
                               router.push(menuItem.url);
                               setActive(false);
                             }}
@@ -190,9 +204,10 @@ export const Navbar = (props) => {
                       <div className="flex flex-col items-start gap-4">
                         {useCaseMenu.map((menuItem, i) => (
                           <div
-                            className="ml-[24px]"
+                            className="ml-[24px] cursor-pointer"
                             key={`use-cases-menu-${i}`}
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.preventDefault();
                               router.push(menuItem.url);
                               setActive(false);
                             }}
@@ -204,10 +219,33 @@ export const Navbar = (props) => {
                     </Panel>
                   </Collapse>
 
+                  <div
+                    className="text-blackDarken font-[800] text-[16px] leading-[24px] ml-[24px] px-[16px] py-[12px] leading-[1.57rem] cursor-pointer flex flex-start"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      router.push("/experience");
+                      setActive(false);
+                    }}
+                  >
+                    {t("nav.experience")}
+                  </div>
+
+                  <div
+                    className="text-blackDarken font-[800] text-[16px] leading-[24px] ml-[24px] px-[16px] py-[12px] leading-[1.57rem] cursor-pointer flex flex-start"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      router.push("/pricing");
+                      setActive(false);
+                    }}
+                  >
+                    {t("nav.pricing")}
+                  </div>
+
                   {!authUser && (
                     <div
                       className="text-blackDarken font-[800] text-[16px] leading-[24px] ml-[24px] px-[16px] py-[12px] leading-[1.57rem] cursor-pointer flex flex-start"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         router.push("/contact");
                         setActive(false);
                       }}
@@ -220,12 +258,13 @@ export const Navbar = (props) => {
 
               {!authUser ? (
                 <>
-                  <li
-                    className="text-blackDarken font-[800] text-[16px] leading-[24px] ml-[24px] px-[16px] py-[12px] leading-[1.57rem] cursor-pointer flex flex-start"
-                    onClick={() => router.push("/login")}
-                  >
-                    {t("nav.login")}
-                  </li>
+                  <Link href={"/login"}>
+                    <a>
+                      <li className="text-blackDarken font-[800] text-[16px] leading-[24px] ml-[24px] px-[16px] py-[12px] leading-[1.57rem] cursor-pointer flex flex-start">
+                        {t("nav.login")}
+                      </li>
+                    </a>
+                  </Link>
                 </>
               ) : (
                 <li

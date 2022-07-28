@@ -38,7 +38,14 @@ export const PlanTabContent = (props) => {
           {/*
             <div className="description">Realizamos eventos virutales de todo tipo.</div>
              */}
-          <ButtonAnt color="secondary" margin="1.5rem auto" onClick={() => router.push({ hash: "contact" })}>
+          <ButtonAnt
+            color="secondary"
+            margin="1.5rem auto"
+            onClick={(e) => {
+              e.preventDefault();
+              router.push({ hash: "contact" });
+            }}
+          >
             Contáctanos
           </ButtonAnt>
           <ContactInfo {...props} />
@@ -63,7 +70,13 @@ export const PlanTabContent = (props) => {
           <div className="subtitle">Eventos desde 10 - 10000 colaboradores</div>
           <div className="divider" />
           <div className="description">Realizamos eventos presenciales de todo tipo.</div>
-          <ButtonAnt color="secondary" onClick={() => router.push({ hash: "contact" })}>
+          <ButtonAnt
+            color="secondary"
+            onClick={(e) => {
+              e.preventDefault();
+              router.push({ hash: "contact" });
+            }}
+          >
             Contáctanos
           </ButtonAnt>
           <ContactInfo {...props} />

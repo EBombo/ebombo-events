@@ -51,7 +51,11 @@ const ButtonAntCss = styled(Button)`
           : color === "default"
           ? theme.basic.whiteDark
           : color === "success"
-          ? theme.basic.success
+          ? theme.basic.successLight
+          : color === "orangeLight"
+          ? theme.basic.orangeLight
+          : color === "orange"
+          ? theme.basic.orange
           : color
       };
         color: ${
@@ -75,8 +79,12 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.warning
           : color === "danger"
           ? theme.basic.danger
+          : color === "orange"
+          ? theme.basic.orangeDark
           : color === "default"
           ? "#979797"
+          : color === "orangeLight"
+          ? theme.basic.orangeDark
           : color
       };
       `
@@ -98,6 +106,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.blackDarken
           : color === "success"
           ? theme.basic.success
+          : color === "orangeLight"
+          ? theme.basic.orangeLight
           : color
       };
       border: 1px solid ${
@@ -115,6 +125,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.blackDarken
           : color === "success"
           ? theme.basic.success
+          : color === "orangeLight"
+          ? theme.basic.orangeLight
           : color
       };
       `
@@ -155,12 +167,16 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.whiteDark
           : color === "success"
           ? theme.basic.success
+          : color === "orangeLight"
+          ? theme.basic.orangeDark
           : color
       };
         color: ${
           color === "white"
             ? theme.basic.secondaryLight
             : color === "default"
+            ? theme.basic.blackDarken
+            : color === "success"
             ? theme.basic.blackDarken
             : theme.basic.white
         };
@@ -178,6 +194,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.danger
           : color === "default"
           ? "#979797"
+          : color === "orangeLight"
+          ? theme.basic.orangeDark
           : color
       };
       `
@@ -199,6 +217,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.blackDarken
           : color === "success"
           ? theme.basic.successDark
+          : color === "orangeLight"
+          ? theme.basic.orangeLight
           : color
       };
       border: 1px solid ${
@@ -216,6 +236,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.blackDarken
           : color === "success"
           ? theme.basic.successDark
+          : color === "orangeLight"
+          ? theme.basic.orangeLight
           : color
       };
       `
@@ -257,6 +279,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.danger
           : color === "default"
           ? theme.basic.whiteDark
+          : color === "orangeLight"
+          ? theme.basic.orangeDark
           : `${color}90`
       };
       color: ${
@@ -371,7 +395,7 @@ const ButtonAntCss = styled(Button)`
         color: ${
           color === "white"
             ? theme.basic.secondaryLight
-            : color === "default"
+            : color === "default" || color === "success"
             ? theme.basic.blackDarken
             : theme.basic.white
         };

@@ -49,11 +49,24 @@ export const Experience = (props) => {
           </div>
           <div className="w-full flex items-center justify-center gap-[5px] lg:justify-start">
             {!authUser && (
-              <SharpButton prefixIcon="wink" onClick={() => router.push("/login")}>
+              <SharpButton
+                prefixIcon="wink"
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/login");
+                }}
+              >
                 {t("pages.experience.sign-in-button")}
               </SharpButton>
             )}
-            <SharpButton prefixIcon="satisfied" color="primary" onClick={() => router.push("/contact")}>
+            <SharpButton
+              prefixIcon="satisfied"
+              color="primary"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/contact");
+              }}
+            >
               {t("pages.experience.contact-button")}
             </SharpButton>
           </div>
@@ -120,7 +133,13 @@ export const Experience = (props) => {
         </div>
         {!authUser && (
           <div className="flex justify-center mt-2 lg:mt-0 lg:ml-4 lg:justify-start">
-            <SharpButton prefixIcon="wink" onClick={() => router.push("/login")}>
+            <SharpButton
+              prefixIcon="wink"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/login");
+              }}
+            >
               {t("pages.experience.sign-in-button")}
             </SharpButton>
           </div>

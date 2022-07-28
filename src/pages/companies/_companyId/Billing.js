@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState, useRef } from "reactn";
+import React, { useEffect, useGlobal, useState, useRef, useMemo } from "reactn";
 import styled from "styled-components";
 import { mediaQuery } from "../../../constants";
 import { PanelBox } from "../../../components/common/PanelBox";
@@ -11,6 +11,7 @@ import { CurrentPlanCard } from "./billing/CurrentPlanCard";
 import { PlansTable } from "../../../pages/subscriptions/PlansTable";
 import { useSendError, useTranslation } from "../../../hooks";
 import { sendToCheckout } from "../../../stripe";
+import { UpdateSubscriptionModal } from "./billing/UpdateSubscriptionModal";
 
 export const Billing = (props) => {
   const router = useRouter();
@@ -26,16 +27,27 @@ export const Billing = (props) => {
 
   const [activePlan, setActivePlan] = useState(null);
   const [subscription, setSubscription] = useState();
+
+  const [userHasSubscription, setUserHasSubscription] = useState(false);
+
   const [isLoadingPlan, setIsLoadingPlan] = useState(false);
   const [isLoadingCheckoutPlan, setIsLoadingCheckoutPlan] = useState(false);
+
+  const [updateSubscriptionData, setUpdateSubscriptionData] = useState(null);
+
+  const [isVisibleUpdateSubscriptionModal, setIsVisibleUpdateSubscriptionModal] = useState(false);
 
   useEffect(() => {
     const getPlan = async () => {
       setIsLoadingPlan(true);
 
+      const allSubscriptionsQuery = await firestore.collection(`customers/${authUser.id}/subscriptions`).get();
+
+      setUserHasSubscription(!allSubscriptionsQuery.empty);
+
       const activeSubscriptionsQuery = await firestore
         .collection(`customers/${authUser.id}/subscriptions`)
-        .where("status", "==", "active")
+        .where("status", "in", ["active", "trialing"])
         .orderBy("created", "desc")
         .get();
 
@@ -43,9 +55,13 @@ export const Billing = (props) => {
 
       if (!activeSubscriptions.length) return setIsLoadingPlan(false);
 
-      setSubscription(activeSubscriptions[0]);
+      const subscription_ = activeSubscriptions[0];
 
-      setActivePlan((await activeSubscriptions[0].product.get()).data());
+      const product = (await subscription_.product.get()).data();
+
+      setSubscription(subscription_);
+
+      setActivePlan(product);
       return setIsLoadingPlan(false);
     };
 
@@ -58,7 +74,7 @@ export const Billing = (props) => {
       if (plan.name.includes("Exclusivo")) return router.push(`/contact`);
 
       setIsLoadingCheckoutPlan(true);
-      await sendToCheckout(authUser?.id, price?.id);
+      await sendToCheckout(authUser?.id, price?.id, !userHasSubscription);
     } catch (err) {
       props.showNotification("Error", err?.message, "error");
       setIsLoadingCheckoutPlan(false);
@@ -66,57 +82,78 @@ export const Billing = (props) => {
     }
   };
 
+  const onInitSubscriptionUpdate = async (plan, price) => {
+    setUpdateSubscriptionData({
+      plan: plan,
+      price: price,
+    });
+    setIsVisibleUpdateSubscriptionModal(true);
+  };
+
   return (
-    <BillingContainer>
-      <div className="inner-layout">
-        <CurrentPlanCard
-          className="plan-card"
-          isLoadingPlan={isLoadingPlan}
-          activePlan={activePlan}
-          subscription={subscription}
-          onClickSeePlans={() => {
-            if (typeof window === "undefined") return;
+    <>
+      <UpdateSubscriptionModal
+        subscription={subscription}
+        updateSubscriptionData={updateSubscriptionData}
+        isVisibleUpdateSubscriptionModal={isVisibleUpdateSubscriptionModal}
+        setIsVisibleUpdateSubscriptionModal={setIsVisibleUpdateSubscriptionModal}
+        setUpdateSubscriptionData={setUpdateSubscriptionData}
+        {...props}
+      />
 
-            plansTableEl.current.scrollIntoView({
-              behavior: "smooth",
-            });
-          }}
-          {...props}
-        />
+      <BillingContainer>
+        <div className="inner-layout">
+          <CurrentPlanCard
+            className="plan-card"
+            isLoadingPlan={isLoadingPlan}
+            activePlan={activePlan}
+            subscription={subscription}
+            onClickSeePlans={() => {
+              if (typeof window === "undefined") return;
 
-        {subscription ? (
-          <PanelBox elevated heading={t("general-vision")}>
-            <div>Plan: {activePlan?.name}</div>
-            <>
-              <div className="mb-5">
-                <Anchor
-                  key={locale}
-                  underlined
-                  className="link"
-                  url={`/companies/${companyId}/billing?subscriptionId=${subscription?.id}`}
-                >
-                  {t("manage-invoices")}
-                </Anchor>
-              </div>
-              <div>
-                {t("payment-cycle")}: {PlanIntervals[subscription?.items?.[0]?.plan?.interval]}{" "}
-              </div>
-            </>
-          </PanelBox>
-        ) : (
-          <div />
-        )}
-        <div className="col-start-1 col-end-3" ref={plansTableEl}>
-          <PlansTable
+              plansTableEl.current.scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
             {...props}
-            showCallToActionSection
-            currentPlan={activePlan}
-            onSelectedPlan={onSelectedPlan}
-            isLoadingCheckoutPlan={isLoadingCheckoutPlan}
           />
+
+          {subscription ? (
+            <PanelBox elevated heading={t("general-vision")}>
+              <div>Plan: {activePlan?.name}</div>
+              <>
+                <div className="mb-5">
+                  <Anchor
+                    key={locale}
+                    underlined
+                    className="link"
+                    url={`/companies/${companyId}/billing?subscriptionId=${subscription?.id}`}
+                  >
+                    {t("manage-invoices")}
+                  </Anchor>
+                </div>
+                <div>
+                  {t("payment-cycle")}: {PlanIntervals[subscription?.items?.[0]?.plan?.interval]}{" "}
+                </div>
+              </>
+            </PanelBox>
+          ) : (
+            <div />
+          )}
+          <div className="col-start-1 col-end-3" ref={plansTableEl}>
+            <PlansTable
+              {...props}
+              showCallToActionSection
+              currentPlan={activePlan}
+              currentSubscription={subscription}
+              onSelectedPlan={onSelectedPlan}
+              onInitSubscriptionUpdate={onInitSubscriptionUpdate}
+              isLoadingCheckoutPlan={isLoadingCheckoutPlan}
+            />
+          </div>
         </div>
-      </div>
-    </BillingContainer>
+      </BillingContainer>
+    </>
   );
 };
 
