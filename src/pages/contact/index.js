@@ -66,7 +66,7 @@ export const ContactForm = (props) => {
   };
 
   return (
-    <div ref={props.refProp} className="bg-secondary bg-cover bg-no-repeat bg-pattern">
+    <div ref={props.refProp} className="bg-secondary bg-cover bg-no-repeat bg-pattern" id="contact">
       <div className="px-8 py-4 md:py-8 md:px-12 max-w-[680px] mx-auto">
         <div className="text-['Lato'] text-whiteLight font-[700] text-[32px] leading-[36px] md:text-[48px] md:leading-[52px] w-full text-center my-4">
           {t("title")}
