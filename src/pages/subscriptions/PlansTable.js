@@ -173,7 +173,7 @@ export const PlansTable = (props) => {
   if (isLoadingPlans) return <div className="bg-white">{spinLoaderMin()}</div>;
 
   return (
-    <TableContainer hasPlan={hasPlan} {...props}>
+    <TableContainer hasPlan={hasPlan} {...props} className={`${props.background ?? "bg-[#f5f2fb]"}`}>
       <table border="0">
         <tbody>
           <tr>
@@ -284,9 +284,9 @@ export const PlansTable = (props) => {
                   style={
                     index_ === plans.length - 1
                       ? {
-                          borderRadius:
-                            index === 0 ? "0 15px 0 0" : index === specsOrder.length - 1 ? "0 0 15px 0" : "",
-                        }
+                        borderRadius:
+                          index === 0 ? "0 15px 0 0" : index === specsOrder.length - 1 ? "0 0 15px 0" : "",
+                      }
                       : {}
                   }
                 >
@@ -311,7 +311,6 @@ export const PlansTable = (props) => {
 const TableContainer = styled.div`
   width: 1000px;
   padding: 100px 1rem;
-  background: #f5f2fb;
 
   .table-title {
     font-family: Lato;
