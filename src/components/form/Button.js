@@ -54,6 +54,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.successLight
           : color === "orangeLight"
           ? theme.basic.orangeLight
+                                                                : color === "orange"
+                                                                        ? theme.basic.orange
           : color
       };
         color: ${
@@ -77,6 +79,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.warning
           : color === "danger"
           ? theme.basic.danger
+          : color === "orange"
+          ? theme.basic.orangeDark
           : color === "default"
           ? "#979797"
           : color === "orangeLight"
