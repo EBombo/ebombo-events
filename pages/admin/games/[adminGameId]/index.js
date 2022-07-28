@@ -1,4 +1,4 @@
-import { GameContainer } from "../../../../src/pages/admin/games/_gameId";
+import { GameContainer } from "../../../../src/pages/admin/games/_adminGameId";
 import dynamic from "next/dynamic";
 import { spinLoader } from "../../../../src/components/common/loader";
 import { PrivateRoutes } from "../../../../src/routes/PrivateRoutes";

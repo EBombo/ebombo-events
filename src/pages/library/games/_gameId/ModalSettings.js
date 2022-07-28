@@ -17,7 +17,6 @@ import { useTranslation } from "../../../../hooks";
 
 export const ModalSettings = (props) => {
   const router = useRouter();
-
   const { adminGameId } = router.query;
 
   const { t } = useTranslation("modal-settings");
@@ -80,76 +79,80 @@ export const ModalSettings = (props) => {
 
         <form onSubmit={handleSubmit(saveChanges)}>
           <div className="main-container">
-            <div className="left-side">
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">
-                {t("save")}
-              </div>
-              <div className="path">
-                {get(props, "parent.name", t("my-games"))}
-                <ButtonAnt className="btn-move" onClick={() => setIsVisibleModalMove(true)}>
-                  {t("change")}
-                </ButtonAnt>
-              </div>
-              {/*<div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Branding</div>*/}
-              {/*<div className="branding">*/}
-              {/*  Usar branding propio*/}
-              {/*  <Switch defaultChecked={props.ownBranding} onChange={() => props.setOwnBranding(!props.ownBranding)} />*/}
-              {/*</div>*/}
-              {/*<div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Video del Lobby</div>*/}
-              {/*<div className="input-container">*/}
-              {/*  <Input*/}
-              {/*    type="url"*/}
-              {/*    name="video"*/}
-              {/*    defaultValue={get(props, "video", "")}*/}
-              {/*    placeholder="Pegar link de youtube"*/}
-              {/*    ref={register}*/}
-              {/*    error={errors.video}*/}
-              {/*  />*/}
-              {/*</div>*/}
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4">
-                <div className="text-[15px] leading-[18px] font-[700] text-blackDarken">{t("allow-duplicate")}</div>
-                <Switch
-                  size="medium"
-                  checked={props.allowDuplicate}
-                  onChange={(event) => {
-                    event.preventDefault();
-                    props.setAllowDuplicate(!props.allowDuplicate);
-                  }}
-                />
-              </div>
+            {router.asPath?.includes("templates") ? null : (
+              <div className="left-side">
+                <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">
+                  {t("save")}
+                </div>
+                <div className="path">
+                  {get(props, "parent.name", t("my-games"))}
+                  <ButtonAnt className="btn-move" onClick={() => setIsVisibleModalMove(true)}>
+                    {t("change")}
+                  </ButtonAnt>
+                </div>
+                {/*<div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Branding</div>*/}
+                {/*<div className="branding">*/}
+                {/*  Usar branding propio*/}
+                {/*  <Switch defaultChecked={props.ownBranding} onChange={() => props.setOwnBranding(!props.ownBranding)} />*/}
+                {/*</div>*/}
+                {/*<div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">Video del Lobby</div>*/}
+                {/*<div className="input-container">*/}
+                {/*  <Input*/}
+                {/*    type="url"*/}
+                {/*    name="video"*/}
+                {/*    defaultValue={get(props, "video", "")}*/}
+                {/*    placeholder="Pegar link de youtube"*/}
+                {/*    ref={register}*/}
+                {/*    error={errors.video}*/}
+                {/*  />*/}
+                {/*</div>*/}
+                <div className="w-[100%] flex items-center mt-4 justify-between mt-4">
+                  <div className="text-[15px] leading-[18px] font-[700] text-blackDarken">{t("allow-duplicate")}</div>
+                  <Switch
+                    size="medium"
+                    checked={props.allowDuplicate}
+                    onChange={(event) => {
+                      event.preventDefault();
+                      props.setAllowDuplicate(!props.allowDuplicate);
+                    }}
+                  />
+                </div>
 
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">
-                {t("lobby-music")}
+                <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">
+                  {t("lobby-music")}
+                </div>
+                <div className="input-container">
+                  <Controller
+                    name="audioId"
+                    control={control}
+                    as={
+                      <Select
+                        placeholder="Seleccione Audio"
+                        showSearch
+                        virtual={false}
+                        error={errors.audioId}
+                        defaultValue={get(props, "audio.id", "")}
+                        optionFilterProp="children"
+                        optionsdom={audios.map((audio) => ({
+                          key: audio.id,
+                          code: audio.id,
+                          name: audio.title,
+                        }))}
+                      />
+                    }
+                  />
+                </div>
+
+                <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">
+                  {t("visibility")}
+                </div>
+
+                <Radio.Group onChange={() => props.setVisibility(!props.visibility)} value={props.visibility}>
+                  <Radio value={true}>{t("organization")}</Radio>
+                  <Radio value={false}>{t("nobody")}</Radio>
+                </Radio.Group>
               </div>
-              <div className="input-container">
-                <Controller
-                  name="audioId"
-                  control={control}
-                  as={
-                    <Select
-                      placeholder="Seleccione Audio"
-                      showSearch
-                      virtual={false}
-                      error={errors.audioId}
-                      defaultValue={get(props, "audio.id", "")}
-                      optionFilterProp="children"
-                      optionsdom={audios.map((audio) => ({
-                        key: audio.id,
-                        code: audio.id,
-                        name: audio.title,
-                      }))}
-                    />
-                  }
-                />
-              </div>
-              <div className="w-[100%] flex items-center mt-4 justify-between mt-4 text-[15px] leading-[18px] font-[700] text-blackDarken">
-                {t("visibility")}
-              </div>
-              <Radio.Group onChange={() => props.setVisibility(!props.visibility)} value={props.visibility}>
-                <Radio value={true}>{t("organization")}</Radio>
-                <Radio value={false}>{t("nobody")}</Radio>
-              </Radio.Group>
-            </div>
+            )}
 
             <div className="right-side">
               <div className="w-[100%] flex items-center mt-4 justify-between mt-4 mb-2 text-[15px] leading-[18px] font-[700] text-blackDarken">

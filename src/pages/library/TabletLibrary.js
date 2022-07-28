@@ -8,13 +8,13 @@ import { ButtonAnt } from "../../components/form";
 import { Modal, Tooltip } from "antd";
 import { darkTheme } from "../../theme";
 import { ModalNewFolder } from "./ModalNewFolder";
-import { ModalNewGame } from "./ModalNewGame";
 import { ListGameView } from "./ListGameView";
 import { spinLoaderMin } from "../../components/common/loader";
 import { useSendError, useTranslation } from "../../hooks";
 import { ModalMove } from "../../components/common/ModalMove";
 import { updateGame } from "./games/_gameId";
 import { Events } from "./events";
+import { PopTypeGame } from "../../components/createGame/PopTypeGame";
 
 export const TabletLibrary = (props) => {
   const router = useRouter();
@@ -29,7 +29,6 @@ export const TabletLibrary = (props) => {
 
   const [folder, setFolder] = useState(null);
   const [selectedGameToMove, setSelectedGameToMove] = useState(null);
-  const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
 
@@ -86,13 +85,7 @@ export const TabletLibrary = (props) => {
           setIsVisibleModalFolder={setIsVisibleModalFolder}
         />
       )}
-      {isVisibleModalGame && (
-        <ModalNewGame
-          {...props}
-          isVisibleModalGame={isVisibleModalGame}
-          setIsVisibleModalGame={setIsVisibleModalGame}
-        />
-      )}
+
       <ModalMove
         moveToFolder={moveGameToFolder}
         setIsVisibleModalMove={setIsVisibleModalMove}
@@ -162,7 +155,9 @@ export const TabletLibrary = (props) => {
           </div>
         </>
       )}
+
       {router.asPath.includes("/events") && <Events {...props} />}
+
       {router.asPath.includes("/library/") && !router.asPath.includes("/events") && (
         <>
           <div className="subtitle">
@@ -172,17 +167,20 @@ export const TabletLibrary = (props) => {
               trigger="click"
               title={
                 <ToolTipContent>
-                  <div className="option" onClick={() => setIsVisibleModalGame(true)}>
-                    <Image
-                      src={`${config.storageUrl}/resources/purple-puzzle.svg`}
-                      width="20px"
-                      height="25px"
-                      className="icon"
-                      margin="0 20px 0 0"
-                      filter="grayscale(100%)"
-                    />
-                    Crear juego
-                  </div>
+                  <PopTypeGame>
+                    <div className="option">
+                      <Image
+                        src={`${config.storageUrl}/resources/purple-puzzle.svg`}
+                        width="20px"
+                        height="25px"
+                        className="icon"
+                        margin="0 20px 0 0"
+                        filter="grayscale(100%)"
+                      />
+                      {t("create-game")}
+                    </div>
+                  </PopTypeGame>
+
                   <div className="option" onClick={() => setIsVisibleModalFolder(true)}>
                     <Image
                       src={`${config.storageUrl}/resources/purple-folder.svg`}
@@ -192,14 +190,14 @@ export const TabletLibrary = (props) => {
                       margin="0 20px 0 0"
                       filter="grayscale(100%)"
                     />
-                    Crear folder
+                    {t("create-folder")}
                   </div>
                 </ToolTipContent>
               }
               color={darkTheme.basic.whiteLight}
             >
               <ButtonAnt variant="contained" color="secondary">
-                Crear
+                {t("create")}
                 <Image
                   src={`${config.storageUrl}/resources/plus-icon.svg`}
                   width="20px"
