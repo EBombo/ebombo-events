@@ -58,8 +58,9 @@ export const Pricing = (props) => {
           <div>
             <div className="mx-auto rounded-[8px] border-primary border-[4px] flex items-center max-w-[745px] space-around">
               <div
-                className={`w-[50%] text-center cursor-pointer ${tab === 0 ? "text-white bg-primary py-2" : "text-primary"
-                  }`}
+                className={`w-[50%] text-center cursor-pointer ${
+                  tab === 0 ? "text-white bg-primary py-2" : "text-primary"
+                }`}
                 onClick={(e) => {
                   e.preventDefault();
                   setTab(0);
@@ -68,8 +69,9 @@ export const Pricing = (props) => {
                 {t("pro-hosted")}
               </div>
               <div
-                className={`w-[50%] text-center cursor-pointer ${tab === 1 ? "text-white bg-primary py-2" : "text-primary"
-                  }`}
+                className={`w-[50%] text-center cursor-pointer ${
+                  tab === 1 ? "text-white bg-primary py-2" : "text-primary"
+                }`}
                 onClick={(e) => {
                   e.preventDefault();
                   setTab(1);
