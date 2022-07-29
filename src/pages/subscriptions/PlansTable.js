@@ -350,7 +350,7 @@ const TableContainer = styled.div`
       }
 
       td:first-child {
-        height: 180px;
+        height: 200px;
       }
 
       td:first-child,
