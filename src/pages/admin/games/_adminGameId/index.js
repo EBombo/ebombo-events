@@ -13,10 +13,11 @@ import { snapshotToArray } from "../../../../utils";
 
 export const GameContainer = (props) => {
   const router = useRouter();
-  const { sendError } = useSendError();
-  const { gameId } = router.query;
+  const { adminGameId } = router.query;
 
-  const isNew = gameId === "new";
+  const { sendError } = useSendError();
+
+  const isNew = adminGameId === "new";
 
   const [game, setGame] = useState({});
   const [typeGames, setTypeGames] = useState([]);
@@ -26,7 +27,7 @@ export const GameContainer = (props) => {
   useEffect(() => {
     const fetchGame = async () => {
       if (isNew) return;
-      const gameRef = await firestore.collection("games").doc(gameId).get();
+      const gameRef = await firestore.collection("games").doc(adminGameId).get();
 
       if (!gameRef.exists) return router.back();
 
@@ -81,7 +82,7 @@ export const GameContainer = (props) => {
       const currentTypeGame = data.typeGameId ? findTypeGame(data.typeGameId) : null;
 
       const gamesRef = firestore.collection("games");
-      const gameId_ = isNew ? gamesRef.doc().id : gameId;
+      const gameId_ = isNew ? gamesRef.doc().id : adminGameId;
 
       await gamesRef.doc(gameId_).set(
         {

@@ -54,6 +54,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.successLight
           : color === "orangeLight"
           ? theme.basic.orangeLight
+          : color === "orange"
+          ? theme.basic.orange
           : color
       };
         color: ${
@@ -77,6 +79,8 @@ const ButtonAntCss = styled(Button)`
           ? theme.basic.warning
           : color === "danger"
           ? theme.basic.danger
+          : color === "orange"
+          ? theme.basic.orangeDark
           : color === "default"
           ? "#979797"
           : color === "orangeLight"
@@ -171,10 +175,10 @@ const ButtonAntCss = styled(Button)`
           color === "white"
             ? theme.basic.secondaryLight
             : color === "default"
-          ? theme.basic.blackDarken
-          : color === "success"
-          ? theme.basic.blackDarken
-          : theme.basic.white
+            ? theme.basic.blackDarken
+            : color === "success"
+            ? theme.basic.blackDarken
+            : theme.basic.white
         };
       border: none;
       box-shadow: 0 4px ${
@@ -391,7 +395,7 @@ const ButtonAntCss = styled(Button)`
         color: ${
           color === "white"
             ? theme.basic.secondaryLight
-            : color === "default" || color === "success" 
+            : color === "default" || color === "success"
             ? theme.basic.blackDarken
             : theme.basic.white
         };

@@ -483,7 +483,12 @@
     "library": "Library",
     "reports": "Reports",
     "login": "Log in",
-    "create": "Create"
+    "create": "Create",
+    "dynamics": "Dynamics",
+    "create-new-game": "Create new game",
+    "load-more": "Load more",
+    "close": "Close",
+    "create-from-scratch": "Create from scratch"
   },
   "footer": {
     "us": "Us",
@@ -540,6 +545,9 @@
       "update-subscription-ok-success": "Successful Operation. Wait for the platform restarts...",
       "loading-preview-data-of-operation": "Loading preview data of operation...",
       "proration-estimated-numbers-disclaimer": "This is an estimated proration of amount due at this moment. The actual amount may change if you confirm switching plan in a moment later."
+    },
+    "free-trial-status": {
+      "activate-premium": "Activate Premium"
     }
   },
   "pages": {
@@ -713,6 +721,8 @@
       "move": "Move",
       "delete": "Delete",
       "create-game": "Create game",
+      "create-folder": "Create folder",
+      "create": "Create",
       "favorites": "Favorites",
       "recent": "Recent",
       "games": "Games",
@@ -845,6 +855,9 @@
         "quiz": "Quiz",
         "true-false": "True or false",
         "short-answer": "Short answer",
+        "survey": "Survey",
+        "brainstorm": "Brainstorm",
+        "slide": "Slide",
         "only-answer": "Only answer",
         "multiple-answer": "Multiple answer",
         "delete": "Delete",
@@ -956,7 +969,13 @@
       "confirm": "Confirm",
       "subtotal": "Subtotal",
       "total": "Total",
-      "change-detail-payment": "Change payment details"
+      "change-detail-payment": "Change payment details",
+      "subscription-status-active": "Active",
+      "subscription-status-incomplete": "Incomplete",
+      "subscription-status-past_due": "Past Due",
+      "subscription-status-canceled": "Canceled",
+      "subscription-status-unpaid": "Unpaid",
+      "subscription-status-trialing": "Free Trial"
     },
     "companies": {
       "company-management": "Company management",
