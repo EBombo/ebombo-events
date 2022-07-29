@@ -287,7 +287,9 @@ export const Pricing = props => {
         tab === 0 ? (
           <ContactForm {...props} />
         ) : (
-          <PlansTable background="bg-[#f5f2fb] bg-cover bg-no-repeat bg-pattern-gray" {...props} />
+          <div className="w-screen overflow-auto">
+            <PlansTable background="bg-[#f5f2fb] bg-cover bg-no-repeat bg-pattern-gray" {...props} />
+          </div>
         )
       }
     </div>
