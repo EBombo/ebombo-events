@@ -29,10 +29,10 @@ export const darkTheme = {
     gray: "#E4E4E4",
     red: "#D62323",
     green: "#03A45E",
-    orange: "#F9A31D",
     blue: "#20409B",
     orangeLight: "#FF7059",
-    orangeDark: "#EB6853",
+    orange: "#FF7059",
+    orangeDark: "#DF4F38",
   },
 };
 

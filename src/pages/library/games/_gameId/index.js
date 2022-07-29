@@ -116,6 +116,7 @@ export const GameContainer = (props) => {
 
       await router.push("/library/games");
     } catch (error) {
+      console.error(error);
       sendError(error, "createGame");
     }
 
@@ -133,7 +134,7 @@ export const GameContainer = (props) => {
   if (gameId !== "new" && !currentGame) return spinLoader();
 
   return (
-    <div className="w-full" key={adminGameId.toString()}>
+    <div className="w-full" key={`${adminGameId}`}>
       {currentAdminGame?.name === "bingo" && (
         <Bingo
           submitGame={submitGame}

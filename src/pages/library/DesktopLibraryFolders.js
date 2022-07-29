@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { ButtonAnt, Input } from "../../components/form";
 import { Image } from "../../components/common/Image";
 import { ModalNewFolder } from "./ModalNewFolder";
-import { ModalNewGame } from "./ModalNewGame";
 import { config, firestore } from "../../firebase";
 import isEmpty from "lodash/isEmpty";
 import { useRouter } from "next/router";
@@ -13,6 +12,7 @@ import { Modal, Tooltip } from "antd";
 import { useSendError, useTranslation } from "../../hooks";
 import { ModalMove } from "../../components/common/ModalMove";
 import { updateGame } from "./games/_gameId";
+import { PopTypeGame } from "../../components/createGame/PopTypeGame";
 
 export const DesktopLibraryFolders = (props) => {
   const router = useRouter();
@@ -27,7 +27,6 @@ export const DesktopLibraryFolders = (props) => {
   const [folder, setFolder] = useState(null);
   const [listType, setListType] = useState("icons");
   const [selectedGameToMove, setSelectedGameToMove] = useState(null);
-  const [isVisibleModalGame, setIsVisibleModalGame] = useState(false);
   const [isVisibleModalMove, setIsVisibleModalMove] = useState(false);
   const [isVisibleModalFolder, setIsVisibleModalFolder] = useState(false);
 
@@ -79,13 +78,7 @@ export const DesktopLibraryFolders = (props) => {
           setIsVisibleModalFolder={setIsVisibleModalFolder}
         />
       )}
-      {isVisibleModalGame && (
-        <ModalNewGame
-          {...props}
-          isVisibleModalGame={isVisibleModalGame}
-          setIsVisibleModalGame={setIsVisibleModalGame}
-        />
-      )}
+
       <div className="nav-container">
         <div className="path">{props.parent?.path}</div>
 
@@ -199,14 +192,11 @@ export const DesktopLibraryFolders = (props) => {
 
       {isEmpty(props.games) ? (
         <div className="btn-container">
-          <ButtonAnt
-            variant="contained"
-            color="primary"
-            onClick={() => setIsVisibleModalGame(true)}
-            loading={loadingGames}
-          >
-            {t("create-game")}
-          </ButtonAnt>
+          <PopTypeGame placement="top">
+            <ButtonAnt variant="contained" color="primary" loading={loadingGames}>
+              {t("create-game")}
+            </ButtonAnt>
+          </PopTypeGame>
         </div>
       ) : (
         <div className="games-container">

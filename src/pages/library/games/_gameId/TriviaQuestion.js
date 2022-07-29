@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ButtonAnt } from "../../../../components/form";
 import { Image } from "../../../../components/common/Image";
 import { config } from "../../../../firebase";
@@ -7,7 +7,7 @@ import styled from "styled-components";
 import isEmpty from "lodash/isEmpty";
 import defaultTo from "lodash/defaultTo";
 import { useTranslation } from "../../../../hooks";
-import { triviaShortAnswerType } from "../../../../components/common/DataList";
+import { triviaQuestionsTypes, triviaShortAnswerType } from "../../../../components/common/DataList";
 
 const vowelsAndAccentsCharacters = /(a|e|i|o|u|A|E|I|O|U|á|é|í|ó|ú|Á|É|Í|Ó|Ú)/g;
 
@@ -120,7 +120,9 @@ export const TriviaQuestion = (props) => {
   // TODO: Consider refactoring, the component is long.
   return (
     <>
-      {props.questions[props.questionIndex]?.type === "quiz" && (
+      {[triviaQuestionsTypes.quiz.key, triviaQuestionsTypes.survey.key].includes(
+        props.questions[props.questionIndex]?.type
+      ) && (
         <div className="grid max-w-[786px] mx-auto my-4 gap-4 md:grid-cols-[1fr_1fr]">
           <div className="w-full grid grid-cols-[40px_auto_40px] md:grid-cols-[50px_auto_50px] rounded-[4px] overflow-hidden">
             <div className="bg-red w-full h-full flex items-center justify-center">
@@ -393,7 +395,8 @@ export const TriviaQuestion = (props) => {
           </div>
         </div>
       )}
-      {props.questions[props.questionIndex]?.type === "trueFalse" && (
+
+      {props.questions[props.questionIndex]?.type === triviaQuestionsTypes.trueFalse.key && (
         <div className="grid max-w-[786px] mx-auto my-4 gap-4 md:grid-cols-[1fr_1fr]">
           <div className="w-full grid grid-cols-[auto_40px] md:grid-cols-[auto_50px] rounded-[4px] overflow-hidden">
             <div className="bg-white px-4 h-[52px] flex items-center justify-center md:h-[102px]">
@@ -460,7 +463,7 @@ export const TriviaQuestion = (props) => {
         </div>
       )}
 
-      {props.questions[props.questionIndex]?.type === triviaShortAnswerType && (
+      {props.questions[props.questionIndex]?.type === triviaQuestionsTypes.shortAnswer.key && (
         <div className="grid max-w-[786px] mx-auto my-4 gap-4">
           <div className="w-full h-[55px] md:h-[85px] p-4 bg-whiteLight rounded-[4px] grid grid-cols-[auto_144px]">
             <input

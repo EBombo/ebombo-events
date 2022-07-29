@@ -7,7 +7,7 @@ import orderBy from "lodash/orderBy";
 import styled from "styled-components";
 import { mediaQuery, sizes } from "../../../constants";
 import { useRouter } from "next/router";
-import { ButtonAnt } from "../../../components/form";
+import { Anchor, ButtonAnt } from "../../../components/form";
 import { firestore } from "../../../firebase";
 import { snapshotToArray } from "../../../utils";
 import { spinLoader } from "../../../components/common/loader";
@@ -88,11 +88,23 @@ export const GamesContainer = () => {
                       style={{ color: "gray", fontSize: "24px" }}
                     />
                   </Tooltip>
+
                   <Tooltip title={"Eliminar juego"}>
                     <DeleteOutlined
                       onClick={() => deleteGames(game.id)}
                       style={{ color: "#fe008f", fontSize: "24px" }}
                     />
+                  </Tooltip>
+
+                  {/* TODO: En el futuro se habilitará para todos los juegos. */}
+                  <Tooltip title={"Eliminar juego"}>
+                    <Anchor
+                      href={`/admin/games/${game.id}/templates`}
+                      margin="auto 10px"
+                      disabled={game.name !== "trivia"}
+                    >
+                      <a>Plantillas</a>
+                    </Anchor>
                   </Tooltip>
                 </div>,
               ]}

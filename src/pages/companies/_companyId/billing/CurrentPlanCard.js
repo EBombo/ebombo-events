@@ -13,7 +13,7 @@ export const CurrentPlanCard = (props) => {
     <PlanCardStyled className="relative">
       <div className="status-label">
         <span className="dot">&bull; </span>
-        {props.subscription?.status ?? "Free"}
+        {t(`subscription-status-${props.subscription?.status}`, props.subscription?.status ?? "Free")}
       </div>
       {props.isLoadingPlan ? (
         spinLoaderMin({ color: darkTheme.basic.white })
