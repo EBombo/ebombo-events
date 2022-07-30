@@ -91,7 +91,7 @@ export const ModalNewDynamic = (props) => {
               }}
             >
               {/*TODO: AdminGame | game | template must use coverImgUrl.*/}
-              <Image src={get(template, "coverImgUrl", null)} height="180px" borderRadius="8px 8px 0 0" />
+              <Image src={get(template, "coverImgUrl", null)} height="180px" borderRadius="8px 8px 0 0" size="cover" />
               <div className="text-center text-bold mx-auto my-3 text-primary">{template.name}</div>
             </div>
           );
