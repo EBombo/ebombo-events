@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal, useState } from "reactn";
+import React, { useEffect, useGlobal } from "reactn";
 import { Image } from "../common/Image";
 import { FreeTrialStatus } from "../FreeTrialStatus";
 import { config } from "../../firebase";
@@ -40,13 +40,16 @@ export const TabletNav = (props) => {
           size="contain"
         />
       </div>
+
       <FreeTrialStatus />
-      {!authUser && (
+
+      {authUser ? null : (
         <Anchor url="/login" variant="primary" fontSize={"1rem"}>
           {t("login")}
         </Anchor>
       )}
-      {authUser && (
+
+      {authUser ? (
         <div className="cursor-pointer block" onClick={() => setOpenRightDrawer(!openRightDrawer)}>
           <Image
             src={`${config.storageUrl}/resources/user-profile.svg`}
@@ -57,7 +60,7 @@ export const TabletNav = (props) => {
             cursor="pointer"
           />
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

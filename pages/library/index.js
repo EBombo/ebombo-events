@@ -13,6 +13,7 @@ const UserLayout = dynamic(() => import("../../src/components/UserLayout"), {
 const Library = (props) => (
   <PrivateRoutes>
     <SEOMeta {...props} />
+
     <UserLayout {...props}>
       <LibraryContainer {...props} />
     </UserLayout>
