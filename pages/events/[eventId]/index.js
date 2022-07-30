@@ -21,7 +21,9 @@ const EventPage = (props) => {
             size="contain"
             margin="0"
           />
-          <div className="text-secondary text-['Lato'] font-[700] text-[18px] leading-[22px]">{`${authUser?.name} ${authUser?.lastName}`}</div>
+          <div className="text-secondary text-['Lato'] font-[700] text-[18px] leading-[22px]">{`${
+            authUser?.name ?? ""
+          } ${authUser?.lastName ?? ""}`}</div>
         </div>
         <EventContainer {...props} />
       </div>
