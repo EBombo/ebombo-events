@@ -13,7 +13,6 @@ const FooterBar = (props) => {
   const { t } = useTranslation("userLayout");
 
   const [authUser] = useGlobal("user");
-  const [, setIsVisibleLoginModal] = useGlobal("isVisibleLoginModal");
 
   const isSelected = (path) => (path === window.location.pathname ? "item item-selected" : "item");
 
@@ -21,14 +20,15 @@ const FooterBar = (props) => {
     <ContainerFooter authUser={authUser}>
       <div className="footer-items">
         <PopTypeGame>
-          <div>
+          <div className="item">
             <Image
               width="auto"
+              size="contain"
               height="30px"
               className="icon"
               src={`${config.storageUrl}/resources/footer/create-icon.svg`}
             />
-            <span className="label">{t("create")}</span>
+            <div className="text-center text-white">{t("create")}</div>
           </div>
         </PopTypeGame>
 
@@ -47,10 +47,11 @@ const FooterBar = (props) => {
           <Image
             width="auto"
             height="30px"
+            size="contain"
             className="icon"
             src={`${config.storageUrl}/resources/footer/library-icon.svg`}
           />
-          <span className="label">{t("library")}</span>
+          <div className="text-center text-white">{t("library")}</div>
         </div>
       </div>
     </ContainerFooter>
@@ -70,20 +71,20 @@ const ContainerFooter = styled.section`
   z-index: 30;
 
   .footer-items {
-    height: 50px;
+    height: 55px;
     display: grid;
     width: 100%;
     background: ${(props) => props.theme.basic.secondary};
     grid-template-columns: repeat(2, 1fr);
 
     .item {
-      position: relative;
       display: flex;
-      flex-direction: column;
+      cursor: pointer;
+      position: relative;
       align-items: center;
+      flex-direction: column;
       justify-content: center;
       color: ${(props) => props.theme.basic.white};
-      cursor: pointer;
 
       .label {
         font-size: ${sizes.font.small};
